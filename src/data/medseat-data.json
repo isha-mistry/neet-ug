@@ -1,0 +1,545 @@
+{
+  "site": {
+    "brandName": "MedSeat",
+    "tagline": "Find the right MBBS college with clarity.",
+    "description": "Compare MBBS colleges across India with verified fees, cutoffs, bond rules, and infrastructure data.",
+    "primaryNav": [
+      { "label": "Home", "href": "/" },
+      { "label": "Colleges", "href": "/colleges" },
+      { "label": "States", "href": "/colleges/state" },
+      { "label": "Categories", "href": "/colleges/category" },
+      { "label": "Compare", "href": "/compare" }
+    ],
+    "footer": {
+      "columns": [
+        {
+          "title": "Explore",
+          "links": [
+            { "label": "All Colleges", "href": "/colleges" },
+            { "label": "All Categories", "href": "/colleges/category" },
+            { "label": "Government", "href": "/colleges/category/government" },
+            { "label": "Private", "href": "/colleges/category/private" },
+            { "label": "AIIMS", "href": "/colleges/category/aiims" },
+            { "label": "Low Fee", "href": "/colleges/category/low-fee" }
+          ]
+        },
+        {
+          "title": "States",
+          "links": [
+            { "label": "All States", "href": "/colleges/state" },
+            { "label": "Maharashtra", "href": "/colleges/state/maharashtra" },
+            { "label": "Karnataka", "href": "/colleges/state/karnataka" },
+            { "label": "Delhi", "href": "/colleges/state/delhi" },
+            { "label": "Tamil Nadu", "href": "/colleges/state/tamil-nadu" },
+            { "label": "Madhya Pradesh", "href": "/colleges/state/madhya-pradesh" }
+          ]
+        },
+        {
+          "title": "Decision Tools",
+          "links": [
+            { "label": "Compare Colleges", "href": "/compare" },
+            { "label": "Counseling", "href": "/counseling" }
+          ]
+        },
+        {
+          "title": "MedSeat",
+          "links": [
+            { "label": "About", "href": "/about" },
+            { "label": "Contact", "href": "/contact" },
+            { "label": "Privacy", "href": "/privacy" }
+          ]
+        }
+      ],
+      "legal": "MedSeat is an information platform for MBBS aspirants. All data is curated for guidance and should be verified with official sources."
+    }
+  },
+
+  "home": {
+    "hero": {
+      "eyebrow": "MBBS Admissions Made Clear",
+      "title": "Make the right MBBS college decision with verified data.",
+      "subtitle": "Compare fees, cutoffs, bond rules, and infrastructure across government, private, deemed and AIIMS colleges in India.",
+      "primaryCta": { "label": "Explore Colleges", "href": "/colleges" },
+      "secondaryCta": { "label": "Compare Colleges", "href": "/compare" }
+    },
+    "exploreEntryPoints": [
+      {
+        "id": "all-colleges",
+        "title": "All MBBS Colleges",
+        "description": "Browse the full database with filters for rank, budget and state.",
+        "href": "/colleges",
+        "icon": "FiList"
+      },
+      {
+        "id": "by-state",
+        "title": "Search by State",
+        "description": "Focus on a state's counseling, seats and competition.",
+        "href": "/colleges/state",
+        "icon": "FiMapPin"
+      },
+      {
+        "id": "by-category",
+        "title": "Search by Category",
+        "description": "Government, private, AIIMS, low fee and more.",
+        "href": "/colleges/category",
+        "icon": "FiLayers"
+      },
+      {
+        "id": "compare",
+        "title": "Compare Colleges",
+        "description": "Pick a few colleges and see the best fit clearly.",
+        "href": "/compare",
+        "icon": "FiBarChart2"
+      }
+    ],
+    "trustHighlights": {
+      "title": "Built for confident MBBS decisions",
+      "description": "MedSeat structures everything you need so you spend less time hunting data and more time deciding.",
+      "items": [
+        {
+          "id": "verified",
+          "label": "Verified Data",
+          "value": "500+",
+          "caption": "Colleges with structured details",
+          "icon": "FiShield"
+        },
+        {
+          "id": "cutoffs",
+          "label": "Cutoff Trends",
+          "value": "5 Years",
+          "caption": "Historical year-wise cutoffs",
+          "icon": "FiTrendingUp"
+        },
+        {
+          "id": "compare",
+          "label": "Decision Support",
+          "value": "Best Fit Score",
+          "caption": "Compare colleges with clarity",
+          "icon": "FiAward"
+        },
+        {
+          "id": "states",
+          "label": "Pan-India Coverage",
+          "value": "All States",
+          "caption": "State-wise discovery for MBBS",
+          "icon": "FiGlobe"
+        }
+      ]
+    }
+  },
+
+  "pages": {
+    "allColleges": {
+      "title": "All MBBS Colleges in India",
+      "description": "Explore every MBBS college, filter by rank, budget and state, and compare options side by side."
+    },
+    "comparison": {
+      "title": "Compare MBBS Colleges",
+      "description": "Stack colleges against the top critical metrics and see the best fit recommendation."
+    }
+  },
+
+  "states": [
+    {
+      "slug": "maharashtra",
+      "name": "Maharashtra",
+      "intro": "Maharashtra counseling is handled by the State CET Cell, with state quota seats across government and private colleges.",
+      "totalSeats": 6850,
+      "competitionLevel": "High"
+    },
+    {
+      "slug": "karnataka",
+      "name": "Karnataka",
+      "intro": "Karnataka MBBS admissions are conducted by KEA across government, private and deemed colleges with multiple quotas.",
+      "totalSeats": 5320,
+      "competitionLevel": "High"
+    },
+    {
+      "slug": "delhi",
+      "name": "Delhi",
+      "intro": "Delhi has limited but highly competitive MBBS seats led by AIIMS Delhi, MAMC and other central institutions.",
+      "totalSeats": 1290,
+      "competitionLevel": "Very High"
+    },
+    {
+      "slug": "tamil-nadu",
+      "name": "Tamil Nadu",
+      "intro": "Tamil Nadu admits MBBS students primarily through state counseling with a strong network of government colleges.",
+      "totalSeats": 5680,
+      "competitionLevel": "High"
+    },
+    {
+      "slug": "madhya-pradesh",
+      "name": "Madhya Pradesh",
+      "intro": "Madhya Pradesh MBBS admissions are conducted through state counseling with government, private and central institutes including AIIMS Bhopal.",
+      "totalSeats": 4120,
+      "competitionLevel": "High"
+    }
+  ],
+
+  "categories": [
+    {
+      "slug": "government",
+      "title": "Government MBBS Colleges",
+      "description": "State-funded MBBS colleges with the lowest fees and strong clinical exposure.",
+      "preset": { "collegeTypes": ["government"] }
+    },
+    {
+      "slug": "private",
+      "title": "Private MBBS Colleges",
+      "description": "Private MBBS colleges with broader seat availability and varied fee structures.",
+      "preset": { "collegeTypes": ["private", "deemed"] }
+    },
+    {
+      "slug": "aiims",
+      "title": "AIIMS Colleges",
+      "description": "All India Institutes of Medical Sciences across India with central admission process.",
+      "preset": { "collegeTypes": ["aiims"] }
+    },
+    {
+      "slug": "low-fee",
+      "title": "Low Fee MBBS Colleges",
+      "description": "Curated MBBS colleges with the most affordable total fees across India.",
+      "preset": { "maxTotalFee": 1500000 }
+    }
+  ],
+
+  "filterOptions": {
+    "collegeTypes": [
+      { "value": "government", "label": "Government" },
+      { "value": "private", "label": "Private" },
+      { "value": "deemed", "label": "Deemed" },
+      { "value": "aiims", "label": "AIIMS" }
+    ],
+    "feeRanges": [
+      { "value": "0-500000", "label": "Under 5 Lakh" },
+      { "value": "500000-1500000", "label": "5 - 15 Lakh" },
+      { "value": "1500000-5000000", "label": "15 - 50 Lakh" },
+      { "value": "5000000-99999999", "label": "Above 50 Lakh" }
+    ],
+    "cutoffRanges": [
+      { "value": "0-100", "label": "Top 100" },
+      { "value": "0-1000", "label": "Top 1,000" },
+      { "value": "0-10000", "label": "Top 10,000" },
+      { "value": "0-50000", "label": "Top 50,000" },
+      { "value": "0-200000", "label": "Top 2,00,000" }
+    ]
+  },
+
+  "sortOptions": [
+    { "value": "lowest_fees", "label": "Lowest Fees" },
+    { "value": "highest_roi", "label": "Highest ROI" },
+    { "value": "lowest_cutoff", "label": "Lowest Cutoff" }
+  ],
+
+  "comparisonMetrics": [
+    { "id": "totalFee", "label": "Total Fees", "direction": "lower", "weight": 0.3, "format": "currency" },
+    { "id": "latestCutoff", "label": "Latest Cutoff", "direction": "lower", "weight": 0.25, "format": "number" },
+    { "id": "seatCount", "label": "Seats", "direction": "higher", "weight": 0.15, "format": "number" },
+    { "id": "bondYears", "label": "Bond Years", "direction": "lower", "weight": 0.15, "format": "years" },
+    { "id": "roiScore", "label": "ROI Score", "direction": "higher", "weight": 0.15, "format": "score" }
+  ],
+
+  "colleges": [
+    {
+      "slug": "aiims-delhi",
+      "name": "AIIMS Delhi",
+      "stateSlug": "delhi",
+      "city": "New Delhi",
+      "collegeType": "aiims",
+      "seatCount": 132,
+      "quotaInfo": "All India 100%",
+      "fees": {
+        "tuition": 1628,
+        "hostel": 5400,
+        "misc": 2000,
+        "totalAnnual": 9028,
+        "totalCourse": 45140
+      },
+      "cutoffs": [
+        { "year": 2025, "rank": 56, "quota": "AIQ" },
+        { "year": 2024, "rank": 62, "quota": "AIQ" },
+        { "year": 2023, "rank": 75, "quota": "AIQ" },
+        { "year": 2022, "rank": 80, "quota": "AIQ" },
+        { "year": 2021, "rank": 70, "quota": "AIQ" }
+      ],
+      "bond": { "years": 0, "penalty": 0, "note": "No mandatory bond." },
+      "infrastructure": { "beds": 2478, "patientFlowPerDay": 10000, "facilities": ["Trauma Centre", "Cancer Centre", "Cardiology Centre"] },
+      "reviews": {
+        "pros": ["Best clinical exposure in India", "Negligible fees", "Top research opportunities"],
+        "cons": ["Extremely high cutoff", "Limited seats"]
+      },
+      "roiScore": 98
+    },
+    {
+      "slug": "maulana-azad-medical-college",
+      "name": "Maulana Azad Medical College",
+      "stateSlug": "delhi",
+      "city": "New Delhi",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 9690,
+        "hostel": 18000,
+        "misc": 5000,
+        "totalAnnual": 32690,
+        "totalCourse": 163450
+      },
+      "cutoffs": [
+        { "year": 2025, "rank": 168, "quota": "AIQ" },
+        { "year": 2024, "rank": 180, "quota": "AIQ" },
+        { "year": 2023, "rank": 195, "quota": "AIQ" },
+        { "year": 2022, "rank": 210, "quota": "AIQ" },
+        { "year": 2021, "rank": 199, "quota": "AIQ" }
+      ],
+      "bond": { "years": 1, "penalty": 500000, "note": "Service bond for state quota seats." },
+      "infrastructure": { "beds": 2854, "patientFlowPerDay": 8500, "facilities": ["Lok Nayak Hospital", "Guru Nanak Eye Centre"] },
+      "reviews": {
+        "pros": ["Excellent clinical exposure", "Heritage college", "Affordable fees"],
+        "cons": ["High cutoff", "Hostel demand exceeds supply"]
+      },
+      "roiScore": 95
+    },
+    {
+      "slug": "grant-medical-college",
+      "name": "Grant Medical College",
+      "stateSlug": "maharashtra",
+      "city": "Mumbai",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 81000,
+        "hostel": 25000,
+        "misc": 8000,
+        "totalAnnual": 114000,
+        "totalCourse": 570000
+      },
+      "cutoffs": [
+        { "year": 2025, "rank": 1450, "quota": "AIQ" },
+        { "year": 2024, "rank": 1620, "quota": "AIQ" },
+        { "year": 2023, "rank": 1480, "quota": "AIQ" },
+        { "year": 2022, "rank": 1700, "quota": "AIQ" },
+        { "year": 2021, "rank": 1580, "quota": "AIQ" }
+      ],
+      "bond": { "years": 1, "penalty": 1000000, "note": "Maharashtra government bond." },
+      "infrastructure": { "beds": 1380, "patientFlowPerDay": 6000, "facilities": ["JJ Hospital", "Trauma Wing"] },
+      "reviews": {
+        "pros": ["Strong clinical learning at JJ Hospital", "Affordable fees", "Mumbai metro"],
+        "cons": ["Hostel infrastructure dated", "Crowded OPDs"]
+      },
+      "roiScore": 89
+    },
+    {
+      "slug": "bj-medical-college-pune",
+      "name": "B.J. Medical College, Pune",
+      "stateSlug": "maharashtra",
+      "city": "Pune",
+      "collegeType": "government",
+      "seatCount": 200,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 78000,
+        "hostel": 22000,
+        "misc": 7000,
+        "totalAnnual": 107000,
+        "totalCourse": 535000
+      },
+      "cutoffs": [
+        { "year": 2025, "rank": 2010, "quota": "AIQ" },
+        { "year": 2024, "rank": 2150, "quota": "AIQ" },
+        { "year": 2023, "rank": 2280, "quota": "AIQ" },
+        { "year": 2022, "rank": 2400, "quota": "AIQ" },
+        { "year": 2021, "rank": 2160, "quota": "AIQ" }
+      ],
+      "bond": { "years": 1, "penalty": 1000000, "note": "Maharashtra government bond." },
+      "infrastructure": { "beds": 1700, "patientFlowPerDay": 7500, "facilities": ["Sassoon Hospital"] },
+      "reviews": {
+        "pros": ["Massive patient inflow", "Reputed government institution", "Pune location"],
+        "cons": ["Crowded hostel", "High-load clinical rotations"]
+      },
+      "roiScore": 87
+    },
+    {
+      "slug": "kasturba-medical-college-manipal",
+      "name": "Kasturba Medical College, Manipal",
+      "stateSlug": "karnataka",
+      "city": "Manipal",
+      "collegeType": "deemed",
+      "seatCount": 250,
+      "quotaInfo": "Deemed Institutional 50% / AIQ 50%",
+      "fees": {
+        "tuition": 1450000,
+        "hostel": 180000,
+        "misc": 60000,
+        "totalAnnual": 1690000,
+        "totalCourse": 8450000
+      },
+      "cutoffs": [
+        { "year": 2025, "rank": 19500, "quota": "AIQ" },
+        { "year": 2024, "rank": 21000, "quota": "AIQ" },
+        { "year": 2023, "rank": 22500, "quota": "AIQ" },
+        { "year": 2022, "rank": 24000, "quota": "AIQ" },
+        { "year": 2021, "rank": 23000, "quota": "AIQ" }
+      ],
+      "bond": { "years": 0, "penalty": 0, "note": "No mandatory bond." },
+      "infrastructure": { "beds": 2032, "patientFlowPerDay": 4500, "facilities": ["KMC Hospital", "Multi-specialty Centre"] },
+      "reviews": {
+        "pros": ["Strong global reputation", "Excellent infrastructure", "Diverse student community"],
+        "cons": ["High fees", "Remote location"]
+      },
+      "roiScore": 78
+    },
+    {
+      "slug": "bangalore-medical-college",
+      "name": "Bangalore Medical College and Research Institute",
+      "stateSlug": "karnataka",
+      "city": "Bengaluru",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 70000,
+        "hostel": 28000,
+        "misc": 8000,
+        "totalAnnual": 106000,
+        "totalCourse": 530000
+      },
+      "cutoffs": [
+        { "year": 2025, "rank": 1980, "quota": "AIQ" },
+        { "year": 2024, "rank": 2100, "quota": "AIQ" },
+        { "year": 2023, "rank": 2220, "quota": "AIQ" },
+        { "year": 2022, "rank": 2350, "quota": "AIQ" },
+        { "year": 2021, "rank": 2080, "quota": "AIQ" }
+      ],
+      "bond": { "years": 1, "penalty": 1500000, "note": "Karnataka rural service bond." },
+      "infrastructure": { "beds": 1500, "patientFlowPerDay": 6500, "facilities": ["Victoria Hospital", "Vani Vilas Hospital"] },
+      "reviews": {
+        "pros": ["Bengaluru city advantage", "Reputed government college", "Affordable"],
+        "cons": ["Service bond", "High demand for hostel"]
+      },
+      "roiScore": 88
+    },
+    {
+      "slug": "madras-medical-college",
+      "name": "Madras Medical College",
+      "stateSlug": "tamil-nadu",
+      "city": "Chennai",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 13750,
+        "hostel": 18000,
+        "misc": 5000,
+        "totalAnnual": 36750,
+        "totalCourse": 183750
+      },
+      "cutoffs": [
+        { "year": 2025, "rank": 920, "quota": "AIQ" },
+        { "year": 2024, "rank": 980, "quota": "AIQ" },
+        { "year": 2023, "rank": 1100, "quota": "AIQ" },
+        { "year": 2022, "rank": 1200, "quota": "AIQ" },
+        { "year": 2021, "rank": 1050, "quota": "AIQ" }
+      ],
+      "bond": { "years": 2, "penalty": 1000000, "note": "Tamil Nadu service bond." },
+      "infrastructure": { "beds": 2944, "patientFlowPerDay": 9000, "facilities": ["Rajiv Gandhi Govt. General Hospital"] },
+      "reviews": {
+        "pros": ["Top-tier patient inflow", "Heritage college", "Negligible fees"],
+        "cons": ["Bond commitment", "Crowded campus"]
+      },
+      "roiScore": 92
+    },
+    {
+      "slug": "stanley-medical-college",
+      "name": "Stanley Medical College",
+      "stateSlug": "tamil-nadu",
+      "city": "Chennai",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 13750,
+        "hostel": 18000,
+        "misc": 5000,
+        "totalAnnual": 36750,
+        "totalCourse": 183750
+      },
+      "cutoffs": [
+        { "year": 2025, "rank": 1320, "quota": "AIQ" },
+        { "year": 2024, "rank": 1450, "quota": "AIQ" },
+        { "year": 2023, "rank": 1500, "quota": "AIQ" },
+        { "year": 2022, "rank": 1620, "quota": "AIQ" },
+        { "year": 2021, "rank": 1380, "quota": "AIQ" }
+      ],
+      "bond": { "years": 2, "penalty": 1000000, "note": "Tamil Nadu service bond." },
+      "infrastructure": { "beds": 1320, "patientFlowPerDay": 5500, "facilities": ["Stanley Hospital"] },
+      "reviews": {
+        "pros": ["Strong clinical exposure", "Renowned plastic surgery dept.", "Low fees"],
+        "cons": ["Bond commitment", "Crowded wards"]
+      },
+      "roiScore": 86
+    },
+    {
+      "slug": "dy-patil-medical-college",
+      "name": "D.Y. Patil Medical College, Pune",
+      "stateSlug": "maharashtra",
+      "city": "Pune",
+      "collegeType": "deemed",
+      "seatCount": 250,
+      "quotaInfo": "Deemed Institutional 50% / AIQ 50%",
+      "fees": {
+        "tuition": 2750000,
+        "hostel": 220000,
+        "misc": 80000,
+        "totalAnnual": 3050000,
+        "totalCourse": 15250000
+      },
+      "cutoffs": [
+        { "year": 2025, "rank": 56000, "quota": "AIQ" },
+        { "year": 2024, "rank": 60000, "quota": "AIQ" },
+        { "year": 2023, "rank": 62000, "quota": "AIQ" },
+        { "year": 2022, "rank": 65000, "quota": "AIQ" },
+        { "year": 2021, "rank": 63000, "quota": "AIQ" }
+      ],
+      "bond": { "years": 0, "penalty": 0, "note": "No mandatory bond." },
+      "infrastructure": { "beds": 1800, "patientFlowPerDay": 3500, "facilities": ["Multi-specialty Hospital"] },
+      "reviews": {
+        "pros": ["Modern campus", "No bond", "Wide PG options"],
+        "cons": ["High fees", "Variable clinical exposure"]
+      },
+      "roiScore": 62
+    },
+    {
+      "slug": "aiims-bhopal",
+      "name": "AIIMS Bhopal",
+      "stateSlug": "madhya-pradesh",
+      "city": "Bhopal",
+      "collegeType": "aiims",
+      "seatCount": 125,
+      "quotaInfo": "All India 100%",
+      "fees": {
+        "tuition": 1628,
+        "hostel": 5400,
+        "misc": 2000,
+        "totalAnnual": 9028,
+        "totalCourse": 45140
+      },
+      "cutoffs": [
+        { "year": 2025, "rank": 1180, "quota": "AIQ" },
+        { "year": 2024, "rank": 1280, "quota": "AIQ" },
+        { "year": 2023, "rank": 1310, "quota": "AIQ" },
+        { "year": 2022, "rank": 1380, "quota": "AIQ" },
+        { "year": 2021, "rank": 1220, "quota": "AIQ" }
+      ],
+      "bond": { "years": 0, "penalty": 0, "note": "No mandatory bond." },
+      "infrastructure": { "beds": 960, "patientFlowPerDay": 4500, "facilities": ["AIIMS Multi-specialty Centre"] },
+      "reviews": {
+        "pros": ["AIIMS brand", "No bond", "Negligible fees"],
+        "cons": ["Newer institute", "Developing infrastructure"]
+      },
+      "roiScore": 93
+    }
+  ]
+}
