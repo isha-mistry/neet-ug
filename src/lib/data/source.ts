@@ -11,6 +11,12 @@ import type {
   SiteIdentity,
 } from "@/types/site";
 import type { ComparisonMetric } from "@/types/comparison";
+import type {
+  BlogContent,
+  FaqContent,
+  InfoPage,
+  QuotaGuide,
+} from "@/types/content";
 
 interface MedseatRawData {
   site: SiteIdentity;
@@ -18,7 +24,17 @@ interface MedseatRawData {
   pages: {
     allColleges: PageMetaContent;
     comparison: PageMetaContent;
+    blog: PageMetaContent;
+    quota: PageMetaContent;
+    about: PageMetaContent;
+    faq: PageMetaContent;
+    contact: PageMetaContent;
+    howItWorks: PageMetaContent;
   };
+  quotaGuides: QuotaGuide[];
+  blog: BlogContent;
+  infoPages: InfoPage[];
+  faq: FaqContent;
   states: StateRecord[];
   categories: CategoryRecord[];
   filterOptions: Pick<

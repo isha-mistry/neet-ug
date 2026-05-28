@@ -8,9 +8,10 @@ import { cn } from "@/lib/utils";
 
 interface MobileMenuProps {
   links: LinkItem[];
+  quotaLinks?: LinkItem[];
 }
 
-export function MobileMenu({ links }: MobileMenuProps) {
+export function MobileMenu({ links, quotaLinks = [] }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
         aria-label={open ? "Close navigation" : "Open navigation"}
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] border border-border bg-background text-text transition-colors hover:border-brand-300 md:hidden"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-background text-text transition-colors hover:border-brand-300 md:hidden"
       >
         {open ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
       </button>
@@ -40,16 +41,34 @@ export function MobileMenu({ links }: MobileMenuProps) {
         )}
       >
         <nav aria-label="Mobile" className="flex flex-col gap-1 px-4 py-4">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="rounded-[var(--radius-md)] px-3 py-2 text-sm font-semibold tracking-wide text-text transition-colors hover:bg-brand-50 hover:text-brand-700"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) =>
+            link.label === "Quota" ? (
+              <div key={link.label} className="flex flex-col gap-1 rounded-md bg-surface p-2">
+                <span className="px-2 py-1 text-xs font-semibold uppercase tracking-widest text-text-muted">
+                  Quota
+                </span>
+                {quotaLinks.map((quota) => (
+                  <Link
+                    key={quota.href}
+                    href={quota.href}
+                    onClick={() => setOpen(false)}
+                    className="rounded-md px-3 py-2 text-sm font-semibold tracking-wide text-text transition-colors hover:bg-brand-50 hover:text-brand-700"
+                  >
+                    {quota.label}
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="rounded-md px-3 py-2 text-sm font-semibold tracking-wide text-text transition-colors hover:bg-brand-50 hover:text-brand-700"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
       </div>
     </>

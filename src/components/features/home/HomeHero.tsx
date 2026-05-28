@@ -1,6 +1,6 @@
-import { FiArrowRight, FiBarChart2 } from "react-icons/fi";
-import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 import type { HomeHeroContent } from "@/types/site";
+import Image from "next/image";
 
 interface HomeHeroProps {
   content: HomeHeroContent;
@@ -8,36 +8,46 @@ interface HomeHeroProps {
 
 export function HomeHero({ content }: HomeHeroProps) {
   return (
-    <div className="relative overflow-hidden rounded-[var(--radius-2xl)] border border-border ms-gradient-soft px-6 py-12 md:px-12 md:py-20">
-      <div className="relative z-10 flex max-w-3xl flex-col gap-6">
-        <span className="inline-flex w-fit items-center rounded-[var(--radius-pill)] border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-brand-800">
+    <div className="w-full grid grid-cols-1 lg:grid-cols-2 items-center gap-stack-lg py-stack-lg">
+      <div className="z-10 text-center lg:text-left">
+        <div className="inline-flex items-center gap-2 bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-label-sm font-label-sm mb-6">
+          <span className="material-symbols-outlined text-sm">verified</span>
           {content.eyebrow}
-        </span>
-        <h1 className="text-3xl font-bold leading-tight tracking-tight text-text md:text-5xl">
+        </div>
+        <h1 className="font-headline-xl text-headline-xl text-primary mb-6 leading-tight">
           {content.title}
         </h1>
-        <p className="max-w-2xl text-base leading-relaxed text-text-secondary md:text-lg">
+        <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl mx-auto lg:mx-0">
           {content.subtitle}
         </p>
-        <div className="mt-2 flex flex-wrap gap-3">
-          <Button
-            as="link"
+        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+          <Link
             href={content.primaryCta.href}
-            variant="primary"
-            size="lg"
-            trailingIcon={<FiArrowRight aria-hidden="true" />}
+            className="w-full sm:w-auto px-8 py-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 hover:shadow-lg transition-all active:scale-95"
           >
             {content.primaryCta.label}
-          </Button>
-          <Button
-            as="link"
+            <span className="material-symbols-outlined">arrow_forward</span>
+          </Link>
+          <Link
             href={content.secondaryCta.href}
-            variant="outline"
-            size="lg"
-            leadingIcon={<FiBarChart2 aria-hidden="true" />}
+            className="w-full sm:w-auto px-8 py-4 border border-outline text-primary rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all"
           >
+            <span className="material-symbols-outlined">compare_arrows</span>
             {content.secondaryCta.label}
-          </Button>
+          </Link>
+        </div>
+      </div>
+      <div className="relative hidden lg:block">
+        <div className="absolute -top-12 -right-12 w-64 h-64 bg-secondary-container/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl"></div>
+        <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500">
+          <Image
+            alt="Medical Student"
+            className="w-full h-auto object-cover"
+            src="/brand/home/hero.png"
+            width={600}
+            height={300}
+          />
         </div>
       </div>
     </div>

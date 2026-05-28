@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Hanken_Grotesk } from "next/font/google";
 import "@/styles/globals.css";
 import { getSiteIdentity } from "@/lib/data/site";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const hankenGrotesk = Hanken_Grotesk({
+  variable: "--font-hanken-grotesk",
   subsets: ["latin"],
 });
 
@@ -32,13 +34,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${hankenGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-background text-text">
-        <a href="#main-content" className="ms-skip-link">
-          Skip to main content
-        </a>
-        {children}
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+      </head>
+      <body className="min-h-full bg-background text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+        <div className="flex min-h-screen flex-col">
+          <Navbar />
+          <main id="main-content" className="flex-1 bg-surface-container-lowest">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

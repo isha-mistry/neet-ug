@@ -21,7 +21,7 @@ export function PageHeader({
   return (
     <header
       className={cn(
-        "flex flex-col gap-4",
+        "flex flex-col gap-5",
         align === "center"
           ? "items-center text-center"
           : "items-start text-left md:flex-row md:items-end md:justify-between",
@@ -30,15 +30,15 @@ export function PageHeader({
     >
       <div className="flex max-w-3xl flex-col gap-3">
         {eyebrow ? (
-          <span className="text-xs font-semibold uppercase tracking-widest text-brand-700">
+          <span className="inline-flex w-fit items-center rounded-full bg-brand-100/80 px-3 py-1 text-xs font-bold uppercase tracking-widest text-brand-700 shadow-sm ring-1 ring-brand-200/50">
             {eyebrow}
           </span>
         ) : null}
-        <h1 className="text-3xl font-bold tracking-tight text-text md:text-4xl">
+        <h1 className="text-3xl font-extrabold tracking-tight text-text md:text-4xl lg:text-5xl">
           {title}
         </h1>
         {description ? (
-          <p className="text-base leading-relaxed text-text-secondary md:text-lg">
+          <p className="text-lg leading-relaxed text-text-secondary md:text-xl">
             {description}
           </p>
         ) : null}

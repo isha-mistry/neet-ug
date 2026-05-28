@@ -19,7 +19,7 @@ export function CollegeCard({ college }: CollegeCardProps) {
       as="article"
       className="grid h-full min-w-0 grid-rows-[auto_1fr_auto] gap-5 overflow-hidden"
     >
-      <header className="flex min-h-28 flex-col gap-3">
+      <header className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-2">
           <CollegeTypeBadge type={college.collegeType} />
           <SafeRiskTag tag={college.safetyTag} />

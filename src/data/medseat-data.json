@@ -4,63 +4,150 @@
     "tagline": "Find the right MBBS college with clarity.",
     "description": "Compare MBBS colleges across India with verified fees, cutoffs, bond rules, and infrastructure data.",
     "primaryNav": [
-      { "label": "Home", "href": "/" },
-      { "label": "Colleges", "href": "/colleges" },
-      { "label": "States", "href": "/colleges/state" },
-      { "label": "Categories", "href": "/colleges/category" },
-      { "label": "Compare", "href": "/compare" }
+      {
+        "label": "Colleges",
+        "href": "/colleges"
+      },
+      {
+        "label": "Quota",
+        "href": "/quota/general"
+      },
+      {
+        "label": "Blog",
+        "href": "/blog"
+      },
+      {
+        "label": "States",
+        "href": "/colleges/state"
+      },
+      {
+        "label": "Categories",
+        "href": "/colleges/category"
+      }
     ],
     "footer": {
       "columns": [
         {
           "title": "Explore",
           "links": [
-            { "label": "All Colleges", "href": "/colleges" },
-            { "label": "All Categories", "href": "/colleges/category" },
-            { "label": "Government", "href": "/colleges/category/government" },
-            { "label": "Private", "href": "/colleges/category/private" },
-            { "label": "AIIMS", "href": "/colleges/category/aiims" },
-            { "label": "Low Fee", "href": "/colleges/category/low-fee" }
+            {
+              "label": "All Colleges",
+              "href": "/colleges"
+            },
+            {
+              "label": "All Categories",
+              "href": "/colleges/category"
+            },
+            {
+              "label": "Government",
+              "href": "/colleges/category/government"
+            },
+            {
+              "label": "Private",
+              "href": "/colleges/category/private"
+            },
+            {
+              "label": "AIIMS",
+              "href": "/colleges/category/aiims"
+            },
+            {
+              "label": "Low Fee",
+              "href": "/colleges/category/low-fee"
+            }
           ]
         },
         {
           "title": "States",
           "links": [
-            { "label": "All States", "href": "/colleges/state" },
-            { "label": "Maharashtra", "href": "/colleges/state/maharashtra" },
-            { "label": "Karnataka", "href": "/colleges/state/karnataka" },
-            { "label": "Delhi", "href": "/colleges/state/delhi" },
-            { "label": "Tamil Nadu", "href": "/colleges/state/tamil-nadu" },
-            { "label": "Madhya Pradesh", "href": "/colleges/state/madhya-pradesh" }
+            {
+              "label": "All States",
+              "href": "/colleges/state"
+            },
+            {
+              "label": "Maharashtra",
+              "href": "/colleges/state/maharashtra"
+            },
+            {
+              "label": "Karnataka",
+              "href": "/colleges/state/karnataka"
+            },
+            {
+              "label": "Delhi",
+              "href": "/colleges/state/delhi"
+            },
+            {
+              "label": "Tamil Nadu",
+              "href": "/colleges/state/tamil-nadu"
+            },
+            {
+              "label": "Madhya Pradesh",
+              "href": "/colleges/state/madhya-pradesh"
+            }
           ]
         },
         {
           "title": "Decision Tools",
           "links": [
-            { "label": "Compare Colleges", "href": "/compare" },
-            { "label": "Counseling", "href": "/counseling" }
+            {
+              "label": "Compare Colleges",
+              "href": "/compare"
+            },
+            {
+              "label": "Quota Guides",
+              "href": "/quota/general"
+            },
+            {
+              "label": "Counseling",
+              "href": "/counseling"
+            }
           ]
         },
         {
           "title": "MedSeat",
           "links": [
-            { "label": "About", "href": "/about" },
-            { "label": "Contact", "href": "/contact" },
-            { "label": "Privacy", "href": "/privacy" }
+            {
+              "label": "About",
+              "href": "/#about"
+            },
+            {
+              "label": "FAQ",
+              "href": "/#faq"
+            },
+            {
+              "label": "How It Works",
+              "href": "/#how-it-works"
+            },
+            {
+              "label": "Blog",
+              "href": "/blog"
+            },
+            {
+              "label": "Contact",
+              "href": "/#contact"
+            },
+            {
+              "label": "Privacy",
+              "href": "/privacy"
+            }
           ]
         }
       ],
       "legal": "MedSeat is an information platform for MBBS aspirants. All data is curated for guidance and should be verified with official sources."
     }
   },
-
   "home": {
     "hero": {
       "eyebrow": "MBBS Admissions Made Clear",
       "title": "Make the right MBBS college decision with verified data.",
       "subtitle": "Compare fees, cutoffs, bond rules, and infrastructure across government, private, deemed and AIIMS colleges in India.",
-      "primaryCta": { "label": "Explore Colleges", "href": "/colleges" },
-      "secondaryCta": { "label": "Compare Colleges", "href": "/compare" }
+      "primaryCta": {
+        "label": "Explore Colleges",
+        "href": "/colleges"
+      },
+      "secondaryCta": {
+        "label": "Compare Colleges",
+        "href": "/compare"
+      }
     },
     "exploreEntryPoints": [
       {
@@ -127,7 +214,6 @@
       ]
     }
   },
-
   "pages": {
     "allColleges": {
       "title": "All MBBS Colleges in India",
@@ -136,9 +222,455 @@
     "comparison": {
       "title": "Compare MBBS Colleges",
       "description": "Stack colleges against the top critical metrics and see the best fit recommendation."
+    },
+    "blog": {
+      "title": "MedSeat Blog",
+      "description": "Practical guidance on counseling strategy, quotas, documentation and MBBS decision-making."
+    },
+    "quota": {
+      "title": "MBBS Quota Guides",
+      "description": "Understand category, quota and admission pathways with concise eligibility and strategy notes."
+    },
+    "about": {
+      "title": "About MedSeat",
+      "description": "Learn what MedSeat does and why structured college intelligence matters."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "description": "Common questions about MBBS college discovery, quotas and MedSeat workflows."
+    },
+    "contact": {
+      "title": "Contact MedSeat",
+      "description": "Reach out for platform support, feedback and guidance."
+    },
+    "howItWorks": {
+      "title": "How MedSeat Works",
+      "description": "Understand MedSeat’s workflow from discovery to shortlist and final decision."
     }
   },
-
+  "quotaGuides": [
+    {
+      "slug": "general",
+      "title": "General Category MBBS Quota Guide",
+      "summary": "Overview of Open/General category pathways across AIQ, state counseling and institutional seats.",
+      "overview": "General category candidates usually compete in the widest pool, so strategy needs stronger rank-to-college mapping and backup planning.",
+      "keyPoints": [
+        "High competition",
+        "AIQ + State scope",
+        "Shortlist backups"
+      ],
+      "sections": [
+        {
+          "heading": "Eligibility & Scope",
+          "body": "General category candidates can compete through AIQ and state quota channels based on domicile and counseling rules."
+        },
+        {
+          "heading": "Application Strategy",
+          "points": [
+            "Build tiered preference lists: dream, realistic, safe.",
+            "Use previous 5-year cutoffs to avoid over-concentration.",
+            "Track state-specific seat matrix updates round-wise."
+          ]
+        },
+        {
+          "heading": "Document Checklist",
+          "points": [
+            "NEET scorecard and admit card",
+            "Class 10 and 12 mark sheets",
+            "Identity and domicile proofs as required"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "obc",
+      "title": "OBC Category MBBS Quota Guide",
+      "summary": "Understand OBC reservation pathways, certificate requirements and counseling best practices.",
+      "overview": "OBC category candidates should validate certificate format and issuing authority early, as this affects seat entitlement during verification.",
+      "keyPoints": [
+        "Certificate validity",
+        "Reservation benefits",
+        "Round-wise vigilance"
+      ],
+      "sections": [
+        {
+          "heading": "Eligibility & Reservation",
+          "body": "OBC reservation applies as per counseling authority norms. Central and state lists may differ, so verify list alignment before registration."
+        },
+        {
+          "heading": "Critical Documents",
+          "points": [
+            "OBC-NCL certificate in required format",
+            "Income and category support records if requested",
+            "Recent validity date per counseling authority"
+          ]
+        },
+        {
+          "heading": "Counseling Strategy",
+          "points": [
+            "Map OBC-specific cutoffs separately from UR cutoffs.",
+            "Keep fallback options in adjacent states if eligible.",
+            "Do not delay certificate corrections before round 1."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sc-st",
+      "title": "SC/ST Category MBBS Quota Guide",
+      "summary": "Guidance on SC/ST reservation channels, verification readiness and list optimization.",
+      "overview": "SC/ST pathways can significantly improve seat access, but candidates should still maintain realistic round-wise preference planning.",
+      "keyPoints": [
+        "Reserved seat advantage",
+        "Certificate checks",
+        "Smart preference order"
+      ],
+      "sections": [
+        {
+          "heading": "Eligibility & Reservation Scope",
+          "body": "SC/ST reservation follows central/state counseling norms. The reservation share and applicable institutions vary by authority."
+        },
+        {
+          "heading": "Preparation Checklist",
+          "points": [
+            "Category certificate and supporting identity records",
+            "Domicile documents for state quota access",
+            "All originals and multiple self-attested copies"
+          ]
+        },
+        {
+          "heading": "Seat Choice Strategy",
+          "points": [
+            "Use SC/ST historical cutoffs to build realistic bands.",
+            "Prioritize clinical exposure and service obligations, not just brand.",
+            "Plan for mop-up rounds with updated vacancy tracking."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ews",
+      "title": "EWS Category MBBS Quota Guide",
+      "summary": "End-to-end EWS counseling guide including certificate timing and eligibility guardrails.",
+      "overview": "EWS seat access depends heavily on valid, current documentation; expired or non-compliant certificates can block allotment.",
+      "keyPoints": [
+        "Strict certificate rules",
+        "Validity timing",
+        "AIQ + State opportunities"
+      ],
+      "sections": [
+        {
+          "heading": "EWS Eligibility",
+          "body": "Candidates must satisfy EWS criteria under applicable authority guidelines with valid certificate issuance window."
+        },
+        {
+          "heading": "Must-Have Documents",
+          "points": [
+            "EWS certificate in prescribed format",
+            "Income/asset declarations where requested",
+            "Verification-ready originals and backups"
+          ]
+        },
+        {
+          "heading": "Practical Strategy",
+          "points": [
+            "Validate certificate format before registration opens.",
+            "Track EWS cutoff drift in each counseling round.",
+            "Use balanced preference stacking across states and categories."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nri",
+      "title": "NRI Quota MBBS Guide",
+      "summary": "How NRI quota seats work, eligibility interpretation and document preparation basics.",
+      "overview": "NRI quota counseling involves institution-specific rules and fees, so document clarity and financial planning are critical.",
+      "keyPoints": [
+        "Institution-specific rules",
+        "Higher fee bands",
+        "Relationship proof readiness"
+      ],
+      "sections": [
+        {
+          "heading": "Eligibility Scope",
+          "body": "Eligibility may vary across institutions and states; review sponsor relationship and nationality requirements in detail."
+        },
+        {
+          "heading": "Document Readiness",
+          "points": [
+            "Passport, visa and sponsor documentation",
+            "Relationship affidavit/proof as required",
+            "Payment and fee commitment records"
+          ]
+        },
+        {
+          "heading": "Selection Strategy",
+          "points": [
+            "Compare total cost with infrastructure and clinical load.",
+            "Verify refund and withdrawal policies before locking seats.",
+            "Track institution-level notices daily during rounds."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "management",
+      "title": "Management Quota MBBS Guide",
+      "summary": "Management quota process essentials including fee planning and college quality checks.",
+      "overview": "Management quota can widen options but requires disciplined due diligence on quality, obligations and affordability.",
+      "keyPoints": [
+        "Wider seat access",
+        "Fee-heavy planning",
+        "Quality due diligence"
+      ],
+      "sections": [
+        {
+          "heading": "How Management Quota Works",
+          "body": "Management seats are generally offered under private/deemed institutions with separate fee structures and authority rules."
+        },
+        {
+          "heading": "Evaluation Checklist",
+          "points": [
+            "Total program cost and annual escalation",
+            "Hospital bed strength and patient inflow",
+            "Bond/service obligations and penalties"
+          ]
+        },
+        {
+          "heading": "Decision Framework",
+          "points": [
+            "Do not evaluate by seat availability alone.",
+            "Compare long-term ROI and postgraduate readiness.",
+            "Document every payment and communication."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "aiq",
+      "title": "All India Quota (AIQ) Guide",
+      "summary": "AIQ process explained with rank strategy, state crossover opportunities and round planning.",
+      "overview": "AIQ allows interstate competition and can unlock high-value options beyond domicile states when preferences are structured correctly.",
+      "keyPoints": [
+        "Interstate opportunity",
+        "Rank-sensitive choices",
+        "Round-wise optimization"
+      ],
+      "sections": [
+        {
+          "heading": "AIQ Eligibility",
+          "body": "Eligible candidates can participate in centralized AIQ counseling subject to governing authority guidelines."
+        },
+        {
+          "heading": "Preference Planning",
+          "points": [
+            "Construct rank-calibrated preference bands.",
+            "Include realistic alternates for each major city tier.",
+            "Use round-wise vacancy trends for updates."
+          ]
+        },
+        {
+          "heading": "Execution Tips",
+          "points": [
+            "Finalize documentation before round 1 opens.",
+            "Track reporting timelines carefully after allotment.",
+            "Keep backup decisions ready for sliding/upgradation rounds."
+          ]
+        }
+      ]
+    }
+  ],
+  "blog": {
+    "title": "MedSeat Blog",
+    "description": "Practical MBBS admission guidance covering quotas, counseling strategy and college selection frameworks.",
+    "featuredSlug": "how-to-build-mbbs-college-shortlist",
+    "articles": [
+      {
+        "slug": "how-to-build-mbbs-college-shortlist",
+        "title": "How to Build a Practical MBBS College Shortlist",
+        "excerpt": "A structured framework to build dream, realistic and safe MBBS college lists using fees, cutoff history and seat trends.",
+        "author": "MedSeat Editorial",
+        "publishedAt": "2026-05-20",
+        "readMinutes": 8,
+        "tags": [
+          "Shortlisting",
+          "Counseling"
+        ],
+        "sections": [
+          {
+            "heading": "Start with Constraints First",
+            "paragraphs": [
+              "Before comparing brand names, fix your non-negotiables: budget cap, preferred states and acceptable bond obligations.",
+              "This prevents overfocusing on unrealistic options and helps keep your counseling list executable."
+            ]
+          },
+          {
+            "heading": "Use 5-Year Cutoff Bands",
+            "paragraphs": [
+              "Single-year cutoffs can be noisy. Build a range from multiple years and classify colleges into aggressive, target and safe.",
+              "Re-balance your list after each round based on vacancy movement."
+            ]
+          },
+          {
+            "heading": "Evaluate Decision Quality, Not Just Availability",
+            "paragraphs": [
+              "A seat is only useful if training quality and long-term outcomes justify the commitment.",
+              "Review hospital load, infrastructure, bond penalties and total cost before final lock."
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "state-vs-aiq-counseling-strategy",
+        "title": "State vs AIQ Counseling: How to Balance Both",
+        "excerpt": "Understand where AIQ helps, where state quota dominates, and how to avoid list duplication mistakes.",
+        "author": "Counseling Team",
+        "publishedAt": "2026-05-16",
+        "readMinutes": 7,
+        "tags": [
+          "AIQ",
+          "State Quota"
+        ],
+        "sections": [
+          {
+            "heading": "What AIQ Does Best",
+            "paragraphs": [
+              "AIQ opens interstate choices and can improve option quality for strong ranks.",
+              "It is especially useful when your domicile state has intense local competition."
+            ]
+          },
+          {
+            "heading": "Where State Quota Still Wins",
+            "paragraphs": [
+              "State quota often offers higher seat access for domicile candidates and better familiarity with local procedures.",
+              "State rules, category interpretation and seat matrix can materially change outcomes."
+            ]
+          },
+          {
+            "heading": "A Balanced Execution Model",
+            "paragraphs": [
+              "Run parallel but distinct preference lists for AIQ and state to avoid accidental overlap and weak backups.",
+              "Treat each counseling channel as part of one integrated decision plan."
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "understanding-mbbs-bond-rules",
+        "title": "Understanding MBBS Bond Rules Before You Lock a Seat",
+        "excerpt": "Bond years and penalties can alter real college value. Learn what to check before final choice.",
+        "author": "MedSeat Editorial",
+        "publishedAt": "2026-05-10",
+        "readMinutes": 6,
+        "tags": [
+          "Bond",
+          "Decision Making"
+        ],
+        "sections": [
+          {
+            "heading": "Bond Rules Impact ROI",
+            "paragraphs": [
+              "A low-fee college with a high penalty may not always be the best financial choice.",
+              "Estimate total commitment including service years and potential penalty scenarios."
+            ]
+          },
+          {
+            "heading": "Verify Official Sources",
+            "paragraphs": [
+              "Do not rely on forums alone for bond interpretation.",
+              "Always cross-check latest authority notifications and college prospectus updates."
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "infoPages": [
+    {
+      "slug": "about",
+      "title": "About MedSeat",
+      "description": "MedSeat helps MBBS aspirants make faster, better college decisions using structured data and practical guidance.",
+      "sections": [
+        {
+          "heading": "Our Mission",
+          "body": "We simplify high-stakes MBBS decisions by turning scattered admission data into a clear, comparable decision experience."
+        },
+        {
+          "heading": "What We Focus On",
+          "points": [
+            "Structured college details (fees, cutoffs, seats, bonds)",
+            "State/category/quota-aware discovery pathways",
+            "Decision support through comparison and fit-oriented insights"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "title": "Contact MedSeat",
+      "description": "Connect with us for support, corrections, partnership requests or product feedback.",
+      "sections": [
+        {
+          "heading": "Support",
+          "points": [
+            "Email: support@medseat.example",
+            "Hours: Mon-Sat, 10:00 AM - 7:00 PM IST",
+            "Response SLA: within 24 business hours"
+          ]
+        },
+        {
+          "heading": "Feedback & Data Corrections",
+          "body": "If you spot inaccuracies in college information, share official references and we will prioritize verification."
+        }
+      ]
+    },
+    {
+      "slug": "how-it-works",
+      "title": "How MedSeat Works",
+      "description": "From exploration to final choice, MedSeat guides you through each decision stage.",
+      "sections": [
+        {
+          "heading": "Step 1 — Discover",
+          "body": "Use state, category and budget filters to identify an initial pool of relevant MBBS colleges."
+        },
+        {
+          "heading": "Step 2 — Compare",
+          "body": "Shortlist colleges and compare critical metrics like fees, cutoff trends, seats and bond obligations."
+        },
+        {
+          "heading": "Step 3 — Decide",
+          "body": "Finalize rank-calibrated preference lists and align them with quota/counseling channels."
+        }
+      ]
+    }
+  ],
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "description": "Answers to common MBBS counseling and MedSeat platform questions.",
+    "items": [
+      {
+        "question": "How often is college data updated?",
+        "answer": "Data is periodically refreshed, and high-impact fields like cutoffs and fee structures are prioritized for update cycles."
+      },
+      {
+        "question": "Can I use MedSeat for both AIQ and state counseling?",
+        "answer": "Yes. MedSeat supports planning across both channels and helps keep your choices organized by route and feasibility."
+      },
+      {
+        "question": "Are bond rules uniform across all colleges?",
+        "answer": "No. Bond duration and penalties vary by state and institution, so always validate latest official notices."
+      },
+      {
+        "question": "How should I choose between two similar colleges?",
+        "answer": "Use a multi-factor comparison: fee burden, cutoff stability, hospital load, bond obligations and long-term ROI."
+      },
+      {
+        "question": "Does MedSeat replace official counseling portals?",
+        "answer": "No. MedSeat is a decision-support layer. Final registration, choice filling and seat acceptance happen on official counseling portals."
+      }
+    ]
+  },
   "states": [
     {
       "slug": "maharashtra",
@@ -176,70 +708,158 @@
       "competitionLevel": "High"
     }
   ],
-
   "categories": [
     {
       "slug": "government",
       "title": "Government MBBS Colleges",
       "description": "State-funded MBBS colleges with the lowest fees and strong clinical exposure.",
-      "preset": { "collegeTypes": ["government"] }
+      "preset": {
+        "collegeTypes": [
+          "government"
+        ]
+      }
     },
     {
       "slug": "private",
       "title": "Private MBBS Colleges",
       "description": "Private MBBS colleges with broader seat availability and varied fee structures.",
-      "preset": { "collegeTypes": ["private", "deemed"] }
+      "preset": {
+        "collegeTypes": [
+          "private",
+          "deemed"
+        ]
+      }
     },
     {
       "slug": "aiims",
       "title": "AIIMS Colleges",
       "description": "All India Institutes of Medical Sciences across India with central admission process.",
-      "preset": { "collegeTypes": ["aiims"] }
+      "preset": {
+        "collegeTypes": [
+          "aiims"
+        ]
+      }
     },
     {
       "slug": "low-fee",
       "title": "Low Fee MBBS Colleges",
       "description": "Curated MBBS colleges with the most affordable total fees across India.",
-      "preset": { "maxTotalFee": 1500000 }
+      "preset": {
+        "maxTotalFee": 1500000
+      }
     }
   ],
-
   "filterOptions": {
     "collegeTypes": [
-      { "value": "government", "label": "Government" },
-      { "value": "private", "label": "Private" },
-      { "value": "deemed", "label": "Deemed" },
-      { "value": "aiims", "label": "AIIMS" }
+      {
+        "value": "government",
+        "label": "Government"
+      },
+      {
+        "value": "private",
+        "label": "Private"
+      },
+      {
+        "value": "deemed",
+        "label": "Deemed"
+      },
+      {
+        "value": "aiims",
+        "label": "AIIMS"
+      }
     ],
     "feeRanges": [
-      { "value": "0-500000", "label": "Under 5 Lakh" },
-      { "value": "500000-1500000", "label": "5 - 15 Lakh" },
-      { "value": "1500000-5000000", "label": "15 - 50 Lakh" },
-      { "value": "5000000-99999999", "label": "Above 50 Lakh" }
+      {
+        "value": "0-500000",
+        "label": "Under 5 Lakh"
+      },
+      {
+        "value": "500000-1500000",
+        "label": "5 - 15 Lakh"
+      },
+      {
+        "value": "1500000-5000000",
+        "label": "15 - 50 Lakh"
+      },
+      {
+        "value": "5000000-99999999",
+        "label": "Above 50 Lakh"
+      }
     ],
     "cutoffRanges": [
-      { "value": "0-100", "label": "Top 100" },
-      { "value": "0-1000", "label": "Top 1,000" },
-      { "value": "0-10000", "label": "Top 10,000" },
-      { "value": "0-50000", "label": "Top 50,000" },
-      { "value": "0-200000", "label": "Top 2,00,000" }
+      {
+        "value": "0-100",
+        "label": "Top 100"
+      },
+      {
+        "value": "0-1000",
+        "label": "Top 1,000"
+      },
+      {
+        "value": "0-10000",
+        "label": "Top 10,000"
+      },
+      {
+        "value": "0-50000",
+        "label": "Top 50,000"
+      },
+      {
+        "value": "0-200000",
+        "label": "Top 2,00,000"
+      }
     ]
   },
-
   "sortOptions": [
-    { "value": "lowest_fees", "label": "Lowest Fees" },
-    { "value": "highest_roi", "label": "Highest ROI" },
-    { "value": "lowest_cutoff", "label": "Lowest Cutoff" }
+    {
+      "value": "lowest_fees",
+      "label": "Lowest Fees"
+    },
+    {
+      "value": "highest_roi",
+      "label": "Highest ROI"
+    },
+    {
+      "value": "lowest_cutoff",
+      "label": "Lowest Cutoff"
+    }
   ],
-
   "comparisonMetrics": [
-    { "id": "totalFee", "label": "Total Fees", "direction": "lower", "weight": 0.3, "format": "currency" },
-    { "id": "latestCutoff", "label": "Latest Cutoff", "direction": "lower", "weight": 0.25, "format": "number" },
-    { "id": "seatCount", "label": "Seats", "direction": "higher", "weight": 0.15, "format": "number" },
-    { "id": "bondYears", "label": "Bond Years", "direction": "lower", "weight": 0.15, "format": "years" },
-    { "id": "roiScore", "label": "ROI Score", "direction": "higher", "weight": 0.15, "format": "score" }
+    {
+      "id": "totalFee",
+      "label": "Total Fees",
+      "direction": "lower",
+      "weight": 0.3,
+      "format": "currency"
+    },
+    {
+      "id": "latestCutoff",
+      "label": "Latest Cutoff",
+      "direction": "lower",
+      "weight": 0.25,
+      "format": "number"
+    },
+    {
+      "id": "seatCount",
+      "label": "Seats",
+      "direction": "higher",
+      "weight": 0.15,
+      "format": "number"
+    },
+    {
+      "id": "bondYears",
+      "label": "Bond Years",
+      "direction": "lower",
+      "weight": 0.15,
+      "format": "years"
+    },
+    {
+      "id": "roiScore",
+      "label": "ROI Score",
+      "direction": "higher",
+      "weight": 0.15,
+      "format": "score"
+    }
   ],
-
   "colleges": [
     {
       "slug": "aiims-delhi",
@@ -257,17 +877,56 @@
         "totalCourse": 45140
       },
       "cutoffs": [
-        { "year": 2025, "rank": 56, "quota": "AIQ" },
-        { "year": 2024, "rank": 62, "quota": "AIQ" },
-        { "year": 2023, "rank": 75, "quota": "AIQ" },
-        { "year": 2022, "rank": 80, "quota": "AIQ" },
-        { "year": 2021, "rank": 70, "quota": "AIQ" }
+        {
+          "year": 2025,
+          "rank": 56,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 62,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 75,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 80,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 70,
+          "quota": "AIQ"
+        }
       ],
-      "bond": { "years": 0, "penalty": 0, "note": "No mandatory bond." },
-      "infrastructure": { "beds": 2478, "patientFlowPerDay": 10000, "facilities": ["Trauma Centre", "Cancer Centre", "Cardiology Centre"] },
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "infrastructure": {
+        "beds": 2478,
+        "patientFlowPerDay": 10000,
+        "facilities": [
+          "Trauma Centre",
+          "Cancer Centre",
+          "Cardiology Centre"
+        ]
+      },
       "reviews": {
-        "pros": ["Best clinical exposure in India", "Negligible fees", "Top research opportunities"],
-        "cons": ["Extremely high cutoff", "Limited seats"]
+        "pros": [
+          "Best clinical exposure in India",
+          "Negligible fees",
+          "Top research opportunities"
+        ],
+        "cons": [
+          "Extremely high cutoff",
+          "Limited seats"
+        ]
       },
       "roiScore": 98
     },
@@ -287,17 +946,55 @@
         "totalCourse": 163450
       },
       "cutoffs": [
-        { "year": 2025, "rank": 168, "quota": "AIQ" },
-        { "year": 2024, "rank": 180, "quota": "AIQ" },
-        { "year": 2023, "rank": 195, "quota": "AIQ" },
-        { "year": 2022, "rank": 210, "quota": "AIQ" },
-        { "year": 2021, "rank": 199, "quota": "AIQ" }
+        {
+          "year": 2025,
+          "rank": 168,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 195,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 210,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 199,
+          "quota": "AIQ"
+        }
       ],
-      "bond": { "years": 1, "penalty": 500000, "note": "Service bond for state quota seats." },
-      "infrastructure": { "beds": 2854, "patientFlowPerDay": 8500, "facilities": ["Lok Nayak Hospital", "Guru Nanak Eye Centre"] },
+      "bond": {
+        "years": 1,
+        "penalty": 500000,
+        "note": "Service bond for state quota seats."
+      },
+      "infrastructure": {
+        "beds": 2854,
+        "patientFlowPerDay": 8500,
+        "facilities": [
+          "Lok Nayak Hospital",
+          "Guru Nanak Eye Centre"
+        ]
+      },
       "reviews": {
-        "pros": ["Excellent clinical exposure", "Heritage college", "Affordable fees"],
-        "cons": ["High cutoff", "Hostel demand exceeds supply"]
+        "pros": [
+          "Excellent clinical exposure",
+          "Heritage college",
+          "Affordable fees"
+        ],
+        "cons": [
+          "High cutoff",
+          "Hostel demand exceeds supply"
+        ]
       },
       "roiScore": 95
     },
@@ -317,17 +1014,55 @@
         "totalCourse": 570000
       },
       "cutoffs": [
-        { "year": 2025, "rank": 1450, "quota": "AIQ" },
-        { "year": 2024, "rank": 1620, "quota": "AIQ" },
-        { "year": 2023, "rank": 1480, "quota": "AIQ" },
-        { "year": 2022, "rank": 1700, "quota": "AIQ" },
-        { "year": 2021, "rank": 1580, "quota": "AIQ" }
+        {
+          "year": 2025,
+          "rank": 1450,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 1620,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 1480,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 1700,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 1580,
+          "quota": "AIQ"
+        }
       ],
-      "bond": { "years": 1, "penalty": 1000000, "note": "Maharashtra government bond." },
-      "infrastructure": { "beds": 1380, "patientFlowPerDay": 6000, "facilities": ["JJ Hospital", "Trauma Wing"] },
+      "bond": {
+        "years": 1,
+        "penalty": 1000000,
+        "note": "Maharashtra government bond."
+      },
+      "infrastructure": {
+        "beds": 1380,
+        "patientFlowPerDay": 6000,
+        "facilities": [
+          "JJ Hospital",
+          "Trauma Wing"
+        ]
+      },
       "reviews": {
-        "pros": ["Strong clinical learning at JJ Hospital", "Affordable fees", "Mumbai metro"],
-        "cons": ["Hostel infrastructure dated", "Crowded OPDs"]
+        "pros": [
+          "Strong clinical learning at JJ Hospital",
+          "Affordable fees",
+          "Mumbai metro"
+        ],
+        "cons": [
+          "Hostel infrastructure dated",
+          "Crowded OPDs"
+        ]
       },
       "roiScore": 89
     },
@@ -347,17 +1082,54 @@
         "totalCourse": 535000
       },
       "cutoffs": [
-        { "year": 2025, "rank": 2010, "quota": "AIQ" },
-        { "year": 2024, "rank": 2150, "quota": "AIQ" },
-        { "year": 2023, "rank": 2280, "quota": "AIQ" },
-        { "year": 2022, "rank": 2400, "quota": "AIQ" },
-        { "year": 2021, "rank": 2160, "quota": "AIQ" }
+        {
+          "year": 2025,
+          "rank": 2010,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 2150,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 2280,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 2400,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 2160,
+          "quota": "AIQ"
+        }
       ],
-      "bond": { "years": 1, "penalty": 1000000, "note": "Maharashtra government bond." },
-      "infrastructure": { "beds": 1700, "patientFlowPerDay": 7500, "facilities": ["Sassoon Hospital"] },
+      "bond": {
+        "years": 1,
+        "penalty": 1000000,
+        "note": "Maharashtra government bond."
+      },
+      "infrastructure": {
+        "beds": 1700,
+        "patientFlowPerDay": 7500,
+        "facilities": [
+          "Sassoon Hospital"
+        ]
+      },
       "reviews": {
-        "pros": ["Massive patient inflow", "Reputed government institution", "Pune location"],
-        "cons": ["Crowded hostel", "High-load clinical rotations"]
+        "pros": [
+          "Massive patient inflow",
+          "Reputed government institution",
+          "Pune location"
+        ],
+        "cons": [
+          "Crowded hostel",
+          "High-load clinical rotations"
+        ]
       },
       "roiScore": 87
     },
@@ -377,17 +1149,55 @@
         "totalCourse": 8450000
       },
       "cutoffs": [
-        { "year": 2025, "rank": 19500, "quota": "AIQ" },
-        { "year": 2024, "rank": 21000, "quota": "AIQ" },
-        { "year": 2023, "rank": 22500, "quota": "AIQ" },
-        { "year": 2022, "rank": 24000, "quota": "AIQ" },
-        { "year": 2021, "rank": 23000, "quota": "AIQ" }
+        {
+          "year": 2025,
+          "rank": 19500,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 21000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 22500,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 24000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 23000,
+          "quota": "AIQ"
+        }
       ],
-      "bond": { "years": 0, "penalty": 0, "note": "No mandatory bond." },
-      "infrastructure": { "beds": 2032, "patientFlowPerDay": 4500, "facilities": ["KMC Hospital", "Multi-specialty Centre"] },
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "infrastructure": {
+        "beds": 2032,
+        "patientFlowPerDay": 4500,
+        "facilities": [
+          "KMC Hospital",
+          "Multi-specialty Centre"
+        ]
+      },
       "reviews": {
-        "pros": ["Strong global reputation", "Excellent infrastructure", "Diverse student community"],
-        "cons": ["High fees", "Remote location"]
+        "pros": [
+          "Strong global reputation",
+          "Excellent infrastructure",
+          "Diverse student community"
+        ],
+        "cons": [
+          "High fees",
+          "Remote location"
+        ]
       },
       "roiScore": 78
     },
@@ -407,17 +1217,55 @@
         "totalCourse": 530000
       },
       "cutoffs": [
-        { "year": 2025, "rank": 1980, "quota": "AIQ" },
-        { "year": 2024, "rank": 2100, "quota": "AIQ" },
-        { "year": 2023, "rank": 2220, "quota": "AIQ" },
-        { "year": 2022, "rank": 2350, "quota": "AIQ" },
-        { "year": 2021, "rank": 2080, "quota": "AIQ" }
+        {
+          "year": 2025,
+          "rank": 1980,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 2100,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 2220,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 2350,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 2080,
+          "quota": "AIQ"
+        }
       ],
-      "bond": { "years": 1, "penalty": 1500000, "note": "Karnataka rural service bond." },
-      "infrastructure": { "beds": 1500, "patientFlowPerDay": 6500, "facilities": ["Victoria Hospital", "Vani Vilas Hospital"] },
+      "bond": {
+        "years": 1,
+        "penalty": 1500000,
+        "note": "Karnataka rural service bond."
+      },
+      "infrastructure": {
+        "beds": 1500,
+        "patientFlowPerDay": 6500,
+        "facilities": [
+          "Victoria Hospital",
+          "Vani Vilas Hospital"
+        ]
+      },
       "reviews": {
-        "pros": ["Bengaluru city advantage", "Reputed government college", "Affordable"],
-        "cons": ["Service bond", "High demand for hostel"]
+        "pros": [
+          "Bengaluru city advantage",
+          "Reputed government college",
+          "Affordable"
+        ],
+        "cons": [
+          "Service bond",
+          "High demand for hostel"
+        ]
       },
       "roiScore": 88
     },
@@ -437,17 +1285,54 @@
         "totalCourse": 183750
       },
       "cutoffs": [
-        { "year": 2025, "rank": 920, "quota": "AIQ" },
-        { "year": 2024, "rank": 980, "quota": "AIQ" },
-        { "year": 2023, "rank": 1100, "quota": "AIQ" },
-        { "year": 2022, "rank": 1200, "quota": "AIQ" },
-        { "year": 2021, "rank": 1050, "quota": "AIQ" }
+        {
+          "year": 2025,
+          "rank": 920,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 980,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 1100,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 1200,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 1050,
+          "quota": "AIQ"
+        }
       ],
-      "bond": { "years": 2, "penalty": 1000000, "note": "Tamil Nadu service bond." },
-      "infrastructure": { "beds": 2944, "patientFlowPerDay": 9000, "facilities": ["Rajiv Gandhi Govt. General Hospital"] },
+      "bond": {
+        "years": 2,
+        "penalty": 1000000,
+        "note": "Tamil Nadu service bond."
+      },
+      "infrastructure": {
+        "beds": 2944,
+        "patientFlowPerDay": 9000,
+        "facilities": [
+          "Rajiv Gandhi Govt. General Hospital"
+        ]
+      },
       "reviews": {
-        "pros": ["Top-tier patient inflow", "Heritage college", "Negligible fees"],
-        "cons": ["Bond commitment", "Crowded campus"]
+        "pros": [
+          "Top-tier patient inflow",
+          "Heritage college",
+          "Negligible fees"
+        ],
+        "cons": [
+          "Bond commitment",
+          "Crowded campus"
+        ]
       },
       "roiScore": 92
     },
@@ -467,17 +1352,54 @@
         "totalCourse": 183750
       },
       "cutoffs": [
-        { "year": 2025, "rank": 1320, "quota": "AIQ" },
-        { "year": 2024, "rank": 1450, "quota": "AIQ" },
-        { "year": 2023, "rank": 1500, "quota": "AIQ" },
-        { "year": 2022, "rank": 1620, "quota": "AIQ" },
-        { "year": 2021, "rank": 1380, "quota": "AIQ" }
+        {
+          "year": 2025,
+          "rank": 1320,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 1450,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 1500,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 1620,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 1380,
+          "quota": "AIQ"
+        }
       ],
-      "bond": { "years": 2, "penalty": 1000000, "note": "Tamil Nadu service bond." },
-      "infrastructure": { "beds": 1320, "patientFlowPerDay": 5500, "facilities": ["Stanley Hospital"] },
+      "bond": {
+        "years": 2,
+        "penalty": 1000000,
+        "note": "Tamil Nadu service bond."
+      },
+      "infrastructure": {
+        "beds": 1320,
+        "patientFlowPerDay": 5500,
+        "facilities": [
+          "Stanley Hospital"
+        ]
+      },
       "reviews": {
-        "pros": ["Strong clinical exposure", "Renowned plastic surgery dept.", "Low fees"],
-        "cons": ["Bond commitment", "Crowded wards"]
+        "pros": [
+          "Strong clinical exposure",
+          "Renowned plastic surgery dept.",
+          "Low fees"
+        ],
+        "cons": [
+          "Bond commitment",
+          "Crowded wards"
+        ]
       },
       "roiScore": 86
     },
@@ -497,17 +1419,54 @@
         "totalCourse": 15250000
       },
       "cutoffs": [
-        { "year": 2025, "rank": 56000, "quota": "AIQ" },
-        { "year": 2024, "rank": 60000, "quota": "AIQ" },
-        { "year": 2023, "rank": 62000, "quota": "AIQ" },
-        { "year": 2022, "rank": 65000, "quota": "AIQ" },
-        { "year": 2021, "rank": 63000, "quota": "AIQ" }
+        {
+          "year": 2025,
+          "rank": 56000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 60000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 62000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 65000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 63000,
+          "quota": "AIQ"
+        }
       ],
-      "bond": { "years": 0, "penalty": 0, "note": "No mandatory bond." },
-      "infrastructure": { "beds": 1800, "patientFlowPerDay": 3500, "facilities": ["Multi-specialty Hospital"] },
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "infrastructure": {
+        "beds": 1800,
+        "patientFlowPerDay": 3500,
+        "facilities": [
+          "Multi-specialty Hospital"
+        ]
+      },
       "reviews": {
-        "pros": ["Modern campus", "No bond", "Wide PG options"],
-        "cons": ["High fees", "Variable clinical exposure"]
+        "pros": [
+          "Modern campus",
+          "No bond",
+          "Wide PG options"
+        ],
+        "cons": [
+          "High fees",
+          "Variable clinical exposure"
+        ]
       },
       "roiScore": 62
     },
@@ -527,17 +1486,54 @@
         "totalCourse": 45140
       },
       "cutoffs": [
-        { "year": 2025, "rank": 1180, "quota": "AIQ" },
-        { "year": 2024, "rank": 1280, "quota": "AIQ" },
-        { "year": 2023, "rank": 1310, "quota": "AIQ" },
-        { "year": 2022, "rank": 1380, "quota": "AIQ" },
-        { "year": 2021, "rank": 1220, "quota": "AIQ" }
+        {
+          "year": 2025,
+          "rank": 1180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 1280,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 1310,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 1380,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 1220,
+          "quota": "AIQ"
+        }
       ],
-      "bond": { "years": 0, "penalty": 0, "note": "No mandatory bond." },
-      "infrastructure": { "beds": 960, "patientFlowPerDay": 4500, "facilities": ["AIIMS Multi-specialty Centre"] },
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "infrastructure": {
+        "beds": 960,
+        "patientFlowPerDay": 4500,
+        "facilities": [
+          "AIIMS Multi-specialty Centre"
+        ]
+      },
       "reviews": {
-        "pros": ["AIIMS brand", "No bond", "Negligible fees"],
-        "cons": ["Newer institute", "Developing infrastructure"]
+        "pros": [
+          "AIIMS brand",
+          "No bond",
+          "Negligible fees"
+        ],
+        "cons": [
+          "Newer institute",
+          "Developing infrastructure"
+        ]
       },
       "roiScore": 93
     }

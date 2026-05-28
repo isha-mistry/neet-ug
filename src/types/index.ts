@@ -6,3 +6,4 @@ export * from "./listing";
 export * from "./detail";
 export * from "./comparison";
 export * from "./theme";
+export * from "./content";

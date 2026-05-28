@@ -1,7 +1,4 @@
 import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
-import { Card } from "@/components/ui/Card";
-import { resolveIcon } from "./iconMap";
 import type { HomeExploreEntry } from "@/types/site";
 
 interface ExploreEntryPointsProps {
@@ -9,37 +6,57 @@ interface ExploreEntryPointsProps {
 }
 
 export function ExploreEntryPoints({ entries }: ExploreEntryPointsProps) {
+  // Map styles dynamically based on index to match design reference
+  const getStyles = (index: number) => {
+    switch (index % 4) {
+      case 0:
+        return {
+          bg: "bg-primary-fixed text-primary group-hover:bg-primary group-hover:text-on-primary",
+          icon: "list_alt",
+        };
+      case 1:
+        return {
+          bg: "bg-secondary-fixed text-secondary group-hover:bg-secondary group-hover:text-on-primary",
+          icon: "map",
+        };
+      case 2:
+        return {
+          bg: "bg-tertiary-fixed text-tertiary group-hover:bg-tertiary group-hover:text-on-primary",
+          icon: "category",
+        };
+      case 3:
+      default:
+        return {
+          bg: "bg-primary-fixed text-primary group-hover:bg-primary group-hover:text-on-primary",
+          icon: "compare_arrows",
+        };
+    }
+  };
+
   return (
-    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {entries.map((entry) => {
-        const Icon = resolveIcon(entry.icon);
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {entries.map((entry, index) => {
+        const { bg, icon } = getStyles(index);
         return (
           <Link
             key={entry.id}
             href={entry.href}
-            className="group flex"
+            className="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant hover:shadow-xl hover:-translate-y-1 transition-all group cursor-pointer"
           >
-            <Card
-              padded
-              bordered
-              className="flex w-full flex-col gap-4 transition-shadow group-hover:shadow-[var(--shadow-md)]"
+            <div
+              className={`w-12 h-12 rounded-lg flex items-center justify-center mb-6 transition-colors ${bg}`}
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] bg-brand-50 text-brand-700 transition-colors group-hover:bg-brand-100">
-                <Icon aria-hidden="true" className="h-6 w-6" />
-              </span>
-              <div className="flex flex-col gap-2">
-                <h3 className="text-base font-semibold tracking-snug text-text">
-                  {entry.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-text-muted">
-                  {entry.description}
-                </p>
-              </div>
-              <span className="mt-auto inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-widest text-brand-700">
-                Explore
-                <FiArrowRight aria-hidden="true" />
-              </span>
-            </Card>
+              <span className="material-symbols-outlined">{icon}</span>
+            </div>
+            <h3 className="font-headline-md text-headline-md text-on-surface mb-2">
+              {entry.title}
+            </h3>
+            <p className="text-on-surface-variant text-body-sm mb-6">
+              {entry.description}
+            </p>
+            <div className="flex items-center text-primary font-label-md gap-1 group-hover:gap-2 transition-all">
+              Explore <span className="material-symbols-outlined text-sm">arrow_forward</span>
+            </div>
           </Link>
         );
       })}
