@@ -57,7 +57,7 @@ export function buildComparison(
   records: CollegeRecord[],
   metrics: ComparisonMetric[]
 ): ComparisonViewModel {
-  const summaries = records.map(toCollegeSummary);
+  const summaries = records.map((record) => toCollegeSummary(record));
 
   const rows: ComparisonRow[] = metrics.map((metric) => {
     const values = records.map((record) => {

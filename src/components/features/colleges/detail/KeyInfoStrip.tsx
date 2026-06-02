@@ -24,8 +24,16 @@ export function KeyInfoStrip({
       />
       <KeyCard
         icon={<FiTrendingDown aria-hidden="true" />}
-        label={`Cutoff ${latestCutoffYear}`}
-        value={`AIR ${formatNumber(latestCutoffRank)}`}
+        label={
+          latestCutoffRank > 0 && latestCutoffYear > 0
+            ? `Cutoff ${latestCutoffYear}`
+            : "Closing rank"
+        }
+        value={
+          latestCutoffRank > 0
+            ? `AIR ${formatNumber(latestCutoffRank)}`
+            : "Not available"
+        }
       />
       <KeyCard
         icon={<FiUsers aria-hidden="true" />}

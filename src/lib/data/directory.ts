@@ -4,9 +4,10 @@ import { getAllColleges, getCollegeListing } from "./colleges";
 import type { StateDirectoryItem } from "@/components/features/colleges/directory/StateDirectoryGrid";
 import type { CategoryDirectoryItem } from "@/components/features/colleges/directory/CategoryDirectoryGrid";
 
-export function getStateDirectoryItems(): StateDirectoryItem[] {
-  const colleges = getAllColleges();
-  return getAllStates()
+export async function getStateDirectoryItems(): Promise<StateDirectoryItem[]> {
+  const colleges = await getAllColleges();
+  const states = await getAllStates();
+  return states
     .map((state) => ({
       ...state,
       collegeCount: colleges.filter((c) => c.stateSlug === state.slug).length,
@@ -14,15 +15,18 @@ export function getStateDirectoryItems(): StateDirectoryItem[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-export function getCategoryDirectoryItems(): CategoryDirectoryItem[] {
-  return getAllCategories()
-    .map((category) => {
-      const preset = presetToFilters(category);
-      const listing = getCollegeListing({ ...preset, pageSize: 999 });
-      return {
-        ...category,
-        collegeCount: listing.pagination.totalItems,
-      };
-    })
-    .sort((a, b) => a.title.localeCompare(b.title));
+export async function getCategoryDirectoryItems(): Promise<CategoryDirectoryItem[]> {
+  const categories = getAllCategories();
+  const items: CategoryDirectoryItem[] = [];
+
+  for (const category of categories) {
+    const preset = presetToFilters(category);
+    const listing = await getCollegeListing({ ...preset, pageSize: 999 });
+    items.push({
+      ...category,
+      collegeCount: listing.pagination.totalItems,
+    });
+  }
+
+  return items.sort((a, b) => a.title.localeCompare(b.title));
 }

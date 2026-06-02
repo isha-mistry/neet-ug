@@ -1,4 +1,6 @@
-import { medseatData } from "./source";
+import "server-only";
+import { cache } from "react";
+import { loadCatalogColleges } from "./catalog-loader";
 import type { CollegeRecord } from "@/types/college";
 import type {
   CollegeFilters,
@@ -13,33 +15,52 @@ import { applyFilters } from "@/lib/colleges/filters";
 import { sortColleges } from "@/lib/colleges/sorting";
 import { toCollegeDetail, toCollegeSummary } from "@/lib/colleges/mappers";
 import { DEFAULT_PAGE_SIZE } from "@/lib/constants";
+import {
+  LISTING_CATEGORY_OPTIONS,
+  LISTING_COLLEGE_TYPE_OPTIONS,
+  LISTING_QUOTA_OPTIONS,
+} from "@/lib/colleges/listing-options";
+import { loadCatalogStates } from "./catalog-loader";
 
-export function getAllColleges(): CollegeRecord[] {
-  return medseatData.colleges;
-}
+export const getAllColleges = cache(async (): Promise<CollegeRecord[]> => {
+  return loadCatalogColleges();
+});
 
-export function findCollegeBySlug(slug: string): CollegeRecord | undefined {
-  return medseatData.colleges.find((c) => c.slug === slug);
-}
-
-export function getCollegeDetailBySlug(
+export async function findCollegeBySlug(
   slug: string
-): CollegeDetailViewModel | null {
-  const record = findCollegeBySlug(slug);
+): Promise<CollegeRecord | undefined> {
+  const colleges = await getAllColleges();
+  return colleges.find((c) => c.slug === slug);
+}
+
+export async function getCollegeDetailBySlug(
+  slug: string
+): Promise<CollegeDetailViewModel | null> {
+  const record = await findCollegeBySlug(slug);
   return record ? toCollegeDetail(record) : null;
 }
 
-export function getCollegesBySlugs(slugs: string[]): CollegeRecord[] {
+export async function getCollegesBySlugs(
+  slugs: string[]
+): Promise<CollegeRecord[]> {
+  const colleges = await getAllColleges();
+  const bySlug = new Map(colleges.map((c) => [c.slug, c]));
   return slugs
-    .map((slug) => findCollegeBySlug(slug))
+    .map((slug) => bySlug.get(slug))
     .filter((c): c is CollegeRecord => Boolean(c));
 }
 
-export function getCollegeListing(
+export async function getCollegeListing(
   filters: CollegeFilters
-): CollegeListingViewModel {
-  const filtered = applyFilters(getAllColleges(), filters);
-  const sorted = sortColleges(filtered, filters.sort);
+): Promise<CollegeListingViewModel> {
+  const all = await getAllColleges();
+  const states = await loadCatalogStates();
+  const stateNamesBySlug = new Map(states.map((s) => [s.slug, s.name]));
+  const filtered = applyFilters(all, filters, stateNamesBySlug);
+  const sorted = sortColleges(filtered, filters.sort, {
+    quota: filters.quota,
+    category: filters.category,
+  });
 
   const page = Math.max(1, filters.page ?? 1);
   const pageSize = Math.max(1, filters.pageSize ?? DEFAULT_PAGE_SIZE);
@@ -49,7 +70,12 @@ export function getCollegeListing(
   const start = (currentPage - 1) * pageSize;
   const slice = sorted.slice(start, start + pageSize);
 
-  const items: CollegeSummary[] = slice.map(toCollegeSummary);
+  const items: CollegeSummary[] = slice.map((record) =>
+    toCollegeSummary(record, {
+      quota: filters.quota,
+      category: filters.category,
+    })
+  );
 
   return {
     items,
@@ -62,26 +88,23 @@ export function getCollegeListing(
   };
 }
 
-export function getFilterOptions(): FilterOptionGroups {
-  const colleges = getAllColleges();
+export async function getFilterOptions(): Promise<FilterOptionGroups> {
+  const colleges = await getAllColleges();
+  const states = await loadCatalogStates();
   const uniqueStates = new Map<string, string>();
-  const uniqueCities = new Set<string>();
-  colleges.forEach((c) => {
-    const stateName =
-      medseatData.states.find((s) => s.slug === c.stateSlug)?.name ?? c.stateSlug;
-    uniqueStates.set(c.stateSlug, stateName);
-    uniqueCities.add(c.city);
-  });
+
+  for (const college of colleges) {
+    const label =
+      states.find((s) => s.slug === college.stateSlug)?.name ?? college.stateSlug;
+    uniqueStates.set(college.stateSlug, label);
+  }
 
   return {
-    collegeTypes: medseatData.filterOptions.collegeTypes,
-    feeRanges: medseatData.filterOptions.feeRanges,
-    cutoffRanges: medseatData.filterOptions.cutoffRanges,
-    states: Array.from(uniqueStates.entries())
-      .sort(([, a], [, b]) => a.localeCompare(b))
-      .map(([value, label]) => ({ value, label })),
-    cities: Array.from(uniqueCities)
-      .sort()
-      .map((city) => ({ value: city, label: city })),
+    states: [...uniqueStates.entries()]
+      .map(([value, label]) => ({ value, label }))
+      .sort((a, b) => a.label.localeCompare(b.label)),
+    quotas: LISTING_QUOTA_OPTIONS,
+    categories: LISTING_CATEGORY_OPTIONS,
+    collegeTypes: LISTING_COLLEGE_TYPE_OPTIONS,
   };
 }

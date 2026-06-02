@@ -14,8 +14,8 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function CategoriesDirectoryPage() {
-  const categories = getCategoryDirectoryItems();
+export default async function CategoriesDirectoryPage() {
+  const categories = await getCategoryDirectoryItems();
 
   return (
     <>

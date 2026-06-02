@@ -1,0 +1,2193 @@
+{
+  "states": [
+    {
+      "slug": "uttar-pradesh",
+      "name": "Uttar Pradesh",
+      "intro": "UP MBBS admissions run through DMET state counseling with a large mix of government and private colleges.",
+      "totalSeats": 9120,
+      "competitionLevel": "High"
+    },
+    {
+      "slug": "rajasthan",
+      "name": "Rajasthan",
+      "intro": "Rajasthan conducts MBBS counseling through REAP with competitive government colleges and growing private capacity.",
+      "totalSeats": 4780,
+      "competitionLevel": "High"
+    },
+    {
+      "slug": "punjab",
+      "name": "Punjab",
+      "intro": "Punjab MBBS admissions are handled by BFUHS with government medical colleges and private institutions.",
+      "totalSeats": 2650,
+      "competitionLevel": "Medium"
+    },
+    {
+      "slug": "andhra-pradesh",
+      "name": "Andhra Pradesh",
+      "intro": "Andhra Pradesh MBBS counseling includes government and private colleges under state quota and AIQ.",
+      "totalSeats": 5420,
+      "competitionLevel": "High"
+    },
+    {
+      "slug": "telangana",
+      "name": "Telangana",
+      "intro": "Telangana MBBS admissions are conducted by Kaloji Narayana Rao University of Health Sciences.",
+      "totalSeats": 4890,
+      "competitionLevel": "High"
+    }
+  ],
+  "colleges": [
+    {
+      "slug": "aiims-jodhpur",
+      "name": "AIIMS Jodhpur",
+      "stateSlug": "rajasthan",
+      "city": "Jodhpur",
+      "collegeType": "aiims",
+      "seatCount": 125,
+      "quotaInfo": "All India 100%",
+      "fees": {
+        "tuition": 5868,
+        "hostel": 2257,
+        "misc": 903,
+        "totalAnnual": 9028,
+        "totalCourse": 45140
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 412,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 492,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 532,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 612,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 462,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "infrastructure": {
+        "beds": 750,
+        "patientFlowPerDay": 3800,
+        "facilities": [
+          "AIIMS Jodhpur Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "AIIMS network",
+          "Low fees",
+          "Growing campus"
+        ],
+        "cons": [
+          "Competitive cutoff",
+          "Tier-2 city"
+        ]
+      },
+      "roiScore": 90
+    },
+    {
+      "slug": "aiims-rishikesh",
+      "name": "AIIMS Rishikesh",
+      "stateSlug": "uttar-pradesh",
+      "city": "Rishikesh",
+      "collegeType": "aiims",
+      "seatCount": 125,
+      "quotaInfo": "All India 100%",
+      "fees": {
+        "tuition": 5868,
+        "hostel": 2257,
+        "misc": 903,
+        "totalAnnual": 9028,
+        "totalCourse": 45140
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 528,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 608,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 648,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 728,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 578,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "infrastructure": {
+        "beds": 680,
+        "patientFlowPerDay": 3200,
+        "facilities": [
+          "AIIMS Rishikesh Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "AIIMS brand",
+          "Himalayan campus",
+          "Affordable"
+        ],
+        "cons": [
+          "Remote location",
+          "Newer hospital load building"
+        ]
+      },
+      "roiScore": 88
+    },
+    {
+      "slug": "vmmc-safdarjung",
+      "name": "VMMC & Safdarjung Hospital",
+      "stateSlug": "delhi",
+      "city": "New Delhi",
+      "collegeType": "government",
+      "seatCount": 150,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 27300,
+        "hostel": 10500,
+        "misc": 4200,
+        "totalAnnual": 42000,
+        "totalCourse": 210000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 235,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 315,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 355,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 435,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 285,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 1,
+        "penalty": 500000,
+        "note": "Service bond for selected quota seats."
+      },
+      "infrastructure": {
+        "beds": 1531,
+        "patientFlowPerDay": 7200,
+        "facilities": [
+          "Safdarjung Hospital",
+          "Super-specialty blocks"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Central Delhi location",
+          "Strong clinical load",
+          "Affordable fees"
+        ],
+        "cons": [
+          "High cutoff",
+          "Limited hostel"
+        ]
+      },
+      "roiScore": 94
+    },
+    {
+      "slug": "ucms-delhi",
+      "name": "University College of Medical Sciences",
+      "stateSlug": "delhi",
+      "city": "New Delhi",
+      "collegeType": "government",
+      "seatCount": 170,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 24700,
+        "hostel": 9500,
+        "misc": 3800,
+        "totalAnnual": 38000,
+        "totalCourse": 190000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 365,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 445,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 485,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 565,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 415,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 1,
+        "penalty": 500000,
+        "note": "Delhi state service bond may apply."
+      },
+      "infrastructure": {
+        "beds": 1100,
+        "patientFlowPerDay": 6500,
+        "facilities": [
+          "GTB Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Excellent teaching",
+          "Affordable",
+          "Delhi NCR"
+        ],
+        "cons": [
+          "Competitive cutoff",
+          "Infrastructure aging in parts"
+        ]
+      },
+      "roiScore": 91
+    },
+    {
+      "slug": "jipmer-puducherry",
+      "name": "JIPMER, Puducherry",
+      "stateSlug": "tamil-nadu",
+      "city": "Puducherry",
+      "collegeType": "government",
+      "seatCount": 200,
+      "quotaInfo": "Institute quota + AIQ",
+      "fees": {
+        "tuition": 18200,
+        "hostel": 7000,
+        "misc": 2800,
+        "totalAnnual": 28000,
+        "totalCourse": 140000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 298,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 378,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 418,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 498,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 348,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "Bond rules per institute policy."
+      },
+      "infrastructure": {
+        "beds": 2100,
+        "patientFlowPerDay": 7800,
+        "facilities": [
+          "JIPMER Hospital",
+          "Research blocks"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Institute of national importance",
+          "Low fees",
+          "Good exposure"
+        ],
+        "cons": [
+          "Very high cutoff",
+          "Limited seats"
+        ]
+      },
+      "roiScore": 96
+    },
+    {
+      "slug": "ltmmc-sion-mumbai",
+      "name": "Lokmanya Tilak Municipal Medical College",
+      "stateSlug": "maharashtra",
+      "city": "Mumbai",
+      "collegeType": "government",
+      "seatCount": 150,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 63700,
+        "hostel": 24500,
+        "misc": 9800,
+        "totalAnnual": 98000,
+        "totalCourse": 490000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 2750,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 2830,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 2870,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 2950,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 2800,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 1,
+        "penalty": 1000000,
+        "note": "Maharashtra service bond."
+      },
+      "infrastructure": {
+        "beds": 1200,
+        "patientFlowPerDay": 5800,
+        "facilities": [
+          "Sion Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Mumbai clinical volume",
+          "Reputed municipal college"
+        ],
+        "cons": [
+          "Bond",
+          "Crowded campus"
+        ]
+      },
+      "roiScore": 85
+    },
+    {
+      "slug": "sms-medical-college-jaipur",
+      "name": "SMS Medical College, Jaipur",
+      "stateSlug": "rajasthan",
+      "city": "Jaipur",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 29250,
+        "hostel": 11250,
+        "misc": 4500,
+        "totalAnnual": 45000,
+        "totalCourse": 225000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 4480,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 4560,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 4600,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 4680,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 4530,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 2,
+        "penalty": 800000,
+        "note": "Rajasthan rural service bond."
+      },
+      "infrastructure": {
+        "beds": 2200,
+        "patientFlowPerDay": 8200,
+        "facilities": [
+          "SMS Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Strong government college",
+          "Affordable",
+          "High patient inflow"
+        ],
+        "cons": [
+          "Service bond",
+          "Hot climate"
+        ]
+      },
+      "roiScore": 84
+    },
+    {
+      "slug": "king-georges-medical-university",
+      "name": "King George's Medical University",
+      "stateSlug": "uttar-pradesh",
+      "city": "Lucknow",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 33800,
+        "hostel": 13000,
+        "misc": 5200,
+        "totalAnnual": 52000,
+        "totalCourse": 260000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 5150,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 5230,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 5270,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 5350,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 5200,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 2,
+        "penalty": 1000000,
+        "note": "UP service bond for state quota."
+      },
+      "infrastructure": {
+        "beds": 2500,
+        "patientFlowPerDay": 9000,
+        "facilities": [
+          "KGMU Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Heritage university",
+          "Massive clinical exposure",
+          "Low fees"
+        ],
+        "cons": [
+          "Bond commitment",
+          "Competitive"
+        ]
+      },
+      "roiScore": 86
+    },
+    {
+      "slug": "gandhi-medical-college-bhopal",
+      "name": "Gandhi Medical College, Bhopal",
+      "stateSlug": "madhya-pradesh",
+      "city": "Bhopal",
+      "collegeType": "government",
+      "seatCount": 180,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 31200,
+        "hostel": 12000,
+        "misc": 4800,
+        "totalAnnual": 48000,
+        "totalCourse": 240000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 5920,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 6000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 6040,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 6120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 5970,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 1,
+        "penalty": 750000,
+        "note": "MP service bond."
+      },
+      "infrastructure": {
+        "beds": 1400,
+        "patientFlowPerDay": 6200,
+        "facilities": [
+          "Hamidia Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Capital city",
+          "Affordable government seat"
+        ],
+        "cons": [
+          "Bond",
+          "Infrastructure varies"
+        ]
+      },
+      "roiScore": 82
+    },
+    {
+      "slug": "gmch-chandigarh",
+      "name": "Government Medical College & Hospital, Chandigarh",
+      "stateSlug": "punjab",
+      "city": "Chandigarh",
+      "collegeType": "government",
+      "seatCount": 150,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 35750,
+        "hostel": 13750,
+        "misc": 5500,
+        "totalAnnual": 55000,
+        "totalCourse": 275000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 3880,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 3960,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 4000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 4080,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 3930,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 1,
+        "penalty": 600000,
+        "note": "UT/state bond rules apply."
+      },
+      "infrastructure": {
+        "beds": 950,
+        "patientFlowPerDay": 5100,
+        "facilities": [
+          "GMCH Sector 32"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Planned city",
+          "Good faculty",
+          "Moderate fees"
+        ],
+        "cons": [
+          "Limited seats",
+          "Competitive"
+        ]
+      },
+      "roiScore": 83
+    },
+    {
+      "slug": "sri-ramachandra-institute-chennai",
+      "name": "Sri Ramachandra Institute of Higher Education",
+      "stateSlug": "tamil-nadu",
+      "city": "Chennai",
+      "collegeType": "deemed",
+      "seatCount": 250,
+      "quotaInfo": "Deemed Institutional 50% / AIQ 50%",
+      "fees": {
+        "tuition": 1560000,
+        "hostel": 600000,
+        "misc": 240000,
+        "totalAnnual": 2400000,
+        "totalCourse": 12000000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 8350,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 8430,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 8470,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 8550,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 8400,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "infrastructure": {
+        "beds": 1600,
+        "patientFlowPerDay": 4200,
+        "facilities": [
+          "SRIHER Medical Centre"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Chennai location",
+          "Modern campus",
+          "No bond"
+        ],
+        "cons": [
+          "High fees"
+        ]
+      },
+      "roiScore": 71
+    },
+    {
+      "slug": "gitam-institute-medical-sciences",
+      "name": "GITAM Institute of Medical Sciences and Research",
+      "stateSlug": "andhra-pradesh",
+      "city": "Visakhapatnam",
+      "collegeType": "deemed",
+      "seatCount": 150,
+      "quotaInfo": "Deemed Institutional 50% / AIQ 50%",
+      "fees": {
+        "tuition": 1365000,
+        "hostel": 525000,
+        "misc": 210000,
+        "totalAnnual": 2100000,
+        "totalCourse": 10500000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 11200,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 11320,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 11380,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 11500,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 11275,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "infrastructure": {
+        "beds": 750,
+        "patientFlowPerDay": 2800,
+        "facilities": [
+          "GITAM Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Coastal city",
+          "Campus infrastructure"
+        ],
+        "cons": [
+          "Fees on higher side",
+          "Developing tertiary load"
+        ]
+      },
+      "roiScore": 68
+    },
+    {
+      "slug": "nitte-university-mangalore",
+      "name": "Nitte University (Deemed), Mangalore",
+      "stateSlug": "karnataka",
+      "city": "Mangalore",
+      "collegeType": "deemed",
+      "seatCount": 200,
+      "quotaInfo": "Deemed Institutional 50% / AIQ 50%",
+      "fees": {
+        "tuition": 1267500,
+        "hostel": 487500,
+        "misc": 195000,
+        "totalAnnual": 1950000,
+        "totalCourse": 9750000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 17800,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 17920,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 17980,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 18100,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 17875,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "infrastructure": {
+        "beds": 1200,
+        "patientFlowPerDay": 3500,
+        "facilities": [
+          "KS Hegde Medical Academy"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Established deemed brand",
+          "Coastal city"
+        ],
+        "cons": [
+          "High fees"
+        ]
+      },
+      "roiScore": 72
+    },
+    {
+      "slug": "rajiv-gandhi-medical-college-thane",
+      "name": "Rajiv Gandhi Medical College, Thane",
+      "stateSlug": "maharashtra",
+      "city": "Thane",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 1072500,
+        "hostel": 412500,
+        "misc": 165000,
+        "totalAnnual": 1650000,
+        "totalCourse": 8250000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 32500,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 32620,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 32680,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 32800,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 32575,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "Check Maharashtra private rules."
+      },
+      "infrastructure": {
+        "beds": 600,
+        "patientFlowPerDay": 2200,
+        "facilities": [
+          "Civic hospital tie-ups"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Mumbai metro access",
+          "Private seat availability"
+        ],
+        "cons": [
+          "Fees",
+          "Variable exposure"
+        ]
+      },
+      "roiScore": 58
+    },
+    {
+      "slug": "bkl-walwalakar-rural-medical-college",
+      "name": "B.K.L. Walawalkar Rural Medical College",
+      "stateSlug": "maharashtra",
+      "city": "Ratnagiri",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 923000,
+        "hostel": 355000,
+        "misc": 142000,
+        "totalAnnual": 1420000,
+        "totalCourse": 7100000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 48500,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 48620,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 48680,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 48800,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 48575,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "Rural medical college scheme."
+      },
+      "infrastructure": {
+        "beds": 450,
+        "patientFlowPerDay": 1800,
+        "facilities": [
+          "Rural hospital network"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Lower cutoff vs metro privates",
+          "Community medicine focus"
+        ],
+        "cons": [
+          "Remote location",
+          "Limited super-specialty"
+        ]
+      },
+      "roiScore": 55
+    },
+    {
+      "slug": "geetanjali-medical-college-udaipur",
+      "name": "Geetanjali Medical College & Hospital",
+      "stateSlug": "rajasthan",
+      "city": "Udaipur",
+      "collegeType": "private",
+      "seatCount": 200,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 1027000,
+        "hostel": 395000,
+        "misc": 158000,
+        "totalAnnual": 1580000,
+        "totalCourse": 7900000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 86500,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 86620,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 86680,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 86800,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 86575,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "infrastructure": {
+        "beds": 900,
+        "patientFlowPerDay": 2600,
+        "facilities": [
+          "Geetanjali Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Tourist city",
+          "Private seat access"
+        ],
+        "cons": [
+          "High fees",
+          "Bond-free but costly"
+        ]
+      },
+      "roiScore": 52
+    },
+    {
+      "slug": "index-medical-college-indore",
+      "name": "Index Medical College, Hospital & Research Centre",
+      "stateSlug": "madhya-pradesh",
+      "city": "Indore",
+      "collegeType": "private",
+      "seatCount": 250,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 897000,
+        "hostel": 345000,
+        "misc": 138000,
+        "totalAnnual": 1380000,
+        "totalCourse": 6900000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 128000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 128120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 128180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 128300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 128075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "MP private counseling."
+      },
+      "infrastructure": {
+        "beds": 700,
+        "patientFlowPerDay": 2400,
+        "facilities": [
+          "Index Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Tier-2 city",
+          "More seats at mid ranks"
+        ],
+        "cons": [
+          "Fees",
+          "Quality varies by rotation"
+        ]
+      },
+      "roiScore": 50
+    },
+    {
+      "slug": "malla-reddy-medical-college",
+      "name": "Malla Reddy Medical College for Women",
+      "stateSlug": "telangana",
+      "city": "Hyderabad",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 1118000,
+        "hostel": 430000,
+        "misc": 172000,
+        "totalAnnual": 1720000,
+        "totalCourse": 8600000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 142000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 142120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 142180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 142300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 142075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "Telangana private quota."
+      },
+      "infrastructure": {
+        "beds": 650,
+        "patientFlowPerDay": 2100,
+        "facilities": [
+          "Malla Reddy Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Hyderabad ecosystem",
+          "Women's college option"
+        ],
+        "cons": [
+          "High fees"
+        ]
+      },
+      "roiScore": 48
+    },
+    {
+      "slug": "teerthanker-mahaveer-medical-college",
+      "name": "Teerthanker Mahaveer Medical College",
+      "stateSlug": "uttar-pradesh",
+      "city": "Moradabad",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 812500,
+        "hostel": 312500,
+        "misc": 125000,
+        "totalAnnual": 1250000,
+        "totalCourse": 6250000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 215000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 215120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 215180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 215300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 215075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "UP private counseling."
+      },
+      "infrastructure": {
+        "beds": 500,
+        "patientFlowPerDay": 1600,
+        "facilities": [
+          "TMMC Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Accessible at lower ranks",
+          "UP domicile friendly"
+        ],
+        "cons": [
+          "Remote vs NCR",
+          "Limited tertiary cases"
+        ]
+      },
+      "roiScore": 45
+    },
+    {
+      "slug": "rama-medical-college-kanpur",
+      "name": "Rama Medical College Hospital & Research Centre",
+      "stateSlug": "uttar-pradesh",
+      "city": "Kanpur",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 767000,
+        "hostel": 295000,
+        "misc": 118000,
+        "totalAnnual": 1180000,
+        "totalCourse": 5900000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 395000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 395120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 395180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 395300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 395075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "UP private counseling."
+      },
+      "infrastructure": {
+        "beds": 480,
+        "patientFlowPerDay": 1400,
+        "facilities": [
+          "Rama Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Large city",
+          "Option for lower ranks"
+        ],
+        "cons": [
+          "Fees still significant",
+          "Variable clinical load"
+        ]
+      },
+      "roiScore": 42
+    },
+    {
+      "slug": "smbt-medical-college-nashik",
+      "name": "SMBT Institute of Medical Sciences & Research Centre",
+      "stateSlug": "maharashtra",
+      "city": "Nashik",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 962000,
+        "hostel": 370000,
+        "misc": 148000,
+        "totalAnnual": 1480000,
+        "totalCourse": 7400000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 54200,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 54320,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 54380,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 54500,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 54275,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "Maharashtra private counseling."
+      },
+      "infrastructure": {
+        "beds": 520,
+        "patientFlowPerDay": 1900,
+        "facilities": [
+          "SMBT Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Nashik city",
+          "Mid-rank private access"
+        ],
+        "cons": [
+          "Fees",
+          "Moderate clinical volume"
+        ]
+      },
+      "roiScore": 54
+    },
+    {
+      "slug": "sri-siddhartha-medical-college",
+      "name": "Sri Siddhartha Medical College",
+      "stateSlug": "karnataka",
+      "city": "Tumkur",
+      "collegeType": "deemed",
+      "seatCount": 150,
+      "quotaInfo": "Deemed Institutional 50% / AIQ 50%",
+      "fees": {
+        "tuition": 1137500,
+        "hostel": 437500,
+        "misc": 175000,
+        "totalAnnual": 1750000,
+        "totalCourse": 8750000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 73800,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 73920,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 73980,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 74100,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 73875,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "infrastructure": {
+        "beds": 600,
+        "patientFlowPerDay": 2000,
+        "facilities": [
+          "SSMC Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Deemed seat at mid-high ranks",
+          "Bangalore proximity"
+        ],
+        "cons": [
+          "Fees"
+        ]
+      },
+      "roiScore": 53
+    },
+    {
+      "slug": "kasturba-medical-college-delhi",
+      "name": "Kasturba Medical College (Delhi Campus Demo)",
+      "stateSlug": "delhi",
+      "city": "New Delhi",
+      "collegeType": "private",
+      "seatCount": 100,
+      "quotaInfo": "Institutional quota demo record",
+      "fees": {
+        "tuition": 1202500,
+        "hostel": 462500,
+        "misc": 185000,
+        "totalAnnual": 1850000,
+        "totalCourse": 9250000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 158000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 158120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 158180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 158300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 158075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "Synthetic demo college for predictor QA."
+      },
+      "infrastructure": {
+        "beds": 400,
+        "patientFlowPerDay": 1500,
+        "facilities": [
+          "Demo Medical Centre"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Fills mid-low rank preview band for testing"
+        ],
+        "cons": [
+          "Demo data only"
+        ]
+      },
+      "roiScore": 47
+    },
+    {
+      "slug": "rohilkhand-medical-college",
+      "name": "Rohilkhand Medical College & Hospital",
+      "stateSlug": "uttar-pradesh",
+      "city": "Bareilly",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 747500,
+        "hostel": 287500,
+        "misc": 115000,
+        "totalAnnual": 1150000,
+        "totalCourse": 5750000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 248000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 248120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 248180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 248300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 248075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "UP private counseling."
+      },
+      "infrastructure": {
+        "beds": 450,
+        "patientFlowPerDay": 1550,
+        "facilities": [
+          "Rohilkhand Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Tier-2 city private option"
+        ],
+        "cons": [
+          "Fees vs exposure trade-off"
+        ]
+      },
+      "roiScore": 44
+    },
+    {
+      "slug": "laxmi-narayan-medical-college",
+      "name": "Laxmi Narayan Medical College & Research Centre",
+      "stateSlug": "madhya-pradesh",
+      "city": "Jabalpur",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 702000,
+        "hostel": 270000,
+        "misc": 108000,
+        "totalAnnual": 1080000,
+        "totalCourse": 5400000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 338000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 338120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 338180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 338300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 338075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "MP private counseling."
+      },
+      "infrastructure": {
+        "beds": 420,
+        "patientFlowPerDay": 1450,
+        "facilities": [
+          "LN Medical College Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Fills 300k rank preview tests"
+        ],
+        "cons": [
+          "Private fees"
+        ]
+      },
+      "roiScore": 41
+    },
+    {
+      "slug": "adesh-medical-college-bathinda",
+      "name": "Adesh Medical College & Hospital",
+      "stateSlug": "punjab",
+      "city": "Bathinda",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 793000,
+        "hostel": 305000,
+        "misc": 122000,
+        "totalAnnual": 1220000,
+        "totalCourse": 6100000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 368000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 368120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 368180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 368300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 368075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "Punjab private counseling."
+      },
+      "infrastructure": {
+        "beds": 430,
+        "patientFlowPerDay": 1500,
+        "facilities": [
+          "Adesh Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Punjab private seat",
+          "Fills 350k–400k band"
+        ],
+        "cons": [
+          "Fees"
+        ]
+      },
+      "roiScore": 43
+    },
+    {
+      "slug": "muzaffarnagar-medical-college",
+      "name": "Muzaffarnagar Medical College",
+      "stateSlug": "uttar-pradesh",
+      "city": "Muzaffarnagar",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 715000,
+        "hostel": 275000,
+        "misc": 110000,
+        "totalAnnual": 1100000,
+        "totalCourse": 5500000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 445000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 445120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 445180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 445300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 445075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "UP private counseling."
+      },
+      "infrastructure": {
+        "beds": 410,
+        "patientFlowPerDay": 1380,
+        "facilities": [
+          "MMC Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Covers mid-high 400k ranks for score ~500"
+        ],
+        "cons": [
+          "Smaller city"
+        ]
+      },
+      "roiScore": 40
+    },
+    {
+      "slug": "people-medical-college-bhopal",
+      "name": "People's College of Medical Sciences & Research",
+      "stateSlug": "madhya-pradesh",
+      "city": "Bhopal",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 637000,
+        "hostel": 245000,
+        "misc": 98000,
+        "totalAnnual": 980000,
+        "totalCourse": 4900000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 685000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 685120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 685180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 685300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 685075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "MP private counseling."
+      },
+      "infrastructure": {
+        "beds": 400,
+        "patientFlowPerDay": 1200,
+        "facilities": [
+          "People's Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Last-tier private option in dataset",
+          "Capital city"
+        ],
+        "cons": [
+          "Very low rank bracket",
+          "Limited brand"
+        ]
+      },
+      "roiScore": 38
+    },
+    {
+      "slug": "netaji-subhash-medical-college-demo",
+      "name": "Netaji Subhash Medical College (Demo)",
+      "stateSlug": "madhya-pradesh",
+      "city": "Jabalpur",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 617500,
+        "hostel": 237500,
+        "misc": 95000,
+        "totalAnnual": 950000,
+        "totalCourse": 4750000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 628000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 628120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 628180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 628300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 628075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "Demo record for low-score predictor QA."
+      },
+      "infrastructure": {
+        "beds": 360,
+        "patientFlowPerDay": 1050,
+        "facilities": [
+          "Demo District Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Fills 600k rank band"
+        ],
+        "cons": [
+          "Demo data"
+        ]
+      },
+      "roiScore": 37
+    },
+    {
+      "slug": "shri-ram-murti-smarak-medical-college",
+      "name": "Shri Ram Murti Smarak Institute of Medical Sciences",
+      "stateSlug": "uttar-pradesh",
+      "city": "Bareilly",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 682500,
+        "hostel": 262500,
+        "misc": 105000,
+        "totalAnnual": 1050000,
+        "totalCourse": 5250000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 825000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 825120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 825180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 825300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 825075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "UP private counseling."
+      },
+      "infrastructure": {
+        "beds": 350,
+        "patientFlowPerDay": 1100,
+        "facilities": [
+          "SRMS Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Option at very low score bands",
+          "UP private seat"
+        ],
+        "cons": [
+          "Limited tertiary exposure",
+          "Remote vs metros"
+        ]
+      },
+      "roiScore": 35
+    },
+    {
+      "slug": "himalayan-institute-dehradun",
+      "name": "Himalayan Institute of Medical Sciences",
+      "stateSlug": "uttar-pradesh",
+      "city": "Dehradun",
+      "collegeType": "private",
+      "seatCount": 150,
+      "quotaInfo": "State + institutional quota",
+      "fees": {
+        "tuition": 728000,
+        "hostel": 280000,
+        "misc": 112000,
+        "totalAnnual": 1120000,
+        "totalCourse": 5600000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "rank": 910000,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2024,
+          "rank": 910120,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2023,
+          "rank": 910180,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2022,
+          "rank": 910300,
+          "quota": "AIQ"
+        },
+        {
+          "year": 2021,
+          "rank": 910075,
+          "quota": "AIQ"
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "Uttarakhand/UP counseling per seat matrix."
+      },
+      "infrastructure": {
+        "beds": 380,
+        "patientFlowPerDay": 1000,
+        "facilities": [
+          "HIHT Hospital"
+        ]
+      },
+      "reviews": {
+        "pros": [
+          "Hill station campus",
+          "Private seat at lowest ranks in dataset"
+        ],
+        "cons": [
+          "High fees vs ROI",
+          "Smaller hospital load"
+        ]
+      },
+      "roiScore": 34
+    }
+  ],
+  "rankPredictor": {
+    "referenceYear": 2025,
+    "scoreMin": 0,
+    "scoreMax": 720,
+    "disclaimer": "Indicative score-to-rank mapping based on reference trends. Not official NTA data. College previews use AIQ closing ranks from the same reference year.",
+    "previewLimits": {
+      "teaserCollegeCount": 3,
+      "verifiedPreviewCount": 15,
+      "rankMatchBufferPercent": 22,
+      "fillNearestWhenUnderLimit": true
+    },
+    "scoreBands": [
+      {
+        "minScore": 715,
+        "maxScore": 720,
+        "coarseRankMin": 1,
+        "coarseRankMax": 450,
+        "tightRankMin": 1,
+        "tightRankMax": 320
+      },
+      {
+        "minScore": 700,
+        "maxScore": 714,
+        "coarseRankMin": 80,
+        "coarseRankMax": 900,
+        "tightRankMin": 120,
+        "tightRankMax": 680
+      },
+      {
+        "minScore": 680,
+        "maxScore": 699,
+        "coarseRankMin": 400,
+        "coarseRankMax": 2800,
+        "tightRankMin": 550,
+        "tightRankMax": 2200
+      },
+      {
+        "minScore": 660,
+        "maxScore": 679,
+        "coarseRankMin": 2200,
+        "coarseRankMax": 14000,
+        "tightRankMin": 2800,
+        "tightRankMax": 11500
+      },
+      {
+        "minScore": 640,
+        "maxScore": 659,
+        "coarseRankMin": 11000,
+        "coarseRankMax": 38000,
+        "tightRankMin": 13000,
+        "tightRankMax": 32000
+      },
+      {
+        "minScore": 620,
+        "maxScore": 639,
+        "coarseRankMin": 28000,
+        "coarseRankMax": 75000,
+        "tightRankMin": 32000,
+        "tightRankMax": 68000
+      },
+      {
+        "minScore": 600,
+        "maxScore": 619,
+        "coarseRankMin": 65000,
+        "coarseRankMax": 135000,
+        "tightRankMin": 72000,
+        "tightRankMax": 125000
+      },
+      {
+        "minScore": 550,
+        "maxScore": 599,
+        "coarseRankMin": 120000,
+        "coarseRankMax": 290000,
+        "tightRankMin": 140000,
+        "tightRankMax": 265000
+      },
+      {
+        "minScore": 500,
+        "maxScore": 549,
+        "coarseRankMin": 270000,
+        "coarseRankMax": 460000,
+        "tightRankMin": 295000,
+        "tightRankMax": 430000
+      },
+      {
+        "minScore": 450,
+        "maxScore": 499,
+        "coarseRankMin": 440000,
+        "coarseRankMax": 620000,
+        "tightRankMin": 460000,
+        "tightRankMax": 590000
+      },
+      {
+        "minScore": 400,
+        "maxScore": 449,
+        "coarseRankMin": 610000,
+        "coarseRankMax": 780000,
+        "tightRankMin": 630000,
+        "tightRankMax": 750000
+      },
+      {
+        "minScore": 0,
+        "maxScore": 399,
+        "coarseRankMin": 780000,
+        "coarseRankMax": 990000,
+        "tightRankMin": 800000,
+        "tightRankMax": 975000
+      }
+    ]
+  }
+}

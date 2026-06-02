@@ -26,8 +26,8 @@ export function generateMetadata(): Metadata {
 export default async function AllCollegesPage({ searchParams }: PageProps) {
   const resolved = await searchParams;
   const filters = parseListSearchParams(resolved);
-  const listing = getCollegeListing(filters);
-  const filterOptions = getFilterOptions();
+  const listing = await getCollegeListing(filters);
+  const filterOptions = await getFilterOptions();
   const meta = getPageMeta("allColleges");
 
   return (

@@ -1,6 +1,22 @@
 import type { Slug } from "./core";
+import type { NeetCategory } from "@/lib/rank-predictor/types";
 
 export type CollegeType = "government" | "private" | "deemed" | "aiims";
+
+export type FeeCurrency = "INR" | "USD";
+
+/** NRI quota fee from Gujarat fee sheet (`fees_currency` + `nri_fees`). */
+export interface NriQuotaFee {
+  amount: number;
+  currency: FeeCurrency;
+}
+
+/** GQ/MQ annual tuition from source (INR). NRI is separate — not summed into totalAnnual. */
+export interface QuotaFeeBreakdown {
+  govtQuotaAnnualInr: number;
+  managementQuotaAnnualInr: number;
+  nri?: NriQuotaFee;
+}
 
 export interface CollegeFees {
   tuition: number;
@@ -8,12 +24,16 @@ export interface CollegeFees {
   misc: number;
   totalAnnual: number;
   totalCourse: number;
+  /** Present when built from gujarat_college_fees. */
+  quotaBreakdown?: QuotaFeeBreakdown;
 }
 
 export interface CollegeCutoff {
   year: number;
   rank: number;
   quota: string;
+  /** Reserved seat category when present in source data. */
+  category?: NeetCategory;
 }
 
 export interface CollegeBond {
@@ -47,6 +67,8 @@ export interface CollegeRecord {
   infrastructure: CollegeInfrastructure;
   reviews: CollegeReviews;
   roiScore: number;
+  /** Set on DB-built records for QA (not shown in UI by default). */
+  dataQuality?: string[];
 }
 
 export interface StateRecord {

@@ -1,0 +1,145 @@
+// Single source of truth for Postgres structure (staging + app).
+// Apply with: npm run db:migrate
+// Data seeding/import is managed outside this repository.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas  = ["staging", "app"]
+}
+
+// --- staging (Gujarat / master dump targets) ---
+
+model StagingMedicalCollege {
+  id                Int     @id @default(autoincrement())
+  state             String?
+  collegeName       String? @map("college_name")
+  universityName    String? @map("university_name")
+  collegeType       String? @map("college_type")
+  annualIntakeSeats Int?    @map("annual_intake_seats")
+  counselling       String?
+
+  @@map("medical_colleges")
+  @@schema("staging")
+}
+
+model StagingGujaratCollegeFee {
+  id             Int      @id @default(autoincrement())
+  collegeName    String?  @map("college_name")
+  university     String?
+  govtQuotaFees  Decimal? @map("govt_quota_fees") @db.Decimal
+  mgtQuotaFees   Decimal? @map("mgt_quota_fees") @db.Decimal
+  feesCurrency   String?  @map("fees_currency")
+  nriFees        Decimal? @map("nri_fees") @db.Decimal
+  hostelFees     Decimal? @map("hostel_fees") @db.Decimal
+  messFees       Decimal? @map("mess_fees") @db.Decimal
+  universityFees Decimal? @map("university_fees") @db.Decimal
+  transportFees  Decimal? @map("transport_fees") @db.Decimal
+  examFees       Decimal? @map("exam_fees") @db.Decimal
+
+  @@map("gujarat_college_fees")
+  @@schema("staging")
+}
+
+model StagingGujaratSeatData {
+  id           Int     @id @default(autoincrement())
+  collegeName  String? @map("college_name")
+  instituteType String? @map("institute_type")
+  totalSeats   Int?    @map("total_seats")
+  aiq          Int?
+  stateQuota   Int?    @map("state_quota")
+  esicIp       Int?    @map("esic_ip")
+  nri          Int?
+  openSeats    Int?    @map("open_seats")
+  sc           Int?
+  st           Int?
+  sebc         Int?
+  ews          Int?
+  mq           Int?
+
+  @@map("gujarat_seat_data")
+  @@schema("staging")
+}
+
+model StagingGujaratCutoffData {
+  id                     Int      @id @default(autoincrement())
+  collegeName            String?  @map("college_name")
+  state                  String?
+  category               String?
+  seatType               String?  @map("seat_type")
+  admissionRound         String?  @map("admission_round")
+  openingRankAir         Int?     @map("opening_rank_air")
+  closingRankAir         Int?     @map("closing_rank_air")
+  openingStateMeritRank  Int?     @map("opening_state_merit_rank")
+  closingStateMeritRank  Int?     @map("closing_state_merit_rank")
+  openingNeetScore       Int?     @map("opening_neet_score")
+  closingNeetScore       Int?     @map("closing_neet_score")
+  openingPercentile      Decimal? @map("opening_percentile") @db.Decimal
+  closingPercentile      Decimal? @map("closing_percentile") @db.Decimal
+  totalSeatsFilled       Int?     @map("total_seats_filled")
+  cutoffYear             Int?     @map("cutoff_year")
+  openingCategoryRank    String?  @map("opening_category_rank")
+  closingCategoryRank    String?  @map("closing_category_rank")
+
+  @@map("gujarat_cutoff_data")
+  @@schema("staging")
+}
+
+// --- app (normalized spine + runtime catalog JSON) ---
+
+model College {
+  collegeId      Int      @id @default(autoincrement()) @map("college_id")
+  slug           String   @unique
+  name           String
+  state          String
+  stateSlug      String   @map("state_slug")
+  city           String?
+  collegeType    String   @map("college_type")
+  seatCount      Int      @default(0) @map("seat_count")
+  quotaInfo      String   @default("") @map("quota_info")
+  universityName String?  @map("university_name")
+  counselling    String?
+  aliases        CollegeAlias[]
+
+  @@map("colleges")
+  @@schema("app")
+}
+
+model CollegeAlias {
+  aliasId    Int     @id @default(autoincrement()) @map("alias_id")
+  collegeId  Int     @map("college_id")
+  source     String
+  rawName    String  @map("raw_name")
+  matchKey   String  @map("match_key")
+  verified   Boolean @default(true)
+  college    College @relation(fields: [collegeId], references: [collegeId], onDelete: Cascade)
+
+  @@unique([source, rawName])
+  @@map("college_aliases")
+  @@schema("app")
+}
+
+/// Full CollegeRecord JSON — what Next.js reads at runtime.
+model CollegeDocument {
+  slug      String   @id
+  data      Json
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("college_documents")
+  @@schema("app")
+}
+
+/// Full StateRecord JSON — what Next.js reads at runtime.
+model StateDocument {
+  slug      String   @id
+  data      Json
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("state_documents")
+  @@schema("app")
+}

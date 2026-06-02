@@ -9,6 +9,10 @@
         "href": "/colleges"
       },
       {
+        "label": "Predictors",
+        "href": "/rank-predictor"
+      },
+      {
         "label": "Quota",
         "href": "/quota/general"
       },

@@ -19,8 +19,9 @@ interface PageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
-export function generateStaticParams() {
-  return getAllStates().map((state) => ({ stateSlug: state.slug }));
+export async function generateStaticParams() {
+  const states = await getAllStates();
+  return states.map((state) => ({ stateSlug: state.slug }));
 }
 
 export async function generateMetadata({
@@ -29,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ stateSlug: string }>;
 }): Promise<Metadata> {
   const { stateSlug } = await params;
-  const state = findStateBySlug(stateSlug);
+  const state = await findStateBySlug(stateSlug);
   if (!state) {
     return buildMetadata({
       title: "State Not Found",
@@ -48,15 +49,15 @@ export default async function StateCollegesPage({
   searchParams,
 }: PageProps) {
   const { stateSlug } = await params;
-  const state = findStateBySlug(stateSlug);
+  const state = await findStateBySlug(stateSlug);
   if (!state) {
     notFound();
   }
   const resolved = await searchParams;
   const userFilters = parseListSearchParams(resolved);
   const filters = { ...userFilters, state: stateSlug };
-  const listing = getCollegeListing(filters);
-  const filterOptions = getFilterOptions();
+  const listing = await getCollegeListing(filters);
+  const filterOptions = await getFilterOptions();
 
   return (
     <>
