@@ -2,13 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { CollegeDetailHeader } from "@/components/features/colleges/detail/CollegeDetailHeader";
-import { KeyInfoStrip } from "@/components/features/colleges/detail/KeyInfoStrip";
-import { FeesBreakdown } from "@/components/features/colleges/detail/FeesBreakdown";
-import { CutoffTrendGraph } from "@/components/features/colleges/detail/CutoffTrendGraph";
-import { BondInfo } from "@/components/features/colleges/detail/BondInfo";
-import { InfrastructureStats } from "@/components/features/colleges/detail/InfrastructureStats";
-import { ReviewsBlock } from "@/components/features/colleges/detail/ReviewsBlock";
-import { DetailCTAGroup } from "@/components/features/colleges/detail/DetailCTAGroup";
+import { AdmissionInfo } from "@/components/features/colleges/detail/AdmissionInfo";
+import { SeatMatrixInfo } from "@/components/features/colleges/detail/SeatMatrixInfo";
+import { FeesAndBondInfo } from "@/components/features/colleges/detail/FeesAndBondInfo";
 import {
   getAllColleges,
   getCollegeDetailBySlug,
@@ -37,7 +33,7 @@ export async function generateMetadata({
   }
   return buildMetadata({
     title: college.name,
-    description: `${college.name} in ${college.city}, ${college.stateName}. Fees, cutoff, bond and infrastructure details.`,
+    description: `${college.name} in ${college.city}, ${college.stateName}. Fees, cutoff, bond and admission details.`,
     path: `/colleges/${collegeSlug}`,
   });
 }
@@ -59,30 +55,32 @@ export default async function CollegeDetailPage({ params }: PageProps) {
           { label: college.name },
         ]}
       />
-      <CollegeDetailHeader
-        name={college.name}
-        city={college.city}
-        stateName={college.stateName}
-        collegeType={college.collegeType}
-      />
-      <KeyInfoStrip
-        totalAnnualFee={college.totalAnnualFee}
-        latestCutoffRank={college.latestCutoffRank}
-        latestCutoffYear={college.latestCutoffYear}
-        seatCount={college.seatCount}
-      />
-      <DetailCTAGroup collegeSlug={college.slug} />
-      <div className="grid gap-6 lg:grid-cols-2">
-        <FeesBreakdown fees={college.fees} />
-        <CutoffTrendGraph cutoffs={college.cutoffs} />
-        <BondInfo bond={college.bond} />
-        <InfrastructureStats infrastructure={college.infrastructure} />
+      <div className="flex flex-col gap-10">
+        <CollegeDetailHeader
+          name={college.name}
+          city={college.city}
+          stateName={college.stateName}
+          collegeType={college.collegeType}
+          quotaInfo={college.quotaInfo}
+          officialWebsite={college.otherInfo.officialWebsite}
+          counsellingBrochureUrl={college.otherInfo.counsellingBrochureUrl}
+          bond={college.bond}
+          seatCount={college.seatCount}
+        />
+        
+        <AdmissionInfo seatCount={college.seatCount} cutoffs={college.cutoffs} />
+        
+        <SeatMatrixInfo seatMatrix={college.seatMatrix} />
+        
+        <FeesAndBondInfo fees={college.fees} bond={college.bond} />
       </div>
-      <ReviewsBlock reviews={college.reviews} />
-      <script
+
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      /> */}
     </>
   );
 }
+
+

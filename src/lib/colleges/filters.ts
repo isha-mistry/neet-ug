@@ -66,7 +66,7 @@ export function getLatestRank(record: CollegeRecord): number {
   return record.cutoffs.reduce(
     (acc, current) => (current.year > acc.year ? current : acc),
     record.cutoffs[0]
-  ).rank;
+  ).closingRank;
 }
 
 function first(value: string | string[] | undefined): string | undefined {

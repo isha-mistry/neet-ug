@@ -1,4 +1,4 @@
-import type { CollegeRecord, CollegeType } from "./college";
+import type { CollegeRecord, CollegeType, CollegeBond } from "./college";
 
 export type SafeRiskTag = "safe" | "risky" | "moderate";
 
@@ -17,6 +17,7 @@ export interface CollegeSummary {
   quotaInfo: string;
   roiScore: number;
   safetyTag: SafeRiskTag;
+  bond: CollegeBond;
 }
 
 export interface ListingPagination {

@@ -29,12 +29,13 @@ export function toCollegeSummary(record: CollegeRecord): CollegeSummary {
     collegeType: record.collegeType,
     totalAnnualFee: record.fees.totalAnnual,
     totalCourseFee: record.fees.totalCourse,
-    latestCutoffRank: latest.rank,
+    latestCutoffRank: latest.closingRank,
     latestCutoffYear: latest.year,
     seatCount: record.seatCount,
     quotaInfo: record.quotaInfo,
     roiScore: record.roiScore,
-    safetyTag: deriveSafetyTag(latest.rank),
+    safetyTag: deriveSafetyTag(latest.closingRank),
+    bond: record.bond,
   };
 }
 
@@ -45,7 +46,7 @@ export function toCollegeDetail(record: CollegeRecord): CollegeDetailViewModel {
     stateName: getStateName(record.stateSlug),
     totalAnnualFee: record.fees.totalAnnual,
     totalCourseFee: record.fees.totalCourse,
-    latestCutoffRank: latest.rank,
+    latestCutoffRank: latest.closingRank,
     latestCutoffYear: latest.year,
   };
 }

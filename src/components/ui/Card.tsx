@@ -21,10 +21,9 @@ export function Card({
   return (
     <Component
       className={cn(
-        "rounded-[var(--radius-lg)] bg-surface-elevated transition-shadow",
+        "rounded-lg bg-surface-elevated shadow-level-1 transition-shadow",
         padded && "p-5 md:p-6",
         bordered && "border border-border",
-        elevated ? "shadow-[var(--shadow-md)]" : "shadow-[var(--shadow-sm)]",
         className
       )}
       {...rest}

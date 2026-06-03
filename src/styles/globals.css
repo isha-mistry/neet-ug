@@ -24,7 +24,7 @@
   --color-inverse-surface: #2e3132;
   --color-inverse-on-surface: #f0f1f3;
   --color-outline: #737685;
-  --color-outline-variant: #c3c6d6;
+  --color-outline-variant: #e1e4e8;
   --color-surface-tint: #0c56d0;
   --color-primary: #003d9b;
   --color-on-primary: #ffffff;
@@ -139,6 +139,10 @@
   --color-border: var(--color-outline-variant);
   --color-border-strong: var(--color-outline);
 
+  /* Shadows (Depth & Elevation) */
+  --shadow-level-1: 0 4px 12px 0 rgba(25, 28, 30, 0.1);
+  --shadow-level-2: 0 8px 24px 0 rgba(25, 28, 30, 0.15);
+
   /* Spacing */
   --spacing-base: 8px;
   --spacing-gutter: 24px;
@@ -149,10 +153,11 @@
   --spacing-margin-desktop: 64px;
   --spacing-container-max: 1280px;
 
-  /* Radius */
+  /* Radius (Shape Language) */
   --radius-sm: 0.25rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
+  --radius: 0.5rem;
+  --radius-md: 0.5rem; /* Standard components like input fields & buttons use 8px */
+  --radius-lg: 1rem;   /* Larger containers like college cards use 16px */
   --radius-xl: 1.5rem;
   --radius-full: 9999px;
   --radius-pill: 9999px;
@@ -205,3 +210,713 @@ body {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   vertical-align: middle;
 }
+
+/* ============================================================
+   Clear Path Medical Premium Custom Classes
+   ============================================================ */
+
+/* Soft Card Depth & Interactive Hover States */
+.shadow-level-1 {
+  box-shadow: var(--shadow-level-1);
+}
+
+.shadow-level-1:hover {
+  box-shadow: var(--shadow-level-2);
+  transform: translateY(-2px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Temporary UI Depth (Dropdowns, Overlays, Floating Menus) */
+.shadow-level-2 {
+  box-shadow: var(--shadow-level-2);
+}
+
+/* Custom premium scrollbar removal for horizontal tab navigators */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Cut-off Chip: Light Blue Background, Deep Institutional Blue Text */
+.ms-cutoff-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-fixed);
+  color: var(--color-on-primary-fixed-variant);
+  border: 1px solid rgba(0, 61, 155, 0.08);
+}
+
+/* Smooth premium tab/view transition animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ============================================================
+   Clear Path Medical Premium Custom Components
+   ============================================================ */
+
+/* Premium section headers */
+.ms-section-header {
+  display: flex;
+  align-items: center;
+  border-left-width: 4px;
+  padding-left: 1rem;
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+
+.ms-section-header-brand {
+  border-color: var(--color-brand-500);
+}
+
+.ms-section-header-indigo {
+  border-color: #6366f1;
+}
+
+.ms-section-header-emerald {
+  border-color: #10b981;
+}
+
+.ms-section-header-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #1e293b;
+  line-height: 1.625;
+}
+
+@media (min-width: 768px) {
+  .ms-section-header-title {
+    font-size: 1.5rem;
+  }
+}
+
+.ms-section-header-description {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Category dropdown container and styling */
+.ms-dropdown-container {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+}
+
+.ms-dropdown-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  padding: 0.5rem 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.ms-dropdown-wrapper:hover {
+  border-color: var(--color-brand-500);
+  box-shadow: var(--shadow-level-1);
+}
+
+.ms-dropdown-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.ms-dropdown-select {
+  appearance: none;
+  background-color: transparent;
+  padding-right: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-brand-600);
+  cursor: pointer;
+  border: none;
+}
+
+.ms-dropdown-select:focus {
+  outline: none;
+}
+
+.ms-dropdown-icon {
+  position: absolute;
+  right: 0.875rem;
+  pointer-events: none;
+  color: var(--color-brand-600);
+  height: 1rem;
+  width: 1rem;
+}
+
+/* Custom table styling for admissions & cutoffs */
+.ms-table-container {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.ms-table {
+  width: 100%;
+  min-width: 700px;
+  text-align: left;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.ms-table-header-tr {
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface-container-low);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.ms-table-th {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+}
+
+.ms-table-th-right {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+.ms-table-row {
+  border-bottom: 1px solid rgba(115, 118, 133, 0.15);
+  transition: background-color 0.2s;
+}
+
+.ms-table-row:last-child {
+  border-bottom: none;
+}
+
+.ms-table-row:hover {
+  background-color: var(--color-surface-container-lowest);
+}
+
+.ms-table-row-latest {
+  background-color: rgba(0, 61, 155, 0.035);
+}
+
+.ms-table-td {
+  padding: 0.875rem 1rem;
+}
+
+.ms-table-td-bold-link {
+  font-weight: 700;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.ms-table-td-bold-link:hover {
+  text-decoration: underline;
+}
+
+.ms-table-td-bold-brand {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.ms-table-td-semibold {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.ms-table-td-right {
+  text-align: right;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.ms-table-td-right-bold {
+  text-align: right;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+/* Fees and Bond layout components */
+.ms-fees-grid {
+  display: grid;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+@media (min-width: 1024px) {
+  .ms-fees-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ms-fees-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-elevated);
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+}
+
+@media (min-width: 1024px) {
+  .ms-fees-card {
+    grid-column: span 2 / span 2;
+  }
+}
+
+.ms-bond-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--color-surface-elevated);
+  min-height: 360px;
+}
+
+@media (min-width: 1024px) {
+  .ms-bond-card {
+    grid-column: span 1 / span 1;
+  }
+}
+
+.ms-card-header-premium {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(115, 118, 133, 0.15);
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.ms-card-header-icon-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ms-card-header-title {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1.125rem;
+}
+
+.ms-card-header-title-sm {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+.ms-academic-badge {
+  font-size: 0.75rem;
+  background-color: #f1f5f9;
+  color: #334155;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.ms-fees-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.ms-fees-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ms-fees-row-bordered {
+  border-top: 1px solid rgba(115, 118, 133, 0.1);
+  padding-top: 0.875rem;
+}
+
+.ms-fees-value {
+  font-weight: 800;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+.ms-bond-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 0.25rem;
+}
+
+.ms-bond-label-tiny {
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+}
+
+.ms-bond-badge-service {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.75rem;
+  border-width: 1px;
+  font-size: 0.875rem;
+  font-weight: 800;
+  align-self: flex-start;
+}
+
+.ms-bond-badge-service-yes {
+  background-color: rgba(224, 231, 255, 0.8);
+  color: #4338ca;
+  border-color: #e0e7ff;
+}
+
+.ms-bond-badge-service-no {
+  background-color: rgba(209, 250, 229, 0.8);
+  color: #047857;
+  border-color: #d1fae5;
+}
+
+.ms-bond-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  border-top: 1px solid rgba(115, 118, 133, 0.1);
+  padding-top: 1rem;
+}
+
+.ms-bond-stat-val {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #1e293b;
+}
+
+.ms-bond-stat-val-mono {
+  font-family: monospace;
+}
+
+.ms-bond-note-box {
+  margin-top: 1.5rem;
+  background-color: rgba(248, 250, 252, 0.8);
+  padding: 0.875rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(115, 118, 133, 0.15);
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  line-height: 1.625;
+}
+
+/* College Detail Header */
+.ms-detail-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-elevated);
+  overflow: hidden;
+  box-shadow: var(--shadow-level-1);
+  min-height: 160px;
+}
+
+@media (min-width: 768px) {
+  .ms-detail-header {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+.ms-detail-header-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 12rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .ms-detail-header-img-wrapper {
+    width: 15rem;
+    height: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ms-detail-header-img-wrapper {
+    width: 18rem;
+  }
+}
+
+.ms-detail-header-info {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .ms-detail-header-info {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.ms-detail-header-title {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #1e293b;
+  line-height: 1.3;
+  font-size: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .ms-detail-header-title {
+    font-size: 1.875rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ms-detail-header-title {
+    font-size: 2.25rem;
+  }
+}
+
+.ms-detail-header-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .ms-detail-header-meta {
+    font-size: 1rem;
+  }
+}
+
+.ms-detail-header-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.ms-detail-header-seats-col {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  background-color: rgba(243, 244, 246, 0.1);
+  min-width: 140px;
+}
+
+@media (min-width: 768px) {
+  .ms-detail-header-seats-col {
+    flex-direction: column;
+    justify-content: center;
+    border-top: none;
+    border-left: 1px solid var(--color-border);
+    gap: 0.5rem;
+  }
+}
+
+.ms-detail-header-seats-title {
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+
+.ms-detail-header-seats-value-container {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.ms-detail-header-seats-val {
+  font-size: 1.875rem;
+  font-weight: 900;
+  color: var(--color-brand-600);
+  line-height: 1;
+}
+
+.ms-detail-header-seats-lbl {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.ms-detail-header-actions-col {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface-container-low);
+  min-width: 210px;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .ms-detail-header-actions-col {
+    flex-direction: column;
+    border-top: none;
+    border-left: 1px solid var(--color-border);
+  }
+}
+
+/* Seat Matrix Components */
+.ms-seat-matrix-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .ms-seat-matrix-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ms-chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: rgba(248, 249, 251, 0.4);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(115, 118, 133, 0.1);
+  min-height: 220px;
+}
+
+.ms-matrix-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.75rem;
+}
+
+.ms-matrix-card-header-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.75rem;
+}
+
+.ms-progress-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  border-radius: 0.75rem;
+  background-color: var(--color-surface);
+  padding: 0.875rem;
+  border: 1px solid rgba(115, 118, 133, 0.15);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+.ms-progress-card:hover {
+  border-color: var(--color-brand-300);
+}
+
+.ms-progress-card-category:hover {
+  border-color: var(--color-brand-200);
+}
+
+.ms-progress-card-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ms-progress-card-label-container {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.ms-progress-dot {
+  height: 0.625rem;
+  width: 0.625rem;
+  border-radius: 9999px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.ms-progress-card-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.ms-progress-card-label-tiny {
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.ms-progress-card-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #334155;
+  background-color: rgba(241, 245, 249, 0.8);
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.ms-progress-bar-track {
+  height: 0.375rem;
+  width: 100%;
+  background-color: #f1f5f9;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.ms-progress-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: all 0.5s ease-out;
+}
+
+

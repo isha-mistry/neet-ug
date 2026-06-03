@@ -8,12 +8,28 @@ export interface CollegeFees {
   misc: number;
   totalAnnual: number;
   totalCourse: number;
+  gqFees?: number;
+  mqFees?: number;
+  nriFees?: number;
+  nriCurrency?: string;
+  hostelFees?: number;
+  messFees?: number;
+  universityFees?: number;
+  transportFees?: number;
+  examFees?: number;
 }
 
 export interface CollegeCutoff {
   year: number;
-  rank: number;
+  round: string;
+  category: string;
   quota: string;
+  openingRank: number;
+  closingRank: number;
+  stateOpeningRank?: number;
+  stateClosingRank?: number;
+  categoryOpeningRank?: string;
+  categoryClosingRank?: string;
 }
 
 export interface CollegeBond {
@@ -22,30 +38,33 @@ export interface CollegeBond {
   note?: string;
 }
 
-export interface CollegeInfrastructure {
-  beds: number;
-  patientFlowPerDay: number;
-  facilities: string[];
+export interface CollegeSeatMatrix {
+  aiq: number;
+  stateQuota: number;
+  management: number;
+  nri: number;
+  categoryDistribution: Record<string, number>;
 }
 
-export interface CollegeReviews {
-  pros: string[];
-  cons: string[];
+export interface CollegeOtherInfo {
+  officialWebsite: string;
+  counsellingBrochureUrl?: string;
 }
 
 export interface CollegeRecord {
   slug: Slug;
   name: string;
+  university: string;
   stateSlug: Slug;
   city: string;
   collegeType: CollegeType;
   seatCount: number;
   quotaInfo: string;
   fees: CollegeFees;
+  seatMatrix: CollegeSeatMatrix;
   cutoffs: CollegeCutoff[];
   bond: CollegeBond;
-  infrastructure: CollegeInfrastructure;
-  reviews: CollegeReviews;
+  otherInfo: CollegeOtherInfo;
   roiScore: number;
 }
 

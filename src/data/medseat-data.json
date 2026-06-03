@@ -1,3 +1,4 @@
+
 {
   "site": {
     "brandName": "MedSeat",
@@ -879,28 +880,147 @@
       "cutoffs": [
         {
           "year": 2025,
-          "rank": 56,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 39,
+          "closingRank": 56,
+          "stateOpeningRank": 512,
+          "stateClosingRank": 4460,
+          "categoryOpeningRank": "OP-39",
+          "categoryClosingRank": "OP-56"
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 50,
+          "closingRank": 67,
+          "stateOpeningRank": 5521,
+          "stateClosingRank": 6079,
+          "categoryOpeningRank": "OBC-291",
+          "categoryClosingRank": "OBC-341"
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 56,
+          "closingRank": 61,
+          "stateOpeningRank": 2976,
+          "stateClosingRank": 4758,
+          "categoryOpeningRank": "OP-56",
+          "categoryClosingRank": "OP-61"
         },
         {
           "year": 2024,
-          "rank": 62,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 43,
+          "closingRank": 62,
+          "stateOpeningRank": 4914,
+          "stateClosingRank": 5773,
+          "categoryOpeningRank": "OP-43",
+          "categoryClosingRank": "OP-62"
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 55,
+          "closingRank": 74,
+          "stateOpeningRank": 5432,
+          "stateClosingRank": 6385,
+          "categoryOpeningRank": "OBC-285",
+          "categoryClosingRank": "OBC-365"
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 62,
+          "closingRank": 68,
+          "stateOpeningRank": 5564,
+          "stateClosingRank": 7132,
+          "categoryOpeningRank": "OP-62",
+          "categoryClosingRank": "OP-68"
         },
         {
           "year": 2023,
-          "rank": 75,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 52,
+          "closingRank": 75
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 67,
+          "closingRank": 90
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 75,
+          "closingRank": 82
         },
         {
           "year": 2022,
-          "rank": 80,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 56,
+          "closingRank": 80
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 72,
+          "closingRank": 96
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 80,
+          "closingRank": 88
         },
         {
           "year": 2021,
-          "rank": 70,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 49,
+          "closingRank": 70
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 63,
+          "closingRank": 84
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 70,
+          "closingRank": 77
         }
       ],
       "bond": {
@@ -908,27 +1028,25 @@
         "penalty": 0,
         "note": "No mandatory bond."
       },
-      "infrastructure": {
-        "beds": 2478,
-        "patientFlowPerDay": 10000,
-        "facilities": [
-          "Trauma Centre",
-          "Cancer Centre",
-          "Cardiology Centre"
-        ]
+      "roiScore": 98,
+      "university": "Delhi University",
+      "seatMatrix": {
+        "aiq": 132,
+        "stateQuota": 0,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 53,
+          "OBC": 36,
+          "SC": 20,
+          "ST": 10,
+          "EWS": 13
+        }
       },
-      "reviews": {
-        "pros": [
-          "Best clinical exposure in India",
-          "Negligible fees",
-          "Top research opportunities"
-        ],
-        "cons": [
-          "Extremely high cutoff",
-          "Limited seats"
-        ]
-      },
-      "roiScore": 98
+      "otherInfo": {
+        "officialWebsite": "https://www.aiims-delhi.edu.in",
+        "counsellingBrochureUrl": "https://www.aiims-delhi.edu.in/brochure.pdf"
+      }
     },
     {
       "slug": "maulana-azad-medical-college",
@@ -939,37 +1057,141 @@
       "seatCount": 250,
       "quotaInfo": "AIQ 15% / State 85%",
       "fees": {
-        "tuition": 9690,
-        "hostel": 18000,
-        "misc": 5000,
-        "totalAnnual": 32690,
-        "totalCourse": 163450
+        "tuition": 25000,
+        "hostel": 1200,
+        "misc": 1325,
+        "totalAnnual": 27400,
+        "totalCourse": 123300,
+        "gqFees": 25000,
+        "mqFees": 0,
+        "nriFees": 0,
+        "nriCurrency": "Rs.",
+        "hostelFees": 1200,
+        "messFees": 0,
+        "universityFees": 125,
+        "transportFees": 0,
+        "examFees": 1200
       },
       "cutoffs": [
         {
           "year": 2025,
-          "rank": 168,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 117,
+          "closingRank": 168
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 151,
+          "closingRank": 201
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 168,
+          "closingRank": 184
         },
         {
           "year": 2024,
-          "rank": 180,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 125,
+          "closingRank": 180
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 162,
+          "closingRank": 216
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 180,
+          "closingRank": 198
         },
         {
           "year": 2023,
-          "rank": 195,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 136,
+          "closingRank": 195
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 175,
+          "closingRank": 234
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 195,
+          "closingRank": 214
         },
         {
           "year": 2022,
-          "rank": 210,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 147,
+          "closingRank": 210
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 189,
+          "closingRank": 252
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 210,
+          "closingRank": 231
         },
         {
           "year": 2021,
-          "rank": 199,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 139,
+          "closingRank": 199
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 179,
+          "closingRank": 238
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 199,
+          "closingRank": 218
         }
       ],
       "bond": {
@@ -977,26 +1199,24 @@
         "penalty": 500000,
         "note": "Service bond for state quota seats."
       },
-      "infrastructure": {
-        "beds": 2854,
-        "patientFlowPerDay": 8500,
-        "facilities": [
-          "Lok Nayak Hospital",
-          "Guru Nanak Eye Centre"
-        ]
+      "roiScore": 95,
+      "university": "Delhi University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
       },
-      "reviews": {
-        "pros": [
-          "Excellent clinical exposure",
-          "Heritage college",
-          "Affordable fees"
-        ],
-        "cons": [
-          "High cutoff",
-          "Hostel demand exceeds supply"
-        ]
-      },
-      "roiScore": 95
+      "otherInfo": {
+        "officialWebsite": "https://www.maulana-azad-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.maulana-azad-medical-college.edu.in/brochure.pdf"
+      }
     },
     {
       "slug": "grant-medical-college",
@@ -1007,37 +1227,141 @@
       "seatCount": 250,
       "quotaInfo": "AIQ 15% / State 85%",
       "fees": {
-        "tuition": 81000,
-        "hostel": 25000,
-        "misc": 8000,
-        "totalAnnual": 114000,
-        "totalCourse": 570000
+        "tuition": 25000,
+        "hostel": 10000,
+        "misc": 4525,
+        "totalAnnual": 39525,
+        "totalCourse": 177862,
+        "gqFees": 25000,
+        "mqFees": 0,
+        "nriFees": 0,
+        "nriCurrency": "Rs.",
+        "hostelFees": 10000,
+        "messFees": 0,
+        "universityFees": 4525,
+        "transportFees": 0,
+        "examFees": 0
       },
       "cutoffs": [
         {
           "year": 2025,
-          "rank": 1450,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1014,
+          "closingRank": 1450
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1305,
+          "closingRank": 1740
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1450,
+          "closingRank": 1595
         },
         {
           "year": 2024,
-          "rank": 1620,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1134,
+          "closingRank": 1620
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1458,
+          "closingRank": 1944
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1620,
+          "closingRank": 1782
         },
         {
           "year": 2023,
-          "rank": 1480,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1036,
+          "closingRank": 1480
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1332,
+          "closingRank": 1776
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1480,
+          "closingRank": 1628
         },
         {
           "year": 2022,
-          "rank": 1700,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1190,
+          "closingRank": 1700
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1530,
+          "closingRank": 2040
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1700,
+          "closingRank": 1870
         },
         {
           "year": 2021,
-          "rank": 1580,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1106,
+          "closingRank": 1580
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1422,
+          "closingRank": 1896
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1580,
+          "closingRank": 1738
         }
       ],
       "bond": {
@@ -1045,26 +1369,24 @@
         "penalty": 1000000,
         "note": "Maharashtra government bond."
       },
-      "infrastructure": {
-        "beds": 1380,
-        "patientFlowPerDay": 6000,
-        "facilities": [
-          "JJ Hospital",
-          "Trauma Wing"
-        ]
+      "roiScore": 89,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
       },
-      "reviews": {
-        "pros": [
-          "Strong clinical learning at JJ Hospital",
-          "Affordable fees",
-          "Mumbai metro"
-        ],
-        "cons": [
-          "Hostel infrastructure dated",
-          "Crowded OPDs"
-        ]
-      },
-      "roiScore": 89
+      "otherInfo": {
+        "officialWebsite": "https://www.grant-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.grant-medical-college.edu.in/brochure.pdf"
+      }
     },
     {
       "slug": "bj-medical-college-pune",
@@ -1084,28 +1406,123 @@
       "cutoffs": [
         {
           "year": 2025,
-          "rank": 2010,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1407,
+          "closingRank": 2010
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1809,
+          "closingRank": 2412
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2010,
+          "closingRank": 2211
         },
         {
           "year": 2024,
-          "rank": 2150,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1505,
+          "closingRank": 2150
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1935,
+          "closingRank": 2580
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2150,
+          "closingRank": 2365
         },
         {
           "year": 2023,
-          "rank": 2280,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1596,
+          "closingRank": 2280
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 2052,
+          "closingRank": 2736
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2280,
+          "closingRank": 2508
         },
         {
           "year": 2022,
-          "rank": 2400,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1680,
+          "closingRank": 2400
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 2160,
+          "closingRank": 2880
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2400,
+          "closingRank": 2640
         },
         {
           "year": 2021,
-          "rank": 2160,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1512,
+          "closingRank": 2160
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1944,
+          "closingRank": 2592
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2160,
+          "closingRank": 2376
         }
       ],
       "bond": {
@@ -1113,25 +1530,24 @@
         "penalty": 1000000,
         "note": "Maharashtra government bond."
       },
-      "infrastructure": {
-        "beds": 1700,
-        "patientFlowPerDay": 7500,
-        "facilities": [
-          "Sassoon Hospital"
-        ]
+      "roiScore": 87,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 30,
+        "stateQuota": 170,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 80,
+          "OBC": 54,
+          "SC": 30,
+          "ST": 15
+        }
       },
-      "reviews": {
-        "pros": [
-          "Massive patient inflow",
-          "Reputed government institution",
-          "Pune location"
-        ],
-        "cons": [
-          "Crowded hostel",
-          "High-load clinical rotations"
-        ]
-      },
-      "roiScore": 87
+      "otherInfo": {
+        "officialWebsite": "https://www.bj-medical-college-pune.edu.in",
+        "counsellingBrochureUrl": "https://www.bj-medical-college-pune.edu.in/brochure.pdf"
+      }
     },
     {
       "slug": "kasturba-medical-college-manipal",
@@ -1144,35 +1560,139 @@
       "fees": {
         "tuition": 1450000,
         "hostel": 180000,
-        "misc": 60000,
-        "totalAnnual": 1690000,
-        "totalCourse": 8450000
+        "misc": 90000,
+        "totalAnnual": 1730000,
+        "totalCourse": 7785000,
+        "gqFees": 1450000,
+        "mqFees": 1780000,
+        "nriFees": 49000,
+        "nriCurrency": "USD",
+        "hostelFees": 180000,
+        "messFees": 60000,
+        "universityFees": 15000,
+        "transportFees": 10000,
+        "examFees": 5000
       },
       "cutoffs": [
         {
           "year": 2025,
-          "rank": 19500,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 13650,
+          "closingRank": 19500
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 17550,
+          "closingRank": 23400
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 19500,
+          "closingRank": 21450
         },
         {
           "year": 2024,
-          "rank": 21000,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 14699,
+          "closingRank": 21000
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 18900,
+          "closingRank": 25200
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 21000,
+          "closingRank": 23100
         },
         {
           "year": 2023,
-          "rank": 22500,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 15749,
+          "closingRank": 22500
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 20250,
+          "closingRank": 27000
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 22500,
+          "closingRank": 24750
         },
         {
           "year": 2022,
-          "rank": 24000,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 16800,
+          "closingRank": 24000
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 21600,
+          "closingRank": 28800
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 24000,
+          "closingRank": 26400
         },
         {
           "year": 2021,
-          "rank": 23000,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 16099,
+          "closingRank": 23000
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 20700,
+          "closingRank": 27600
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 23000,
+          "closingRank": 25300
         }
       ],
       "bond": {
@@ -1180,26 +1700,24 @@
         "penalty": 0,
         "note": "No mandatory bond."
       },
-      "infrastructure": {
-        "beds": 2032,
-        "patientFlowPerDay": 4500,
-        "facilities": [
-          "KMC Hospital",
-          "Multi-specialty Centre"
-        ]
+      "roiScore": 78,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
       },
-      "reviews": {
-        "pros": [
-          "Strong global reputation",
-          "Excellent infrastructure",
-          "Diverse student community"
-        ],
-        "cons": [
-          "High fees",
-          "Remote location"
-        ]
-      },
-      "roiScore": 78
+      "otherInfo": {
+        "officialWebsite": "https://www.kasturba-medical-college-manipal.edu.in",
+        "counsellingBrochureUrl": "https://www.kasturba-medical-college-manipal.edu.in/brochure.pdf"
+      }
     },
     {
       "slug": "bangalore-medical-college",
@@ -1219,28 +1737,123 @@
       "cutoffs": [
         {
           "year": 2025,
-          "rank": 1980,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1386,
+          "closingRank": 1980
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1782,
+          "closingRank": 2376
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1980,
+          "closingRank": 2178
         },
         {
           "year": 2024,
-          "rank": 2100,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1470,
+          "closingRank": 2100
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1890,
+          "closingRank": 2520
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2100,
+          "closingRank": 2310
         },
         {
           "year": 2023,
-          "rank": 2220,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1554,
+          "closingRank": 2220
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1998,
+          "closingRank": 2664
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2220,
+          "closingRank": 2442
         },
         {
           "year": 2022,
-          "rank": 2350,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1645,
+          "closingRank": 2350
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 2115,
+          "closingRank": 2820
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2350,
+          "closingRank": 2585
         },
         {
           "year": 2021,
-          "rank": 2080,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1456,
+          "closingRank": 2080
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1872,
+          "closingRank": 2496
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2080,
+          "closingRank": 2288
         }
       ],
       "bond": {
@@ -1248,26 +1861,24 @@
         "penalty": 1500000,
         "note": "Karnataka rural service bond."
       },
-      "infrastructure": {
-        "beds": 1500,
-        "patientFlowPerDay": 6500,
-        "facilities": [
-          "Victoria Hospital",
-          "Vani Vilas Hospital"
-        ]
+      "roiScore": 88,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
       },
-      "reviews": {
-        "pros": [
-          "Bengaluru city advantage",
-          "Reputed government college",
-          "Affordable"
-        ],
-        "cons": [
-          "Service bond",
-          "High demand for hostel"
-        ]
-      },
-      "roiScore": 88
+      "otherInfo": {
+        "officialWebsite": "https://www.bangalore-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.bangalore-medical-college.edu.in/brochure.pdf"
+      }
     },
     {
       "slug": "madras-medical-college",
@@ -1287,28 +1898,123 @@
       "cutoffs": [
         {
           "year": 2025,
-          "rank": 920,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 644,
+          "closingRank": 920
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 828,
+          "closingRank": 1104
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 920,
+          "closingRank": 1012
         },
         {
           "year": 2024,
-          "rank": 980,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 686,
+          "closingRank": 980
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 882,
+          "closingRank": 1176
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 980,
+          "closingRank": 1078
         },
         {
           "year": 2023,
-          "rank": 1100,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 770,
+          "closingRank": 1100
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 990,
+          "closingRank": 1320
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1100,
+          "closingRank": 1210
         },
         {
           "year": 2022,
-          "rank": 1200,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 840,
+          "closingRank": 1200
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1080,
+          "closingRank": 1440
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1200,
+          "closingRank": 1320
         },
         {
           "year": 2021,
-          "rank": 1050,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 735,
+          "closingRank": 1050
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 945,
+          "closingRank": 1260
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1050,
+          "closingRank": 1155
         }
       ],
       "bond": {
@@ -1316,25 +2022,24 @@
         "penalty": 1000000,
         "note": "Tamil Nadu service bond."
       },
-      "infrastructure": {
-        "beds": 2944,
-        "patientFlowPerDay": 9000,
-        "facilities": [
-          "Rajiv Gandhi Govt. General Hospital"
-        ]
+      "roiScore": 92,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
       },
-      "reviews": {
-        "pros": [
-          "Top-tier patient inflow",
-          "Heritage college",
-          "Negligible fees"
-        ],
-        "cons": [
-          "Bond commitment",
-          "Crowded campus"
-        ]
-      },
-      "roiScore": 92
+      "otherInfo": {
+        "officialWebsite": "https://www.madras-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.madras-medical-college.edu.in/brochure.pdf"
+      }
     },
     {
       "slug": "stanley-medical-college",
@@ -1354,28 +2059,123 @@
       "cutoffs": [
         {
           "year": 2025,
-          "rank": 1320,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 923,
+          "closingRank": 1320
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1188,
+          "closingRank": 1584
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1320,
+          "closingRank": 1452
         },
         {
           "year": 2024,
-          "rank": 1450,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1014,
+          "closingRank": 1450
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1305,
+          "closingRank": 1740
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1450,
+          "closingRank": 1595
         },
         {
           "year": 2023,
-          "rank": 1500,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1050,
+          "closingRank": 1500
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1350,
+          "closingRank": 1800
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1500,
+          "closingRank": 1650
         },
         {
           "year": 2022,
-          "rank": 1620,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1134,
+          "closingRank": 1620
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1458,
+          "closingRank": 1944
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1620,
+          "closingRank": 1782
         },
         {
           "year": 2021,
-          "rank": 1380,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 965,
+          "closingRank": 1380
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1242,
+          "closingRank": 1656
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1380,
+          "closingRank": 1518
         }
       ],
       "bond": {
@@ -1383,25 +2183,24 @@
         "penalty": 1000000,
         "note": "Tamil Nadu service bond."
       },
-      "infrastructure": {
-        "beds": 1320,
-        "patientFlowPerDay": 5500,
-        "facilities": [
-          "Stanley Hospital"
-        ]
+      "roiScore": 86,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
       },
-      "reviews": {
-        "pros": [
-          "Strong clinical exposure",
-          "Renowned plastic surgery dept.",
-          "Low fees"
-        ],
-        "cons": [
-          "Bond commitment",
-          "Crowded wards"
-        ]
-      },
-      "roiScore": 86
+      "otherInfo": {
+        "officialWebsite": "https://www.stanley-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.stanley-medical-college.edu.in/brochure.pdf"
+      }
     },
     {
       "slug": "dy-patil-medical-college",
@@ -1421,28 +2220,123 @@
       "cutoffs": [
         {
           "year": 2025,
-          "rank": 56000,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 39200,
+          "closingRank": 56000
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 50400,
+          "closingRank": 67200
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 56000,
+          "closingRank": 61600
         },
         {
           "year": 2024,
-          "rank": 60000,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 42000,
+          "closingRank": 60000
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 54000,
+          "closingRank": 72000
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 60000,
+          "closingRank": 66000
         },
         {
           "year": 2023,
-          "rank": 62000,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 43400,
+          "closingRank": 62000
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 55800,
+          "closingRank": 74400
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 62000,
+          "closingRank": 68200
         },
         {
           "year": 2022,
-          "rank": 65000,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 45500,
+          "closingRank": 65000
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 58500,
+          "closingRank": 78000
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 65000,
+          "closingRank": 71500
         },
         {
           "year": 2021,
-          "rank": 63000,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 44100,
+          "closingRank": 63000
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 56700,
+          "closingRank": 75600
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 63000,
+          "closingRank": 69300
         }
       ],
       "bond": {
@@ -1450,25 +2344,24 @@
         "penalty": 0,
         "note": "No mandatory bond."
       },
-      "infrastructure": {
-        "beds": 1800,
-        "patientFlowPerDay": 3500,
-        "facilities": [
-          "Multi-specialty Hospital"
-        ]
+      "roiScore": 62,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
       },
-      "reviews": {
-        "pros": [
-          "Modern campus",
-          "No bond",
-          "Wide PG options"
-        ],
-        "cons": [
-          "High fees",
-          "Variable clinical exposure"
-        ]
-      },
-      "roiScore": 62
+      "otherInfo": {
+        "officialWebsite": "https://www.dy-patil-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.dy-patil-medical-college.edu.in/brochure.pdf"
+      }
     },
     {
       "slug": "aiims-bhopal",
@@ -1488,28 +2381,123 @@
       "cutoffs": [
         {
           "year": 2025,
-          "rank": 1180,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 826,
+          "closingRank": 1180
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1062,
+          "closingRank": 1416
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1180,
+          "closingRank": 1298
         },
         {
           "year": 2024,
-          "rank": 1280,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 896,
+          "closingRank": 1280
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1152,
+          "closingRank": 1536
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1280,
+          "closingRank": 1408
         },
         {
           "year": 2023,
-          "rank": 1310,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 916,
+          "closingRank": 1310
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1179,
+          "closingRank": 1572
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1310,
+          "closingRank": 1441
         },
         {
           "year": 2022,
-          "rank": 1380,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 965,
+          "closingRank": 1380
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1242,
+          "closingRank": 1656
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1380,
+          "closingRank": 1518
         },
         {
           "year": 2021,
-          "rank": 1220,
-          "quota": "AIQ"
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 854,
+          "closingRank": 1220
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1098,
+          "closingRank": 1464
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1220,
+          "closingRank": 1342
         }
       ],
       "bond": {
@@ -1517,25 +2505,24 @@
         "penalty": 0,
         "note": "No mandatory bond."
       },
-      "infrastructure": {
-        "beds": 960,
-        "patientFlowPerDay": 4500,
-        "facilities": [
-          "AIIMS Multi-specialty Centre"
-        ]
+      "roiScore": 93,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 18,
+        "stateQuota": 106,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 50,
+          "OBC": 33,
+          "SC": 18,
+          "ST": 9
+        }
       },
-      "reviews": {
-        "pros": [
-          "AIIMS brand",
-          "No bond",
-          "Negligible fees"
-        ],
-        "cons": [
-          "Newer institute",
-          "Developing infrastructure"
-        ]
-      },
-      "roiScore": 93
+      "otherInfo": {
+        "officialWebsite": "https://www.aiims-bhopal.edu.in",
+        "counsellingBrochureUrl": "https://www.aiims-bhopal.edu.in/brochure.pdf"
+      }
     }
   ]
 }
