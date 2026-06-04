@@ -30,9 +30,9 @@ export function CollegeDetailHeader({
   seatCount,
 }: CollegeDetailHeaderProps) {
   return (
-    <header className="ms-detail-header">
+    <header className="flex flex-col md:flex-row md:items-stretch justify-between rounded-3xl border border-border bg-surface-container-lowest overflow-hidden shadow-xs min-h-[160px]">
       {/* 1. Left-most Column: Flush Image (No padding, occupies full height on desktop) */}
-      <div className="ms-detail-header-img-wrapper">
+      <div className="relative w-full md:w-60 lg:w-80 shrink-0 overflow-hidden">
         <Image
           src="/brand/college_building.png"
           alt={`${name} Campus`}
@@ -44,24 +44,24 @@ export function CollegeDetailHeader({
       </div>
 
       {/* 2. Middle Column: College Details (Spaced beautifully with refined typography) */}
-      <div className="ms-detail-header-info">
+      <div className="flex-1 flex flex-col justify-center gap-2 p-6 md:px-8">
         <div>
           <CollegeTypeBadge type={collegeType} />
         </div>
         
         {/* Lighter, extremely premium gray and bold font weight */}
-        <h1 className="ms-detail-header-title">
+        <div className="font-semibold text-2xl md:text-3xl lg:text-4xl text-text leading-tight tracking-tight">
           {name}
-        </h1>
+        </div>
         
-        <div className="ms-detail-header-meta">
+        <div className="flex flex-col gap-1.5 mt-1 text-sm md:text-base text-text-secondary font-medium">
           <p className="inline-flex items-center gap-1.5">
-            <FiMapPin style={{ color: "var(--color-primary)" }} aria-hidden="true" />
+            <FiMapPin className="text-primary" aria-hidden="true" />
             <span>{city}, {stateName}</span>
           </p>
-          <div className="ms-detail-header-meta-row">
+          <div className="flex items-center gap-4 flex-wrap text-xs text-text-muted">
             <p>
-              Quota Seats: <span className="font-bold" style={{ color: "var(--color-brand-700)" }}>{quotaInfo}</span>
+              Quota Seats: <span className="font-bold text-brand-700">{quotaInfo}</span>
             </p>
             {bond && (
               <div className="flex items-center gap-2 border-l border-border pl-4">
@@ -74,18 +74,18 @@ export function CollegeDetailHeader({
       </div>
 
       {/* 3. Seats Column: College seats data shown on the left side of the right-hand area */}
-      <div className="ms-detail-header-seats-col">
-        <span className="ms-detail-header-seats-title">Total Intake</span>
-        <div className="ms-detail-header-seats-value-container">
-          <span className="ms-detail-header-seats-val">
+      <div className="flex flex-row md:flex-col justify-between md:justify-center items-center md:items-start p-6 border-t md:border-t-0 md:border-l border-border bg-surface-container-low/10 min-w-[140px] gap-2">
+        <span className="text-[10px] font-black uppercase tracking-wider text-text-muted">Total Intake</span>
+        <div className="flex items-baseline gap-1">
+          <span className="text-3xl font-black text-brand-600 leading-none">
             {formatNumber(seatCount)}
           </span>
-          <span className="ms-detail-header-seats-lbl">Seats</span>
+          <span className="text-xs font-bold text-text-secondary">Seats</span>
         </div>
       </div>
 
       {/* 4. Right-most Column: Action Buttons */}
-      <div className="ms-detail-header-actions-col">
+      <div className="flex flex-row md:flex-col gap-3 p-6 border-t md:border-t-0 md:border-l border-border bg-surface-container-low min-w-[210px] justify-center">
         <Button
           as="link"
           href={officialWebsite || ""}

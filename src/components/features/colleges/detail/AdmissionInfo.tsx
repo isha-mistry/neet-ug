@@ -11,6 +11,7 @@ import {
   matchesSelectedCategory,
 } from "@/lib/colleges/categories";
 import { DetailSectionHeader } from "@/components/features/colleges/shared/DetailSectionHeader";
+import { cn } from "@/lib/utils";
 
 interface AdmissionInfoProps {
   seatCount: number;
@@ -51,27 +52,24 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
         theme="brand"
       />
 
-      <Card padded className="flex flex-col gap-6">
+      <Card padded className="flex flex-col gap-6 bg-surface-container-lowest">
         {/* Cutoff Trends Section */}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <h3 
-              className="text-base font-bold flex items-center gap-2"
-              style={{ color: "var(--color-text)" }}
-            >
-              <FiTrendingUp style={{ color: "var(--color-primary)" }} /> Cutoff Trends
+            <h3 className="text-base font-bold flex items-center gap-2 text-text">
+              <FiTrendingUp className="text-primary" /> Cutoff Trends
             </h3>
 
             {/* Dropdown Styled EXACTLY like Reference Image 1 */}
-            <div className="ms-dropdown-container self-start sm:self-auto">
-              <div className="ms-dropdown-wrapper">
-                <span className="ms-dropdown-label">
+            <div className="relative inline-block text-left self-start sm:self-auto">
+              <div className="flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 shadow-xs hover:border-primary transition-all duration-200 cursor-pointer">
+                <span className="text-xs font-semibold text-text-secondary whitespace-nowrap">
                   Category:
                 </span>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value as CategoryFilter)}
-                  className="ms-dropdown-select"
+                  className="appearance-none bg-transparent pr-6 text-sm font-bold text-brand-600 cursor-pointer border-none focus:outline-none"
                 >
                   {CATEGORIES.map((cat) => (
                     <option key={cat.value} value={cat.value} className="bg-surface text-text">
@@ -79,33 +77,27 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
                     </option>
                   ))}
                 </select>
-                <FiChevronDown className="ms-dropdown-icon" />
+                <FiChevronDown className="absolute right-3.5 pointer-events-none text-brand-600 h-4 w-4" />
               </div>
             </div>
           </div>
 
           {filteredCutoffs.length > 0 ? (
-            <div className="ms-table-container">
-              <table className="ms-table">
+            <div className="overflow-x-auto rounded-lg border border-border bg-surface">
+              <table className="w-full min-w-[700px] text-left border-collapse text-sm">
                 <thead>
-                  <tr className="ms-table-header-tr">
-                    <th className="ms-table-th">Round</th>
-                    <th className="ms-table-th">Seat Type</th>
-                    <th className="ms-table-th-right">
+                  <tr className="border-b border-border bg-surface-container-low text-text-muted text-xs font-bold uppercase tracking-wider">
+                    <th className="px-4 py-3 font-semibold">Round</th>
+                    <th className="px-4 py-3 font-semibold">Seat Type</th>
+                    <th className="px-4 py-3 font-semibold text-right">
                       Opening Rank<br />
-                      <span 
-                        className="text-[10px] font-medium lowercase tracking-normal md:uppercase"
-                        style={{ color: "var(--color-text-muted)" }}
-                      >
+                      <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
                         (air)
                       </span>
                     </th>
-                    <th className="ms-table-th-right">
+                    <th className="px-4 py-3 font-semibold text-right">
                       Closing Rank<br />
-                      <span 
-                        className="text-[10px] font-medium lowercase tracking-normal md:uppercase"
-                        style={{ color: "var(--color-text-muted)" }}
-                      >
+                      <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
                         (air)
                       </span>
                     </th>
@@ -113,21 +105,15 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
                     {/* Optional Columns rendered only if data exists in the filtered rows */}
                     {hasStateRank && (
                       <>
-                        <th className="ms-table-th-right">
+                        <th className="px-4 py-3 font-semibold text-right">
                           Opening Rank<br />
-                          <span 
-                            className="text-[10px] font-medium lowercase tracking-normal md:uppercase"
-                            style={{ color: "var(--color-text-muted)" }}
-                          >
+                          <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
                             (state)
                           </span>
                         </th>
-                        <th className="ms-table-th-right">
+                        <th className="px-4 py-3 font-semibold text-right">
                           Closing Rank<br />
-                          <span 
-                            className="text-[10px] font-medium lowercase tracking-normal md:uppercase"
-                            style={{ color: "var(--color-text-muted)" }}
-                          >
+                          <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
                             (state)
                           </span>
                         </th>
@@ -135,21 +121,15 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
                     )}
                     {hasCategoryRank && (
                       <>
-                        <th className="ms-table-th-right">
+                        <th className="px-4 py-3 font-semibold text-right">
                           Opening Rank<br />
-                          <span 
-                            className="text-[10px] font-medium lowercase tracking-normal md:uppercase"
-                            style={{ color: "var(--color-text-muted)" }}
-                          >
+                          <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
                             (category)
                           </span>
                         </th>
-                        <th className="ms-table-th-right">
+                        <th className="px-4 py-3 font-semibold text-right">
                           Closing Rank<br />
-                          <span 
-                            className="text-[10px] font-medium lowercase tracking-normal md:uppercase"
-                            style={{ color: "var(--color-text-muted)" }}
-                          >
+                          <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
                             (category)
                           </span>
                         </th>
@@ -163,21 +143,17 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
                     return (
                       <tr
                         key={idx}
-                        className={`ms-table-row ${isLatest ? "ms-table-row-latest" : ""}`}
+                        className={cn(
+                          "border-b border-border/15 hover:bg-surface-container-lowest transition-colors duration-150 last:border-b-0",
+                          isLatest && "bg-primary/5"
+                        )}
                       >
                         {/* Round */}
-                        <td className="ms-table-td ms-table-td-bold-brand">
+                        <td className="px-4 py-3.5 font-bold text-primary">
                           <div className="flex items-center gap-2">
                             <span>{cutoff.year}{cutoff.round ? ` - ${cutoff.round}` : ""}</span>
                             {isLatest && (
-                              <span 
-                                className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide shadow-sm border"
-                                style={{
-                                  backgroundColor: "var(--color-brand-50)",
-                                  borderColor: "var(--color-brand-200)",
-                                  color: "var(--color-brand-700)",
-                                }}
-                              >
+                              <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide shadow-xs border bg-brand-50 border-brand-200 text-brand-700">
                                 Latest
                               </span>
                             )}
@@ -185,27 +161,27 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
                         </td>
 
                         {/* Seat Type (Quota) */}
-                        <td className="ms-table-td ms-table-td-semibold">
+                        <td className="px-4 py-3.5 font-semibold text-text-secondary">
                           {cutoff.category} / {cutoff.quota}
                         </td>
 
                         {/* Opening Rank (AIR) */}
-                        <td className="ms-table-td ms-table-td-right">
+                        <td className="px-4 py-3.5 text-right font-medium text-text-secondary">
                           {cutoff.openingRank !== undefined ? formatNumber(cutoff.openingRank) : "—"}
                         </td>
 
                         {/* Closing Rank (AIR) */}
-                        <td className="ms-table-td ms-table-td-right-bold">
+                        <td className="px-4 py-3.5 text-right font-extrabold text-text">
                           {cutoff.closingRank !== undefined ? formatNumber(cutoff.closingRank) : "—"}
                         </td>
 
                         {/* Optional State Ranks */}
                         {hasStateRank && (
                           <>
-                            <td className="ms-table-td ms-table-td-right">
+                            <td className="px-4 py-3.5 text-right font-medium text-text-secondary">
                               {cutoff.stateOpeningRank !== undefined ? formatNumber(cutoff.stateOpeningRank) : "—"}
                             </td>
-                            <td className="ms-table-td ms-table-td-right-bold">
+                            <td className="px-4 py-3.5 text-right font-extrabold text-text">
                               {cutoff.stateClosingRank !== undefined ? formatNumber(cutoff.stateClosingRank) : "—"}
                             </td>
                           </>
@@ -214,10 +190,10 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
                         {/* Optional Category Ranks */}
                         {hasCategoryRank && (
                           <>
-                            <td className="ms-table-td ms-table-td-right">
+                            <td className="px-4 py-3.5 text-right font-medium text-text-secondary">
                               {cutoff.categoryOpeningRank || "—"}
                             </td>
-                            <td className="ms-table-td ms-table-td-right-bold">
+                            <td className="px-4 py-3.5 text-right font-extrabold text-text">
                               {cutoff.categoryClosingRank || "—"}
                             </td>
                           </>
@@ -229,32 +205,14 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
               </table>
             </div>
           ) : (
-            <div 
-              className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed p-8 text-center"
-              style={{
-                borderColor: "var(--color-border)",
-                backgroundColor: "var(--color-surface)",
-              }}
-            >
-              <div 
-                className="rounded-full p-3"
-                style={{
-                  backgroundColor: "var(--color-brand-50)",
-                  color: "var(--color-primary)",
-                }}
-              >
+            <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-border p-8 text-center bg-surface">
+              <div className="rounded-full p-3 bg-brand-50 text-primary">
                 <FiAlertCircle size={28} />
               </div>
-              <h4 
-                className="font-bold"
-                style={{ color: "var(--color-text-secondary)" }}
-              >
+              <h4 className="font-bold text-text-secondary">
                 No Cutoff Data Found
               </h4>
-              <p 
-                className="max-w-md text-xs"
-                style={{ color: "var(--color-text-muted)" }}
-              >
+              <p className="max-w-md text-xs text-text-muted">
                 There are no cutoff trends recorded for the <span className="font-semibold text-text">{CATEGORIES.find(c => c.value === category)?.label}</span> category at this college. Please choose another category.
               </p>
             </div>

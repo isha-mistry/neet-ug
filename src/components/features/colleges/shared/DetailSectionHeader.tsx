@@ -8,9 +8,9 @@ interface DetailSectionHeaderProps {
 }
 
 const themeClasses = {
-  brand: "ms-section-header-brand",
-  indigo: "ms-section-header-indigo",
-  emerald: "ms-section-header-emerald",
+  brand: "border-primary",
+  indigo: "border-indigo-500",
+  emerald: "border-emerald-500",
 };
 
 export function DetailSectionHeader({
@@ -20,12 +20,12 @@ export function DetailSectionHeader({
   className,
 }: DetailSectionHeaderProps) {
   return (
-    <div className={cn("ms-section-header", themeClasses[theme], className)}>
+    <div className={cn("flex items-center border-l-4 pl-4 py-0.5", themeClasses[theme], className)}>
       <div className="flex flex-col gap-0.5">
-        <h2 className="ms-section-header-title">
+        <h2 className="text-xl md:text-2xl font-bold tracking-tight text-text leading-relaxed">
           {title}
         </h2>
-        <p className="ms-section-header-description">
+        <p className="text-xs text-text-muted">
           {description}
         </p>
       </div>

@@ -54,27 +54,15 @@ function KeyCard({
   value: string;
 }) {
   return (
-    <Card padded bordered className="flex items-center gap-4">
-      <span 
-        className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)]"
-        style={{
-          backgroundColor: "var(--color-brand-50)",
-          color: "var(--color-brand-700)",
-        }}
-      >
+    <Card padded bordered className="flex items-center gap-4 bg-surface-container-lowest">
+      <span className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] bg-brand-50 text-brand-700">
         {icon}
       </span>
       <div className="flex flex-col gap-1">
-        <span 
-          className="text-xs font-semibold uppercase tracking-widest"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+        <span className="text-xs font-semibold uppercase tracking-widest text-text-muted">
           {label}
         </span>
-        <span 
-          className="text-lg font-semibold tracking-tight"
-          style={{ color: "var(--color-text)" }}
-        >
+        <span className="text-lg font-semibold tracking-tight text-text">
           {value}
         </span>
       </div>
