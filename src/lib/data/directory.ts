@@ -1,7 +1,7 @@
 import { getAllStates } from "./states";
 import { getAllCategories, presetToFilters } from "./categories";
 import { getAllColleges, getCollegeListing } from "./colleges";
-import type { StateDirectoryItem } from "@/components/features/colleges/directory/StateDirectoryGrid";
+import type { StateDirectoryItem } from "@/components/features/colleges/directory/StateDirectoryList";
 import type { CategoryDirectoryItem } from "@/components/features/colleges/directory/CategoryDirectoryGrid";
 
 export async function getStateDirectoryItems(): Promise<StateDirectoryItem[]> {
