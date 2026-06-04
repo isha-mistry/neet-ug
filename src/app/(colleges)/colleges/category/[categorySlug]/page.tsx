@@ -66,8 +66,8 @@ export default async function CategoryCollegesPage({
         ? Math.min(preset.feeMax, userFilters.feeMax ?? preset.feeMax)
         : userFilters.feeMax,
   };
-  const listing = getCollegeListing(filters);
-  const filterOptions = getFilterOptions();
+  const listing = await getCollegeListing(filters);
+  const filterOptions = await getFilterOptions();
 
   return (
     <>
@@ -89,7 +89,9 @@ export default async function CategoryCollegesPage({
         filters={filters}
         filterOptions={filterOptions}
         listing={listing}
-        hiddenFilters={preset.collegeTypes ? ["collegeTypes"] : undefined}
+        hiddenFilters={
+          preset.collegeTypes ? ["collegeType", "collegeTypes"] : undefined
+        }
         lockedFilters={{
           collegeTypes: preset.collegeTypes,
           feeMax: preset.feeMax,

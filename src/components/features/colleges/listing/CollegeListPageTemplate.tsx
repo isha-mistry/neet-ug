@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Pagination } from "@/components/ui/Pagination";
-import { CollegeFiltersPanel } from "./CollegeFiltersPanel";
-import { CollegeSortControl } from "./CollegeSortControl";
+import { CollegeListingToolbar } from "./CollegeListingToolbar";
 import { CollegeResultsGrid } from "./CollegeResultsGrid";
 import type {
   CollegeFilters,
@@ -9,6 +8,10 @@ import type {
 } from "@/types/filters";
 import type { CollegeListingViewModel } from "@/types/listing";
 import { buildFilterSearchParams } from "@/lib/colleges/search-params";
+import {
+  getListingCategoryShortLabel,
+  getListingFeeQuotaShort,
+} from "@/lib/colleges/listing-options";
 import { formatNumber } from "@/lib/utils";
 
 interface CollegeListPageTemplateProps {
@@ -16,7 +19,7 @@ interface CollegeListPageTemplateProps {
   filters: CollegeFilters;
   filterOptions: FilterOptionGroups;
   listing: CollegeListingViewModel;
-  hiddenFilters?: Array<"state" | "collegeTypes">;
+  hiddenFilters?: Array<"state" | "collegeType" | "collegeTypes">;
   lockedFilters?: Pick<CollegeFilters, "state" | "collegeTypes" | "feeMax">;
   intro?: ReactNode;
 }
@@ -37,45 +40,57 @@ export function CollegeListPageTemplate({
     return query ? `${basePath}?${query}` : basePath;
   };
 
+  const resetParams = buildFilterSearchParams({
+    state: lockedFilters?.state ?? filters.state,
+    collegeTypes: lockedFilters?.collegeTypes,
+    feeMax: lockedFilters?.feeMax,
+  });
+  const resetQuery = resetParams.toString();
+  const resetHref =
+    lockedFilters?.feeMax !== undefined || lockedFilters?.collegeTypes?.length
+      ? resetQuery
+        ? `${basePath}?${resetQuery}`
+        : basePath
+      : basePath;
+
+  const rankCategoryShort = getListingCategoryShortLabel(filters.category);
+  const feeQuotaShort = getListingFeeQuotaShort(filters.quota);
+
   return (
     <div className="flex flex-col gap-8">
       {intro}
-      <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
-        <aside className="lg:sticky lg:top-24 lg:self-start">
-          <CollegeFiltersPanel
-            basePath={basePath}
-            filters={filters}
-            filterOptions={filterOptions}
-            hiddenFields={hiddenFilters}
-            lockedFilters={lockedFilters}
-          />
-        </aside>
-        <section className="flex flex-col gap-6">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm font-medium tracking-wide text-text-muted">
-              Showing{" "}
-              <span className="font-semibold text-text">
-                {formatNumber(listing.items.length)}
-              </span>{" "}
-              of{" "}
-              <span className="font-semibold text-text">
-                {formatNumber(listing.pagination.totalItems)}
-              </span>{" "}
-              colleges
-            </p>
-            <CollegeSortControl basePath={basePath} filters={filters} />
-          </div>
-          <CollegeResultsGrid
-            colleges={listing.items}
-            resetHref={basePath}
-          />
-          <Pagination
-            currentPage={listing.pagination.page}
-            totalPages={listing.pagination.totalPages}
-            buildHref={buildPageHref}
-          />
-        </section>
-      </div>
+      <CollegeListingToolbar
+        basePath={basePath}
+        filters={filters}
+        filterOptions={filterOptions}
+        hiddenFields={hiddenFilters}
+        lockedFilters={lockedFilters}
+      />
+
+      <section className="flex flex-col gap-6">
+        <p className="font-body-sm text-body-sm text-on-surface-variant">
+          Showing{" "}
+          <span className="font-semibold text-on-surface">
+            {formatNumber(listing.items.length)}
+          </span>{" "}
+          of{" "}
+          <span className="font-semibold text-on-surface">
+            {formatNumber(listing.pagination.totalItems)}
+          </span>{" "}
+          colleges
+        </p>
+        <CollegeResultsGrid
+          colleges={listing.items}
+          resetHref={resetHref}
+          rankCategoryShort={rankCategoryShort}
+          feeQuotaShort={feeQuotaShort}
+        />
+        <Pagination
+          currentPage={listing.pagination.page}
+          totalPages={listing.pagination.totalPages}
+          buildHref={buildPageHref}
+        />
+      </section>
     </div>
   );
 }

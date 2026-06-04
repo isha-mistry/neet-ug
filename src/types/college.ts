@@ -1,6 +1,22 @@
 import type { Slug } from "./core";
+import type { NeetCategory } from "@/lib/rank-predictor/types";
 
 export type CollegeType = "government" | "private" | "deemed" | "aiims";
+
+export type FeeCurrency = "INR" | "USD";
+
+/** NRI quota fee from Gujarat fee sheet (`fees_currency` + `nri_fees`). */
+export interface NriQuotaFee {
+  amount: number;
+  currency: FeeCurrency;
+}
+
+/** GQ/MQ annual tuition from source (INR). NRI is separate — not summed into totalAnnual. */
+export interface QuotaFeeBreakdown {
+  govtQuotaAnnualInr: number;
+  managementQuotaAnnualInr: number;
+  nri?: NriQuotaFee;
+}
 
 export interface CollegeFees {
   tuition: number;
@@ -8,6 +24,8 @@ export interface CollegeFees {
   misc: number;
   totalAnnual: number;
   totalCourse: number;
+  /** Present when built from gujarat_college_fees. */
+  quotaBreakdown?: QuotaFeeBreakdown;
   gqFees?: number;
   mqFees?: number;
   nriFees?: number;
@@ -21,11 +39,12 @@ export interface CollegeFees {
 
 export interface CollegeCutoff {
   year: number;
-  round: string;
-  category: string;
+  rank: number;
   quota: string;
-  openingRank: number;
-  closingRank: number;
+  category?: NeetCategory;
+  round?: string;
+  openingRank?: number;
+  closingRank?: number;
   stateOpeningRank?: number;
   stateClosingRank?: number;
   categoryOpeningRank?: string;
@@ -38,6 +57,22 @@ export interface CollegeBond {
   note?: string;
 }
 
+export interface CollegeInfrastructure {
+  beds: number;
+  patientFlowPerDay: number;
+  facilities: string[];
+}
+
+export interface CollegeReviews {
+  pros: string[];
+  cons: string[];
+}
+
+export interface CollegeOtherInfo {
+  officialWebsite: string;
+  counsellingBrochureUrl?: string;
+}
+
 export interface CollegeSeatMatrix {
   aiq: number;
   stateQuota: number;
@@ -46,26 +81,24 @@ export interface CollegeSeatMatrix {
   categoryDistribution: Record<string, number>;
 }
 
-export interface CollegeOtherInfo {
-  officialWebsite: string;
-  counsellingBrochureUrl?: string;
-}
-
 export interface CollegeRecord {
   slug: Slug;
   name: string;
-  university: string;
   stateSlug: Slug;
   city: string;
   collegeType: CollegeType;
   seatCount: number;
   quotaInfo: string;
   fees: CollegeFees;
-  seatMatrix: CollegeSeatMatrix;
   cutoffs: CollegeCutoff[];
   bond: CollegeBond;
-  otherInfo: CollegeOtherInfo;
+  infrastructure: CollegeInfrastructure;
+  reviews: CollegeReviews;
   roiScore: number;
+  otherInfo?: CollegeOtherInfo;
+  seatMatrix?: CollegeSeatMatrix;
+  /** Set on DB-built records for QA (not shown in UI by default). */
+  dataQuality?: string[];
 }
 
 export interface StateRecord {

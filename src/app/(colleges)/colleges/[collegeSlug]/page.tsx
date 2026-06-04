@@ -16,15 +16,16 @@ interface PageProps {
   params: Promise<{ collegeSlug: string }>;
 }
 
-export function generateStaticParams() {
-  return getAllColleges().map((college) => ({ collegeSlug: college.slug }));
+export async function generateStaticParams() {
+  const colleges = await getAllColleges();
+  return colleges.map((college) => ({ collegeSlug: college.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { collegeSlug } = await params;
-  const college = getCollegeDetailBySlug(collegeSlug);
+  const college = await getCollegeDetailBySlug(collegeSlug);
   if (!college) {
     return buildMetadata({
       title: "College Not Found",
@@ -40,7 +41,7 @@ export async function generateMetadata({
 
 export default async function CollegeDetailPage({ params }: PageProps) {
   const { collegeSlug } = await params;
-  const college = getCollegeDetailBySlug(collegeSlug);
+  const college = await getCollegeDetailBySlug(collegeSlug);
   if (!college) {
     notFound();
   }
@@ -62,15 +63,15 @@ export default async function CollegeDetailPage({ params }: PageProps) {
           stateName={college.stateName}
           collegeType={college.collegeType}
           quotaInfo={college.quotaInfo}
-          officialWebsite={college.otherInfo.officialWebsite}
-          counsellingBrochureUrl={college.otherInfo.counsellingBrochureUrl}
+          officialWebsite={college.otherInfo?.officialWebsite}
+          counsellingBrochureUrl={college.otherInfo?.counsellingBrochureUrl}
           bond={college.bond}
           seatCount={college.seatCount}
         />
         
         <AdmissionInfo seatCount={college.seatCount} cutoffs={college.cutoffs} />
         
-        <SeatMatrixInfo seatMatrix={college.seatMatrix} />
+        {college.seatMatrix && <SeatMatrixInfo seatMatrix={college.seatMatrix} />}
         
         <FeesAndBondInfo fees={college.fees} bond={college.bond} />
       </div>

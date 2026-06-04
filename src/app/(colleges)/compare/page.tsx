@@ -21,10 +21,10 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function ComparePage() {
+export default async function ComparePage() {
   const meta = getPageMeta("comparison");
-  const catalog = getAllColleges();
-  const summaries = catalog.map(toCollegeSummary);
+  const catalog = await getAllColleges();
+  const summaries = catalog.map((record) => toCollegeSummary(record));
   const metrics = getComparisonMetrics();
 
   return (

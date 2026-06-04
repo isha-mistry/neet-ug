@@ -1,0 +1,10 @@
+{
+  "builtAt": "2026-06-02T08:16:54.600Z",
+  "sourceSql": "src/data/gujarat_data.sql",
+  "collegeCount": 824,
+  "gujaratColleges": 44,
+  "withFees": 41,
+  "withCutoffs": 40,
+  "withGujaratCutoffs": 40,
+  "aliasCount": 95
+}

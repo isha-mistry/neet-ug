@@ -1,0 +1,240 @@
+[
+  {
+    "slug": "andaman-nicobar-islands",
+    "name": "Andaman Nicobar Islands",
+    "intro": "1 MBBS colleges listed for Andaman Nicobar Islands.",
+    "totalSeats": 114,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "andhra-pradesh",
+    "name": "Andhra Pradesh",
+    "intro": "39 MBBS colleges listed for Andhra Pradesh.",
+    "totalSeats": 7215,
+    "competitionLevel": "Medium"
+  },
+  {
+    "slug": "arunachal-pradesh",
+    "name": "Arunachal Pradesh",
+    "intro": "1 MBBS colleges listed for Arunachal Pradesh.",
+    "totalSeats": 100,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "assam",
+    "name": "Assam",
+    "intro": "16 MBBS colleges listed for Assam.",
+    "totalSeats": 1975,
+    "competitionLevel": "Medium"
+  },
+  {
+    "slug": "bihar",
+    "name": "Bihar",
+    "intro": "25 MBBS colleges listed for Bihar.",
+    "totalSeats": 3545,
+    "competitionLevel": "Medium"
+  },
+  {
+    "slug": "chandigarh",
+    "name": "Chandigarh",
+    "intro": "1 MBBS colleges listed for Chandigarh.",
+    "totalSeats": 150,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "chattisgarh",
+    "name": "Chattisgarh",
+    "intro": "16 MBBS colleges listed for Chattisgarh.",
+    "totalSeats": 2455,
+    "competitionLevel": "Medium"
+  },
+  {
+    "slug": "dadra-and-nagar-haveli",
+    "name": "Dadra And Nagar Haveli",
+    "intro": "1 MBBS colleges listed for Dadra And Nagar Haveli.",
+    "totalSeats": 177,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "delhi",
+    "name": "Delhi",
+    "intro": "11 MBBS colleges listed for Delhi.",
+    "totalSeats": 1547,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "goa",
+    "name": "Goa",
+    "intro": "1 MBBS colleges listed for Goa.",
+    "totalSeats": 200,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "gujarat",
+    "name": "Gujarat",
+    "intro": "44 MBBS colleges listed for Gujarat.",
+    "totalSeats": 7525,
+    "competitionLevel": "High"
+  },
+  {
+    "slug": "haryana",
+    "name": "Haryana",
+    "intro": "17 MBBS colleges listed for Haryana.",
+    "totalSeats": 2710,
+    "competitionLevel": "Medium"
+  },
+  {
+    "slug": "himachal-pradesh",
+    "name": "Himachal Pradesh",
+    "intro": "8 MBBS colleges listed for Himachal Pradesh.",
+    "totalSeats": 970,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "jammu-kashmir",
+    "name": "Jammu Kashmir",
+    "intro": "13 MBBS colleges listed for Jammu Kashmir.",
+    "totalSeats": 1726,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "jharkhand",
+    "name": "Jharkhand",
+    "intro": "10 MBBS colleges listed for Jharkhand.",
+    "totalSeats": 1255,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "karnataka",
+    "name": "Karnataka",
+    "intro": "74 MBBS colleges listed for Karnataka.",
+    "totalSeats": 14094,
+    "competitionLevel": "High"
+  },
+  {
+    "slug": "kerala",
+    "name": "Kerala",
+    "intro": "37 MBBS colleges listed for Kerala.",
+    "totalSeats": 5554,
+    "competitionLevel": "Medium"
+  },
+  {
+    "slug": "madhya-pradesh",
+    "name": "Madhya Pradesh",
+    "intro": "35 MBBS colleges listed for Madhya Pradesh.",
+    "totalSeats": 5725,
+    "competitionLevel": "Medium"
+  },
+  {
+    "slug": "maharashtra",
+    "name": "Maharashtra",
+    "intro": "85 MBBS colleges listed for Maharashtra.",
+    "totalSeats": 12824,
+    "competitionLevel": "High"
+  },
+  {
+    "slug": "manipur",
+    "name": "Manipur",
+    "intro": "4 MBBS colleges listed for Manipur.",
+    "totalSeats": 525,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "meghalaya",
+    "name": "Meghalaya",
+    "intro": "3 MBBS colleges listed for Meghalaya.",
+    "totalSeats": 200,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "mizoram",
+    "name": "Mizoram",
+    "intro": "1 MBBS colleges listed for Mizoram.",
+    "totalSeats": 100,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "nagaland",
+    "name": "Nagaland",
+    "intro": "1 MBBS colleges listed for Nagaland.",
+    "totalSeats": 100,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "orissa",
+    "name": "Orissa",
+    "intro": "21 MBBS colleges listed for Orissa.",
+    "totalSeats": 3025,
+    "competitionLevel": "Medium"
+  },
+  {
+    "slug": "pondicherry",
+    "name": "Pondicherry",
+    "intro": "9 MBBS colleges listed for Pondicherry.",
+    "totalSeats": 1873,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "punjab",
+    "name": "Punjab",
+    "intro": "14 MBBS colleges listed for Punjab.",
+    "totalSeats": 2049,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "rajasthan",
+    "name": "Rajasthan",
+    "intro": "49 MBBS colleges listed for Rajasthan.",
+    "totalSeats": 7331,
+    "competitionLevel": "High"
+  },
+  {
+    "slug": "sikkim",
+    "name": "Sikkim",
+    "intro": "1 MBBS colleges listed for Sikkim.",
+    "totalSeats": 150,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "tamil-nadu",
+    "name": "Tamil Nadu",
+    "intro": "78 MBBS colleges listed for Tamil Nadu.",
+    "totalSeats": 13050,
+    "competitionLevel": "High"
+  },
+  {
+    "slug": "telangana",
+    "name": "Telangana",
+    "intro": "66 MBBS colleges listed for Telangana.",
+    "totalSeats": 9540,
+    "competitionLevel": "High"
+  },
+  {
+    "slug": "tripura",
+    "name": "Tripura",
+    "intro": "3 MBBS colleges listed for Tripura.",
+    "totalSeats": 450,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "uttar-pradesh",
+    "name": "Uttar Pradesh",
+    "intro": "88 MBBS colleges listed for Uttar Pradesh.",
+    "totalSeats": 13425,
+    "competitionLevel": "High"
+  },
+  {
+    "slug": "uttarakhand",
+    "name": "Uttarakhand",
+    "intro": "10 MBBS colleges listed for Uttarakhand.",
+    "totalSeats": 1450,
+    "competitionLevel": "Moderate"
+  },
+  {
+    "slug": "west-bengal",
+    "name": "West Bengal",
+    "intro": "41 MBBS colleges listed for West Bengal.",
+    "totalSeats": 6474,
+    "competitionLevel": "High"
+  }
+]

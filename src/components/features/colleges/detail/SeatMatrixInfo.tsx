@@ -10,14 +10,10 @@ import {
   PieChart,
   Pie,
   Cell,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
   Tooltip as RechartsTooltip,
-  LabelList,
 } from "recharts";
 import { normalizeCategory } from "@/lib/colleges/categories";
+import { DetailSectionHeader } from "@/components/features/colleges/shared/DetailSectionHeader";
 
 interface SeatMatrixInfoProps {
   seatMatrix: CollegeSeatMatrix;
@@ -30,31 +26,27 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
     setMounted(true);
   }, []);
 
-  // Setup custom colors for each quota type indicator
+  // Setup custom colors mapping to MedSeat CSS variables
   const quotas = [
     { 
       label: "All India Quota (AIQ)", 
       value: seatMatrix.aiq, 
-      colorClass: "bg-brand-500",
-      hexColor: "#003d9b" // Mapped from var(--color-primary) / var(--color-brand-500)
+      hexColor: "var(--color-primary)"
     },
     { 
       label: "State Quota", 
       value: seatMatrix.stateQuota, 
-      colorClass: "bg-emerald-500",
-      hexColor: "#10b981" 
+      hexColor: "var(--color-secondary)" 
     },
     { 
       label: "Management", 
       value: seatMatrix.management, 
-      colorClass: "bg-amber-500",
-      hexColor: "#f59e0b" 
+      hexColor: "var(--color-tertiary)" 
     },
     { 
       label: "NRI Quota", 
       value: seatMatrix.nri, 
-      colorClass: "bg-indigo-500",
-      hexColor: "#6366f1" 
+      hexColor: "var(--color-primary-fixed-dim)" 
     },
   ].filter((q) => q.value > 0);
 
@@ -63,8 +55,7 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
     quotas.push({
       label: "Central Pool / Others",
       value: seatMatrix.aiq > 0 ? 113 : 0,
-      colorClass: "bg-teal-500",
-      hexColor: "#14b8a6"
+      hexColor: "var(--color-secondary-fixed-dim)"
     });
   }
 
@@ -78,16 +69,15 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
   // Check if AIQ represents 100% of the quota seats
   const isAiq100 = seatMatrix.aiq > 0 && (seatMatrix.aiq === totalQuotaSeats || (seatMatrix.stateQuota === 0 && seatMatrix.management === 0 && seatMatrix.nri === 0));
 
-
   const getCategoryHexColor = (cat: string) => {
     const normalized = normalizeCategory(cat);
     switch (normalized) {
-      case "general": return "#003d9b"; // Primary Blue
-      case "obc": return "#10b981"; // Emerald
-      case "sc": return "#f59e0b"; // Amber
-      case "st": return "#6366f1"; // Indigo
-      case "ews": return "#8b5cf6"; // Violet/Purple
-      default: return "#64748b"; // Slate
+      case "general": return "var(--color-primary)"; // Primary Blue
+      case "obc": return "var(--color-secondary)"; // Secondary
+      case "sc": return "var(--color-tertiary)"; // Tertiary
+      case "st": return "var(--color-college-category-st)"; // Dark Indigo
+      case "ews": return "var(--color-college-category-ews)"; // Dark Purple
+      default: return "var(--color-outline)"; // Slate Outline
     }
   };
 
@@ -102,37 +92,36 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
     };
   });
 
-  // Prepare chart data for Category-wise horizontal Bar Chart
-  const categoryChartData = Object.entries(seatMatrix.categoryDistribution).map(([category, count]) => {
-    const pct = totalCategorySeats > 0 ? (count / totalCategorySeats) * 100 : 0;
-    return {
-      name: category.toUpperCase(),
-      value: count,
-      color: getCategoryHexColor(category),
-      percentage: pct
-    };
-  });
-
   // Custom tooltips for Recharts to achieve sleek, brand-aligned glassmorphism look
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-surface-elevated/95 backdrop-blur-md border border-border p-3.5 rounded-xl shadow-level-2 flex flex-col gap-1 animate-fadeIn z-50">
+        <div 
+          className="border p-3.5 rounded-xl flex flex-col gap-1 animate-fadeIn"
+          style={{
+            backgroundColor: "var(--color-surface-container-lowest)",
+            borderColor: "var(--color-border)",
+            boxShadow: "var(--shadow-level-2)",
+          }}
+        >
           <div className="flex items-center gap-2">
             <span 
               className="h-2.5 w-2.5 rounded-full shadow-sm" 
               style={{ backgroundColor: data.color }} 
             />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">
+            <span 
+              className="text-[10px] font-bold uppercase tracking-widest"
+              style={{ color: "var(--color-text-secondary)" }}
+            >
               {payload[0].name}
             </span>
           </div>
-          <div className="text-base font-extrabold text-text mt-0.5">
-            {formatNumber(payload[0].value)} <span className="text-xs font-semibold text-text-muted">Seats</span>
+          <div className="text-base font-extrabold mt-0.5" style={{ color: "var(--color-text)" }}>
+            {formatNumber(payload[0].value)} <span className="text-xs font-semibold" style={{ color: "var(--color-text-muted)" }}>Seats</span>
           </div>
           {data.percentage !== undefined && (
-            <span className="text-[10px] text-text-muted font-medium mt-0.5">
+            <span className="text-[10px] font-medium mt-0.5" style={{ color: "var(--color-text-muted)" }}>
               Share: {data.percentage.toFixed(1)}%
             </span>
           )}
@@ -144,24 +133,19 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
 
   return (
     <section className="flex flex-col gap-4 animate-fadeIn">
-      {/* Premium Header Design */}
-      <div className="ms-section-header ms-section-header-emerald">
-        <div className="flex flex-col gap-0.5">
-          <h2 className="ms-section-header-title">
-            Seat Matrix
-          </h2>
-          <p className="ms-section-header-description">
-            Category-wise seat allocation, quota distribution, and division ratios
-          </p>
-        </div>
-      </div>
+      {/* Reusable Section Header */}
+      <DetailSectionHeader
+        title="Seat Matrix"
+        description="Category-wise seat allocation, quota distribution, and division ratios"
+        theme="emerald"
+      />
       
       <div className="ms-seat-matrix-grid">
         {/* Left Column: Quota Distribution Donut Chart */}
         <Card padded className="flex flex-col gap-4">
           <div className="ms-matrix-card-header">
-            <FiPieChart className="text-brand-500 h-5 w-5" />
-            <h3 className="font-bold text-text text-base">Quota Distribution</h3>
+            <FiPieChart className="h-5 w-5" style={{ color: "var(--color-primary)" }} />
+            <h3 className="font-bold text-base" style={{ color: "var(--color-text)" }}>Quota Distribution</h3>
           </div>
           
           {/* Interactive Chart Container */}
@@ -170,10 +154,10 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
               <div className="relative w-full h-[200px] flex items-center justify-center">
                 {/* Total Counter in Center of Donut */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
-                  <span className="text-2xl font-extrabold text-text tracking-tight">
+                  <span className="text-2xl font-extrabold tracking-tight" style={{ color: "var(--color-text)" }}>
                     {formatNumber(totalQuotaSeats)}
                   </span>
-                  <span className="text-[9px] font-extrabold text-text-muted uppercase tracking-widest">
+                  <span className="text-[9px] font-extrabold uppercase tracking-widest" style={{ color: "var(--color-text-muted)" }}>
                     Total Seats
                   </span>
                 </div>
@@ -197,12 +181,16 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
                         />
                       ))}
                     </Pie>
-                    <RechartsTooltip content={<CustomTooltip />} cursor={false} />
+                    <RechartsTooltip 
+                      content={<CustomTooltip />} 
+                      cursor={false} 
+                      wrapperStyle={{ zIndex: 1000, outline: "none" }}
+                    />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
             ) : (
-              <div className="h-[200px] flex items-center justify-center text-text-muted text-sm font-medium animate-pulse">
+              <div className="h-[200px] flex items-center justify-center text-sm font-medium animate-pulse" style={{ color: "var(--color-text-muted)" }}>
                 Loading interactive visualization...
               </div>
             )}
@@ -216,21 +204,24 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
                 <div key={idx} className="ms-progress-card">
                   <div className="ms-progress-card-info">
                     <div className="ms-progress-card-label-container">
-                      <span className={`ms-progress-dot ${quota.colorClass}`} />
+                      <span className="ms-progress-dot" style={{ backgroundColor: quota.hexColor }} />
                       <span className="ms-progress-card-label">
                         {quota.label}
                       </span>
                     </div>
                     <span className="ms-progress-card-badge">
-                      <strong className="text-brand-600 font-extrabold text-sm">{formatNumber(quota.value)}</strong> Seats ({percentage.toFixed(1)}%)
+                      <strong className="font-extrabold text-sm" style={{ color: "var(--color-primary)" }}>{formatNumber(quota.value)}</strong> Seats ({percentage.toFixed(1)}%)
                     </span>
                   </div>
                   
                   {/* Progress Bar Track */}
                   <div className="ms-progress-bar-track">
                     <div 
-                      className={`ms-progress-bar-fill ${quota.colorClass}`}
-                      style={{ width: `${percentage}%` }}
+                      className="ms-progress-bar-fill"
+                      style={{ 
+                        width: `${percentage}%`,
+                        backgroundColor: quota.hexColor 
+                      }}
                     />
                   </div>
                 </div>
@@ -243,15 +234,26 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
         <Card padded className="flex flex-col gap-4">
           <div className="ms-matrix-card-header-between">
             <div className="flex items-center gap-2">
-              <FiUsers className="text-brand-500 h-5 w-5" />
-              <h3 className="font-bold text-text text-base">Category-wise Seats</h3>
+              <FiUsers className="h-5 w-5" style={{ color: "var(--color-primary)" }} />
+              <h3 className="font-bold text-base" style={{ color: "var(--color-text)" }}>Category-wise Seats</h3>
             </div>
             {/* Dynamic Quota Source Badge */}
-            <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg border ${
-              isAiq100 
-                ? "bg-indigo-50 text-indigo-700 border-indigo-200/50" 
-                : "bg-emerald-50 text-emerald-700 border-emerald-200/50"
-            }`}>
+            <span 
+              className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg border"
+              style={
+                isAiq100
+                  ? {
+                      backgroundColor: "rgba(224, 231, 255, 0.8)",
+                      color: "#4338ca",
+                      borderColor: "#e0e7ff",
+                    }
+                  : {
+                      backgroundColor: "rgba(209, 250, 229, 0.8)",
+                      color: "#047857",
+                      borderColor: "#d1fae5",
+                    }
+              }
+            >
               {isAiq100 ? "AIQ seats" : "State"}
             </span>
           </div>

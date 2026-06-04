@@ -14,8 +14,8 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function StatesDirectoryPage() {
-  const states = getStateDirectoryItems();
+export default async function StatesDirectoryPage() {
+  const states = await getStateDirectoryItems();
 
   return (
     <>

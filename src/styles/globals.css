@@ -142,6 +142,39 @@
   /* Shadows (Depth & Elevation) */
   --shadow-level-1: 0 4px 12px 0 rgba(25, 28, 30, 0.1);
   --shadow-level-2: 0 8px 24px 0 rgba(25, 28, 30, 0.15);
+  /*
+   * College listing — metric tile backgrounds (design spec, 8-digit #RRGGBBAA).
+   * Fees #DAE2FF4D | Cutoff #77FC9D33 | Seats #FFDAD74D | Bond #DEE9FC80
+   */
+  --color-college-metric-fees: #dae2ff4d;
+  --color-college-metric-fees-hover: #dae2ff66;
+  --color-college-metric-fees-border: #003d9b1a;
+  --color-college-metric-rank: #77fc9d33;
+  --color-college-metric-rank-hover: #77fc9d4d;
+  --color-college-metric-rank-border: #006d341a;
+  --color-college-metric-seats: #ffdad74d;
+  --color-college-metric-seats-hover: #ffdad766;
+  --color-college-metric-seats-border: #5e3c001a;
+  --color-college-metric-bond: #dee9fc80;
+  --color-college-metric-bond-hover: #dee9fc99;
+  --color-college-metric-bond-border: #c3c6d633;
+
+  --color-college-type-deemed-bg: rgb(218 226 255);
+  --color-college-type-deemed-fg: rgb(0 24 72);
+  --color-college-type-government-bg: rgb(116 250 155);
+  --color-college-type-government-fg: rgb(0 114 55);
+  --color-college-type-private-bg: var(--color-tertiary-fixed);
+  --color-college-type-private-fg: var(--color-on-tertiary-fixed-variant);
+
+  --color-college-accent-deemed: var(--color-primary);
+  --color-college-accent-government: var(--color-secondary);
+  --color-college-accent-private: var(--color-tertiary);
+  --color-college-category-st: #3b3dbb;
+  --color-college-category-ews: #6322d8;
+
+  --text-stats-lg: 24px;
+  --text-stats-lg--line-height: 1;
+  --text-stats-lg--font-weight: 700;
 
   /* Spacing */
   --spacing-base: 8px;

@@ -103,6 +103,34 @@ export const medseatTheme = {
       error: "var(--color-error)",
       info: "var(--color-surface-tint)",
     },
+
+    /**
+     * College explorer listing (metric tiles, type chips, accents).
+     * Token values live in `globals.css` (@theme --color-college-*).
+     */
+    collegeListing: {
+      metricFeesBg: "var(--color-college-metric-fees)",
+      metricFeesBgHover: "var(--color-college-metric-fees-hover)",
+      metricFeesBorder: "var(--color-college-metric-fees-border)",
+      metricRankBg: "var(--color-college-metric-rank)",
+      metricRankBgHover: "var(--color-college-metric-rank-hover)",
+      metricRankBorder: "var(--color-college-metric-rank-border)",
+      metricSeatsBg: "var(--color-college-metric-seats)",
+      metricSeatsBgHover: "var(--color-college-metric-seats-hover)",
+      metricSeatsBorder: "var(--color-college-metric-seats-border)",
+      metricBondBg: "var(--color-college-metric-bond)",
+      metricBondBgHover: "var(--color-college-metric-bond-hover)",
+      metricBondBorder: "var(--color-college-metric-bond-border)",
+      typeDeemedBg: "var(--color-college-type-deemed-bg)",
+      typeDeemedFg: "var(--color-college-type-deemed-fg)",
+      typeGovernmentBg: "var(--color-college-type-government-bg)",
+      typeGovernmentFg: "var(--color-college-type-government-fg)",
+      typePrivateBg: "var(--color-college-type-private-bg)",
+      typePrivateFg: "var(--color-college-type-private-fg)",
+      accentDeemed: "var(--color-college-accent-deemed)",
+      accentGovernment: "var(--color-college-accent-government)",
+      accentPrivate: "var(--color-college-accent-private)",
+    },
   },
 
   gradient: {

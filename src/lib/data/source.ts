@@ -1,9 +1,6 @@
 import rawData from "@/data/medseat-data.json";
-import type {
-  CategoryRecord,
-  CollegeRecord,
-  StateRecord,
-} from "@/types/college";
+import rankPredictorSeed from "@/data/rank-predictor-seed.json";
+import type { RankPredictorConfig } from "@/types/rank-predictor";
 import type { FilterOptionGroups } from "@/types/filters";
 import type {
   HomeContent,
@@ -17,6 +14,8 @@ import type {
   InfoPage,
   QuotaGuide,
 } from "@/types/content";
+import type { CategoryRecord } from "@/types/college";
+import { CATALOG_SOURCE_LABEL } from "./catalog-loader";
 
 interface MedseatRawData {
   site: SiteIdentity;
@@ -35,17 +34,23 @@ interface MedseatRawData {
   blog: BlogContent;
   infoPages: InfoPage[];
   faq: FaqContent;
-  states: StateRecord[];
   categories: CategoryRecord[];
-  filterOptions: Pick<
-    FilterOptionGroups,
-    "collegeTypes" | "feeRanges" | "cutoffRanges"
-  >;
+  filterOptions: {
+    collegeTypes: { value: string; label: string }[];
+    feeRanges: { value: string; label: string }[];
+    cutoffRanges: { value: string; label: string }[];
+  };
   sortOptions: { value: string; label: string }[];
   comparisonMetrics: ComparisonMetric[];
-  colleges: CollegeRecord[];
+  rankPredictor: RankPredictorConfig;
 }
 
-const data = rawData as unknown as MedseatRawData;
+const base = rawData as unknown as MedseatRawData;
 
-export const medseatData: MedseatRawData = data;
+/** Site copy, blog, categories metadata (colleges/states via catalog-loader). */
+export const medseatData: MedseatRawData = {
+  ...base,
+  rankPredictor: rankPredictorSeed.rankPredictor as RankPredictorConfig,
+};
+
+export const dataSourceLabel = CATALOG_SOURCE_LABEL;

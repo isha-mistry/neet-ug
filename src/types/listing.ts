@@ -11,10 +11,13 @@ export interface CollegeSummary {
   collegeType: CollegeType;
   totalAnnualFee: number;
   totalCourseFee: number;
+  /** Quota-specific annual tuition for listing (GQ / MQ / NRI). */
+  displayAnnualFee: string;
   latestCutoffRank: number;
   latestCutoffYear: number;
   seatCount: number;
   quotaInfo: string;
+  bondLabel: string;
   roiScore: number;
   safetyTag: SafeRiskTag;
   bond: CollegeBond;

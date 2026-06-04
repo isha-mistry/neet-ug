@@ -15,8 +15,8 @@ export const CATEGORIES = [
  * Normalizes any raw category or quota string from raw college records
  * to our canonical CategoryFilter enum values.
  */
-export function normalizeCategory(categoryStr: string, quotaStr: string = ""): CategoryFilter | null {
-  const catLower = categoryStr.toLowerCase();
+export function normalizeCategory(categoryStr?: string | null, quotaStr: string = ""): CategoryFilter | null {
+  const catLower = (categoryStr || "").toLowerCase();
   const quotaLower = quotaStr.toLowerCase();
 
   if (catLower === "general" || catLower === "open" || catLower === "ur") {
