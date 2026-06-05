@@ -16,7 +16,16 @@ function navLinkClassName(active: boolean) {
   );
 }
 
-const NAV_DROPDOWN_LABELS = ["Quota", "Predictors"] as const;
+const NAV_DROPDOWN_LABELS = ["Quota", "Predictors", "NEET UG 2026"] as const;
+
+const NEET_UG_2026_LINKS: LinkItem[] = [
+  { label: "Exam Info Hub", href: "/neet-ug-2026" },
+  { label: "Live Updates Feed", href: "/neet-ug-2026/updates" },
+  { label: "Answer Key & Calculator", href: "/neet-ug-2026/answer-key" },
+  { label: "Counselling Process Guide", href: "/neet-ug-2026/counselling-guide" },
+  { label: "NRI Admission Guide", href: "/neet-ug-2026/nri-guide" },
+  { label: "Counselling Websites", href: "/neet-ug-2026/counselling-websites" },
+];
 
 interface PrimaryNavProps {
   links: LinkItem[];
@@ -31,6 +40,7 @@ function getDropdownLinks(
 ): LinkItem[] | null {
   if (label === "Quota") return quotaLinks;
   if (label === "Predictors") return predictorLinks;
+  if (label === "NEET UG 2026") return NEET_UG_2026_LINKS;
   return null;
 }
 
