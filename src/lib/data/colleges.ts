@@ -13,7 +13,7 @@ import type {
 import type { CollegeDetailViewModel } from "@/types/detail";
 import { applyFilters } from "@/lib/colleges/filters";
 import { sortColleges } from "@/lib/colleges/sorting";
-import { toCollegeDetail, toCollegeSummary } from "@/lib/colleges/mappers";
+import { toCollegeDetail, toCollegeSummary, mapDbCollegeToRecord } from "@/lib/colleges/mappers";
 import { DEFAULT_PAGE_SIZE } from "@/lib/constants";
 import {
   LISTING_CATEGORY_OPTIONS,
@@ -31,11 +31,25 @@ export const getAllColleges = cache(async (): Promise<CollegeRecord[]> => {
 export async function findCollegeBySlug(
   slug: string
 ): Promise<CollegeRecord | undefined> {
-  const doc = await prisma.collegeDocument.findUnique({
+  const dbCollege = await prisma.college.findUnique({
     where: { slug },
+    include: {
+      states: true,
+      cutoffs: true,
+      fee_schedules: {
+        include: {
+          fee_line_items: true,
+        },
+      },
+      seat_snapshots: {
+        include: {
+          seat_buckets: true,
+        },
+      },
+    },
   });
-  if (!doc) return undefined;
-  return doc.data as unknown as CollegeRecord;
+  if (!dbCollege) return undefined;
+  return mapDbCollegeToRecord(dbCollege);
 }
 
 export async function getCollegeDetailBySlug(

@@ -1,4 +1,5 @@
-import type { CollegeRecord, CollegeSeatMatrix } from "@/types/college";
+import type { CollegeRecord, CollegeSeatMatrix, CollegeFees, CollegeCutoff, QuotaFeeBreakdown, FeeCurrency } from "@/types/college";
+import type { NeetCategory } from "@/lib/rank-predictor/types";
 import type { CollegeSummary } from "@/types/listing";
 import type { CollegeDetailViewModel } from "@/types/detail";
 import type { CollegeFilters } from "@/types/filters";
@@ -95,5 +96,160 @@ export function toCollegeDetail(record: CollegeRecord): CollegeDetailViewModel {
     totalCourseFee: record.fees.totalCourse,
     latestCutoffRank: latest?.rank ?? 0,
     latestCutoffYear: latest?.year ?? 0,
+  };
+}
+
+function mapCategory(dbCategory: string): NeetCategory {
+  const cat = dbCategory.toUpperCase();
+  if (cat === "OP") return "general";
+  if (cat === "EW") return "ews";
+  if (cat === "SE" || cat === "OBC") return "obc";
+  if (cat === "SC") return "sc";
+  if (cat === "ST") return "st";
+  if (cat.endsWith("PH")) return "pwbd";
+  return "general";
+}
+
+export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
+  // 1. Map cutoffs
+  const cutoffs: CollegeCutoff[] = (dbCollege.cutoffs || []).map((c: any) => ({
+    year: c.year,
+    rank: c.closing_rank_air ?? 0,
+    quota: c.seat_type === "GQ" ? "State Quota" : c.seat_type === "MQ" ? "Management Quota" : c.seat_type === "NQ" ? "NRI Quota" : c.seat_type,
+    category: mapCategory(c.category),
+    round: c.admission_round ?? undefined,
+    openingRank: c.opening_rank_air ?? undefined,
+    closingRank: c.closing_rank_air ?? undefined,
+    stateOpeningRank: c.opening_state_merit_rank ? Number(c.opening_state_merit_rank) : undefined,
+    stateClosingRank: c.closing_state_merit_rank ? Number(c.closing_state_merit_rank) : undefined,
+    categoryOpeningRank: c.opening_category_rank ?? undefined,
+    categoryClosingRank: c.closing_category_rank ?? undefined,
+  }));
+
+  // 2. Map fee schedules
+  let fees: CollegeFees = {
+    tuition: 0,
+    hostel: 0,
+    misc: 0,
+    totalAnnual: 0,
+    totalCourse: 0,
+  };
+
+  if (dbCollege.fee_schedules && dbCollege.fee_schedules.length > 0) {
+    const latestSchedule = dbCollege.fee_schedules.reduce((latest: any, current: any) => {
+      return (!latest || current.academic_year > latest.academic_year) ? current : latest;
+    }, null);
+
+    if (latestSchedule && latestSchedule.fee_line_items) {
+      const gqTuitionItem = latestSchedule.fee_line_items.find((item: any) => item.component === "tuition" && item.seat_type === "GQ");
+      const mqTuitionItem = latestSchedule.fee_line_items.find((item: any) => item.component === "tuition" && item.seat_type === "MQ");
+      const nriTuitionItem = latestSchedule.fee_line_items.find((item: any) => item.component === "tuition" && item.seat_type === "NRI");
+
+      const gqTuition = gqTuitionItem ? Number(gqTuitionItem.amount) : 0;
+      const mqTuition = mqTuitionItem ? Number(mqTuitionItem.amount) : 0;
+      const nriAmount = nriTuitionItem ? Number(nriTuitionItem.amount) : undefined;
+      const nriCurrency = nriTuitionItem?.currency ?? "INR";
+
+      const tuition = gqTuition;
+
+      const hostelItem = latestSchedule.fee_line_items.find((item: any) => item.component === "hostel");
+      const hostel = hostelItem ? Number(hostelItem.amount) : 0;
+
+      const misc = latestSchedule.fee_line_items
+        .filter((item: any) => item.component !== "tuition" && item.component !== "hostel")
+        .reduce((sum: number, item: any) => sum + Number(item.amount), 0);
+
+      const totalAnnual = tuition + hostel + misc;
+      const totalCourse = totalAnnual * 5;
+
+      const quotaBreakdown: QuotaFeeBreakdown = {
+        govtQuotaAnnualInr: gqTuition,
+        managementQuotaAnnualInr: mqTuition,
+        nri: nriAmount !== undefined ? { amount: nriAmount, currency: nriCurrency as FeeCurrency } : undefined,
+      };
+
+      fees = {
+        tuition,
+        hostel,
+        misc,
+        totalAnnual,
+        totalCourse,
+        quotaBreakdown,
+        gqFees: gqTuition,
+        mqFees: mqTuition,
+        nriFees: nriAmount,
+        nriCurrency,
+        hostelFees: hostel,
+      };
+    }
+  }
+
+  // 3. Map seat matrix
+  let seatMatrix: CollegeSeatMatrix | undefined = undefined;
+  if (dbCollege.seat_snapshots && dbCollege.seat_snapshots.length > 0) {
+    const latestSnapshot = dbCollege.seat_snapshots.reduce((latest: any, current: any) => {
+      return (!latest || current.academic_year > latest.academic_year) ? current : latest;
+    }, null);
+
+    if (latestSnapshot && latestSnapshot.seat_buckets) {
+      const buckets = latestSnapshot.seat_buckets;
+      const aiq = buckets.find((b: any) => b.bucket_code === "aiq")?.seat_count ?? 0;
+      const stateQuota = buckets.find((b: any) => b.bucket_code === "state_quota")?.seat_count ?? 0;
+      const management = buckets.find((b: any) => b.bucket_code === "mqt_quota")?.seat_count ?? 0;
+      const nri = buckets.find((b: any) => b.bucket_code === "nri_quota")?.seat_count ?? 0;
+
+      const categoryDistribution: Record<string, number> = {};
+      const standardCodes = ["aiq", "state_quota", "mqt_quota", "nri_quota"];
+      for (const bucket of buckets) {
+        if (!standardCodes.includes(bucket.bucket_code)) {
+          const label = bucket.bucket_code.toUpperCase();
+          categoryDistribution[label] = bucket.seat_count;
+        }
+      }
+
+      seatMatrix = {
+        aiq,
+        stateQuota,
+        management,
+        nri,
+        categoryDistribution,
+      };
+    }
+  }
+
+  if (!seatMatrix && dbCollege.quotaInfo) {
+    seatMatrix = parseQuotaInfoToSeatMatrix(dbCollege.quotaInfo);
+  }
+
+  return {
+    slug: dbCollege.slug,
+    name: dbCollege.name,
+    stateSlug: dbCollege.stateSlug,
+    city: dbCollege.city ?? "",
+    collegeType: dbCollege.collegeType as any,
+    seatCount: dbCollege.seatCount,
+    quotaInfo: dbCollege.quotaInfo,
+    fees,
+    cutoffs,
+    bond: {
+      years: dbCollege.bond_years,
+      penalty: dbCollege.bond_penalty,
+      note: dbCollege.bond_note ?? undefined,
+    },
+    infrastructure: {
+      beds: dbCollege.bed_count,
+      patientFlowPerDay: dbCollege.patient_flow_per_day,
+      facilities: dbCollege.facilities || [],
+    },
+    reviews: {
+      pros: [],
+      cons: [],
+    },
+    roiScore: dbCollege.roi_score,
+    otherInfo: {
+      officialWebsite: `https://www.${dbCollege.slug}.edu.in`,
+      counsellingBrochureUrl: dbCollege.counselling || undefined,
+    },
+    seatMatrix,
   };
 }

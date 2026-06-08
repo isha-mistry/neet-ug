@@ -19,19 +19,30 @@ export function normalizeCategory(categoryStr?: string | null, quotaStr: string 
   const catLower = (categoryStr || "").toLowerCase();
   const quotaLower = quotaStr.toLowerCase();
 
-  if (catLower === "general" || catLower === "open" || catLower === "ur") {
+  if (
+    catLower === "general" ||
+    catLower === "open" ||
+    catLower === "ur" ||
+    catLower === "op" ||
+    catLower === "opph"
+  ) {
     return "general";
   }
-  if (catLower === "ews") {
+  if (catLower === "ews" || catLower === "ew" || catLower === "ewph") {
     return "ews";
   }
-  if (catLower === "obc" || catLower === "sebc") {
+  if (
+    catLower === "obc" ||
+    catLower === "sebc" ||
+    catLower === "se" ||
+    catLower === "seph"
+  ) {
     return "obc";
   }
-  if (catLower === "sc") {
+  if (catLower === "sc" || catLower === "scph") {
     return "sc";
   }
-  if (catLower === "st") {
+  if (catLower === "st" || catLower === "stph") {
     return "st";
   }
   if (

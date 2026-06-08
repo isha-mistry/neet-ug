@@ -33,11 +33,11 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
 
   // Dynamically check which optional columns are available in the displayed dataset
   const hasStateRank = filteredCutoffs.some(
-    (c) => c.stateOpeningRank !== undefined || c.stateClosingRank !== undefined
+    (c) => c.stateClosingRank !== undefined
   );
 
   const hasCategoryRank = filteredCutoffs.some(
-    (c) => c.categoryOpeningRank !== undefined || c.categoryClosingRank !== undefined
+    (c) => c.categoryClosingRank !== undefined
   );
 
   // Find the latest year in the dataset dynamically to highlight it
@@ -90,12 +90,6 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
                     <th className="px-4 py-3 font-semibold">Round</th>
                     <th className="px-4 py-3 font-semibold">Seat Type</th>
                     <th className="px-4 py-3 font-semibold text-right">
-                      Opening Rank<br />
-                      <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
-                        (air)
-                      </span>
-                    </th>
-                    <th className="px-4 py-3 font-semibold text-right">
                       Closing Rank<br />
                       <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
                         (air)
@@ -104,36 +98,20 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
 
                     {/* Optional Columns rendered only if data exists in the filtered rows */}
                     {hasStateRank && (
-                      <>
-                        <th className="px-4 py-3 font-semibold text-right">
-                          Opening Rank<br />
-                          <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
-                            (state)
-                          </span>
-                        </th>
-                        <th className="px-4 py-3 font-semibold text-right">
-                          Closing Rank<br />
-                          <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
-                            (state)
-                          </span>
-                        </th>
-                      </>
+                      <th className="px-4 py-3 font-semibold text-right">
+                        Closing Rank<br />
+                        <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
+                          (state)
+                        </span>
+                      </th>
                     )}
                     {hasCategoryRank && (
-                      <>
-                        <th className="px-4 py-3 font-semibold text-right">
-                          Opening Rank<br />
-                          <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
-                            (category)
-                          </span>
-                        </th>
-                        <th className="px-4 py-3 font-semibold text-right">
-                          Closing Rank<br />
-                          <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
-                            (category)
-                          </span>
-                        </th>
-                      </>
+                      <th className="px-4 py-3 font-semibold text-right">
+                        Closing Rank<br />
+                        <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
+                          (category)
+                        </span>
+                      </th>
                     )}
                   </tr>
                 </thead>
@@ -165,11 +143,6 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
                           {cutoff.category} / {cutoff.quota}
                         </td>
 
-                        {/* Opening Rank (AIR) */}
-                        <td className="px-4 py-3.5 text-right font-medium text-text-secondary">
-                          {cutoff.openingRank !== undefined ? formatNumber(cutoff.openingRank) : "—"}
-                        </td>
-
                         {/* Closing Rank (AIR) */}
                         <td className="px-4 py-3.5 text-right font-extrabold text-text">
                           {cutoff.closingRank !== undefined ? formatNumber(cutoff.closingRank) : "—"}
@@ -177,26 +150,16 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
 
                         {/* Optional State Ranks */}
                         {hasStateRank && (
-                          <>
-                            <td className="px-4 py-3.5 text-right font-medium text-text-secondary">
-                              {cutoff.stateOpeningRank !== undefined ? formatNumber(cutoff.stateOpeningRank) : "—"}
-                            </td>
-                            <td className="px-4 py-3.5 text-right font-extrabold text-text">
-                              {cutoff.stateClosingRank !== undefined ? formatNumber(cutoff.stateClosingRank) : "—"}
-                            </td>
-                          </>
+                          <td className="px-4 py-3.5 text-right font-extrabold text-text">
+                            {cutoff.stateClosingRank !== undefined ? formatNumber(cutoff.stateClosingRank) : "—"}
+                          </td>
                         )}
 
                         {/* Optional Category Ranks */}
                         {hasCategoryRank && (
-                          <>
-                            <td className="px-4 py-3.5 text-right font-medium text-text-secondary">
-                              {cutoff.categoryOpeningRank || "—"}
-                            </td>
-                            <td className="px-4 py-3.5 text-right font-extrabold text-text">
-                              {cutoff.categoryClosingRank || "—"}
-                            </td>
-                          </>
+                          <td className="px-4 py-3.5 text-right font-extrabold text-text">
+                            {cutoff.categoryClosingRank || "—"}
+                          </td>
                         )}
                       </tr>
                     );

@@ -63,6 +63,7 @@ export default async function CollegeDetailPage({ params }: PageProps) {
           stateName={college.stateName}
           collegeType={college.collegeType}
           quotaInfo={college.quotaInfo}
+          seatMatrix={college.seatMatrix}
           officialWebsite={college.otherInfo?.officialWebsite}
           counsellingBrochureUrl={college.otherInfo?.counsellingBrochureUrl}
           bond={college.bond}

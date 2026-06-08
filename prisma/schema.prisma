@@ -9,94 +9,29 @@ datasource db {
   schemas   = ["app", "staging"]
 }
 
-model StagingMedicalCollege {
-  id                Int     @id @default(autoincrement())
-  state             String?
-  collegeName       String? @map("college_name")
-  universityName    String? @map("university_name")
-  collegeType       String? @map("college_type")
-  annualIntakeSeats Int?    @map("annual_intake_seats")
-  counselling       String?
-
-  @@map("medical_colleges")
-  @@schema("staging")
-}
-
-model StagingGujaratCollegeFee {
-  id             Int      @id @default(autoincrement())
-  collegeName    String?  @map("college_name")
-  university     String?
-  govtQuotaFees  Decimal? @map("govt_quota_fees") @db.Decimal
-  mgtQuotaFees   Decimal? @map("mgt_quota_fees") @db.Decimal
-  feesCurrency   String?  @map("fees_currency")
-  nriFees        Decimal? @map("nri_fees") @db.Decimal
-  hostelFees     Decimal? @map("hostel_fees") @db.Decimal
-  messFees       Decimal? @map("mess_fees") @db.Decimal
-  universityFees Decimal? @map("university_fees") @db.Decimal
-  transportFees  Decimal? @map("transport_fees") @db.Decimal
-  examFees       Decimal? @map("exam_fees") @db.Decimal
-
-  @@map("gujarat_college_fees")
-  @@schema("staging")
-}
-
-model StagingGujaratSeatData {
-  id            Int     @id @default(autoincrement())
-  collegeName   String? @map("college_name")
-  instituteType String? @map("institute_type")
-  totalSeats    Int?    @map("total_seats")
-  aiq           Int?
-  stateQuota    Int?    @map("state_quota")
-  esicIp        Int?    @map("esic_ip")
-  nri           Int?
-  openSeats     Int?    @map("open_seats")
-  sc            Int?
-  st            Int?
-  sebc          Int?
-  ews           Int?
-  mq            Int?
-
-  @@map("gujarat_seat_data")
-  @@schema("staging")
-}
-
-model StagingGujaratCutoffData {
-  id                    Int      @id @default(autoincrement())
-  collegeName           String?  @map("college_name")
-  state                 String?
-  category              String?
-  seatType              String?  @map("seat_type")
-  admissionRound        String?  @map("admission_round")
-  openingRankAir        Int?     @map("opening_rank_air")
-  closingRankAir        Int?     @map("closing_rank_air")
-  openingStateMeritRank Int?     @map("opening_state_merit_rank")
-  closingStateMeritRank Int?     @map("closing_state_merit_rank")
-  openingNeetScore      Int?     @map("opening_neet_score")
-  closingNeetScore      Int?     @map("closing_neet_score")
-  openingPercentile     Decimal? @map("opening_percentile") @db.Decimal
-  closingPercentile     Decimal? @map("closing_percentile") @db.Decimal
-  totalSeatsFilled      Int?     @map("total_seats_filled")
-  cutoffYear            Int?     @map("cutoff_year")
-  openingCategoryRank   String?  @map("opening_category_rank")
-  closingCategoryRank   String?  @map("closing_category_rank")
-
-  @@map("gujarat_cutoff_data")
-  @@schema("staging")
-}
-
 model College {
-  collegeId      Int            @id @default(autoincrement()) @map("college_id")
-  slug           String         @unique
-  name           String
-  state          String
-  stateSlug      String         @map("state_slug")
-  city           String?
-  collegeType    String         @map("college_type")
-  seatCount      Int            @default(0) @map("seat_count")
-  quotaInfo      String         @default("") @map("quota_info")
-  universityName String?        @map("university_name")
-  counselling    String?
-  aliases        CollegeAlias[]
+  collegeId            Int              @id @default(autoincrement()) @map("college_id")
+  slug                 String           @unique
+  name                 String
+  stateSlug            String           @map("state_slug")
+  city                 String?
+  collegeType          String           @map("college_type")
+  seatCount            Int              @default(0) @map("seat_count")
+  quotaInfo            String           @default("") @map("quota_info")
+  universityName       String?          @map("university_name")
+  counselling          String?
+  roi_score            Int              @default(50)
+  bond_years           Int              @default(0)
+  bond_penalty         Int              @default(0)
+  bond_note            String?
+  bed_count            Int              @default(0)
+  patient_flow_per_day Int              @default(0)
+  facilities           String[]         @default([])
+  aliases              CollegeAlias[]
+  states               states           @relation(fields: [stateSlug], references: [state_slug])
+  cutoffs              cutoffs[]
+  fee_schedules        fee_schedules[]
+  seat_snapshots       seat_snapshots[]
 
   @@map("colleges")
   @@schema("app")
@@ -116,23 +51,91 @@ model CollegeAlias {
   @@schema("app")
 }
 
-/// Full CollegeRecord JSON — what Next.js reads at runtime.
-/// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
-model CollegeDocument {
-  slug      String   @id
-  data      Json
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+model cutoffs {
+  id                       Int      @id @default(autoincrement())
+  college_id               Int
+  year                     Int
+  category                 String
+  seat_type                String
+  admission_round          String
+  opening_rank_air         Int?
+  closing_rank_air         Int?
+  opening_state_merit_rank Decimal? @db.Decimal(12, 2)
+  closing_state_merit_rank Decimal? @db.Decimal(12, 2)
+  opening_neet_score       Int?
+  closing_neet_score       Int?
+  opening_percentile       Decimal? @db.Decimal(8, 5)
+  closing_percentile       Decimal? @db.Decimal(8, 5)
+  total_seats_filled       Int?
+  opening_category_rank    String?
+  closing_category_rank    String?
+  colleges                 College  @relation(fields: [college_id], references: [collegeId], onDelete: Cascade)
 
-  @@map("college_documents")
+  @@unique([college_id, year, category, seat_type, admission_round])
+  @@index([college_id, year])
+  @@index([year, category, closing_rank_air])
   @@schema("app")
 }
 
-/// Full StateRecord JSON — what Next.js reads at runtime.
-model StateDocument {
-  slug      String   @id
-  data      Json
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+model fee_line_items {
+  id            Int           @id @default(autoincrement())
+  schedule_id   Int
+  component     String
+  seat_type     String        @default("")
+  category      String        @default("")
+  amount        Decimal       @db.Decimal(14, 2)
+  currency      String        @default("INR")
+  period        String        @default("annual")
+  fee_schedules fee_schedules @relation(fields: [schedule_id], references: [id], onDelete: Cascade)
 
-  @@map("state_documents")
+  @@unique([schedule_id, component, seat_type, category])
+  @@schema("app")
+}
+
+model fee_schedules {
+  id             Int              @id @default(autoincrement())
+  college_id     Int
+  academic_year  Int
+  source         String           @default("")
+  fee_line_items fee_line_items[]
+  colleges       College          @relation(fields: [college_id], references: [collegeId], onDelete: Cascade)
+
+  @@unique([college_id, academic_year])
+  @@schema("app")
+}
+
+model seat_buckets {
+  id             Int            @id @default(autoincrement())
+  snapshot_id    Int
+  bucket_code    String
+  seat_count     Int
+  seat_snapshots seat_snapshots @relation(fields: [snapshot_id], references: [id], onDelete: Cascade)
+
+  @@unique([snapshot_id, bucket_code])
+  @@schema("app")
+}
+
+model seat_snapshots {
+  id             Int            @id @default(autoincrement())
+  college_id     Int
+  academic_year  Int
+  institute_type String
+  total_seats    Int
+  seat_buckets   seat_buckets[]
+  colleges       College        @relation(fields: [college_id], references: [collegeId], onDelete: Cascade)
+
+  @@unique([college_id, academic_year])
+  @@schema("app")
+}
+
+model states {
+  state_slug            String    @id
+  name                  String
+  intro                 String    @default("")
+  total_seats           Int       @default(0)
+  competition_level     String    @default("")
+  fee_dimension_profile String    @default("seat_type")
+  colleges              College[]
+
   @@schema("app")
 }

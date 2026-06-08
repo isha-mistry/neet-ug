@@ -4,15 +4,18 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/Card";
 import type { CollegeSeatMatrix } from "@/types/college";
 import { formatNumber } from "@/lib/utils";
-import { FiPieChart, FiUsers } from "react-icons/fi";
 import {
   ResponsiveContainer,
   PieChart,
   Pie,
   Cell,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
   Tooltip as RechartsTooltip,
+  LabelList,
 } from "recharts";
-import { normalizeCategory } from "@/lib/colleges/categories";
 import { DetailSectionHeader } from "@/components/features/colleges/shared/DetailSectionHeader";
 import { cn } from "@/lib/utils";
 
@@ -29,29 +32,25 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
 
   // Setup custom colors mapping to MedSeat Tailwind utility classes
   const quotas = [
-    { 
-      label: "All India Quota (AIQ)", 
-      value: seatMatrix.aiq, 
-      colorClass: "bg-primary",
-      hexColor: "var(--color-primary)"
+    {
+      label: "All India Quota (AIQ)",
+      value: seatMatrix.aiq,
+      color: "var(--color-brand-100)" // Light blue
     },
-    { 
-      label: "State Quota", 
-      value: seatMatrix.stateQuota, 
-      colorClass: "bg-secondary",
-      hexColor: "var(--color-secondary)" 
+    {
+      label: "State Quota",
+      value: seatMatrix.stateQuota,
+      color: "var(--color-brand-700)" // Deep blue
     },
-    { 
-      label: "Management", 
-      value: seatMatrix.management, 
-      colorClass: "bg-tertiary",
-      hexColor: "var(--color-tertiary)" 
+    {
+      label: "Management",
+      value: seatMatrix.management,
+      color: "var(--color-brand-200)" // Sky blue
     },
-    { 
-      label: "NRI Quota", 
-      value: seatMatrix.nri, 
-      colorClass: "bg-primary-fixed-dim",
-      hexColor: "var(--color-primary-fixed-dim)" 
+    {
+      label: "NRI Quota",
+      value: seatMatrix.nri,
+      color: "var(--color-brand-300)" // Light cyan
     },
   ].filter((q) => q.value > 0);
 
@@ -60,8 +59,7 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
     quotas.push({
       label: "Central Pool / Others",
       value: seatMatrix.aiq > 0 ? 113 : 0,
-      colorClass: "bg-secondary-fixed-dim",
-      hexColor: "var(--color-secondary-fixed-dim)"
+      color: "var(--color-brand-200)"
     });
   }
 
@@ -79,52 +77,92 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
   // Check if AIQ represents 100% of the quota seats
   const isAiq100 = seatMatrix.aiq > 0 && (seatMatrix.aiq === totalQuotaSeats || (seatMatrix.stateQuota === 0 && seatMatrix.management === 0 && seatMatrix.nri === 0));
 
-  const getCategoryClasses = (cat: string) => {
-    const normalized = normalizeCategory(cat);
-    switch (normalized) {
-      case "general": return { bg: "bg-primary", text: "text-primary", border: "border-primary/20", hex: "var(--color-primary)" };
-      case "obc": return { bg: "bg-secondary", text: "text-secondary", border: "border-secondary/20", hex: "var(--color-secondary)" };
-      case "sc": return { bg: "bg-tertiary", text: "text-tertiary", border: "border-tertiary/20", hex: "var(--color-tertiary)" };
-      case "st": return { bg: "bg-college-category-st", text: "text-college-category-st", border: "border-college-category-st/20", hex: "var(--color-college-category-st)" };
-      case "ews": return { bg: "bg-college-category-ews", text: "text-college-category-ews", border: "border-college-category-ews/20", hex: "var(--color-college-category-ews)" };
-      default: return { bg: "bg-text-muted", text: "text-text-muted", border: "border-border", hex: "var(--color-outline)" };
-    }
-  };
-
   // Prepare chart data for Quota Distribution Donut Chart
   const quotaChartData = activeQuotas.map((q) => {
     const pct = totalQuotaSeats > 0 ? (q.value / totalQuotaSeats) * 100 : 0;
     return {
       name: q.label,
       value: q.value,
-      color: q.hexColor,
+      color: q.color,
       percentage: pct
     };
   });
 
-  // Custom tooltips for Recharts to achieve sleek, brand-aligned glassmorphism look
-  const CustomTooltip = ({ active, payload }: any) => {
+  // Prepare chart data for Category-wise seats horizontal bar chart
+  const categoryChartData = Object.entries(seatMatrix.categoryDistribution).map(([category, count]) => {
+    const percentage = totalCategorySeats > 0 ? (count / totalCategorySeats) * 100 : 0;
+    return {
+      name: category.toUpperCase(),
+      seats: count,
+      percentage: percentage,
+    };
+  });
+
+  // Category color mapper using cohesive shades from the MedSeat blue/teal palette
+  const getCategoryColor = (catName: string) => {
+    const name = catName.toLowerCase();
+    if (name.includes("open") || name.includes("gen") || name === "op") {
+      return "var(--color-brand-700)"; // #003d9b - Dark Blue
+    }
+    if (name.includes("obc") || name.includes("sebc") || name === "se") {
+      return "var(--color-on-secondary-container)"; // #005f71 - Dark Teal
+    }
+    if (name === "ews") {
+      return "var(--color-secondary)"; // #00687b - Teal
+    }
+    if (name === "sc") {
+      return "var(--color-secondary-fixed-dim)"; // #48d7f9 - Sky Blue
+    }
+    if (name === "st") {
+      return "var(--color-primary-fixed-dim)"; // #b2c5ff - Light Blue
+    }
+    return "var(--color-outline)";
+  };
+
+  // Custom tooltips for Recharts donut chart
+  const CustomQuotaTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="border border-border p-3.5 rounded-xl flex flex-col gap-1 bg-surface-container-lowest shadow-level-2 animate-fadeIn z-50">
-          <div className="flex items-center gap-2">
+        <div className="border border-border p-3 rounded-xl flex flex-col gap-0.5 bg-surface-container-lowest shadow-level-2 z-50 animate-fadeIn">
+          <div className="flex items-center gap-1.5">
             <span 
-              className="h-2.5 w-2.5 rounded-full shadow-xs" 
+              className="h-2.5 w-2.5 rounded-full" 
               style={{ backgroundColor: data.color }} 
             />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">
+            <span className="text-[9px] font-bold uppercase tracking-wider text-text-secondary">
               {payload[0].name}
             </span>
           </div>
-          <div className="text-base font-extrabold mt-0.5 text-text">
-            {formatNumber(payload[0].value)} <span className="text-xs font-semibold text-text-muted">Seats</span>
+          <div className="text-sm font-extrabold text-text mt-0.5">
+            {formatNumber(payload[0].value)} <span className="text-xs font-normal text-text-muted">Seats</span>
           </div>
           {data.percentage !== undefined && (
-            <span className="text-[10px] font-medium mt-0.5 text-text-muted">
+            <span className="text-[9px] text-text-muted font-medium">
               Share: {data.percentage.toFixed(1)}%
             </span>
           )}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // Custom tooltips for Recharts category bar chart
+  const CustomCategoryTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <div className="border border-border p-3 rounded-xl flex flex-col gap-0.5 bg-surface-container-lowest shadow-level-2 z-50 animate-fadeIn">
+          <span className="text-[9px] font-bold uppercase tracking-widest text-text-muted">
+            {data.name}
+          </span>
+          <div className="text-sm font-extrabold text-text mt-0.5">
+            {formatNumber(data.seats)} <span className="text-xs font-normal text-text-muted">Seats</span>
+          </div>
+          <span className="text-[9px] text-brand-700 font-medium">
+            Share: {data.percentage.toFixed(1)}%
+          </span>
         </div>
       );
     }
@@ -143,7 +181,9 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
       {!hasAnyData ? (
         <Card padded className="flex flex-col items-center justify-center gap-3 text-center py-14 border border-border shadow-xs rounded-2xl bg-surface-container-lowest">
           <div className="rounded-full p-3 bg-emerald-50 text-emerald-800">
-            <FiUsers size={32} />
+            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
           </div>
           <h3 className="text-base font-bold text-text">
             Seat Allocation Data Not Available
@@ -154,95 +194,83 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
         </Card>
       ) : (
         <div className="grid gap-6 lg:grid-cols-2">
-          {/* Left Column: Quota Distribution Donut Chart */}
-          <Card padded className="flex flex-col gap-4 bg-surface-container-lowest">
-            <div className="flex items-center gap-2 border-b border-border pb-3">
-              <FiPieChart className="h-5 w-5 text-primary" />
-              <h3 className="font-bold text-base text-text">Quota Distribution</h3>
-            </div>
+          {/* Left Column: Quota Distribution Donut Chart (Redesigned Up-Down Layout) */}
+          <Card padded className="flex flex-col gap-4 bg-surface-container-lowest border border-border shadow-level-1 rounded-3xl p-6 md:p-8">
+            <h3 className="font-extrabold text-lg text-text">Quota Distribution</h3>
             
             {hasQuotaData ? (
-              <>
-                {/* Interactive Chart Container */}
-                <div className="flex items-center justify-center py-4 bg-surface-container-lowest/40 rounded-xl border border-border/10 min-h-[220px]">
+              <div className="flex flex-col items-center gap-6 py-2">
+                {/* Interactive Donut Chart (Top Side) */}
+                <div className="relative w-44 h-44 shrink-0 flex items-center justify-center">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
+                    <span className="text-3xl font-black tracking-tight text-text">
+                      {formatNumber(totalQuotaSeats)}
+                    </span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-text-muted mt-0.5">
+                      Total
+                    </span>
+                  </div>
+                  
                   {mounted ? (
-                    <div className="relative w-full h-[200px] flex items-center justify-center">
-                      {/* Total Counter in Center of Donut */}
-                      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
-                        <span className="text-2xl font-extrabold tracking-tight text-text">
-                          {formatNumber(totalQuotaSeats)}
-                        </span>
-                        <span className="text-[9px] font-extrabold uppercase tracking-widest text-text-muted">
-                          Total Seats
-                        </span>
-                      </div>
-                      
-                      <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                          <Pie
-                            data={quotaChartData}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={65}
-                            outerRadius={85}
-                            paddingAngle={4}
-                            dataKey="value"
-                          >
-                            {quotaChartData.map((entry, index) => (
-                              <Cell 
-                                key={`cell-${index}`} 
-                                fill={entry.color} 
-                                className="focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer"
-                              />
-                            ))}
-                          </Pie>
-                          <RechartsTooltip 
-                            content={<CustomTooltip />} 
-                            cursor={false} 
-                            wrapperStyle={{ zIndex: 1000, outline: "none" }}
-                          />
-                        </PieChart>
-                      </ResponsiveContainer>
-                    </div>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={quotaChartData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={55}
+                          outerRadius={75}
+                          paddingAngle={3}
+                          dataKey="value"
+                        >
+                          {quotaChartData.map((entry, index) => (
+                            <Cell 
+                              key={`cell-${index}`} 
+                              fill={entry.color} 
+                              className="focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer"
+                            />
+                          ))}
+                        </Pie>
+                        <RechartsTooltip 
+                          content={<CustomQuotaTooltip />} 
+                          cursor={false} 
+                          wrapperStyle={{ zIndex: 1000, outline: "none" }}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
                   ) : (
-                    <div className="h-[200px] flex items-center justify-center text-sm font-medium animate-pulse text-text-muted">
-                      Loading interactive visualization...
+                    <div className="h-full w-full flex items-center justify-center text-xs font-semibold text-text-muted animate-pulse">
+                      Loading...
                     </div>
                   )}
                 </div>
                 
-                {/* Detailed Lists with Indicators */}
-                <div className="flex flex-col gap-3 pt-2">
-                  {activeQuotas.map((quota, idx) => {
-                    const percentage = totalQuotaSeats > 0 ? (quota.value / totalQuotaSeats) * 100 : 0;
+                {/* Legend List (Bottom Side - Stacked chips) */}
+                <div className="flex flex-col gap-3 w-full border-t border-border/60 pt-4">
+                  {quotaChartData.map((quota, idx) => {
                     return (
-                      <div key={idx} className="flex flex-col gap-2.5 rounded-xl bg-surface p-3.5 border border-border/15 shadow-xs hover:border-brand-200 transition-all duration-300">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2.5">
-                            <span className={cn("h-2.5 w-2.5 rounded-full shadow-xs", quota.colorClass)} />
-                            <span className="text-sm font-semibold text-text-secondary">
-                              {quota.label}
-                            </span>
-                          </div>
-                          <span className="text-xs font-bold text-text-secondary bg-surface-container-low/80 px-2.5 py-1 rounded-full border border-border/50 shadow-xs">
-                            <strong className="font-extrabold text-sm text-primary">{formatNumber(quota.value)}</strong> Seats ({percentage.toFixed(1)}%)
-                          </span>
-                        </div>
-                        
-                        {/* Progress Bar Track */}
-                        <div className="h-1.5 w-full bg-surface-container-low rounded-full overflow-hidden">
-                          <div 
-                            className={cn("h-full rounded-full transition-all duration-500 ease-out", quota.colorClass)}
-                            style={{ 
-                              width: `${percentage}%`
-                            }}
+                      <div 
+                        key={idx} 
+                        className="flex items-center justify-between p-3.5 rounded-2xl bg-surface-container-low/20 border border-border/40 hover:border-brand-300 hover:bg-surface-container-low/40 transition-all duration-300 shadow-xs"
+                      >
+                        <div className="flex items-center gap-2.5 text-text-secondary font-bold text-xs md:text-sm">
+                          <span 
+                            className="h-3.5 w-3.5 rounded-full flex-shrink-0 shadow-xs border border-white" 
+                            style={{ backgroundColor: quota.color }} 
                           />
+                          <span>{quota.name}</span>
+                        </div>
+                        <div className="font-extrabold text-text text-sm md:text-base">
+                          {formatNumber(quota.value)}{" "}
+                          <span className="text-xs font-semibold text-text-muted">
+                            ({quota.percentage.toFixed(1)}%)
+                          </span>
                         </div>
                       </div>
                     );
                   })}
                 </div>
-              </>
+              </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-10 text-center gap-2">
                 <span className="text-xs font-bold text-text-secondary">
@@ -255,63 +283,83 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
             )}
           </Card>
 
-          {/* Right Column: Category-wise Distribution Bar Chart */}
-          <Card padded className="flex flex-col gap-4 bg-surface-container-lowest">
+          {/* Right Column: Category-wise Distribution Bar Chart (Statistics displayed by default next to bars) */}
+          <Card padded className="flex flex-col gap-4 bg-surface-container-lowest border border-border shadow-level-1 rounded-3xl p-6 md:p-8">
             <div className="flex items-center justify-between border-b border-border pb-3">
-              <div className="flex items-center gap-2">
-                <FiUsers className="h-5 w-5 text-primary" />
-                <h3 className="font-bold text-base text-text">Category-wise Seats</h3>
-              </div>
+              <h3 className="font-extrabold text-lg text-text">Category-wise Seats</h3>
               {hasCategoryData && (
-                <span 
-                  className={cn(
-                    "text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg border shadow-xs",
-                    isAiq100 
-                      ? "bg-indigo-50/80 text-indigo-700 border-indigo-200/50" 
-                      : "bg-emerald-50/80 text-emerald-700 border-emerald-200/50"
-                  )}
-                >
+                <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md border shadow-xs bg-surface-container-low text-text-muted border-border">
                   {isAiq100 ? "AIQ seats" : "State"}
                 </span>
               )}
             </div>
             
             {hasCategoryData ? (
-              <div className="flex flex-col gap-3 pt-2">
-                {Object.entries(seatMatrix.categoryDistribution).map(([category, count]) => {
-                  const percentage = totalCategorySeats > 0 ? (count / totalCategorySeats) * 100 : 0;
-                  const catClasses = getCategoryClasses(category);
-                  return (
-                    <div key={category} className="flex flex-col gap-2.5 rounded-xl bg-surface p-3.5 border border-border/15 shadow-xs hover:border-brand-200 transition-all duration-300">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-black uppercase tracking-wider text-text-muted">
-                          {category}
-                        </span>
-                        <span 
-                          className={cn(
-                            "text-xs font-bold text-text-secondary bg-surface-container-low px-2.5 py-1 rounded-full border shadow-xs",
-                            catClasses.border
-                          )}
-                        >
-                          <strong className={cn("font-black text-sm", catClasses.text)}>
-                            {formatNumber(count)}
-                          </strong>{" "}
-                          Seats ({percentage.toFixed(1)}%)
-                        </span>
-                      </div>
-                      
-                      {/* Progress Bar Track */}
-                      <div className="h-1.5 w-full bg-surface-container-low rounded-full overflow-hidden">
-                        <div 
-                          className={cn("h-full rounded-full transition-all duration-500 ease-out", catClasses.bg)}
-                          style={{ 
-                            width: `${percentage}%`
-                          }}
+              <div className="h-72 w-full pt-2">
+                {mounted ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={categoryChartData}
+                      layout="vertical"
+                      margin={{ top: 10, right: 130, left: 10, bottom: 5 }}
+                    >
+                      <XAxis type="number" hide />
+                      <YAxis 
+                        dataKey="name" 
+                        type="category" 
+                        axisLine={false} 
+                        tickLine={false}
+                        tick={{ fill: "var(--color-text-secondary)", fontSize: 11, fontWeight: 700 }}
+                        width={60}
+                      />
+                      <RechartsTooltip 
+                        content={<CustomCategoryTooltip />} 
+                        cursor={{ fill: "rgba(0,0,0,0.02)" }} 
+                        wrapperStyle={{ zIndex: 1000 }}
+                      />
+                      <Bar 
+                        dataKey="seats" 
+                        radius={[0, 4, 4, 0]} 
+                        barSize={12}
+                      >
+                        {categoryChartData.map((entry, index) => (
+                          <Cell 
+                            key={`cell-${index}`} 
+                            fill={getCategoryColor(entry.name)} 
+                          />
+                        ))}
+                        {/* Display seat count and percentage stats by default */}
+                        <LabelList 
+                          dataKey="seats" 
+                          position="right" 
+                          content={(props) => {
+                            const { x, y, width, height, value, index } = props;
+                            const pct = categoryChartData[index as number]?.percentage;
+                            const barWidth = width as number;
+                            const barHeight = height as number;
+                            const xPos = (x as number) + (isNaN(barWidth) ? 0 : barWidth) + 8;
+                            const yPos = (y as number) + (isNaN(barHeight) ? 0 : barHeight) / 2 + 4;
+                            return (
+                              <text 
+                                x={xPos} 
+                                y={yPos} 
+                                fill="var(--color-text)" 
+                                fontSize={10} 
+                                fontWeight={800}
+                              >
+                                {value} Seats ({pct?.toFixed(1)}%)
+                              </text>
+                            );
+                          }} 
                         />
-                      </div>
-                    </div>
-                  );
-                })}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-full w-full flex items-center justify-center text-xs font-semibold text-text-muted animate-pulse">
+                    Loading category chart...
+                  </div>
+                )}
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-10 text-center gap-2">
@@ -323,7 +371,6 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
                 </p>
               </div>
             )}
-            
           </Card>
         </div>
       )}
