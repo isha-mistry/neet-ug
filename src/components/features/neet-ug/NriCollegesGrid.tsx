@@ -56,29 +56,34 @@ export function NriCollegesGrid({ colleges = defaultColleges }: NriCollegesGridP
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {colleges.map((col, idx) => (
-        <Card key={idx} padded bordered className="bg-white/80 hover:bg-white hover:shadow-md transition-shadow rounded-2xl flex flex-col gap-4 border-l-4 border-l-tertiary">
+        <Card
+          key={idx}
+          padded
+          bordered
+          className="flex flex-col gap-4 rounded-2xl border-clinical-outline border-l-4 border-l-clinical-green bg-clinical-surface shadow-clinical-soft transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-clinical-hover"
+        >
           <div className="flex justify-between items-start gap-2">
             <div>
-              <h4 className="font-bold text-text text-base leading-snug">{col.name}</h4>
-              <span className="text-xs text-text-muted mt-0.5 block">{col.location}</span>
+              <h4 className="text-base font-bold leading-snug text-clinical-navy">{col.name}</h4>
+              <span className="mt-0.5 block text-xs text-clinical-muted">{col.location}</span>
             </div>
-            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-tertiary-fixed text-tertiary shrink-0">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-clinical-green ring-1 ring-emerald-100">
               <MaterialSymbol name={col.icon} size="sm" />
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 pt-3 border-t border-border/50 text-xs">
+          <div className="grid grid-cols-2 gap-3 border-t border-clinical-outline pt-3 text-xs">
             <div>
-              <span className="text-text-muted block font-medium">NRI Tuition Fee</span>
-              <span className="font-extrabold text-tertiary mt-0.5 block">{col.annualFee} / yr</span>
+              <span className="block font-medium text-clinical-muted">NRI Tuition Fee</span>
+              <span className="mt-0.5 block font-extrabold text-clinical-green">{col.annualFee} / yr</span>
             </div>
             <div>
-              <span className="text-text-muted block font-medium">Allocated Seats</span>
-              <span className="font-bold text-text mt-0.5 block">{col.totalSeats}</span>
+              <span className="block font-medium text-clinical-muted">Allocated Seats</span>
+              <span className="mt-0.5 block font-bold text-clinical-navy">{col.totalSeats}</span>
             </div>
           </div>
 
-          <span className="bg-slate-50 border border-slate-100 text-slate-700 text-[10px] font-bold uppercase tracking-wider text-center py-1 rounded">
+          <span className="rounded-full border border-clinical-outline bg-clinical-surface-low py-1 text-center text-[10px] font-bold uppercase tracking-wider text-clinical-muted">
             {col.rating}
           </span>
         </Card>

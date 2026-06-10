@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 
 export interface AnswerKeyItem {
   qNo: number;
@@ -65,17 +64,16 @@ export function SubjectAnswerKeys({
   const sampleAnswerKey = { physics, chemistry, biology };
 
   return (
-    <div className="flex flex-col gap-6 mt-4">
-      {/* Tabs */}
-      <div className="flex border-b border-border gap-2">
+    <div className="mt-2 flex flex-col gap-4">
+      <div className="flex gap-6 border-b border-clinical-outline">
         {(["physics", "chemistry", "biology"] as const).map((sub) => (
           <button
             key={sub}
             onClick={() => setActiveTab(sub)}
-            className={`px-6 py-3 font-semibold text-sm capitalize transition-colors border-b-2 -mb-[2px] ${
+            className={`-mb-px border-b-2 px-0 py-3 text-[12px] font-bold capitalize transition-colors ${
               activeTab === sub
-                ? "border-primary text-primary"
-                : "border-transparent text-text-muted hover:text-text"
+                ? "border-clinical-navy text-clinical-navy"
+                : "border-transparent text-clinical-muted/60 hover:text-clinical-muted"
             }`}
           >
             {sub}
@@ -83,28 +81,29 @@ export function SubjectAnswerKeys({
         ))}
       </div>
 
-      {/* Answer Key Table */}
-      <div className="ms-table-container shadow-sm border border-border rounded-2xl bg-white overflow-hidden animate-fadeIn">
-        <table className="w-full text-left border-collapse">
+      <div className="overflow-hidden rounded-2xl border border-clinical-outline bg-clinical-surface shadow-clinical-soft transition-opacity duration-200">
+        <table className="w-full min-w-[680px] border-collapse text-left tabular-nums">
           <thead>
-            <tr className="bg-surface-container-low border-b border-border text-xs font-bold uppercase tracking-wider text-text-secondary">
-              <th className="p-4 pl-6">Question No.</th>
+            <tr className="border-b border-clinical-outline bg-clinical-surface-low text-[10px] font-extrabold uppercase tracking-[0.16em] text-clinical-muted/75">
+              <th className="p-4 pl-7">Question No.</th>
               <th className="p-4">Set Code A Answer</th>
               <th className="p-4">Set Code B Answer</th>
-              <th className="p-4 pr-6 text-right">Status</th>
+              <th className="p-4 pr-7 text-right">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border/50 text-sm">
+          <tbody className="divide-y divide-clinical-outline text-[13px]">
             {sampleAnswerKey[activeTab].map((item) => (
-              <tr key={item.qNo} className="hover:bg-brand-50/10 transition-colors">
-                <td className="p-4 pl-6 font-bold text-text">Question {item.qNo}</td>
-                <td className="p-4 font-semibold text-brand-700">{item.codeA}</td>
-                <td className="p-4 font-semibold text-brand-700">{item.codeB}</td>
-                <td className="p-4 pr-6 text-right">
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+              <tr key={item.qNo} className="transition-colors hover:bg-clinical-surface-low/45">
+                <td className="p-4 pl-7 font-extrabold text-clinical-navy">
+                  Question {item.qNo}
+                </td>
+                <td className="p-4 font-bold text-clinical-blue">{item.codeA}</td>
+                <td className="p-4 font-bold text-clinical-blue">{item.codeB}</td>
+                <td className="p-4 pr-7 text-right">
+                  <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[0.14em] ${
                     item.status === "Challenged"
-                      ? "bg-amber-100 text-amber-800"
-                      : "bg-green-100 text-green-800"
+                      ? "bg-amber-50 text-amber-700 ring-1 ring-amber-100"
+                      : "bg-emerald-50 text-clinical-green ring-1 ring-emerald-100"
                   }`}>
                     {item.status}
                   </span>
@@ -113,6 +112,11 @@ export function SubjectAnswerKeys({
             ))}
           </tbody>
         </table>
+        <div className="border-t border-clinical-outline py-4 text-center">
+          <button className="text-[12px] font-extrabold text-clinical-blue transition-colors hover:text-clinical-navy">
+            View All 180 Questions +
+          </button>
+        </div>
       </div>
     </div>
   );

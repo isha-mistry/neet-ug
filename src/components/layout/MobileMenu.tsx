@@ -26,11 +26,12 @@ function mobileLinkClass(active: boolean) {
 
 const NEET_UG_2026_LINKS: LinkItem[] = [
   { label: "Exam Info Hub", href: "/neet-ug-2026" },
-  { label: "Live Updates Feed", href: "/neet-ug-2026/updates" },
-  { label: "Answer Key & Calculator", href: "/neet-ug-2026/answer-key" },
-  { label: "Counselling Process Guide", href: "/neet-ug-2026/counselling-guide" },
-  { label: "NRI Admission Guide", href: "/neet-ug-2026/nri-guide" },
-  { label: "Counselling Websites", href: "/neet-ug-2026/counselling-websites" },
+  { label: "Live Updates & Alerts", href: "/neet-ug-2026/updates" },
+  { label: "Application & Admit Card", href: "/neet-ug-2026/application-form" },
+  { label: "Answer Key & Results", href: "/neet-ug-2026/answer-key" },
+  { label: "MCC Counselling Guide", href: "/neet-ug-2026/counselling-guide" },
+  { label: "Reservation & NRI Guide", href: "/neet-ug-2026/nri-guide" },
+  { label: "State Counselling Portals", href: "/neet-ug-2026/counselling-websites" },
 ];
 
 function getDropdownLinks(

@@ -21,7 +21,7 @@ export function Card({
   return (
     <Component
       className={cn(
-        "rounded-lg bg-surface-elevated shadow-level-1 transition-shadow",
+        "rounded-lg shadow-level-1 transition-shadow",
         padded && "p-5 md:p-6",
         bordered && "border border-border",
         className

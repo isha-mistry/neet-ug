@@ -1,0 +1,100 @@
+{
+  "officialNotice": {
+    "headline": "⚠️ OFFICIAL NOTICE: NEET 2026 Exam Cancelled, ReNEET will be conducted on 21 June 2026.",
+    "subtext": "Beware of Touts/Agents Promising Admissions. All Medical Admissions Based on Counselling Only.",
+    "examDate": "June 21, 2026",
+    "originalExamDate": "May 3, 2026",
+    "warning": "From session 2026 onwards, direct admission in any state is prohibited. Candidates must qualify NEET exam to take admission in medical and allied courses (including BVSc & AH) through official counselling only."
+  },
+  "seatStatistics": {
+    "mbbs": {
+      "total": 129603,
+      "newSeatsAY2526": 11501,
+      "government": 63683,
+      "privateDeemed": 65343
+    },
+    "bds": {
+      "total": 27968,
+      "government": 4058,
+      "privateDeemed": 23910
+    },
+    "ayush": {
+      "bams": { "government": 1361, "deemed": 919 },
+      "bhms": { "government": 594, "deemed": 820 },
+      "bsms": { "government": 82 },
+      "bums": { "government": 54 }
+    },
+    "nursing": {
+      "mcc": { "total": 1000 },
+      "aiims": { "total": 500 },
+      "ruhsRajasthan": { "total": 9980, "government": 2370 }
+    },
+    "bvsc": {
+      "totalGovtAllIndia": 704,
+      "note": "No direct admission provision as per VCI notification. Students must qualify NEET to get admission."
+    },
+    "ruhsParamedical": {
+      "radiationTech": 110,
+      "medicalLabTech": 70,
+      "ophthalmicTech": 70,
+      "physiotherapy": 650
+    }
+  },
+  "syllabus": {
+    "marksDistribution": {
+      "totalQuestions": 180,
+      "totalMarks": 720,
+      "durationMinutes": 200,
+      "markingScheme": "+4 for Correct | -1 for Incorrect",
+      "subjects": {
+        "physics": { "questions": 45, "marks": 180, "weightagePercent": 25 },
+        "chemistry": { "questions": 45, "marks": 180, "weightagePercent": 25 },
+        "biology": { "questions": 90, "marks": 360, "weightagePercent": 50 }
+      }
+    },
+    "highYieldChapters": {
+      "physics": [
+        { "name": "Modern Physics", "priority": "Very High", "reason": "Easiest to score from. Questions are typically straightforward and based directly on NCERT facts and formulas." },
+        { "name": "Optics", "priority": "High", "reason": "Combines diagrams, formula application, and conceptual questions. A very consistent and scoring section." },
+        { "name": "Current Electricity", "priority": "High", "reason": "A favorite for MCQ creators. Focus on circuits, Kirchhoff's laws, and meter bridge concepts." },
+        { "name": "Magnetism & EM Induction", "priority": "High", "reason": "Concepts here lead to multiple questions. Understanding magnetic fields and Faraday's law is essential." },
+        { "name": "Laws of Motion", "priority": "High", "reason": "The absolute base of Mechanics. You must be strong here to solve problems in other units." },
+        { "name": "Work, Energy & Power", "priority": "High", "reason": "Central to physics problem-solving. The work-energy theorem is a powerful tool for many numericals." },
+        { "name": "Rotational Motion", "priority": "High", "reason": "While concepts can be tough, this unit has a high number of predictable, repeated numerical problems." },
+        { "name": "Thermodynamics", "priority": "High", "reason": "Tests your grasp of laws and cycles through both theory and calculation-based questions." }
+      ],
+      "chemistry": [
+        { "branch": "Inorganic", "name": "Coordination Compounds", "priority": "Very High", "reason": "An absolute favorite for question papers. Questions are direct from NCERT." },
+        { "branch": "Physical", "name": "Thermodynamics & Equilibrium", "priority": "High", "reason": "Core concepts that are applied everywhere. Strong here boosts confidence." },
+        { "branch": "Physical", "name": "Electrochemistry", "priority": "High", "reason": "Involves clear concepts and numerical problems that are very scoring." },
+        { "branch": "Inorganic", "name": "Chemical Bonding", "priority": "High", "reason": "The foundation for understanding molecular structure and properties in chemistry." },
+        { "branch": "Organic", "name": "Hydrocarbons & Carbonyl Compounds", "priority": "High", "reason": "These form the backbone of organic reaction mechanisms and essential named reactions." },
+        { "branch": "Organic", "name": "Biomolecules", "priority": "High", "reason": "Directly from NCERT and consistently asked. Focus on carbohydrates, proteins, and nucleic acids." }
+      ],
+      "biology": {
+        "botany": [
+          { "unit": "Genetics", "name": "Molecular Basis of Inheritance", "priority": "Very High", "reason": "DNA, RNA, and central dogma are fundamental. Plant genetics and related concepts are tested in depth every year." },
+          { "unit": "Reproduction", "name": "Plant Reproduction", "priority": "High", "reason": "A direct, fact-heavy unit from NCERT. Life cycles (like in flowering plants) and diagrams are highly asked." },
+          { "unit": "Ecology", "name": "Biodiversity & Ecosystem", "priority": "High", "reason": "Conceptual and factual. Topics like ecological succession, energy flow, and plant adaptations are regulars." },
+          { "unit": "Cell Biology", "name": "Plant Cell Structure & Function", "priority": "High", "reason": "The foundation. Questions on organelles specific to plant cells (like chloroplasts, cell wall) are common." },
+          { "unit": "Biotechnology", "name": "Principles & Applications", "priority": "High", "reason": "A modern and consistently tested area, especially tools like genetic engineering which are often applied to plants." }
+        ],
+        "zoology": [
+          { "unit": "Human Physiology", "name": "Breathing, Circulation, Excretion", "priority": "Very High", "reason": "The core of human biology. Diagrams (heart, nephron) and physiological processes are question favorites." },
+          { "unit": "Reproduction", "name": "Human Reproduction", "priority": "High", "reason": "A direct, fact-heavy unit from NCERT. Diagrams of reproductive systems and hormonal cycles are highly asked." },
+          { "unit": "Genetics", "name": "Molecular Basis of Inheritance", "priority": "Very High", "reason": "DNA, RNA, and central dogma are fundamental. Human genetics and disorders are tested in depth every year." },
+          { "unit": "Cell Biology", "name": "Animal Cell Structure & Function", "priority": "High", "reason": "The foundation. Questions on organelles, cell division (meiosis/mitosis), and animal tissues are very common." },
+          { "unit": "Biotechnology", "name": "Principles & Applications", "priority": "High", "reason": "A modern and consistently tested area, especially applications in medicine (like gene therapy) and diagnostics." }
+        ]
+      }
+    }
+  },
+  "expectedCutoffs": [
+    { "category": "UR / EWS", "percentile": "50th Percentile", "score": "720 - 164", "status": "High Competition" },
+    { "category": "OBC-NCL", "percentile": "40th Percentile", "score": "163 - 129", "status": "Moderate" },
+    { "category": "SC", "percentile": "40th Percentile", "score": "163 - 129", "status": "Moderate" },
+    { "category": "ST", "percentile": "40th Percentile", "score": "163 - 129", "status": "Moderate" },
+    { "category": "UR / EWS - PwBD", "percentile": "45th Percentile", "score": "163 - 146", "status": "Relaxed" },
+    { "category": "OBC / SC / ST - PwBD", "percentile": "40th Percentile", "score": "145 - 129", "status": "Relaxed" }
+  ]
+}
