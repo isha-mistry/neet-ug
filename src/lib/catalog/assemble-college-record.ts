@@ -129,26 +129,26 @@ function seatTypeToQuotaLabel(
 }
 
 function buildCutoffs(row: CollegeCatalogRow): CollegeCutoff[] {
-  const bestByKey = new Map<string, CollegeCutoff>();
-
-  for (const c of row.cutoffs) {
-    if (c.closingRankAir == null) continue;
+  const cutoffs: CollegeCutoff[] = row.cutoffs.map((c) => {
     const category = counsellingCategoryToNeet(c.category);
     const quota = seatTypeToQuotaLabel(c.seatType, row.stateSlug);
-    const key = `${c.year}|${quota}|${category ?? ""}|${c.seatType}|${c.category}`;
-    const existing = bestByKey.get(key);
-    if (!existing || c.closingRankAir < existing.rank) {
-      bestByKey.set(key, {
-        year: c.year,
-        rank: c.closingRankAir,
-        quota,
-        ...(category ? { category } : {}),
-      });
-    }
-  }
+    return {
+      year: c.year,
+      rank: c.closingRankAir ?? 0,
+      quota,
+      category: category ?? undefined,
+      round: c.admissionRound ?? undefined,
+      openingRank: c.openingRankAir ?? undefined,
+      closingRank: c.closingRankAir ?? undefined,
+      stateOpeningRank: c.openingStateMeritRank ? Number(c.openingStateMeritRank) : undefined,
+      stateClosingRank: c.closingStateMeritRank ? Number(c.closingStateMeritRank) : undefined,
+      categoryOpeningRank: c.openingCategoryRank ?? undefined,
+      categoryClosingRank: c.closingCategoryRank ?? undefined,
+    };
+  });
 
-  return [...bestByKey.values()].sort((a, b) => {
-    if (a.year !== b.year) return b.year - a.year;
+  return cutoffs.sort((a, b) => {
+    if (b.year !== a.year) return b.year - a.year;
     return a.rank - b.rank;
   });
 }
@@ -231,17 +231,17 @@ export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
     roiScore: row.roiScore,
     ...(row.nirfMedicalRank != null
       ? {
-          nirfMedicalRank: row.nirfMedicalRank,
-          ...(row.nirfMedicalScore != null
-            ? { nirfMedicalScore: decimalToNumber(row.nirfMedicalScore) }
-            : {}),
-          ...(row.nirfRankingYear != null
-            ? { nirfRankingYear: row.nirfRankingYear }
-            : {}),
-          ...(row.nirfInstitutionId
-            ? { nirfInstitutionId: row.nirfInstitutionId }
-            : {}),
-        }
+        nirfMedicalRank: row.nirfMedicalRank,
+        ...(row.nirfMedicalScore != null
+          ? { nirfMedicalScore: decimalToNumber(row.nirfMedicalScore) }
+          : {}),
+        ...(row.nirfRankingYear != null
+          ? { nirfRankingYear: row.nirfRankingYear }
+          : {}),
+        ...(row.nirfInstitutionId
+          ? { nirfInstitutionId: row.nirfInstitutionId }
+          : {}),
+      }
       : {}),
     ...(dataQuality.length ? { dataQuality } : {}),
   };
