@@ -1,32 +1,48 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
+import React from "react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { Container } from "@/components/common/Container";
 import { Section } from "@/components/common/Section";
-import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 import { CounsellingTimeline } from "@/components/features/neet-ug/counselling/CounsellingTimeline";
 import { CounsellingRounds } from "@/components/features/neet-ug/counselling/CounsellingRounds";
 import { DocumentChecklist } from "@/components/features/neet-ug/counselling/DocumentChecklist";
 import { CounsellingFeeTable } from "@/components/features/neet-ug/counselling/CounsellingFeeTable";
 import { neetUg2026Data } from "@/lib/data/neet-ug-2026";
+import { SidebarLeadCard } from "@/components/features/neet-ug/shared/SidebarLeadCard";
 
 export function UgCounsellingGuideView() {
   const { seatStatistics } = neetUg2026Data;
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1000);
-  };
+  const counsellingStreams = [
+    {
+      title: "MCC Central Quota (15%)",
+      desc: "AIQ govt seats, AIIMS, JIPMER, Deemed & Central Universities. Open to all India.",
+    },
+    {
+      title: "State Quota (85%)",
+      desc: "Respective state government and private colleges. Domicile certificates required.",
+    },
+  ];
+
+  const comparisonCards = [
+    {
+      title: "MCC Central Counselling (15% AIQ)",
+      desc: "Covers all central institutions (AIIMS, JIPMER), Deemed Universities, and 15% of seats in every state-run government medical college. No domicile certificate is needed. Anyone from any state can claim these seats based purely on their NEET AIR.",
+      icon: "account_balance",
+      border: "border-blue-100",
+      bgGradient: "from-mg-surface to-blue-50",
+      iconBg: "bg-mg-primary",
+    },
+    {
+      title: "State Quota Counselling (85% State)",
+      desc: "Covers the remaining 85% of seats in state government colleges and 100% of seats in state private colleges. Managed by each state's DME/CET Cell. Requires a valid State Domicile/Residence proof to apply for government quota seats.",
+      icon: "map",
+      border: "border-green-100",
+      bgGradient: "from-mg-surface to-green-50",
+      iconBg: "bg-green-600",
+    },
+  ];
 
   return (
     <>
@@ -64,8 +80,8 @@ export function UgCounsellingGuideView() {
                   { icon: "source", label: "Source", value: "MCC Data", bg: "bg-orange-50", text: "text-orange-600" },
                 ].map((m) => (
                   <div key={m.label} className="flex items-center gap-3 rounded-lg border border-mg-border/40 bg-mg-surface p-4">
-                    <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${m.bg} ${m.text}`}>
-                      <span className="material-symbols-outlined text-[22px]">{m.icon}</span>
+                    <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${m.bg} ${m.text}`}>
+                      <span className="material-symbols-outlined text-[18px]">{m.icon}</span>
                     </div>
                     <div>
                       <p className="text-[11px] font-semibold uppercase tracking-wider text-mg-on-surface">{m.label}</p>
@@ -78,8 +94,8 @@ export function UgCounsellingGuideView() {
               {/* Intro Section */}
               <section className="rounded-xl border border-mg-border/40 bg-mg-surface p-6 shadow-sm">
                 <div className="mb-4 flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-mg-primary-bright text-white">
-                    <span className="material-symbols-outlined text-[28px]">help_center</span>
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-mg-primary-bright text-white">
+                    <span className="material-symbols-outlined text-[19px]">help_center</span>
                   </div>
                   <div>
                     <h2 className="text-[22px] font-semibold text-mg-on-bg">What is NEET UG Counselling?</h2>
@@ -97,18 +113,14 @@ export function UgCounsellingGuideView() {
                   </div>
                   <div className="space-y-4 rounded-lg bg-mg-surface-container p-4">
                     <p className="text-[12px] font-semibold uppercase tracking-wider text-mg-on-surface">Counselling Streams</p>
-                    <div className="flex gap-3">
-                      <span className="material-symbols-outlined shrink-0 text-green-600" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                      <p className="text-sm">
-                        <strong>MCC Central Quota (15%):</strong> AIQ govt seats, AIIMS, JIPMER, Deemed &amp; Central Universities. Open to all India.
-                      </p>
-                    </div>
-                    <div className="flex gap-3">
-                      <span className="material-symbols-outlined shrink-0 text-green-600" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                      <p className="text-sm">
-                        <strong>State Quota (85%):</strong> Respective state government and private colleges. Domicile certificates required.
-                      </p>
-                    </div>
+                    {counsellingStreams.map((stream, i) => (
+                      <div key={i} className="flex gap-3">
+                        <span className="material-symbols-outlined shrink-0 text-green-600" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                        <p className="text-sm">
+                          <strong>{stream.title}:</strong> {stream.desc}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </section>
@@ -151,36 +163,17 @@ export function UgCounsellingGuideView() {
                   AIQ Central vs. State Quota Counselling
                 </h2>
                 <div className="grid gap-6 md:grid-cols-2">
-                  {/* MCC Card */}
-                  <div className="flex flex-col rounded-xl border border-blue-100 bg-gradient-to-br from-mg-surface to-blue-50 p-6 shadow-sm">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-mg-primary text-white">
-                      <span className="material-symbols-outlined text-[28px]">account_balance</span>
+                  {comparisonCards.map((card, i) => (
+                    <div key={i} className={`flex flex-col rounded-xl border ${card.border} bg-gradient-to-br ${card.bgGradient} p-6 shadow-sm`}>
+                      <div className={`mb-4 flex h-9 w-9 items-center justify-center rounded-lg ${card.iconBg} text-white`}>
+                        <span className="material-symbols-outlined text-[19px]">{card.icon}</span>
+                      </div>
+                      <h3 className="mb-2 text-[22px] font-semibold text-mg-on-bg">{card.title}</h3>
+                      <p className="mb-6 flex-1 text-[14px] leading-relaxed text-mg-on-surface">
+                        {card.desc}
+                      </p>
                     </div>
-                    <h3 className="mb-2 text-[22px] font-semibold text-mg-on-bg">MCC Central Counselling (15% AIQ)</h3>
-                    <p className="mb-6 flex-1 text-[14px] leading-relaxed text-mg-on-surface">
-                      Covers all central institutions (AIIMS, JIPMER), Deemed Universities, and 15% of seats in every state-run government medical college. No domicile certificate is needed. Anyone from any state can claim these seats based purely on their NEET AIR.
-                    </p>
-                    {/* <button className="w-full rounded-lg bg-mg-primary py-3 font-bold text-white transition-colors hover:bg-mg-primary/90">
-                      View MCC Guidelines
-                    </button> */}
-                  </div>
-                  {/* State Card */}
-                  <div className="flex flex-col rounded-xl border border-green-100 bg-gradient-to-br from-mg-surface to-green-50 p-6 shadow-sm">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-green-600 text-white">
-                      <span className="material-symbols-outlined text-[28px]">map</span>
-                    </div>
-                    <h3 className="mb-2 text-[22px] font-semibold text-mg-on-bg">State Quota Counselling (85% State)</h3>
-                    <p className="mb-6 flex-1 text-[14px] leading-relaxed text-mg-on-surface">
-                      Covers the remaining 85% of seats in state government colleges and 100% of seats in state private colleges. Managed by each state&apos;s DME/CET Cell. Requires a valid State Domicile/Residence proof to apply for government quota seats.
-                    </p>
-                    {/* <Link
-                      href="/neet-ug-2026/counselling-websites"
-                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 py-3 font-bold text-white no-underline transition-colors hover:bg-green-700"
-                    >
-                      View State Portals Directory
-                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </Link> */}
-                  </div>
+                  ))}
                 </div>
               </section>
 
@@ -256,8 +249,8 @@ export function UgCounsellingGuideView() {
                     { icon: "medication_liquid", label: "BDS Seats", value: "26,949", sub: "Govt + Private", text: "text-green-600" },
                     { icon: "eco", label: "AYUSH Seats", value: "52,720+", sub: "BAMS, BHMS, BSMS, BUMS", text: "text-teal-600" },
                   ].map((s) => (
-                    <div key={s.label} className="rounded-xl border border-mg-border/40 bg-mg-surface p-5">
-                      <span className={`material-symbols-outlined mb-2 ${s.text}`}>{s.icon}</span>
+                    <div key={s.label} className="rounded-lg border border-mg-border/40 bg-mg-surface p-5 shadow-sm">
+                      <span className={`material-symbols-outlined mb-2 text-[18px] ${s.text}`}>{s.icon}</span>
                       <p className="text-[11px] font-bold uppercase tracking-wider text-mg-on-surface">{s.label}</p>
                       <p className="mt-1 text-2xl font-bold text-mg-on-bg">{s.value}</p>
                       <p className="text-[10px] text-mg-on-surface">{s.sub}</p>
@@ -321,10 +314,10 @@ export function UgCounsellingGuideView() {
                       href={link.url}
                       target={link.internal ? undefined : "_blank"}
                       rel={link.internal ? undefined : "noopener noreferrer"}
-                      className={`group flex items-start gap-4 rounded-xl border border-mg-border/40 bg-mg-surface p-4 no-underline transition-colors ${link.hover}`}
+                      className={`group flex items-start gap-4 rounded-lg border border-mg-border/40 bg-mg-surface p-4 no-underline transition-colors ${link.hover}`}
                     >
-                      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-transform group-hover:scale-110 ${link.iconBg}`}>
-                        <span className="material-symbols-outlined">{link.icon}</span>
+                      <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors ${link.iconBg}`}>
+                        <span className="material-symbols-outlined text-[17px]">{link.icon}</span>
                       </div>
                       <div>
                         <h4 className="font-bold text-mg-on-bg">{link.title}</h4>
@@ -346,71 +339,16 @@ export function UgCounsellingGuideView() {
               <DocumentChecklist />
 
               {/* Expert Help Card */}
-              <div className="overflow-hidden rounded-xl bg-mg-dark text-white">
-                {/* Header area */}
-                <div className="bg-gradient-to-r from-blue-900 to-blue-800 p-6">
-                  <div className="mb-2 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-blue-300">psychology</span>
-                    <h3 className="font-bold text-white">Need Expert Help?</h3>
-                  </div>
-                  <p className="text-xs text-blue-100">Talk to our medical counsellors for personalized seat guidance.</p>
-                </div>
-
-                {/* Form area */}
-                {submitted ? (
-                  <div className="flex flex-col items-center gap-3 p-6 text-center">
-                    <span className="material-symbols-outlined text-[40px] text-emerald-400">check_circle</span>
-                    <h4 className="font-bold text-white">Request Registered!</h4>
-                    <p className="text-xs text-blue-100">Our expert will contact you shortly.</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4 p-6">
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-bold uppercase tracking-wider text-blue-200">Full Name</label>
-                      <input
-                        type="text"
-                        placeholder="e.g. Priyesh Patel"
-                        required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder:text-white/40 outline-none focus:border-transparent focus:ring-2 focus:ring-blue-400"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-bold uppercase tracking-wider text-blue-200">WhatsApp Number</label>
-                      <input
-                        type="tel"
-                        placeholder="+91 98765 43210"
-                        required
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        className="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder:text-white/40 outline-none focus:border-transparent focus:ring-2 focus:ring-blue-400"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-white py-3 font-bold text-blue-900 shadow-lg shadow-blue-900/50 transition-all hover:bg-blue-50 active:scale-95 disabled:opacity-60"
-                    >
-                      {loading ? "Processing..." : "Book Session"}
-                      {!loading && <span className="material-symbols-outlined text-sm">verified</span>}
-                    </button>
-                  </form>
-                )}
-
-                {/* WhatsApp row */}
-                <div className="p-6 pt-0">
-                  <div className="flex items-center gap-3 rounded-lg border border-green-500/20 bg-green-500/10 p-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-500">
-                      <span className="material-symbols-outlined text-sm text-white">chat</span>
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold uppercase leading-none text-green-400">WhatsApp Help</p>
-                      <p className="mt-1 text-[12px] font-medium leading-tight text-white">Enquire via WhatsApp</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <SidebarLeadCard
+                theme="dark"
+                iconName="psychology"
+                title="Need Expert Help?"
+                description="Talk to our medical counsellors for personalized seat guidance."
+                ctaText="Book Session"
+                successTitle="Request Registered!"
+                successDesc="Our expert will contact you shortly."
+                showWhatsappHelp
+              />
             </aside>
           </div>
         </Container>

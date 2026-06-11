@@ -5,14 +5,14 @@ import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { Container } from "@/components/common/Container";
 import { Section } from "@/components/common/Section";
 import { Card } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
-import { NeetLeadForm } from "@/components/features/neet-ug/NeetLeadForm";
 import { SectionHeading } from "@/components/features/neet-ug/shared/SectionHeading";
 import { StepCard } from "@/components/features/neet-ug/shared/StepCard";
 import { CtaBanner } from "@/components/features/neet-ug/shared/CtaBanner";
 import { DataTable } from "@/components/features/neet-ug/shared/DataTable";
 import { QuickLinksCard } from "@/components/features/neet-ug/shared/QuickLinksCard";
+import { InfoListCard } from "@/components/features/neet-ug/shared/InfoListCard";
+import { SidebarLeadCard } from "@/components/features/neet-ug/shared/SidebarLeadCard";
 
 export function NeetAnswerKeyView() {
   const omrSteps = [
@@ -93,7 +93,7 @@ export function NeetAnswerKeyView() {
           <header className="max-w-3xl text-left">
             <h1 className="mt-4 text-3xl font-extrabold leading-[1.05] tracking-[-0.035em] text-clinical-navy md:text-[44px]">
               Answer Key, OMR Sheet
-              <span className="block">Results & Cut-off Guide</span>
+              <span className="block"> Results & Cut-off Guide</span>
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-clinical-muted md:text-[15px]">
               Official NTA answer key process, how to view your OMR response sheet, challenge answers, understand your scorecard, and interpret category-wise qualifying cut-offs.
@@ -121,12 +121,12 @@ export function NeetAnswerKeyView() {
                   ))}
                 </div>
 
-                <div className="rounded-2xl border border-amber-100 bg-amber-50/30 p-5 shadow-clinical-soft">
+                <div className="rounded-lg border border-emerald-100 bg-emerald-50/35 p-5 shadow-sm">
                   <div className="flex items-start gap-3">
-                    <MaterialSymbol name="gavel" size="md" className="text-amber-600 shrink-0 mt-0.5" />
+                    <MaterialSymbol name="gavel" size="sm" className="text-clinical-green shrink-0 mt-0.5" />
                     <div className="flex flex-col gap-1">
-                      <h4 className="text-sm font-extrabold text-amber-900">Challenging an Answer Key</h4>
-                      <p className="text-xs text-amber-800 leading-relaxed">
+                      <h4 className="text-sm font-extrabold text-clinical-green">Challenging an Answer Key</h4>
+                      <p className="text-xs text-clinical-muted leading-relaxed">
                         Pay <strong>₹200 per question</strong> challenged via online portal. If the challenge is accepted by the expert committee, the fee is refunded and the final key is updated accordingly. Challenges are non-refundable if rejected. The window is typically open for <strong>2–3 days</strong> after provisional key release.
                       </p>
                     </div>
@@ -146,9 +146,9 @@ export function NeetAnswerKeyView() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   {scorecardFields.map((f, i) => (
-                    <div key={i} className="flex flex-col gap-3 rounded-2xl border border-clinical-outline bg-clinical-surface p-5 shadow-clinical-soft transition-all duration-200 hover:-translate-y-0.5 hover:border-clinical-blue/20 hover:shadow-clinical-hover">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-clinical-outline bg-clinical-surface-low text-clinical-blue">
-                        <MaterialSymbol name={f.icon} size="md" />
+                    <div key={i} className="flex flex-col gap-3 rounded-lg border border-clinical-outline bg-clinical-surface p-5 shadow-sm transition-colors duration-200 hover:border-clinical-outline-strong">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-clinical-outline bg-clinical-surface-low text-clinical-blue">
+                        <MaterialSymbol name={f.icon} size="sm" />
                       </div>
                       <div>
                         <h4 className="text-sm font-extrabold text-clinical-navy">{f.label}</h4>
@@ -159,58 +159,33 @@ export function NeetAnswerKeyView() {
                 </div>
 
                 {/* How to check results */}
-                <div className="rounded-2xl border border-clinical-outline bg-clinical-surface p-6 shadow-clinical-soft">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-clinical-surface-low text-clinical-muted">
-                      <MaterialSymbol name="how_to_reg" size="sm" />
-                    </span>
-                    <h3 className="text-sm font-extrabold text-clinical-navy">How to Check Your Result</h3>
-                  </div>
-                  <ol className="flex flex-col gap-2.5">
-                    {[
-                      "Visit neet.nta.nic.in and click 'NEET UG 2026 Result' link",
-                      "Enter your Application Number and Date of Birth",
-                      "Your scorecard will display on screen — save/print it",
-                      "Download the scorecard PDF for counselling registration",
-                    ].map((step, i) => (
-                      <li key={i} className="flex items-start gap-3 text-xs text-clinical-muted">
-                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-clinical-blue text-[10px] font-extrabold text-white">
-                          {i + 1}
-                        </span>
-                        {step}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
+                <InfoListCard
+                  bgVariant="subtle"
+                  iconName="how_to_reg"
+                  title="How to Check Your Result"
+                  items={[
+                    "Visit neet.nta.nic.in and click 'NEET UG 2026 Result' link",
+                    "Enter your Application Number and Date of Birth",
+                    "Your scorecard will display on screen — save/print it",
+                    "Download the scorecard PDF for counselling registration",
+                  ]}
+                  listType="numbered-round"
+                />
 
                 {/* Tie-breaking */}
-                <div className="rounded-2xl border border-clinical-outline bg-clinical-surface p-6 shadow-clinical-soft">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 ring-1 ring-indigo-100">
-                      <MaterialSymbol name="balance" size="sm" />
-                    </span>
-                    <h3 className="text-sm font-extrabold text-clinical-navy">Tie-Breaking Criteria</h3>
-                  </div>
-                  <p className="mb-3 text-xs leading-relaxed text-clinical-muted">
-                    When two or more candidates score identical marks, NTA applies the following criteria in order of priority to determine rank:
-                  </p>
-                  <ol className="flex flex-col gap-2">
-                    {[
-                      "Higher marks in Biology (Botany + Zoology combined)",
-                      "Higher marks in Chemistry",
-                      "Higher ratio of correct to incorrect answers (across all subjects)",
-                      "Higher marks in Physics",
-                      "Older candidate (higher age) gets a better rank",
-                    ].map((rule, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs text-clinical-muted">
-                        <span className="w-4 h-4 rounded-full bg-indigo-50 text-indigo-700 flex items-center justify-center font-extrabold text-[10px] shrink-0 mt-0.5 border border-indigo-100">
-                          {i + 1}
-                        </span>
-                        {rule}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
+                <InfoListCard
+                  iconName="balance"
+                  title="Tie-Breaking Criteria"
+                  description="When two or more candidates score identical marks, NTA applies the following criteria in order of priority to determine rank:"
+                  items={[
+                    "Higher marks in Biology (Botany + Zoology combined)",
+                    "Higher marks in Chemistry",
+                    "Higher ratio of correct to incorrect answers (across all subjects)",
+                    "Higher marks in Physics",
+                    "Older candidate (higher age) gets a better rank",
+                  ]}
+                  listType="numbered-square"
+                />
               </section>
 
               {/* ── Cut-off & Qualification ──────────────────────────────── */}
@@ -273,89 +248,26 @@ export function NeetAnswerKeyView() {
 
             {/* Sidebar */}
             <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
-              <Card
-                padded={false}
-                className="rounded-2xl border border-clinical-outline bg-clinical-surface p-6 shadow-clinical-soft"
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-clinical-green ring-8 ring-emerald-50/50">
-                    <MaterialSymbol name="download" size="lg" />
-                  </div>
-                  <div>
-                    <h2 className="text-[17px] font-extrabold tracking-[-0.01em] text-clinical-navy">
-                      Download Answer Key PDF
-                    </h2>
-                    <p className="mt-2 text-xs leading-5 text-clinical-muted">
-                      Get official NTA answer keys and OMR guidelines delivered directly to your WhatsApp.
-                    </p>
-                  </div>
-                  <NeetLeadForm
-                    type="phone-whatsapp"
-                    ctaText="Get PDF on WhatsApp"
-                    successTitle="PDF Code Request Sent!"
-                    successDesc="Check your mobile. We are triggering the download link via WhatsApp/SMS."
-                  />
-                </div>
-              </Card>
+              <SidebarLeadCard
+                theme="light"
+                iconName="download"
+                title="Download Answer Key PDF"
+                description="Get official NTA answer keys and OMR guidelines delivered directly to your WhatsApp."
+                ctaText="Get PDF on WhatsApp"
+                successTitle="PDF Code Request Sent!"
+                successDesc="Check your mobile. We are triggering the download link via WhatsApp/SMS."
+              />
 
-              <div className="overflow-hidden rounded-2xl bg-[#131b2e] text-white shadow-clinical-panel">
-                {/* Header */}
-                <div className="bg-gradient-to-r from-blue-900 to-blue-800 p-5">
-                  <div className="mb-1.5 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-blue-300 text-[20px]">psychology</span>
-                    <span className="text-[10px] font-extrabold uppercase tracking-[0.15em] text-blue-200">Expert Guidance</span>
-                  </div>
-                  <h3 className="text-[17px] font-extrabold leading-tight tracking-[-0.01em]">
-                    Need Expert Help?
-                  </h3>
-                  <p className="mt-1 text-[11px] leading-5 text-blue-100/80">
-                    Connect with our medical counsellors to plan your career path based on your rank.
-                  </p>
-                </div>
-
-                {/* Form */}
-                <div className="space-y-3 p-5">
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-blue-200">Full Name</label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Priyesh Patel"
-                      className="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-xs text-white placeholder:text-white/35 outline-none focus:border-transparent focus:ring-2 focus:ring-blue-400"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-blue-200">WhatsApp Number</label>
-                    <input
-                      type="tel"
-                      placeholder="+91 98765 43210"
-                      className="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-xs text-white placeholder:text-white/35 outline-none focus:border-transparent focus:ring-2 focus:ring-blue-400"
-                    />
-                  </div>
-                  <Button
-                    as="link"
-                    href="/contact"
-                    variant="ghost"
-                    size="sm"
-                    className="mt-1 flex w-full items-center justify-center gap-1.5 rounded-lg bg-white py-2.5 text-[12px] font-extrabold text-blue-900 shadow-lg shadow-blue-900/40 transition-all hover:bg-blue-50 active:scale-95"
-                    trailingIcon={<MaterialSymbol name="verified" size="sm" />}
-                  >
-                    Book Session
-                  </Button>
-                </div>
-
-                {/* WhatsApp row */}
-                <div className="px-5 pb-5">
-                  <div className="flex items-center gap-3 rounded-lg border border-green-500/20 bg-green-500/10 p-3">
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-500">
-                      <span className="material-symbols-outlined text-[14px] text-white">chat</span>
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold uppercase leading-none text-green-400">WhatsApp Help</p>
-                      <p className="mt-0.5 text-[11px] font-medium leading-tight text-white">Enquire via WhatsApp</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <SidebarLeadCard
+                theme="dark"
+                iconName="psychology"
+                title="Need Expert Help?"
+                description="Connect with our medical counsellors to plan your career path based on your rank."
+                ctaText="Book Session"
+                successTitle="Request Logged!"
+                successDesc="A counselor will contact you shortly."
+                showWhatsappHelp
+              />
 
               <QuickLinksCard title="Related Pages" links={quickLinks} />
             </aside>

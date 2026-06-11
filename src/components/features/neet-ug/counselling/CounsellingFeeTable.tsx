@@ -52,7 +52,7 @@ export function CounsellingFeeTable() {
   return (
     <div className="flex flex-col gap-6">
       {/* Table container */}
-      <div className="-mx-4 overflow-x-auto border-y border-clinical-outline bg-clinical-surface shadow-clinical-soft sm:mx-0 sm:rounded-2xl sm:border">
+      <div className="-mx-4 overflow-x-auto border-y border-clinical-outline bg-clinical-surface shadow-sm sm:mx-0 sm:rounded-lg sm:border">
         <div className="min-w-[700px]">
           <table className="w-full border-collapse text-left text-xs tabular-nums sm:text-sm">
             <thead>
@@ -107,7 +107,7 @@ export function CounsellingFeeTable() {
         {/* Dynamic Detail Card */}
         <Card
           padded={false}
-          className="col-span-1 flex flex-col gap-4 rounded-2xl border border-clinical-outline bg-clinical-surface p-5 shadow-clinical-soft md:col-span-2"
+          className="col-span-1 flex flex-col gap-4 rounded-lg border border-clinical-outline bg-clinical-surface p-5 shadow-sm md:col-span-2"
         >
           <div className="flex items-center gap-2">
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50 text-clinical-green ring-1 ring-emerald-100/40">
@@ -156,7 +156,7 @@ export function CounsellingFeeTable() {
         {/* Warning/Refund Alert Card */}
         <Card
           padded={false}
-          className="col-span-1 flex flex-col gap-3.5 rounded-2xl border border-rose-100 bg-rose-50/20 p-5 shadow-clinical-soft"
+          className="col-span-1 flex flex-col gap-3.5 rounded-lg border border-rose-100 bg-rose-50/20 p-5 shadow-sm"
         >
           <div className="flex items-center gap-2">
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-rose-50 text-rose-600 ring-1 ring-rose-150">

@@ -40,22 +40,8 @@ export function AllowedProhibitedCard({
         </div>
         <ul className="flex flex-col gap-2.5">
           {allowed.map((el, i) => (
-            <li key={i} className="flex items-start gap-2 text-xs text-slate-700">
-              {el.icon ? (
-                <div className="w-6 h-6 rounded-md bg-white border border-emerald-100 flex items-center justify-center shrink-0">
-                  <MaterialSymbol
-                    name={el.icon}
-                    size="sm"
-                    className="text-emerald-600 text-[14px]"
-                  />
-                </div>
-              ) : (
-                <MaterialSymbol
-                  name="check"
-                  size="sm"
-                  className="text-emerald-600 shrink-0 mt-0.5"
-                />
-              )}
+            <li key={i} className="flex items-center gap-2 text-xs text-slate-700">
+              <MaterialSymbol name="chevron_right" size="sm" className="text-slate-400 shrink-0 mt-0.5" />
               {el.item}
             </li>
           ))}
@@ -75,22 +61,8 @@ export function AllowedProhibitedCard({
         </div>
         <ul className="flex flex-col gap-2.5">
           {prohibited.map((el, i) => (
-            <li key={i} className="flex items-start gap-2 text-xs text-slate-700">
-              {el.icon ? (
-                <div className="w-6 h-6 rounded-md bg-white border border-rose-100 flex items-center justify-center shrink-0">
-                  <MaterialSymbol
-                    name={el.icon}
-                    size="sm"
-                    className="text-rose-500 text-[14px]"
-                  />
-                </div>
-              ) : (
-                <MaterialSymbol
-                  name="close"
-                  size="sm"
-                  className="text-rose-500 shrink-0 mt-0.5"
-                />
-              )}
+            <li key={i} className="flex items-center gap-2 text-xs text-slate-700">
+              <MaterialSymbol name="chevron_right" size="sm" className="text-slate-400 shrink-0 mt-0.5" />
               {el.item}
             </li>
           ))}

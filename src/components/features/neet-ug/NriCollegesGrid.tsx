@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Card } from "@/components/ui/Card";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 
@@ -58,34 +59,48 @@ export function NriCollegesGrid({ colleges = defaultColleges }: NriCollegesGridP
       {colleges.map((col, idx) => (
         <Card
           key={idx}
-          padded
+          padded={false}
           bordered
-          className="flex flex-col gap-4 rounded-2xl border-clinical-outline border-l-4 border-l-clinical-green bg-clinical-surface shadow-clinical-soft transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-clinical-hover"
+          className="overflow-hidden rounded-lg border-clinical-outline bg-clinical-surface shadow-sm transition-colors duration-200 hover:border-clinical-outline-strong"
         >
-          <div className="flex justify-between items-start gap-2">
-            <div>
-              <h4 className="text-base font-bold leading-snug text-clinical-navy">{col.name}</h4>
-              <span className="mt-0.5 block text-xs text-clinical-muted">{col.location}</span>
-            </div>
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-clinical-green ring-1 ring-emerald-100">
+          <div className="relative h-40 w-full overflow-hidden bg-clinical-surface-low">
+            <Image
+              src="/brand/college_building.png"
+              alt=""
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover"
+            />
+            <span className="absolute right-3 top-3 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/90 text-amber-600 ring-1 ring-amber-100">
               <MaterialSymbol name={col.icon} size="sm" />
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 border-t border-clinical-outline pt-3 text-xs">
+          <div className="flex flex-col gap-4 p-5">
             <div>
-              <span className="block font-medium text-clinical-muted">NRI Tuition Fee</span>
-              <span className="mt-0.5 block font-extrabold text-clinical-green">{col.annualFee} / yr</span>
+              <h4 className="text-base font-bold leading-snug text-clinical-navy">
+                {col.name}
+              </h4>
+              <span className="mt-0.5 block text-xs text-clinical-muted">
+                {col.location}
+              </span>
             </div>
-            <div>
-              <span className="block font-medium text-clinical-muted">Allocated Seats</span>
-              <span className="mt-0.5 block font-bold text-clinical-navy">{col.totalSeats}</span>
-            </div>
-          </div>
 
-          <span className="rounded-full border border-clinical-outline bg-clinical-surface-low py-1 text-center text-[10px] font-bold uppercase tracking-wider text-clinical-muted">
-            {col.rating}
-          </span>
+            <div className="grid grid-cols-2 gap-3 border-t border-clinical-outline pt-3 text-xs">
+              <div>
+                <span className="block font-medium text-clinical-muted">NRI Tuition Fee</span>
+                <span className="mt-0.5 block font-extrabold text-clinical-blue">{col.annualFee} / yr</span>
+              </div>
+              <div>
+                <span className="block font-medium text-clinical-muted">Allocated Seats</span>
+                <span className="mt-0.5 block font-bold text-clinical-navy">{col.totalSeats}</span>
+              </div>
+            </div>
+
+            <span className="rounded-md border border-clinical-outline bg-clinical-surface-low py-1 text-center text-[10px] font-bold uppercase tracking-wider text-clinical-muted">
+              {col.rating}
+            </span>
+          </div>
         </Card>
       ))}
     </div>

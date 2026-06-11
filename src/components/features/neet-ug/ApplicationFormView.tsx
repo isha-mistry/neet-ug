@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -8,7 +7,6 @@ import { Section } from "@/components/common/Section";
 import { Card } from "@/components/ui/Card";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 import { AdvisoryAlertCard } from "@/components/features/neet-ug/shared/AdvisoryAlertCard";
-import { NeetLeadForm } from "@/components/features/neet-ug/NeetLeadForm";
 import { NtaHelpdeskCard } from "@/components/features/neet-ug/shared/NtaHelpdeskCard";
 import { SectionHeading } from "@/components/features/neet-ug/shared/SectionHeading";
 import { StepCard } from "@/components/features/neet-ug/shared/StepCard";
@@ -16,6 +14,8 @@ import { MetricCard } from "@/components/features/neet-ug/shared/MetricCard";
 import { CtaBanner } from "@/components/features/neet-ug/shared/CtaBanner";
 import { AllowedProhibitedCard } from "@/components/features/neet-ug/shared/AllowedProhibitedCard";
 import { DataTable } from "@/components/features/neet-ug/shared/DataTable";
+import { InfoListCard } from "@/components/features/neet-ug/shared/InfoListCard";
+import { SidebarLeadCard } from "@/components/features/neet-ug/shared/SidebarLeadCard";
 import { QuickLinksCard } from "@/components/features/neet-ug/shared/QuickLinksCard";
 
 export function ApplicationFormView() {
@@ -276,23 +276,15 @@ export function ApplicationFormView() {
                   title="City Intimation Slip vs Admit Card"
                   description="NTA releases two separate documents before the exam. Understanding the difference prevents confusion on exam day."
                 />
-                <div className="border border-slate-100 rounded-3xl bg-white overflow-hidden shadow-sm shadow-slate-100/30">
-                  <div className="grid grid-cols-3 text-[11px] font-extrabold uppercase tracking-wider text-slate-400 bg-slate-50/50 border-b border-slate-100">
-                    <div className="py-4 px-6">Feature</div>
-                    <div className="py-4 px-4 border-l border-slate-100">City Intimation Slip</div>
-                    <div className="py-4 px-4 border-l border-slate-100">Official Admit Card</div>
-                  </div>
-                  <div className="divide-y divide-slate-100">
-                    {slipVsAdmitRows.map((row, i) => (
-                      <div key={i} className="grid grid-cols-3 text-xs hover:bg-slate-50/30 transition-colors">
-                        <div className="py-3.5 px-6 font-extrabold text-slate-900">{row.feature}</div>
-                        <div className="py-3.5 px-4 border-l border-slate-100 text-slate-600 font-medium">{row.slip}</div>
-                        <div className="py-3.5 px-4 border-l border-slate-100 text-slate-600 font-medium">{row.admit}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="bg-amber-50/60 border border-amber-100 rounded-2xl px-5 py-4 flex items-start gap-3">
+                <DataTable
+                  columns={[
+                    { key: "feature", label: "Feature" },
+                    { key: "slip", label: "City Intimation Slip" },
+                    { key: "admit", label: "Official Admit Card" },
+                  ]}
+                  rows={slipVsAdmitRows}
+                />
+                <div className="bg-amber-50/60 border border-amber-100 rounded-2xl px-5 py-4 flex items-start gap-3 mt-4">
                   <MaterialSymbol name="warning" size="sm" className="text-amber-600 shrink-0 mt-0.5" />
                   <p className="text-xs text-amber-800 leading-relaxed">
                     <strong>Admit card errors:</strong> If you spot errors (name, DOB, photo) on your admit card, immediately contact NTA helpdesk at{" "}
@@ -311,24 +303,11 @@ export function ApplicationFormView() {
                   description="Arrive at the exam centre at least 90 minutes before the exam. Gate closes strictly at 1:30 PM for the 2:00 PM slot."
                 />
 
-                {/* Timing bar */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {[
-                    { icon: "login", label: "Gate Opens", value: "12:30 PM" },
-                    { icon: "lock", label: "Gate Closes", value: "1:30 PM" },
-                    { icon: "timer", label: "Exam Begins", value: "2:00 PM" },
-                    { icon: "timer_off", label: "Exam Ends", value: "5:20 PM" },
-                  ].map((t) => (
-                    <div key={t.label} className="bg-white border border-slate-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
-                      <div className="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                        <MaterialSymbol name={t.icon} size="sm" />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">{t.label}</span>
-                        <span className="text-sm font-extrabold text-slate-900">{t.value}</span>
-                      </div>
-                    </div>
-                  ))}
+                  <MetricCard icon="login" label="Gate Opens" value="12:30 PM" tone="indigo" />
+                  <MetricCard icon="lock" label="Gate Closes" value="1:30 PM" tone="rose" />
+                  <MetricCard icon="timer" label="Exam Begins" value="2:00 PM" tone="emerald" />
+                  <MetricCard icon="timer_off" label="Exam Ends" value="5:20 PM" tone="slate" />
                 </div>
 
                 <AllowedProhibitedCard
@@ -339,29 +318,20 @@ export function ApplicationFormView() {
                 />
 
                 {/* OMR Rules */}
-                <Card padded={false} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-600">
-                      <MaterialSymbol name="grid_on" size="sm" />
-                    </span>
-                    <h3 className="font-extrabold text-slate-900 text-sm">OMR Sheet & Rough Work Rules</h3>
-                  </div>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2.5">
-                    {[
-                      "Use only blue/black ballpoint pen to darken OMR bubbles — no pencil allowed",
-                      "Once darkened, no bubble can be changed or erased — marks carefully",
-                      "Rough work must be done only on the blank space inside the test booklet",
-                      "OMR sheet must not be folded, torn, or tampered with under any circumstances",
-                      "Biometric attendance (fingerprint) is mandatory before entry to the hall",
-                      "You must submit the OMR sheet to the invigilator before leaving the hall",
-                    ].map((rule, i) => (
-                      <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
-                        <MaterialSymbol name="check" size="sm" className="text-blue-600 shrink-0 mt-0.5" />
-                        {rule}
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
+                <InfoListCard
+                  iconName="grid_on"
+                  title="OMR Sheet & Rough Work Rules"
+                  items={[
+                    "Use only blue/black ballpoint pen to darken OMR bubbles — no pencil allowed",
+                    "Once darkened, no bubble can be changed or erased — marks carefully",
+                    "Rough work must be done only on the blank space inside the test booklet",
+                    "OMR sheet must not be folded, torn, or tampered with under any circumstances",
+                    "Biometric attendance (fingerprint) is mandatory before entry to the hall",
+                    "You must submit the OMR sheet to the invigilator before leaving the hall",
+                  ]}
+                  listType="checkmarks"
+                  layoutType="grid"
+                />
               </section>
 
               {/* CTA Banner */}
@@ -379,30 +349,15 @@ export function ApplicationFormView() {
             <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
               <NtaHelpdeskCard />
 
-              <Card
-                padded={false}
-                className="rounded-[14px] border border-slate-200 bg-white p-6 shadow-[0_10px_30px_rgba(15,23,42,0.045)]"
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-center justify-center rounded-[12px] bg-emerald-50 text-emerald-500 ring-8 ring-emerald-50/50">
-                    <MaterialSymbol name="whatsapp" size="lg" />
-                  </div>
-                  <div>
-                    <h3 className="text-[17px] font-extrabold tracking-[-0.01em] text-slate-950">
-                      Get Admit Card Alerts
-                    </h3>
-                    <p className="mt-2 text-xs leading-5 text-slate-500">
-                      Receive instant WhatsApp notification when NEET 2026 admit cards are released, with direct download link.
-                    </p>
-                  </div>
-                  <NeetLeadForm
-                    type="phone-whatsapp"
-                    ctaText="Activate WhatsApp Alerts"
-                    successTitle="Alerts Activated!"
-                    successDesc="We'll notify you instantly on WhatsApp when the admit card is available for download."
-                  />
-                </div>
-              </Card>
+              <SidebarLeadCard
+                theme="light"
+                // iconName="whatsapp"
+                title="Get Admit Card Alerts"
+                description="Receive instant WhatsApp notification when NEET 2026 admit cards are released, with direct download link."
+                ctaText="Activate WhatsApp Alerts"
+                successTitle="Alerts Activated!"
+                successDesc="We'll notify you instantly on WhatsApp when the admit card is available for download."
+              />
 
               <QuickLinksCard links={quickLinks} />
             </aside>

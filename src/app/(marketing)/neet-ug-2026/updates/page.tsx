@@ -90,7 +90,7 @@ export default function NeetUgUpdatesPage() {
                     <h2 className="text-sm font-extrabold text-clinical-navy">Quick Summary</h2>
                     <p className="mt-1 text-[13px] leading-relaxed text-clinical-muted">
                       NEET UG 2026 was originally held on <strong className="text-clinical-navy">03 May 2026</strong>. A re-examination (ReNEET) has been scheduled for{" "}
-                      <strong className="text-clinical-navy">21 June 2026</strong> (2:00 PM – 5:00 PM). Results are expected by{" "}
+                      <strong className="text-clinical-navy">21 June 2026</strong> (2:00 PM - 5:00 PM). Results are expected by{" "}
                       <strong className="text-clinical-navy">mid-July 2026</strong>, followed by MCC AIQ counselling from{" "}
                       <strong className="text-clinical-navy">end-July 2026</strong> and state counselling from{" "}
                       <strong className="text-clinical-navy">mid-August 2026</strong>.

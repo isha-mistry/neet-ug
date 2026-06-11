@@ -164,6 +164,7 @@
   /* ── Counselling Guide page tokens (Material Design reference palette) ──
      These map to the exact colors from the HTML reference design so that
      components never need raw hex strings in classNames.
+     TODO: consolidate mg-* tokens with clinical-* tokens
      Naming convention: --color-mg-<role>                                   */
   --color-mg-bg: #f8f9ff;
   --color-mg-surface: #ffffff;
@@ -365,7 +366,7 @@ body {
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: -0.025em;
-  color: #1e293b;
+  color: var(--color-on-surface);
   line-height: 1.625;
 }
 
@@ -585,13 +586,13 @@ body {
 
 .ms-card-header-title {
   font-weight: 700;
-  color: #1e293b;
+  color: var(--color-on-surface);
   font-size: 1.125rem;
 }
 
 .ms-card-header-title-sm {
   font-weight: 700;
-  color: #1e293b;
+  color: var(--color-on-surface);
   font-size: 1rem;
 }
 
@@ -627,7 +628,7 @@ body {
 
 .ms-fees-value {
   font-weight: 800;
-  color: #1e293b;
+  color: var(--color-on-surface);
   font-size: 1rem;
 }
 
@@ -681,7 +682,7 @@ body {
 .ms-bond-stat-val {
   font-size: 1rem;
   font-weight: 900;
-  color: #1e293b;
+  color: var(--color-on-surface);
 }
 
 .ms-bond-stat-val-mono {
@@ -758,7 +759,7 @@ body {
 .ms-detail-header-title {
   font-weight: 700;
   letter-spacing: -0.025em;
-  color: #1e293b;
+  color: var(--color-on-surface);
   line-height: 1.3;
   font-size: 1.5rem;
 }

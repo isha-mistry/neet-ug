@@ -93,12 +93,12 @@ export function CounsellingRounds({ rules = defaultRules }: CounsellingRoundsPro
       {/* Round detail display */}
       <Card
         padded={false}
-        className="flex flex-col gap-6 rounded-2xl border border-clinical-outline bg-clinical-surface p-6 shadow-clinical-soft transition-opacity duration-200"
+        className="flex flex-col gap-6 rounded-lg border border-clinical-outline bg-clinical-surface p-6 shadow-sm transition-opacity duration-200"
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-start gap-3.5">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-clinical-surface-low text-clinical-muted ring-1 ring-clinical-outline">
-              <MaterialSymbol name={rules[activeRound].icon} size="md" />
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-clinical-surface-low text-clinical-muted ring-1 ring-clinical-outline">
+              <MaterialSymbol name={rules[activeRound].icon} size="sm" />
             </span>
             <div>
               <h3 className="text-base font-extrabold tracking-tight text-clinical-navy">
@@ -106,13 +106,13 @@ export function CounsellingRounds({ rules = defaultRules }: CounsellingRoundsPro
               </h3>
               <div className="mt-2.5 flex flex-wrap gap-2">
                 <span
-                  className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider ring-1 ${
+                  className={`inline-flex items-center rounded-md px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ring-1 ${
                     badgeTones[rules[activeRound].exitTone]
                   }`}
                 >
                   {rules[activeRound].exitRule}
                 </span>
-                <span className="inline-flex items-center rounded-full bg-clinical-surface-low px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-clinical-muted ring-1 ring-clinical-outline">
+                <span className="inline-flex items-center rounded-md bg-clinical-surface-low px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-clinical-muted ring-1 ring-clinical-outline">
                   {rules[activeRound].upgradation}
                 </span>
               </div>

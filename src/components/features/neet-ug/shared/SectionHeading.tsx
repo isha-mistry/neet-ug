@@ -23,14 +23,14 @@ export function SectionHeading({
   return (
     <div className="flex flex-col gap-2">
       {eyebrow && (
-        <span className="inline-flex w-fit rounded-full bg-clinical-surface-low px-3 py-1 text-[10px] font-extrabold uppercase leading-none tracking-[0.14em] text-clinical-blue ring-1 ring-clinical-outline">
+        <span className="inline-flex w-fit rounded-md bg-clinical-surface-low px-2.5 py-1 text-[10px] font-bold uppercase leading-none tracking-[0.12em] text-clinical-blue ring-1 ring-clinical-outline">
           {eyebrow}
         </span>
       )}
       {variant === "default" ? (
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-clinical-outline bg-clinical-surface-low text-clinical-blue shadow-clinical-soft">
-            <MaterialSymbol name={icon} size="md" />
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-clinical-outline bg-clinical-surface-low text-clinical-blue">
+            <MaterialSymbol name={icon} size="sm" />
           </div>
           <h2 className="m-0 text-[22px] font-extrabold leading-tight tracking-[-0.02em] text-clinical-navy md:text-[28px]">
             {title}

@@ -105,18 +105,18 @@ export function CounsellingTimeline({ steps = defaultSteps }: CounsellingTimelin
       {/* Expanded detail card */}
       <Card
         padded={false}
-        className="relative overflow-hidden rounded-2xl border border-clinical-outline bg-clinical-surface p-6 shadow-clinical-soft"
+        className="relative overflow-hidden rounded-lg border border-clinical-outline bg-clinical-surface p-6 shadow-sm"
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-clinical-green ring-1 ring-emerald-100/50">
-            <MaterialSymbol name={steps[activeStep].icon} size="lg" />
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-clinical-green ring-1 ring-emerald-100/50">
+            <MaterialSymbol name={steps[activeStep].icon} size="sm" />
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-base font-semibold text-clinical-navy">
                 Stage {activeStep + 1}: {steps[activeStep].title}
               </h3>
-              <span className="inline-flex rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-clinical-green ring-1 ring-emerald-100">
+              <span className="inline-flex rounded-md bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-clinical-green ring-1 ring-emerald-100">
                 Official Step
               </span>
             </div>

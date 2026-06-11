@@ -20,12 +20,8 @@ export function CtaBanner({
   ctaIcon = "arrow_forward",
 }: CtaBannerProps) {
   return (
-    <div className="relative mt-2 flex flex-col items-center gap-6 overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-clinical-dark to-clinical-blue p-8 text-center text-white shadow-clinical-panel md:p-12">
-      {/* Decorative blobs */}
-      <div className="pointer-events-none absolute right-0 top-0 -mr-24 -mt-24 h-72 w-72 rounded-full bg-white/5 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-0 -mb-24 -ml-24 h-72 w-72 rounded-full bg-white/5 blur-3xl" />
-
-      <span className="z-10 inline-flex w-fit rounded-full bg-white/10 px-3 py-1 text-[10px] font-extrabold uppercase leading-none tracking-[0.14em] text-blue-100 ring-1 ring-white/20">
+    <div className="relative mt-2 flex flex-col items-center gap-6 overflow-hidden rounded-xl border border-[#1f2a44] bg-clinical-dark p-8 text-center text-white shadow-sm md:p-10">
+      <span className="z-10 inline-flex w-fit rounded-md bg-white/10 px-3 py-1 text-[10px] font-bold uppercase leading-none tracking-[0.12em] text-blue-100 ring-1 ring-white/15">
         {eyebrow}
       </span>
 
@@ -40,7 +36,7 @@ export function CtaBanner({
 
       <Link
         href={ctaHref}
-        className="z-10 mt-2 inline-flex h-12 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-white px-8 text-base font-bold tracking-wide text-clinical-blue no-underline shadow-lg transition-all hover:-translate-y-0.5 hover:bg-slate-50 active:scale-[0.98]"
+        className="z-10 mt-2 inline-flex h-11 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-white px-7 text-sm font-bold tracking-wide text-clinical-blue no-underline shadow-sm transition-colors hover:bg-slate-50 active:scale-[0.98]"
       >
         <span>{ctaText}</span>
         <MaterialSymbol name={ctaIcon} size="md" />

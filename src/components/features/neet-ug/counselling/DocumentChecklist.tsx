@@ -37,7 +37,7 @@ export function DocumentChecklist({ items = defaultItems }: DocumentChecklistPro
   return (
     <Card
       padded={false}
-      className="rounded-2xl border border-clinical-outline bg-clinical-surface p-6 shadow-clinical-soft"
+      className="rounded-lg border border-clinical-outline bg-clinical-surface p-6 shadow-sm"
     >
       <div className="flex flex-col gap-5 ">
         <div className="grid grid-cols-9 items-start justify-between gap-4 ">
@@ -50,7 +50,7 @@ export function DocumentChecklist({ items = defaultItems }: DocumentChecklistPro
               Keep original papers ready before college reporting.
             </p>
           </div>
-          <span className="col-span-2 w-fit rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-extrabold text-clinical-green ring-1 ring-emerald-100">
+          <span className="col-span-2 w-fit rounded-md bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-clinical-green ring-1 ring-emerald-100">
             {checkedCount} / {items.length}
           </span>
         </div>

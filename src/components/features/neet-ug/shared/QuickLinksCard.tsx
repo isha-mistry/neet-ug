@@ -21,7 +21,7 @@ export function QuickLinksCard({
   return (
     <Card
       padded={false}
-      className="rounded-2xl border border-clinical-outline bg-clinical-surface p-5 shadow-clinical-soft"
+      className="rounded-lg border border-clinical-outline bg-clinical-surface p-5 shadow-sm"
     >
       <h3 className="mb-3 text-xs font-extrabold uppercase tracking-[0.14em] text-clinical-muted/70">
         {title}

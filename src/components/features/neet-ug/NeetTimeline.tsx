@@ -12,19 +12,10 @@ export interface TimelineEvent {
 }
 
 interface NeetTimelineProps {
-  dates?: TimelineEvent[];
+  dates: TimelineEvent[];
 }
 
-const defaultDates: TimelineEvent[] = [
-  { event: "Official Notification & Registration", date: "Feb 9, 2026", status: "Completed", icon: "assignment", description: "NTA Portal Opens for online registrations" },
-  { event: "Last Date to Apply", date: "Mar 16, 2026", status: "Completed", icon: "event_busy", description: "Application window closes for fee submissions" },
-  { event: "Admit Card Release Date", date: "Apr 28, 2026", status: "Completed", icon: "badge", description: "Download revised hall tickets from NTA site" },
-  { event: "NEET UG 2026 Exam Date", date: "May 3, 2026", status: "Completed", icon: "draw", description: "Original exam date cancelled by official order" },
-  { event: "Provisional Answer Key & OMR", date: "May 28, 2026", status: "Completed", icon: "flaky", description: "Download answer keys and verify response sheet" },
-  { event: "NEET UG 2026 Result Declaration", date: "Expected June 15, 2026", status: "Upcoming", icon: "campaign", description: "Results compilation and rank listings" },
-];
-
-export function NeetTimeline({ dates = defaultDates }: NeetTimelineProps) {
+export function NeetTimeline({ dates }: NeetTimelineProps) {
   return (
     <div className="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm flex flex-col gap-6">
       <div className="relative border-l border-slate-100/80 ml-4 space-y-8 py-2">

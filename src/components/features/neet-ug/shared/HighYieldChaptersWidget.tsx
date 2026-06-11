@@ -9,9 +9,39 @@ interface HighYieldChaptersWidgetProps {
   showExplanatoryText?: boolean;
 }
 
+const SUBJECT_WEIGHTS = [
+  {
+    percentage: "50%",
+    title: "Biology (Botany & Zoology)",
+    subtitle: "90 Questions | 360 Marks",
+    colorTheme: "rose"
+  },
+  {
+    percentage: "25%",
+    title: "Chemistry",
+    subtitle: "45 Questions | 180 Marks",
+    colorTheme: "blue"
+  },
+  {
+    percentage: "25%",
+    title: "Physics",
+    subtitle: "45 Questions | 180 Marks",
+    colorTheme: "amber"
+  }
+] as const;
+
 export function HighYieldChaptersWidget({ showExplanatoryText = true }: HighYieldChaptersWidgetProps) {
   const [activeSubject, setActiveSubject] = useState<"physics" | "chemistry" | "botany" | "zoology">("botany");
   const { syllabus } = neetUg2026Data;
+
+  const getColorClasses = (theme: string) => {
+    switch (theme) {
+      case "rose": return "border-rose-100 bg-rose-50 text-rose-600";
+      case "blue": return "border-blue-100 bg-blue-50 text-blue-600";
+      case "amber": return "border-amber-100 bg-amber-50 text-amber-500";
+      default: return "";
+    }
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -32,33 +62,17 @@ export function HighYieldChaptersWidget({ showExplanatoryText = true }: HighYiel
 
       {/* Subject Weightage Pills */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white/80 border border-slate-100 p-5 rounded-lg flex items-center gap-4 shadow-sm hover:shadow-md transition-all duration-200">
-          <span className="w-12 h-12 rounded-full border-2 border-rose-100 bg-rose-50 text-rose-600 flex items-center justify-center font-extrabold text-sm shrink-0 shadow-sm">
-            50%
-          </span>
-          <div className="text-left">
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-bold">Biology (Botany & Zoology)</span>
-            <span className="text-sm font-extrabold text-slate-800">90 Questions | 360 Marks</span>
+        {SUBJECT_WEIGHTS.map((weight, index) => (
+          <div key={index} className="bg-white/80 border border-slate-100 p-5 rounded-2xl flex items-center gap-4 shadow-sm hover:shadow-md transition-all duration-200">
+            <span className={`w-12 h-12 rounded-full border-2 flex items-center justify-center font-extrabold text-sm shrink-0 shadow-sm ${getColorClasses(weight.colorTheme)}`}>
+              {weight.percentage}
+            </span>
+            <div className="text-left">
+              <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-bold">{weight.title}</span>
+              <span className="text-sm font-extrabold text-slate-800">{weight.subtitle}</span>
+            </div>
           </div>
-        </div>
-        <div className="bg-white/80 border border-slate-100 p-5 rounded-2xl flex items-center gap-4 shadow-sm hover:shadow-md transition-all duration-200">
-          <span className="w-12 h-12 rounded-full border-2 border-blue-100 bg-blue-50 text-blue-600 flex items-center justify-center font-extrabold text-sm shrink-0 shadow-sm">
-            25%
-          </span>
-          <div className="text-left">
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-bold">Chemistry</span>
-            <span className="text-sm font-extrabold text-slate-800">45 Questions | 180 Marks</span>
-          </div>
-        </div>
-        <div className="bg-white/80 border border-slate-100 p-5 rounded-2xl flex items-center gap-4 shadow-sm hover:shadow-md transition-all duration-200">
-          <span className="w-12 h-12 rounded-full border-2 border-amber-100 bg-amber-50 text-amber-500 flex items-center justify-center font-extrabold text-sm shrink-0 shadow-sm">
-            25%
-          </span>
-          <div className="text-left">
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-bold">Physics</span>
-            <span className="text-sm font-extrabold text-slate-800">45 Questions | 180 Marks</span>
-          </div>
-        </div>
+        ))}
       </div>
 
       {/* Tabs */}
@@ -66,7 +80,7 @@ export function HighYieldChaptersWidget({ showExplanatoryText = true }: HighYiel
         {(["botany", "zoology", "chemistry", "physics"] as const).map((subject) => (
           <button
             key={subject}
-            onClick={() => setActiveSubject(subject as any)}
+            onClick={() => setActiveSubject(subject)}
             className={`px-5 py-2 font-bold text-xs capitalize transition-all rounded-lg whitespace-nowrap cursor-pointer ${
               activeSubject === subject
                 ? "bg-white text-blue-600 shadow-sm font-extrabold"

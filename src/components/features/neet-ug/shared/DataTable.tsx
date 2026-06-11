@@ -48,7 +48,7 @@ export function DataTable({
   return (
     <div className="flex flex-col gap-2">
       <div
-        className={`overflow-hidden rounded-2xl border border-clinical-outline bg-clinical-surface shadow-clinical-soft ${
+        className={`overflow-hidden rounded-lg border border-clinical-outline bg-clinical-surface shadow-sm ${
           scrollable ? "overflow-x-auto" : ""
         }`}
       >
@@ -58,7 +58,7 @@ export function DataTable({
           }`}
         >
           <thead>
-            <tr className="border-b border-clinical-outline bg-clinical-surface-low text-[11px] font-extrabold uppercase tracking-[0.12em] text-clinical-muted">
+            <tr className="border-b border-clinical-outline bg-clinical-surface-container text-[11px] font-bold uppercase tracking-[0.08em] text-clinical-muted">
               {columns.map((col) => (
                 <th
                   key={col.key}
@@ -99,7 +99,7 @@ export function DataTable({
                     >
                       {col.badge ? (
                         <span
-                          className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-bold ${
+                          className={`inline-flex items-center rounded-md border px-2.5 py-1 text-[11px] font-bold ${
                             badgeColorMap[bColor] ?? badgeColorMap.blue
                           }`}
                         >
