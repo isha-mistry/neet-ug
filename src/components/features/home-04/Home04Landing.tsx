@@ -92,7 +92,7 @@ export function Home04Landing() {
                 <div className="flex flex-wrap gap-3 pt-1">
                   <Link
                     href="/cutoff-analyser"
-                    className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-label-md text-label-md text-on-primary shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
+                    className="ms-primary-glow inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-label-md text-label-md text-on-primary transition-all hover:-translate-y-0.5 hover:bg-primary-hover"
                   >
                     Explore Seat Analytics
                     <span className="material-symbols-outlined text-lg">north_east</span>

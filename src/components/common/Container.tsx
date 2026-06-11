@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type ContainerSize = "md" | "lg" | "xl" | "2xl";
+type ContainerSize = "md" | "lg" | "xl" | "2xl" | "page";
 
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   size?: ContainerSize;
@@ -13,6 +13,15 @@ const sizeClasses: Record<ContainerSize, string> = {
   lg: "max-w-(--ms-container-lg)",
   xl: "max-w-(--ms-container-xl)",
   "2xl": "max-w-(--ms-container-2xl)",
+  page: "ms-layout-page",
+};
+
+const paddingClasses: Record<ContainerSize, string> = {
+  md: "px-4 sm:px-6 lg:px-8",
+  lg: "px-4 sm:px-6 lg:px-8",
+  xl: "px-4 sm:px-6 lg:px-8",
+  "2xl": "px-4 sm:px-6 lg:px-8",
+  page: "",
 };
 
 export function Container({
@@ -24,7 +33,8 @@ export function Container({
   return (
     <div
       className={cn(
-        "mx-auto w-full px-4 sm:px-6 lg:px-8",
+        "mx-auto w-full",
+        paddingClasses[size],
         sizeClasses[size],
         className
       )}

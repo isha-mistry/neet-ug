@@ -43,7 +43,7 @@ export function Home03Landing() {
                 <div className="flex flex-wrap gap-4">
                   <Link
                     href="/college-predictor"
-                    className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-4 font-label-md text-label-md text-on-primary shadow-lg transition-all hover:shadow-xl"
+                    className="ms-primary-glow inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-4 font-label-md text-label-md text-on-primary transition-all hover:bg-primary-hover"
                   >
                     Start College Matching
                     <span className="material-symbols-outlined">trending_flat</span>

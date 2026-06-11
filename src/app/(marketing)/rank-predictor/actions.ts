@@ -27,6 +27,13 @@ export type ActionResult<T> =
   | { success: true; data: T }
   | { success: false; error: string };
 
+function predictionErrorMessage(error: unknown): string {
+  if (error instanceof Error && error.message.trim()) {
+    return error.message;
+  }
+  return "Could not reach the prediction service. Try again in a moment.";
+}
+
 export async function submitRankPredictorAction(
   raw: RankPredictorFormInput
 ): Promise<ActionResult<RankPredictorTeaserResult>> {
@@ -34,7 +41,11 @@ export async function submitRankPredictorAction(
   if (!validated.ok) {
     return { success: false, error: validated.message };
   }
-  return { success: true, data: computeTeaserResult(validated.input) };
+  try {
+    return { success: true, data: await computeTeaserResult(validated.input) };
+  } catch (error) {
+    return { success: false, error: predictionErrorMessage(error) };
+  }
 }
 
 export async function verifyRankPredictorOtpAction(payload: {
@@ -125,7 +136,14 @@ export async function completeRankPredictorProfileAction(payload: {
     ...validated.input,
   });
 
-  return { success: true, data: await computeUnlockedResult(validated.input) };
+  try {
+    return {
+      success: true,
+      data: await computeUnlockedResult(validated.input),
+    };
+  } catch (error) {
+    return { success: false, error: predictionErrorMessage(error) };
+  }
 }
 
 export async function getUnlockedRankPredictorAction(
@@ -139,7 +157,11 @@ export async function getUnlockedRankPredictorAction(
   if (!session || !sessionsMatch(session, validated.input)) {
     return { success: false, error: "Verification required." };
   }
-  return { success: true, data: await computeUnlockedResult(validated.input) };
+  try {
+    return { success: true, data: await computeUnlockedResult(validated.input) };
+  } catch (error) {
+    return { success: false, error: predictionErrorMessage(error) };
+  }
 }
 
 export async function getRankPredictorSessionAction(): Promise<

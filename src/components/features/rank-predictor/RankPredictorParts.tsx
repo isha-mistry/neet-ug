@@ -236,6 +236,7 @@ export function RankBandDisplay({
 interface RankResultShowcaseProps {
   preview: { min: number; max: number };
   refined?: { min: number; max: number };
+  stateMeritRange?: { min: number; max: number };
   referenceYear: number;
   onUnlock: () => void;
 }
@@ -243,6 +244,7 @@ interface RankResultShowcaseProps {
 export function RankResultShowcase({
   preview,
   refined,
+  stateMeritRange,
   referenceYear,
   onUnlock,
 }: RankResultShowcaseProps) {
@@ -278,10 +280,22 @@ export function RankResultShowcase({
               <span className="mx-3 font-normal text-on-primary/55">–</span>
               {formatNumber(refined.max)}
             </h2>
+            {stateMeritRange ? (
+              <>
+                <p className="mt-6 text-sm font-semibold uppercase tracking-widest text-on-primary/75">
+                  State merit rank range
+                </p>
+                <h3 className="mt-2 font-headline-lg text-3xl font-black tracking-tight md:text-4xl">
+                  {formatNumber(stateMeritRange.min)}
+                  <span className="mx-3 font-normal text-on-primary/55">–</span>
+                  {formatNumber(stateMeritRange.max)}
+                </h3>
+              </>
+            ) : null}
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-on-primary/85 md:text-base">
-              This is still an indicative estimate, but it is the tighter range
-              unlocked after verification. Use it to explore colleges in your
-              ballpark, not as official NTA rank.
+              Indicative AIR and state merit bands unlocked after verification.
+              Use them to explore colleges in your ballpark, not as official NTA
+              or state counselling ranks.
             </p>
           </div>
           <div className="grid gap-3">
@@ -314,7 +328,7 @@ export function RankResultShowcase({
   return (
     <section className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
       <RankBandDisplay
-        label="Estimated rank · preview band"
+        label="Estimated AIR · wide band"
         min={preview.min}
         max={preview.max}
         referenceYear={referenceYear}
@@ -417,6 +431,7 @@ export function RankPredictorLockedCTA({ onUnlock }: { onUnlock: () => void }) {
 interface RankPredictorCollegePreviewProps {
   college: CollegeSummary;
   verified: boolean;
+  cutoffCaption?: string;
   onAddCompare?: (slug: string) => void;
   compareDisabled?: boolean;
   inCompare?: boolean;
@@ -425,6 +440,7 @@ interface RankPredictorCollegePreviewProps {
 export function RankPredictorCollegePreview({
   college,
   verified,
+  cutoffCaption = "AIQ closing rank",
   onAddCompare,
   compareDisabled,
   inCompare,
@@ -458,7 +474,7 @@ export function RankPredictorCollegePreview({
             </dd>
             <dd className="text-xs text-on-surface-variant">
               {college.latestCutoffYear > 0 ? `${college.latestCutoffYear} · ` : ""}
-              {college.stateSlug === "gujarat" ? "Gujarat state" : "Cutoff"}
+              {cutoffCaption}
             </dd>
           </div>
           <div>

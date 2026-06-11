@@ -13,7 +13,7 @@ const YEAR_COLORS: Record<number, string> = {
   2022: "#8aa8ff",
   2023: "#5c85f0",
   2024: "#378ADD",
-  2025: "#003d9b",
+  2025: "#2546d0",
 };
 
 interface TrendChartProps {

@@ -7,3 +7,12 @@ export const RANK_PREDICTOR_SESSION_MAX_AGE_SEC = 60 * 60 * 24 * 90;
 
 export const NEET_SCORE_MIN = 0;
 export const NEET_SCORE_MAX = 720;
+
+/** POST JSON `{ score }` → wide AIR band (pre-verification). */
+export const RANK_PREDICT_AIR_WIDE_URL = process.env.RANK_PREDICT_AIR_WIDE_URL;
+
+/** POST JSON `{ score, state }` → AIR + state merit bands (post-verification). */
+export const RANK_PREDICT_STATE_RANK_URL = process.env.RANK_PREDICT_STATE_RANK_URL;
+
+/** AIR estimates map to All India Quota closing ranks in the catalog. */
+export const RANK_PREDICTOR_PREVIEW_QUOTA = "aiq" as const;

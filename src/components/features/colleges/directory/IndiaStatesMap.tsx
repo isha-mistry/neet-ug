@@ -30,8 +30,8 @@ import {
 
 /** MedSeat primary scale (see globals.css --color-primary-*) */
 const NO_DATA_FILL = "#e1e2e4";
-const ACTIVE_FILL = "#0052cc";
-const ACTIVE_PRESSED_FILL = "#003d9b";
+const ACTIVE_FILL = "#2546d0";
+const ACTIVE_PRESSED_FILL = "#0f2c9c";
 const ACTIVE_STROKE_WIDTH = 1.1;
 const FILL_LIGHT = { r: 218, g: 226, b: 255 };
 const FILL_DARK = { r: 0, g: 61, b: 155 };

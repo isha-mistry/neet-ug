@@ -31,11 +31,11 @@ type ButtonAsLink = BaseProps & {
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const baseClasses =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] font-semibold tracking-wide transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60";
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] font-semibold tracking-wide transition-[color,background-color,box-shadow,transform] duration-150 disabled:cursor-not-allowed disabled:opacity-60";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-brand-700 text-text-on-brand hover:bg-brand-800 active:bg-brand-900",
+    "bg-primary text-on-primary shadow-[var(--shadow-primary-button)] hover:bg-primary-hover hover:shadow-[var(--shadow-primary-button-hover)] hover:-translate-y-px active:translate-y-0 active:bg-primary-pressed",
   secondary:
     "bg-brand-50 text-brand-800 hover:bg-brand-100 active:bg-brand-200",
   outline:

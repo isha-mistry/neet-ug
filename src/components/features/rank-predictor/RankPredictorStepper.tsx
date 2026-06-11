@@ -58,7 +58,7 @@ export function RankPredictorStepper({ current, className }: RankPredictorSteppe
                   className={cn(
                     "relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold transition-all duration-300 sm:h-10 sm:w-10",
                     isCurrent &&
-                    "bg-primary text-on-primary shadow-[0_8px_24px_-4px_rgba(0,61,155,0.45)] ring-4 ring-primary/15",
+                    "bg-primary text-on-primary shadow-[var(--shadow-primary-button)] ring-4 ring-primary/15",
                     isComplete && !isCurrent && "bg-primary-container text-on-primary-container",
                     isUpcoming && "bg-surface-container text-on-surface-variant"
                   )}

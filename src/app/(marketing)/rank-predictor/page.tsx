@@ -3,10 +3,7 @@ import { RankPredictorWizard } from "@/components/features/rank-predictor/RankPr
 import { getAllStates } from "@/lib/data/states";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getRankPredictorSession } from "@/lib/rank-predictor/session";
-import {
-  computeTeaserResult,
-  computeUnlockedResult,
-} from "@/lib/rank-predictor/compute";
+import { computeUnlockedResult } from "@/lib/rank-predictor/compute";
 import type { NeetCategory } from "@/lib/rank-predictor/types";
 export const metadata: Metadata = buildMetadata({
   title: "NEET Rank Predictor from Score",
@@ -26,10 +23,18 @@ const CATEGORY_OPTIONS: { value: NeetCategory; label: string }[] = [
 
 export default async function RankPredictorPage() {
   const session = await getRankPredictorSession();
-  const initialUnlocked = session ? await computeUnlockedResult(session) : null;
-  const initialTeaser = session
-    ? computeTeaserResult(session)
-    : initialUnlocked;
+  let initialUnlocked = null;
+  let initialTeaser = null;
+
+  if (session) {
+    try {
+      initialUnlocked = await computeUnlockedResult(session);
+      initialTeaser = initialUnlocked;
+    } catch {
+      initialUnlocked = null;
+      initialTeaser = null;
+    }
+  }
 
   const states = await getAllStates();
   const stateOptions = states.map((state) => ({

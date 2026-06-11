@@ -74,7 +74,7 @@ export function Home02Landing() {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/cutoff-analyser"
-                className="group inline-flex items-center gap-2 rounded-lg bg-primary px-12 py-4 font-label-md text-label-md text-on-primary transition-all hover:bg-primary-container"
+                className="group ms-primary-glow inline-flex items-center gap-2 rounded-lg bg-primary px-12 py-4 font-label-md text-label-md text-on-primary transition-all hover:bg-primary-hover"
               >
                 Check My Chances
                 <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">
@@ -195,7 +195,7 @@ export function Home02Landing() {
 
       {/* Lead magnet — bg on section (not negative z) so it isn’t hidden behind layout main */}
       <section
-        className={`${sectionPad} relative overflow-hidden bg-primary-container text-on-primary`}
+        className={`${sectionPad} relative overflow-hidden bg-primary text-on-primary`}
       >
         <div
           className={`${container} relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-2`}
@@ -310,12 +310,12 @@ export function Home02Landing() {
       {/* Bottom CTA */}
       <section className={sectionPad}>
         <div className={container}>
-          <div className="relative flex flex-col items-center overflow-hidden rounded-3xl bg-primary-container p-12 text-center">
+          <div className="relative flex flex-col items-center overflow-hidden rounded-3xl bg-primary p-12 text-center text-on-primary shadow-[var(--shadow-primary-glow)]">
             <div className="relative z-10">
-              <h2 className="mb-4 font-headline-xl text-headline-xl text-white">
+              <h2 className="mb-4 font-headline-xl text-headline-xl">
                 Your NEET Rank Deserves the Right College
               </h2>
-              <p className="mx-auto mb-12 max-w-2xl font-body-lg text-body-lg text-white/90">
+              <p className="mx-auto mb-12 max-w-2xl font-body-lg text-body-lg text-on-primary/90">
                 Don&apos;t let procedural complexity stand between you and your white
                 coat. Speak to an expert today.
               </p>

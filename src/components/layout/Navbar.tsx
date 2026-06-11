@@ -1,4 +1,4 @@
-import { FiBarChart2 } from "react-icons/fi";
+import { FiCalendar } from "react-icons/fi";
 import { getSiteIdentity } from "@/lib/data/site";
 import { getQuotaGuides } from "@/lib/data/content";
 import { HOME_NAV_LINKS } from "@/lib/navigation/home-nav";
@@ -18,7 +18,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-outline-variant bg-surface">
-      <Container size="2xl" className="flex h-16 items-center justify-between gap-4 py-2">
+      <Container size="page" className="flex h-16 items-center justify-between gap-4 py-2">
         <BrandMark
           brandName={site.brandName}
           className="text-primary [&_span:last-child]:font-headline-md [&_span:last-child]:text-headline-md [&_span:last-child]:font-bold"
@@ -31,14 +31,13 @@ export function Navbar() {
         />
         <div className="flex items-center gap-2">
           <Button
-            as="link"
-            href="/compare"
+            type="button"
             variant="primary"
             size="sm"
-            leadingIcon={<FiBarChart2 aria-hidden="true" />}
+            leadingIcon={<FiCalendar aria-hidden="true" />}
             className="hidden md:inline-flex"
           >
-            Compare
+            Book a Counselling
           </Button>
           <MobileMenu
             links={site.primaryNav}

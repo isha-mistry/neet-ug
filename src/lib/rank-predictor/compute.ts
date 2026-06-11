@@ -1,9 +1,9 @@
 import {
-  estimateRankFromScore,
   getRankPredictorConfig,
   getCollegesForRankPreview,
 } from "@/lib/data/rank-predictor";
 import { toCollegeSummary } from "@/lib/colleges/mappers";
+import { RANK_PREDICTOR_PREVIEW_QUOTA } from "@/lib/rank-predictor/constants";
 import type {
   RankPredictorFormInput,
   RankPredictorTeaserResult,
@@ -13,6 +13,10 @@ import {
   NEET_SCORE_MAX,
   NEET_SCORE_MIN,
 } from "./constants";
+import {
+  fetchAirWideRange,
+  fetchStateRankPrediction,
+} from "./predict-api";
 
 const CATEGORY_NOTE =
   "College previews (after verification) use AIQ closing ranks from our dataset. Category-wise cutoffs will apply on the official College Predictor after your NTA rank is published.";
@@ -50,17 +54,17 @@ export function validateRankPredictorInput(
   };
 }
 
-export function computeTeaserResult(
+export async function computeTeaserResult(
   input: RankPredictorFormInput
-): RankPredictorTeaserResult {
+): Promise<RankPredictorTeaserResult> {
   const config = getRankPredictorConfig();
-  const estimate = estimateRankFromScore(input.score);
+  const coarse = await fetchAirWideRange(input.score);
 
   return {
-    referenceYear: estimate.referenceYear,
+    referenceYear: config.referenceYear,
     disclaimer: config.disclaimer,
     input,
-    coarse: estimate.coarse,
+    coarse,
     teaserColleges: [],
     categoryNote: CATEGORY_NOTE,
   };
@@ -69,20 +73,39 @@ export function computeTeaserResult(
 export async function computeUnlockedResult(
   input: RankPredictorFormInput
 ): Promise<RankPredictorUnlockedResult> {
-  const teaser = computeTeaserResult(input);
+  const teaser = await computeTeaserResult(input);
   const config = getRankPredictorConfig();
-  const estimate = estimateRankFromScore(input.score);
+  const { airRange, stateMeritRange } = await fetchStateRankPrediction(
+    input.score,
+    input.stateSlug
+  );
   const limit = config.previewLimits.verifiedPreviewCount;
   const preview = await getCollegesForRankPreview(
-    estimate.tight.min,
-    estimate.tight.max,
-    { ...previewOptions(input), limit }
+    airRange.min,
+    airRange.max,
+    {
+      ...previewOptions(input),
+      limit,
+      cutoffContext: {
+        quota: RANK_PREDICTOR_PREVIEW_QUOTA,
+        category: input.category,
+        minCutoffYear: config.referenceYear - 1,
+      },
+    }
   );
+
+  const summaryContext = {
+    quota: RANK_PREDICTOR_PREVIEW_QUOTA,
+    category: input.category,
+  } as const;
 
   return {
     ...teaser,
-    tight: estimate.tight,
-    previewColleges: preview.colleges.map((c) => toCollegeSummary(c)),
+    tight: airRange,
+    stateMeritRange,
+    previewColleges: preview.colleges.map((c) =>
+      toCollegeSummary(c, summaryContext)
+    ),
   };
 }
 

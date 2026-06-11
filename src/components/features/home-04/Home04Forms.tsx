@@ -118,7 +118,7 @@ export function Home04StrategySessionForm() {
       ) : null}
       <button
         type="submit"
-        className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 font-semibold text-on-primary shadow-xl shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-primary/30 active:translate-y-0"
+        className="group ms-primary-glow flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 font-semibold text-on-primary transition-all hover:-translate-y-0.5 hover:bg-primary-hover active:translate-y-0 active:bg-primary-pressed"
       >
         Connect with Expert Advisor
         <span className="material-symbols-outlined transition-transform group-hover:translate-x-0.5">
@@ -136,7 +136,7 @@ export function Home04StrategySessionForm() {
 export function Home04StickyBookingStrip() {
   return (
     <div className="fixed bottom-0 left-0 z-[100] hidden w-full md:block">
-      <div className="mx-2 mb-2 overflow-hidden rounded-2xl border border-white/15 bg-primary/95 px-6 py-3.5 text-on-primary shadow-[0_-8px_40px_rgba(0,61,155,0.35)] backdrop-blur-md">
+      <div className="mx-2 mb-2 overflow-hidden rounded-2xl border border-white/15 bg-primary/95 px-6 py-3.5 text-on-primary shadow-[0_-8px_40px_rgba(37,70,208,0.35)] backdrop-blur-md">
         <div className="mx-auto flex max-w-container-max items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="flex -space-x-3">

@@ -8,7 +8,7 @@ export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="border-t border-border bg-surface">
-      <Container size="2xl" className="py-12">
+      <Container size="page" className="py-12">
         <div className="grid gap-10 md:grid-cols-[1.2fr_2fr]">
           <div className="flex flex-col gap-4">
             <BrandMark brandName={site.brandName} />
@@ -16,7 +16,7 @@ export function Footer() {
               {site.description}
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="grid w-full grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-2 md:grid-cols-4">
             {site.footer.columns.map((column) => (
               <div key={column.title} className="flex flex-col gap-3">
                 <h4 className="text-xs font-semibold uppercase tracking-widest text-text">

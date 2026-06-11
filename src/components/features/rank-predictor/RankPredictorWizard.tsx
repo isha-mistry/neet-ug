@@ -404,6 +404,7 @@ export function RankPredictorWizard({
             <RankResultShowcase
               preview={teaser.coarse}
               refined={unlocked?.tight}
+              stateMeritRange={unlocked?.stateMeritRange}
               referenceYear={teaser.referenceYear}
               onUnlock={goVerify}
             />
@@ -418,7 +419,7 @@ export function RankPredictorWizard({
               <>
                 <SectionBlock
                   title="Colleges in your ballpark"
-                  description="From the refined rank band · add up to four to compare."
+                  description={`Matched to your AIR band using ${teaser.referenceYear} AIQ closing ranks (${categoryOptions.find((c) => c.value === teaser.input.category)?.label ?? "your category"}) in our catalog.`}
                   actions={
                     selectedSlugs.length > 0 ? (
                       <Button

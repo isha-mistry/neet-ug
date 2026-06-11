@@ -27,6 +27,7 @@ export interface RankPredictorTeaserResult {
 
 export interface RankPredictorUnlockedResult extends RankPredictorTeaserResult {
   tight: RankRangeDto;
+  stateMeritRange: RankRangeDto;
   previewColleges: CollegeSummary[];
 }
 

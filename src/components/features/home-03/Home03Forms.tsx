@@ -127,7 +127,7 @@ export function Home03FloatingLeadMagnet() {
           <span className="material-symbols-outlined text-sm">close</span>
         </button>
         <div className="flex gap-4">
-          <div className="flex h-20 w-16 shrink-0 items-center justify-center rounded bg-primary-fixed text-primary-container shadow-inner">
+          <div className="flex h-20 w-16 shrink-0 items-center justify-center rounded bg-primary-fixed text-primary shadow-inner">
             <span className="material-symbols-outlined text-4xl">book</span>
           </div>
           <div>
@@ -141,7 +141,7 @@ export function Home03FloatingLeadMagnet() {
               href={playbookUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded bg-primary px-4 py-1.5 text-xs text-on-primary transition-colors hover:bg-primary-container"
+              className="ms-primary-glow rounded bg-primary px-4 py-1.5 text-xs text-on-primary transition-colors hover:bg-primary-hover"
             >
               Download PDF
             </a>

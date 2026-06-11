@@ -1,8 +1,11 @@
 import { medseatData } from "./source";
 import { getAllColleges } from "./colleges";
-import { getLatestRank } from "@/lib/colleges/filters";
+import { pickDisplayCutoff } from "@/lib/colleges/cutoff-context";
 import type { CollegeRecord } from "@/types/college";
+import type { ListingQuota } from "@/types/filters";
 import type { EstimatedRankRange, RankPredictorConfig } from "@/types/rank-predictor";
+import type { NeetCategory } from "@/lib/rank-predictor/types";
+import { RANK_PREDICTOR_PREVIEW_QUOTA } from "@/lib/rank-predictor/constants";
 
 export function getRankPredictorConfig(): RankPredictorConfig {
   return medseatData.rankPredictor;
@@ -49,45 +52,66 @@ function expandRankRange(
   };
 }
 
-function getPredictorCutoffRank(record: CollegeRecord): number | null {
-  if (!record.cutoffs.length) return null;
-  const rank = getLatestRank(record);
-  if (!Number.isFinite(rank) || rank <= 0 || rank >= Number.POSITIVE_INFINITY) {
-    return null;
-  }
-  return rank;
+export interface RankPreviewCutoffContext {
+  quota: ListingQuota;
+  category: NeetCategory;
+  /** Ignore cutoffs older than this year (latest row per college must meet this). */
+  minCutoffYear: number;
+}
+
+function getPreviewCutoff(
+  record: CollegeRecord,
+  context: RankPreviewCutoffContext
+): { rank: number; year: number } | null {
+  const cutoff = pickDisplayCutoff(record, {
+    quota: context.quota,
+    category: context.category,
+  });
+  if (!cutoff?.rank || cutoff.rank <= 0) return null;
+  if (cutoff.year < context.minCutoffYear) return null;
+  return { rank: cutoff.rank, year: cutoff.year };
 }
 
 function collegesInRankWindow(
   records: CollegeRecord[],
   rankMin: number,
-  rankMax: number
+  rankMax: number,
+  context: RankPreviewCutoffContext
 ): CollegeRecord[] {
   return records.filter((record) => {
-    const rank = getPredictorCutoffRank(record);
-    if (rank === null) return false;
-    return rank >= rankMin && rank <= rankMax;
+    const cutoff = getPreviewCutoff(record, context);
+    if (!cutoff) return false;
+    return cutoff.rank >= rankMin && cutoff.rank <= rankMax;
   });
 }
 
 function sortByClosenessToMidpoint(
   records: CollegeRecord[],
-  midpoint: number
+  midpoint: number,
+  context: RankPreviewCutoffContext
 ): CollegeRecord[] {
   return [...records].sort((a, b) => {
-    const rankA = getPredictorCutoffRank(a) ?? Number.MAX_SAFE_INTEGER;
-    const rankB = getPredictorCutoffRank(b) ?? Number.MAX_SAFE_INTEGER;
+    const rankA = getPreviewCutoff(a, context)?.rank ?? Number.MAX_SAFE_INTEGER;
+    const rankB = getPreviewCutoff(b, context)?.rank ?? Number.MAX_SAFE_INTEGER;
     return Math.abs(rankA - midpoint) - Math.abs(rankB - midpoint);
   });
+}
+
+function collegesWithCatalogCutoff(
+  catalog: CollegeRecord[],
+  context: RankPreviewCutoffContext
+): CollegeRecord[] {
+  return catalog.filter((record) => getPreviewCutoff(record, context) !== null);
 }
 
 export interface RankPreviewResult {
   rankMin: number;
   rankMax: number;
   colleges: CollegeRecord[];
+  cutoffContext: RankPreviewCutoffContext;
 }
 
-/** Colleges whose latest AIQ cutoff falls in the rank window (for predictor preview UI). */
+/** Colleges whose catalog closing rank (quota + category) falls in the rank window. */
 export async function getCollegesForRankPreview(
   rankMin: number,
   rankMax: number,
@@ -96,16 +120,30 @@ export async function getCollegesForRankPreview(
     collegeTypes?: CollegeRecord["collegeType"][];
     maxTotalCourseFee?: number;
     useBuffer?: boolean;
+    cutoffContext?: Partial<RankPreviewCutoffContext> &
+      Pick<RankPreviewCutoffContext, "category">;
   }
 ): Promise<RankPreviewResult> {
   const config = getRankPredictorConfig();
+  const cutoffContext: RankPreviewCutoffContext = {
+    quota: options?.cutoffContext?.quota ?? RANK_PREDICTOR_PREVIEW_QUOTA,
+    category: options?.cutoffContext?.category ?? "general",
+    minCutoffYear:
+      options?.cutoffContext?.minCutoffYear ?? config.referenceYear - 1,
+  };
+
   const buffer = options?.useBuffer
     ? config.previewLimits.rankMatchBufferPercent
     : 0;
   const window = expandRankRange(rankMin, rankMax, buffer);
   const catalog = await getAllColleges();
-  const withCutoffs = catalog.filter((c) => c.cutoffs.length > 0);
-  let pool = collegesInRankWindow(withCutoffs, window.min, window.max);
+  const withCutoffs = collegesWithCatalogCutoff(catalog, cutoffContext);
+  let pool = collegesInRankWindow(
+    withCutoffs,
+    window.min,
+    window.max,
+    cutoffContext
+  );
 
   if (options?.collegeTypes?.length) {
     pool = pool.filter((c) => options.collegeTypes!.includes(c.collegeType));
@@ -115,7 +153,7 @@ export async function getCollegesForRankPreview(
   }
 
   const midpoint = (rankMin + rankMax) / 2;
-  const sorted = sortByClosenessToMidpoint(pool, midpoint);
+  const sorted = sortByClosenessToMidpoint(pool, midpoint, cutoffContext);
   const limit = options?.limit ?? config.previewLimits.verifiedPreviewCount;
 
   let result = sorted;
@@ -125,7 +163,7 @@ export async function getCollegesForRankPreview(
     result.length < limit
   ) {
     const seen = new Set(result.map((c) => c.slug));
-    const nearest = sortByClosenessToMidpoint(withCutoffs, midpoint);
+    const nearest = sortByClosenessToMidpoint(withCutoffs, midpoint, cutoffContext);
     const padded = [...result];
     for (const college of nearest) {
       if (padded.length >= limit) break;
@@ -140,29 +178,32 @@ export async function getCollegesForRankPreview(
     rankMin: window.min,
     rankMax: window.max,
     colleges: result.slice(0, limit),
+    cutoffContext,
   };
 }
 
 export async function getTeaserCollegesForScore(
-  score: number
+  score: number,
+  category: NeetCategory
 ): Promise<RankPreviewResult> {
   const estimate = estimateRankFromScore(score);
   const limit = getRankPredictorConfig().previewLimits.teaserCollegeCount;
   return getCollegesForRankPreview(
     estimate.coarse.min,
     estimate.coarse.max,
-    { limit, useBuffer: true }
+    { limit, useBuffer: true, cutoffContext: { category } }
   );
 }
 
 export async function getVerifiedPreviewCollegesForScore(
-  score: number
+  score: number,
+  category: NeetCategory
 ): Promise<RankPreviewResult> {
   const estimate = estimateRankFromScore(score);
   const limit = getRankPredictorConfig().previewLimits.verifiedPreviewCount;
   return getCollegesForRankPreview(
     estimate.tight.min,
     estimate.tight.max,
-    { limit, useBuffer: true }
+    { limit, useBuffer: true, cutoffContext: { category } }
   );
 }

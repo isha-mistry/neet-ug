@@ -69,7 +69,7 @@ export function Home01Landing() {
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/cutoff-analyser"
-                  className="inline-flex items-center gap-1 rounded-lg bg-primary px-12 py-4 font-label-md text-label-md text-on-primary shadow-lg shadow-primary/20 transition-all hover:opacity-95"
+                  className="ms-primary-glow inline-flex items-center gap-1 rounded-lg bg-primary px-12 py-4 font-label-md text-label-md text-on-primary transition-all hover:bg-primary-hover"
                 >
                   Start Predictor
                   <span className="material-symbols-outlined">arrow_forward</span>
