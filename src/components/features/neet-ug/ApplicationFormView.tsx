@@ -160,11 +160,10 @@ export function ApplicationFormView() {
             ]}
           />
 
-          <AdvisoryAlertCard />
 
           {/* Header */}
           <header className="max-w-3xl text-left">
-            <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl lg:text-[44px] leading-tight">
+            <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl lg:text-[44px] leading-tight">
               Application Form, Admit Card<span className="block">& Exam Day Guide</span>
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-500 font-normal">
@@ -172,6 +171,7 @@ export function ApplicationFormView() {
             </p>
           </header>
 
+          <AdvisoryAlertCard />
           {/* Metric Row */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <MetricCard icon="edit_calendar" label="Application Fee" value="₹1,000 – ₹1,700" tone="blue" />

@@ -97,6 +97,11 @@ export interface CollegeRecord {
   roiScore: number;
   otherInfo?: CollegeOtherInfo;
   seatMatrix?: CollegeSeatMatrix;
+  /** NIRF India Rankings — Medical category (when present in catalog DB). */
+  nirfMedicalRank?: number;
+  nirfMedicalScore?: number;
+  nirfRankingYear?: number;
+  nirfInstitutionId?: string;
   /** Set on DB-built records for QA (not shown in UI by default). */
   dataQuality?: string[];
 }

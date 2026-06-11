@@ -10,7 +10,10 @@
     "lint": "eslint",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
-    "db:migrate:dev": "prisma migrate dev"
+    "db:seed:catalog": "tsx scripts/catalog/seed-catalog.ts",
+    "db:seed:nirf": "tsx scripts/catalog/seed-nirf-ranks.ts",
+    "db:dump:local": "bash scripts/db/dump-local-catalog.sh",
+    "db:restore:catalog": "bash scripts/db/restore-catalog-dump.sh"
   },
   "dependencies": {
     "@prisma/client": "^6.9.0",
@@ -40,6 +43,7 @@
     "eslint-config-next": "16.2.6",
     "prisma": "^6.9.0",
     "tailwindcss": "^4",
+    "tsx": "^4.20.3",
     "typescript": "^5"
   }
 }

@@ -1,3 +1,5 @@
+// Production Postgres catalog (app schema). Runtime reads relational tables via catalog-loader.
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -6,33 +8,60 @@ datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
-  schemas   = ["app", "staging"]
+  schemas   = ["app"]
 }
 
-model College {
-  collegeId            Int              @id @default(autoincrement()) @map("college_id")
-  slug                 String           @unique
-  name                 String
-  stateSlug            String           @map("state_slug")
-  city                 String?
-  collegeType          String           @map("college_type")
-  seatCount            Int              @default(0) @map("seat_count")
-  quotaInfo            String           @default("") @map("quota_info")
-  universityName       String?          @map("university_name")
-  counselling          String?
-  roi_score            Int              @default(50)
-  bond_years           Int              @default(0)
-  bond_penalty         Int              @default(0)
-  bond_note            String?
-  bed_count            Int              @default(0)
-  patient_flow_per_day Int              @default(0)
-  facilities           String[]         @default([])
-  aliases              CollegeAlias[]
-  states               states           @relation(fields: [stateSlug], references: [state_slug])
-  cutoffs              cutoffs[]
-  fee_schedules        fee_schedules[]
-  seat_snapshots       seat_snapshots[]
+// --- Reference ---
 
+model State {
+  stateSlug          String  @id @map("state_slug")
+  name               String
+  intro              String  @default("")
+  totalSeats         Int     @default(0) @map("total_seats")
+  competitionLevel   String  @default("") @map("competition_level")
+  /// How fee rows are keyed for this state: seat_type, category, or both (import validation).
+  feeDimensionProfile String @default("seat_type") @map("fee_dimension_profile")
+
+  colleges College[]
+
+  @@map("states")
+  @@schema("app")
+}
+
+// --- College spine ---
+
+model College {
+  collegeId      Int     @id @default(autoincrement()) @map("college_id")
+  slug           String  @unique
+  name           String
+  stateSlug      String  @map("state_slug")
+  city           String?
+  collegeType    String  @map("college_type")
+  seatCount      Int     @default(0) @map("seat_count")
+  quotaInfo      String  @default("") @map("quota_info")
+  universityName String? @map("university_name")
+  counselling    String?
+  roiScore       Int     @default(50) @map("roi_score")
+  bondYears      Int     @default(0) @map("bond_years")
+  bondPenalty    Int     @default(0) @map("bond_penalty")
+  bondNote       String? @map("bond_note")
+  bedCount       Int     @default(0) @map("bed_count")
+  patientFlowPerDay Int  @default(0) @map("patient_flow_per_day")
+  facilities     String[] @default([])
+
+  /// NIRF Medical category (Ministry of Education), e.g. 2025 release.
+  nirfInstitutionId String?  @map("nirf_institution_id")
+  nirfMedicalRank   Int?     @map("nirf_medical_rank")
+  nirfMedicalScore  Decimal? @map("nirf_medical_score") @db.Decimal(5, 2)
+  nirfRankingYear   Int?     @map("nirf_ranking_year")
+
+  state         State          @relation(fields: [stateSlug], references: [stateSlug])
+  aliases       CollegeAlias[]
+  feeSchedules  FeeSchedule[]
+  seatSnapshots SeatSnapshot[]
+  cutoffs       Cutoff[]
+
+  @@index([stateSlug])
   @@map("colleges")
   @@schema("app")
 }
@@ -51,91 +80,95 @@ model CollegeAlias {
   @@schema("app")
 }
 
-model cutoffs {
-  id                       Int      @id @default(autoincrement())
-  college_id               Int
-  year                     Int
-  category                 String
-  seat_type                String
-  admission_round          String
-  opening_rank_air         Int?
-  closing_rank_air         Int?
-  opening_state_merit_rank Decimal? @db.Decimal(12, 2)
-  closing_state_merit_rank Decimal? @db.Decimal(12, 2)
-  opening_neet_score       Int?
-  closing_neet_score       Int?
-  opening_percentile       Decimal? @db.Decimal(8, 5)
-  closing_percentile       Decimal? @db.Decimal(8, 5)
-  total_seats_filled       Int?
-  opening_category_rank    String?
-  closing_category_rank    String?
-  colleges                 College  @relation(fields: [college_id], references: [collegeId], onDelete: Cascade)
+// --- Fees (multi-state: optional seat_type + category dimensions) ---
 
-  @@unique([college_id, year, category, seat_type, admission_round])
-  @@index([college_id, year])
-  @@index([year, category, closing_rank_air])
+model FeeSchedule {
+  id           Int           @id @default(autoincrement())
+  collegeId    Int           @map("college_id")
+  academicYear Int           @map("academic_year")
+  source       String        @default("")
+  college      College       @relation(fields: [collegeId], references: [collegeId], onDelete: Cascade)
+  lineItems    FeeLineItem[]
+
+  @@unique([collegeId, academicYear])
+  @@map("fee_schedules")
   @@schema("app")
 }
 
-model fee_line_items {
-  id            Int           @id @default(autoincrement())
-  schedule_id   Int
-  component     String
-  seat_type     String        @default("")
-  category      String        @default("")
-  amount        Decimal       @db.Decimal(14, 2)
-  currency      String        @default("INR")
-  period        String        @default("annual")
-  fee_schedules fee_schedules @relation(fields: [schedule_id], references: [id], onDelete: Cascade)
+model FeeLineItem {
+  id         Int         @id @default(autoincrement())
+  scheduleId Int         @map("schedule_id")
+  /// tuition | hostel | mess | university | transport | exam
+  component  String
+  /// GQ | MQ | NRI | … — empty string = all seat types
+  seatType   String      @default("") @map("seat_type")
+  /// OP | SC | ST | … — empty string = all categories
+  category   String      @default("")
+  amount     Decimal     @db.Decimal(14, 2)
+  currency   String      @default("INR")
+  /// annual | one_time
+  period     String      @default("annual")
+  schedule   FeeSchedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
 
-  @@unique([schedule_id, component, seat_type, category])
+  @@unique([scheduleId, component, seatType, category])
+  @@map("fee_line_items")
   @@schema("app")
 }
 
-model fee_schedules {
-  id             Int              @id @default(autoincrement())
-  college_id     Int
-  academic_year  Int
-  source         String           @default("")
-  fee_line_items fee_line_items[]
-  colleges       College          @relation(fields: [college_id], references: [collegeId], onDelete: Cascade)
+// --- Seats (yearly snapshot + normalized buckets) ---
 
-  @@unique([college_id, academic_year])
+model SeatSnapshot {
+  id            Int          @id @default(autoincrement())
+  collegeId     Int          @map("college_id")
+  academicYear  Int          @map("academic_year")
+  instituteType String       @map("institute_type")
+  totalSeats    Int          @map("total_seats")
+  college       College      @relation(fields: [collegeId], references: [collegeId], onDelete: Cascade)
+  buckets       SeatBucket[]
+
+  @@unique([collegeId, academicYear])
+  @@map("seat_snapshots")
   @@schema("app")
 }
 
-model seat_buckets {
-  id             Int            @id @default(autoincrement())
-  snapshot_id    Int
-  bucket_code    String
-  seat_count     Int
-  seat_snapshots seat_snapshots @relation(fields: [snapshot_id], references: [id], onDelete: Cascade)
+model SeatBucket {
+  id         Int          @id @default(autoincrement())
+  snapshotId Int          @map("snapshot_id")
+  /// aiq | state_quota | esic_ip | nri_quota | open | sc | st | sebc | ews | mqt_quota | …
+  bucketCode String       @map("bucket_code")
+  seatCount  Int          @map("seat_count")
+  snapshot   SeatSnapshot @relation(fields: [snapshotId], references: [id], onDelete: Cascade)
 
-  @@unique([snapshot_id, bucket_code])
+  @@unique([snapshotId, bucketCode])
+  @@map("seat_buckets")
   @@schema("app")
 }
 
-model seat_snapshots {
-  id             Int            @id @default(autoincrement())
-  college_id     Int
-  academic_year  Int
-  institute_type String
-  total_seats    Int
-  seat_buckets   seat_buckets[]
-  colleges       College        @relation(fields: [college_id], references: [collegeId], onDelete: Cascade)
+// --- Cutoffs (all years / states in one table) ---
 
-  @@unique([college_id, academic_year])
-  @@schema("app")
-}
+model Cutoff {
+  id                      Int      @id @default(autoincrement())
+  collegeId               Int      @map("college_id")
+  year                    Int
+  category                String
+  seatType                String   @map("seat_type")
+  admissionRound          String   @map("admission_round")
+  openingRankAir            Int?     @map("opening_rank_air")
+  closingRankAir            Int?     @map("closing_rank_air")
+  openingStateMeritRank     Decimal? @map("opening_state_merit_rank") @db.Decimal(12, 2)
+  closingStateMeritRank     Decimal? @map("closing_state_merit_rank") @db.Decimal(12, 2)
+  openingNeetScore          Int?     @map("opening_neet_score")
+  closingNeetScore          Int?     @map("closing_neet_score")
+  openingPercentile         Decimal? @map("opening_percentile") @db.Decimal(8, 5)
+  closingPercentile         Decimal? @map("closing_percentile") @db.Decimal(8, 5)
+  totalSeatsFilled          Int?     @map("total_seats_filled")
+  openingCategoryRank       String?  @map("opening_category_rank")
+  closingCategoryRank       String?  @map("closing_category_rank")
+  college                   College  @relation(fields: [collegeId], references: [collegeId], onDelete: Cascade)
 
-model states {
-  state_slug            String    @id
-  name                  String
-  intro                 String    @default("")
-  total_seats           Int       @default(0)
-  competition_level     String    @default("")
-  fee_dimension_profile String    @default("seat_type")
-  colleges              College[]
-
+  @@unique([collegeId, year, category, seatType, admissionRound])
+  @@index([year, category, closingRankAir])
+  @@index([collegeId, year])
+  @@map("cutoffs")
   @@schema("app")
 }

@@ -6,6 +6,10 @@
     "description": "Compare MBBS colleges across India with verified fees, cutoffs, bond rules, and infrastructure data.",
     "primaryNav": [
       {
+        "label": "Home",
+        "href": "/home/1"
+      },
+      {
         "label": "Colleges",
         "href": "/colleges"
       },
@@ -66,31 +70,27 @@
           ]
         },
         {
-          "title": "States",
+          "title": "Medical Colleges in India",
           "links": [
             {
-              "label": "All States",
-              "href": "/colleges/state"
+              "label": "MBBS in India",
+              "href": "/mbbs-in-india"
             },
             {
-              "label": "Maharashtra",
-              "href": "/colleges/state/maharashtra"
+              "label": "MBBS in Gujarat",
+              "href": "/mbbs-in-india/gujarat"
             },
             {
-              "label": "Karnataka",
-              "href": "/colleges/state/karnataka"
+              "label": "MBBS in Rajasthan",
+              "href": "/mbbs-in-india/rajasthan"
             },
             {
-              "label": "Delhi",
-              "href": "/colleges/state/delhi"
+              "label": "MBBS in Maharashtra",
+              "href": "/mbbs-in-india/maharashtra"
             },
             {
-              "label": "Tamil Nadu",
-              "href": "/colleges/state/tamil-nadu"
-            },
-            {
-              "label": "Madhya Pradesh",
-              "href": "/colleges/state/madhya-pradesh"
+              "label": "MBBS in Madhya Pradesh",
+              "href": "/mbbs-in-india/madhya-pradesh"
             }
           ]
         },

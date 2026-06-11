@@ -1,6 +1,6 @@
 import type { SortOption } from "@/types/filters";
 
-export const DEFAULT_PAGE_SIZE = 6;
+export const DEFAULT_PAGE_SIZE = 50;
 
 export const SORT_OPTIONS: SortOption[] = [
   { value: "lowest_fees", label: "Lowest Fees" },

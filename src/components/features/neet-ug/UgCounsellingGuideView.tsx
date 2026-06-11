@@ -47,7 +47,7 @@ export function UgCounsellingGuideView() {
   return (
     <>
       <Section tone="default" className=" py-7 md:py-10">
-        <Container size="2xl">
+        <Container size="2xl" className="flex flex-col gap-10">
           {/* Breadcrumb */}
           <Breadcrumbs
             items={[
@@ -58,14 +58,14 @@ export function UgCounsellingGuideView() {
           />
 
           {/* Hero */}
-          <section className="mb-6 mt-4">
-            <h1 className="text-[2.8rem] font-bold leading-[1.1] tracking-[-0.02em] text-mg-on-bg">
+          <header className="max-w-3xl text-left">
+            <h1 className="mt-4 text-3xl font-bold leading-[1.05] tracking-[-0.035em] text-clinical-navy md:text-[44px]">
               NEET UG Counselling Step-by-Step Guide
             </h1>
-            <p className="mt-3 max-w-3xl text-[18px] leading-[1.6] text-mg-on-surface">
+            <p className="mt-4 max-w-2xl text-sm leading-6 text-clinical-muted md:text-[15px]">
               Navigate NEET UG counselling with a clearer view of registration, choice locking, allotment, reporting, and seat matrix rules across MCC and state rounds.
             </p>
-          </section>
+          </header>
 
           <div className="flex flex-col gap-8 lg:flex-row">
             {/* ── Left Content Column ── */}

@@ -8,10 +8,15 @@ export async function getStateDirectoryItems(): Promise<StateDirectoryItem[]> {
   const colleges = await getAllColleges();
   const states = await getAllStates();
   return states
-    .map((state) => ({
-      ...state,
-      collegeCount: colleges.filter((c) => c.stateSlug === state.slug).length,
-    }))
+    .map((state) => {
+      const inState = colleges.filter((c) => c.stateSlug === state.slug);
+      const seatSum = inState.reduce((sum, c) => sum + c.seatCount, 0);
+      return {
+        ...state,
+        collegeCount: inState.length,
+        totalSeats: seatSum > 0 ? seatSum : state.totalSeats,
+      };
+    })
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 

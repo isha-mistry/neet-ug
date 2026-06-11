@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -159,7 +159,7 @@ export function NriAdmissionGuideView() {
 
           {/* Header */}
           <header className="max-w-3xl text-left">
-            <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-clinical-navy md:text-4xl lg:text-[44px]">
+            <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-clinical-navy md:text-4xl lg:text-[44px]">
               Reservation, Category Certificates<span className="block"> & NRI MBBS Admission</span>
             </h1>
             <p className="mt-3 max-w-2xl text-base font-normal leading-relaxed text-clinical-muted">

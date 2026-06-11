@@ -91,7 +91,7 @@ export function NeetAnswerKeyView() {
 
           {/* Header */}
           <header className="max-w-3xl text-left">
-            <h1 className="mt-4 text-3xl font-extrabold leading-[1.05] tracking-[-0.035em] text-clinical-navy md:text-[44px]">
+            <h1 className="mt-4 text-3xl font-bold leading-[1.05] tracking-[-0.035em] text-clinical-navy md:text-[44px]">
               Answer Key, OMR Sheet
               <span className="block"> Results & Cut-off Guide</span>
             </h1>

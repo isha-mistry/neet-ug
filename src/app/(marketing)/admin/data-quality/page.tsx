@@ -11,20 +11,20 @@ export const metadata: Metadata = {
 
 const FLAG_HINTS: Record<string, string> = {
   MISSING_GUJARAT_FEES:
-    "No row in gujarat_college_fees for this college (may be AIIMS/deemed or not in state fee sheet).",
+    "No fee_schedules / fee_line_items for this college (may be AIIMS or not on state fee sheet).",
   MISSING_GUJARAT_CUTOFFS:
-    "No row in gujarat_cutoff_data (2025 state counselling) for this college.",
-  HAS_GUJARAT_FEES: "Linked to Gujarat fee table.",
-  HAS_GUJARAT_CUTOFFS: "Linked to Gujarat cutoff table (2025).",
-  HAS_GUJARAT_SEATS: "Linked to Gujarat seat matrix.",
+    "No cutoffs rows for this college (2025 Gujarat counselling).",
+  HAS_GUJARAT_FEES: "Has fee schedule in Postgres.",
+  HAS_GUJARAT_CUTOFFS: "Has cutoff rows (2025).",
+  HAS_GUJARAT_SEATS: "Has seat_snapshots / seat_buckets.",
   MULTIPLE_SEAT_MATRICES:
-    "More than one seat matrix row (e.g. state vs private institute type).",
+    "More than one seat snapshot for the same year (unexpected).",
   NRI_FEE_USD:
     "NRI quota fee is in USD per fee sheet ($ column). GQ/MQ remain INR.",
   FEE_CURRENCY_USD_TAG:
     "Legacy flag retained for backward compatibility (replaced by NRI_FEE_USD).",
   SUPPLEMENTAL_FROM_GUJARAT_ENRICHMENT:
-    "College created from Gujarat fees/cutoffs; not in medical_colleges master.",
+    "College enriched from fees/cutoffs without a separate master list row.",
 };
 
 export default async function DataQualityAdminPage() {

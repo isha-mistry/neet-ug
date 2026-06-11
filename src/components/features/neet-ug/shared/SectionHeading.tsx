@@ -2,7 +2,7 @@ import React from "react";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 
 interface SectionHeadingProps {
-  icon: string;
+  icon?: string;
   title: string;
   description?: string;
   eyebrow?: string;
@@ -29,9 +29,11 @@ export function SectionHeading({
       )}
       {variant === "default" ? (
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-clinical-outline bg-clinical-surface-low text-clinical-blue">
-            <MaterialSymbol name={icon} size="sm" />
-          </div>
+          {icon && (
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-clinical-outline bg-clinical-surface-low text-clinical-blue">
+              <MaterialSymbol name={icon} size="sm" />
+            </div>
+          )}
           <h2 className="m-0 text-[22px] font-extrabold leading-tight tracking-[-0.02em] text-clinical-navy md:text-[28px]">
             {title}
           </h2>

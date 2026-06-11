@@ -57,16 +57,17 @@ export default function NeetUgUpdatesPage() {
             ]}
           />
 
-          <AdvisoryAlertCard />
 
           <header className="max-w-3xl text-left">
-            <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-clinical-navy md:text-4xl lg:text-5xl">
+            <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-clinical-navy md:text-4xl lg:text-5xl">
               NEET UG 2026 Live Updates & Alert Portal
             </h1>
             <p className="mt-3 max-w-2xl text-base font-normal leading-relaxed text-clinical-muted">
               All official announcements from NTA — exam date, application form, admit card, result and counselling schedule. Verified data last updated: <strong>May 2026</strong>.
             </p>
           </header>
+
+          <AdvisoryAlertCard />
 
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
             {/* Left Column */}

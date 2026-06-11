@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS "app"."college_documents";
+DROP TABLE IF EXISTS "app"."state_documents";
+
+ALTER TABLE "app"."colleges" ADD COLUMN IF NOT EXISTS "roi_score" INTEGER NOT NULL DEFAULT 50;
+ALTER TABLE "app"."colleges" ADD COLUMN IF NOT EXISTS "bond_years" INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE "app"."colleges" ADD COLUMN IF NOT EXISTS "bond_penalty" INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE "app"."colleges" ADD COLUMN IF NOT EXISTS "bond_note" TEXT;
+ALTER TABLE "app"."colleges" ADD COLUMN IF NOT EXISTS "bed_count" INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE "app"."colleges" ADD COLUMN IF NOT EXISTS "patient_flow_per_day" INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE "app"."colleges" ADD COLUMN IF NOT EXISTS "facilities" TEXT[] DEFAULT ARRAY[]::TEXT[];

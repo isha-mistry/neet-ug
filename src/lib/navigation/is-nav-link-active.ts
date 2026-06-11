@@ -21,6 +21,11 @@ export function isNavLinkActive(href: string, pathname: string): boolean {
     return path === "/college-predictor" || path.startsWith("/college-predictor/");
   }
 
+  const exactMatchOnlyRoutes = ["/neet-ug-2026"];
+  if (exactMatchOnlyRoutes.includes(href)) {
+    return path === href;
+  }
+
   if (path === href) return true;
   return href !== "/" && path.startsWith(`${href}/`);
 }
