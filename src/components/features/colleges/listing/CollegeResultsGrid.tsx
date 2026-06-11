@@ -33,13 +33,14 @@ export function CollegeResultsGrid({
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2 lg:gap-5 xl:gap-6">
       {colleges.map((college) => (
         <CollegeCard
           key={college.slug}
           college={college}
           rankCategoryShort={rankCategoryShort}
           feeQuotaShort={feeQuotaShort}
+          layout="grid"
         />
       ))}
     </div>

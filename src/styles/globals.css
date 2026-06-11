@@ -952,4 +952,12 @@ body {
   transition: all 0.5s ease-out;
 }
 
-
+@keyframes home03-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

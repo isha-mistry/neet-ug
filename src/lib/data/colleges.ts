@@ -1,6 +1,6 @@
 import "server-only";
 import { cache } from "react";
-import { loadCatalogColleges } from "./catalog-loader";
+import { loadCatalogColleges, loadCollegeBySlugFromDb } from "./catalog-loader";
 import type { CollegeRecord } from "@/types/college";
 import type {
   CollegeFilters,
@@ -21,7 +21,6 @@ import {
   LISTING_QUOTA_OPTIONS,
 } from "@/lib/colleges/listing-options";
 import { loadCatalogStates } from "./catalog-loader";
-import { prisma } from "@/lib/db/prisma";
 import { setStateNameCache } from "@/lib/data/state-name-cache";
 
 export const getAllColleges = cache(async (): Promise<CollegeRecord[]> => {
@@ -31,11 +30,8 @@ export const getAllColleges = cache(async (): Promise<CollegeRecord[]> => {
 export async function findCollegeBySlug(
   slug: string
 ): Promise<CollegeRecord | undefined> {
-  const doc = await prisma.collegeDocument.findUnique({
-    where: { slug },
-  });
-  if (!doc) return undefined;
-  return doc.data as unknown as CollegeRecord;
+  const record = await loadCollegeBySlugFromDb(slug);
+  return record ?? undefined;
 }
 
 export async function getCollegeDetailBySlug(

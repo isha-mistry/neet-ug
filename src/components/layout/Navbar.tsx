@@ -1,6 +1,7 @@
 import { FiBarChart2 } from "react-icons/fi";
 import { getSiteIdentity } from "@/lib/data/site";
 import { getQuotaGuides } from "@/lib/data/content";
+import { HOME_NAV_LINKS } from "@/lib/navigation/home-nav";
 import { PREDICTOR_NAV_LINKS } from "@/lib/navigation/predictor-nav";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/common/Container";
@@ -24,6 +25,7 @@ export function Navbar() {
         />
         <PrimaryNav
           links={site.primaryNav}
+          homeLinks={HOME_NAV_LINKS}
           quotaLinks={quotaLinks}
           predictorLinks={PREDICTOR_NAV_LINKS}
         />
@@ -40,6 +42,7 @@ export function Navbar() {
           </Button>
           <MobileMenu
             links={site.primaryNav}
+            homeLinks={HOME_NAV_LINKS}
             quotaLinks={quotaLinks}
             predictorLinks={PREDICTOR_NAV_LINKS}
           />

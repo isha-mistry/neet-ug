@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 
 interface MobileMenuProps {
   links: LinkItem[];
+  homeLinks?: LinkItem[];
   quotaLinks?: LinkItem[];
   predictorLinks?: LinkItem[];
 }
@@ -35,9 +36,11 @@ const NEET_UG_2026_LINKS: LinkItem[] = [
 
 function getDropdownLinks(
   label: string,
+  homeLinks: LinkItem[],
   quotaLinks: LinkItem[],
   predictorLinks: LinkItem[]
 ): LinkItem[] | null {
+  if (label === "Home") return homeLinks;
   if (label === "Quota") return quotaLinks;
   if (label === "Predictors") return predictorLinks;
   if (label === "NEET UG 2026") return NEET_UG_2026_LINKS;
@@ -46,6 +49,7 @@ function getDropdownLinks(
 
 export function MobileMenu({
   links,
+  homeLinks = [],
   quotaLinks = [],
   predictorLinks = [],
 }: MobileMenuProps) {
@@ -82,6 +86,7 @@ export function MobileMenu({
           {links.map((link) => {
             const dropdownLinks = getDropdownLinks(
               link.label,
+              homeLinks,
               quotaLinks,
               predictorLinks
             );

@@ -1553,10 +1553,10 @@
     "roiScore": 50
   },
   {
-    "slug": "ananya-college-of-medicine-research-kalol",
-    "name": "Ananya College of Medicine & Research, Kalol",
+    "slug": "ananya-college-of-medicine-research-gandhinagar",
+    "name": "Ananya College of Medicine & Research, Gandhinagar",
     "stateSlug": "gujarat",
-    "city": "Kalol",
+    "city": "Gandhinagar",
     "collegeType": "private",
     "seatCount": 150,
     "quotaInfo": "State counselling",
@@ -3627,12 +3627,12 @@
     "roiScore": 75
   },
   {
-    "slug": "bhagyoday-medical-college",
-    "name": "Bhagyoday Medical College",
+    "slug": "bhagyoday-medical-college-mehsana",
+    "name": "Bhagyoday Medical College, Mehsana",
     "stateSlug": "gujarat",
-    "city": "",
+    "city": "Mehsana",
     "collegeType": "private",
-    "seatCount": 100,
+    "seatCount": 150,
     "quotaInfo": "State 150 / Open 52 / SC 9 / ST 19 / SEBC 34 / EWS 13 / NRI 23",
     "fees": {
       "tuition": 1940000,
@@ -5759,10 +5759,10 @@
     "roiScore": 55
   },
   {
-    "slug": "dr-kiran-c-patel-medical-college-and-research-institute",
-    "name": "Dr. Kiran C.Patel Medical College and Research Institute",
+    "slug": "dr-kiran-c-patel-medical-college-research-institute-bharuch",
+    "name": "Dr. Kiran C.Patel Medical College and Research Institute, Bharuch",
     "stateSlug": "gujarat",
-    "city": "",
+    "city": "Bharuch",
     "collegeType": "private",
     "seatCount": 150,
     "quotaInfo": "State 150 / Open 46 / SC 8 / ST 17 / SEBC 30 / EWS 11 / MQ 15 / NRI 23",
@@ -20216,10 +20216,10 @@
     "roiScore": 75
   },
   {
-    "slug": "kiran-medical-college",
-    "name": "Kiran Medical College",
+    "slug": "kiran-medical-college-surat",
+    "name": "Kiran Medical College, Surat",
     "stateSlug": "gujarat",
-    "city": "",
+    "city": "Surat",
     "collegeType": "private",
     "seatCount": 150,
     "quotaInfo": "State 150 / Open 46 / SC 7 / ST 17 / SEBC 30 / EWS 12 / MQ 15 / NRI 23",
@@ -22842,10 +22842,10 @@
     "roiScore": 50
   },
   {
-    "slug": "matushri-prabhaben-khodabhai-boghara-medical-college-research-centre",
-    "name": "Matushri prabhaben khodabhai boghara medical college & research centre",
+    "slug": "matushri-prabhaben-khodabhai-boghara-medical-college-research-centre-rajkot",
+    "name": "Matushri Prabhaben Khodabhai Boghara Medical College Research Centre, Rajkot",
     "stateSlug": "gujarat",
-    "city": "",
+    "city": "Rajkot",
     "collegeType": "private",
     "seatCount": 150,
     "quotaInfo": "State 150 / Open 46 / SC 8 / ST 17 / SEBC 30 / EWS 11 / MQ 15 / NRI 23",
