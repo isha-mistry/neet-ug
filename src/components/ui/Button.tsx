@@ -74,9 +74,13 @@ export function Button(props: ButtonProps) {
     const { href, ...rest } = stripBaseProps(props);
     return (
       <Link href={href} className={classes} {...rest}>
-        {leadingIcon}
-        <span>{children}</span>
-        {trailingIcon}
+        {leadingIcon ? (
+          <span className="inline-flex shrink-0 items-center">{leadingIcon}</span>
+        ) : null}
+        {children ? <span className="inline-flex items-center">{children}</span> : null}
+        {trailingIcon ? (
+          <span className="inline-flex shrink-0 items-center">{trailingIcon}</span>
+        ) : null}
       </Link>
     );
   }
@@ -84,9 +88,13 @@ export function Button(props: ButtonProps) {
   const rest = stripBaseProps(props as ButtonAsButton);
   return (
     <button className={classes} {...rest}>
-      {leadingIcon}
-      <span>{children}</span>
-      {trailingIcon}
+      {leadingIcon ? (
+        <span className="inline-flex shrink-0 items-center">{leadingIcon}</span>
+      ) : null}
+      {children ? <span className="inline-flex items-center">{children}</span> : null}
+      {trailingIcon ? (
+        <span className="inline-flex shrink-0 items-center">{trailingIcon}</span>
+      ) : null}
     </button>
   );
 }

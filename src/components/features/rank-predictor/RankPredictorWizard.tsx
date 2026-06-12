@@ -1,9 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState, useTransition, type ReactNode } from "react";
-import { FiBarChart2, FiRefreshCw } from "react-icons/fi";
+import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
+import { FiBarChart2, FiCheckCircle, FiGlobe, FiMessageSquare, FiRefreshCw } from "react-icons/fi";
 import { Container } from "@/components/common/Container";
-import { DataSourceNotice } from "@/components/common/DataSourceNotice";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
@@ -13,9 +12,10 @@ import {
   FormPanel,
   HowItWorksGrid,
   RankPredictorCollegePreview,
-  RankPredictorFaq,
+  RankPredictorFaqSection,
+  RankPredictorFinalCta,
   RankPredictorHero,
-  RankPredictorResultHeader,
+  RankPredictorTrustBlock,
   RankResultShowcase,
   RankPredictorScoreChip,
   RankPredictorShell,
@@ -26,7 +26,6 @@ import {
 import {
   completeRankPredictorProfileAction,
   getRankPredictorSessionAction,
-  getUnlockedRankPredictorAction,
   submitRankPredictorAction,
   verifyRankPredictorOtpAction,
 } from "@/app/(marketing)/rank-predictor/actions";
@@ -36,6 +35,7 @@ import {
   NEET_SCORE_MAX,
   NEET_SCORE_MIN,
 } from "@/lib/rank-predictor/constants";
+import { RANK_PREDICTOR_FAQ, RANK_PREDICTOR_HERO } from "@/lib/rank-predictor/page-content";
 import type {
   NeetCategory,
   RankPredictorFormInput,
@@ -45,7 +45,6 @@ import type {
 } from "@/lib/rank-predictor/types";
 import { isPhoneVerifiedRankPredictorSession } from "@/lib/rank-predictor/types";
 import type { OptionItem } from "@/types/core";
-import { cn } from "@/lib/utils";
 
 type WizardStep = "form" | "teaser" | "verify" | "unlocked";
 type VerifyModalPhase = "phone" | "profile";
@@ -65,52 +64,6 @@ interface RankPredictorWizardProps {
   initialUnlocked: RankPredictorUnlockedResult | null;
 }
 
-function SectionBlock({
-  title,
-  description,
-  actions,
-  children,
-  className,
-}: {
-  title: string;
-  description?: string;
-  actions?: ReactNode;
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <section className={className}>
-      <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-        <div>
-          <h2 className="font-headline-md text-headline-md text-on-surface">{title}</h2>
-          {description ? (
-            <p className="mt-2 text-sm text-on-surface-variant md:text-base">
-              {description}
-            </p>
-          ) : null}
-        </div>
-        {actions}
-      </div>
-      {children}
-    </section>
-  );
-}
-
-const FAQ = [
-  {
-    q: "Is this my official NEET rank?",
-    a: "No. This tool estimates an AIR range from your score using historical trends. NTA publishes the official rank separately.",
-  },
-  {
-    q: "Why do I need to verify?",
-    a: "Verification unlocks a tighter rank range and the college preview list you can save and compare.",
-  },
-  {
-    q: "What about category and state quota?",
-    a: "We store your category and domicile for future features. College previews use closing ranks from our dataset (Gujarat state counselling 2025 where available).",
-  },
-];
-
 export function RankPredictorWizard({
   stateOptions,
   categoryOptions,
@@ -125,12 +78,18 @@ export function RankPredictorWizard({
   const [pending, startTransition] = useTransition();
 
   const [score, setScore] = useState(
-    initialSession ? String(initialSession.score) : ""
+    initialSession
+      ? String(initialSession.score)
+      : initialTeaserProp
+        ? String(initialTeaserProp.input.score)
+        : ""
   );
   const [category, setCategory] = useState<NeetCategory | "">(
-    initialSession?.category ?? ""
+    initialSession?.category ?? initialTeaserProp?.input.category ?? ""
   );
-  const [stateSlug, setStateSlug] = useState(initialSession?.stateSlug ?? "");
+  const [stateSlug, setStateSlug] = useState(
+    initialSession?.stateSlug ?? initialTeaserProp?.input.stateSlug ?? ""
+  );
 
   const [teaser, setTeaser] = useState<RankPredictorTeaserResult | null>(
     initialTeaserProp
@@ -146,9 +105,6 @@ export function RankPredictorWizard({
   const [otpSent, setOtpSent] = useState(false);
   const [verifyPhase, setVerifyPhase] = useState<VerifyModalPhase>("phone");
   const [leadName, setLeadName] = useState(initialSession?.leadName ?? "");
-  const [leadStateSlug, setLeadStateSlug] = useState(
-    initialSession?.leadStateSlug ?? ""
-  );
   const [leadCity, setLeadCity] = useState(initialSession?.leadCity ?? "");
 
   const { selectedSlugs, toggle } = useComparisonStore();
@@ -164,6 +120,12 @@ export function RankPredictorWizard({
   }, [score, category, stateSlug]);
 
   const buildInput = useCallback((): RankPredictorFormInput | null => formInput, [formInput]);
+
+  const categoryLabel =
+    categoryOptions.find((c) => c.value === category)?.label ?? "";
+  const domicileStateSlug = stateSlug || teaser?.input.stateSlug || "";
+  const stateLabel =
+    stateOptions.find((s) => s.value === domicileStateSlug)?.label ?? "";
 
   const goVerify = () => {
     setError(null);
@@ -198,7 +160,7 @@ export function RankPredictorWizard({
   const handleSubmitScore = () => {
     const input = buildInput();
     if (!input) {
-      setError("Fill in score, category, and domicile state.");
+      setError(`Please enter a valid NEET score between ${NEET_SCORE_MIN} and ${NEET_SCORE_MAX}.`);
       return;
     }
     setError(null);
@@ -211,33 +173,25 @@ export function RankPredictorWizard({
       setTeaser(result.data);
       setUnlocked(null);
       setStep("teaser");
-
-      const unlock = await getUnlockedRankPredictorAction(input);
-      if (unlock.success) {
-        setUnlocked(unlock.data);
-        setStep("unlocked");
-      }
+      document.getElementById("result")?.scrollIntoView({ behavior: "smooth" });
     });
   };
 
   const handleVerifyOtp = () => {
     const input = buildInput();
-    if (!input) {
-      setError("Session expired. Start again from your score.");
-      return;
-    }
-    if (!otpSent) {
-      setError("Send the OTP before continuing.");
+    if (!input) return;
+    if (!consent) {
+      setError("Please accept the privacy policy to continue.");
       return;
     }
     setError(null);
     startTransition(async () => {
       const result = await verifyRankPredictorOtpAction({
-        otp,
+        input,
         phone,
         countryCode,
+        otp,
         consent,
-        input,
       });
       if (!result.success) {
         setError(result.error);
@@ -249,23 +203,25 @@ export function RankPredictorWizard({
 
   const handleUnlockFullPreview = () => {
     const input = buildInput();
-    if (!input) {
-      setError("Session expired. Start again from your score.");
+    if (!input) return;
+    if (!leadName.trim() || !domicileStateSlug || !leadCity.trim()) {
+      setError("Please complete your name and city.");
       return;
     }
     setError(null);
     startTransition(async () => {
       const result = await completeRankPredictorProfileAction({
         input,
-        leadName,
-        leadStateSlug,
-        leadCity,
+        leadName: leadName.trim(),
+        leadStateSlug: domicileStateSlug,
+        leadCity: leadCity.trim(),
       });
       if (!result.success) {
         setError(result.error);
         return;
       }
       setUnlocked(result.data);
+      setTeaser(result.data);
       setStep("unlocked");
     });
   };
@@ -274,13 +230,18 @@ export function RankPredictorWizard({
     setStep("form");
     setTeaser(null);
     setUnlocked(null);
+    setScore("");
+    setCategory("");
+    setStateSlug("");
+    setPhone("");
     setOtp("");
     setOtpSent(false);
+    setConsent(false);
     setVerifyPhase("phone");
     setLeadName("");
-    setLeadStateSlug("");
     setLeadCity("");
     setError(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const compareAtCapacity = selectedSlugs.length >= COMPARISON_MAX_SELECTIONS;
@@ -308,13 +269,12 @@ export function RankPredictorWizard({
 
   return (
     <RankPredictorShell>
-      <Container size="2xl" className="flex flex-col gap-10 md:gap-12">
-        {step === "form" ? (
+      {step === "form" ? (
           <RankPredictorHero>
             <FormPanel>
-              <div className="flex flex-col gap-6">
+              <div className="rp-form-stack flex flex-col gap-4">
                 <Input
-                  label="NEET score (out of 720)"
+                  label="NEET 2026 score (out of 720)"
                   name="score"
                   type="number"
                   min={NEET_SCORE_MIN}
@@ -322,11 +282,11 @@ export function RankPredictorWizard({
                   inputMode="numeric"
                   value={score}
                   onChange={(e) => setScore(e.target.value)}
-                  hint={`Whole marks between ${NEET_SCORE_MIN} and ${NEET_SCORE_MAX}.`}
+                  hint="Whole marks between 0 and 720 — your expected or actual score."
                   required
                 />
 
-                <div className="grid gap-5 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <Select
                     label="Category"
                     name="category"
@@ -349,7 +309,7 @@ export function RankPredictorWizard({
 
                 {error ? (
                   <p
-                    className="rounded-xl bg-error-container px-4 py-3 text-sm font-medium text-on-error-container"
+                    className="rounded-[10px] bg-error-container px-3.5 py-2.5 text-[12.5px] text-on-error-container"
                     role="alert"
                   >
                     {error}
@@ -362,32 +322,25 @@ export function RankPredictorWizard({
                   fullWidth
                   disabled={pending}
                   onClick={handleSubmitScore}
-                  className="h-12 rounded-xl text-base"
+                  className="h-12 rounded-xl text-[15px] font-bold"
                 >
-                  {pending ? "Calculating..." : "See my estimate"}
+                  {pending ? "Calculating..." : RANK_PREDICTOR_HERO.submitLabel}
                 </Button>
               </div>
             </FormPanel>
           </RankPredictorHero>
-        ) : (
-          <RankPredictorResultHeader />
-        )}
+        ) : null}
 
-        <CollegePredictorBanner />
+      <CollegePredictorBanner />
 
+      <Container size="2xl" className="max-w-[1180px] px-6">
         {showResults ? (
           <ResultsPanel>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div id="result" className="rp-rsum">
               <RankPredictorScoreChip
                 score={teaser.input.score}
-                categoryLabel={
-                  categoryOptions.find((c) => c.value === teaser.input.category)
-                    ?.label ?? ""
-                }
-                stateLabel={
-                  stateOptions.find((s) => s.value === teaser.input.stateSlug)
-                    ?.label ?? ""
-                }
+                categoryLabel={categoryLabel}
+                stateLabel={stateLabel}
               />
               <Button
                 type="button"
@@ -395,7 +348,7 @@ export function RankPredictorWizard({
                 size="sm"
                 leadingIcon={<FiRefreshCw aria-hidden="true" />}
                 onClick={handleReset}
-                className="rounded-xl"
+                className="rounded-xl border-[1.5px] px-5 py-2.5 text-[13.5px] font-bold"
               >
                 New prediction
               </Button>
@@ -405,77 +358,84 @@ export function RankPredictorWizard({
               preview={teaser.coarse}
               refined={unlocked?.tight}
               stateMeritRange={unlocked?.stateMeritRange}
+              stateLabel={stateLabel}
               referenceYear={teaser.referenceYear}
               onUnlock={goVerify}
             />
 
             {step === "unlocked" ? (
-              <p className="rounded-xl bg-surface-container-low px-4 py-3 text-sm text-on-surface-variant">
+              <p className="mt-4 rounded-2xl border border-primary/12 bg-primary-fixed/80 px-4 py-3.5 text-sm leading-relaxed text-on-primary-fixed">
                 {teaser.categoryNote}
               </p>
             ) : null}
 
             {step === "unlocked" && unlocked ? (
-              <>
-                <SectionBlock
-                  title="Colleges in your ballpark"
-                  description={`Matched to your AIR band using ${teaser.referenceYear} AIQ closing ranks (${categoryOptions.find((c) => c.value === teaser.input.category)?.label ?? "your category"}) in our catalog.`}
-                  actions={
-                    selectedSlugs.length > 0 ? (
-                      <Button
-                        as="link"
-                        href="/compare"
-                        variant="primary"
-                        size="sm"
-                        leadingIcon={<FiBarChart2 aria-hidden="true" />}
-                        className="rounded-xl"
-                      >
-                        Compare ({selectedSlugs.length})
-                      </Button>
-                    ) : undefined
-                  }
-                >
-                  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                    {unlocked.previewColleges.map((college) => (
-                      <RankPredictorCollegePreview
-                        key={college.slug}
-                        college={college}
-                        verified
-                        inCompare={selectedSlugs.includes(college.slug)}
-                        compareDisabled={
-                          compareAtCapacity && !selectedSlugs.includes(college.slug)
-                        }
-                        onAddCompare={(slug) => toggle(slug)}
-                      />
-                    ))}
+              <div className="mt-11">
+                <div className="mb-2 flex flex-wrap items-end justify-between gap-4">
+                  <div>
+                    <h3 className="text-[25px] font-extrabold tracking-tight">
+                      Colleges in your ballpark
+                    </h3>
+                    <p className="mt-1 text-[13.5px] text-on-surface-variant">
+                      Matched to your refined band using {teaser.referenceYear} AIQ closing
+                      ranks ({categoryLabel}) in our catalog.
+                    </p>
                   </div>
-                </SectionBlock>
-                <div className="flex flex-wrap gap-3">
+                  <span className="rp-match-chip">
+                    {unlocked.previewColleges.length} matches
+                  </span>
+                </div>
+
+                <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {unlocked.previewColleges.map((college) => (
+                    <RankPredictorCollegePreview
+                      key={college.slug}
+                      college={college}
+                      verified
+                      inCompare={selectedSlugs.includes(college.slug)}
+                      compareDisabled={
+                        compareAtCapacity && !selectedSlugs.includes(college.slug)
+                      }
+                      onAddCompare={(slug) => toggle(slug)}
+                    />
+                  ))}
+                </div>
+
+                <div className="mt-8 flex flex-wrap justify-center gap-3">
                   <Button as="link" href="/colleges" variant="outline" className="rounded-xl">
                     Browse all colleges
                   </Button>
-                  <Button as="link" href="/compare" variant="secondary" className="rounded-xl">
-                    Open compare
-                  </Button>
+                  {selectedSlugs.length > 0 ? (
+                    <Button
+                      as="link"
+                      href="/compare"
+                      variant="primary"
+                      leadingIcon={<FiBarChart2 aria-hidden="true" />}
+                      className="rounded-xl"
+                    >
+                      Open compare →
+                    </Button>
+                  ) : (
+                    <Button as="link" href="/compare" variant="primary" className="rounded-xl">
+                      Open compare →
+                    </Button>
+                  )}
                 </div>
-              </>
+              </div>
             ) : null}
           </ResultsPanel>
         ) : null}
-
-        <SectionBlock
-          title="How it works"
-          className={cn(step !== "form" && "opacity-90")}
-        >
-          <HowItWorksGrid />
-        </SectionBlock>
-
-        <SectionBlock title="Common questions">
-          <RankPredictorFaq items={FAQ} />
-        </SectionBlock>
-
-        <DataSourceNotice />
       </Container>
+
+      <HowItWorksGrid />
+
+      <Container size="2xl" className="max-w-[1180px] px-6">
+        <RankPredictorFaqSection items={RANK_PREDICTOR_FAQ} />
+        <RankPredictorTrustBlock />
+      </Container>
+
+      <RankPredictorFinalCta onRunAgain={handleReset} />
+
       <VerifyModal
         open={step === "verify"}
         onClose={() => {
@@ -483,23 +443,18 @@ export function RankPredictorWizard({
         }}
       >
         <VerifyPanel>
-          <div className="mx-auto flex max-w-md flex-col gap-5">
+          <div className="rp-form-stack mx-auto flex max-w-md flex-col gap-5">
             {verifyPhase === "phone" ? (
               <>
                 <div>
-                  <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-muted">
-                    Mobile number
-                  </span>
-                  <div className="grid overflow-hidden rounded-2xl border border-border bg-background transition-colors focus-within:border-brand-500 sm:grid-cols-[0.78fr_1.22fr]">
-                    <label className="flex items-center gap-2 border-b border-border bg-surface-container-low px-4 py-3 sm:border-b-0 sm:border-r">
-                      <span className="material-symbols-outlined text-lg text-text-muted">
-                        public
-                      </span>
+                  <span className="rp-field-label">Mobile number</span>
+                  <div className="rp-verify-phone">
+                    <label className="rp-verify-phone-code">
+                      <FiGlobe className="text-lg text-on-surface-variant" aria-hidden />
                       <select
                         name="countryCode"
                         value={countryCode}
                         onChange={(event) => setCountryCode(event.target.value)}
-                        className="w-full bg-transparent text-sm font-semibold text-text focus:outline-none"
                         aria-label="Country code"
                       >
                         {COUNTRY_CODE_OPTIONS.map((option) => (
@@ -509,8 +464,8 @@ export function RankPredictorWizard({
                         ))}
                       </select>
                     </label>
-                    <label className="flex items-center gap-2 px-4 py-3">
-                      <span className="text-sm font-semibold text-text-muted">
+                    <label className="rp-verify-phone-number">
+                      <span className="font-semibold text-on-surface-variant">
                         {countryCode}
                       </span>
                       <input
@@ -523,12 +478,11 @@ export function RankPredictorWizard({
                           setPhone(event.target.value);
                           if (otpSent) setOtpSent(false);
                         }}
-                        className="w-full bg-transparent text-sm text-text placeholder:text-text-muted focus:outline-none"
                         aria-label="Mobile number"
                       />
                     </label>
                   </div>
-                  <p className="mt-2 text-xs text-text-muted">
+                  <p className="rp-field-hint mt-2">
                     Used only to verify this prediction session.
                   </p>
                 </div>
@@ -536,12 +490,17 @@ export function RankPredictorWizard({
                   type="button"
                   variant={otpSent ? "secondary" : "primary"}
                   size="lg"
-                  className="h-12 w-full rounded-xl shadow-[0_12px_28px_-18px_rgba(0,61,155,0.8)]"
+                  fullWidth
+                  leadingIcon={
+                    otpSent ? (
+                      <FiCheckCircle className="size-5 shrink-0" aria-hidden />
+                    ) : (
+                      <FiMessageSquare className="size-5 shrink-0" aria-hidden />
+                    )
+                  }
+                  className="h-12 rounded-xl"
                   onClick={handleSendOtp}
                 >
-                  <span className="material-symbols-outlined text-xl">
-                    {otpSent ? "check_circle" : "sms"}
-                  </span>
                   {otpSent ? "OTP sent to mobile" : "Send OTP to mobile"}
                 </Button>
                 {otpSent ? (
@@ -592,9 +551,10 @@ export function RankPredictorWizard({
             ) : (
               <>
                 <div className="rounded-xl bg-surface-container-low px-4 py-3 text-sm text-on-surface-variant">
-                  <span className="material-symbols-outlined mr-1 align-middle text-base text-primary">
-                    check_circle
-                  </span>
+                  <FiCheckCircle
+                    className="mr-1 inline align-middle text-base text-primary"
+                    aria-hidden
+                  />
                   Mobile verified ({countryCode} {phone})
                 </div>
                 <Input
@@ -604,14 +564,6 @@ export function RankPredictorWizard({
                   onChange={(e) => setLeadName(e.target.value)}
                   placeholder="Enter Name"
                   autoComplete="name"
-                />
-                <Select
-                  label="State"
-                  name="leadStateSlug"
-                  placeholder="Select state"
-                  options={stateOptions}
-                  value={leadStateSlug}
-                  onValueChange={setLeadStateSlug}
                 />
                 <Input
                   label="City"

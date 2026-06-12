@@ -36,7 +36,11 @@ export function Input({
         ) : null}
         <input
           id={inputId}
-          className="w-full bg-transparent text-sm leading-normal placeholder:text-text-muted focus:outline-none"
+          className={cn(
+            "w-full bg-transparent text-sm leading-normal placeholder:text-text-muted focus:outline-none focus:ring-0",
+            rest.type === "number" &&
+              "[appearance:textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+          )}
           {...rest}
         />
         {trailingIcon ? (

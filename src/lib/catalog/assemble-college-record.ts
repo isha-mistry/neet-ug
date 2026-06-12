@@ -10,13 +10,20 @@ import type { CollegeCutoff } from "@/types/college";
 import { counsellingCategoryToNeet } from "@/lib/catalog/map-category";
 import { buildDataQualityFlags } from "@/lib/catalog/data-quality";
 
-export type CollegeCatalogRow = Prisma.CollegeGetPayload<{
+type CollegeCatalogRowBase = Prisma.CollegeGetPayload<{
   include: {
     cutoffs: true;
     feeSchedules: { include: { lineItems: true } };
     seatSnapshots: { include: { buckets: true } };
   };
 }>;
+
+type CatalogCutoff = Prisma.CutoffGetPayload<Prisma.CutoffDefaultArgs>;
+
+/** Ensures cutoffs include `quota` (Rajasthan counselling) on the assembled row type. */
+export type CollegeCatalogRow = Omit<CollegeCatalogRowBase, "cutoffs"> & {
+  cutoffs: CatalogCutoff[];
+};
 
 const DEFAULT_REVIEWS = {
   pros: ["Data sourced from official college listings."],
@@ -40,13 +47,13 @@ function lineAmount(
   items: CollegeCatalogRow["feeSchedules"][number]["lineItems"],
   component: string,
   seatType = "",
-  category = ""
+  category = "",
 ): { amount: number; currency: string } {
   const row = items.find(
     (i) =>
       i.component === component &&
       i.seatType === seatType &&
-      i.category === category
+      i.category === category,
   );
   if (!row) return { amount: 0, currency: "INR" };
   return {
@@ -57,7 +64,7 @@ function lineAmount(
 
 function buildFees(row: CollegeCatalogRow): CollegeFees {
   const latestSchedule = [...row.feeSchedules].sort(
-    (a, b) => b.academicYear - a.academicYear
+    (a, b) => b.academicYear - a.academicYear,
   )[0];
   if (!latestSchedule) {
     return {
@@ -79,8 +86,7 @@ function buildFees(row: CollegeCatalogRow): CollegeFees {
   const transport = lineAmount(items, "transport");
   const exam = lineAmount(items, "exam");
 
-  const misc =
-    mess.amount + university.amount + transport.amount + exam.amount;
+  const misc = mess.amount + university.amount + transport.amount + exam.amount;
   const hostelTotal = hostel.amount;
 
   let quotaBreakdown: QuotaFeeBreakdown | undefined;
@@ -97,8 +103,7 @@ function buildFees(row: CollegeCatalogRow): CollegeFees {
     }
   }
 
-  const tuition =
-    mq.amount > 0 ? mq.amount : gq.amount > 0 ? gq.amount : 0;
+  const tuition = mq.amount > 0 ? mq.amount : gq.amount > 0 ? gq.amount : 0;
   const totalAnnual = tuition + hostelTotal + misc;
   const totalCourse = totalAnnual * 5;
 
@@ -112,14 +117,37 @@ function buildFees(row: CollegeCatalogRow): CollegeFees {
   };
 }
 
+function counsellingQuotaField(
+  cutoff: CollegeCatalogRow["cutoffs"][number],
+): string {
+  const raw = (cutoff as { quota?: string }).quota;
+  return typeof raw === "string" ? raw : "";
+}
+
+function counsellingQuotaLabel(quota: string): string | null {
+  const q = quota.trim();
+  if (!q) return null;
+  if (q === "GQ") return "General Quota";
+  if (q.endsWith(" Quota")) return q;
+  return q;
+}
+
 function seatTypeToQuotaLabel(
   seatType: string,
-  stateSlug: string
+  stateSlug: string,
+  counsellingQuota?: string,
 ): string {
+  const quotaLabel = counsellingQuotaLabel(counsellingQuota ?? "");
+  if (quotaLabel) return quotaLabel;
+
   const st = seatType.trim().toUpperCase();
   if (st === "MQ") return "Management Quota";
   if (st === "NRI" || st === "NQ") return "NRI Quota";
   if (st === "PH") return "PwD Quota";
+  if (st === "GEN") return "General Seat (State)";
+  if (st === "GOVT") return "Government Seat";
+  if (st === "AIQ") return "All India Quota";
+  if (st === "GQ") return "State Quota";
   if (stateSlug === "gujarat") return "Gujarat State Quota";
   const stateLabel = stateSlug
     .split("-")
@@ -129,25 +157,41 @@ function seatTypeToQuotaLabel(
 }
 
 function buildCutoffs(row: CollegeCatalogRow): CollegeCutoff[] {
-  const cutoffs: CollegeCutoff[] = row.cutoffs.map((c) => {
-    const category = counsellingCategoryToNeet(c.category);
-    const quota = seatTypeToQuotaLabel(c.seatType, row.stateSlug);
-    return {
-      year: c.year,
-      rank: c.closingRankAir ?? 0,
-      quota,
-      category: category ?? undefined,
-      round: c.admissionRound ?? undefined,
-      openingRank: c.openingRankAir ?? undefined,
-      closingRank: c.closingRankAir ?? undefined,
-      stateOpeningRank: c.openingStateMeritRank ? Number(c.openingStateMeritRank) : undefined,
-      stateClosingRank: c.closingStateMeritRank ? Number(c.closingStateMeritRank) : undefined,
-      categoryOpeningRank: c.openingCategoryRank ?? undefined,
-      categoryClosingRank: c.closingCategoryRank ?? undefined,
-    };
-  });
+  const bestByKey = new Map<string, CollegeCutoff>();
 
-  return cutoffs.sort((a, b) => {
+  for (const c of row.cutoffs) {
+    const closingAir = c.closingRankAir;
+    if (closingAir == null) continue;
+
+    const category = counsellingCategoryToNeet(c.category);
+    const counsellingQuota = counsellingQuotaField(c);
+    const quota = seatTypeToQuotaLabel(
+      c.seatType,
+      row.stateSlug,
+      counsellingQuota,
+    );
+    const key = `${c.year}|${quota}|${category ?? ""}|${c.seatType}|${c.category}|${counsellingQuota}|${c.admissionRound}`;
+    const existing = bestByKey.get(key);
+    if (existing && closingAir >= existing.rank) continue;
+
+    bestByKey.set(key, {
+      year: c.year,
+      rank: closingAir,
+      quota,
+      round: c.admissionRound,
+      closingRank: closingAir,
+      ...(c.openingRankAir != null ? { openingRank: c.openingRankAir } : {}),
+      ...(c.openingStateMeritRank != null
+        ? { stateOpeningRank: Number(c.openingStateMeritRank) }
+        : {}),
+      ...(c.closingStateMeritRank != null
+        ? { stateClosingRank: Number(c.closingStateMeritRank) }
+        : {}),
+      ...(category ? { category } : {}),
+    });
+  }
+
+  return [...bestByKey.values()].sort((a, b) => {
     if (b.year !== a.year) return b.year - a.year;
     return a.rank - b.rank;
   });
@@ -156,7 +200,7 @@ function buildCutoffs(row: CollegeCatalogRow): CollegeCutoff[] {
 function buildQuotaInfoFromSeats(row: CollegeCatalogRow): string {
   if (row.quotaInfo.trim()) return row.quotaInfo;
   const latest = [...row.seatSnapshots].sort(
-    (a, b) => b.academicYear - a.academicYear
+    (a, b) => b.academicYear - a.academicYear,
   )[0];
   if (!latest) return "";
 
@@ -173,6 +217,8 @@ function buildQuotaInfoFromSeats(row: CollegeCatalogRow): string {
   for (const [code, label] of [
     ["sc", "SC"],
     ["st", "ST"],
+    ["obc", "OBC"],
+    ["mbc", "MBC"],
     ["sebc", "SEBC"],
     ["ews", "EWS"],
   ] as const) {
@@ -185,9 +231,12 @@ function buildQuotaInfoFromSeats(row: CollegeCatalogRow): string {
 export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
   const fees = buildFees(row);
   const cutoffs = buildCutoffs(row);
-  const nriLine = row.feeSchedules
-    .flatMap((s) => s.lineItems)
-    .find((i) => i.component === "tuition" && i.seatType === "NRI");
+  const feeItems = row.feeSchedules.flatMap((s) => s.lineItems);
+  const nriLine =
+    feeItems.find((i) => i.component === "tuition" && i.seatType === "NRI") ??
+    feeItems.find(
+      (i) => i.component === "nri_tuition_usd" && i.currency === "USD",
+    );
 
   const dataQuality = buildDataQualityFlags({
     stateSlug: row.stateSlug,
@@ -231,17 +280,17 @@ export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
     roiScore: row.roiScore,
     ...(row.nirfMedicalRank != null
       ? {
-        nirfMedicalRank: row.nirfMedicalRank,
-        ...(row.nirfMedicalScore != null
-          ? { nirfMedicalScore: decimalToNumber(row.nirfMedicalScore) }
-          : {}),
-        ...(row.nirfRankingYear != null
-          ? { nirfRankingYear: row.nirfRankingYear }
-          : {}),
-        ...(row.nirfInstitutionId
-          ? { nirfInstitutionId: row.nirfInstitutionId }
-          : {}),
-      }
+          nirfMedicalRank: row.nirfMedicalRank,
+          ...(row.nirfMedicalScore != null
+            ? { nirfMedicalScore: decimalToNumber(row.nirfMedicalScore) }
+            : {}),
+          ...(row.nirfRankingYear != null
+            ? { nirfRankingYear: row.nirfRankingYear }
+            : {}),
+          ...(row.nirfInstitutionId
+            ? { nirfInstitutionId: row.nirfInstitutionId }
+            : {}),
+        }
       : {}),
     ...(dataQuality.length ? { dataQuality } : {}),
   };

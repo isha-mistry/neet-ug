@@ -20,6 +20,9 @@
 # production
 /build
 
+# local DB dumps (may be large; never commit)
+/data/dumps/
+
 # misc
 .DS_Store
 *.pem

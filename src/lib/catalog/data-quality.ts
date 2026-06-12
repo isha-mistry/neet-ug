@@ -12,6 +12,7 @@ interface QualityInput {
 export function buildDataQualityFlags(input: QualityInput): string[] {
   const flags: string[] = [];
   const isGujarat = input.stateSlug === "gujarat";
+  const isRajasthan = input.stateSlug === "rajasthan";
 
   if (isGujarat) {
     if (input.hasFeeSchedule) flags.push("HAS_GUJARAT_FEES");
@@ -22,6 +23,14 @@ export function buildDataQualityFlags(input: QualityInput): string[] {
 
     if (input.hasSeatSnapshot) flags.push("HAS_GUJARAT_SEATS");
     if (input.seatSnapshotCount > 1) flags.push("MULTIPLE_SEAT_MATRICES");
+  }
+
+  if (isRajasthan) {
+    if (input.hasFeeSchedule) flags.push("HAS_RAJASTHAN_FEES");
+    else flags.push("MISSING_RAJASTHAN_FEES");
+    if (input.cutoffYears.includes(2025)) flags.push("HAS_RAJASTHAN_CUTOFFS");
+    else flags.push("MISSING_RAJASTHAN_CUTOFFS");
+    if (input.hasSeatSnapshot) flags.push("HAS_RAJASTHAN_SEATS");
   }
 
   if (input.nriFeeUsd) flags.push("NRI_FEE_USD");
