@@ -9,7 +9,9 @@ import {
   JOURNEY_COMPARISON_ROWS,
   JOURNEY_PROBLEM_CARDS,
   JOURNEY_RESOURCES,
+  JOURNEY_AIQ_CARD,
   JOURNEY_STATE_CARDS,
+  JOURNEY_STATES_SECTION,
   JOURNEY_TESTIMONIALS,
 } from "@/lib/journey-home/content";
 import { HeroVisualPanel } from "./HeroVisualPanel";
@@ -17,6 +19,7 @@ import { ScrollJourney } from "./ScrollJourney";
 import { JourneyHomeEffects } from "./JourneyHomeEffects";
 import { SeatRadarCard, PlaybookForm } from "./SeatRadarCard";
 import { RoundsPanel } from "./RoundsPanel";
+import { JourneyStateHub } from "./JourneyStateCard";
 
 type JourneyHomePageProps = {
   hero: HomeHeroContent;
@@ -194,41 +197,13 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             02
           </span>
           <div className="wrap">
-            <span className="eyebrow">Step 02 · Your states</span>
+            <span className="eyebrow">{JOURNEY_STATES_SECTION.eyebrow}</span>
             <h2 className="t">
-              Four states. <em>One specialty.</em>
+              {JOURNEY_STATES_SECTION.title}
+              <em>{JOURNEY_STATES_SECTION.titleEmphasis}</em>
             </h2>
-            <p className="lede">
-              MBBS only — every cutoff, quota rule and counseling authority across Gujarat,
-              Rajasthan, Madhya Pradesh and Maharashtra.
-            </p>
-            <div className="sgrid">
-              {JOURNEY_STATE_CARDS.map((st) => (
-                <article key={st.code} className="card spot scard reveal">
-                  <div className="scode">{st.code}</div>
-                  <h3>{st.name}</h3>
-                  <div className="sauth">{st.auth}</div>
-                  <div className="snums">
-                    <div>
-                      <b>{st.seats}</b>
-                      <span>seats</span>
-                    </div>
-                    <div>
-                      <b>{st.colleges}</b>
-                      <span>colleges</span>
-                    </div>
-                  </div>
-                  <p className="sdiff">{st.diff}</p>
-                  <Link className="slink" href={st.href}>
-                    {st.name} guide →
-                  </Link>
-                </article>
-              ))}
-            </div>
-            <p className="aiq">
-              Plus full <b>MCC All India Quota</b> guidance — the route into these states from
-              anywhere in India.
-            </p>
+            <p className="lede">{JOURNEY_STATES_SECTION.lede}</p>
+            <JourneyStateHub states={JOURNEY_STATE_CARDS} aiq={JOURNEY_AIQ_CARD} />
           </div>
         </section>
 

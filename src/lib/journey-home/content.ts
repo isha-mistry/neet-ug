@@ -1,8 +1,21 @@
 import { mbbsStatePath } from "@/lib/mbbs-state/constants";
+import type { StateDistrictMapSlug } from "@/lib/maps/state-district-topology";
 
-export const JOURNEY_STATE_CARDS = [
+export type JourneyStateCardItem = {
+  code: string;
+  slug: StateDistrictMapSlug;
+  name: string;
+  auth: string;
+  seats: string;
+  colleges: string;
+  diff: string;
+  href: string;
+};
+
+export const JOURNEY_STATE_CARDS: ReadonlyArray<JourneyStateCardItem> = [
   {
     code: "GJ",
+    slug: "gujarat",
     name: "Gujarat",
     auth: "ACPUGMEC · MEDADMGUJARAT.ORG",
     seats: "7,200+",
@@ -12,6 +25,7 @@ export const JOURNEY_STATE_CARDS = [
   },
   {
     code: "RJ",
+    slug: "rajasthan",
     name: "Rajasthan",
     auth: "RUHS · RUHSRAJ.ORG",
     seats: "7,330+",
@@ -21,6 +35,7 @@ export const JOURNEY_STATE_CARDS = [
   },
   {
     code: "MP",
+    slug: "madhya-pradesh",
     name: "Madhya Pradesh",
     auth: "DMAT · DIR. OF MEDICAL EDUCATION",
     seats: "5,725+",
@@ -30,6 +45,7 @@ export const JOURNEY_STATE_CARDS = [
   },
   {
     code: "MH",
+    slug: "maharashtra",
     name: "Maharashtra",
     auth: "CET CELL MAHARASHTRA",
     seats: "12,800+",
@@ -37,7 +53,35 @@ export const JOURNEY_STATE_CARDS = [
     diff: "Biggest seat pool in the group — Grant Medical, KEM, Sion and BJ Government Mumbai.",
     href: mbbsStatePath("maharashtra"),
   },
-] as const;
+];
+
+export type JourneyAiqCardItem = {
+  code: string;
+  name: string;
+  auth: string;
+  seats: string;
+  colleges: string;
+  diff: string;
+  href: string;
+};
+
+/** MCC All India Quota — fifth hub card alongside the four state guides. */
+export const JOURNEY_AIQ_CARD: JourneyAiqCardItem = {
+  code: "AIQ",
+  name: "All India Quota",
+  auth: "MCC.NIC.IN",
+  seats: "21,500+",
+  colleges: "Nationwide",
+  diff: "15% of seats in participating colleges — counseled by MCC, open to eligible candidates from any state. Separate rounds from state quota.",
+  href: "/neet-ug-2026/counselling-guide",
+};
+
+export const JOURNEY_STATES_SECTION = {
+  eyebrow: "Step 02 · State & national routes",
+  title: "Four States. All India Quota — ",
+  titleEmphasis: "One Platform.",
+  lede: "MBBS only — every cutoff, quota rule and counseling authority across Gujarat, Rajasthan, Madhya Pradesh and Maharashtra, plus MCC All India Quota (AIQ) counseling.",
+} as const;
 
 export const JOURNEY_PROBLEM_CARDS = [
   {

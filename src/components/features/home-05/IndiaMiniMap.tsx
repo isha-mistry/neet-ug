@@ -1,11 +1,11 @@
 "use client";
 
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
-import {
-  STATE_DISTRICT_MAP_SOURCES,
-  STATE_DISTRICT_PROJECTIONS,
-  type StateDistrictMapSlug,
-} from "@/lib/maps/state-district-topology";
+import indiaTopology, {
+  INDIA_MAP_CENTER,
+  INDIA_MAP_HEIGHT,
+  INDIA_MAP_WIDTH,
+} from "@/lib/maps/india-topology";
 import { cn } from "@/lib/utils";
 
 const MAP_FILLS = {
@@ -21,25 +21,26 @@ const MAP_FILLS = {
   },
 } as const;
 
+const SCALE = {
+  mini: 640,
+  feature: 820,
+} as const;
+
 const STROKE = "#ffffff";
 
-interface StateDistrictMiniMapProps {
-  stateSlug: StateDistrictMapSlug;
+interface IndiaMiniMapProps {
   className?: string;
-  /** Slightly stronger fill when the parent card is hovered */
   emphasized?: boolean;
-  /** `brand` uses primary-tinted districts (journey cards); `soft` matches home/5 hub */
   variant?: keyof typeof MAP_FILLS;
+  density?: keyof typeof SCALE;
 }
 
-export function StateDistrictMiniMap({
-  stateSlug,
+export function IndiaMiniMap({
   className,
   emphasized = false,
-  variant = "soft",
-}: StateDistrictMiniMapProps) {
-  const source = STATE_DISTRICT_MAP_SOURCES[stateSlug];
-  const projection = STATE_DISTRICT_PROJECTIONS[stateSlug];
+  variant = "brand",
+  density = "mini",
+}: IndiaMiniMapProps) {
   const fills = MAP_FILLS[variant];
   const fillDefault = emphasized ? fills.hover : fills.default;
 
@@ -53,15 +54,15 @@ export function StateDistrictMiniMap({
     >
       <ComposableMap
         projection="geoMercator"
-        width={projection.width}
-        height={projection.height}
+        width={INDIA_MAP_WIDTH}
+        height={INDIA_MAP_HEIGHT}
         projectionConfig={{
-          scale: projection.scale,
-          center: projection.center,
+          scale: SCALE[density],
+          center: INDIA_MAP_CENTER,
         }}
         className="block h-full w-full [&_svg]:mx-auto [&_svg]:block [&_svg]:h-full [&_svg]:w-full [&_svg]:max-h-full [&_svg]:drop-shadow-sm"
       >
-        <Geographies geography={source.topology}>
+        <Geographies geography={indiaTopology}>
           {({ geographies }) =>
             geographies.map((geo) => (
               <Geography
@@ -71,14 +72,14 @@ export function StateDistrictMiniMap({
                   default: {
                     fill: fillDefault,
                     stroke: STROKE,
-                    strokeWidth: 0.55,
+                    strokeWidth: 0.45,
                     outline: "none",
                     transition: "fill 200ms ease",
                   },
                   hover: {
                     fill: fills.hover,
                     stroke: STROKE,
-                    strokeWidth: 0.65,
+                    strokeWidth: 0.55,
                     outline: "none",
                   },
                   pressed: {
