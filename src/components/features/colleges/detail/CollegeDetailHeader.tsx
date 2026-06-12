@@ -69,7 +69,14 @@ export function CollegeDetailHeader({
                 {seatMatrix
                   ? [
                       seatMatrix.aiq > 0 ? `AIQ: ${seatMatrix.aiq}` : "",
-                      seatMatrix.stateQuota > 0 ? `State: ${seatMatrix.stateQuota}` : "",
+                      seatMatrix.stateQuota > 0
+                        ? `State: ${seatMatrix.stateQuota}`
+                        : "",
+                      seatMatrix.esic > 0 ? `ESIC: ${seatMatrix.esic}` : "",
+                      seatMatrix.management > 0
+                        ? `MQ: ${seatMatrix.management}`
+                        : "",
+                      seatMatrix.nri > 0 ? `NRI: ${seatMatrix.nri}` : "",
                     ]
                       .filter(Boolean)
                       .join(" / ") || quotaInfo

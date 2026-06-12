@@ -76,6 +76,8 @@ export interface CollegeOtherInfo {
 export interface CollegeSeatMatrix {
   aiq: number;
   stateQuota: number;
+  /** ESIC insured-person pool (`esic_ip` in seat snapshots). */
+  esic: number;
   management: number;
   nri: number;
   categoryDistribution: Record<string, number>;

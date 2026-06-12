@@ -43,6 +43,11 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
       color: "var(--color-brand-700)" // Deep blue
     },
     {
+      label: "ESIC Quota",
+      value: seatMatrix.esic,
+      color: "var(--color-brand-400)"
+    },
+    {
       label: "Management",
       value: seatMatrix.management,
       color: "var(--color-brand-200)" // Sky blue
@@ -54,28 +59,33 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
     },
   ].filter((q) => q.value > 0);
 
-  // If there's no stateQuota, but there are Central Pool or others, map them dynamically
-  if (quotas.length === 1 && seatMatrix.stateQuota === 0) {
-    quotas.push({
-      label: "Central Pool / Others",
-      value: seatMatrix.aiq > 0 ? 113 : 0,
-      color: "var(--color-brand-200)"
-    });
-  }
-
-  // Filter out zero entries
   const activeQuotas = quotas.filter((q) => q.value > 0);
 
-  // Calculate totals to compute exact graph percentages
   const totalQuotaSeats = activeQuotas.reduce((sum, q) => sum + q.value, 0);
-  const totalCategorySeats = Object.values(seatMatrix.categoryDistribution).reduce((sum, val) => sum + val, 0);
+  const totalCategorySeats = Object.values(
+    seatMatrix.categoryDistribution,
+  ).reduce((sum, val) => sum + val, 0);
+
+  /** Categories (Open, SC, …) subdivide state or AIQ pools — not the full institute intake. */
+  const categoryShareBase =
+    seatMatrix.stateQuota > 0
+      ? seatMatrix.stateQuota
+      : seatMatrix.aiq > 0
+        ? seatMatrix.aiq
+        : totalCategorySeats;
 
   const hasQuotaData = totalQuotaSeats > 0;
   const hasCategoryData = totalCategorySeats > 0;
   const hasAnyData = hasQuotaData || hasCategoryData;
 
   // Check if AIQ represents 100% of the quota seats
-  const isAiq100 = seatMatrix.aiq > 0 && (seatMatrix.aiq === totalQuotaSeats || (seatMatrix.stateQuota === 0 && seatMatrix.management === 0 && seatMatrix.nri === 0));
+  const isAiq100 =
+    seatMatrix.aiq > 0 &&
+    (seatMatrix.aiq === totalQuotaSeats ||
+      (seatMatrix.stateQuota === 0 &&
+        seatMatrix.esic === 0 &&
+        seatMatrix.management === 0 &&
+        seatMatrix.nri === 0));
 
   // Prepare chart data for Quota Distribution Donut Chart
   const quotaChartData = activeQuotas.map((q) => {
@@ -89,14 +99,23 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
   });
 
   // Prepare chart data for Category-wise seats horizontal bar chart
-  const categoryChartData = Object.entries(seatMatrix.categoryDistribution).map(([category, count]) => {
-    const percentage = totalCategorySeats > 0 ? (count / totalCategorySeats) * 100 : 0;
+  const categoryChartData = Object.entries(
+    seatMatrix.categoryDistribution,
+  ).map(([category, count]) => {
+    const percentage =
+      categoryShareBase > 0 ? (count / categoryShareBase) * 100 : 0;
     return {
       name: category.toUpperCase(),
       seats: count,
-      percentage: percentage,
+      percentage,
     };
   });
+
+  const categoryScopeLabel = isAiq100
+    ? "Within AIQ"
+    : seatMatrix.stateQuota > 0
+      ? "Within state quota"
+      : "Categories";
 
   // Category color mapper using cohesive shades from the MedSeat blue/teal palette
   const getCategoryColor = (catName: string) => {
@@ -174,7 +193,7 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
       {/* Reusable Section Header */}
       <DetailSectionHeader
         title="Seat Matrix"
-        description="Category-wise seat allocation, quota distribution, and division ratios"
+        description="Quota split (AIQ, state, management, NRI) and reservation breakdown within the state or AIQ pool"
         theme="emerald"
       />
       
@@ -289,7 +308,7 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
               <h3 className="font-extrabold text-lg text-text">Category-wise Seats</h3>
               {hasCategoryData && (
                 <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md border shadow-xs bg-surface-container-low text-text-muted border-border">
-                  {isAiq100 ? "AIQ seats" : "State"}
+                  {categoryScopeLabel}
                 </span>
               )}
             </div>

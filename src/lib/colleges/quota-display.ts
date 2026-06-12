@@ -1,3 +1,5 @@
+import type { CollegeSeatMatrix } from "@/types/college";
+
 export interface SeatDistributionChip {
   label: string;
   quota: string;
@@ -5,24 +7,82 @@ export interface SeatDistributionChip {
   variant: "brand" | "success";
 }
 
-function isAiqOrStateQuotaPart(part: string): boolean {
-  const head = part.trim().split(/\s+/)[0]?.toLowerCase();
-  return head === "aiq" || head === "state";
+function chip(
+  quota: string,
+  seats: number,
+  index: number,
+): SeatDistributionChip {
+  return {
+    label: `${quota} ${seats}`,
+    quota,
+    seats: String(seats),
+    variant: index % 2 === 0 ? "brand" : "success",
+  };
 }
 
-/** AIQ and State quota seats only (excludes Open, SC, ST, SEBC, EWS, MQ, NRI, etc.). */
+/** Listing tiles: AIQ, state, ESIC, MQ, and NRI when present. */
+export function seatQuotaChipsFromMatrix(
+  matrix: CollegeSeatMatrix,
+): SeatDistributionChip[] {
+  const chips: SeatDistributionChip[] = [];
+  if (matrix.aiq > 0) chips.push(chip("AIQ", matrix.aiq, chips.length));
+  if (matrix.stateQuota > 0) {
+    chips.push(chip("State", matrix.stateQuota, chips.length));
+  }
+  if (matrix.esic > 0) chips.push(chip("ESIC", matrix.esic, chips.length));
+  if (matrix.management > 0) {
+    chips.push(chip("MQ", matrix.management, chips.length));
+  }
+  if (matrix.nri > 0) chips.push(chip("NRI", matrix.nri, chips.length));
+  return chips;
+}
+
+function listingQuotaHead(
+  part: string,
+): "aiq" | "state" | "esic" | "mq" | "nri" | null {
+  const lower = part.trim().toLowerCase();
+  if (lower.startsWith("aiq")) return "aiq";
+  if (lower.startsWith("state")) return "state";
+  if (lower.startsWith("esic")) return "esic";
+  if (lower.startsWith("mq") || lower.startsWith("management")) return "mq";
+  if (lower.startsWith("nri")) return "nri";
+  return null;
+}
+
+/** Fallback when only `quotaInfo` text is available (no assembled matrix). */
 export function parseSeatDistributionChips(
-  quotaInfo: string
+  quotaInfo: string,
 ): SeatDistributionChip[] {
   const parts = quotaInfo.split("/").map((p) => p.trim()).filter(Boolean);
-  const quotaParts = parts.filter(isAiqOrStateQuotaPart);
-  if (quotaParts.length === 0) return [];
+  const order: Record<
+    "aiq" | "state" | "esic" | "mq" | "nri",
+    string | null
+  > = {
+    aiq: null,
+    state: null,
+    esic: null,
+    mq: null,
+    nri: null,
+  };
 
-  return quotaParts.map((part, index) => {
+  for (const part of parts) {
+    const kind = listingQuotaHead(part);
+    if (kind) order[kind] = part;
+  }
+
+  const ordered = (["aiq", "state", "esic", "mq", "nri"] as const)
+    .map((k) => order[k])
+    .filter((p): p is string => Boolean(p));
+
+  if (ordered.length === 0) return [];
+
+  return ordered.map((part, index) => {
     const parsed = splitQuotaAndSeats(part);
+    const quota =
+      parsed.quota.toLowerCase() === "management" ? "MQ" : parsed.quota;
     return {
       label: part,
-      quota: parsed.quota,
+      quota,
       seats: parsed.seats,
       variant: index % 2 === 0 ? "brand" : "success",
     };

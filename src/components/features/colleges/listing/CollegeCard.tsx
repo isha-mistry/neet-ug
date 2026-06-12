@@ -3,7 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 import { cn, formatNumber } from "@/lib/utils";
-import { parseSeatDistributionChips } from "@/lib/colleges/quota-display";
+import {
+  parseSeatDistributionChips,
+  seatQuotaChipsFromMatrix,
+} from "@/lib/colleges/quota-display";
 import type { CollegeSummary } from "@/types/listing";
 import type { CollegeType } from "@/types/college";
 
@@ -60,7 +63,9 @@ export function CollegeCard({
   feeQuotaShort,
   layout = "list",
 }: CollegeCardProps) {
-  const seatChips = parseSeatDistributionChips(college.quotaInfo);
+  const seatChips = college.seatMatrix
+    ? seatQuotaChipsFromMatrix(college.seatMatrix)
+    : parseSeatDistributionChips(college.quotaInfo);
   const detailHref = `/colleges/${college.slug}`;
   const isGrid = layout === "grid";
 

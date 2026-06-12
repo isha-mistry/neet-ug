@@ -20,6 +20,7 @@ export function parseQuotaInfoToSeatMatrix(quotaInfo: string): CollegeSeatMatrix
   const matrix: CollegeSeatMatrix = {
     aiq: 0,
     stateQuota: 0,
+    esic: 0,
     management: 0,
     nri: 0,
     categoryDistribution: {},
@@ -39,6 +40,12 @@ export function parseQuotaInfoToSeatMatrix(quotaInfo: string): CollegeSeatMatrix
         matrix.aiq = val;
       } else if (lowerLabel === "state" || lowerLabel === "state quota") {
         matrix.stateQuota = val;
+      } else if (
+        lowerLabel === "esic" ||
+        lowerLabel === "esic ip" ||
+        lowerLabel.startsWith("esic")
+      ) {
+        matrix.esic = val;
       } else if (lowerLabel === "management" || lowerLabel === "mq" || lowerLabel === "management quota") {
         matrix.management = val;
       } else if (lowerLabel === "nri" || lowerLabel === "nri quota") {
@@ -75,6 +82,7 @@ export function toCollegeSummary(
     latestCutoffYear: latest?.year ?? 0,
     seatCount: record.seatCount,
     quotaInfo: record.quotaInfo,
+    ...(record.seatMatrix ? { seatMatrix: record.seatMatrix } : {}),
     bondLabel:
       record.bond.years === 0
          ? "No Bond"
@@ -195,11 +203,19 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
       const buckets = latestSnapshot.seat_buckets;
       const aiq = buckets.find((b: any) => b.bucket_code === "aiq")?.seat_count ?? 0;
       const stateQuota = buckets.find((b: any) => b.bucket_code === "state_quota")?.seat_count ?? 0;
+      const esic =
+        buckets.find((b: any) => b.bucket_code === "esic_ip")?.seat_count ?? 0;
       const management = buckets.find((b: any) => b.bucket_code === "mqt_quota")?.seat_count ?? 0;
       const nri = buckets.find((b: any) => b.bucket_code === "nri_quota")?.seat_count ?? 0;
 
       const categoryDistribution: Record<string, number> = {};
-      const standardCodes = ["aiq", "state_quota", "mqt_quota", "nri_quota"];
+      const standardCodes = [
+        "aiq",
+        "state_quota",
+        "esic_ip",
+        "mqt_quota",
+        "nri_quota",
+      ];
       for (const bucket of buckets) {
         if (!standardCodes.includes(bucket.bucket_code)) {
           const label = bucket.bucket_code.toUpperCase();
@@ -210,6 +226,7 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
       seatMatrix = {
         aiq,
         stateQuota,
+        esic,
         management,
         nri,
         categoryDistribution,

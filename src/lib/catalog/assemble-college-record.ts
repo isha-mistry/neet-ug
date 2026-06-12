@@ -2,10 +2,17 @@ import type { Prisma } from "@prisma/client";
 import type {
   CollegeFees,
   CollegeRecord,
+  CollegeSeatMatrix,
   CollegeType,
   FeeCurrency,
   QuotaFeeBreakdown,
 } from "@/types/college";
+import {
+  buildSeatMatrixFromSnapshot,
+  pickLatestSeatSnapshot,
+  quotaInfoFromSeatMatrix,
+  seatMatrixHasQuotaOrCategoryData,
+} from "@/lib/catalog/seat-matrix-from-snapshot";
 import type { CollegeCutoff } from "@/types/college";
 import { counsellingCategoryToNeet } from "@/lib/catalog/map-category";
 import { buildDataQualityFlags } from "@/lib/catalog/data-quality";
@@ -197,35 +204,26 @@ function buildCutoffs(row: CollegeCatalogRow): CollegeCutoff[] {
   });
 }
 
-function buildQuotaInfoFromSeats(row: CollegeCatalogRow): string {
-  if (row.quotaInfo.trim()) return row.quotaInfo;
-  const latest = [...row.seatSnapshots].sort(
-    (a, b) => b.academicYear - a.academicYear,
-  )[0];
-  if (!latest) return "";
-
-  const bucket = (code: string) =>
-    latest.buckets.find((b) => b.bucketCode === code)?.seatCount ?? 0;
-
-  const parts: string[] = [];
-  const aiq = bucket("aiq");
-  const stateQ = bucket("state_quota");
-  if (aiq > 0) parts.push(`AIQ ${aiq}`);
-  if (stateQ > 0) parts.push(`State ${stateQ}`);
-  const open = bucket("open");
-  if (open > 0) parts.push(`Open ${open}`);
-  for (const [code, label] of [
-    ["sc", "SC"],
-    ["st", "ST"],
-    ["obc", "OBC"],
-    ["mbc", "MBC"],
-    ["sebc", "SEBC"],
-    ["ews", "EWS"],
-  ] as const) {
-    const n = bucket(code);
-    if (n > 0) parts.push(`${label} ${n}`);
+function resolveSeatSnapshotFields(row: CollegeCatalogRow): {
+  seatMatrix?: CollegeSeatMatrix;
+  quotaInfo: string;
+  seatCount: number;
+} {
+  const latest = pickLatestSeatSnapshot(row.seatSnapshots);
+  if (latest) {
+    const seatMatrix = buildSeatMatrixFromSnapshot(latest);
+    if (seatMatrixHasQuotaOrCategoryData(seatMatrix)) {
+      return {
+        seatMatrix,
+        quotaInfo: quotaInfoFromSeatMatrix(seatMatrix),
+        seatCount: latest.totalSeats > 0 ? latest.totalSeats : row.seatCount,
+      };
+    }
   }
-  return parts.join(" / ");
+  return {
+    quotaInfo: row.quotaInfo.trim(),
+    seatCount: row.seatCount,
+  };
 }
 
 export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
@@ -253,14 +251,17 @@ export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
       ? undefined
       : "Bond data not available in source dataset.");
 
+  const { seatMatrix, quotaInfo, seatCount } = resolveSeatSnapshotFields(row);
+
   return {
     slug: row.slug,
     name: row.name,
     stateSlug: row.stateSlug,
     city: row.city ?? "",
     collegeType: parseCollegeType(row.collegeType),
-    seatCount: row.seatCount,
-    quotaInfo: buildQuotaInfoFromSeats(row),
+    seatCount,
+    quotaInfo,
+    ...(seatMatrix ? { seatMatrix } : {}),
     fees,
     cutoffs,
     bond: {

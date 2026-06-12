@@ -1,4 +1,9 @@
-import type { CollegeRecord, CollegeType, CollegeBond } from "./college";
+import type {
+  CollegeBond,
+  CollegeRecord,
+  CollegeSeatMatrix,
+  CollegeType,
+} from "./college";
 
 export type SafeRiskTag = "safe" | "risky" | "moderate";
 
@@ -17,6 +22,7 @@ export interface CollegeSummary {
   latestCutoffYear: number;
   seatCount: number;
   quotaInfo: string;
+  seatMatrix?: CollegeSeatMatrix;
   bondLabel: string;
   roiScore: number;
   safetyTag: SafeRiskTag;
