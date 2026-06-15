@@ -17,7 +17,7 @@ import {
 } from "./Home03Forms";
 
 const sectionPad = "py-stack-lg";
-const container = "mx-auto max-w-container-max px-gutter";
+const container = "ms-layout-page";
 
 export function Home03Landing() {
   return (

@@ -26,6 +26,9 @@ export function seatQuotaChipsFromMatrix(
 ): SeatDistributionChip[] {
   const chips: SeatDistributionChip[] = [];
   if (matrix.aiq > 0) chips.push(chip("AIQ", matrix.aiq, chips.length));
+  if (matrix.goiQuota > 0) {
+    chips.push(chip("GOI", matrix.goiQuota, chips.length));
+  }
   if (matrix.stateQuota > 0) {
     chips.push(chip("State", matrix.stateQuota, chips.length));
   }
@@ -34,6 +37,9 @@ export function seatQuotaChipsFromMatrix(
     chips.push(chip("MQ", matrix.management, chips.length));
   }
   if (matrix.nri > 0) chips.push(chip("NRI", matrix.nri, chips.length));
+  if (matrix.iqQuota > 0) {
+    chips.push(chip("IQ", matrix.iqQuota, chips.length));
+  }
   return chips;
 }
 

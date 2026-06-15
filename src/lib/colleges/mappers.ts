@@ -1,4 +1,11 @@
-import type { CollegeRecord, CollegeSeatMatrix, CollegeFees, CollegeCutoff, QuotaFeeBreakdown, FeeCurrency } from "@/types/college";
+import type {
+  CollegeFees,
+  CollegeRecord,
+  CollegeSeatMatrix,
+  CollegeCutoff,
+  QuotaFeeBreakdown,
+  FeeCurrency,
+} from "@/types/college";
 import type { NeetCategory } from "@/lib/rank-predictor/types";
 import type { CollegeSummary } from "@/types/listing";
 import type { CollegeDetailViewModel } from "@/types/detail";
@@ -21,8 +28,10 @@ export function parseQuotaInfoToSeatMatrix(quotaInfo: string): CollegeSeatMatrix
     aiq: 0,
     stateQuota: 0,
     esic: 0,
+    goiQuota: 0,
     management: 0,
     nri: 0,
+    iqQuota: 0,
     categoryDistribution: {},
   };
 
@@ -38,6 +47,8 @@ export function parseQuotaInfoToSeatMatrix(quotaInfo: string): CollegeSeatMatrix
 
       if (lowerLabel === "aiq" || lowerLabel === "all india quota") {
         matrix.aiq = val;
+      } else if (lowerLabel === "goi" || lowerLabel === "goi quota") {
+        matrix.goiQuota = val;
       } else if (lowerLabel === "state" || lowerLabel === "state quota") {
         matrix.stateQuota = val;
       } else if (
@@ -208,17 +219,42 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
       const management = buckets.find((b: any) => b.bucket_code === "mqt_quota")?.seat_count ?? 0;
       const nri = buckets.find((b: any) => b.bucket_code === "nri_quota")?.seat_count ?? 0;
 
+      const goiQuota =
+        buckets.find((b: any) => b.bucket_code === "goi_quota")?.seat_count ?? 0;
+      const iqQuota =
+        buckets.find((b: any) => b.bucket_code === "iq_quota")?.seat_count ?? 0;
       const categoryDistribution: Record<string, number> = {};
       const standardCodes = [
         "aiq",
+        "goi_quota",
         "state_quota",
         "esic_ip",
         "mqt_quota",
         "nri_quota",
+        "iq_quota",
       ];
+      const categoryLabels: Record<string, string> = {
+        open: "Open",
+        sc: "SC",
+        st: "ST",
+        obc: "OBC",
+        mbc: "MBC",
+        ews: "EWS",
+        pwd: "PwD",
+        sainik: "Sainik",
+        ff: "Freedom Fighters",
+        gs: "Govt School",
+        vj: "VJ",
+        nt: "NT (B/C/D)",
+        def: "Defence",
+        seb: "SEBC (Maratha)",
+        mk: "MKB / border",
+      };
       for (const bucket of buckets) {
         if (!standardCodes.includes(bucket.bucket_code)) {
-          const label = bucket.bucket_code.toUpperCase();
+          const label =
+            categoryLabels[bucket.bucket_code] ??
+            bucket.bucket_code.toUpperCase();
           categoryDistribution[label] = bucket.seat_count;
         }
       }
@@ -227,6 +263,8 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
         aiq,
         stateQuota,
         esic,
+        goiQuota,
+        iqQuota,
         management,
         nri,
         categoryDistribution,
@@ -243,6 +281,9 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
     name: dbCollege.name,
     stateSlug: dbCollege.stateSlug,
     city: dbCollege.city ?? "",
+    ...(dbCollege.universityName
+      ? { universityName: String(dbCollege.universityName) }
+      : {}),
     collegeType: dbCollege.collegeType as any,
     seatCount: dbCollege.seatCount,
     quotaInfo: dbCollege.quotaInfo,

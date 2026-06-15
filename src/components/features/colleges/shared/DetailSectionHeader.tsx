@@ -1,34 +1,46 @@
+import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 import { cn } from "@/lib/utils";
 
 interface DetailSectionHeaderProps {
   title: string;
   description: string;
-  theme?: "brand" | "indigo" | "emerald";
+  eyebrow?: string;
+  icon?: string;
   className?: string;
+  id?: string;
+  /** @deprecated Appearance is unified; kept for call-site compatibility */
+  theme?: "brand" | "secondary" | "indigo" | "emerald";
 }
-
-const themeClasses = {
-  brand: "border-primary",
-  indigo: "border-indigo-500",
-  emerald: "border-emerald-500",
-};
 
 export function DetailSectionHeader({
   title,
   description,
-  theme = "brand",
+  eyebrow,
+  icon,
   className,
+  id,
 }: DetailSectionHeaderProps) {
   return (
-    <div className={cn("flex items-center border-l-4 pl-4 py-0.5", themeClasses[theme], className)}>
-      <div className="flex flex-col gap-0.5">
-        <h2 className="text-xl md:text-2xl font-bold tracking-tight text-text leading-relaxed">
-          {title}
-        </h2>
-        <p className="text-xs text-text-muted">
-          {description}
-        </p>
+    <header className={cn("flex flex-col gap-3", className)}>
+      {eyebrow ? <span className="rp-eyebrow">{eyebrow}</span> : null}
+      <div className="flex items-start gap-3.5">
+        {icon ? (
+          <span className="rp-fhead-ic mt-0.5" aria-hidden>
+            <MaterialSymbol name={icon} className="text-[22px]" />
+          </span>
+        ) : null}
+        <div className="min-w-0 flex flex-col gap-1.5">
+          <h2
+            id={id}
+            className="text-xl font-extrabold tracking-tight text-on-surface md:text-2xl"
+          >
+            {title}
+          </h2>
+          <p className="max-w-2xl text-sm leading-relaxed text-on-surface-variant">
+            {description}
+          </p>
+        </div>
       </div>
-    </div>
+    </header>
   );
 }

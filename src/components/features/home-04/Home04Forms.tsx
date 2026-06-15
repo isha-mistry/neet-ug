@@ -137,7 +137,7 @@ export function Home04StickyBookingStrip() {
   return (
     <div className="fixed bottom-0 left-0 z-[100] hidden w-full md:block">
       <div className="mx-2 mb-2 overflow-hidden rounded-2xl border border-white/15 bg-primary/95 px-6 py-3.5 text-on-primary shadow-[0_-8px_40px_rgba(37,70,208,0.35)] backdrop-blur-md">
-        <div className="mx-auto flex max-w-container-max items-center justify-between">
+        <div className="ms-layout-page flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="flex -space-x-3">
               {STICKY_EXPERT_IMAGES.map((src) => (

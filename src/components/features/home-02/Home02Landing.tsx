@@ -14,7 +14,7 @@ import {
 import { Home02PlaybookForm, Home02ScoreCheckerForm } from "./Home02Forms";
 
 const sectionPad = "py-stack-lg";
-const container = "mx-auto max-w-container-max px-gutter";
+const container = "ms-layout-page";
 
 function GoldStars() {
   return (

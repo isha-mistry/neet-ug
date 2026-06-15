@@ -18,6 +18,19 @@ export interface QuotaFeeBreakdown {
   nri?: NriQuotaFee;
 }
 
+/** One row from MP fee sheet (`mp_fees_data`). */
+export interface StateFeeScheduleRow {
+  feeType: string;
+  category?: string;
+  tuition?: number;
+  development?: number;
+  caution?: number;
+  mmvyScholarship?: number;
+  /** Maharashtra CET: Male / Female fee rows. */
+  gender?: string;
+  totalAnnual: number;
+}
+
 export interface CollegeFees {
   tuition: number;
   hostel: number;
@@ -26,6 +39,8 @@ export interface CollegeFees {
   totalCourse: number;
   /** Present when built from gujarat_college_fees. */
   quotaBreakdown?: QuotaFeeBreakdown;
+  /** MP DMAT / MH CET fee rows; does not affect GJ/RJ display. */
+  stateFeeSchedule?: StateFeeScheduleRow[];
   gqFees?: number;
   mqFees?: number;
   nriFees?: number;
@@ -78,8 +93,12 @@ export interface CollegeSeatMatrix {
   stateQuota: number;
   /** ESIC insured-person pool (`esic_ip` in seat snapshots). */
   esic: number;
+  /** GOI / central pool (MP state dumps). */
+  goiQuota: number;
   management: number;
   nri: number;
+  /** Institutional / IQ seats (Maharashtra private CAP). */
+  iqQuota: number;
   categoryDistribution: Record<string, number>;
 }
 
@@ -88,6 +107,7 @@ export interface CollegeRecord {
   name: string;
   stateSlug: Slug;
   city: string;
+  universityName?: string;
   collegeType: CollegeType;
   seatCount: number;
   quotaInfo: string;

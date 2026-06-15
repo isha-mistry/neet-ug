@@ -21,7 +21,7 @@
   --gold: #b97e14;
   --font: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
   --mono: ui-monospace, "JetBrains Mono", monospace;
-  --w: var(--max-width-page, 1180px);
+  --w: var(--max-width-page);
   --shadow-sm:
     0 1px 2px rgba(14, 27, 51, 0.05), 0 6px 22px -10px rgba(14, 27, 51, 0.1);
   --shadow-lg:
@@ -67,10 +67,10 @@
 }
 .journey-home .wrap {
   box-sizing: border-box;
-  width: 100%;
-  max-width: var(--max-width-page, 1180px);
+  width: min(100%, var(--max-width-page));
+  max-width: var(--max-width-page);
   margin-inline: auto;
-  padding-inline: var(--spacing-gutter, 24px);
+  padding-inline: var(--spacing-gutter);
 }
 .journey-home .section {
   padding: 104px 0;

@@ -8,10 +8,12 @@ export type SeatSnapshotWithBuckets = {
 
 const QUOTA_BUCKET_CODES = new Set([
   "aiq",
+  "goi_quota",
   "state_quota",
   "esic_ip",
   "mqt_quota",
   "nri_quota",
+  "iq_quota",
 ]);
 
 const CATEGORY_LABEL_BY_CODE: Record<string, string> = {
@@ -24,6 +26,15 @@ const CATEGORY_LABEL_BY_CODE: Record<string, string> = {
   ews: "EWS",
   st_and_sa: "ST & SA",
   obc_and_mbc: "OBC & MBC",
+  pwd: "PwD",
+  sainik: "Sainik",
+  ff: "Freedom Fighters",
+  gs: "Govt School",
+  vj: "VJ",
+  nt: "NT (B/C/D)",
+  def: "Defence",
+  seb: "SEBC (Maratha)",
+  mk: "MKB / border",
 };
 
 function bucketCount(snapshot: SeatSnapshotWithBuckets, code: string): number {
@@ -44,8 +55,10 @@ export function buildSeatMatrixFromSnapshot(
     aiq: bucketCount(snapshot, "aiq"),
     stateQuota: bucketCount(snapshot, "state_quota"),
     esic: bucketCount(snapshot, "esic_ip"),
+    goiQuota: bucketCount(snapshot, "goi_quota"),
     management: bucketCount(snapshot, "mqt_quota"),
     nri: bucketCount(snapshot, "nri_quota"),
+    iqQuota: bucketCount(snapshot, "iq_quota"),
     categoryDistribution: {},
   };
 
@@ -76,10 +89,13 @@ export function normalizeSeatMatrixForInstituteTotal(
     (sum, n) => sum + n,
     0,
   );
-  const { aiq, esic, management, nri } = matrix;
-  const derivedStatePool = totalSeats - aiq - esic - management - nri;
-  const rawQuotaSum = matrix.stateQuota + aiq + esic + management + nri;
-  const partsSum = categorySum + esic + management + nri + aiq;
+  const { aiq, esic, management, nri, goiQuota, iqQuota } = matrix;
+  const derivedStatePool =
+    totalSeats - aiq - esic - management - nri - goiQuota - iqQuota;
+  const rawQuotaSum =
+    matrix.stateQuota + aiq + esic + management + nri + goiQuota + iqQuota;
+  const partsSum =
+    categorySum + esic + management + nri + aiq + goiQuota + iqQuota;
 
   const partsMatchTotal =
     categorySum > 0 && partsSum === totalSeats;
@@ -104,6 +120,8 @@ export function seatMatrixHasQuotaOrCategoryData(matrix: CollegeSeatMatrix): boo
     matrix.aiq +
     matrix.stateQuota +
     matrix.esic +
+    matrix.goiQuota +
+    matrix.iqQuota +
     matrix.management +
     matrix.nri;
   const categoryTotal = Object.values(matrix.categoryDistribution).reduce(
@@ -117,12 +135,14 @@ export function seatMatrixHasQuotaOrCategoryData(matrix: CollegeSeatMatrix): boo
 export function quotaInfoFromSeatMatrix(matrix: CollegeSeatMatrix): string {
   const parts: string[] = [];
   if (matrix.aiq > 0) parts.push(`AIQ ${matrix.aiq}`);
+  if (matrix.goiQuota > 0) parts.push(`GOI ${matrix.goiQuota}`);
   if (matrix.stateQuota > 0) parts.push(`State ${matrix.stateQuota}`);
   if (matrix.esic > 0) parts.push(`ESIC ${matrix.esic}`);
   for (const [label, count] of Object.entries(matrix.categoryDistribution)) {
     parts.push(`${label} ${count}`);
   }
   if (matrix.nri > 0) parts.push(`NRI ${matrix.nri}`);
+  if (matrix.iqQuota > 0) parts.push(`IQ ${matrix.iqQuota}`);
   if (matrix.management > 0) parts.push(`MQ ${matrix.management}`);
   return parts.join(" / ");
 }

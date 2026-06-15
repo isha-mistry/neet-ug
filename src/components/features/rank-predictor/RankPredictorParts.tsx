@@ -450,7 +450,7 @@ export function RankPredictorCollegePreview({
 export function CollegePredictorBanner() {
   return (
     <div className="rp-strip rp-bleed">
-      <div className="rp-strip-in mx-auto max-w-[1180px] px-6">
+      <div className="rp-strip-in ms-layout-page">
         <p>
           <b>{RANK_PREDICTOR_STRIP.bold}</b> {RANK_PREDICTOR_STRIP.text}
         </p>
@@ -470,7 +470,7 @@ export function HowItWorksGrid() {
 
   return (
     <section className="rp-section-alt rp-bleed">
-      <div className="mx-auto max-w-[1180px] px-6">
+      <div className="ms-layout-page">
         <span className="rp-eyebrow">{eyebrow}</span>
         <h2 className="rp-section-title">
           {title}
@@ -598,7 +598,7 @@ export function RankPredictorFinalCta({ onRunAgain }: { onRunAgain: () => void }
   const c = RANK_PREDICTOR_FINAL_CTA;
   return (
     <section className="rp-final rp-bleed" id="cta">
-      <div className="mx-auto max-w-[1180px] px-6">
+      <div className="ms-layout-page">
         <h2>
           {c.title}
           <br />
@@ -741,3 +741,4 @@ export function FormPanel({ children }: { children: ReactNode }) {
 export function ResultsPanel({ children }: { children: ReactNode }) {
   return <section className="rp-result-wrap">{children}</section>;
 }
+

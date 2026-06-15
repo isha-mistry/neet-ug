@@ -217,15 +217,27 @@
 
   /* Spacing */
   --spacing-base: 8px;
-  --spacing-gutter: 24px;
   --spacing-stack-sm: 12px;
   --spacing-stack-md: 24px;
   --spacing-stack-lg: 48px;
   --spacing-margin-mobile: 16px;
   --spacing-margin-desktop: 64px;
-  --spacing-container-max: 1280px;
-  /* Journey home + global header/footer content column */
-  --max-width-page: 1180px;
+  /*
+   * Site content column width (single source of truth).
+   * 1200px is a widely used cap: ~full width on 1280–1440px laptops (with gutters),
+   * centered with side margin on 1536px+ / ultrawide. Change only this token.
+   */
+  --spacing-container-max: 85rem; /* 1200px at 16px root */
+  --max-width-page: var(--spacing-container-max);
+  --max-width-container-max: var(--max-width-page);
+  /* Side padding: 16px phones → 24px desktops */
+  --spacing-gutter: clamp(1rem, 2.5vw, 1.5rem);
+
+  /* Container component widths (see Container.tsx) */
+  --ms-container-md: 48rem;
+  --ms-container-lg: 64rem;
+  --ms-container-xl: var(--max-width-page);
+  --ms-container-2xl: var(--max-width-page);
 
   /* Radius (Shape Language) */
   --radius-sm: 0.25rem;
@@ -269,13 +281,13 @@ body {
   border-radius: var(--radius-sm);
 }
 
-/* Shared content column — journey home `.wrap`, header, footer */
+/* Shared content column — header, footer, Container size="page", journey `.wrap` */
 .ms-layout-page {
   box-sizing: border-box;
-  width: 100%;
-  max-width: var(--max-width-page, 1180px);
+  width: min(100%, var(--max-width-page));
+  max-width: var(--max-width-page);
   margin-inline: auto;
-  padding-inline: var(--spacing-gutter, 24px);
+  padding-inline: var(--spacing-gutter);
 }
 
 /* Primary filled actions — blue glow (journey CTA style) */
@@ -435,7 +447,8 @@ body {
   width: var(--size);
   height: var(--size);
   opacity: 0;
-  animation: rp-confetti-rise 1.65s cubic-bezier(0.18, 0.72, 0.22, 1) var(--delay) forwards;
+  animation: rp-confetti-rise 1.65s cubic-bezier(0.18, 0.72, 0.22, 1)
+    var(--delay) forwards;
   will-change: transform, opacity;
 }
 
@@ -452,7 +465,8 @@ body {
     opacity: 1;
   }
   100% {
-    transform: translate(calc(-50% + var(--dx)), -92px) rotate(var(--rot)) scale(0.9);
+    transform: translate(calc(-50% + var(--dx)), -92px) rotate(var(--rot))
+      scale(0.9);
     opacity: 0;
   }
 }
@@ -519,9 +533,11 @@ body {
 .rp-hero-inner {
   position: relative;
   z-index: 1;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 24px;
+  box-sizing: border-box;
+  width: min(100%, var(--max-width-page));
+  max-width: var(--max-width-page);
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
 }
 
 .rp-hero::before {
@@ -848,7 +864,11 @@ body {
 }
 
 .rp-form-stack label.flex.cursor-pointer.items-center:hover {
-  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-outline-variant));
+  border-color: color-mix(
+    in srgb,
+    var(--color-primary) 35%,
+    var(--color-outline-variant)
+  );
 }
 
 .rp-verify-phone {
@@ -885,7 +905,11 @@ body {
 
 .rp-verify-phone-code {
   border-bottom: 1px solid var(--color-outline-variant);
-  background: color-mix(in srgb, var(--color-surface-container-lowest) 55%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--color-surface-container-lowest) 55%,
+    transparent
+  );
 }
 
 @media (min-width: 640px) {

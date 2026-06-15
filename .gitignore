@@ -23,6 +23,18 @@
 # local DB dumps (may be large; never commit)
 /data/dumps/
 
+# catalog seed/import scripts (local ops; promote DB via scripts/db)
+/scripts/catalog/
+
+# generated catalog spine (Postgres is runtime source of truth; local scripts may rewrite these)
+/src/data/generated/colleges.json
+/src/data/generated/states.json
+
+# agent skills (local install via npx skills add; not shared in repo)
+/.agents/
+skills-lock.json
+/.cursor/skills/
+
 # misc
 .DS_Store
 *.pem

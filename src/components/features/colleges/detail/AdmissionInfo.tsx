@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Card } from "@/components/ui/Card";
 import type { CollegeCutoff } from "@/types/college";
 import { formatNumber } from "@/lib/utils";
-import { FiChevronDown, FiAlertCircle, FiTrendingUp } from "react-icons/fi";
+import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 import {
   type CategoryFilter,
   CATEGORIES,
   matchesSelectedCategory,
 } from "@/lib/colleges/categories";
 import { DetailSectionHeader } from "@/components/features/colleges/shared/DetailSectionHeader";
+import { DetailPanel } from "@/components/features/colleges/shared/DetailPanel";
 import { cn } from "@/lib/utils";
 
 interface AdmissionInfoProps {
@@ -43,50 +43,66 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
   // Find the latest year in the dataset dynamically to highlight it
   const latestYear = filteredCutoffs.length > 0 ? Math.max(...filteredCutoffs.map(c => c.year)) : 0;
 
+  const categorySelectId = "college-cutoff-category";
+
   return (
-    <section className="flex flex-col gap-4 animate-fadeIn">
-      {/* Reusable Premium Header */}
+    <section
+      className="flex flex-col gap-6"
+      aria-labelledby="college-admission-heading"
+    >
       <DetailSectionHeader
+        id="college-admission-heading"
+        eyebrow="Cutoffs"
         title="Admission & Cutoffs"
-        description="Year-wise cutoff ranks, seat types, and category opening/closing rank distributions"
-        theme="brand"
+        description="Year-wise closing ranks by category, seat type, and counselling round"
+        icon="school"
       />
 
-      <Card padded className="flex flex-col gap-6 bg-surface-container-lowest">
-        {/* Cutoff Trends Section */}
+      <DetailPanel className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <h3 className="text-base font-bold flex items-center gap-2 text-text">
-              <FiTrendingUp className="text-primary" /> Cutoff Trends
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <h3 className="flex items-center gap-2 text-base font-bold text-on-surface">
+              <MaterialSymbol name="trending_down" className="text-primary" />
+              Cutoff trends
             </h3>
 
-            {/* Dropdown Styled EXACTLY like Reference Image 1 */}
-            <div className="relative inline-block text-left self-start sm:self-auto">
-              <div className="flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 shadow-xs hover:border-primary transition-all duration-200 cursor-pointer">
-                <span className="text-xs font-semibold text-text-secondary whitespace-nowrap">
-                  Category:
+            <div className="relative self-start sm:self-auto">
+              <label
+                htmlFor={categorySelectId}
+                className="relative flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 transition hover:border-primary/50"
+              >
+                <span className="text-xs font-semibold text-on-surface-variant">
+                  Category
                 </span>
                 <select
+                  id={categorySelectId}
                   value={category}
                   onChange={(e) => setCategory(e.target.value as CategoryFilter)}
-                  className="appearance-none bg-transparent pr-6 text-sm font-bold text-brand-600 cursor-pointer border-none focus:outline-none"
+                  className="cursor-pointer appearance-none border-none bg-transparent pr-7 text-sm font-bold text-primary focus:outline-none"
                 >
                   {CATEGORIES.map((cat) => (
-                    <option key={cat.value} value={cat.value} className="bg-surface text-text">
+                    <option
+                      key={cat.value}
+                      value={cat.value}
+                      className="bg-surface-container-lowest text-on-surface"
+                    >
                       {cat.label}
                     </option>
                   ))}
                 </select>
-                <FiChevronDown className="absolute right-3.5 pointer-events-none text-brand-600 h-4 w-4" />
-              </div>
+                <MaterialSymbol
+                  name="expand_more"
+                  className="pointer-events-none absolute right-3 text-primary"
+                />
+              </label>
             </div>
           </div>
 
           {filteredCutoffs.length > 0 ? (
-            <div className="overflow-x-auto rounded-lg border border-border bg-surface">
-              <table className="w-full min-w-[700px] text-left border-collapse text-sm">
+            <div className="overflow-x-auto rounded-xl border border-outline-variant bg-surface-container-lowest">
+              <table className="w-full min-w-[700px] border-collapse text-left text-sm">
                 <thead>
-                  <tr className="border-b border-border bg-surface-container-low text-text-muted text-xs font-bold uppercase tracking-wider">
+                  <tr className="border-b border-outline-variant bg-surface-container-low text-xs font-bold uppercase tracking-wider text-on-surface-variant">
                     <th className="px-4 py-3 font-semibold">Round</th>
                     <th className="px-4 py-3 font-semibold">Seat Type</th>
                     <th className="px-4 py-3 font-semibold text-right">
@@ -168,20 +184,24 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
               </table>
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-border p-8 text-center bg-surface">
-              <div className="rounded-full p-3 bg-brand-50 text-primary">
-                <FiAlertCircle size={28} />
+            <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-outline-variant bg-surface-container-low p-8 text-center">
+              <div className="rounded-full bg-primary-fixed p-3 text-primary">
+                <MaterialSymbol name="info" className="text-3xl" />
               </div>
-              <h4 className="font-bold text-text-secondary">
-                No Cutoff Data Found
+              <h4 className="font-bold text-on-surface">
+                No cutoff data for this category
               </h4>
-              <p className="max-w-md text-xs text-text-muted">
-                There are no cutoff trends recorded for the <span className="font-semibold text-text">{CATEGORIES.find(c => c.value === category)?.label}</span> category at this college. Please choose another category.
+              <p className="max-w-md text-xs text-on-surface-variant">
+                There are no cutoff trends recorded for{" "}
+                <span className="font-semibold text-on-surface">
+                  {CATEGORIES.find((c) => c.value === category)?.label}
+                </span>
+                . Try another category from the menu above.
               </p>
             </div>
           )}
         </div>
-      </Card>
+      </DetailPanel>
     </section>
   );
 }

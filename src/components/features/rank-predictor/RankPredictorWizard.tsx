@@ -333,7 +333,7 @@ export function RankPredictorWizard({
 
       <CollegePredictorBanner />
 
-      <Container size="2xl" className="max-w-[1180px] px-6">
+      <Container size="page">
         {showResults ? (
           <ResultsPanel>
             <div id="result" className="rp-rsum">
@@ -429,7 +429,7 @@ export function RankPredictorWizard({
 
       <HowItWorksGrid />
 
-      <Container size="2xl" className="max-w-[1180px] px-6">
+      <Container size="page">
         <RankPredictorFaqSection items={RANK_PREDICTOR_FAQ} />
         <RankPredictorTrustBlock />
       </Container>

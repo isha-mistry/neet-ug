@@ -348,13 +348,13 @@ function CompactMetricHeader({
   badgeTitle?: string;
 }) {
   return (
-    <div className="flex min-h-[1.125rem] min-w-0 flex-wrap items-center gap-x-1 gap-y-0.5">
-      <span className="text-[10px] font-semibold uppercase leading-tight tracking-wide text-on-surface-variant">
+    <div className="flex min-h-[1rem] min-w-0 flex-wrap items-center gap-x-1 gap-y-0.5">
+      <span className="text-[9px] font-semibold uppercase leading-tight tracking-wider text-on-surface-variant">
         {title}
       </span>
       {badge ? (
         <span
-          className="inline-flex max-w-full shrink-0 items-center rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-bold uppercase leading-none tracking-wider text-on-primary ring-1 ring-primary/15"
+          className="inline-flex max-w-full shrink-0 items-center rounded-full bg-primary px-1.5 py-px text-[8px] font-bold uppercase leading-none tracking-wider text-on-primary ring-1 ring-primary/15"
           title={badgeTitle}
         >
           {badge}
@@ -379,11 +379,11 @@ function FeesMetricLabel({
 
   return (
     <div className="flex min-w-0 flex-wrap items-center gap-x-1 gap-y-0.5">
-      <span className="text-sm font-semibold uppercase leading-snug tracking-wide text-on-surface-variant">
+      <span className="text-xs font-semibold uppercase leading-snug tracking-wide text-on-surface-variant">
         Annual fees
       </span>
       <span
-        className="inline-flex shrink-0 items-center rounded-full bg-primary px-2.5 py-1 text-[11px] font-bold uppercase leading-none tracking-wider text-on-primary ring-2 ring-primary/20"
+        className="inline-flex shrink-0 items-center rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-on-primary ring-2 ring-primary/20"
         title={`Quota: ${quotaShort}`}
       >
         {quotaShort}
@@ -411,11 +411,11 @@ function ClosingRankMetricLabel({
 
   return (
     <div className="flex min-w-0 flex-wrap items-center gap-x-1 gap-y-0.5">
-      <span className="text-sm font-semibold uppercase leading-snug tracking-wide text-on-surface-variant">
+      <span className="text-xs font-semibold uppercase leading-snug tracking-wide text-on-surface-variant">
         Closing rank
       </span>
       <span
-        className="inline-flex shrink-0 items-center rounded-full bg-primary px-2.5 py-1 text-[11px] font-bold uppercase leading-none tracking-wider text-on-primary ring-2 ring-primary/20"
+        className="inline-flex shrink-0 items-center rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-on-primary ring-2 ring-primary/20"
         title={`Category: ${categoryShort}`}
       >
         {categoryShort}
@@ -436,7 +436,7 @@ function MetricTileLabel({
   }
 
   return (
-    <span className="text-sm font-semibold uppercase leading-snug tracking-wide text-on-surface-variant">
+    <span className="text-xs font-semibold uppercase leading-snug tracking-wide text-on-surface-variant">
       {children}
     </span>
   );

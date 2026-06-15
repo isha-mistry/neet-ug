@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card } from "@/components/ui/Card";
 import type { CollegeSeatMatrix } from "@/types/college";
 import { formatNumber } from "@/lib/utils";
 import {
@@ -9,55 +8,172 @@ import {
   PieChart,
   Pie,
   Cell,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
   Tooltip as RechartsTooltip,
-  LabelList,
 } from "recharts";
+import type { TooltipContentProps } from "recharts";
 import { DetailSectionHeader } from "@/components/features/colleges/shared/DetailSectionHeader";
-import { cn } from "@/lib/utils";
+import { DetailPanel } from "@/components/features/colleges/shared/DetailPanel";
 
 interface SeatMatrixInfoProps {
   seatMatrix: CollegeSeatMatrix;
+}
+
+type QuotaChartPoint = {
+  name: string;
+  value: number;
+  color: string;
+  percentage: number;
+};
+
+type CategoryChartPoint = {
+  name: string;
+  seats: number;
+  percentage: number;
+  color: string;
+};
+
+/** Distinct quota slice colors — primary / secondary scale only */
+const QUOTA_SLICE_COLORS = [
+  "var(--color-primary)",
+  "var(--color-secondary)",
+  "var(--color-primary-hover)",
+  "var(--color-on-secondary-container)",
+  "var(--color-secondary-fixed-dim)",
+  "var(--color-primary-fixed-dim)",
+] as const;
+
+function formatCategoryLabel(raw: string): string {
+  return raw.toUpperCase();
+}
+
+function getCategoryBarColor(catName: string): string {
+  const name = catName.toLowerCase();
+  if (name.includes("open") || name.includes("gen") || name === "op") {
+    return "var(--color-primary)";
+  }
+  if (name === "sc") {
+    return "var(--color-secondary)";
+  }
+  if (name === "st") {
+    return "var(--color-primary-hover)";
+  }
+  if (name.includes("obc") || name.includes("sebc") || name === "se") {
+    return "var(--color-on-secondary-container)";
+  }
+  if (name === "ews") {
+    return "var(--color-surface-tint)";
+  }
+  if (name.includes("pwd")) {
+    return "var(--color-secondary-fixed-dim)";
+  }
+  if (name.includes("sainik")) {
+    return "var(--color-on-secondary-container)";
+  }
+  if (name.includes("freedom") || name === "ff") {
+    return "var(--color-secondary-fixed-dim)";
+  }
+  if (name.includes("govt school") || name === "gs") {
+    return "var(--color-primary-fixed-dim)";
+  }
+  return "var(--color-outline)";
+}
+
+function CategorySeatRows({ rows }: { rows: CategoryChartPoint[] }) {
+  return (
+    <ul className="grid grid-cols-[minmax(5rem,6.25rem)_minmax(0,1fr)_8.25rem] items-center gap-x-4 gap-y-5 sm:grid-cols-[6.5rem_minmax(0,1fr)_8.75rem] sm:gap-x-5">
+      {rows.map((row) => (
+        <li key={row.name} className="contents">
+          <span className="text-right text-[11px] font-bold uppercase leading-snug tracking-wide text-on-surface-variant sm:text-xs [text-wrap:balance]">
+            {formatCategoryLabel(row.name)}
+          </span>
+          <div
+            className="h-3.5 w-full min-w-0 overflow-hidden rounded-full bg-surface-container-high sm:h-4"
+            role="presentation"
+          >
+            <div
+              className="h-full min-w-[3px] rounded-full shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
+              style={{
+                width: `${Math.min(100, Math.max(row.percentage, row.seats > 0 ? 2 : 0))}%`,
+                backgroundColor: row.color,
+              }}
+            />
+          </div>
+          <div className="text-right tabular-nums leading-tight whitespace-nowrap">
+            <span className="text-sm font-extrabold text-on-surface sm:text-base">
+              {formatNumber(row.seats)}
+            </span>
+            <span className="ml-1 text-[11px] font-semibold text-on-surface-variant sm:text-xs">
+              seats
+            </span>
+            <span className="ml-2 text-[11px] font-semibold text-primary sm:text-xs">
+              {row.percentage.toFixed(1)}%
+            </span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function CustomQuotaTooltip({
+  active,
+  payload,
+}: TooltipContentProps) {
+  if (active && payload && payload.length > 0) {
+    const entry = payload[0];
+    const data = entry.payload as QuotaChartPoint | undefined;
+    if (!data) return null;
+    return (
+      <div className="border border-border p-3 rounded-xl flex flex-col gap-0.5 bg-surface-container-lowest shadow-level-2 z-50 animate-fadeIn">
+        <div className="flex items-center gap-1.5">
+          <span
+            className="h-2.5 w-2.5 rounded-full"
+            style={{ backgroundColor: data.color }}
+          />
+          <span className="text-[9px] font-bold uppercase tracking-wider text-text-secondary">
+            {entry.name}
+          </span>
+        </div>
+        <div className="text-sm font-extrabold text-text mt-0.5">
+          {formatNumber(Number(entry.value ?? 0))}{" "}
+          <span className="text-xs font-normal text-text-muted">Seats</span>
+        </div>
+        <span className="text-[9px] text-text-muted font-medium">
+          Share: {data.percentage.toFixed(1)}%
+        </span>
+      </div>
+    );
+  }
+  return null;
 }
 
 export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const timeout = setTimeout(() => {
+      setMounted(true);
+    }, 100);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, []);
 
-  // Setup custom colors mapping to MedSeat Tailwind utility classes
-  const quotas = [
-    {
-      label: "All India Quota (AIQ)",
-      value: seatMatrix.aiq,
-      color: "var(--color-brand-100)" // Light blue
-    },
-    {
-      label: "State Quota",
-      value: seatMatrix.stateQuota,
-      color: "var(--color-brand-700)" // Deep blue
-    },
-    {
-      label: "ESIC Quota",
-      value: seatMatrix.esic,
-      color: "var(--color-brand-400)"
-    },
-    {
-      label: "Management",
-      value: seatMatrix.management,
-      color: "var(--color-brand-200)" // Sky blue
-    },
-    {
-      label: "NRI Quota",
-      value: seatMatrix.nri,
-      color: "var(--color-brand-300)" // Light cyan
-    },
+  // Setup quota colors from theme scale (one distinct color per slice)
+  const quotaDefs = [
+    { label: "All India Quota (AIQ)", value: seatMatrix.aiq },
+    { label: "GOI Quota", value: seatMatrix.goiQuota },
+    { label: "State Quota", value: seatMatrix.stateQuota },
+    { label: "ESIC Quota", value: seatMatrix.esic },
+    { label: "Management", value: seatMatrix.management },
+    { label: "NRI Quota", value: seatMatrix.nri },
+    { label: "Institutional (IQ)", value: seatMatrix.iqQuota },
   ].filter((q) => q.value > 0);
+
+  const quotas = quotaDefs.map((q, index) => ({
+    ...q,
+    color: QUOTA_SLICE_COLORS[index % QUOTA_SLICE_COLORS.length],
+  }));
 
   const activeQuotas = quotas.filter((q) => q.value > 0);
 
@@ -83,6 +199,8 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
     seatMatrix.aiq > 0 &&
     (seatMatrix.aiq === totalQuotaSeats ||
       (seatMatrix.stateQuota === 0 &&
+        seatMatrix.goiQuota === 0 &&
+        seatMatrix.iqQuota === 0 &&
         seatMatrix.esic === 0 &&
         seatMatrix.management === 0 &&
         seatMatrix.nri === 0));
@@ -108,6 +226,7 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
       name: category.toUpperCase(),
       seats: count,
       percentage,
+      color: getCategoryBarColor(category),
     };
   });
 
@@ -117,92 +236,22 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
       ? "Within state quota"
       : "Categories";
 
-  // Category color mapper using cohesive shades from the MedSeat blue/teal palette
-  const getCategoryColor = (catName: string) => {
-    const name = catName.toLowerCase();
-    if (name.includes("open") || name.includes("gen") || name === "op") {
-      return "var(--color-brand-700)"; // #003d9b - Dark Blue
-    }
-    if (name.includes("obc") || name.includes("sebc") || name === "se") {
-      return "var(--color-on-secondary-container)"; // #005f71 - Dark Teal
-    }
-    if (name === "ews") {
-      return "var(--color-secondary)"; // #00687b - Teal
-    }
-    if (name === "sc") {
-      return "var(--color-secondary-fixed-dim)"; // #48d7f9 - Sky Blue
-    }
-    if (name === "st") {
-      return "var(--color-primary-fixed-dim)"; // #b2c5ff - Light Blue
-    }
-    return "var(--color-outline)";
-  };
-
-  // Custom tooltips for Recharts donut chart
-  const CustomQuotaTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="border border-border p-3 rounded-xl flex flex-col gap-0.5 bg-surface-container-lowest shadow-level-2 z-50 animate-fadeIn">
-          <div className="flex items-center gap-1.5">
-            <span 
-              className="h-2.5 w-2.5 rounded-full" 
-              style={{ backgroundColor: data.color }} 
-            />
-            <span className="text-[9px] font-bold uppercase tracking-wider text-text-secondary">
-              {payload[0].name}
-            </span>
-          </div>
-          <div className="text-sm font-extrabold text-text mt-0.5">
-            {formatNumber(payload[0].value)} <span className="text-xs font-normal text-text-muted">Seats</span>
-          </div>
-          {data.percentage !== undefined && (
-            <span className="text-[9px] text-text-muted font-medium">
-              Share: {data.percentage.toFixed(1)}%
-            </span>
-          )}
-        </div>
-      );
-    }
-    return null;
-  };
-
-  // Custom tooltips for Recharts category bar chart
-  const CustomCategoryTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="border border-border p-3 rounded-xl flex flex-col gap-0.5 bg-surface-container-lowest shadow-level-2 z-50 animate-fadeIn">
-          <span className="text-[9px] font-bold uppercase tracking-widest text-text-muted">
-            {data.name}
-          </span>
-          <div className="text-sm font-extrabold text-text mt-0.5">
-            {formatNumber(data.seats)} <span className="text-xs font-normal text-text-muted">Seats</span>
-          </div>
-          <span className="text-[9px] text-brand-700 font-medium">
-            Share: {data.percentage.toFixed(1)}%
-          </span>
-        </div>
-      );
-    }
-    return null;
-  };
-
   return (
-    <section className="flex flex-col gap-4 animate-fadeIn">
+    <section className="flex flex-col gap-6 animate-fadeIn">
       {/* Reusable Section Header */}
       <DetailSectionHeader
-        title="Seat Matrix"
-        description="Quota split (AIQ, state, management, NRI) and reservation breakdown within the state or AIQ pool"
-        theme="emerald"
+        eyebrow="Intake"
+        title="Seat matrix"
+        description="Quota split (AIQ, state, management, NRI) and category reservation within the state pool"
+        icon="pie_chart"
       />
-      
+
       {!hasAnyData ? (
-        <Card padded className="flex flex-col items-center justify-center gap-3 text-center py-14 border border-border shadow-xs rounded-2xl bg-surface-container-lowest">
-          <div className="rounded-full p-3 bg-emerald-50 text-emerald-800">
-            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
+        <DetailPanel className="flex flex-col items-center justify-center gap-3 py-14 text-center">
+          <div className="rounded-full bg-secondary-container/30 p-3 text-secondary">
+            <span className="material-symbols-outlined text-3xl" aria-hidden>
+              groups
+            </span>
           </div>
           <h3 className="text-base font-bold text-text">
             Seat Allocation Data Not Available
@@ -210,13 +259,12 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
           <p className="max-w-md text-xs leading-relaxed text-text-muted">
             Detailed seat allocation statistics, category distributions, and quota divisions are currently not available in our records for this college. Please refer to official counseling brochures for current intake details.
           </p>
-        </Card>
+        </DetailPanel>
       ) : (
-        <div className="grid gap-6 lg:grid-cols-2">
-          {/* Left Column: Quota Distribution Donut Chart (Redesigned Up-Down Layout) */}
-          <Card padded className="flex flex-col gap-4 bg-surface-container-lowest border border-border shadow-level-1 rounded-3xl p-6 md:p-8">
+        <div className="grid gap-8 lg:grid-cols-2">
+          <DetailPanel bodyClassName="flex flex-col gap-4">
             <h3 className="font-extrabold text-lg text-text">Quota Distribution</h3>
-            
+
             {hasQuotaData ? (
               <div className="flex flex-col items-center gap-6 py-2">
                 {/* Interactive Donut Chart (Top Side) */}
@@ -229,7 +277,7 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
                       Total
                     </span>
                   </div>
-                  
+
                   {mounted ? (
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
@@ -239,20 +287,22 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
                           cy="50%"
                           innerRadius={55}
                           outerRadius={75}
-                          paddingAngle={3}
+                          paddingAngle={2}
+                          stroke="var(--color-surface-container-lowest)"
+                          strokeWidth={2}
                           dataKey="value"
                         >
                           {quotaChartData.map((entry, index) => (
-                            <Cell 
-                              key={`cell-${index}`} 
-                              fill={entry.color} 
+                            <Cell
+                              key={`cell-${index}`}
+                              fill={entry.color}
                               className="focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer"
                             />
                           ))}
                         </Pie>
-                        <RechartsTooltip 
-                          content={<CustomQuotaTooltip />} 
-                          cursor={false} 
+                        <RechartsTooltip
+                          content={CustomQuotaTooltip}
+                          cursor={false}
                           wrapperStyle={{ zIndex: 1000, outline: "none" }}
                         />
                       </PieChart>
@@ -263,26 +313,28 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
                     </div>
                   )}
                 </div>
-                
+
                 {/* Legend List (Bottom Side - Stacked chips) */}
-                <div className="flex flex-col gap-3 w-full border-t border-border/60 pt-4">
+                <div className="flex flex-col gap-4 w-full border-t border-border/60 pt-5">
                   {quotaChartData.map((quota, idx) => {
                     return (
-                      <div 
-                        key={idx} 
-                        className="flex items-center justify-between p-3.5 rounded-2xl bg-surface-container-low/20 border border-border/40 hover:border-brand-300 hover:bg-surface-container-low/40 transition-all duration-300 shadow-xs"
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between gap-4 p-4 rounded-2xl bg-surface-container-low/20 border border-border/40 hover:border-brand-300 hover:bg-surface-container-low/40 transition-all duration-300 shadow-xs"
                       >
-                        <div className="flex items-center gap-2.5 text-text-secondary font-bold text-xs md:text-sm">
-                          <span 
-                            className="h-3.5 w-3.5 rounded-full flex-shrink-0 shadow-xs border border-white" 
-                            style={{ backgroundColor: quota.color }} 
+                        <div className="flex items-center gap-2.5 text-on-surface-variant font-bold text-xs md:text-sm">
+                          <span
+                            className="h-3.5 w-3.5 rounded-full flex-shrink-0 ring-2 ring-surface-container-lowest"
+                            style={{ backgroundColor: quota.color }}
                           />
                           <span>{quota.name}</span>
                         </div>
-                        <div className="font-extrabold text-text text-sm md:text-base">
-                          {formatNumber(quota.value)}{" "}
-                          <span className="text-xs font-semibold text-text-muted">
-                            ({quota.percentage.toFixed(1)}%)
+                        <div className="shrink-0 text-right tabular-nums">
+                          <span className="font-extrabold text-on-surface text-sm md:text-base">
+                            {formatNumber(quota.value)}
+                          </span>
+                          <span className="ml-1.5 text-xs font-semibold text-primary">
+                            {quota.percentage.toFixed(1)}%
                           </span>
                         </div>
                       </div>
@@ -300,10 +352,9 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
                 </p>
               </div>
             )}
-          </Card>
+          </DetailPanel>
 
-          {/* Right Column: Category-wise Distribution Bar Chart (Statistics displayed by default next to bars) */}
-          <Card padded className="flex flex-col gap-4 bg-surface-container-lowest border border-border shadow-level-1 rounded-3xl p-6 md:p-8">
+          <DetailPanel bodyClassName="flex flex-col gap-4">
             <div className="flex items-center justify-between border-b border-border pb-3">
               <h3 className="font-extrabold text-lg text-text">Category-wise Seats</h3>
               {hasCategoryData && (
@@ -312,71 +363,14 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
                 </span>
               )}
             </div>
-            
+
             {hasCategoryData ? (
-              <div className="h-72 w-full pt-2">
+              <div className="pt-2">
                 {mounted ? (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={categoryChartData}
-                      layout="vertical"
-                      margin={{ top: 10, right: 130, left: 10, bottom: 5 }}
-                    >
-                      <XAxis type="number" hide />
-                      <YAxis 
-                        dataKey="name" 
-                        type="category" 
-                        axisLine={false} 
-                        tickLine={false}
-                        tick={{ fill: "var(--color-text-secondary)", fontSize: 11, fontWeight: 700 }}
-                        width={60}
-                      />
-                      <RechartsTooltip 
-                        content={<CustomCategoryTooltip />} 
-                        cursor={{ fill: "rgba(0,0,0,0.02)" }} 
-                        wrapperStyle={{ zIndex: 1000 }}
-                      />
-                      <Bar 
-                        dataKey="seats" 
-                        radius={[0, 4, 4, 0]} 
-                        barSize={12}
-                      >
-                        {categoryChartData.map((entry, index) => (
-                          <Cell 
-                            key={`cell-${index}`} 
-                            fill={getCategoryColor(entry.name)} 
-                          />
-                        ))}
-                        {/* Display seat count and percentage stats by default */}
-                        <LabelList 
-                          dataKey="seats" 
-                          position="right" 
-                          content={(props) => {
-                            const { x, y, width, height, value, index } = props;
-                            const pct = categoryChartData[index as number]?.percentage;
-                            const barWidth = width as number;
-                            const barHeight = height as number;
-                            const xPos = (x as number) + (isNaN(barWidth) ? 0 : barWidth) + 8;
-                            const yPos = (y as number) + (isNaN(barHeight) ? 0 : barHeight) / 2 + 4;
-                            return (
-                              <text 
-                                x={xPos} 
-                                y={yPos} 
-                                fill="var(--color-text)" 
-                                fontSize={10} 
-                                fontWeight={800}
-                              >
-                                {value} Seats ({pct?.toFixed(1)}%)
-                              </text>
-                            );
-                          }} 
-                        />
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
+                  <CategorySeatRows rows={categoryChartData} />
                 ) : (
-                  <div className="h-full w-full flex items-center justify-center text-xs font-semibold text-text-muted animate-pulse">
-                    Loading category chart...
+                  <div className="flex min-h-[12rem] w-full items-center justify-center text-xs font-semibold text-text-muted animate-pulse">
+                    Loading category breakdown...
                   </div>
                 )}
               </div>
@@ -390,7 +384,7 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
                 </p>
               </div>
             )}
-          </Card>
+          </DetailPanel>
         </div>
       )}
     </section>
