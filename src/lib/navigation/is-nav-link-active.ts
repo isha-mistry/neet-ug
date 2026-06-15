@@ -9,8 +9,8 @@ export function isNavLinkActive(href: string, pathname: string): boolean {
     return segment !== "state" && segment !== "category";
   }
 
-  if (href.startsWith("/quota/")) {
-    return path.startsWith("/quota/");
+  if (href === "/quota" || href === "/quota/general") {
+    return path === "/quota" || path.startsWith("/quota/");
   }
 
   if (href === "/rank-predictor") {

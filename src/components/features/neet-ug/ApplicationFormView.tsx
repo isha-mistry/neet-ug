@@ -151,7 +151,7 @@ export function ApplicationFormView() {
   return (
     <>
       <Section tone="default" className="bg-[#f6f8fc] py-7 md:py-10">
-        <Container size="2xl" className="flex flex-col gap-8">
+        <Container size="page" className="flex flex-col gap-8">
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },

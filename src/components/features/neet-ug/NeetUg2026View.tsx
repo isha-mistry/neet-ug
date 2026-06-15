@@ -66,7 +66,7 @@ export function NeetUg2026View() {
   return (
     <>
       <Section tone="default" className="py-12 md:py-16">
-        <Container size="2xl" className="flex flex-col gap-12 md:gap-16">
+        <Container size="page" className="flex flex-col gap-12 md:gap-16">
           
           {/* Custom Premium Header */}
           <header className="flex flex-col gap-3 items-start text-left max-w-4xl">

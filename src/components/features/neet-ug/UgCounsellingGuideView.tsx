@@ -4,15 +4,17 @@ import React from "react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { Container } from "@/components/common/Container";
 import { Section } from "@/components/common/Section";
-import { CounsellingTimeline } from "@/components/features/neet-ug/counselling/CounsellingTimeline";
+import { ChronologyJourney } from "@/components/features/neet-ug/counselling/ChronologyJourney";
 import { CounsellingRounds } from "@/components/features/neet-ug/counselling/CounsellingRounds";
 import { DocumentChecklist } from "@/components/features/neet-ug/counselling/DocumentChecklist";
 import { CounsellingFeeTable } from "@/components/features/neet-ug/counselling/CounsellingFeeTable";
 import { neetUg2026Data } from "@/lib/data/neet-ug-2026";
 import { SidebarLeadCard } from "@/components/features/neet-ug/shared/SidebarLeadCard";
+import { mccCounsellingGuide } from "@/lib/data/mcc-counselling";
 
 export function UgCounsellingGuideView() {
   const { seatStatistics } = neetUg2026Data;
+  const { introduction, roleOfMcc, candidateGuidelines, abbreviations, meta } = mccCounsellingGuide;
 
   const counsellingStreams = [
     {
@@ -47,7 +49,7 @@ export function UgCounsellingGuideView() {
   return (
     <>
       <Section tone="default" className=" py-7 md:py-10">
-        <Container size="2xl" className="flex flex-col gap-10">
+        <Container size="page" className="flex flex-col gap-10">
           {/* Breadcrumb */}
           <Breadcrumbs
             items={[
@@ -60,10 +62,10 @@ export function UgCounsellingGuideView() {
           {/* Hero */}
           <header className="max-w-3xl text-left">
             <h1 className="mt-4 text-3xl font-bold leading-[1.05] tracking-[-0.035em] text-clinical-navy md:text-[44px]">
-              NEET UG Counselling Step-by-Step Guide
+              Counselling Process Journey.
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-clinical-muted md:text-[15px]">
-              Navigate NEET UG counselling with a clearer view of registration, choice locking, allotment, reporting, and seat matrix rules across MCC and state rounds.
+              Navigate the high-stakes AIQ and Deemed University admissions with precision. We decode the complex rules of registration, exits, and security forfeitures so you stay ahead.
             </p>
           </header>
 
@@ -90,6 +92,7 @@ export function UgCounsellingGuideView() {
                   </div>
                 ))}
               </div>
+
 
               {/* Intro Section */}
               <section className="rounded-xl border border-mg-border/40 bg-mg-surface p-6 shadow-sm">
@@ -125,6 +128,58 @@ export function UgCounsellingGuideView() {
                 </div>
               </section>
 
+
+              {/* Role of MCC */}
+              <section className="rounded-xl border border-mg-border/40 bg-mg-surface p-6 shadow-sm">
+                <h2 className="text-[22px] font-semibold text-mg-on-bg mb-2">{roleOfMcc.title}</h2>
+                <p className="text-sm text-mg-on-surface leading-relaxed mb-6">{roleOfMcc.summary}</p>
+                <div className="overflow-hidden rounded-lg border border-mg-border/40">
+                  <table className="w-full border-collapse text-left text-sm">
+                    <thead>
+                      <tr className="border-b border-mg-border/40 bg-mg-surface-container text-[11px] font-semibold uppercase tracking-widest text-mg-on-surface">
+                        <th className="px-4 py-3">Counselling Pool</th>
+                        <th className="px-4 py-3">Institutions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-mg-border/30">
+                      {roleOfMcc.scope.map((row) => (
+                        <tr key={row.category}>
+                          <td className="px-4 py-3 font-semibold text-mg-on-bg">{row.category}</td>
+                          <td className="px-4 py-3 text-mg-on-surface">{row.institutions}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="mt-4 text-xs text-mg-on-surface italic">{roleOfMcc.limitation}</p>
+              </section>
+
+              {/* Candidate Guidelines from MCC Bulletin */}
+              <section className="rounded-xl border border-mg-border/40 bg-mg-surface p-6 shadow-sm">
+                <h2 className="text-[22px] font-semibold text-mg-on-bg mb-4">Information for Candidates</h2>
+                <p className="text-sm text-mg-on-surface mb-4">
+                  Key mandatory rules from the MCC information bulletin before registering on mcc.nic.in:
+                </p>
+                <ol className="space-y-2 list-decimal list-inside text-sm text-mg-on-surface leading-relaxed">
+                  {candidateGuidelines.map((guideline) => (
+                    <li key={guideline}>{guideline}</li>
+                  ))}
+                </ol>
+              </section>
+
+              {/* Abbreviations */}
+              <section className="rounded-xl border border-mg-border/40 bg-mg-surface p-6 shadow-sm">
+                <h2 className="text-[22px] font-semibold text-mg-on-bg mb-4">List of Abbreviations</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                  {abbreviations.map((item) => (
+                    <div key={item.abbr} className="flex gap-2 py-1">
+                      <span className="font-bold text-mg-primary shrink-0">{item.abbr}</span>
+                      <span className="text-mg-on-surface">— {item.full}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
               {/* Process Section */}
               <section id="process">
                 <div className="mb-6 flex items-center gap-3">
@@ -133,10 +188,10 @@ export function UgCounsellingGuideView() {
                 </div>
                 <h2 className="mb-2 flex items-center gap-2 text-[28px] font-semibold leading-[1.3] text-mg-on-bg">
                   <span className="material-symbols-outlined text-mg-primary">account_tree</span>
-                  Official Six Stages of Seat Counselling
+                  Chronological Roadmap
                 </h2>
-                <p className="mb-6 text-[16px] text-mg-on-surface">Follow the centralized counselling roadmap step-by-step to secure your medical seat.</p>
-                <CounsellingTimeline />
+                <p className="mb-6 text-[16px] text-mg-on-surface">Follow the official steps from registration through stray rounds to secure your seat.</p>
+                <ChronologyJourney />
               </section>
 
               {/* Fees Section */}
@@ -200,10 +255,11 @@ export function UgCounsellingGuideView() {
                       </thead>
                       <tbody className="divide-y divide-mg-border/30 text-sm">
                         {[
-                          { cat: "Government Medical & Dental Colleges", quota: "15% All India Quota (AIQ)", by: "MCC (Central)", inst: "All state government medical/dental colleges across India" },
-                          { cat: "Central Universities & National Institutes", quota: "100% Seats", by: "MCC (Central)", inst: "AIIMS (all campuses), JIPMER Puducherry, BHU, AMU, JMI, and DU colleges" },
-                          { cat: "Deemed Universities", quota: "100% Seats", by: "MCC (Central)", inst: "All private Deemed medical and dental colleges nationwide" },
-                          { cat: "Special Pools (ESIC & AFMC)", quota: "Specific Quotas", by: "MCC (Central)", inst: "ESIC Insured Persons quota seats and AFMC Pune initial registration" },
+                          { cat: "15% All India Quota", quota: "15% of state govt seats", by: "MCC (Central)", inst: mccCounsellingGuide.chapters.aiq.openSeatsDomicileFree?.[0] ?? "State government medical/dental colleges" },
+                          { cat: "Central Universities & National Institutes", quota: "AIQ + institutional quota", by: "MCC (Central)", inst: "DU, AMU, BHU, JMI, VMMC, ABVIMS, ESIC Dental" },
+                          { cat: "AIIMS & JIPMER", quota: "100% / Open + state quota", by: "MCC (Central)", inst: "All AIIMS campuses; JIPMER Puducherry & Karaikal" },
+                          { cat: "Deemed Universities", quota: "100% Seats", by: "MCC (Central)", inst: "All participating Deemed medical and dental colleges" },
+                          { cat: "Special Pools (ESIC & AFMC)", quota: "IP Quota / Registration", by: "MCC + institute", inst: "ESIC Insured Persons quota; AFMC registration on MCC" },
                         ].map((row, i) => (
                           <tr key={i} className="transition-colors hover:bg-mg-surface-low/50">
                             <td className="px-6 py-4 font-bold text-mg-on-bg">{row.cat}</td>

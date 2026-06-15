@@ -43,7 +43,7 @@ function getDropdownLinks(
 ): LinkItem[] | null {
   if (label === "Home") return homeLinks;
   if (label === "Quota") return quotaLinks;
-  if (label === "Predictors") return predictorLinks;
+  if (label === "Predictors" || label === "Predictor") return predictorLinks;
   if (label === "NEET UG 2026") return NEET_UG_2026_LINKS;
   return null;
 }

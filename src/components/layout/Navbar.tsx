@@ -1,8 +1,8 @@
 import { FiCalendar } from "react-icons/fi";
 import { getSiteIdentity } from "@/lib/data/site";
-import { getQuotaGuides } from "@/lib/data/content";
 import { HOME_NAV_LINKS } from "@/lib/navigation/home-nav";
 import { PREDICTOR_NAV_LINKS } from "@/lib/navigation/predictor-nav";
+import { QUOTA_NAV_LINKS } from "@/lib/navigation/quota-nav";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/common/Container";
 import { BrandMark } from "./BrandMark";
@@ -11,10 +11,7 @@ import { PrimaryNav } from "./PrimaryNav";
 
 export function Navbar() {
   const site = getSiteIdentity();
-  const quotaLinks = getQuotaGuides().map((guide) => ({
-    label: guide.title.replace(" MBBS Quota Guide", ""),
-    href: `/quota/${guide.slug}`,
-  }));
+  const quotaLinks = QUOTA_NAV_LINKS;
 
   return (
     <header className="sticky top-0 z-50 border-b border-outline-variant bg-surface">

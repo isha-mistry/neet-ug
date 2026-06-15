@@ -48,7 +48,7 @@ export default function NeetUgUpdatesPage() {
   return (
     <>
       <Section tone="default" className="py-7 md:py-9">
-        <Container size="2xl" className="flex flex-col gap-6">
+        <Container size="page" className="flex flex-col gap-6">
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },

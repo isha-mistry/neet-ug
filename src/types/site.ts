@@ -5,6 +5,7 @@ export interface SiteIdentity {
   tagline: string;
   description: string;
   primaryNav: LinkItem[];
+  quotaLinks: LinkItem[];
   footer: {
     columns: NavSection[];
     legal: string;

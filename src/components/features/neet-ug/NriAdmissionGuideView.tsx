@@ -148,7 +148,7 @@ export function NriAdmissionGuideView() {
   return (
     <>
       <Section tone="default" className=" py-7 md:py-10">
-        <Container size="2xl" className="flex flex-col gap-10">
+        <Container size="page" className="flex flex-col gap-10">
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },

@@ -255,235 +255,52 @@
   },
   "quotaGuides": [
     {
-      "slug": "general",
-      "title": "General Category MBBS Quota Guide",
-      "summary": "Overview of Open/General category pathways across AIQ, state counseling and institutional seats.",
-      "overview": "General category candidates usually compete in the widest pool, so strategy needs stronger rank-to-college mapping and backup planning.",
-      "keyPoints": [
-        "High competition",
-        "AIQ + State scope",
-        "Shortlist backups"
-      ],
-      "sections": [
-        {
-          "heading": "Eligibility & Scope",
-          "body": "General category candidates can compete through AIQ and state quota channels based on domicile and counseling rules."
-        },
-        {
-          "heading": "Application Strategy",
-          "points": [
-            "Build tiered preference lists: dream, realistic, safe.",
-            "Use previous 5-year cutoffs to avoid over-concentration.",
-            "Track state-specific seat matrix updates round-wise."
-          ]
-        },
-        {
-          "heading": "Document Checklist",
-          "points": [
-            "NEET scorecard and admit card",
-            "Class 10 and 12 mark sheets",
-            "Identity and domicile proofs as required"
-          ]
-        }
-      ]
+      "slug": "all-india",
+      "title": "All India Quota (AIQ) MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
     },
     {
-      "slug": "obc",
-      "title": "OBC Category MBBS Quota Guide",
-      "summary": "Understand OBC reservation pathways, certificate requirements and counseling best practices.",
-      "overview": "OBC category candidates should validate certificate format and issuing authority early, as this affects seat entitlement during verification.",
-      "keyPoints": [
-        "Certificate validity",
-        "Reservation benefits",
-        "Round-wise vigilance"
-      ],
-      "sections": [
-        {
-          "heading": "Eligibility & Reservation",
-          "body": "OBC reservation applies as per counseling authority norms. Central and state lists may differ, so verify list alignment before registration."
-        },
-        {
-          "heading": "Critical Documents",
-          "points": [
-            "OBC-NCL certificate in required format",
-            "Income and category support records if requested",
-            "Recent validity date per counseling authority"
-          ]
-        },
-        {
-          "heading": "Counseling Strategy",
-          "points": [
-            "Map OBC-specific cutoffs separately from UR cutoffs.",
-            "Keep fallback options in adjacent states if eligible.",
-            "Do not delay certificate corrections before round 1."
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "sc-st",
-      "title": "SC/ST Category MBBS Quota Guide",
-      "summary": "Guidance on SC/ST reservation channels, verification readiness and list optimization.",
-      "overview": "SC/ST pathways can significantly improve seat access, but candidates should still maintain realistic round-wise preference planning.",
-      "keyPoints": [
-        "Reserved seat advantage",
-        "Certificate checks",
-        "Smart preference order"
-      ],
-      "sections": [
-        {
-          "heading": "Eligibility & Reservation Scope",
-          "body": "SC/ST reservation follows central/state counseling norms. The reservation share and applicable institutions vary by authority."
-        },
-        {
-          "heading": "Preparation Checklist",
-          "points": [
-            "Category certificate and supporting identity records",
-            "Domicile documents for state quota access",
-            "All originals and multiple self-attested copies"
-          ]
-        },
-        {
-          "heading": "Seat Choice Strategy",
-          "points": [
-            "Use SC/ST historical cutoffs to build realistic bands.",
-            "Prioritize clinical exposure and service obligations, not just brand.",
-            "Plan for mop-up rounds with updated vacancy tracking."
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "ews",
-      "title": "EWS Category MBBS Quota Guide",
-      "summary": "End-to-end EWS counseling guide including certificate timing and eligibility guardrails.",
-      "overview": "EWS seat access depends heavily on valid, current documentation; expired or non-compliant certificates can block allotment.",
-      "keyPoints": [
-        "Strict certificate rules",
-        "Validity timing",
-        "AIQ + State opportunities"
-      ],
-      "sections": [
-        {
-          "heading": "EWS Eligibility",
-          "body": "Candidates must satisfy EWS criteria under applicable authority guidelines with valid certificate issuance window."
-        },
-        {
-          "heading": "Must-Have Documents",
-          "points": [
-            "EWS certificate in prescribed format",
-            "Income/asset declarations where requested",
-            "Verification-ready originals and backups"
-          ]
-        },
-        {
-          "heading": "Practical Strategy",
-          "points": [
-            "Validate certificate format before registration opens.",
-            "Track EWS cutoff drift in each counseling round.",
-            "Use balanced preference stacking across states and categories."
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "nri",
-      "title": "NRI Quota MBBS Guide",
-      "summary": "How NRI quota seats work, eligibility interpretation and document preparation basics.",
-      "overview": "NRI quota counseling involves institution-specific rules and fees, so document clarity and financial planning are critical.",
-      "keyPoints": [
-        "Institution-specific rules",
-        "Higher fee bands",
-        "Relationship proof readiness"
-      ],
-      "sections": [
-        {
-          "heading": "Eligibility Scope",
-          "body": "Eligibility may vary across institutions and states; review sponsor relationship and nationality requirements in detail."
-        },
-        {
-          "heading": "Document Readiness",
-          "points": [
-            "Passport, visa and sponsor documentation",
-            "Relationship affidavit/proof as required",
-            "Payment and fee commitment records"
-          ]
-        },
-        {
-          "heading": "Selection Strategy",
-          "points": [
-            "Compare total cost with infrastructure and clinical load.",
-            "Verify refund and withdrawal policies before locking seats.",
-            "Track institution-level notices daily during rounds."
-          ]
-        }
-      ]
+      "slug": "state",
+      "title": "State Quota (SQ) MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
     },
     {
       "slug": "management",
-      "title": "Management Quota MBBS Guide",
-      "summary": "Management quota process essentials including fee planning and college quality checks.",
-      "overview": "Management quota can widen options but requires disciplined due diligence on quality, obligations and affordability.",
-      "keyPoints": [
-        "Wider seat access",
-        "Fee-heavy planning",
-        "Quality due diligence"
-      ],
-      "sections": [
-        {
-          "heading": "How Management Quota Works",
-          "body": "Management seats are generally offered under private/deemed institutions with separate fee structures and authority rules."
-        },
-        {
-          "heading": "Evaluation Checklist",
-          "points": [
-            "Total program cost and annual escalation",
-            "Hospital bed strength and patient inflow",
-            "Bond/service obligations and penalties"
-          ]
-        },
-        {
-          "heading": "Decision Framework",
-          "points": [
-            "Do not evaluate by seat availability alone.",
-            "Compare long-term ROI and postgraduate readiness.",
-            "Document every payment and communication."
-          ]
-        }
-      ]
+      "title": "Management Quota (MQ) MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
     },
     {
-      "slug": "aiq",
-      "title": "All India Quota (AIQ) Guide",
-      "summary": "AIQ process explained with rank strategy, state crossover opportunities and round planning.",
-      "overview": "AIQ allows interstate competition and can unlock high-value options beyond domicile states when preferences are structured correctly.",
-      "keyPoints": [
-        "Interstate opportunity",
-        "Rank-sensitive choices",
-        "Round-wise optimization"
-      ],
-      "sections": [
-        {
-          "heading": "AIQ Eligibility",
-          "body": "Eligible candidates can participate in centralized AIQ counseling subject to governing authority guidelines."
-        },
-        {
-          "heading": "Preference Planning",
-          "points": [
-            "Construct rank-calibrated preference bands.",
-            "Include realistic alternates for each major city tier.",
-            "Use round-wise vacancy trends for updates."
-          ]
-        },
-        {
-          "heading": "Execution Tips",
-          "points": [
-            "Finalize documentation before round 1 opens.",
-            "Track reporting timelines carefully after allotment.",
-            "Keep backup decisions ready for sliding/upgradation rounds."
-          ]
-        }
-      ]
+      "slug": "nri",
+      "title": "NRI Quota MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
+    },
+    {
+      "slug": "deemed",
+      "title": "Deemed University MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
+    },
+    {
+      "slug": "special",
+      "title": "Special / Institutional MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
     }
   ],
   "blog": {
