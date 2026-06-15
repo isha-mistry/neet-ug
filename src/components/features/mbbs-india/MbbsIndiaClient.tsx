@@ -28,7 +28,7 @@ import {
   COUNSELING_AIQ_STEPS,
   COUNSELING_DOCUMENTS,
   COUNSELING_STATE_STEPS,
-  COUNSELING_TIMELINE_2025,
+  COUNSELING_TIMELINE,
   FEE_STRUCTURE,
   FOCUS_STATE_COUNSELORS,
   MBBS_INDIA_FAQ,
@@ -74,18 +74,8 @@ function catalogSummaryHighlights(catalog: CatalogSeatBreakdown) {
   ] as const;
 }
 
-function mergeSummaryStats(catalog: CatalogSeatBreakdown) {
-  const dynamic: Record<string, string> = {
-    "Total medical colleges in India": formatNumber(catalog.totalColleges),
-    "Total MBBS seats": formatNumber(catalog.totalSeats),
-    "Government medical colleges": `${catalog.govtColleges} (${formatNumber(catalog.govtSeats)} seats)`,
-    "Private medical colleges": `${catalog.pvtColleges} (${formatNumber(catalog.pvtSeats)} seats)`,
-    "All India Quota (AIQ) seats": formatNumber(catalog.aiqSeats),
-    "State Quota seats": formatNumber(catalog.stateQuotaSeats),
-  };
-  return SUMMARY_STATS.map((row) =>
-    dynamic[row.label] ? { ...row, value: dynamic[row.label]! } : row
-  );
+function mergeSummaryStats(_catalog: CatalogSeatBreakdown) {
+  return SUMMARY_STATS;
 }
 
 export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
@@ -498,7 +488,7 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
       <GuideSection embedded title={`NEET UG counseling ${MBBS_ACADEMIC_SESSION} — timeline`}>
         <GuideCard>
           <ul className="space-y-4 border-l-2 border-primary/40 pl-5">
-            {COUNSELING_TIMELINE_2025.map((ev) => (
+            {COUNSELING_TIMELINE.map((ev) => (
               <li key={ev.label} className="relative text-sm">
                 <span className="absolute -left-[1.35rem] top-1.5 h-2.5 w-2.5 rounded-full bg-primary ring-4 ring-primary-fixed/50" />
                 <span className="font-semibold text-on-surface">{ev.date}</span>
@@ -507,8 +497,12 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
             ))}
           </ul>
           <p className="mt-6 text-xs leading-relaxed text-outline">
-            You may participate in AIQ and state counseling together. Reporting is mandatory to retain a
-            seat. Verify dates on{" "}
+            Estimated interactive schedule based on five-year trends (aligned with our{" "}
+            <Link href="/home/5" className="font-semibold text-primary hover:underline">
+              2026 counseling hub
+            </Link>
+            ). You may participate in AIQ and state counseling together. Reporting is mandatory to
+            retain a seat. Verify dates on{" "}
             <a
               href="https://mcc.nic.in"
               className="font-semibold text-primary hover:underline"

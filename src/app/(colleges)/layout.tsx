@@ -9,7 +9,7 @@ export default function CollegesLayout({
 }) {
   return (
     <section className="py-10 md:py-14">
-      <Container size="2xl" className="flex flex-col gap-8">
+      <Container size="page" className="flex flex-col gap-8">
         {children}
         <DataSourceNotice />
       </Container>

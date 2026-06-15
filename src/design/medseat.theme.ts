@@ -210,7 +210,7 @@ export const medseatTheme = {
     "stack-lg": "48px",
     "margin-mobile": "16px",
     "margin-desktop": "64px",
-    "container-max": "1280px",
+    "container-max": "1200px",
   },
 
   radius: {
@@ -250,7 +250,7 @@ export const medseatTheme = {
     md: "768px",
     lg: "1024px",
     xl: "1200px",
-    "2xl": "1320px",
+    "2xl": "1200px",
   },
 
   iconSize: {

@@ -1,10 +1,11 @@
 import type { FaqItem } from "@/types/content";
+import { MILESTONES } from "@/lib/home-05/content";
 
 export const SUMMARY_STATS: { label: string; value: string }[] = [
-  { label: "Total medical colleges in India", value: "818" },
-  { label: "Total MBBS seats", value: "1,28,875" },
-  { label: "Government medical colleges", value: "455 (63,682 seats)" },
-  { label: "Private medical colleges", value: "363 (65,193 seats)" },
+  { label: "Total medical colleges in India", value: "823" },
+  { label: "Total MBBS seats", value: "1,29,753" },
+  { label: "Government medical colleges", value: "456 (63,860 seats)" },
+  { label: "Private medical colleges", value: "361 (65,093 seats)" },
   { label: "All India Quota (AIQ) seats", value: "21,504" },
   { label: "State Quota seats", value: "95,418" },
   { label: "Duration of MBBS course", value: "4.5 years + 1 year compulsory internship" },
@@ -15,16 +16,16 @@ export const SUMMARY_STATS: { label: string; value: string }[] = [
   { label: "Government seat annual fee", value: "₹50,000 – ₹1,00,000 per year" },
   { label: "Management quota annual fee", value: "₹10,00,000 – ₹30,00,000 per year" },
   { label: "NRI quota annual fee", value: "₹35,00,000 – ₹45,00,000 per year" },
-  { label: "NEET-UG 2025 total applicants", value: "22.09 lakh" },
-  { label: "Chance of getting a government seat", value: "2.88%" },
-  { label: "Overall chance (Govt + Private)", value: "~5.66%" },
+  { label: "NEET-UG 2025 total applicants", value: "22.09 lakh (22,09,318)" },
+  { label: "Chance of getting a government seat", value: "2.89%" },
+  { label: "Overall chance (Govt + Private)", value: "~5.87%" },
 ];
 
 export const OVERVIEW_PARAGRAPHS: string[] = [
   "MBBS admission in India is governed nationally by NEET-UG, which replaced AIPMT in 2017 after Supreme Court proceedings unified medical entrance testing. The National Medical Commission (NMC), which replaced the Medical Council of India (MCI) in 2020, now regulates college approvals, seat additions, curriculum, and fee frameworks. These reforms made the admission pathway more transparent, but also more competitive as every aspirant competes on a single rank list.",
-  "Medical education capacity has expanded sharply: India had roughly 450 MBBS colleges in 2017 and about 818 in 2025, with total seats crossing 1.28 lakh. Southern states — Karnataka, Tamil Nadu, Telangana, and Andhra Pradesh — account for nearly 40% of all MBBS seats, largely due to private college growth. By contrast, states such as Uttar Pradesh and Bihar see intense competition because applicant volumes are high relative to government seat availability, pushing cutoffs upward.",
+  "Medical education capacity has expanded sharply: India had roughly 450 MBBS colleges in 2017 and about 823 in 2025, with total seats crossing 1.29 lakh. Southern states — Karnataka, Tamil Nadu, Telangana, and Andhra Pradesh — account for nearly 40% of all MBBS seats, largely due to private college growth. By contrast, states such as Uttar Pradesh and Bihar see intense competition because applicant volumes are high relative to government seat availability, pushing cutoffs upward.",
   "Admissions flow through two main channels. The All India Quota (AIQ) covers 15% of seats in participating colleges and is counseled by MCC on mcc.nic.in, open to eligible candidates from any state. The remaining 85% State Quota is counseled by state authorities (DME, university, or CET cell) and is usually restricted by domicile rules. Private colleges additionally offer management and NRI quota seats with separate fee structures, though NEET qualification remains mandatory.",
-  "The central challenge is scale versus seats. More than 22 lakh students appeared for NEET-UG 2025, while only about 63,682 government MBBS seats exist nationwide. That implies roughly one government seat for every 35 serious contenders. Students who miss government cutoffs must choose between costly private MBBS in India, state-hopping via AIQ, a drop year, or NMC-recognized programs abroad followed by FMGE/NEXT licensing.",
+  "The central challenge is scale versus seats. More than 22 lakh students appeared for NEET-UG 2025, while only about 63,860 government MBBS seats exist nationwide. That implies roughly one government seat for every 35 serious contenders. Students who miss government cutoffs must choose between costly private MBBS in India, state-hopping via AIQ, a drop year, or NMC-recognized programs abroad followed by FMGE/NEXT licensing.",
 ];
 
 export interface SeatTrendRow {
@@ -49,7 +50,7 @@ export const SEAT_TRENDS: SeatTrendRow[] = [
   { year: 2022, govtColleges: 388, privateColleges: 305, totalColleges: 693, govtSeats: 57800, privateSeats: 51200, totalSeats: 109000, neetApplicantsLakh: 18.72, govtSeatChancePct: 3.09, overallChancePct: 5.82 },
   { year: 2023, govtColleges: 410, privateColleges: 325, totalColleges: 735, govtSeats: 59800, privateSeats: 54500, totalSeats: 114300, neetApplicantsLakh: 20.87, govtSeatChancePct: 2.87, overallChancePct: 5.48 },
   { year: 2024, govtColleges: 435, privateColleges: 345, totalColleges: 780, govtSeats: 61800, privateSeats: 58200, totalSeats: 120000, neetApplicantsLakh: 21.68, govtSeatChancePct: 2.85, overallChancePct: 5.54 },
-  { year: 2025, govtColleges: 455, privateColleges: 363, totalColleges: 818, govtSeats: 63682, privateSeats: 65193, totalSeats: 128875, neetApplicantsLakh: 22.09, govtSeatChancePct: 2.88, overallChancePct: 5.66 },
+  { year: 2025, govtColleges: 456, privateColleges: 361, totalColleges: 823, govtSeats: 63860, privateSeats: 65093, totalSeats: 129753, neetApplicantsLakh: 22.09, govtSeatChancePct: 2.89, overallChancePct: 5.87 },
 ];
 
 export const SEAT_TREND_ANALYSIS = [
@@ -149,11 +150,11 @@ export const COUNSELING_DOCUMENTS = [
 ];
 
 export const CHANCES_STATS = [
-  { label: "NEET 2025 applicants", value: "22.09 lakh" },
-  { label: "Government MBBS seats", value: "63,682" },
-  { label: "Government seat probability", value: "2.88%" },
-  { label: "Total MBBS seats (Govt + Private)", value: "1,28,875" },
-  { label: "Any-seat probability", value: "~5.66%" },
+  { label: "NEET 2025 applicants", value: "22.09 lakh (22,09,318)" },
+  { label: "Government MBBS seats", value: "63,860" },
+  { label: "Government seat probability", value: "2.89%" },
+  { label: "Total MBBS seats (Govt + Private)", value: "1,29,753" },
+  { label: "Any-seat probability", value: "~5.87%" },
   { label: "Affordable govt seat odds", value: "Less than 1 in 35 students" },
 ];
 
@@ -232,19 +233,47 @@ export interface CounselingTimelineEvent {
   track: "neet" | "mcc" | "gujarat" | "rajasthan" | "madhya-pradesh" | "maharashtra";
 }
 
-export const COUNSELING_TIMELINE_2025: CounselingTimelineEvent[] = [
-  { label: "NEET UG 2025 exam", date: "4 May 2025", track: "neet" },
-  { label: "NEET UG 2025 result", date: "16 June 2025", track: "neet" },
-  { label: "MCC AIQ Round 1 registration", date: "20–25 July 2025", track: "mcc" },
-  { label: "MCC AIQ Round 1 choice filling", date: "22–26 July 2025", track: "mcc" },
-  { label: "MCC AIQ Round 1 result", date: "30 July 2025", track: "mcc" },
-  { label: "MCC AIQ Round 2 registration", date: "10–14 August 2025", track: "mcc" },
-  { label: "MCC mop-up round", date: "September 2025", track: "mcc" },
-  { label: "Gujarat state Round 1", date: "August 2025", track: "gujarat" },
-  { label: "Rajasthan state Round 1", date: "August 2025", track: "rajasthan" },
-  { label: "Madhya Pradesh state Round 1", date: "August 2025", track: "madhya-pradesh" },
-  { label: "Maharashtra state Round 1", date: "August 2025", track: "maharashtra" },
-];
+function counselingTimelineTrack(
+  title: (typeof MILESTONES)[number]["title"]
+): CounselingTimelineEvent["track"] {
+  switch (title) {
+  case "NEET Exam":
+    return "neet";
+  case "State Merit":
+    return "gujarat";
+  default:
+    return "mcc";
+  }
+}
+
+function formatMilestonePeriod(period: string): string {
+  const normalized = period
+    .replace(/\bWK\b/gi, "week")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return `${normalized} 2026`;
+}
+
+function milestoneTimelineLabel(m: (typeof MILESTONES)[number]): string {
+  if ("body" in m && m.body) {
+    return `${m.title} — ${m.body}`;
+  }
+  if ("badge" in m && m.badge) {
+    const badge =
+      m.badge.charAt(0) + m.badge.slice(1).toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+    return `${m.title} — ${badge}`;
+  }
+  return m.title;
+}
+
+/** Estimated 2026–27 counseling milestones (same schedule as /home/5). */
+export const COUNSELING_TIMELINE: CounselingTimelineEvent[] = MILESTONES.map((m) => ({
+  date: formatMilestonePeriod(m.period),
+  label: milestoneTimelineLabel(m),
+  track: counselingTimelineTrack(m.title),
+}));
 
 export const ABROAD_COMPARISON: { parameter: string; india: string; abroad: string }[] = [
   { parameter: "University type", india: "Private (NMC recognized)", abroad: "Public & private mix" },
@@ -280,7 +309,7 @@ export const MBBS_INDIA_FAQ: FaqItem[] = [
   {
     question: "How many MBBS seats are available in India in 2025?",
     answer:
-      "India has about 818 medical colleges offering roughly 1,28,875 MBBS seats, split between ~63,682 government and ~65,193 private seats. AIQ accounts for about 21,504 seats nationally.",
+      "India has about 823 medical colleges offering roughly 1,29,753 MBBS seats, split between ~63,860 government and ~65,093 private seats. AIQ accounts for about 21,504 seats nationally.",
   },
   {
     question: "What is the difference between AIQ and state quota seats?",

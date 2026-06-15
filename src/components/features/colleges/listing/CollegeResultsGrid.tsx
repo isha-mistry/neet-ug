@@ -33,7 +33,7 @@ export function CollegeResultsGrid({
   }
 
   return (
-    <div className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2 lg:gap-5 xl:gap-6">
+    <div className="grid grid-cols-1 gap-6 sm:gap-7 lg:grid-cols-2 lg:gap-6 xl:gap-8">
       {colleges.map((college) => (
         <CollegeCard
           key={college.slug}

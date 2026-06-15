@@ -9,7 +9,9 @@ import {
   JOURNEY_COMPARISON_ROWS,
   JOURNEY_PROBLEM_CARDS,
   JOURNEY_RESOURCES,
+  JOURNEY_AIQ_CARD,
   JOURNEY_STATE_CARDS,
+  JOURNEY_STATES_SECTION,
   JOURNEY_TESTIMONIALS,
 } from "@/lib/journey-home/content";
 import { HeroVisualPanel } from "./HeroVisualPanel";
@@ -17,6 +19,7 @@ import { ScrollJourney } from "./ScrollJourney";
 import { JourneyHomeEffects } from "./JourneyHomeEffects";
 import { SeatRadarCard, PlaybookForm } from "./SeatRadarCard";
 import { RoundsPanel } from "./RoundsPanel";
+import { JourneyStateHub } from "./JourneyStateCard";
 
 type JourneyHomePageProps = {
   hero: HomeHeroContent;
@@ -26,51 +29,51 @@ type JourneyHomePageProps = {
 
 function ProblemIcon({ name }: { name: string }) {
   switch (name) {
-    case "portals":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect x="3" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-          <rect x="13" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-          <rect x="3" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-          <rect x="13" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-        </svg>
-      );
-    case "order":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          />
-        </svg>
-      );
-    case "upgrade":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
-          <path
-            d="M12 16V8M8.5 11.5L12 8l3.5 3.5"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-    default:
-      return (
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
+  case "portals":
+    return (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="13" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="3" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="13" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+      </svg>
+    );
+  case "order":
+    return (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  case "upgrade":
+    return (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+        <path
+          d="M12 16V8M8.5 11.5L12 8l3.5 3.5"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  default:
+    return (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
   }
 }
 
@@ -122,16 +125,16 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             </div>
             <div className="hero-mini">
               <div>
-                <b>200+</b>
+                <b>500+</b>
                 <span>Colleges covered</span>
               </div>
               <div>
-                <b>33,000+</b>
+                <b>43,000+</b>
                 <span>Seats mapped</span>
               </div>
               <div>
-                <b>3 yrs</b>
-                <span>Verified cutoff data</span>
+                <b>2025</b>
+                <span>Verified cutoff data (1 year)</span>
               </div>
             </div>
           </div>
@@ -146,18 +149,16 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             <span>NEET 2026 applicants</span>
           </div>
           <div className="tick">
-            <b data-count="128875">0</b>
+            <b data-count="129753">0</b>
             <span>MBBS seats in India</span>
           </div>
           <div className="tick">
-            <b data-count="33000" data-suffix="+">
-              0
-            </b>
+            <b data-count="33405">0</b>
             <span>seats in our 4 states</span>
           </div>
           <div className="tick">
             <b>
-              <span className="u">2.88</span>%
+              <span className="u">2.89</span>%
             </b>
             <span>get a government seat</span>
           </div>
@@ -194,41 +195,13 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             02
           </span>
           <div className="wrap">
-            <span className="eyebrow">Step 02 · Your states</span>
+            <span className="eyebrow">{JOURNEY_STATES_SECTION.eyebrow}</span>
             <h2 className="t">
-              Four states. <em>One specialty.</em>
+              {JOURNEY_STATES_SECTION.title}
+              <em>{JOURNEY_STATES_SECTION.titleEmphasis}</em>
             </h2>
-            <p className="lede">
-              MBBS only — every cutoff, quota rule and counseling authority across Gujarat,
-              Rajasthan, Madhya Pradesh and Maharashtra.
-            </p>
-            <div className="sgrid">
-              {JOURNEY_STATE_CARDS.map((st) => (
-                <article key={st.code} className="card spot scard reveal">
-                  <div className="scode">{st.code}</div>
-                  <h3>{st.name}</h3>
-                  <div className="sauth">{st.auth}</div>
-                  <div className="snums">
-                    <div>
-                      <b>{st.seats}</b>
-                      <span>seats</span>
-                    </div>
-                    <div>
-                      <b>{st.colleges}</b>
-                      <span>colleges</span>
-                    </div>
-                  </div>
-                  <p className="sdiff">{st.diff}</p>
-                  <Link className="slink" href={st.href}>
-                    {st.name} guide →
-                  </Link>
-                </article>
-              ))}
-            </div>
-            <p className="aiq">
-              Plus full <b>MCC All India Quota</b> guidance — the route into these states from
-              anywhere in India.
-            </p>
+            <p className="lede">{JOURNEY_STATES_SECTION.lede}</p>
+            <JourneyStateHub states={JOURNEY_STATE_CARDS} aiq={JOURNEY_AIQ_CARD} />
           </div>
         </section>
 
@@ -255,7 +228,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 </div>
                 <div className="fv">22,79,743</div>
               </div>
-              <div className="card frow reveal" data-w="53">
+              <div className="card frow reveal" data-w="59">
                 <div className="fl">
                   Will qualify NEET
                   <small>Crossing the percentile only earns the right to compete</small>
@@ -263,7 +236,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 <div className="fbarw">
                   <i />
                 </div>
-                <div className="fv">~12,00,000</div>
+                <div className="fv">~13,50,000</div>
               </div>
               <div className="card frow reveal" data-w="5.7">
                 <div className="fl">
@@ -273,7 +246,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 <div className="fbarw">
                   <i />
                 </div>
-                <div className="fv">1,28,875</div>
+                <div className="fv">1,29,753</div>
               </div>
               <div className="card frow gold reveal" data-w="2.9">
                 <div className="fl">
@@ -283,7 +256,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 <div className="fbarw">
                   <i />
                 </div>
-                <div className="fv">63,682</div>
+                <div className="fv">63,860</div>
               </div>
             </div>
             <p className="fun-note">
@@ -322,9 +295,9 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             <div className="chband reveal">
               <span className="big">{JOURNEY_CHALLENGE_BAND.stat}</span>
               <p>
-                In Gujarat alone, <b>~50,000 students qualify NEET</b> each year competing for{" "}
-                <b>~3,675 state-quota government seats</b>. Getting the right seat is not just
-                about rank — it&apos;s about what you do with it.
+                In Gujarat alone, <b>roughly half of aspirants qualify NEET</b> each year,
+                competing for <b>7,500+ state quota seats</b> across 43 colleges. Getting the
+                right seat is not just about rank — it&apos;s about what you do with it.
               </p>
               <a className="btn" href={JOURNEY_CHALLENGE_BAND.href}>
                 {JOURNEY_CHALLENGE_BAND.cta}

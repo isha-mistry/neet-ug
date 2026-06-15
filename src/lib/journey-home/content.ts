@@ -1,43 +1,87 @@
 import { mbbsStatePath } from "@/lib/mbbs-state/constants";
+import type { StateDistrictMapSlug } from "@/lib/maps/state-district-topology";
 
-export const JOURNEY_STATE_CARDS = [
+export type JourneyStateCardItem = {
+  code: string;
+  slug: StateDistrictMapSlug;
+  name: string;
+  auth: string;
+  seats: string;
+  colleges: string;
+  diff: string;
+  href: string;
+};
+
+export const JOURNEY_STATE_CARDS: ReadonlyArray<JourneyStateCardItem> = [
   {
     code: "GJ",
+    slug: "gujarat",
     name: "Gujarat",
     auth: "ACPUGMEC · MEDADMGUJARAT.ORG",
-    seats: "7,200+",
+    seats: "7,500+",
     colleges: "43",
     diff: "India's only 3-tier system — Govt ₹25K/yr · GMERS ₹3.75L/yr · Private. Uses SEBC, not OBC.",
     href: mbbsStatePath("gujarat"),
   },
   {
     code: "RJ",
+    slug: "rajasthan",
     name: "Rajasthan",
     auth: "RUHS · RUHSRAJ.ORG",
-    seats: "7,330+",
-    colleges: "43",
+    seats: "7,300+",
+    colleges: "49",
     diff: "Highest government-college share in the group. SMS Jaipur is one of India's toughest cutoffs.",
     href: mbbsStatePath("rajasthan"),
   },
   {
     code: "MP",
+    slug: "madhya-pradesh",
     name: "Madhya Pradesh",
     auth: "DMAT · DIR. OF MEDICAL EDUCATION",
-    seats: "5,725+",
-    colleges: "31",
+    seats: "5,700+",
+    colleges: "35",
     diff: "The most AIQ-accessible state here — the smart target for non-domicile students.",
     href: mbbsStatePath("madhya-pradesh"),
   },
   {
     code: "MH",
+    slug: "maharashtra",
     name: "Maharashtra",
     auth: "CET CELL MAHARASHTRA",
     seats: "12,800+",
-    colleges: "80+",
+    colleges: "85",
     diff: "Biggest seat pool in the group — Grant Medical, KEM, Sion and BJ Government Mumbai.",
     href: mbbsStatePath("maharashtra"),
   },
-] as const;
+];
+
+export type JourneyAiqCardItem = {
+  code: string;
+  name: string;
+  auth: string;
+  seats: string;
+  colleges: string;
+  diff: string;
+  href: string;
+};
+
+/** MCC All India Quota — fifth hub card alongside the four state guides. */
+export const JOURNEY_AIQ_CARD: JourneyAiqCardItem = {
+  code: "AIQ",
+  name: "All India Quota",
+  auth: "MCC.NIC.IN",
+  seats: "10,500+",
+  colleges: "500+",
+  diff: "15% of seats in participating colleges — counseled by MCC, open to eligible candidates from any state. Separate rounds from state quota.",
+  href: "/neet-ug-2026/counselling-guide",
+};
+
+export const JOURNEY_STATES_SECTION = {
+  eyebrow: "Step 02 · State & national routes",
+  title: "Four States. All India Quota — ",
+  titleEmphasis: "One Platform.",
+  lede: "MBBS only — every cutoff, quota rule and counseling authority across Gujarat, Rajasthan, Madhya Pradesh and Maharashtra, plus MCC All India Quota (AIQ) counseling.",
+} as const;
 
 export const JOURNEY_PROBLEM_CARDS = [
   {
@@ -63,8 +107,8 @@ export const JOURNEY_PROBLEM_CARDS = [
 ] as const;
 
 export const JOURNEY_CHALLENGE_BAND = {
-  stat: "1 in 13.6",
-  body: "In Gujarat alone, ~50,000 students qualify NEET each year competing for ~3,675 state-quota government seats. Getting the right seat is not just about rank — it's about what you do with it.",
+  stat: "50%",
+  body: "In Gujarat alone, roughly half of aspirants qualify NEET each year, competing for 7,500+ state quota seats across 43 colleges. Getting the right seat is not just about rank — it's about what you do with it.",
   cta: "See how we help →",
   href: "#tools",
 } as const;

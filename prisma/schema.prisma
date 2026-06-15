@@ -119,7 +119,7 @@ model SeatSnapshot {
 model SeatBucket {
   id         Int          @id @default(autoincrement())
   snapshotId Int          @map("snapshot_id")
-  /// aiq | state_quota | esic_ip | nri_quota | open | sc | st | sebc | ews | mqt_quota | …
+  /// aiq | state_quota | esic_ip | nri_quota | open | sc | st | obc | mbc | sebc | ews | mqt_quota | st_and_sa | obc_and_mbc | …
   bucketCode String       @map("bucket_code")
   seatCount  Int          @map("seat_count")
   snapshot   SeatSnapshot @relation(fields: [snapshotId], references: [id], onDelete: Cascade)
@@ -130,26 +130,28 @@ model SeatBucket {
 }
 
 model Cutoff {
-  id                    Int      @id @default(autoincrement())
-  collegeId             Int      @map("college_id")
-  year                  Int
-  category              String
-  seatType              String   @map("seat_type")
-  admissionRound        String   @map("admission_round")
-  openingRankAir        Int?     @map("opening_rank_air")
-  closingRankAir        Int?     @map("closing_rank_air")
-  openingStateMeritRank Decimal? @map("opening_state_merit_rank") @db.Decimal(12, 2)
-  closingStateMeritRank Decimal? @map("closing_state_merit_rank") @db.Decimal(12, 2)
-  openingNeetScore      Int?     @map("opening_neet_score")
-  closingNeetScore      Int?     @map("closing_neet_score")
-  openingPercentile     Decimal? @map("opening_percentile") @db.Decimal(8, 5)
-  closingPercentile     Decimal? @map("closing_percentile") @db.Decimal(8, 5)
-  totalSeatsFilled      Int?     @map("total_seats_filled")
-  openingCategoryRank   String?  @map("opening_category_rank")
-  closingCategoryRank   String?  @map("closing_category_rank")
-  college               College  @relation(fields: [collegeId], references: [collegeId], onDelete: Cascade)
+  id                      Int      @id @default(autoincrement())
+  collegeId               Int      @map("college_id")
+  year                    Int
+  category                String
+  seatType                String   @map("seat_type")
+  /// Counselling quota slice (e.g. GQ, OBC Quota). Empty for Gujarat-style rows.
+  quota                   String   @default("")
+  admissionRound          String   @map("admission_round")
+  openingRankAir            Int?     @map("opening_rank_air")
+  closingRankAir            Int?     @map("closing_rank_air")
+  openingStateMeritRank     Decimal? @map("opening_state_merit_rank") @db.Decimal(12, 2)
+  closingStateMeritRank     Decimal? @map("closing_state_merit_rank") @db.Decimal(12, 2)
+  openingNeetScore          Int?     @map("opening_neet_score")
+  closingNeetScore          Int?     @map("closing_neet_score")
+  openingPercentile         Decimal? @map("opening_percentile") @db.Decimal(8, 5)
+  closingPercentile         Decimal? @map("closing_percentile") @db.Decimal(8, 5)
+  totalSeatsFilled          Int?     @map("total_seats_filled")
+  openingCategoryRank       String?  @map("opening_category_rank")
+  closingCategoryRank       String?  @map("closing_category_rank")
+  college                   College  @relation(fields: [collegeId], references: [collegeId], onDelete: Cascade)
 
-  @@unique([collegeId, year, category, seatType, admissionRound])
+  @@unique([collegeId, year, category, seatType, admissionRound, quota])
   @@index([year, category, closingRankAir])
   @@index([collegeId, year])
   @@map("cutoffs")

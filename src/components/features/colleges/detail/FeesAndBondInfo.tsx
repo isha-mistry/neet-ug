@@ -1,21 +1,22 @@
-import { Card } from "@/components/ui/Card";
-import type { CollegeFees, CollegeBond } from "@/types/college";
-import { FiInfo } from "react-icons/fi";
+import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 import { DetailSectionHeader } from "@/components/features/colleges/shared/DetailSectionHeader";
+import { DetailPanel, DetailSubsectionHead } from "@/components/features/colleges/shared/DetailPanel";
+import type { CollegeBond, CollegeFees } from "@/types/college";
 import { cn } from "@/lib/utils";
 
 interface FeesAndBondInfoProps {
   fees: CollegeFees;
   bond: CollegeBond;
+  stateSlug?: string;
 }
 
-export function FeesAndBondInfo({ fees, bond }: FeesAndBondInfoProps) {
+export function FeesAndBondInfo({ fees, bond, stateSlug }: FeesAndBondInfoProps) {
   const hasBond = bond.years > 0;
 
   // Formatting helper supporting Rupees (INR) and Dollars (USD)
   const formatCurrency = (amount: number, currency: string = "INR") => {
     if (amount === 0 || amount === undefined || amount === null) return "—";
-    
+
     if (currency.toUpperCase() === "USD" || currency === "$") {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -23,7 +24,7 @@ export function FeesAndBondInfo({ fees, bond }: FeesAndBondInfoProps) {
         maximumFractionDigits: 0,
       }).format(amount);
     }
-    
+
     const formattedVal = new Intl.NumberFormat("en-IN", {
       maximumFractionDigits: 0,
     }).format(amount);
@@ -32,7 +33,15 @@ export function FeesAndBondInfo({ fees, bond }: FeesAndBondInfoProps) {
 
   // Check if NRI quota uses USD
   const nriCurrencyStr = fees.quotaBreakdown?.nri?.currency as string | undefined;
-  const isNriUsd = nriCurrencyStr?.toUpperCase() === "USD" || nriCurrencyStr === "$";
+  const isNriUsd =
+    nriCurrencyStr?.toUpperCase() === "USD" || nriCurrencyStr === "$";
+
+  const feeScheduleTitle =
+    stateSlug === "maharashtra"
+      ? "CET state fee schedule"
+      : stateSlug === "madhya-pradesh"
+        ? "DMAT fee schedule"
+        : "State fee schedule";
 
   // Dynamic Bond Note matching screenshot
   const getBondNote = () => {
@@ -47,26 +56,26 @@ export function FeesAndBondInfo({ fees, bond }: FeesAndBondInfoProps) {
   };
 
   return (
-    <section className="flex flex-col gap-4 animate-fadeIn">
-      {/* Reusable Premium Section Header */}
+    <section className="flex flex-col gap-6 animate-fadeIn">
       <DetailSectionHeader
-        title="Fees & Bond Specification"
-        description="MBBS tuition structure by quota, facility costs, caution deposit, and rural service agreements"
-        theme="indigo"
+        eyebrow="Investment"
+        title="Fees & bond"
+        description="Tuition by quota, annual charges, and rural service bond terms"
+        icon="payments"
       />
-      
+
       {/* 2/3 Fees and 1/3 Bond grid layout */}
       <div className="grid gap-6 lg:grid-cols-3 items-stretch">
-        
+
         {/* Left Card: Fee Structure (Takes 2/3 screen width on desktop) */}
-        <Card 
-          padded={false} 
-          className="lg:col-span-2 flex flex-col min-h-[360px] border border-border shadow-level-1 rounded-3xl overflow-hidden bg-surface-container-lowest"
+        <DetailPanel
+          padded={false}
+          className="lg:col-span-2 flex min-h-[360px] flex-col overflow-hidden"
         >
           <div className="flex flex-col">
             {/* BASE ANNUAL CHARGES Section */}
             <div className="flex flex-col">
-              <CardSectionHeader title="Base Annual Charges" />
+              <DetailSubsectionHead title="Base Annual Charges" />
               <div className="flex flex-col border-y border-border">
                 <FeeDetailRow label="Tuition Fees" value={formatCurrency(fees.tuition)} />
                 <FeeDetailRow label="Hostel Fees" value={formatCurrency(fees.hostel)} />
@@ -75,23 +84,28 @@ export function FeesAndBondInfo({ fees, bond }: FeesAndBondInfoProps) {
             </div>
 
             {/* QUOTA-WISE TUITION BREAKDOWN Section */}
-            {fees.quotaBreakdown && (
+            {fees.quotaBreakdown && !fees.stateFeeSchedule?.length && (
               <div className="flex flex-col mt-2">
-                <CardSectionHeader title="Quota-wise Tuition Breakdown" />
+                <DetailSubsectionHead title="Quota-wise Tuition Breakdown" />
                 <div className="flex flex-col border-y border-border">
-                  <FeeDetailRow 
-                    label="Govt Quota (GQ)" 
-                    value={formatCurrency(fees.quotaBreakdown.govtQuotaAnnualInr)} 
+                  <FeeDetailRow
+                    label="Govt Quota (GQ)"
+                    value={formatCurrency(fees.quotaBreakdown.govtQuotaAnnualInr)}
                   />
-                  <FeeDetailRow 
-                    label="Management (MQ)" 
-                    value={formatCurrency(fees.quotaBreakdown.managementQuotaAnnualInr)} 
+                  <FeeDetailRow
+                    label="Management (MQ)"
+                    value={formatCurrency(
+                      fees.quotaBreakdown.managementQuotaAnnualInr,
+                    )}
                     isLast={!fees.quotaBreakdown.nri}
                   />
                   {fees.quotaBreakdown.nri && (
-                    <FeeDetailRow 
-                      label="NRI Quota" 
-                      value={formatCurrency(fees.quotaBreakdown.nri.amount, fees.quotaBreakdown.nri.currency)} 
+                    <FeeDetailRow
+                      label="NRI Quota"
+                      value={formatCurrency(
+                        fees.quotaBreakdown.nri.amount,
+                        fees.quotaBreakdown.nri.currency,
+                      )}
                       isLast
                     />
                   )}
@@ -99,31 +113,54 @@ export function FeesAndBondInfo({ fees, bond }: FeesAndBondInfoProps) {
               </div>
             )}
 
+            {fees.stateFeeSchedule && fees.stateFeeSchedule.length > 0 && (
+              <div className="flex flex-col mt-2">
+                <DetailSubsectionHead title={feeScheduleTitle} />
+                <div className="flex flex-col border-y border-border">
+                  {fees.stateFeeSchedule.map((row, idx) => {
+                    const label = [
+                      row.feeType,
+                      row.category,
+                      row.gender,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ");
+                    const isLast = idx === fees.stateFeeSchedule!.length - 1;
+                    return (
+                      <FeeDetailRow
+                        key={`${row.feeType}-${row.category ?? ""}-${idx}`}
+                        label={label}
+                        value={formatCurrency(row.totalAnnual)}
+                        isLast={isLast}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             {/* FEE TOTALS Section */}
             <div className="flex flex-col mt-2">
-              <CardSectionHeader title="Fee Totals" />
+              <DetailSubsectionHead title="Fee Totals" />
               <div className="flex flex-col border-t border-border">
-                <FeeDetailRow 
-                  label="Total Annual Fees" 
-                  value={formatCurrency(fees.totalAnnual)} 
+                <FeeDetailRow
+                  label="Total Annual Fees"
+                  value={formatCurrency(fees.totalAnnual)}
                 />
-                <FeeDetailRow 
-                  label="Total Course Fees (5 Years)" 
-                  value={formatCurrency(fees.totalCourse)} 
+                <FeeDetailRow
+                  label="Total Course Fees (5 Years)"
+                  value={formatCurrency(fees.totalCourse)}
                   isLast
                 />
               </div>
             </div>
 
           </div>
-        </Card>
+        </DetailPanel>
 
         {/* Right Card: Service Bond (Takes 1/3 screen width on desktop) */}
-        <Card 
-          padded={false} 
-          className="lg:col-span-1 flex flex-col border border-border shadow-level-1 rounded-3xl overflow-hidden bg-surface-container-lowest lg:self-start"
-        >
-          <div className="p-6 md:p-8 flex flex-col gap-6">
+        <DetailPanel className="lg:col-span-1 flex flex-col lg:self-start">
+          <div className="flex flex-col gap-6">
             {/* Header: Title */}
             <div className="flex items-center gap-3">
               <svg className="h-6 w-6 stroke-current text-text" fill="none" viewBox="0 0 24 24" strokeWidth="2">
@@ -142,27 +179,23 @@ export function FeesAndBondInfo({ fees, bond }: FeesAndBondInfoProps) {
               <span className="text-[10px] font-bold tracking-wider uppercase text-text-muted">
                 Mandatory Service
               </span>
-              <div 
+              <div
                 className={cn(
                   "flex items-center gap-2.5 px-4 py-2.5 rounded-xl w-full border text-sm font-extrabold",
                   hasBond
-                    ? "bg-indigo-50/50 text-indigo-700 border-indigo-100"
-                    : "bg-emerald-50/50 text-emerald-800 border-emerald-100"
+                    ? "border-outline-variant bg-secondary-container/25 text-on-secondary-container"
+                    : "border-outline-variant bg-primary-fixed text-on-primary-fixed-variant"
                 )}
               >
                 {hasBond ? (
                   <>
-                    <svg className="h-4 w-4 fill-current text-indigo-700 flex-shrink-0" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M2.166 4.9L10 1.55l7.834 3.35a1 1 0 01.618.92v4.887c0 5.59-3.824 10.29-9 11.622-5.176-1.332-9-6.03-9-11.622V5.82a1 1 0 01.618-.92zM10 16a1 1 0 001-1V9a1 1 0 10-2 0v6a1 1 0 001 1z" clipRule="evenodd" />
-                    </svg>
-                    <span>Rural Service Bond Required</span>
+                    <MaterialSymbol name="gavel" className="shrink-0 text-lg" />
+                    <span>Rural service bond required</span>
                   </>
                 ) : (
                   <>
-                    <svg className="h-4 w-4 fill-current text-emerald-700 flex-shrink-0" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l5-5z" clipRule="evenodd" />
-                    </svg>
-                    <span>No Rural Bond Required</span>
+                    <MaterialSymbol name="check_circle" className="shrink-0 text-lg" />
+                    <span>No rural bond on record</span>
                   </>
                 )}
               </div>
@@ -178,7 +211,7 @@ export function FeesAndBondInfo({ fees, bond }: FeesAndBondInfoProps) {
                   {hasBond ? formatCurrency(bond.penalty) : "Rs. 0"}
                 </span>
               </div>
-              
+
               <div className="flex flex-col gap-1">
                 <span className="text-[10px] font-bold tracking-wider uppercase text-text-muted">
                   Duration
@@ -191,20 +224,20 @@ export function FeesAndBondInfo({ fees, bond }: FeesAndBondInfoProps) {
 
             {/* Bottom Note Box matching Image */}
             <div className="flex gap-2.5 p-3.5 rounded-xl bg-surface-container-low/50 text-text-secondary text-xs border border-border/40">
-              <FiInfo className="h-4.5 w-4.5 flex-shrink-0 text-primary mt-0.5" />
+              <MaterialSymbol name="info" className="mt-0.5 shrink-0 text-lg text-primary" />
               <span className="leading-normal font-medium text-text-secondary">
                 {getBondNote()}
               </span>
             </div>
           </div>
-        </Card>
-        
+        </DetailPanel>
+
       </div>
 
       {/* Exchange rate warning if NRI uses USD */}
       {isNriUsd && fees.quotaBreakdown?.nri?.amount && (
         <div className="flex items-start gap-2.5 p-4 rounded-xl border border-border bg-surface-container-low/50 text-xs text-text-muted leading-relaxed">
-          <FiInfo className="h-4 w-4 flex-shrink-0 text-primary mt-0.5" />
+          <MaterialSymbol name="info" className="mt-0.5 shrink-0 text-lg text-primary" />
           <div className="flex flex-col gap-0.5">
             <p className="font-semibold text-text-secondary">
               * Exchange Rate note: Foreign NRI tuition values are expressed in USD (e.g. {formatCurrency(fees.quotaBreakdown.nri.amount, "USD")}), and local facility costs are in INR.
@@ -228,7 +261,7 @@ function FeeDetailRow({
   isLast = false,
 }: FeeDetailRowProps) {
   return (
-    <div 
+    <div
       className={cn(
         "flex w-full",
         !isLast && "border-b border-border/80"
@@ -239,19 +272,9 @@ function FeeDetailRow({
         {label}
       </div>
       {/* Value cell: right, styled with light container background and primary brand color text */}
-      <div className="w-[62%] pl-8 pr-6 py-4 text-sm font-extrabold flex items-center bg-surface-container-low/40 text-brand-700">
+      <div className="w-[62%] pl-8 pr-6 py-4 text-sm font-extrabold flex items-center bg-surface-container-low/40 text-primary">
         {value}
       </div>
-    </div>
-  );
-}
-
-function CardSectionHeader({ title }: { title: string }) {
-  return (
-    <div className="px-6 py-4">
-      <h4 className="text-[10px] font-black tracking-widest uppercase text-text-muted">
-        {title}
-      </h4>
     </div>
   );
 }

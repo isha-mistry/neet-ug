@@ -21,7 +21,7 @@ import {
 import { Home05StateHub } from "./Home05StateHub";
 
 const sectionPad = "py-16 md:py-20 lg:py-24";
-const container = "mx-auto max-w-container-max px-gutter";
+const container = "ms-layout-page";
 
 const dotGridStyle = {
   backgroundImage:

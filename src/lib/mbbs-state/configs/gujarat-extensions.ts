@@ -139,8 +139,8 @@ export const GUJARAT_CONTENT_EXTENSIONS: MbbsStateContentExtensions = {
           cells: ["100", "15", "85", "15"],
         },
         {
-          college: "Government Medical College, Morbi",
-          slug: "government-medical-college-morbi",
+          college: "GMERS Medical College Morbi",
+          slug: "gmers-medical-college-morbi",
           cells: ["100", "15", "85", "15"],
         },
       ],

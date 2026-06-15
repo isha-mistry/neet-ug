@@ -11,6 +11,10 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:seed:catalog": "tsx scripts/catalog/seed-catalog.ts",
+    "db:seed:mp": "tsx scripts/catalog/seed-mp.ts",
+    "db:seed:mh": "tsx scripts/catalog/seed-mh.ts",
+    "db:reconcile:medical-list": "tsx scripts/catalog/reconcile-catalog-to-medical-list.ts",
+    "db:seed:rajasthan": "tsx scripts/catalog/seed-rajasthan.ts",
     "db:seed:nirf": "tsx scripts/catalog/seed-nirf-ranks.ts",
     "db:dump:local": "bash scripts/db/dump-local-catalog.sh",
     "db:restore:catalog": "bash scripts/db/restore-catalog-dump.sh"

@@ -23,7 +23,7 @@ import {
 } from "./Home01Forms";
 
 const sectionPad = "py-stack-lg";
-const container = "mx-auto max-w-container-max px-gutter";
+const container = "ms-layout-page";
 
 function StarRow() {
   return (

@@ -19,7 +19,7 @@ import {
 } from "./Home04Forms";
 
 const sectionPad = "py-16 md:py-20 lg:py-24";
-const container = "mx-auto max-w-container-max px-gutter";
+const container = "ms-layout-page";
 
 function SectionEyebrow({ children }: { children: ReactNode }) {
   return (
