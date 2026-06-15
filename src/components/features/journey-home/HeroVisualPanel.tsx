@@ -12,7 +12,7 @@ export function HeroVisualPanel() {
   return (
     <div className="hpanel reveal in">
       <span className="pl">
-        LIVE · <b>22,79,743 APPLICANTS → 1,28,875 SEATS</b>
+        LIVE · <b>22,79,743 APPLICANTS → 1,29,753 SEATS</b>
       </span>
       <HeroParticleStage onMorphPhaseChange={setMorphPhase} />
       <div className="hp-chip a">
@@ -20,7 +20,7 @@ export function HeroVisualPanel() {
         <span>wrote NEET 2026</span>
       </div>
       <div className="hp-chip b">
-        <b>1,28,875</b>
+        <b>1,29,753</b>
         <span>MBBS seats exist</span>
       </div>
       <div

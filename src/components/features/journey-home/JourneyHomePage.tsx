@@ -125,16 +125,16 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             </div>
             <div className="hero-mini">
               <div>
-                <b>200+</b>
+                <b>500+</b>
                 <span>Colleges covered</span>
               </div>
               <div>
-                <b>33,000+</b>
+                <b>43,000+</b>
                 <span>Seats mapped</span>
               </div>
               <div>
-                <b>3 yrs</b>
-                <span>Verified cutoff data</span>
+                <b>2025</b>
+                <span>Verified cutoff data (1 year)</span>
               </div>
             </div>
           </div>
@@ -149,18 +149,16 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             <span>NEET 2026 applicants</span>
           </div>
           <div className="tick">
-            <b data-count="128875">0</b>
+            <b data-count="129753">0</b>
             <span>MBBS seats in India</span>
           </div>
           <div className="tick">
-            <b data-count="33000" data-suffix="+">
-              0
-            </b>
+            <b data-count="33405">0</b>
             <span>seats in our 4 states</span>
           </div>
           <div className="tick">
             <b>
-              <span className="u">2.88</span>%
+              <span className="u">2.89</span>%
             </b>
             <span>get a government seat</span>
           </div>
@@ -230,7 +228,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 </div>
                 <div className="fv">22,79,743</div>
               </div>
-              <div className="card frow reveal" data-w="53">
+              <div className="card frow reveal" data-w="59">
                 <div className="fl">
                   Will qualify NEET
                   <small>Crossing the percentile only earns the right to compete</small>
@@ -238,7 +236,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 <div className="fbarw">
                   <i />
                 </div>
-                <div className="fv">~12,00,000</div>
+                <div className="fv">~13,50,000</div>
               </div>
               <div className="card frow reveal" data-w="5.7">
                 <div className="fl">
@@ -248,7 +246,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 <div className="fbarw">
                   <i />
                 </div>
-                <div className="fv">1,28,875</div>
+                <div className="fv">1,29,753</div>
               </div>
               <div className="card frow gold reveal" data-w="2.9">
                 <div className="fl">
@@ -258,7 +256,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 <div className="fbarw">
                   <i />
                 </div>
-                <div className="fv">63,682</div>
+                <div className="fv">63,860</div>
               </div>
             </div>
             <p className="fun-note">
@@ -297,9 +295,9 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             <div className="chband reveal">
               <span className="big">{JOURNEY_CHALLENGE_BAND.stat}</span>
               <p>
-                In Gujarat alone, <b>~50,000 students qualify NEET</b> each year competing for{" "}
-                <b>~3,675 state-quota government seats</b>. Getting the right seat is not just
-                about rank — it&apos;s about what you do with it.
+                In Gujarat alone, <b>roughly half of aspirants qualify NEET</b> each year,
+                competing for <b>7,500+ state quota seats</b> across 43 colleges. Getting the
+                right seat is not just about rank — it&apos;s about what you do with it.
               </p>
               <a className="btn" href={JOURNEY_CHALLENGE_BAND.href}>
                 {JOURNEY_CHALLENGE_BAND.cta}
