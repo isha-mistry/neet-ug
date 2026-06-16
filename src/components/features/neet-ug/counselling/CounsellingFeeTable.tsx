@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Card } from "@/components/ui/Card";
-import { MaterialSymbol } from "@/components/common/MaterialSymbol";
+import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { DataTable } from "@/components/features/neet-ug/shared/DataTable";
 
 export interface FeeItem {
   quota: string;
@@ -36,6 +35,40 @@ const feeData: FeeItem[] = [
   },
 ];
 
+const MCC_REFUND_POLICY = [
+  {
+    label: "Financial custodian",
+    text: (
+      <>
+        HLL Lifecare Ltd manages all payments and refunds. Contact:{" "}
+        <a
+          href="mailto:financemcc@lifecarehll.com"
+          className="font-semibold text-primary hover:underline"
+        >
+          financemcc@lifecarehll.com
+        </a>
+        .
+      </>
+    ),
+  },
+  {
+    label: "Refund account",
+    text: "Refundable deposits return only to the same card or bank account used at registration. Keep that account active for 1–2 years. Do not pay from cyber café or shared cards.",
+  },
+  {
+    label: "Chargebacks",
+    text: "Do not raise chargebacks with your bank — that blocks MCC’s direct refund and requires a bank NOC, which delays repayment.",
+  },
+  {
+    label: "NRI payments",
+    text: "Under RBI rules, deposits cannot be refunded to NRI accounts. Transfer funds to an NRO account, pay from NRO, and receive the refund into the same NRO account.",
+  },
+  {
+    label: "Duplicate payments",
+    text: "Refunded within 30 days after registration closes. HLL deducts 50% of the registration fee or ₹500 (whichever is less) as administrative charges.",
+  },
+] as const;
+
 function formatNumber(num: number): string {
   const str = num.toString();
   const lastThree = str.substring(str.length - 3);
@@ -47,81 +80,48 @@ function formatNumber(num: number): string {
 }
 
 export function CounsellingFeeTable() {
+  const feeRows = feeData.map((item) => ({
+    quota: item.quota,
+    category: item.category,
+    registrationFee: `₹${formatNumber(item.registrationFee)}`,
+    securityDeposit: `₹${formatNumber(item.securityDeposit)}`,
+    total: `₹${formatNumber(item.registrationFee + item.securityDeposit)}`,
+  }));
+
   return (
     <div className="flex flex-col gap-6">
-      {/* Table container */}
-      <div className="-mx-4 overflow-x-auto border-y border-clinical-outline bg-clinical-surface shadow-sm sm:mx-0 sm:rounded-lg sm:border">
-        <div className="min-w-[700px]">
-          <table className="w-full border-collapse text-left text-xs tabular-nums sm:text-sm">
-            <thead>
-              <tr className="border-b border-clinical-outline bg-clinical-surface-low text-[10px] font-extrabold uppercase tracking-widest text-clinical-muted/75">
-                <th className="py-4 px-4 sm:px-6">Quota / Type</th>
-                <th className="py-4 px-4 sm:px-6">Category</th>
-                <th className="py-4 px-4 sm:px-6 text-right">Registration Fee (Non-Refundable)</th>
-                <th className="py-4 px-4 sm:px-6 text-right">Security Deposit (Refundable)</th>
-                <th className="py-4 px-4 sm:px-6 text-right font-extrabold text-clinical-navy">Total Payment</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-clinical-outline">
-              {feeData.map((item, index) => {
-                const total = item.registrationFee + item.securityDeposit;
-                return (
-                  <tr
-                    key={index}
-                    className="hover:bg-clinical-surface-low/45 transition-colors"
-                  >
-                    <td className="py-4 px-4 font-extrabold text-clinical-navy sm:px-6">
-                      {item.quota}
-                    </td>
-                    <td className="py-4 px-4 font-semibold text-clinical-muted sm:px-6">{item.category}</td>
-                    <td className="py-4 px-4 text-right font-mono font-medium text-clinical-muted sm:px-6">
-                      ₹{formatNumber(item.registrationFee)}
-                    </td>
-                    <td className="py-4 px-4 text-right font-mono font-medium text-clinical-muted sm:px-6">
-                      ₹{formatNumber(item.securityDeposit)}
-                    </td>
-                    <td className="py-4 px-4 text-right font-mono font-extrabold text-clinical-navy sm:px-6">
-                      ₹{formatNumber(total)}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <DataTable
+        theme="guide"
+        scrollable
+        columns={[
+          { key: "quota", label: "Quota / type" },
+          { key: "category", label: "Category" },
+          { key: "registrationFee", label: "Registration (non-refundable)", align: "right" },
+          { key: "securityDeposit", label: "Security deposit (refundable)", align: "right" },
+          { key: "total", label: "Total payment", align: "right" },
+        ]}
+        rows={feeRows}
+        footnote="Pay using an account you control long-term — refunds go back to the same payment source only."
+      />
 
-      {/* Warning/Refund Alert Card */}
-      <Card
-        padded={false}
-        className="flex flex-col gap-3.5 rounded-lg border border-rose-100 bg-rose-50/20 p-5 shadow-sm w-full"
-      >
-        <div className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-rose-50 text-rose-600 ring-1 ring-rose-150">
-            <MaterialSymbol name="warning" size="sm" />
+      <GuideCard className="border-amber-200/80 bg-amber-50/40">
+        <h3 className="flex items-center gap-2 text-sm font-bold text-amber-950">
+          <span
+            className="material-symbols-outlined text-lg text-amber-800"
+            aria-hidden
+          >
+            payments
           </span>
-          <h4 className="text-xs font-extrabold uppercase tracking-wider text-rose-800">
-            MCC Refund Policy
-          </h4>
-        </div>
-        <div className="text-[11px] leading-relaxed text-clinical-muted space-y-2">
-          <p>
-            <strong>Financial Custodian:</strong> HLL Lifecare Ltd manages all payments &amp; refunds. Contact: <em>financemcc@lifecarehll.com</em>.
-          </p>
-          <p>
-            <strong>Refund Account:</strong> Refundable deposits are sent back ONLY to the exact card/bank account used during registration. Keep the account active for 1-2 years. Never pay using cyber cafe cards.
-          </p>
-          <p>
-            <strong>Chargebacks:</strong> Do NOT initiate chargeback claims through your bank; doing so blocks direct refund and requires an NOC from the bank, delaying refunds significantly.
-          </p>
-          <p>
-            <strong>NRI Payments:</strong> Deposits cannot be refunded to NRI Accounts under RBI rules. You must transfer funds NRI → NRO Account, pay via NRO, and receive the refund back into NRO.
-          </p>
-          <p>
-            <strong>Duplicate Payments:</strong> Refunded within 30 days of registration closing. HLL will deduct 50% of the registration fee or ₹500 (whichever is less) for administrative expenses.
-          </p>
-        </div>
-      </Card>
+          MCC refund policy
+        </h3>
+        <ul className="mt-4 space-y-3.5">
+          {MCC_REFUND_POLICY.map((item) => (
+            <li key={item.label} className="text-sm leading-relaxed text-on-surface-variant">
+              <span className="font-semibold text-on-surface">{item.label}:</span> {item.text}
+            </li>
+          ))}
+        </ul>
+      </GuideCard>
     </div>
   );
 }

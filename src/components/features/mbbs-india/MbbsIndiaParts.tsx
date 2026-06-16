@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { Container } from "@/components/common/Container";
 import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
 import { Button } from "@/components/ui/Button";
@@ -188,13 +188,17 @@ export function GuideCard({
   children,
   className,
   padding = true,
+  ...rest
 }: {
   children: ReactNode;
   className?: string;
   padding?: boolean;
-}) {
+} & ComponentPropsWithoutRef<"div">) {
   return (
-    <div className={cn(guideCardClass, !padding && "overflow-hidden p-0", className)}>
+    <div
+      className={cn(guideCardClass, !padding && "overflow-hidden p-0", className)}
+      {...rest}
+    >
       {children}
     </div>
   );
@@ -244,35 +248,62 @@ export function SubsectionTitle({ children }: { children: ReactNode }) {
 export function MetricGrid({ items }: { items: { label: string; value: string }[] }) {
   return (
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-      {items.map((s) => (
-        <div
-          key={s.label}
-          className="rounded-xl border border-outline-variant/30 bg-surface p-4 shadow-sm"
-        >
-          <p className="text-[10px] font-bold uppercase tracking-wider text-outline">
-            {s.label}
-          </p>
-          <p className="mt-2 text-2xl font-bold tabular-nums tracking-tight text-primary">
-            {s.value}
-          </p>
-        </div>
-      ))}
+      {items.map((s) => {
+        const multiline = s.value.includes("\n");
+        return (
+          <div
+            key={s.label}
+            className={summaryHighlightCardClass}
+          >
+            <p className="text-[10px] font-bold uppercase tracking-wider text-outline">
+              {s.label}
+            </p>
+            <p
+              className={cn(
+                "mt-2 font-bold text-primary text-2xl tabular-nums ",
+                multiline
+                  ? "leading-snug whitespace-pre-line"
+                  : "tracking-tight"
+              )}
+            >
+              {s.value}
+            </p>
+          </div>
+        );
+      })}
     </div>
   );
 }
 
-export function GuideSteps({ steps }: { steps: string[] }) {
+export function GuideSteps({
+  steps,
+  size = "default",
+}: {
+  steps: string[];
+  size?: "default" | "compact";
+}) {
+  const compact = size === "compact";
   return (
-    <ol className="space-y-4">
+    <ol className={cn("space-y-4", compact && "space-y-3")}>
       {steps.map((step, i) => (
         <li key={step} className="flex gap-3">
           <span
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-on-primary"
+            className={cn(
+              "flex shrink-0 items-center justify-center rounded-full bg-primary font-bold text-on-primary",
+              compact ? "h-6 w-6 text-[11px]" : "h-8 w-8 text-xs"
+            )}
             aria-hidden
           >
             {i + 1}
           </span>
-          <p className="pt-1 text-sm leading-relaxed text-on-surface-variant">{step}</p>
+          <p
+            className={cn(
+              "text-sm leading-relaxed text-on-surface-variant",
+              compact ? "pt-0.5" : "pt-1"
+            )}
+          >
+            {step}
+          </p>
         </li>
       ))}
     </ol>

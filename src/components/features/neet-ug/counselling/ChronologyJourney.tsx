@@ -90,7 +90,7 @@ const timelineSteps: TimelineStep[] = [
 
 export function ChronologyJourney() {
   return (
-    <div className="relative py-12 bg-background select-none">
+    <div className="relative select-none py-6 md:py-8">
       {/* Central Dotted Line (Desktop only) */}
       <div className="absolute left-1/2 top-0 bottom-0 w-0.5 border-l-2 border-dashed border-primary/20 -translate-x-1/2 hidden md:block" />
 
@@ -128,7 +128,7 @@ export function ChronologyJourney() {
               </div>
 
               {/* Center Circle Number */}
-              <div className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-on-primary font-bold text-sm flex items-center justify-center border-4 border-background z-10 hidden md:flex">
+              <div className="absolute left-1/2 z-10 hidden h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-4 border-surface bg-primary text-sm font-bold text-on-primary md:flex">
                 {step.centerNumber}
               </div>
 

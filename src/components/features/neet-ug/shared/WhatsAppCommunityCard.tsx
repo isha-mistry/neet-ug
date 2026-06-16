@@ -1,36 +1,48 @@
 "use client";
 
-import React from "react";
-import { Card } from "@/components/ui/Card";
+import { FiArrowRight } from "react-icons/fi";
+import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
 import { Button } from "@/components/ui/Button";
-import { MaterialSymbol } from "@/components/common/MaterialSymbol";
+import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
+import { cn } from "@/lib/utils";
 
-export function WhatsAppCommunityCard() {
+export function WhatsAppCommunityCard({ className }: { className?: string }) {
   return (
-    <Card
-      padded={false}
-      className="flex flex-col items-center gap-4 rounded-[12px] border border-slate-200 bg-white p-6 text-center shadow-sm"
-    >
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 ring-8 ring-emerald-50/50">
-        <MaterialSymbol name="forum" size="lg" />
-      </div>
-      <div>
-        <h3 className="text-[20px] font-extrabold leading-tight tracking-[-0.02em] text-slate-950">
-          Join WhatsApp Community
-        </h3>
-        <p className="mx-auto mt-2 max-w-[250px] text-xs leading-5 text-slate-500">
-          Get immediate push alerts, merit lists, PDF notices, and choice-filling guidelines directly on your phone.
+    <GuideCard className={className}>
+      <div className="flex flex-col gap-3">
+        <div className="flex items-center gap-3.5">
+          <span
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary-fixed text-secondary"
+            aria-hidden
+          >
+            <span className="material-symbols-outlined block text-[22px] leading-none">forum</span>
+          </span>
+          <div className="min-w-0 flex-1 space-y-1.5">
+            <span className="inline-flex w-fit items-center rounded-full bg-secondary-fixed/80 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-secondary">
+              Community
+            </span>
+            <h3 className="text-base font-bold leading-snug text-on-surface">
+              Join WhatsApp updates
+            </h3>
+          </div>
+        </div>
+        <p className="text-sm leading-relaxed text-on-surface-variant">
+          Merit lists, PDF notices, and choice-filling reminders — pushed when NTA and MCC publish.
         </p>
+        <Button
+          as="link"
+          href={COUNSEL_WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="primary"
+          size="md"
+          fullWidth
+          trailingIcon={<FiArrowRight className="text-lg" aria-hidden />}
+          className="h-11 w-full rounded-xl border-0 bg-[#22c55e] text-sm font-bold text-white shadow-[0_10px_28px_-12px_rgba(34,197,94,0.55)] hover:bg-[#1fb565]"
+        >
+          Join on WhatsApp
+        </Button>
       </div>
-      <Button
-        as="link"
-        href="https://wa.me/mock"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="h-11 w-full rounded-[10px] bg-[#22c66f] text-[13px] font-extrabold text-white shadow-none hover:bg-[#1fb565] active:bg-[#1b9f59]"
-      >
-        Join Channel Now
-      </Button>
-    </Card>
+    </GuideCard>
   );
 }

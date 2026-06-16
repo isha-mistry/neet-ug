@@ -1,356 +1,281 @@
 ﻿"use client";
 
-import React from "react";
 import Link from "next/link";
-import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { Container } from "@/components/common/Container";
-import { Section } from "@/components/common/Section";
-import { Card } from "@/components/ui/Card";
-import { MaterialSymbol } from "@/components/common/MaterialSymbol";
-import { NriCollegesGrid } from "@/components/features/neet-ug/NriCollegesGrid";
-import { SectionHeading } from "@/components/features/neet-ug/shared/SectionHeading";
-import { SidebarLeadCard } from "@/components/features/neet-ug/shared/SidebarLeadCard";
+import { GuidePageJumpNav } from "@/components/features/mbbs-india/GuidePageJumpNav";
+import {
+  GuideCard,
+  GuideSection,
+  GuideSteps,
+  MetricGrid,
+} from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
+import { NeetUgUpdatesSidebar } from "@/components/features/neet-ug/NeetUgUpdatesParts";
+import { NeetUgHubFinalCta, NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
 import { DataTable } from "@/components/features/neet-ug/shared/DataTable";
-import { InfoListCard } from "@/components/features/neet-ug/shared/InfoListCard";
+import { RpMarketingHero } from "@/components/features/rank-predictor/RankPredictorParts";
+import {
+  NEET_UG_NRI_AIQ_RULES,
+  NEET_UG_NRI_CERTIFICATE_BLOCKS,
+  NEET_UG_NRI_DOCUMENTS,
+  NEET_UG_NRI_ELIGIBILITY,
+  NEET_UG_NRI_HERO,
+  NEET_UG_NRI_JUMP_SECTIONS,
+  NEET_UG_NRI_KEY_STATS,
+  NEET_UG_NRI_LEAD_MAGNET,
+  NEET_UG_NRI_RELATED_LINKS,
+  NEET_UG_NRI_RESERVATION_ROWS,
+  NEET_UG_NRI_STATE_RULES,
+} from "@/lib/neet-ug-2026/nri-guide-content";
+import {
+  guideCardClass,
+  hubCardHoverClass,
+} from "@/lib/neet-ug-2026/section-styles";
+import { cn } from "@/lib/utils";
 
 export function NriAdmissionGuideView() {
-  const reservationPolicyRows = [
-    { category: "OBC-NCL (Other Backward Classes)", quota: "27%", type: "Vertical", _typeColor: "emerald", scope: "AIQ + State Quota", note: "Central list OBC only; state OBC lists differ" },
-    { category: "Scheduled Castes (SC)", quota: "15%", type: "Vertical", _typeColor: "emerald", scope: "AIQ + State Quota", note: "Certificate from competent state authority" },
-    { category: "Scheduled Tribes (ST)", quota: "7.5%", type: "Vertical", _typeColor: "emerald", scope: "AIQ + State Quota", note: "Certificate from competent state authority" },
-    { category: "Economically Weaker Section (EWS)", quota: "10%", type: "Vertical", _typeColor: "emerald", scope: "AIQ only (Central Institutions)", note: "Annual family income below ₹8 lakh; central list" },
-    { category: "Persons with Benchmark Disability (PwBD)", quota: "5%", type: "Horizontal", _typeColor: "amber", scope: "All categories", note: "Minimum 40% benchmark disability; must be NEET-eligible" },
-  ];
-
-  const certificateRequirements = [
-    {
-      icon: "account_balance",
-      title: "EWS Certificate",
-      color: "amber",
-      points: [
-        "Issued by Sub-Divisional Magistrate (SDM) / Tehsildar / BDO / District Magistrate",
-        "Annual family income below ₹8 lakh (all sources combined)",
-        "Family must not own agricultural land above 5 acres, residential flat above 1000 sq ft, or plot above 100 sq yd in notified municipalities",
-        "Valid for the financial year of issue only — must be renewed annually",
-        "Applicable only for Central institutions / AIQ; EWS state quota varies by state",
-      ],
-    },
-    {
-      icon: "groups_2",
-      title: "OBC-NCL Certificate",
-      color: "blue",
-      points: [
-        "Must be issued by Sub-Divisional Magistrate or equivalent — not Panchayat/Municipality",
-        "Must fall under the Central Government's OBC list (not just state list)",
-        "Creamy layer exclusion applies: annual family income must be below ₹8 lakh",
-        "Certificate must be in the prescribed format as per OM dated 14th October 2004",
-        "State-specific OBC certificates are not valid for Central institutions / AIQ counselling",
-      ],
-    },
-    {
-      icon: "accessible",
-      title: "PwBD Certificate",
-      color: "emerald",
-      points: [
-        "Minimum benchmark disability of 40% required for reservation eligibility",
-        "Certificate must be issued by a Central/State Government specialist hospital",
-        "Disability types: locomotor, visual, hearing, speech/language, intellectual disability",
-        "Candidates with benchmark disability must also clear NEET's minimum qualifying percentile",
-        "Medical Board of respective exam authorities may re-examine candidates at counselling",
-      ],
-    },
-    {
-      icon: "supervised_user_circle",
-      title: "SC / ST Certificate",
-      color: "rose",
-      points: [
-        "Must be issued by the District Collector / SDM / Tehsildar of the home district",
-        "Certificate must be in the central government-prescribed format for the respective category",
-        "State-specific formats may not be accepted at central counselling (MCC) — verify format",
-        "Must carry the official seal/stamp and be signed by a competent revenue officer",
-        "Carry original + minimum 2 self-attested copies for document verification at allotted college",
-      ],
-    },
-  ];
-
-  const CERT_COLOR_MAP: Record<string, { icon: string; card: string }> = {
-    amber: { icon: "bg-amber-50 text-amber-600 ring-amber-100 border-amber-100", card: "border-amber-100 bg-amber-50/20" },
-    blue: { icon: "bg-blue-50 text-blue-600 ring-blue-100 border-blue-100", card: "border-blue-100 bg-blue-50/20" },
-    emerald: { icon: "bg-emerald-50 text-emerald-600 ring-emerald-100 border-emerald-100", card: "border-emerald-100 bg-emerald-50/20" },
-    rose: { icon: "bg-rose-50 text-rose-600 ring-rose-100 border-rose-100", card: "border-rose-100 bg-rose-50/20" },
-  };
-
-  const nriEligibilityCriteria = [
-    {
-      icon: "flight",
-      title: "Category A: True NRI Candidates",
-      points: [
-        "Candidate holds a valid Indian passport and resides outside India (non-resident status as per IT Act).",
-        "Must have qualified NEET UG 2026 by scoring above the minimum qualifying percentile.",
-        "Must have completed 10+2 outside India with Physics, Chemistry, Biology, and English.",
-        "OCI (Overseas Citizens of India) and PIO (Persons of Indian Origin) cardholders are also eligible under this category.",
-      ],
-    },
-    {
-      icon: "family_restroom",
-      title: "Category B: NRI-Sponsored Candidates",
-      points: [
-        "Candidate is an Indian resident but sponsored by a first-degree NRI relative (parents, siblings, first cousins, or direct uncles/aunts).",
-        "Sponsor must provide a relationship affidavit, family tree verified by revenue officials, and copy of passport/visa.",
-        "Sponsor undertakes full responsibility to pay college fees in foreign currency (USD or equivalent).",
-        "Sponsorship must be renewed each academic year and verified by the concerned college's NRI committee.",
-      ],
-    },
-  ];
-
-  const reservationRules = [
-    {
-      title: "All India Quota (AIQ) - Central",
-      badge: "15%",
-      badgeColor: "bg-blue-50 text-blue-600",
-      iconColor: "text-blue-500",
-      padding: "pr-0 md:pr-6",
-      points: [
-        "SC 15%, ST 7.5%, OBC-NCL 27%, EWS 10% applied on AIQ seats in government colleges",
-        "Only Central list OBC (not state list) is valid for AIQ OBC reservation",
-        "No domicile or state residence required — open to all India",
-        "PwBD 5% horizontal reservation applied across all vertical categories",
-        "Eligible for AIIMS, JIPMER, Central Universities, Deemed universities",
-      ],
-    },
-    {
-      title: "State Quota (State-Specific Rules)",
-      badge: "85%",
-      badgeColor: "bg-teal-50 text-teal-600",
-      iconColor: "text-teal-500",
-      padding: "pt-5 md:pt-0 pl-0 md:pl-6",
-      points: [
-        "Domicile / residence certificate required for most states' government quota seats",
-        "State-specific OBC lists may differ from the central list — verify with DME",
-        "EWS income limit and certificate format may vary by state government notification",
-        "Some states have additional local reservations (e.g., NCC, sports, defence quota)",
-        "Managed by state DME / CET Cell — each has its own eligibility & document norms",
-      ],
-    },
-  ];
-
-  const nriDocuments = [
-    { icon: "badge", doc: "Valid Indian Passport (candidate's)" },
-    { icon: "card_membership", doc: "OCI / PIO Card (if applicable)" },
-    { icon: "description", doc: "NEET UG 2026 Scorecard" },
-    { icon: "school", doc: "10th & 12th Marksheets (foreign board, if applicable)" },
-    { icon: "home_work", doc: "NRI Sponsor's Passport & Valid Visa" },
-    { icon: "gavel", doc: "Relationship Affidavit (notarised)" },
-    { icon: "account_balance", doc: "Sponsor's Bank Statement (USD account)" },
-    { icon: "family_restroom", doc: "Family Tree Certificate (revenue officer verified)" },
-  ];
+  const reservationRows = NEET_UG_NRI_RESERVATION_ROWS.map((row) => ({ ...row }));
 
   return (
-    <>
-      <Section tone="default" className=" py-7 md:py-10">
-        <Container size="page" className="flex flex-col gap-10">
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "NEET UG 2026", href: "/neet-ug-2026" },
-              { label: "Reservation & NRI Guide" },
-            ]}
-          />
+    <NeetUg2026Shell>
+      <RpMarketingHero
+        id="top"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "NEET UG 2026", href: "/neet-ug-2026" },
+          { label: "Reservation & NRI guide" },
+        ]}
+        title={NEET_UG_NRI_HERO.title}
+        titleEmphasis={NEET_UG_NRI_HERO.titleEmphasis}
+        lede={NEET_UG_NRI_HERO.lede}
+        trio={NEET_UG_NRI_HERO.trio}
+        fine={NEET_UG_NRI_HERO.fine}
+      >
+        <NeetUgLeadMagnetPanel pageLabel="NEET UG 2026 NRI Guide" content={NEET_UG_NRI_LEAD_MAGNET} />
+      </RpMarketingHero>
 
-          {/* Header */}
-          <header className="max-w-3xl text-left">
-            <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-clinical-navy md:text-4xl lg:text-[44px]">
-              Reservation, Category Certificates<span className="block"> & NRI MBBS Admission</span>
-            </h1>
-            <p className="mt-3 max-w-2xl text-base font-normal leading-relaxed text-clinical-muted">
-              Understand NEET UG 2026 reservation policy, required category certificates, AIQ vs State quota differences, and the complete NRI MBBS admission process for Deemed & Private institutions.
-            </p>
-          </header>
+      <nav
+        aria-label="Page sections"
+        className="sticky top-16 z-30 border-b border-outline-variant/40 bg-surface/90 backdrop-blur-lg lg:hidden"
+      >
+        <Container size="2xl" className="py-3">
+          <GuidePageJumpNav variant="horizontal" jumpSections={NEET_UG_NRI_JUMP_SECTIONS} />
+        </Container>
+      </nav>
 
-          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
-            {/* ── Reservation Policy ─────────────────────────────────────── */}
-            <section className="flex flex-col gap-8">
-              <SectionHeading
-                icon="balance"
-                eyebrow="Reservation Policy"
-                title="Category & Reservation Framework"
-                description="Seat reservation in NEET UG 2026 is governed by central government rules for AIQ seats and respective state rules for state quota seats."
+      <Container size="2xl" className="pb-4 pt-6 md:pt-8">
+        <div className="mt-6 lg:hidden">
+          <NeetUgUpdatesSidebar />
+        </div>
+
+        <div className="mt-8 lg:mt-10 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)_minmax(17rem,20rem)] lg:items-start lg:gap-8 xl:grid-cols-[12.5rem_minmax(0,1fr)_22rem] xl:gap-10">
+          <aside
+            className={cn(
+              "sticky top-[4.25rem] z-20 hidden max-h-[calc(100dvh-4.5rem)] self-start overflow-y-auto overscroll-contain",
+              "lg:col-start-1 lg:row-start-1 lg:block lg:w-full"
+            )}
+          >
+            <GuidePageJumpNav variant="sidebar" jumpSections={NEET_UG_NRI_JUMP_SECTIONS} />
+          </aside>
+
+          <div className="min-w-0 lg:col-start-2 lg:row-start-1">
+            <GuideSection embedded id="at-a-glance" eyebrow="Snapshot" title="At a glance">
+              <MetricGrid
+                items={NEET_UG_NRI_KEY_STATS.map((s) => ({
+                  label: s.label,
+                  value: s.value,
+                }))}
               />
+            </GuideSection>
 
+            <GuideSection
+              embedded
+              id="reservation"
+              eyebrow="Reservation policy"
+              title="Category & reservation framework"
+              description="Central rules apply to MCC AIQ; state governments set norms for the remaining 85% quota."
+            >
               <DataTable
+                theme="guide"
+                scrollable
                 columns={[
                   { key: "category", label: "Category" },
                   { key: "quota", label: "Quota", badge: true, badgeVariant: "blue" },
-                  { key: "type", label: "Type", badge: true, badgeColorKey: "_typeColor" },
+                  { key: "type", label: "Type", badge: true, badgeColorKey: "typeColor" },
                   { key: "scope", label: "Scope" },
                   { key: "note", label: "Note" },
                 ]}
-                rows={reservationPolicyRows}
-                scrollable
+                rows={reservationRows}
               />
 
-              {/* AIQ vs State quota reservation */}
-              <div className="rounded-lg border border-clinical-outline bg-clinical-surface p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 ring-1 ring-indigo-100">
-                    <MaterialSymbol name="compare_arrows" size="sm" />
-                  </span>
-                  <h3 className="text-sm font-extrabold text-clinical-navy">AIQ vs State Quota Reservation Rules</h3>
-                </div>
-                <div className="grid grid-cols-1 gap-6 divide-y divide-clinical-outline md:grid-cols-2 md:divide-x md:divide-y-0">
-                  {reservationRules.map((rule, i) => (
-                    <div key={i} className={`flex flex-col gap-3 ${rule.padding}`}>
-                      <div className="flex items-center gap-2">
-                        <span className={`flex h-6 w-6 items-center justify-center rounded-md text-xs font-bold shrink-0 ${rule.badgeColor}`}>
-                          {rule.badge}
-                        </span>
-                        <h4 className="text-sm font-semibold text-clinical-navy">{rule.title}</h4>
-                      </div>
-                      <ul className="flex flex-col gap-2 text-xs text-clinical-muted">
-                        {rule.points.map((pt, j) => (
-                          <li key={j} className="flex items-center gap-2">
-                            <MaterialSymbol name="check_circle" size="sm" className={`${rule.iconColor} shrink-0 mt-0.5`} />
-                            {pt}
-                          </li>
-                        ))}
-                      </ul>
+              <GuideCard className="mt-6">
+                <h3 className="text-sm font-bold text-on-surface">AIQ vs state quota reservation</h3>
+                <div className="mt-5 grid gap-6 md:grid-cols-2 md:gap-8">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                      All India Quota (15%)
+                    </p>
+                    <div className="mt-3">
+                      <GuideSteps size="compact" steps={[...NEET_UG_NRI_AIQ_RULES]} />
                     </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <aside id="nri-counseling-form" className="flex flex-col gap-4 lg:sticky lg:top-24">
-              <SidebarLeadCard
-                theme="dark"
-                badgeIcon="workspace_premium"
-                badgeLabel="Premium NRI Support"
-                title="Need Expert Help?"
-                description="Talk to our medical counsellors for personalized NRI admission guidance."
-                ctaText="Request Premium Help"
-                successTitle="Admissions Request Logged!"
-                successDesc="A senior executive from our premium counseling cell will reach out within 12 business hours."
-              />
-              <div className="rounded-lg border border-clinical-outline bg-clinical-surface p-4 shadow-sm">
-                {["Expert Help", "Document Checklist", "Personal Mentor", "Premium Support"].map((item) => (
-                  <div key={item} className="flex items-center gap-3 border-b border-clinical-outline py-3 text-xs font-semibold text-clinical-muted last:border-b-0">
-                    <MaterialSymbol name="check_circle" size="sm" className="text-clinical-muted/70" />
-                    {item}
                   </div>
+                  <div className="md:border-l md:border-outline-variant/50 md:pl-8">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-secondary">
+                      State quota (85%)
+                    </p>
+                    <div className="mt-3">
+                      <GuideSteps size="compact" steps={[...NEET_UG_NRI_STATE_RULES]} />
+                    </div>
+                  </div>
+                </div>
+              </GuideCard>
+            </GuideSection>
+
+            <GuideSection
+              embedded
+              id="certificates"
+              eyebrow="Documents"
+              title="Category certificate requirements"
+              description="Wrong format or issuing authority can cancel your seat at verification — prepare before MCC or state login."
+            >
+              <div className="grid gap-4 md:grid-cols-2">
+                {NEET_UG_NRI_CERTIFICATE_BLOCKS.map((cert) => (
+                  <GuideCard key={cert.title} className="flex flex-col">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary"
+                        aria-hidden
+                      >
+                        <span className="material-symbols-outlined text-[22px] leading-none">
+                          {cert.icon}
+                        </span>
+                      </span>
+                      <h3 className="font-semibold text-on-surface">{cert.title}</h3>
+                    </div>
+                    <ul className="mt-4 space-y-2 text-sm leading-relaxed text-on-surface-variant">
+                      {cert.points.map((point) => (
+                        <li key={point} className="flex gap-2">
+                          <span className="text-primary" aria-hidden>
+                            ·
+                          </span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </GuideCard>
                 ))}
               </div>
-            </aside>
-          </div>
+            </GuideSection>
 
-          {/* ── Certificate Requirements ──────────────────────────────────── */}
-          <section className="flex flex-col gap-8">
-            <SectionHeading
-              icon="verified_user"
-              eyebrow="Documents"
-              title="Category Certificate Requirements"
-              description="Category certificates must be in the correct format and issued by the correct authority. Incorrect certificates lead to seat cancellation during verification."
-            />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {certificateRequirements.map((cert, i) => (
-                <div key={i} className={`rounded-lg border bg-clinical-surface p-6 shadow-sm transition-colors duration-200 hover:border-clinical-outline-strong ${CERT_COLOR_MAP[cert.color].card}`}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center border ring-1 ${CERT_COLOR_MAP[cert.color].icon}`}>
-                      <MaterialSymbol name={cert.icon} size="sm" />
-                    </div>
-                    <h4 className="text-sm font-extrabold text-clinical-navy">{cert.title}</h4>
-                  </div>
-                  <ul className="flex flex-col gap-2">
-                    {cert.points.map((pt, j) => (
-                      <li key={j} className="flex items-center gap-2 text-xs text-clinical-muted">
-                        <MaterialSymbol name="chevron_right" size="sm" className="text-slate-400 shrink-0 mt-0.5" />
-                        {pt}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* ── Divider ──────────────────────────────────────────────────── */}
-          <div className="relative">
-            <div className="border-t border-clinical-outline" />
-            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-clinical-background px-4 text-xs font-extrabold uppercase tracking-[0.16em] text-clinical-muted/70">
-              NRI Admission Section
-            </span>
-          </div>
-
-          {/* ── NRI Section Header ──────────────────────────────────────── */}
-          <div className="relative flex flex-col items-center justify-between gap-6 overflow-hidden rounded-xl border border-[#1f2a44] bg-clinical-dark p-6 text-white shadow-sm md:flex-row md:p-8">
-            <div className="flex flex-col gap-2 max-w-xl z-10">
-              <span className="inline-flex w-fit rounded-md bg-white/10 px-3 py-1 text-[10px] font-bold uppercase leading-none tracking-[0.12em] text-blue-100 ring-1 ring-white/20">Premium Admission Pathway</span>
-              <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-white">NRI MBBS Admission & Counselling Guide</h2>
-              <p className="text-blue-100/80 text-sm leading-relaxed">
-                Complete blueprint for Non-Resident Indians and NRI-sponsored candidates seeking MBBS seats in Deemed & Private institutions.
-              </p>
-            </div>
-            <Link
-              href="#nri-counseling-form"
-              className="z-10 inline-flex h-11 shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-white px-6 text-sm font-bold tracking-wide text-clinical-blue no-underline shadow-sm transition-colors hover:bg-slate-50 active:scale-[0.98]"
+            <GuideSection
+              embedded
+              id="nri-eligibility"
+              eyebrow="NRI admission"
+              title="NRI eligibility & sponsor framework"
+              description="Two candidate types qualify for NRI quota seats in Deemed and private colleges — both need a valid NEET UG 2026 score."
             >
-              Book NRI Consultation
-              <MaterialSymbol name="arrow_forward" size="sm" />
-            </Link>
+              <div className="rp-brand-gradient rp-brand-elevated relative mb-6 overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-8">
+                <p className="relative text-sm leading-relaxed text-on-primary/90">
+                  NRI and NRI-sponsored seats are filled through MCC for Deemed universities and
+                  through state portals for private colleges. Fees are typically in foreign currency
+                  with separate document verification.
+                </p>
+                <Link
+                  href="#top"
+                  className="relative mt-4 inline-flex items-center gap-1 text-sm font-bold text-on-primary underline-offset-2 hover:underline"
+                >
+                  Request NRI guidance in the hero form
+                  <span className="material-symbols-outlined text-base" aria-hidden>
+                    arrow_forward
+                  </span>
+                </Link>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                {NEET_UG_NRI_ELIGIBILITY.map((block) => (
+                  <GuideCard key={block.title}>
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary"
+                        aria-hidden
+                      >
+                        <span className="material-symbols-outlined text-[22px] leading-none">
+                          {block.icon}
+                        </span>
+                      </span>
+                      <h3 className="font-semibold text-on-surface">{block.title}</h3>
+                    </div>
+                    <div className="mt-4">
+                      <GuideSteps size="compact" steps={[...block.steps]} />
+                    </div>
+                  </GuideCard>
+                ))}
+              </div>
+            </GuideSection>
+
+            <GuideSection
+              embedded
+              id="nri-documents"
+              eyebrow="NRI quota"
+              title="Documents for NRI admission"
+              description="Keep originals and notarised copies ready for college and MCC verification."
+            >
+              <div className="grid gap-3 sm:grid-cols-2">
+                {NEET_UG_NRI_DOCUMENTS.map((doc) => (
+                  <GuideCard key={doc.label} className="flex items-center gap-3 py-4">
+                    <span
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-fixed text-primary"
+                      aria-hidden
+                    >
+                      <span className="material-symbols-outlined text-lg leading-none">
+                        {doc.icon}
+                      </span>
+                    </span>
+                    <span className="text-sm font-medium text-on-surface">{doc.label}</span>
+                  </GuideCard>
+                ))}
+              </div>
+            </GuideSection>
+
+            <GuideSection embedded id="related" eyebrow="More on MedSeat" title="Related guides">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {NEET_UG_NRI_RELATED_LINKS.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(guideCardClass, hubCardHoverClass, "group block no-underline")}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span
+                        className="material-symbols-outlined text-2xl text-primary"
+                        aria-hidden
+                      >
+                        {item.icon}
+                      </span>
+                      <div>
+                        <p className="font-semibold text-on-surface group-hover:text-primary">
+                          {item.label}
+                        </p>
+                        <p className="mt-1 text-xs leading-relaxed text-on-surface-variant">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </GuideSection>
+
+            <GuideSection embedded id="tools-cta" eyebrow="Plan ahead" title="Start with your score or rank">
+              <NeetUgHubFinalCta />
+            </GuideSection>
           </div>
 
-          {/* ── NRI Eligibility ──────────────────────────────────────────── */}
-          <section className="flex flex-col gap-8">
-            <SectionHeading
-              icon="manage_accounts"
-              eyebrow="NRI Eligibility"
-              title="NRI Eligibility & Sponsor Framework"
-              description="Two categories of candidates qualify for the NRI quota in Indian medical colleges. Both must have qualified NEET UG 2026."
-            />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {nriEligibilityCriteria.map((crit, i) => (
-                <InfoListCard
-                  key={i}
-                  iconName={crit.icon}
-                  title={crit.title}
-                  items={crit.points}
-                  listType="checkmarks"
-                />
-              ))}
-            </div>
-          </section>
-
-          {/* ── NRI Colleges & Documents ──────────────────────────────────── */}
-          <section className="flex flex-col gap-6">
-              <SectionHeading
-                icon="domain_add"
-                eyebrow="NRI Quota Colleges"
-                title="Documents Required for NRI Admission"
-                description="Average tuition fee structure and NRI seat availability for highly-rated private medical colleges."
-              />
-              {/* <NriCollegesGrid /> */}
-
-              {/* NRI Documents */}
-              <div className="flex flex-col gap-4 mt-2">
-                {/* <h3 className="flex items-center gap-2.5 text-base font-extrabold text-clinical-navy">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-clinical-surface text-clinical-muted ring-1 ring-clinical-outline">
-                    <MaterialSymbol name="description" size="sm" />
-                  </span>
-                  Documents Required for NRI Admission
-                </h3> */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {nriDocuments.map((d, i) => (
-                    <div key={i} className="flex items-center gap-3 rounded-lg border border-clinical-outline bg-clinical-surface p-4 shadow-sm">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-clinical-outline bg-clinical-surface-low text-clinical-blue">
-                        <MaterialSymbol name={d.icon} size="sm" />
-                      </div>
-                      <span className="text-xs font-semibold text-clinical-muted">{d.doc}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-          </section>
-        </Container>
-      </Section>
-    </>
+          <div className="hidden lg:col-start-3 lg:row-start-1 lg:mt-0 lg:block">
+            <NeetUgUpdatesSidebar />
+          </div>
+        </div>
+      </Container>
+    </NeetUg2026Shell>
   );
 }
