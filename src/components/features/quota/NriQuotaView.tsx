@@ -1,171 +1,202 @@
 "use client";
 
-import { QuotaHeader, QuotaCta } from "./QuotaShared";
-import { Container } from "@/components/common/Container";
-import { FiArrowRight, FiDownload, FiUser, FiDollarSign } from "react-icons/fi";
-import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { QuotaHeader, QuotaCta, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
 
-import { nriDocumentationCards as documentationCards, nriStatesData as nriStates } from "./content";
+import { nriDocumentationCards as documentationCards, nriStatesData as nriStates, quotaTheoryContent } from "./content";
 
 export function NriQuotaView() {
   return (
-    <div className="py-10 bg-background">
-      <Container size="page">
-        {/* Breadcrumbs */}
-        <div className="mb-8">
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Quotas", href: "/quota" },
-              { label: "NRI Quota" },
-            ]}
-          />
-        </div>
-
-        {/* Header */}
+    <QuotaPageShell current="NRI Quota" className="pb-8" containerClassName="py-8 animate-fadeIn">
         <QuotaHeader
-          eyebrow="GLOBAL ASPIRANTS"
+          eyebrow="Global Aspirants"
           title="NRI Quota"
           highlightedText="Admission Portal"
           description="A comprehensive guide for Non-Resident Indians (NRI), Overseas Citizens of India (OCI), and Persons of Indian Origin (PIO) seeking medical admissions in India. Understand eligibility, documentation, and state-wise allocations."
-          imageSrc="/brand/home/hero.png"
-          imageAlt="NRI admissions guidance"
+          eyebrowIcon="public"
+          watermarkIcon="public"
         />
 
         {/* Eligibility & Fees */}
-        <section className="mb-16">
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold font-headline-md text-on-surface">Eligibility &amp; Fees</h2>
-            <p className="text-sm text-on-surface-variant mt-1">
-              Core requirements for NRI/OCI/PIO candidates and financial commitments for medical courses.
-            </p>
+        <section className="mb-12">
+          <div className="mb-6">
+            <h2 className="font-headline-md text-headline-md text-on-surface mb-2 font-bold">Eligibility &amp; Fees</h2>
+            <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Core requirements for NRI/OCI/PIO candidates and financial commitments for medical courses.</p>
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-surface-container-lowest border border-outline-variant rounded-3xl p-6 md:p-8 hover:shadow-md transition-all flex flex-col">
-              <div className="p-3 bg-primary-fixed text-primary rounded-xl w-fit mb-6">
-                <FiUser className="text-xl" />
+            {/* Applicant Profile */}
+            <div className="flex h-full flex-col rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-colors hover:border-primary/50">
+              <div className="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mb-6 border border-primary-fixed-dim/20">
+                <span className="material-symbols-outlined text-primary text-[24px]">person</span>
               </div>
-              <h3 className="font-bold text-lg text-on-surface mb-4">Applicant Profile</h3>
-              <ul className="space-y-3 text-xs leading-relaxed text-on-surface-variant flex-1">
-                <li className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-sm text-primary mt-0.5">check_circle</span>
-                  <span>Includes NRI, OCI, and PIO candidates</span>
+              <h3 className="font-title-lg text-title-lg text-on-surface mb-4 font-bold">Applicant Profile</h3>
+              <ul className="space-y-4 flex-grow">
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Includes NRI, OCI, and PIO candidates</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-sm text-primary mt-0.5">check_circle</span>
-                  <span>Direct children or wards (Sponsorship rules vary by state)</span>
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Direct children or wards (Sponsorship rules vary by state)</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-sm text-primary mt-0.5">check_circle</span>
-                  <span>
-                    <strong>OCI/PIO Rules:</strong> OCI/PIO candidates registered before March 4, 2021 have the same seat claims as Indian citizens (eligible for both General and NRI seats). Later registrants can apply for NRI seats only.
-                  </span>
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"><strong>OCI/PIO Rules:</strong> OCI/PIO candidates registered before March 4, 2021 have the same seat claims as Indian citizens. Later registrants are eligible for NRI seats only.</span>
                 </li>
-                <li className="flex items-start gap-2 font-bold text-primary">
-                  <span className="material-symbols-outlined text-sm text-primary mt-0.5">check_circle</span>
-                  <span>NEET UG Qualification is Mandatory</span>
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                  <span className="font-body-sm text-body-sm text-primary font-bold leading-relaxed">NEET UG Qualification is Mandatory</span>
                 </li>
               </ul>
             </div>
 
-            <div className="bg-surface-container-lowest border border-outline-variant rounded-3xl p-6 md:p-8 hover:shadow-md transition-all flex flex-col">
-              <div className="p-3 bg-primary-fixed text-primary rounded-xl w-fit mb-6">
-                <FiDollarSign className="text-xl" />
+            {/* Financials */}
+            <div className="flex h-full flex-col rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-colors hover:border-tertiary/50">
+              <div className="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center mb-6 border border-tertiary-fixed-dim/20">
+                <span className="material-symbols-outlined text-tertiary text-[24px]">payments</span>
               </div>
-              <h3 className="font-bold text-lg text-on-surface mb-4">Financials</h3>
-              <div className="space-y-4 text-xs leading-relaxed flex-1">
+              <h3 className="font-title-lg text-title-lg text-on-surface mb-4 font-bold">Financials</h3>
+              <div className="space-y-6">
                 <div>
-                  <span className="block text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">Quota Restrictions</span>
-                  <p className="font-bold text-primary text-sm">
-                    No Categories (SC/ST/OBC)
-                  </p>
-                  <p className="text-on-surface-variant mt-0.5">All NRI seats are merit-based within the quota.</p>
+                  <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1 font-bold">Quota Restrictions</p>
+                  <p className="font-title-lg text-title-lg text-primary font-bold">No Categories (SC/ST/OBC)</p>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">All NRI seats are merit-based within the quota.</p>
                 </div>
-                <div className="pt-3 border-t border-outline-variant/60">
-                  <span className="block text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">Course Fee Range</span>
-                  <p className="font-bold text-on-surface text-sm">
-                    ₹12 Lakhs – ₹45 Lakhs per annum
-                  </p>
-                  <p className="text-on-surface-variant mt-0.5">Typically paid in USD or equivalent INR depending on college policy.</p>
+                <div className="pt-4 border-t border-outline-variant/60">
+                  <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1 font-bold">Course Fee Range</p>
+                  <p className="font-title-lg text-title-lg text-on-surface font-bold">₹12 Lakhs – ₹45 Lakhs per annum</p>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">Typically paid in USD or equivalent INR depending on college policy.</p>
                 </div>
-                <div className="pt-3 border-t border-outline-variant/60">
-                  <span className="block text-[10px] font-bold text-error uppercase tracking-wider mb-1">Refund Account Rule</span>
-                  <p className="font-bold text-error text-[11px]">
-                    NRO Account Required
-                  </p>
-                  <p className="text-on-surface-variant mt-0.5">Security deposits/fees refunds for NRI candidates must be routed through NRO accounts as per banking guidelines.</p>
+                <div className="p-4 bg-error-container/15 border border-error/20 rounded-lg shadow-sm">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="material-symbols-outlined text-error text-[20px] shrink-0">warning</span>
+                    <p className="font-label-md text-label-md text-error uppercase tracking-wider font-bold">Refund Account Rule</p>
+                  </div>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"><strong>NRO Account Required:</strong> Security deposits/fees refunds for NRI candidates must be routed through NRO accounts as per banking guidelines.</p>
                 </div>
               </div>
+            </div>
+
+          </div>
+        </section>
+
+        <section className="mb-12">
+          <QuotaInfoGrid
+            columns="three"
+            items={[
+              {
+                icon: "family_restroom",
+                title: "Sponsor link must be defensible",
+                body: "Keep relationship documents, passports, visa records, and sponsor undertaking ready. Weak or distant sponsorship claims are commonly rejected.",
+              },
+              {
+                icon: "account_balance_wallet",
+                title: "Payment mode varies",
+                body: "Some colleges ask for USD, some allow equivalent INR, and refund routing may require NRO banking details. Confirm before allotment reporting.",
+              },
+              {
+                icon: "travel_explore",
+                title: "State policies differ",
+                body: "NRI quota eligibility, sponsor definitions, embassy attestation, and priority order are not identical across states and deemed universities.",
+              },
+            ]}
+          />
+        </section>
+
+        <QuotaTheoryPanel className="mb-12" {...quotaTheoryContent.nri} />
+
+        {/* Enriched Sponsor Relationship Section */}
+        <section className="mb-12 space-y-4 rounded-2xl border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-clinical-soft">
+          <PremiumSectionHeader icon="family_history" title="Supreme Court Sponsorship Relationship Rules" subtitle="As per the landmark Anshul Tomar judgment" />
+          <div className="space-y-4 rounded-xl border border-outline-variant bg-surface-container-low p-5">
+            <p className="text-body-sm text-on-surface-variant leading-relaxed">
+              To claim a seat under the NRI Quota, the sponsor must be a first-degree relative or a close relative who can demonstrate clear kinship and intent to support the candidate. Acceptable relationships include:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-on-surface-variant">
+              <div className="p-3 bg-surface-container rounded-lg border border-outline-variant/35">
+                <strong className="text-on-surface block mb-1">Direct Family</strong>
+                Parents, step-parents, real brothers, real sisters, and spouse.
+              </div>
+              <div className="p-3 bg-surface-container rounded-lg border border-outline-variant/35">
+                <strong className="text-on-surface block mb-1">Paternal / Maternal</strong>
+                Grandparents, real paternal/maternal uncles, and real paternal/maternal aunts.
+              </div>
+              <div className="p-3 bg-surface-container rounded-lg border border-outline-variant/35">
+                <strong className="text-on-surface block mb-1">Cousins</strong>
+                Direct children of your father&apos;s or mother&apos;s real siblings (first-cousins).
+              </div>
+            </div>
+            <div className="p-3 bg-error-container/10 border-l-4 border-error text-xs text-on-error-container">
+              <strong>Caution:</strong> Sponsorships from distant relatives, family friends, or corporate entities are strictly rejected during online and physical document verification.
             </div>
           </div>
         </section>
 
-        {/* Mandatory Documentation */}
-        <section className="mb-16">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        {/* Mandatory Documentation Grid */}
+        <section className="mb-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
             <div>
-              <h2 className="text-2xl font-bold font-headline-md text-on-surface">Mandatory Documentation</h2>
-              <p className="text-sm text-on-surface-variant mt-1">
-                Ensure all sponsor documents are attested by the Indian Embassy or Consulate. Original Demand Draft (DD) details must be strictly followed.
-              </p>
+              <h2 className="font-headline-md text-headline-md text-on-surface mb-2 font-bold">Mandatory Documentation</h2>
+              <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Ensure all sponsor documents are attested by the Indian Embassy or Consulate.</p>
             </div>
-            <button className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-primary hover:underline bg-primary-fixed rounded-lg">
-              <FiDownload className="text-sm" />
+            <button className="flex items-center gap-2 text-primary font-label-md text-label-md hover:underline font-bold uppercase tracking-wider bg-primary/5 px-4 py-2 rounded-lg border border-primary/20 active:scale-95 transition-all">
+              <span className="material-symbols-outlined text-[18px]">download</span>
               Download PDF Checklist
             </button>
           </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {documentationCards.map((card, idx) => (
-              <div key={idx} className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 hover:shadow-md transition-all text-center flex flex-col items-center">
-                <div className="p-3 bg-primary-fixed text-primary rounded-xl mb-4">
-                  <span className="material-symbols-outlined text-xl">{card.icon}</span>
-                </div>
-                <h4 className="font-bold text-xs text-on-surface mb-2">{card.title}</h4>
-                <p className="text-[10px] text-on-surface-variant leading-relaxed text-center">
-                  {card.desc}
-                </p>
+              <div key={idx} className="cursor-default rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 text-center shadow-clinical-soft transition-colors duration-300 hover:border-primary/40 hover:bg-surface-container-low">
+                <span className="material-symbols-outlined text-primary mb-4 text-[32px]">{card.icon}</span>
+                <h4 className="font-label-md text-label-md text-on-surface mb-2 font-bold tracking-wide">{card.title}</h4>
+                <p className="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">{card.desc}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* State-wise Seat Distribution */}
-        <section className="mb-20">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold font-headline-md text-on-surface">State-wise Seat Distribution</h2>
-            <p className="text-sm text-on-surface-variant mt-1">
-              Comparative analysis of NRI seat availability and expected NEET ranks for key medical hubs.
-            </p>
-          </div>
+        <QuotaProcessList
+          className="mb-12"
+          title="NRI Documentation Flow"
+          subtitle="A practical sequence for avoiding verification delays."
+          steps={[
+            { title: "Establish candidate status", body: "Identify whether the applicant is NRI, OCI, PIO, or sponsored ward, because each route has different proof requirements." },
+            { title: "Prove sponsor relationship", body: "Collect birth certificates, passports, family tree affidavits, and embassy-attested declarations that show a clear relationship chain." },
+            { title: "Confirm financial support", body: "Keep sponsor income proof, bank statements, undertaking, and fee payment readiness aligned with the college's permitted currency." },
+            { title: "Upload and carry originals", body: "Upload legible scans during registration and carry originals plus notarized or embassy-attested copies during physical reporting." },
+          ]}
+        />
 
-          <div className="overflow-hidden border border-outline-variant rounded-2xl bg-surface-container-lowest shadow-sm">
+        {/* State-wise Seat Distribution Table */}
+        <section className="mb-12">
+          <div className="mb-6">
+            <h2 className="font-headline-md text-headline-md text-on-surface mb-2 font-bold">State-wise Seat Distribution</h2>
+            <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Comparative analysis of NRI seat availability and expected NEET ranks for key medical hubs.</p>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-clinical-soft">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-surface-container-low text-on-surface-variant font-bold text-xs uppercase border-b border-outline-variant">
-                    <th className="px-6 py-4">State</th>
-                    <th className="px-6 py-4">Seats &amp; Rank</th>
-                    <th className="px-6 py-4">Financials / Authority</th>
-                    <th className="px-6 py-4">Key Characteristic</th>
-                    <th className="px-6 py-4 text-right">Action</th>
+                  <tr className="bg-surface-container-high">
+                    <th className="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold">State</th>
+                    <th className="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold">Seats &amp; Rank</th>
+                    <th className="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold">Financials / Authority</th>
+                    <th className="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold">Key Characteristic</th>
+                    <th className="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold text-right">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-outline-variant/60 text-sm">
+                <tbody className="divide-y divide-outline-variant">
                   {nriStates.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-surface-container-lowest/50 transition-colors">
-                      <td className="px-6 py-4 font-semibold text-on-surface">{row.state}</td>
+                    <tr key={idx} className="hover:bg-surface-container-low transition-colors group cursor-pointer even:bg-surface-bright">
+                      <td className="px-6 py-4 font-title-lg text-title-lg text-on-surface font-bold">{row.state}</td>
                       <td className="px-6 py-4">
-                        <div className="font-bold text-on-surface">{row.seats}</div>
-                        <div className="text-[10px] text-text-muted">{row.rank}</div>
+                        <p className="font-title-lg text-title-lg text-primary font-bold">{row.seats}</p>
+                        <p className="font-body-sm text-body-sm text-on-surface-variant">{row.rank}</p>
                       </td>
-                      <td className="px-6 py-4 text-on-surface-variant">{row.financials}</td>
-                      <td className="px-6 py-4 text-on-surface-variant font-medium italic">{row.characteristic}</td>
+                      <td className="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant leading-relaxed">{row.financials}</td>
+                      <td className="px-6 py-4 italic font-body-sm text-body-sm text-secondary">{row.characteristic}</td>
                       <td className="px-6 py-4 text-right">
-                        <button className="p-1.5 hover:bg-surface-container-low rounded-lg transition-colors text-primary cursor-pointer">
-                          <FiArrowRight />
-                        </button>
+                        <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
                       </td>
                     </tr>
                   ))}
@@ -175,19 +206,19 @@ export function NriQuotaView() {
           </div>
         </section>
 
-        {/* CTA Banner */}
+        {/* NRI Eligibility Consultation CTA */}
         <QuotaCta
           title="Confused about NRI Eligibility?"
-          description="Get a 1-on-1 consultation with our medical admission experts to verify your documents and sponsorship status."
+          description="Get a 1-on-1 consultation with our medical admission experts to verify your documents, sponsorship status, and build a strategic preference list for NRI quota rounds."
           actions={[
             {
               label: "Book Expert Call",
               href: "#",
               variant: "primary",
-            },
+            }
           ]}
         />
-      </Container>
-    </div>
+
+    </QuotaPageShell>
   );
 }

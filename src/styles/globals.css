@@ -9,106 +9,107 @@
 
 @theme inline {
   /* Map MedSeat tokens to Tailwind utilities. */
-  --color-background: #f8f9fb;
+  --color-background: #f7f9fb;
   --color-on-background: #191c1e;
-  --color-surface: #f8f9fb;
-  --color-surface-dim: #d9dadc;
-  --color-surface-bright: #f8f9fb;
+  --color-surface: #f7f9fb;
+  --color-surface-dim: #d8dadc;
+  --color-surface-bright: #f7f9fb;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f3f4f6;
-  --color-surface-container: #edeef0;
-  --color-surface-container-high: #e7e8ea;
-  --color-surface-container-highest: #e1e2e4;
+  --color-surface-container-low: #f2f4f6;
+  --color-surface-container: #eceef0;
+  --color-surface-container-high: #e6e8ea;
+  --color-surface-container-highest: #e0e3e5;
   --color-on-surface: #191c1e;
-  --color-on-surface-variant: #434654;
-  --color-inverse-surface: #2e3132;
-  --color-inverse-on-surface: #f0f1f3;
-  --color-outline: #737685;
-  --color-outline-variant: #e1e4e8;
-  --color-surface-tint: #2546d0;
-  --color-primary: #2546d0;
+  --color-on-surface-variant: #434655;
+  --color-inverse-surface: #2d3133;
+  --color-inverse-on-surface: #eff1f3;
+  --color-outline: #737686;
+  --color-outline-variant: #c3c6d7;
+  --color-surface-tint: #0053db;
+  --color-primary: #004ac6;
   --color-on-primary: #ffffff;
-  --color-primary-container: #d6e2ff;
-  --color-on-primary-container: #0e1b33;
-  --color-primary-hover: #1e3bad;
-  --color-primary-pressed: #0f2c9c;
-  --color-inverse-primary: #b2c5ff;
-  --color-secondary: #00687b;
+  --color-primary-container: #2563eb;
+  --color-on-primary-container: #eeefff;
+  --color-primary-hover: #003ea8;
+  --color-primary-pressed: #00174b;
+  --color-inverse-primary: #b4c5ff;
+  --color-secondary: #565e74;
   --color-on-secondary: #ffffff;
-  --color-secondary-container: #50dcff;
-  --color-on-secondary-container: #005f71;
-  --color-tertiary: #5e3c00;
+  --color-secondary-container: #dae2fd;
+  --color-on-secondary-container: #5c647a;
+  --color-tertiary: #006242;
   --color-on-tertiary: #ffffff;
-  --color-tertiary-container: #7d5200;
-  --color-on-tertiary-container: #ffca81;
+  --color-tertiary-container: #007d55;
+  --color-on-tertiary-container: #bdffdb;
   --color-error: #ba1a1a;
   --color-on-error: #ffffff;
   --color-error-container: #ffdad6;
   --color-on-error-container: #93000a;
-  --color-primary-fixed: #eaf0ff;
-  --color-primary-fixed-dim: #bbd0ff;
-  --color-on-primary-fixed: #0e1b33;
-  --color-on-primary-fixed-variant: #1e3bad;
-  --color-secondary-fixed: #afecff;
-  --color-secondary-fixed-dim: #48d7f9;
-  --color-on-secondary-fixed: #001f27;
-  --color-on-secondary-fixed-variant: #004e5d;
-  --color-tertiary-fixed: #ffddb3;
-  --color-tertiary-fixed-dim: #ffb950;
-  --color-on-tertiary-fixed: #291800;
-  --color-on-tertiary-fixed-variant: #624000;
-  --color-surface-variant: #e1e2e4;
+  --color-primary-fixed: #dbe1ff;
+  --color-primary-fixed-dim: #b4c5ff;
+  --color-on-primary-fixed: #00174b;
+  --color-on-primary-fixed-variant: #003ea8;
+  --color-secondary-fixed: #dae2fd;
+  --color-secondary-fixed-dim: #bec6e0;
+  --color-on-secondary-fixed: #131b2e;
+  --color-on-secondary-fixed-variant: #3f465c;
+  --color-tertiary-fixed: #6ffbbe;
+  --color-tertiary-fixed-dim: #4edea3;
+  --color-on-tertiary-fixed: #002113;
+  --color-on-tertiary-fixed-variant: #005236;
+  --color-surface-variant: #e0e3e5;
 
-  /* Typography */
+  /* Typography Families */
   --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display-lg: var(--font-inter), system-ui, sans-serif;
+  --font-headline-md: var(--font-inter), system-ui, sans-serif;
+  --font-headline-sm: var(--font-inter), system-ui, sans-serif;
+  --font-title-lg: var(--font-inter), system-ui, sans-serif;
   --font-body-md: var(--font-inter), system-ui, sans-serif;
-  --font-headline-xl: var(--font-hanken-grotesk), system-ui, sans-serif;
-  --font-headline-lg: var(--font-hanken-grotesk), system-ui, sans-serif;
-  --font-headline-lg-mobile: var(--font-hanken-grotesk), system-ui, sans-serif;
-  --font-headline-md: var(--font-hanken-grotesk), system-ui, sans-serif;
+  --font-body-sm: var(--font-inter), system-ui, sans-serif;
   --font-label-md: var(--font-inter), system-ui, sans-serif;
   --font-label-sm: var(--font-inter), system-ui, sans-serif;
-  --font-body-lg: var(--font-inter), system-ui, sans-serif;
-  --font-body-sm: var(--font-inter), system-ui, sans-serif;
+  --font-headline-md-mobile: var(--font-inter), system-ui, sans-serif;
 
-  --text-label-sm: 12px;
-  --text-label-sm--line-height: 14px;
-  --text-label-sm--font-weight: 500;
+  /* Typography Sizes & Settings */
+  --text-display-lg: 36px;
+  --text-display-lg--line-height: 44px;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 700;
 
-  --text-headline-lg: 32px;
-  --text-headline-lg--line-height: 40px;
-  --text-headline-lg--letter-spacing: -0.01em;
-  --text-headline-lg--font-weight: 600;
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-md--letter-spacing: -0.01em;
+  --text-headline-md--font-weight: 600;
 
-  --text-label-md: 14px;
-  --text-label-md--line-height: 16px;
-  --text-label-md--letter-spacing: 0.05em;
-  --text-label-md--font-weight: 600;
+  --text-headline-sm: 20px;
+  --text-headline-sm--line-height: 28px;
+  --text-headline-sm--font-weight: 600;
 
-  --text-body-lg: 18px;
-  --text-body-lg--line-height: 28px;
-  --text-body-lg--font-weight: 400;
-
-  --text-headline-xl: 48px;
-  --text-headline-xl--line-height: 56px;
-  --text-headline-xl--letter-spacing: -0.02em;
-  --text-headline-xl--font-weight: 700;
+  --text-title-lg: 18px;
+  --text-title-lg--line-height: 24px;
+  --text-title-lg--font-weight: 600;
 
   --text-body-md: 16px;
   --text-body-md--line-height: 24px;
   --text-body-md--font-weight: 400;
 
-  --text-headline-lg-mobile: 28px;
-  --text-headline-lg-mobile--line-height: 36px;
-  --text-headline-lg-mobile--font-weight: 600;
-
-  --text-headline-md: 24px;
-  --text-headline-md--line-height: 32px;
-  --text-headline-md--font-weight: 600;
-
   --text-body-sm: 14px;
   --text-body-sm--line-height: 20px;
   --text-body-sm--font-weight: 400;
+
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--letter-spacing: 0.05em;
+  --text-label-md--font-weight: 600;
+
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 14px;
+  --text-label-sm--font-weight: 500;
+
+  --text-headline-md-mobile: 20px;
+  --text-headline-md-mobile--line-height: 28px;
+  --text-headline-md-mobile--font-weight: 600;
 
   /* Legacy aliases mapped to new Material 3 theme to maintain one color pattern */
   --color-text: var(--color-on-background);

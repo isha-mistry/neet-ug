@@ -1,147 +1,241 @@
 "use client";
 
-import { QuotaHeader } from "./QuotaShared";
-import { Container } from "@/components/common/Container";
-import { FiExternalLink } from "react-icons/fi";
-import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { QuotaHeader, QuotaCta, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
+import { DocumentChecklistWidget } from "./MccContentBlocks";
 
-import { resourceData, topPortals } from "./content";
+import { quotaTheoryContent, resourceData, topPortals } from "./content";
 
 export function CounsellingResourcesView() {
   return (
-    <div className="py-10 bg-background animate-fadeIn">
-      <Container size="page">
-        {/* Breadcrumbs */}
-        <div className="mb-8">
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Quotas", href: "/quota" },
-              { label: "Counselling Resources" },
-            ]}
-          />
+    <QuotaPageShell current="Counselling Resources" className="pb-8" containerClassName="py-8 animate-fadeIn">
+        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6">
+          {/* Left Content Area (8 Columns) */}
+          <div className="lg:col-span-8 space-y-12">
+
+            {/* Hero Section */}
+            <QuotaHeader
+              eyebrow="Verified Gateways"
+              title="Official Counselling"
+              highlightedText="Gateways"
+              description="Access authenticated portals for medical admissions. We maintain live links to central and state authorities to ensure you never miss a deadline."
+              eyebrowIcon="verified"
+              watermarkIcon="map"
+            />
+
+            <QuotaInfoGrid
+              items={[
+                {
+                  icon: "security",
+                  title: "Use official domains only",
+                  body: "Before entering credentials or making payment, verify the domain, SSL certificate, and authority name against the admission bulletin.",
+                },
+                {
+                  icon: "notifications_active",
+                  title: "Track notices daily",
+                  body: "Counselling bodies may publish corrected schedules, revised seat matrices, and extension notices with little lead time.",
+                },
+                {
+                  icon: "folder_copy",
+                  title: "Keep evidence organized",
+                  body: "Save registration forms, payment receipts, choice-locking slips, allotment letters, and reporting acknowledgements round-wise.",
+                },
+              ]}
+            />
+
+            <QuotaTheoryPanel {...quotaTheoryContent.resources} />
+
+            {/* Central Portals Section */}
+            <section className="overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-clinical-soft" id="central-portals">
+              <div className="p-6 bg-surface-container-low border-b border-outline-variant flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary-container text-on-primary-container rounded-lg flex items-center justify-center">
+                    <span className="material-symbols-outlined">account_balance</span>
+                  </div>
+                  <h2 className="font-headline-sm text-headline-sm text-on-surface m-0">Central &amp; National Portals</h2>
+                </div>
+                <span className="text-label-md text-on-surface-variant font-bold tracking-wider uppercase">{resourceData.central?.length || 0} Gateways Active</span>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-surface-container-lowest border-b border-outline-variant">
+                      <th className="px-6 py-4 font-label-md text-on-surface-variant tracking-wider uppercase">Authority</th>
+                      <th className="px-6 py-4 font-label-md text-on-surface-variant tracking-wider uppercase">Primary Usage</th>
+                      <th className="px-6 py-4 font-label-md text-on-surface-variant tracking-wider uppercase text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-outline-variant">
+                    {resourceData.central?.map((row, idx) => {
+                      const authorityParts = row.body.split(" ");
+                      const abbr = authorityParts[0];
+                      const fullForm = authorityParts.slice(1).join(" ").replace(/^\((.*)\)$/, "$1");
+                      return (
+                      <tr key={idx} className="hover:bg-surface-container-low transition-colors group">
+                        <td className="px-6 py-5">
+                          <div className="font-title-lg text-title-lg font-bold text-on-surface">{abbr}</div>
+                          {fullForm && <div className="text-body-sm text-on-surface-variant max-w-[200px]">{fullForm}</div>}
+                        </td>
+                        <td className="px-6 py-5">
+                          <p className="text-body-sm text-on-surface-variant max-w-sm">{row.usage}</p>
+                        </td>
+                        <td className="px-6 py-5 text-right whitespace-nowrap">
+                          <a className="inline-flex items-center gap-2 text-primary font-bold hover:underline" href={row.url} target="_blank" rel="noopener noreferrer">
+                            Open Portal <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+                          </a>
+                        </td>
+                      </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            {/* State Portals Section */}
+            <section className="space-y-6" id="state-portals">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-tertiary-container text-on-tertiary-container rounded-lg flex items-center justify-center">
+                  <span className="material-symbols-outlined">map</span>
+                </div>
+                <h2 className="font-headline-md text-headline-md text-on-surface m-0">State-Specific Resources</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {Object.entries(resourceData)
+                  .filter(([key]) => key !== "central")
+                  .map(([key, rows]) => {
+                    const stateName = key === "mp" ? "Madhya Pradesh" : key.charAt(0).toUpperCase() + key.slice(1);
+                    return rows.map((row, idx) => (
+                      <div key={`${key}-${idx}`} className="flex flex-col justify-between rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+                        <div>
+                          <div className="flex items-center justify-between mb-6">
+                            <div className="font-headline-sm text-headline-sm font-bold text-primary">{stateName}</div>
+                            <span className="bg-tertiary/10 text-tertiary text-label-md px-3 py-1 rounded-full whitespace-nowrap">State Quota</span>
+                          </div>
+                          <div className="space-y-4 mb-6">
+                            <div>
+                              <div className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider mb-1">Governing Body</div>
+                              <div className="text-body-md font-medium text-on-surface">{row.body}</div>
+                            </div>
+                            <div>
+                              <div className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider mb-1">Primary Usage</div>
+                              <p className="text-body-sm text-on-surface-variant">{row.usage}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <a className="mt-auto flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 font-bold text-on-primary transition-colors hover:bg-primary-hover" href={row.url} target="_blank" rel="noopener noreferrer">
+                          Open Portal
+                          <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+                        </a>
+                      </div>
+                    ));
+                })}
+              </div>
+            </section>
+
+            {/* Document Checklist Integration */}
+            <section id="documents" className="pt-4">
+              <DocumentChecklistWidget />
+            </section>
+
+            <QuotaProcessList
+              title="Portal Safety Workflow"
+              subtitle="Use this every time you register, pay, or lock choices."
+              steps={[
+                { title: "Open from verified link", body: "Use the official portal link from MCC, state DME, or university bulletin rather than search ads or forwarded messages." },
+                { title: "Check candidate details", body: "Confirm NEET roll number, category, PwD status, mobile number, and email before paying registration fees." },
+                { title: "Download receipts", body: "Immediately save payment confirmation, application form, and locked-choice PDF after every submission." },
+                { title: "Watch correction notices", body: "Revisit the notice board after submission because seat matrix and schedule changes can alter strategy." },
+              ]}
+            />
+
+            {/* Help Banner */}
+            <QuotaCta
+              title="Need professional guidance?"
+              description="Our expert counselors help you navigate these portals with choice filling strategies and merit list analysis."
+              actions={[
+                {
+                  label: "Free Counselling",
+                  href: "#",
+                  variant: "primary",
+                },
+                {
+                  label: "Compare Portals",
+                  href: "#",
+                  variant: "secondary",
+                }
+              ]}
+            />
+          </div>
+
+          {/* Right Sidebar Area (4 Columns) */}
+          <div className="lg:col-span-4 space-y-6">
+            <div className="sticky top-24 space-y-6">
+
+              {/* On this page Navigation */}
+              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft">
+                <h3 className="text-label-sm text-on-surface-variant uppercase tracking-widest font-bold mb-4">On this page</h3>
+                <nav className="space-y-1">
+                  <a className="block py-2 px-3 rounded-lg text-primary bg-primary/5 font-bold border-l-4 border-primary" href="#central-portals">Central Portals</a>
+                  <a className="block py-2 px-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-medium" href="#state-portals">State Resources</a>
+                  <a className="block py-2 px-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-medium" href="#documents">Document Checklist</a>
+                  <a className="block py-2 px-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-medium" href="#top-verified">Top Verified Portals</a>
+                </nav>
+              </div>
+
+              {/* Expert Support Card */}
+              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft">
+                <h3 className="font-headline-sm text-headline-sm text-on-surface mb-2 font-bold">Book free counselling</h3>
+                <p className="text-body-sm text-on-surface-variant mb-6">Fill below details to get a call from expert career counsellor</p>
+                <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                  <div>
+                    <input className="w-full px-4 py-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary bg-surface-bright text-body-sm outline-none" placeholder="Full Name*" type="text" required />
+                  </div>
+                  <div className="flex gap-2">
+                    <select className="w-1/3 px-2 py-3 rounded-lg border border-outline-variant bg-surface-bright text-body-sm outline-none">
+                      <option>IN (+91)</option>
+                    </select>
+                    <input className="w-2/3 px-4 py-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary bg-surface-bright text-body-sm outline-none" placeholder="Mobile number*" type="tel" required />
+                  </div>
+                  <button className="w-full cursor-pointer rounded-xl bg-primary py-3 font-bold text-on-primary shadow-sm transition-all hover:bg-primary-hover" type="submit">Book counselling</button>
+                </form>
+              </div>
+
+              {/* Critical Notice */}
+              <div className="space-y-4 rounded-2xl border border-error/20 bg-error-container/20 p-6 text-on-error-container shadow-clinical-soft">
+                <div className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-error mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>error</span>
+                  <div>
+                    <div className="font-title-lg text-title-lg text-error mb-1 font-bold">Official Links Only</div>
+                    <p className="text-body-sm text-on-surface-variant leading-relaxed">Always ensure you are on a .nic.in, .gov.in or official university domain before entering sensitive details.</p>
+                  </div>
+                </div>
+                <div className="border-t border-error/20 pt-4 text-xs text-on-surface-variant space-y-2">
+                  <p className="font-bold text-error">Phishing & Spoofing Warning:</p>
+                  <p>Multiple fake domains resembling official websites emerge during peak admission seasons. MCC/State DME will never ask for your password or SMS OTP, nor do they charge extra fees outside the official payment gateway.</p>
+                </div>
+              </div>
+
+              {/* Additional Tools */}
+              <div id="top-verified" className="mt-6 overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-clinical-soft">
+                <div className="px-6 py-4 bg-surface-container-low border-b border-outline-variant">
+                  <h3 className="font-label-md text-on-surface-variant uppercase tracking-widest font-bold">Verified Portal Links</h3>
+                </div>
+                <div className="divide-y divide-outline-variant">
+                  {topPortals.map((portal, idx) => (
+                    <a key={idx} className="flex items-start gap-4 px-6 py-4 hover:bg-surface-container-low transition-colors group" href={portal.url} target="_blank" rel="noopener noreferrer">
+                      <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform mt-0.5">open_in_new</span>
+                      <div>
+                        <div className="text-body-sm font-bold text-on-surface">{portal.title}</div>
+                        <div className="text-label-sm text-on-surface-variant font-medium mt-1">{portal.badge}</div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
-
-        {/* Header */}
-        <QuotaHeader
-          eyebrow="OFFICIAL PORTALS HUB"
-          title="Counselling"
-          highlightedText="Resources"
-          description="Your authoritative gateway to medical admissions in India. Access verified official portals for Central and State-level NEET UG counselling in one streamlined hub."
-          imageSrc="/brand/home/hero.png"
-          imageAlt="Admissions Portal Counselling Resources"
-        />
-
-        {/* Status badges below header */}
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 -mt-8">
-          <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-outline-variant bg-surface-container-lowest">
-            <span className="material-symbols-outlined text-sm text-primary">link</span>
-            <span className="text-[10px] font-bold text-on-surface-variant uppercase">Official Portals</span>
-          </div>
-          <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-outline-variant bg-surface-container-lowest">
-            <span className="material-symbols-outlined text-sm text-primary">check_circle</span>
-            <span className="text-[10px] font-bold text-on-surface-variant uppercase">2026 Cycle Active</span>
-          </div>
-        </section>
-
-        {/* All Counselling Resources List */}
-        <section className="mb-20 space-y-12">
-          {Object.entries(resourceData).map(([key, rows]) => {
-            const title =
-              key === "central"
-                ? "Central & National Portals"
-                : key === "mp"
-                ? "Madhya Pradesh Counselling Resources"
-                : `${key.charAt(0).toUpperCase() + key.slice(1)} State Counselling Resources`;
-
-            return (
-              <div key={key} className="space-y-4">
-                <h3 className="text-lg font-bold text-on-surface pb-2">
-                  {title}
-                </h3>
-                <div className="overflow-hidden border border-outline-variant rounded-2xl bg-surface-container-lowest shadow-sm">
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
-                      <thead>
-                        <tr className="bg-surface-container-low text-on-surface-variant font-bold text-xs uppercase border-b border-outline-variant">
-                          <th className="px-6 py-4">Governing Body</th>
-                          <th className="px-6 py-4">Official URL</th>
-                          <th className="px-6 py-4">Primary Usage</th>
-                          <th className="px-6 py-4 text-right">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-outline-variant/60 text-sm">
-                        {rows.map((row, idx) => (
-                          <tr key={idx} className="hover:bg-surface-container-lowest/50 transition-colors">
-                            <td className="px-6 py-4 font-semibold text-on-surface">{row.body}</td>
-                            <td className="px-6 py-4">
-                              <a
-                                href={row.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-primary font-medium hover:underline break-all"
-                              >
-                                {row.url.replace("https://", "").replace("http://", "")}
-                              </a>
-                            </td>
-                            <td className="px-6 py-4 text-on-surface-variant max-w-sm">{row.usage}</td>
-                            <td className="px-6 py-4 text-right">
-                              <a
-                                href={row.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline cursor-pointer"
-                              >
-                                Open Portal <FiExternalLink />
-                              </a>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </section>
-
-        {/* Top Verified Portals */}
-        <section className="mb-20">
-          <div className="mb-8 flex items-center gap-2 border-l-4 border-primary pl-4">
-            <h2 className="text-xl font-bold font-headline-md text-on-surface">Top Verified Portals</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {topPortals.map((portal, idx) => (
-              <div key={idx} className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 flex flex-col justify-between hover:shadow-md transition-all">
-                <div>
-                  <div className="flex justify-between items-center mb-4">
-                    <div className="p-3 bg-primary-fixed text-primary rounded-xl">
-                      <span className="material-symbols-outlined text-lg">{portal.icon}</span>
-                    </div>
-                    <span className="text-[9px] font-bold text-text-muted bg-surface-container px-2 py-0.5 rounded-full border border-outline-variant/40">
-                      {portal.badge}
-                    </span>
-                  </div>
-                  <h3 className="text-base font-bold text-on-surface mb-2">{portal.title}</h3>
-                  <p className="text-xs text-on-surface-variant leading-relaxed mb-6">
-                    {portal.desc}
-                  </p>
-                </div>
-                <a
-                  href={portal.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3 bg-primary hover:bg-primary-hover text-on-primary font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 text-center"
-                >
-                  Open Portal <FiExternalLink />
-                </a>
-              </div>
-            ))}
-          </div>
-        </section>
-      </Container>
-    </div>
+    </QuotaPageShell>
   );
 }
