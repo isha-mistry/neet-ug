@@ -65,7 +65,7 @@ export function QuotaOverviewShell({ children }: QuotaOverviewShellProps) {
 
 function QuotaLeadBlock({ pageLabel }: { pageLabel: string }) {
   return (
-    <section className="relative mt-16 overflow-hidden rounded-3xl border border-outline-variant bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-clinical-soft md:p-8">
+    <section id="counselling-lead-section" className="relative mt-16 overflow-hidden rounded-3xl border border-outline-variant bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-clinical-soft md:p-8">
       {/* Decorative background glow */}
       <div className="pointer-events-none absolute -left-16 -top-16 h-40 w-40 rounded-full bg-primary/5 blur-2xl" aria-hidden />
       <div className="pointer-events-none absolute -bottom-16 -right-16 h-40 w-40 rounded-full bg-primary/5 blur-2xl" aria-hidden />
@@ -364,9 +364,9 @@ export function QuotaHeader({
             {description}
           </p>
         </div>
-        <div className="relative hidden min-h-[190px] overflow-hidden rounded-4xl bg-primary-fixed/55 p-5 md:block">
+        <div className="relative hidden min-h-[190px] overflow-hidden rounded-4xl bg-primary-fixed/55 p-5 md:block h-fit md:self-end">
           <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-primary/10 blur-2xl" aria-hidden />
-          <div className="relative flex h-full flex-col justify-between">
+          <div className="relative flex h-full flex-col justify-between gap-4">
             <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-on-primary shadow-sm">
               <span className="material-symbols-outlined text-[30px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                 {watermarkIcon || eyebrowIcon}
@@ -628,6 +628,123 @@ export function CategoryProgressBars({ items }: CategoryProgressBarsProps) {
             <span className="w-12 text-right font-semibold text-primary">{item.percentage}</span>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+// ----------------------------------------------------
+// 7. Reusable Live Decision Tools Sidebar Widget
+// ----------------------------------------------------
+export interface LiveDecisionToolsProps {
+  excludeIds?: string[];
+  highlightId?: string;
+}
+
+export function LiveDecisionTools({ excludeIds = [], highlightId }: LiveDecisionToolsProps) {
+  const tools = [
+    {
+      id: "cutoff",
+      name: "Cutoff Analyser",
+      href: "/cutoff-analyser",
+      icon: "analytics",
+      desc: "Analyze year-wise category rank trends",
+      badge: "Historical Data",
+    },
+    {
+      id: "predictor",
+      name: "College Predictor",
+      href: "/college-predictor",
+      icon: "online_prediction",
+      desc: "Predict your MBBS college chances",
+      badge: "Popular Tool",
+    },
+    {
+      id: "rank",
+      name: "Rank Predictor",
+      href: "/rank-predictor",
+      icon: "batch_prediction",
+      desc: "Calculate rank matching score inputs",
+      badge: "Real-time Engine",
+    },
+    {
+      id: "compare",
+      name: "Compare Colleges",
+      href: "/compare",
+      icon: "compare_arrows",
+      desc: "Side-by-side fee & matrix comparisons",
+      badge: "Direct Side-by-Side",
+    },
+  ].filter(t => !excludeIds.includes(t.id));
+
+  return (
+    <div className="relative overflow-hidden rounded-3xl border border-outline-variant bg-gradient-to-b from-surface-container-lowest via-surface-container-lowest to-surface-container-low/40 p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+      {/* Decorative top right highlight glow */}
+      <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/5 blur-2xl" aria-hidden />
+
+      <div className="mb-5 flex items-center justify-between">
+        <h4 className="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider font-extrabold flex items-center gap-2">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+          </span>
+          Live Decision Tools
+        </h4>
+        <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full uppercase tracking-wider">Active</span>
+      </div>
+
+      <div className="space-y-3">
+        {tools.map((tool) => {
+          const isHighlighted = tool.id === highlightId;
+          return (
+            <Link
+              key={tool.id}
+              href={tool.href}
+              className={cn(
+                "group relative block overflow-hidden rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-clinical-soft cursor-pointer",
+                isHighlighted
+                  ? "border-primary bg-primary/[0.03] shadow-xs"
+                  : "border-outline-variant/60 bg-surface hover:border-primary/30 hover:bg-surface-container-lowest"
+              )}
+            >
+              {/* Highlight background glow */}
+              {isHighlighted && (
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-primary/[0.02] to-transparent" />
+              )}
+              
+              <div className="relative flex items-start gap-3 z-10">
+                <div className={cn(
+                  "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300",
+                  isHighlighted
+                    ? "bg-primary text-on-primary"
+                    : "bg-surface-container-high text-primary group-hover:bg-primary group-hover:text-on-primary"
+                )}>
+                  <span className="material-symbols-outlined text-[22px]">{tool.icon}</span>
+                </div>
+                
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-black text-on-surface group-hover:text-primary transition-colors">
+                      {tool.name}
+                    </span>
+                    {isHighlighted && (
+                      <span className="text-[8px] font-bold text-primary bg-primary-fixed border border-primary/20 px-1.5 py-0.5 rounded-sm uppercase tracking-wide">
+                        Recommended
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-1 text-[11px] leading-relaxed text-on-surface-variant font-medium">
+                    {tool.desc}
+                  </p>
+                </div>
+                
+                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5">
+                  <span className="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

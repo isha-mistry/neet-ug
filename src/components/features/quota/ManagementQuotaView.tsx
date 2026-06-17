@@ -41,7 +41,7 @@ export function ManagementQuotaView() {
           </div>
 
           {/* Open State Advantage: Glassmorphism / Vibrant CTA */}
-          <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary via-primary to-primary-hover p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)] lg:col-span-4">
+          <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary via-primary to-primary-hover p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)] lg:col-span-4 h-fit">
             <div className="absolute -right-12 -top-12 opacity-10 pointer-events-none select-none">
               <span className="material-symbols-outlined text-[180px]">public</span>
             </div>

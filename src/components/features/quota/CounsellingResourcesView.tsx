@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { QuotaHeader, QuotaCta, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
 import { DocumentChecklistWidget } from "./MccContentBlocks";
+import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
 
 import { quotaTheoryContent, resourceData, topPortals } from "./content";
 
@@ -132,6 +134,44 @@ export function CounsellingResourcesView() {
               </div>
             </section>
 
+            {/* State Counselling Hub Section */}
+            <section className="relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-clinical-soft md:p-8">
+              <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-primary/5 blur-2xl" aria-hidden />
+              
+              <div className="relative grid gap-6 md:grid-cols-[minmax(0,1fr)_220px] items-center">
+                <div>
+                  <div className="inline-flex items-center gap-1.5 rounded-full bg-primary-fixed px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-primary">
+                    <span className="material-symbols-outlined text-[12px] font-black">explore</span>
+                    State counselling hub
+                  </div>
+                  <h3 className="mt-4 text-xl font-black leading-tight tracking-tight text-on-surface md:text-2xl">
+                    Detailed State Counselling Guides
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-on-surface-variant">
+                    Compare eligibility rules, bond terms, and step-by-step counselling schedules across all states. Reserving 85% of government medical seats, state quotas are critical to your admission strategy.
+                  </p>
+                  
+                  {/* Quick state links */}
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Link href="/state-counselling/gujarat" className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-surface-container-low border border-outline-variant hover:bg-surface-container-lowest text-on-surface transition-all">Gujarat</Link>
+                    <Link href="/state-counselling/maharashtra" className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-surface-container-low border border-outline-variant hover:bg-surface-container-lowest text-on-surface transition-all">Maharashtra</Link>
+                    <Link href="/state-counselling/mp" className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-surface-container-low border border-outline-variant hover:bg-surface-container-lowest text-on-surface transition-all">Madhya Pradesh</Link>
+                    <Link href="/state-counselling/rajasthan" className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-surface-container-low border border-outline-variant hover:bg-surface-container-lowest text-on-surface transition-all">Rajasthan</Link>
+                  </div>
+                </div>
+                
+                <div className="w-full">
+                  <Link
+                    href="/state-counselling"
+                    className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-on-primary transition hover:bg-primary-hover active:scale-95 shadow-sm text-center"
+                  >
+                    View All States
+                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  </Link>
+                </div>
+              </div>
+            </section>
+
             {/* Document Checklist Integration */}
             <section id="documents" className="pt-4">
               <DocumentChecklistWidget />
@@ -182,23 +222,14 @@ export function CounsellingResourcesView() {
                 </nav>
               </div>
 
-              {/* Expert Support Card */}
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft">
-                <h3 className="font-headline-sm text-headline-sm text-on-surface mb-2 font-bold">Book free counselling</h3>
-                <p className="text-body-sm text-on-surface-variant mb-6">Fill below details to get a call from expert career counsellor</p>
-                <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                  <div>
-                    <input className="w-full px-4 py-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary bg-surface-bright text-body-sm outline-none" placeholder="Full Name*" type="text" required />
-                  </div>
-                  <div className="flex gap-2">
-                    <select className="w-1/3 px-2 py-3 rounded-lg border border-outline-variant bg-surface-bright text-body-sm outline-none">
-                      <option>IN (+91)</option>
-                    </select>
-                    <input className="w-2/3 px-4 py-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary bg-surface-bright text-body-sm outline-none" placeholder="Mobile number*" type="tel" required />
-                  </div>
-                  <button className="w-full cursor-pointer rounded-xl bg-primary py-3 font-bold text-on-primary shadow-sm transition-all hover:bg-primary-hover" type="submit">Book counselling</button>
-                </form>
-              </div>
+              {/* Live Counselling Lead Form */}
+              <FreeCounsellingLeadForm
+                pageLabel="Counselling Resources"
+                title="Book free counselling"
+                submitLabel="Book counselling"
+                fields="name-phone-only"
+                className="border border-outline-variant/60 shadow-clinical-soft bg-surface"
+              />
 
               {/* Critical Notice */}
               <div className="space-y-4 rounded-2xl border border-error/20 bg-error-container/20 p-6 text-on-error-container shadow-clinical-soft">

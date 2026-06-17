@@ -1,6 +1,7 @@
 "use client";
 
-import { QuotaHeader, QuotaMetrics, QuotaCta, SeatMatrixDonut, CategoryProgressBars, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
+import Link from "next/link";
+import { QuotaHeader, QuotaMetrics, QuotaCta, SeatMatrixDonut, CategoryProgressBars, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel, LiveDecisionTools } from "./QuotaShared";
 import { ConversionAlgorithmGrid, EligibilityChecklist, MccCounsellingRounds } from "./MccContentBlocks";
 import { FiAlertTriangle } from "react-icons/fi";
 import {
@@ -216,24 +217,8 @@ export function AllIndiaQuotaView() {
           <aside className="lg:col-span-3 space-y-6">
             <div className="sticky top-24 space-y-6">
 
-              {/* Quick Actions */}
-              <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
-                <h4 className="text-label-md font-label-md text-on-surface-variant mb-4 uppercase tracking-wider">Quick Actions</h4>
-                <div className="space-y-3">
-                  <button className="w-full text-left p-3 rounded-lg bg-primary-container text-on-primary-container font-label-md flex items-center justify-between group cursor-pointer hover:opacity-95 transition-all">
-                    <span>Download AIQ Guide</span>
-                    <span className="material-symbols-outlined group-hover:translate-y-0.5 transition-transform text-base">download</span>
-                  </button>
-                  <button className="w-full text-left p-3 rounded-lg border border-outline-variant/60 text-on-surface-variant font-label-md flex items-center justify-between hover:bg-surface-container-low transition-colors cursor-pointer">
-                    <span>Seat Matrix 2026</span>
-                    <span className="material-symbols-outlined text-base">grid_view</span>
-                  </button>
-                  <button className="w-full text-left p-3 rounded-lg border border-outline-variant/60 text-on-surface-variant font-label-md flex items-center justify-between hover:bg-surface-container-low transition-colors cursor-pointer">
-                    <span>Required Documents</span>
-                    <span className="material-symbols-outlined text-base">description</span>
-                  </button>
-                </div>
-              </div>
+              {/* Live Decision Tools Component */}
+              <LiveDecisionTools highlightId="cutoff" />
 
               {/* Eligibility Checklist */}
               <EligibilityChecklist

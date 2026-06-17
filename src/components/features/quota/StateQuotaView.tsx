@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { QuotaHeader, QuotaCta, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
 
 import { quotaTheoryContent, stateDetailsData as stateDetails, type StateTab } from "./content";
@@ -50,40 +51,6 @@ export function StateQuotaView() {
   const content = stateDetails[activeTab];
   const matrix = stateSeatMatrix[activeTab];
   const docs = stateDocumentation[activeTab];
-
-  // Eligibility Checker State
-  const [name, setName] = useState("");
-  const [tenthState, setTenthState] = useState("Gujarat");
-  const [twelfthState, setTwelfthState] = useState("Gujarat");
-  const [rank, setRank] = useState("");
-  const [isDomicile, setIsDomicile] = useState(false);
-  const [checkerResult, setCheckerResult] = useState<string | null>(null);
-
-  const handleCheckEligibility = (e: React.FormEvent) => {
-    e.preventDefault();
-    const activeStateName = activeTab === "mp" ? "Madhya Pradesh" : activeTab.charAt(0).toUpperCase() + activeTab.slice(1);
-
-    if (!isDomicile) {
-      setCheckerResult(`❌ Domicile Certificate is mandatory for ${activeStateName} State Quota. You are not eligible without it.`);
-      return;
-    }
-
-    if (activeTab === "gujarat") {
-      if (tenthState === "Gujarat" && twelfthState === "Gujarat") {
-        setCheckerResult(`✅ Eligible! You meet the criteria for Gujarat State Quota (Passed 10th & 12th in GJ with Domicile).`);
-      } else {
-        setCheckerResult(`❌ Not Eligible. Gujarat State Quota requires passing both Std 10th and 12th from Gujarat schools.`);
-      }
-    } else if (activeTab === "maharashtra") {
-      if (tenthState === "Maharashtra" || isDomicile) {
-        setCheckerResult(`✅ Eligible! You meet Maharashtra State Quota criteria (Domicile or passed 10th from Maharashtra).`);
-      } else {
-        setCheckerResult(`❌ Not Eligible. Maharashtra State Quota requires domicile status or passing 10th from Maharashtra.`);
-      }
-    } else {
-      setCheckerResult(`✅ Eligible! You possess the domicile certificate required for ${activeStateName} State Quota.`);
-    }
-  };
 
   return (
     <QuotaPageShell current="State Quota" className="pb-8" containerClassName="py-8 animate-fadeIn">
@@ -167,7 +134,6 @@ export function StateQuotaView() {
                     key={tab.id}
                     onClick={() => {
                       setActiveTab(tab.id);
-                      setCheckerResult(null);
                     }}
                     className={`px-6 py-2 rounded-full border font-label-md flex items-center gap-2 transition-colors active:scale-95 font-bold uppercase tracking-wider ${
                       activeTab === tab.id
@@ -318,89 +284,46 @@ export function StateQuotaView() {
           {/* Right Sidebar Area (4 Columns) */}
           <aside className="col-span-12 lg:col-span-4 space-y-6 lg:sticky lg:top-24">
 
-            {/* Eligibility Checker Form */}
-            <section className="overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-clinical-soft">
-              <div className="bg-primary p-4 text-on-primary">
-                <h3 className="text-title-lg font-bold flex items-center gap-2">
-                  <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>rule</span> State Eligibility Checker
-                </h3>
+            {/* Live College Predictor Card */}
+            <section className="overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-clinical-soft hover:shadow-clinical-hover transition-all">
+              <div className="flex items-center gap-3.5 mb-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary shadow-sm">
+                  <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 0" }}>
+                    online_prediction
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-base font-extrabold tracking-tight text-on-surface md:text-lg">NEET UG College Predictor</h3>
+                  <p className="text-xs text-on-surface-variant leading-relaxed">Our live predictor is ready for you</p>
+                </div>
               </div>
-              <form onSubmit={handleCheckEligibility} className="p-6 space-y-4">
-                <div>
-                  <label className="text-label-md text-on-surface-variant mb-1 block font-bold">Full Name</label>
-                  <input
-                    className="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary text-body-sm py-2 px-3 bg-surface-bright"
-                    placeholder="Enter your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    type="text"
-                    required
-                  />
+              
+              <p className="text-sm text-on-surface-variant leading-relaxed mb-5">
+                Don&apos;t guess your admission chances. Our live intelligent data engine cross-references your NEET Rank, Category, and State Domicile to give you a definitive prediction map.
+              </p>
+
+              <div className="space-y-3.5 mb-6">
+                <div className="flex items-center gap-2.5 text-xs font-semibold text-on-surface">
+                  <span className="material-symbols-outlined text-primary text-base">check_circle</span>
+                  Automatic 85% State Quota Logic
                 </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-label-md text-on-surface-variant mb-1 block font-bold">10th State</label>
-                    <select
-                      className="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary text-body-sm py-2 px-3 bg-surface-bright"
-                      value={tenthState}
-                      onChange={(e) => setTenthState(e.target.value)}
-                    >
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Others">Others</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="text-label-md text-on-surface-variant mb-1 block font-bold">12th State</label>
-                    <select
-                      className="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary text-body-sm py-2 px-3 bg-surface-bright"
-                      value={twelfthState}
-                      onChange={(e) => setTwelfthState(e.target.value)}
-                    >
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Others">Others</option>
-                    </select>
-                  </div>
+                <div className="flex items-center gap-2.5 text-xs font-semibold text-on-surface">
+                  <span className="material-symbols-outlined text-primary text-base">check_circle</span>
+                  Real-time seat matrix & fees
                 </div>
-                <div>
-                  <label className="text-label-md text-on-surface-variant mb-1 block font-bold">NEET Category Rank</label>
-                  <input
-                    className="w-full rounded-lg border-outline-variant focus:ring-primary focus:border-primary text-body-sm py-2 px-3 bg-surface-bright"
-                    placeholder="e.g. 15400"
-                    value={rank}
-                    onChange={(e) => setRank(e.target.value)}
-                    type="number"
-                  />
+                <div className="flex items-center gap-2.5 text-xs font-semibold text-on-surface">
+                  <span className="material-symbols-outlined text-primary text-base">check_circle</span>
+                  Category conversion rules supported
                 </div>
-                <div className="flex items-start gap-2 pt-2">
-                  <input
-                    className="mt-1 rounded text-primary focus:ring-primary border-outline-variant cursor-pointer"
-                    id="domicile"
-                    checked={isDomicile}
-                    onChange={(e) => setIsDomicile(e.target.checked)}
-                    type="checkbox"
-                  />
-                  <label className="text-body-sm text-on-surface-variant cursor-pointer font-medium" htmlFor="domicile">
-                    I possess a valid State Domicile Certificate.
-                  </label>
-                </div>
-                <button
-                  className="w-full bg-primary text-on-primary py-3 rounded-lg font-bold shadow-md hover:bg-primary/90 transition-all active:scale-[0.98] uppercase tracking-wider text-sm mt-2"
-                  type="submit"
-                >
-                  Check Eligibility
-                </button>
-                {checkerResult && (
-                  <div className={`p-3 rounded-lg mt-4 text-sm font-medium ${checkerResult.includes("✅") ? "bg-green-50 text-green-800 border border-green-200" : "bg-red-50 text-red-800 border border-red-200"}`}>
-                    {checkerResult}
-                  </div>
-                )}
-              </form>
+              </div>
+
+              <Link 
+                href="/college-predictor" 
+                className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-on-primary transition hover:bg-primary-hover active:scale-95 shadow-sm"
+              >
+                Go to College Predictor
+                <span className="material-symbols-outlined text-sm">arrow_forward</span>
+              </Link>
             </section>
 
             {/* Warning Card */}

@@ -278,31 +278,41 @@ export function ReservationCategoriesView() {
           </aside>
         </div>
 
-        {/* Visual Aid Section (Implicitly required from Clinical Precision guidance for high-end UI) */}
-        <section className="mt-12">
-          <div className="relative overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 shadow-clinical-soft md:p-12">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-              <div>
-                <h2 className="font-display-lg text-display-lg mb-4 text-on-surface font-bold tracking-tight">Interactive Reservation Explorer</h2>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed">Our intelligent data engine cross-references your state of domicile with vertical and horizontal quotas to give you a definitive eligibility map.</p>
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-center gap-3"><span className="material-symbols-outlined text-tertiary bg-tertiary/10 p-1 rounded-full text-sm font-bold">check</span> <span className="font-body-md text-body-md font-medium">Automatic 85% State Quota Logic</span></li>
-                  <li className="flex items-center gap-3"><span className="material-symbols-outlined text-tertiary bg-tertiary/10 p-1 rounded-full text-sm font-bold">check</span> <span className="font-body-md text-body-md font-medium">Category conversion rules in R3/R4</span></li>
-                  <li className="flex items-center gap-3"><span className="material-symbols-outlined text-tertiary bg-tertiary/10 p-1 rounded-full text-sm font-bold">check</span> <span className="font-body-md text-body-md font-medium">Seat matrix updates in real-time</span></li>
-                </ul>
-                <button className="bg-primary text-on-primary px-8 py-4 rounded-xl font-headline-sm text-headline-sm hover:scale-[1.02] transition-transform shadow-md font-bold hover:shadow-lg active:scale-95">Explore Seat Matrix</button>
-              </div>
-              <div className="group relative flex aspect-[4/3] cursor-pointer items-center justify-center overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low p-8 shadow-clinical-soft">
-                <div className="text-center relative z-10 group-hover:scale-105 transition-transform duration-500">
-                  <span className="material-symbols-outlined text-primary text-8xl mb-4 animate-pulse">analytics</span>
-                  <p className="font-title-lg text-title-lg text-on-surface font-bold">Visualize Your Chances</p>
-                  <p className="text-label-sm text-on-surface-variant mt-2 uppercase tracking-wider font-bold">Visual Dashboard Loading...</p>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="Dashboard Reference" className="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-30 transition-opacity duration-500 blur-[2px] group-hover:blur-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVKgjjdY68dj2jQGK7l_D_SKPYxXX1nIhaDgOz3fL10mCQ_FL2X0kEgLGve9nLfrDSVXLrR3RchuUxc1mrNFd9nS1yCrtAQCXWp1wHUn-R8JurE3sXvZPW8dqmNYvaiJU3NuLKpB0C0QKWd1miCnzKAx1AxfsH3tBkXF2VU3DXID5O2_WjLdEt1jxU94NPSP_LeaGuFJCkotcJ2CHLziZAdRmH1avTg-g2JcRt9UHHLG3yxkhv6_SPsM2sqqBQRbSk_Pbvks01cXg"/>
-              </div>
+        {/* FAQs on Reservation & Category Claims */}
+        <section className="mt-12 rounded-3xl border border-outline-variant bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.03] p-6 shadow-clinical-soft md:p-8">
+          <h3 className="text-headline-md font-headline-md text-on-surface mb-6 flex items-center gap-2 font-bold">
+            <span className="material-symbols-outlined text-primary text-[28px]">quiz</span>
+            Reservation & Category FAQs
+          </h3>
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover">
+              <h4 className="text-sm font-bold text-on-surface mb-1.5 flex items-center gap-2">
+                <span className="material-symbols-outlined text-primary text-[18px]">help_center</span>
+                1. Can I change my category from OBC/SC/ST to General in later rounds?
+              </h4>
+              <p className="text-xs text-on-surface-variant leading-relaxed pl-6.5">
+                Yes. If you fail to produce a valid category certificate during reporting, your allotment is cancelled and you are converted to General/Open category for subsequent rounds.
+              </p>
+            </div>
+            
+            <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover">
+              <h4 className="text-sm font-bold text-on-surface mb-1.5 flex items-center gap-2">
+                <span className="material-symbols-outlined text-primary text-[18px]">help_center</span>
+                2. What happens if my EWS or OBC-NCL certificate is issued before April 1, 2026?
+              </h4>
+              <p className="text-xs text-on-surface-variant leading-relaxed pl-6.5">
+                For MCC (AIQ) counselling, certificates must be issued on or after April 1 of the admission year. Older certificates are rejected during document verification, and your category claim is cancelled.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover">
+              <h4 className="text-sm font-bold text-on-surface mb-1.5 flex items-center gap-2">
+                <span className="material-symbols-outlined text-primary text-[18px]">help_center</span>
+                3. How does horizontal reservation work inside vertical categories?
+              </h4>
+              <p className="text-xs text-on-surface-variant leading-relaxed pl-6.5">
+                Horizontal seats (e.g. PwD, Defence) are filled first within the respective vertical category (e.g. OBC-PwD, UR-PwD). If no eligible candidate is found, the seat merges back into the vertical category.
+              </p>
             </div>
           </div>
         </section>

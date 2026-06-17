@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { QuotaHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
 import { quotaTheoryContent } from "./content";
+import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
 
 export function SpecialQuotaView() {
   return (
@@ -10,7 +11,7 @@ export function SpecialQuotaView() {
         <QuotaHeader
           eyebrow="Special Guidelines"
           title="Special &amp; Institutional"
-          highlightedText="Quotas 2026"
+          highlightedText="Quotas"
           description="Detailed guide for Medical Counselling Committee (MCC) conducted seats in Central Universities, AIIMS, JIPMER, and specialized institutional quotas. Precision data for informed medical admissions."
           eyebrowIcon="verified"
           watermarkIcon="school"
@@ -197,22 +198,14 @@ export function SpecialQuotaView() {
           {/* Right Sidebar: Utilities & Ads (4 Cols) */}
           <div className="col-span-12 lg:col-span-4 space-y-6">
             <div className="sticky top-24 space-y-6">
-              {/* Sticky CTA Card */}
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft">
-                <h4 className="font-title-lg text-title-lg mb-4 text-center font-bold">Book Expert Counselling</h4>
-                <form className="space-y-4 text-on-surface">
-                  <div className="space-y-1">
-                    <label className="font-label-md text-label-md text-on-surface-variant font-bold">Full Name</label>
-                    <input className="w-full rounded-lg border-outline-variant bg-surface-container-low focus:ring-primary text-body-sm py-2 px-3" placeholder="Enter name" type="text" required/>
-                  </div>
-                  <div className="space-y-1">
-                    <label className="font-label-md text-label-md text-on-surface-variant font-bold">NEET AIR</label>
-                    <input className="w-full rounded-lg border-outline-variant bg-surface-container-low focus:ring-primary text-body-sm py-2 px-3" placeholder="e.g., 25000" type="number" required/>
-                  </div>
-                  <button className="w-full py-3 bg-primary text-on-primary rounded-lg font-label-md text-label-md font-bold hover:shadow-lg transition-all uppercase tracking-wider active:scale-[0.98]">Submit Details</button>
-                </form>
-                <p className="text-[11px] text-on-surface-variant mt-4 text-center">Our experts will contact you within 24 business hours.</p>
-              </div>
+              {/* Live Counselling Lead Form */}
+              <FreeCounsellingLeadForm
+                pageLabel="Special Quota"
+                title="Book Expert Counselling"
+                submitLabel="Submit Details"
+                fields="name-phone-only"
+                className="border border-outline-variant shadow-clinical-soft bg-surface"
+              />
 
               {/* Info Alert */}
               <div className="flex gap-3 rounded-2xl border border-l-4 border-outline-variant border-l-tertiary bg-surface-container-lowest p-4 shadow-clinical-soft">
