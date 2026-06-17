@@ -6,16 +6,12 @@
     "description": "Compare MBBS colleges across India with verified fees, cutoffs, bond rules, and infrastructure data.",
     "primaryNav": [
       {
-        "label": "Home",
-        "href": "/home/1"
+        "label": "Predictors",
+        "href": "/rank-predictor"
       },
       {
         "label": "Colleges",
         "href": "/colleges"
-      },
-      {
-        "label": "Predictors",
-        "href": "/rank-predictor"
       },
       {
         "label": "Quota",

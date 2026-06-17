@@ -1,279 +1,298 @@
 "use client";
 
-import React from "react";
-import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import Link from "next/link";
 import { Container } from "@/components/common/Container";
-import { Section } from "@/components/common/Section";
-import { Card } from "@/components/ui/Card";
-import { MaterialSymbol } from "@/components/common/MaterialSymbol";
-import { SectionHeading } from "@/components/features/neet-ug/shared/SectionHeading";
-import { StepCard } from "@/components/features/neet-ug/shared/StepCard";
-import { CtaBanner } from "@/components/features/neet-ug/shared/CtaBanner";
+import { GuidePageJumpNav } from "@/components/features/mbbs-india/GuidePageJumpNav";
+import {
+  GuideCard,
+  GuideSection,
+  GuideSteps,
+  MetricGrid,
+} from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
+import { NeetUgUpdatesSidebar } from "@/components/features/neet-ug/NeetUgUpdatesParts";
+import { NeetUgHubFinalCta, NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
 import { DataTable } from "@/components/features/neet-ug/shared/DataTable";
-import { QuickLinksCard } from "@/components/features/neet-ug/shared/QuickLinksCard";
-import { InfoListCard } from "@/components/features/neet-ug/shared/InfoListCard";
-import { SidebarLeadCard } from "@/components/features/neet-ug/shared/SidebarLeadCard";
+import { RpMarketingHero } from "@/components/features/rank-predictor/RankPredictorParts";
+import {
+  NEET_UG_ANSWER_KEY_CHALLENGE_NOTE,
+  NEET_UG_ANSWER_KEY_CUTOFF_TREND_FOOTNOTE,
+  NEET_UG_ANSWER_KEY_CUTOFF_TREND_ROWS,
+  NEET_UG_ANSWER_KEY_HERO,
+  NEET_UG_ANSWER_KEY_JUMP_SECTIONS,
+  NEET_UG_ANSWER_KEY_KEY_STATS,
+  NEET_UG_ANSWER_KEY_LEAD_MAGNET,
+  NEET_UG_ANSWER_KEY_OMR_STEPS,
+  NEET_UG_ANSWER_KEY_QUALIFYING_ROWS,
+  NEET_UG_ANSWER_KEY_RELATED_LINKS,
+  NEET_UG_ANSWER_KEY_RESULT_STEPS,
+  NEET_UG_ANSWER_KEY_SCORECARD_FIELDS,
+  NEET_UG_ANSWER_KEY_TIE_BREAKING,
+} from "@/lib/neet-ug-2026/answer-key-content";
+import {
+  guideCardClass,
+  hubCardHoverClass,
+} from "@/lib/neet-ug-2026/section-styles";
+import { cn } from "@/lib/utils";
 
 export function NeetAnswerKeyView() {
-  const omrSteps = [
-    {
-      step: 1,
-      icon: "login",
-      title: "Visit NTA NEET Portal",
-      desc: "Go to neet.nta.nic.in and click on 'Answer Key & OMR Response Sheet' link under the Candidate Activity section.",
-    },
-    {
-      step: 2,
-      icon: "key",
-      title: "Log In with Credentials",
-      desc: "Enter your Application Number and Date of Birth (as registered) to access your personal OMR response sheet and answer key.",
-    },
-    {
-      step: 3,
-      icon: "compare",
-      title: "Compare Your Responses",
-      desc: "Your darkened OMR responses appear side-by-side with the provisional answer key. Verify each answer for all 200 questions.",
-    },
-    {
-      step: 4,
-      icon: "flag",
-      title: "Challenge Incorrect Keys",
-      desc: "If you believe an answer key is wrong, raise a formal challenge by paying ₹200 per question through the online portal within the window period.",
-    },
-  ];
-
-  const cutoffTrendRows = [
-    { year: "2019", general: "701–134", obc: "133–107", scSt: "133–107", pwd: "133–120" },
-    { year: "2020", general: "720–147", obc: "146–113", scSt: "146–113", pwd: "146–129" },
-    { year: "2021", general: "720–138", obc: "137–108", scSt: "137–108", pwd: "137–122" },
-    { year: "2022", general: "715–117", obc: "116–93", scSt: "116–93", pwd: "116–105" },
-    { year: "2023", general: "720–137", obc: "136–107", scSt: "136–107", pwd: "136–121" },
-    { year: "2024", general: "720–164", obc: "163–129", scSt: "163–129", pwd: "163–146" },
-    { year: "2025 (Expected)", general: "720–160", obc: "159–128", scSt: "159–128", pwd: "159–143" },
-  ];
-
-  const qualifyingCutoffRows = [
-    { category: "UR / EWS (General)", percentile: "50th Percentile", score: "720–164", intensity: "High Competition", _color: "rose" },
-    { category: "OBC-NCL", percentile: "40th Percentile", score: "163–129", intensity: "Moderate", _color: "amber" },
-    { category: "SC", percentile: "40th Percentile", score: "163–129", intensity: "Moderate", _color: "amber" },
-    { category: "ST", percentile: "40th Percentile", score: "163–129", intensity: "Moderate", _color: "amber" },
-    { category: "UR / EWS – PwBD", percentile: "45th Percentile", score: "163–146", intensity: "Relaxed", _color: "emerald" },
-    { category: "OBC / SC / ST – PwBD", percentile: "40th Percentile", score: "145–129", intensity: "Relaxed", _color: "emerald" },
-  ];
-
-  const scorecardFields = [
-    { icon: "score", label: "Raw Score", desc: "Total marks earned. +4 per correct, −1 per wrong answer." },
-    { icon: "percent", label: "Percentile Score", desc: "Percentage of candidates who scored equal to or below you." },
-    { icon: "leaderboard", label: "All India Rank (AIR)", desc: "Overall rank across all NEET 2026 candidates in India." },
-    { icon: "groups", label: "Category Rank", desc: "Rank within your reserved category (SC/ST/OBC/EWS/PwD)." },
-    { icon: "menu_book", label: "Subject-wise Score", desc: "Individual marks in Physics, Chemistry, Botany, and Zoology." },
-    { icon: "verified", label: "Qualifying Status", desc: "Whether you have crossed the minimum qualifying percentile." },
-  ];
-
-  const quickLinks = [
-    { label: "Live Updates & NTA Alerts", href: "/neet-ug-2026/updates" },
-    { label: "Counselling Guide", href: "/neet-ug-2026/counselling-guide" },
-    { label: "NRI MBBS Admission Guide", href: "/neet-ug-2026/nri-guide" },
-    { label: "Rank Predictor", href: "/rank-predictor" },
-  ];
+  const qualifyingRows = NEET_UG_ANSWER_KEY_QUALIFYING_ROWS.map((row) => ({ ...row }));
+  const trendRows = NEET_UG_ANSWER_KEY_CUTOFF_TREND_ROWS.map((row) => ({ ...row }));
 
   return (
-    <>
-      <Section tone="default" className=" py-7 md:py-10">
-        <Container size="page" className="flex flex-col gap-10">
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "NEET UG 2026", href: "/neet-ug-2026" },
-              { label: "Answer Key & Results" },
-            ]}
-          />
+    <NeetUg2026Shell>
+      <RpMarketingHero
+        id="top"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "NEET UG 2026", href: "/neet-ug-2026" },
+          { label: "Answer key & results" },
+        ]}
+        title={NEET_UG_ANSWER_KEY_HERO.title}
+        titleEmphasis={NEET_UG_ANSWER_KEY_HERO.titleEmphasis}
+        lede={NEET_UG_ANSWER_KEY_HERO.lede}
+        trio={NEET_UG_ANSWER_KEY_HERO.trio}
+        fine={NEET_UG_ANSWER_KEY_HERO.fine}
+      >
+        <NeetUgLeadMagnetPanel
+          pageLabel="NEET UG 2026 Answer Key"
+          content={NEET_UG_ANSWER_KEY_LEAD_MAGNET}
+        />
+      </RpMarketingHero>
 
-          {/* Header */}
-          <header className="max-w-3xl text-left">
-            <h1 className="mt-4 text-3xl font-bold leading-[1.05] tracking-[-0.035em] text-clinical-navy md:text-[44px]">
-              Answer Key, OMR Sheet
-              <span className="block"> Results & Cut-off Guide</span>
-            </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-clinical-muted md:text-[15px]">
-              Official NTA answer key process, how to view your OMR response sheet, challenge answers, understand your scorecard, and interpret category-wise qualifying cut-offs.
-            </p>
-          </header>
+      <nav
+        aria-label="Page sections"
+        className="sticky top-16 z-30 border-b border-outline-variant/40 bg-surface/90 backdrop-blur-lg lg:hidden"
+      >
+        <Container size="2xl" className="py-3">
+          <GuidePageJumpNav variant="horizontal" jumpSections={NEET_UG_ANSWER_KEY_JUMP_SECTIONS} />
+        </Container>
+      </nav>
 
-          {/* Main two-column layout */}
-          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
-            <div className="flex flex-col gap-10">
+      <Container size="2xl" className="pb-4 pt-6 md:pt-8">
+        <div className="mt-6 lg:hidden">
+          <NeetUgUpdatesSidebar />
+        </div>
 
-              {/* ── OMR & Answer Key ───────────────────────────────────────── */}
-              <section className="flex flex-col gap-8">
-                <SectionHeading
-                  variant="alt"
-                  icon="fact_check"
-                  eyebrow="Official Answer Key"
-                  title="OMR Sheet & Official Answer Key"
-                  description="NTA releases the provisional answer key 7–10 days after the exam. Candidates can view their scanned OMR responses and raise challenges within the window."
-                />
+        <div className="mt-8 lg:mt-10 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)_minmax(17rem,20rem)] lg:items-start lg:gap-8 xl:grid-cols-[12.5rem_minmax(0,1fr)_22rem] xl:gap-10">
+          <aside
+            className={cn(
+              "sticky top-[4.25rem] z-20 hidden max-h-[calc(100dvh-4.5rem)] self-start overflow-y-auto overscroll-contain",
+              "lg:col-start-1 lg:row-start-1 lg:block lg:w-full"
+            )}
+          >
+            <GuidePageJumpNav variant="sidebar" jumpSections={NEET_UG_ANSWER_KEY_JUMP_SECTIONS} />
+          </aside>
 
+          <div className="min-w-0 lg:col-start-2 lg:row-start-1">
+            <GuideSection embedded id="at-a-glance" eyebrow="Snapshot" title="At a glance">
+              <MetricGrid
+                items={NEET_UG_ANSWER_KEY_KEY_STATS.map((s) => ({
+                  label: s.label,
+                  value: s.value,
+                }))}
+              />
+            </GuideSection>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {omrSteps.map((s) => (
-                    <StepCard key={s.step} {...s} variant="compact" />
-                  ))}
-                </div>
+            <GuideSection
+              embedded
+              id="omr-answer-key"
+              eyebrow="Official answer key"
+              title="OMR sheet & provisional answer key"
+              description="NTA usually releases the provisional key 7–10 days after the exam. View your scanned OMR and challenge within the window."
+            >
+              <GuideCard>
+                <GuideSteps size="compact" steps={[...NEET_UG_ANSWER_KEY_OMR_STEPS]} />
+                <p className="mt-5 border-t border-outline-variant/40 pt-4 text-sm leading-relaxed text-on-surface-variant">
+                  Portal:{" "}
+                  <Link
+                    href="https://neet.nta.nic.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-primary hover:underline"
+                  >
+                    neet.nta.nic.in
+                  </Link>
+                </p>
+              </GuideCard>
+              <GuideCard className="mt-4 border-emerald-200/80 bg-emerald-50/40">
+                <h3 className="flex items-center gap-2 text-sm font-bold text-emerald-900">
+                  <span className="material-symbols-outlined text-lg text-emerald-700" aria-hidden>
+                    gavel
+                  </span>
+                  Challenging an answer key
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-on-surface-variant">
+                  {NEET_UG_ANSWER_KEY_CHALLENGE_NOTE}
+                </p>
+              </GuideCard>
+            </GuideSection>
 
-                <div className="rounded-lg border border-emerald-100 bg-emerald-50/35 p-5 shadow-sm">
-                  <div className="flex items-start gap-3">
-                    <MaterialSymbol name="gavel" size="sm" className="text-clinical-green shrink-0 mt-0.5" />
-                    <div className="flex flex-col gap-1">
-                      <h4 className="text-sm font-extrabold text-clinical-green">Challenging an Answer Key</h4>
-                      <p className="text-xs text-clinical-muted leading-relaxed">
-                        Pay <strong>₹200 per question</strong> challenged via online portal. If the challenge is accepted by the expert committee, the fee is refunded and the final key is updated accordingly. Challenges are non-refundable if rejected. The window is typically open for <strong>2–3 days</strong> after provisional key release.
+            <GuideSection
+              embedded
+              id="results"
+              eyebrow="Results"
+              title="NEET 2026 result & scorecard"
+              description="Results are expected in late July 2026 on the NTA portal. Your scorecard includes the fields below."
+            >
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {NEET_UG_ANSWER_KEY_SCORECARD_FIELDS.map((field) => (
+                  <GuideCard key={field.label} className="flex flex-col gap-3">
+                    <span
+                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-fixed text-primary"
+                      aria-hidden
+                    >
+                      <span className="material-symbols-outlined text-[22px] leading-none">
+                        {field.icon}
+                      </span>
+                    </span>
+                    <div>
+                      <h3 className="font-semibold text-on-surface">{field.label}</h3>
+                      <p className="mt-1.5 text-sm leading-relaxed text-on-surface-variant">
+                        {field.desc}
                       </p>
                     </div>
+                  </GuideCard>
+                ))}
+              </div>
+
+              <GuideCard className="mt-6">
+                <h3 className="text-sm font-bold text-on-surface">How to check your result</h3>
+                <div className="mt-4">
+                  <GuideSteps size="compact" steps={[...NEET_UG_ANSWER_KEY_RESULT_STEPS]} />
+                </div>
+              </GuideCard>
+
+              <GuideCard className="mt-4">
+                <h3 className="text-sm font-bold text-on-surface">Tie-breaking criteria</h3>
+                <p className="mt-2 text-sm text-on-surface-variant">
+                  When two or more candidates score identical marks, NTA applies these rules in order:
+                </p>
+                <div className="mt-4">
+                  <GuideSteps size="compact" steps={[...NEET_UG_ANSWER_KEY_TIE_BREAKING]} />
+                </div>
+              </GuideCard>
+            </GuideSection>
+
+            <GuideSection
+              embedded
+              id="cutoffs"
+              eyebrow="Cut-off & qualification"
+              title="Qualifying cut-off 2026 by category"
+              description="Minimum qualifying percentiles per NTA rules. Below these thresholds you cannot join counselling."
+            >
+              <DataTable
+                theme="guide"
+                columns={[
+                  { key: "category", label: "Category" },
+                  { key: "percentile", label: "Required percentile" },
+                  {
+                    key: "score",
+                    label: "Expected score range",
+                    badge: true,
+                    badgeVariant: "blue",
+                  },
+                  {
+                    key: "intensity",
+                    label: "Competition",
+                    align: "right",
+                    badge: true,
+                    badgeColorKey: "statusColor",
+                  },
+                ]}
+                rows={qualifyingRows}
+              />
+
+              <div className="mt-8">
+                <h3 className="text-base font-bold text-on-surface">
+                  Year-wise qualifying score trend (2019–2025)
+                </h3>
+                <p className="mt-1.5 text-sm text-on-surface-variant">
+                  Score range (highest – qualifying threshold) for each category across years.
+                </p>
+                <div className="mt-4">
+                  <DataTable
+                    theme="guide"
+                    columns={[
+                      { key: "year", label: "Year" },
+                      { key: "general", label: "General (UR/EWS)" },
+                      { key: "obc", label: "OBC-NCL" },
+                      { key: "scSt", label: "SC / ST" },
+                      { key: "pwd", label: "PwBD (UR)" },
+                    ]}
+                    rows={trendRows}
+                    highlightLastRow
+                    scrollable
+                    footnote={NEET_UG_ANSWER_KEY_CUTOFF_TREND_FOOTNOTE}
+                  />
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <div className="rp-brand-gradient rp-brand-elevated relative overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-8">
+                  <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-on-primary/80">
+                        Rank predictor
+                      </p>
+                      <h3 className="mt-1 font-headline-md text-lg font-bold">
+                        Know your rank from your score
+                      </h3>
+                      <p className="mt-2 max-w-md text-sm leading-relaxed text-on-primary/85">
+                        Estimate your All India Rank before results and shortlist MBBS colleges by
+                        category and state.
+                      </p>
+                    </div>
+                    <Link
+                      href="/rank-predictor"
+                      className="inline-flex shrink-0 items-center justify-center rounded-xl bg-on-primary px-5 py-3 text-sm font-bold text-primary no-underline transition hover:bg-on-primary/90"
+                    >
+                      Predict your rank
+                    </Link>
                   </div>
                 </div>
-              </section>
+              </div>
+            </GuideSection>
 
-              {/* ── Results Section ──────────────────────────────────────── */}
-              <section className="flex flex-col gap-8">
-                <SectionHeading
-                  variant="alt"
-                  icon="analytics"
-                  eyebrow="Results"
-                  title="NEET 2026 Result & Scorecard"
-                  description="Results are expected to be declared in late July 2026 on the NTA portal. Here's what your scorecard will contain."
-                />
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {scorecardFields.map((f, i) => (
-                    <div key={i} className="flex flex-col gap-3 rounded-lg border border-clinical-outline bg-clinical-surface p-5 shadow-sm transition-colors duration-200 hover:border-clinical-outline-strong">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-clinical-outline bg-clinical-surface-low text-clinical-blue">
-                        <MaterialSymbol name={f.icon} size="sm" />
-                      </div>
+            <GuideSection embedded id="related" eyebrow="More on MedSeat" title="Related guides">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {NEET_UG_ANSWER_KEY_RELATED_LINKS.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(guideCardClass, hubCardHoverClass, "group block no-underline")}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span
+                        className="material-symbols-outlined text-2xl text-primary"
+                        aria-hidden
+                      >
+                        {item.icon}
+                      </span>
                       <div>
-                        <h4 className="text-sm font-extrabold text-clinical-navy">{f.label}</h4>
-                        <p className="mt-1 text-xs leading-relaxed text-clinical-muted">{f.desc}</p>
+                        <p className="font-semibold text-on-surface group-hover:text-primary">
+                          {item.label}
+                        </p>
+                        <p className="mt-1 text-xs leading-relaxed text-on-surface-variant">
+                          {item.desc}
+                        </p>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </Link>
+                ))}
+              </div>
+            </GuideSection>
 
-                {/* How to check results */}
-                <InfoListCard
-                  bgVariant="subtle"
-                  iconName="how_to_reg"
-                  title="How to Check Your Result"
-                  items={[
-                    "Visit neet.nta.nic.in and click 'NEET UG 2026 Result' link",
-                    "Enter your Application Number and Date of Birth",
-                    "Your scorecard will display on screen — save/print it",
-                    "Download the scorecard PDF for counselling registration",
-                  ]}
-                  listType="numbered-round"
-                />
-
-                {/* Tie-breaking */}
-                <InfoListCard
-                  iconName="balance"
-                  title="Tie-Breaking Criteria"
-                  description="When two or more candidates score identical marks, NTA applies the following criteria in order of priority to determine rank:"
-                  items={[
-                    "Higher marks in Biology (Botany + Zoology combined)",
-                    "Higher marks in Chemistry",
-                    "Higher ratio of correct to incorrect answers (across all subjects)",
-                    "Higher marks in Physics",
-                    "Older candidate (higher age) gets a better rank",
-                  ]}
-                  listType="numbered-square"
-                />
-              </section>
-
-              {/* ── Cut-off & Qualification ──────────────────────────────── */}
-              <section className="flex flex-col gap-8">
-                <SectionHeading
-                  variant="alt"
-                  icon="trending_up"
-                  eyebrow="Cut-off & Qualification"
-                  title="Qualifying Cut-off 2026 — By Category"
-                  description="The minimum qualifying percentile as per NTA regulations. Candidates below these thresholds are ineligible for counselling."
-                />
-
-                {/* Qualifying cut-off table */}
-                <DataTable
-                  columns={[
-                    { key: "category", label: "Category" },
-                    { key: "percentile", label: "Required Percentile" },
-                    { key: "score", label: "Expected Score Range", badge: true, badgeVariant: "blue" },
-                    { key: "intensity", label: "Competition", align: "right", badge: true, badgeColorKey: "_color" },
-                  ]}
-                  rows={qualifyingCutoffRows}
-                />
-
-                {/* Year-wise cut-off trend */}
-                <div className="flex flex-col gap-3 mt-2">
-                  <h3 className="flex items-center gap-2.5 text-base font-extrabold text-clinical-navy">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-clinical-surface text-clinical-muted ring-1 ring-clinical-outline">
-                      <MaterialSymbol name="history" size="sm" />
-                    </span>
-                    Year-wise Qualifying Score Trend (2019–2025)
-                  </h3>
-                  <p className="pl-9 text-xs leading-relaxed text-clinical-muted">Score range (highest – qualifying threshold) for each category across years.</p>
-                </div>
-
-                <DataTable
-                  columns={[
-                    { key: "year", label: "Year" },
-                    { key: "general", label: "General (UR/EWS)" },
-                    { key: "obc", label: "OBC-NCL" },
-                    { key: "scSt", label: "SC / ST" },
-                    { key: "pwd", label: "PwBD (UR)" },
-                  ]}
-                  rows={cutoffTrendRows}
-                  highlightLastRow
-                  scrollable
-                  footnote="* 2025 and 2026 values are estimates based on historical trends and NTA official qualifying percentile thresholds. Actual cut-offs may vary."
-                />
-
-                {/* CTA */}
-                <CtaBanner
-                  eyebrow="Rank Predictor 2026"
-                  title="Know your rank from your score"
-                  description="Instantly estimate your All India Rank and filter available MBBS colleges by category, state, and seats."
-                  ctaText="Predict Your Rank Now"
-                  ctaHref="/rank-predictor"
-                />
-              </section>
-
-            </div>
-
-            {/* Sidebar */}
-            <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
-              <SidebarLeadCard
-                theme="light"
-                iconName="download"
-                title="Download Answer Key PDF"
-                description="Get official NTA answer keys and OMR guidelines delivered directly to your WhatsApp."
-                ctaText="Get PDF on WhatsApp"
-                successTitle="PDF Code Request Sent!"
-                successDesc="Check your mobile. We are triggering the download link via WhatsApp/SMS."
-              />
-
-              <SidebarLeadCard
-                theme="dark"
-                iconName="psychology"
-                title="Need Expert Help?"
-                description="Connect with our medical counsellors to plan your career path based on your rank."
-                ctaText="Book Session"
-                successTitle="Request Logged!"
-                successDesc="A counselor will contact you shortly."
-                showWhatsappHelp
-              />
-
-              <QuickLinksCard title="Related Pages" links={quickLinks} />
-            </aside>
+            <GuideSection embedded id="tools-cta" eyebrow="Plan ahead" title="Start with your score or rank">
+              <NeetUgHubFinalCta />
+            </GuideSection>
           </div>
-        </Container>
-      </Section>
-    </>
+
+          <div className="hidden lg:col-start-3 lg:row-start-1 lg:mt-0 lg:block">
+            <NeetUgUpdatesSidebar />
+          </div>
+        </div>
+      </Container>
+    </NeetUg2026Shell>
   );
 }

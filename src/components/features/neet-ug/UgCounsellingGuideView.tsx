@@ -1,414 +1,438 @@
 "use client";
 
-import React from "react";
-import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import Link from "next/link";
 import { Container } from "@/components/common/Container";
-import { Section } from "@/components/common/Section";
+import { GuidePageJumpNav } from "@/components/features/mbbs-india/GuidePageJumpNav";
+import {
+  GuideCard,
+  GuideSection,
+  GuideSteps,
+  MetricGrid,
+} from "@/components/features/mbbs-india/MbbsIndiaParts";
 import { ChronologyJourney } from "@/components/features/neet-ug/counselling/ChronologyJourney";
+import { CounsellingFeeTable } from "@/components/features/neet-ug/counselling/CounsellingFeeTable";
 import { CounsellingRounds } from "@/components/features/neet-ug/counselling/CounsellingRounds";
 import { DocumentChecklist } from "@/components/features/neet-ug/counselling/DocumentChecklist";
-import { CounsellingFeeTable } from "@/components/features/neet-ug/counselling/CounsellingFeeTable";
-import { neetUg2026Data } from "@/lib/data/neet-ug-2026";
-import { SidebarLeadCard } from "@/components/features/neet-ug/shared/SidebarLeadCard";
+import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
+import { NeetUgUpdatesSidebar } from "@/components/features/neet-ug/NeetUgUpdatesParts";
+import { NeetUgHubFinalCta, NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
+import { DataTable } from "@/components/features/neet-ug/shared/DataTable";
+import { RpMarketingHero } from "@/components/features/rank-predictor/RankPredictorParts";
 import { mccCounsellingGuide } from "@/lib/data/mcc-counselling";
+import { neetUg2026Data } from "@/lib/data/neet-ug-2026";
+import {
+  NEET_UG_COUNSELLING_COMPARISON,
+  NEET_UG_COUNSELLING_HERO,
+  NEET_UG_COUNSELLING_INTRO_PARAS,
+  NEET_UG_COUNSELLING_JUMP_SECTIONS,
+  NEET_UG_COUNSELLING_KEY_STATS,
+  NEET_UG_COUNSELLING_LEAD_MAGNET,
+  NEET_UG_COUNSELLING_MCC_COVERAGE_ROWS,
+  NEET_UG_COUNSELLING_OFFICIAL_LINKS,
+  NEET_UG_COUNSELLING_RELATED_LINKS,
+  NEET_UG_COUNSELLING_SEAT_MATRIX_FOOTNOTE,
+  NEET_UG_COUNSELLING_SEAT_MATRIX_ROWS,
+  NEET_UG_COUNSELLING_SEAT_SUMMARY,
+  NEET_UG_COUNSELLING_STREAMS,
+} from "@/lib/neet-ug-2026/counselling-guide-content";
+import {
+  guideCardClass,
+  hubCardHoverClass,
+} from "@/lib/neet-ug-2026/section-styles";
+import { cn } from "@/lib/utils";
 
 export function UgCounsellingGuideView() {
   const { seatStatistics } = neetUg2026Data;
-  const { introduction, roleOfMcc, candidateGuidelines, abbreviations, meta } = mccCounsellingGuide;
+  const { roleOfMcc, candidateGuidelines, abbreviations } = mccCounsellingGuide;
 
-  const counsellingStreams = [
+  const aiqInstitutions =
+    mccCounsellingGuide.chapters.aiq.openSeatsDomicileFree?.[0] ??
+    "State government medical/dental colleges";
+
+  const mccScopeRows = roleOfMcc.scope.map((row) => ({
+    category: row.category,
+    institutions: row.institutions,
+  }));
+
+  const mccCoverageRows = [
     {
-      title: "MCC Central Quota (15%)",
-      desc: "AIQ govt seats, AIIMS, JIPMER, Deemed & Central Universities. Open to all India.",
+      cat: "15% All India Quota",
+      quota: "15% of state govt seats",
+      by: "MCC (Central)",
+      inst: aiqInstitutions,
     },
-    {
-      title: "State Quota (85%)",
-      desc: "Respective state government and private colleges. Domicile certificates required.",
-    },
+    ...NEET_UG_COUNSELLING_MCC_COVERAGE_ROWS.map((row) => ({ ...row })),
   ];
 
-  const comparisonCards = [
-    {
-      title: "MCC Central Counselling (15% AIQ)",
-      desc: "Covers all central institutions (AIIMS, JIPMER), Deemed Universities, and 15% of seats in every state-run government medical college. No domicile certificate is needed. Anyone from any state can claim these seats based purely on their NEET AIR.",
-      icon: "account_balance",
-      border: "border-blue-100",
-      bgGradient: "from-mg-surface to-blue-50",
-      iconBg: "bg-mg-primary",
-    },
-    {
-      title: "State Quota Counselling (85% State)",
-      desc: "Covers the remaining 85% of seats in state government colleges and 100% of seats in state private colleges. Managed by each state's DME/CET Cell. Requires a valid State Domicile/Residence proof to apply for government quota seats.",
-      icon: "map",
-      border: "border-green-100",
-      bgGradient: "from-mg-surface to-green-50",
-      iconBg: "bg-green-600",
-    },
-  ];
+  const seatMatrixRows = NEET_UG_COUNSELLING_SEAT_MATRIX_ROWS.map((row) => ({ ...row }));
+
+  const glanceStats = NEET_UG_COUNSELLING_KEY_STATS.map((stat, index) => {
+    if (index === 2) {
+      return {
+        label: "MBBS seats (approx.)",
+        value: `${Math.round(seatStatistics.mbbs.total / 1000)}K+\nIndia`,
+      };
+    }
+    return { label: stat.label, value: stat.value };
+  });
 
   return (
-    <>
-      <Section tone="default" className=" py-7 md:py-10">
-        <Container size="page" className="flex flex-col gap-10">
-          {/* Breadcrumb */}
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "NEET UG 2026", href: "/neet-ug-2026" },
-              { label: "Counselling Guide" },
-            ]}
+    <NeetUg2026Shell>
+      <RpMarketingHero
+        id="top"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "NEET UG 2026", href: "/neet-ug-2026" },
+          { label: "Counselling guide" },
+        ]}
+        title={NEET_UG_COUNSELLING_HERO.title}
+        titleEmphasis={NEET_UG_COUNSELLING_HERO.titleEmphasis}
+        lede={NEET_UG_COUNSELLING_HERO.lede}
+        trio={NEET_UG_COUNSELLING_HERO.trio}
+        fine={NEET_UG_COUNSELLING_HERO.fine}
+      >
+        <NeetUgLeadMagnetPanel
+          pageLabel="NEET UG 2026 Counselling"
+          content={NEET_UG_COUNSELLING_LEAD_MAGNET}
+        />
+      </RpMarketingHero>
+
+      <nav
+        aria-label="Page sections"
+        className="sticky top-16 z-30 border-b border-outline-variant/40 bg-surface/90 backdrop-blur-lg lg:hidden"
+      >
+        <Container size="2xl" className="py-3">
+          <GuidePageJumpNav
+            variant="horizontal"
+            jumpSections={NEET_UG_COUNSELLING_JUMP_SECTIONS}
           />
+        </Container>
+      </nav>
 
-          {/* Hero */}
-          <header className="max-w-3xl text-left">
-            <h1 className="mt-4 text-3xl font-bold leading-[1.05] tracking-[-0.035em] text-clinical-navy md:text-[44px]">
-              Counselling Process Journey.
-            </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-clinical-muted md:text-[15px]">
-              Navigate the high-stakes AIQ and Deemed University admissions with precision. We decode the complex rules of registration, exits, and security forfeitures so you stay ahead.
-            </p>
-          </header>
+      <Container size="2xl" className="pb-4 pt-6 md:pt-8">
+        <div className="mt-6 lg:hidden">
+          <NeetUgUpdatesSidebar />
+        </div>
 
-          <div className="flex flex-col gap-8 lg:flex-row">
-            {/* ── Left Content Column ── */}
-            <div className="flex-1 space-y-8">
+        <div className="mt-8 lg:mt-10 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)_minmax(17rem,20rem)] lg:items-start lg:gap-8 xl:grid-cols-[12.5rem_minmax(0,1fr)_22rem] xl:gap-10">
+          <aside
+            className={cn(
+              "sticky top-[4.25rem] z-20 hidden max-h-[calc(100dvh-4.5rem)] self-start overflow-y-auto overscroll-contain",
+              "lg:col-start-1 lg:row-start-1 lg:block lg:w-full"
+            )}
+          >
+            <GuidePageJumpNav
+              variant="sidebar"
+              jumpSections={NEET_UG_COUNSELLING_JUMP_SECTIONS}
+            />
+          </aside>
 
-              {/* Info Grid */}
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                {[
-                  { icon: "event", label: "MCC Round", value: "Upcoming", bg: "bg-green-50", text: "text-green-600" },
-                  { icon: "fact_check", label: "Checklist", value: "8 Docs Required", bg: "bg-blue-50", text: "text-blue-600" },
-                  { icon: "grid_view", label: "Seat Matrix", value: `${Math.round(seatStatistics.mbbs.total / 1000)}K+ MBBS`, bg: "bg-purple-50", text: "text-purple-600" },
-                  { icon: "source", label: "Source", value: "MCC Data", bg: "bg-orange-50", text: "text-orange-600" },
-                ].map((m) => (
-                  <div key={m.label} className="flex items-center gap-3 rounded-lg border border-mg-border/40 bg-mg-surface p-4">
-                    <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${m.bg} ${m.text}`}>
-                      <span className="material-symbols-outlined text-[18px]">{m.icon}</span>
-                    </div>
-                    <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-wider text-mg-on-surface">{m.label}</p>
-                      <p className="mt-0.5 text-sm font-bold text-mg-on-bg">{m.value}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+          <div className="min-w-0 lg:col-start-2 lg:row-start-1">
+            <GuideSection embedded id="at-a-glance" eyebrow="Snapshot" title="At a glance">
+              <MetricGrid items={glanceStats} />
+            </GuideSection>
 
-
-              {/* Intro Section */}
-              <section className="rounded-xl border border-mg-border/40 bg-mg-surface p-6 shadow-sm">
-                <div className="mb-4 flex items-start gap-4">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-mg-primary-bright text-white">
-                    <span className="material-symbols-outlined text-[19px]">help_center</span>
-                  </div>
-                  <div>
-                    <h2 className="text-[22px] font-semibold text-mg-on-bg">What is NEET UG Counselling?</h2>
-                    <p className="text-sm text-mg-on-surface">Essential introduction for medical aspirants</p>
-                  </div>
-                </div>
-                <div className="pt-3 grid gap-6 lg:grid-cols-3">
-                  <div className="space-y-4 lg:col-span-2">
-                    <p className="text-[16px] leading-relaxed text-mg-on-bg">
-                      <strong>NEET UG Counselling</strong> is the official, centralized process that allocates medical, dental, AYUSH, and veterinary seats in Indian colleges based on your <strong>NEET All India Rank (AIR)</strong>. Just qualifying the NEET UG exam does not guarantee a seat; every candidate must actively register and participate in counselling to secure admission.
-                    </p>
-                    <p className="text-[16px] leading-relaxed text-mg-on-bg">
-                      The allotment is fully computerized and proceeds dynamically based on a student&apos;s rank, selected category reservation, and their submitted priority order of college choices.
-                    </p>
-                  </div>
-                  <div className="space-y-4 rounded-lg bg-mg-surface-container p-4">
-                    <p className="text-[12px] font-semibold uppercase tracking-wider text-mg-on-surface">Counselling Streams</p>
-                    {counsellingStreams.map((stream, i) => (
-                      <div key={i} className="flex gap-3">
-                        <span className="material-symbols-outlined shrink-0 text-green-600" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                        <p className="text-sm">
-                          <strong>{stream.title}:</strong> {stream.desc}
-                        </p>
-                      </div>
+            <GuideSection
+              embedded
+              id="overview"
+              eyebrow="Fundamentals"
+              title="What is NEET UG counselling?"
+              description="How MCC central counselling fits with state DME/CET cells — and rules from the MCC bulletin."
+            >
+              <GuideCard>
+                <div className="flex flex-col gap-6">
+                  <div className="space-y-4">
+                    {NEET_UG_COUNSELLING_INTRO_PARAS.map((para) => (
+                      <p key={para} className="text-sm leading-relaxed text-on-surface-variant">
+                        {para}
+                      </p>
                     ))}
                   </div>
-                </div>
-              </section>
-
-
-              {/* Role of MCC */}
-              <section className="rounded-xl border border-mg-border/40 bg-mg-surface p-6 shadow-sm">
-                <h2 className="text-[22px] font-semibold text-mg-on-bg mb-2">{roleOfMcc.title}</h2>
-                <p className="text-sm text-mg-on-surface leading-relaxed mb-6">{roleOfMcc.summary}</p>
-                <div className="overflow-hidden rounded-lg border border-mg-border/40">
-                  <table className="w-full border-collapse text-left text-sm">
-                    <thead>
-                      <tr className="border-b border-mg-border/40 bg-mg-surface-container text-[11px] font-semibold uppercase tracking-widest text-mg-on-surface">
-                        <th className="px-4 py-3">Counselling Pool</th>
-                        <th className="px-4 py-3">Institutions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-mg-border/30">
-                      {roleOfMcc.scope.map((row) => (
-                        <tr key={row.category}>
-                          <td className="px-4 py-3 font-semibold text-mg-on-bg">{row.category}</td>
-                          <td className="px-4 py-3 text-mg-on-surface">{row.institutions}</td>
-                        </tr>
+                  <div className="w-full rounded-xl bg-surface-container-low p-4 md:p-5">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
+                      Counselling streams
+                    </p>
+                    <ul className="mt-3 space-y-3">
+                      {NEET_UG_COUNSELLING_STREAMS.map((stream) => (
+                        <li key={stream.title} className="flex gap-2 text-sm leading-relaxed">
+                          <span
+                            className="material-symbols-outlined shrink-0 text-lg text-primary"
+                            style={{ fontVariationSettings: "'FILL' 1" }}
+                            aria-hidden
+                          >
+                            check_circle
+                          </span>
+                          <span>
+                            <strong className="text-on-surface">{stream.title}:</strong>{" "}
+                            {stream.desc}
+                          </span>
+                        </li>
                       ))}
-                    </tbody>
-                  </table>
+                    </ul>
+                  </div>
                 </div>
-                <p className="mt-4 text-xs text-mg-on-surface italic">{roleOfMcc.limitation}</p>
-              </section>
+              </GuideCard>
 
-              {/* Candidate Guidelines from MCC Bulletin */}
-              <section className="rounded-xl border border-mg-border/40 bg-mg-surface p-6 shadow-sm">
-                <h2 className="text-[22px] font-semibold text-mg-on-bg mb-4">Information for Candidates</h2>
-                <p className="text-sm text-mg-on-surface mb-4">
-                  Key mandatory rules from the MCC information bulletin before registering on mcc.nic.in:
+              <div className="mt-8">
+                <h3
+                  id="mcc-intro"
+                  className="scroll-mt-28 text-base font-bold text-on-surface"
+                >
+                  {roleOfMcc.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-on-surface-variant">
+                  {roleOfMcc.summary}
                 </p>
-                <ol className="space-y-2 list-decimal list-inside text-sm text-mg-on-surface leading-relaxed">
-                  {candidateGuidelines.map((guideline) => (
-                    <li key={guideline}>{guideline}</li>
-                  ))}
-                </ol>
-              </section>
+                <div className="mt-4">
+                  <DataTable
+                    theme="guide"
+                    columns={[
+                      { key: "category", label: "Counselling pool" },
+                      { key: "institutions", label: "Institutions" },
+                    ]}
+                    rows={mccScopeRows}
+                  />
+                </div>
+                <p className="mt-4 text-xs italic text-on-surface-variant">{roleOfMcc.limitation}</p>
+              </div>
 
-              {/* Abbreviations */}
-              <section className="rounded-xl border border-mg-border/40 bg-mg-surface p-6 shadow-sm">
-                <h2 className="text-[22px] font-semibold text-mg-on-bg mb-4">List of Abbreviations</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+              <GuideCard className="mt-6">
+                <h3 className="text-sm font-bold text-on-surface">Information for candidates</h3>
+                <p className="mt-2 text-sm text-on-surface-variant">
+                  Mandatory rules from the MCC bulletin before registering on mcc.nic.in:
+                </p>
+                <div className="mt-4">
+                  <GuideSteps size="compact" steps={[...candidateGuidelines]} />
+                </div>
+              </GuideCard>
+
+              <GuideCard className="mt-6">
+                <h3 className="text-sm font-bold text-on-surface">List of abbreviations</h3>
+                <div className="mt-4 grid gap-2 sm:grid-cols-2">
                   {abbreviations.map((item) => (
-                    <div key={item.abbr} className="flex gap-2 py-1">
-                      <span className="font-bold text-mg-primary shrink-0">{item.abbr}</span>
-                      <span className="text-mg-on-surface">— {item.full}</span>
+                    <div key={item.abbr} className="flex gap-2 py-1 text-sm">
+                      <span className="shrink-0 font-bold text-primary">{item.abbr}</span>
+                      <span className="text-on-surface-variant">— {item.full}</span>
                     </div>
                   ))}
                 </div>
-              </section>
+              </GuideCard>
+            </GuideSection>
 
-              {/* Process Section */}
-              <section id="process">
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="text-[13px] font-semibold uppercase tracking-widest text-mg-primary">Process</span>
-                  <div className="h-px flex-1 bg-mg-border/40" />
-                </div>
-                <h2 className="mb-2 flex items-center gap-2 text-[28px] font-semibold leading-[1.3] text-mg-on-bg">
-                  <span className="material-symbols-outlined text-mg-primary">account_tree</span>
-                  Chronological Roadmap
-                </h2>
-                <p className="mb-6 text-[16px] text-mg-on-surface">Follow the official steps from registration through stray rounds to secure your seat.</p>
-                <ChronologyJourney />
-              </section>
+            <GuideSection
+              embedded
+              id="process"
+              eyebrow="Process"
+              title="Chronological roadmap"
+              description="Official steps from MCC registration through stray vacancy rounds."
+            >
+              <ChronologyJourney />
+            </GuideSection>
 
-              {/* Fees Section */}
-              <section id="fees">
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="text-[13px] font-semibold uppercase tracking-widest text-mg-primary">Counselling Fees</span>
-                  <div className="h-px flex-1 bg-mg-border/40" />
-                </div>
-                <h2 className="mb-4 flex items-center gap-2 text-[28px] font-semibold leading-[1.3] text-mg-on-bg">
-                  <span className="material-symbols-outlined text-mg-primary">payments</span>
-                  Registration &amp; Security Fees
-                </h2>
-                <CounsellingFeeTable />
-              </section>
+            <GuideSection
+              embedded
+              id="fees"
+              eyebrow="Counselling fees"
+              title="Registration & security deposits"
+              description="Non-refundable registration fee plus refundable security deposit — amounts vary by quota and category."
+            >
+              <CounsellingFeeTable />
+            </GuideSection>
 
-              {/* AIQ vs State Comparison */}
-              <section id="comparison">
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="text-[13px] font-semibold uppercase tracking-widest text-mg-primary">Comparison</span>
-                  <div className="h-px flex-1 bg-mg-border/40" />
-                </div>
-                <h2 className="mb-4 flex items-center gap-2 text-[28px] font-semibold leading-[1.3] text-mg-on-bg">
-                  <span className="material-symbols-outlined text-mg-primary">compare_arrows</span>
-                  AIQ Central vs. State Quota Counselling
-                </h2>
-                <div className="grid gap-6 md:grid-cols-2">
-                  {comparisonCards.map((card, i) => (
-                    <div key={i} className={`flex flex-col rounded-xl border ${card.border} bg-gradient-to-br ${card.bgGradient} p-6 shadow-sm`}>
-                      <div className={`mb-4 flex h-9 w-9 items-center justify-center rounded-lg ${card.iconBg} text-white`}>
-                        <span className="material-symbols-outlined text-[19px]">{card.icon}</span>
-                      </div>
-                      <h3 className="mb-2 text-[22px] font-semibold text-mg-on-bg">{card.title}</h3>
-                      <p className="mb-6 flex-1 text-[14px] leading-relaxed text-mg-on-surface">
-                        {card.desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Seats Covered Under MCC */}
-              <section id="mcc-coverage">
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="text-[13px] font-semibold uppercase tracking-widest text-mg-primary">Coverage</span>
-                  <div className="h-px flex-1 bg-mg-border/40" />
-                </div>
-                <h2 className="mb-4 flex items-center gap-2 text-[28px] font-semibold leading-[1.3] text-mg-on-bg">
-                  <span className="material-symbols-outlined text-mg-primary">layers</span>
-                  Seats Covered Under Central MCC Counselling
-                </h2>
-                <div className="overflow-hidden rounded-xl border border-mg-border/40 bg-mg-surface">
-                  <div className="overflow-x-auto">
-                    <table className="w-full border-collapse text-left">
-                      <thead>
-                        <tr className="border-b border-mg-border/40 bg-mg-surface-container text-[11px] font-semibold uppercase tracking-widest text-mg-on-surface">
-                          <th className="px-6 py-4">Seat Category</th>
-                          <th className="px-6 py-4">Quota Percentage</th>
-                          <th className="px-6 py-4">Conducted By</th>
-                          <th className="px-6 py-4">Institutions Included</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-mg-border/30 text-sm">
-                        {[
-                          { cat: "15% All India Quota", quota: "15% of state govt seats", by: "MCC (Central)", inst: mccCounsellingGuide.chapters.aiq.openSeatsDomicileFree?.[0] ?? "State government medical/dental colleges" },
-                          { cat: "Central Universities & National Institutes", quota: "AIQ + institutional quota", by: "MCC (Central)", inst: "DU, AMU, BHU, JMI, VMMC, ABVIMS, ESIC Dental" },
-                          { cat: "AIIMS & JIPMER", quota: "100% / Open + state quota", by: "MCC (Central)", inst: "All AIIMS campuses; JIPMER Puducherry & Karaikal" },
-                          { cat: "Deemed Universities", quota: "100% Seats", by: "MCC (Central)", inst: "All participating Deemed medical and dental colleges" },
-                          { cat: "Special Pools (ESIC & AFMC)", quota: "IP Quota / Registration", by: "MCC + institute", inst: "ESIC Insured Persons quota; AFMC registration on MCC" },
-                        ].map((row, i) => (
-                          <tr key={i} className="transition-colors hover:bg-mg-surface-low/50">
-                            <td className="px-6 py-4 font-bold text-mg-on-bg">{row.cat}</td>
-                            <td className="px-6 py-4 font-medium text-mg-on-surface">{row.quota}</td>
-                            <td className="px-6 py-4 text-mg-on-surface">{row.by}</td>
-                            <td className="px-6 py-4 text-mg-on-surface">{row.inst}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </section>
-
-              {/* Rounds Section */}
-              <section id="rounds">
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="text-[13px] font-semibold uppercase tracking-widest text-mg-primary">Round Actions</span>
-                  <div className="h-px flex-1 bg-mg-border/40" />
-                </div>
-                <h2 className="mb-4 flex items-center gap-2 text-[28px] font-semibold leading-[1.3] text-mg-on-bg">
-                  <span className="material-symbols-outlined text-mg-primary">layers</span>
-                  Counselling Rounds &amp; Rules
-                </h2>
-                <CounsellingRounds />
-              </section>
-
-              {/* Seat Matrix 2026 */}
-              <section id="seat-matrix">
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="text-[13px] font-semibold uppercase tracking-widest text-mg-primary">Seat Matrix 2026</span>
-                  <div className="h-px flex-1 bg-mg-border/40" />
-                </div>
-                <h2 className="mb-4 flex items-center gap-2 text-[28px] font-semibold leading-[1.3] text-mg-on-bg">
-                  <span className="material-symbols-outlined text-mg-primary">analytics</span>
-                  Total Seats Under NEET UG 2026
-                </h2>
-
-                {/* Seat summary cards */}
-                <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-3">
-                  {[
-                    { icon: "add_home_work", label: "Total MBBS Seats", value: "1,08,940", sub: "Govt + Private + Deemed", text: "text-blue-600" },
-                    { icon: "medication_liquid", label: "BDS Seats", value: "26,949", sub: "Govt + Private", text: "text-green-600" },
-                    { icon: "eco", label: "AYUSH Seats", value: "52,720+", sub: "BAMS, BHMS, BSMS, BUMS", text: "text-teal-600" },
-                  ].map((s) => (
-                    <div key={s.label} className="rounded-lg border border-mg-border/40 bg-mg-surface p-5 shadow-sm">
-                      <span className={`material-symbols-outlined mb-2 text-[18px] ${s.text}`}>{s.icon}</span>
-                      <p className="text-[11px] font-bold uppercase tracking-wider text-mg-on-surface">{s.label}</p>
-                      <p className="mt-1 text-2xl font-bold text-mg-on-bg">{s.value}</p>
-                      <p className="text-[10px] text-mg-on-surface">{s.sub}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Detailed seat table */}
-                <div className="overflow-hidden rounded-xl border border-mg-border/40 bg-mg-surface">
-                  <div className="overflow-x-auto">
-                    <table className="w-full border-collapse text-left">
-                      <thead>
-                        <tr className="border-b border-mg-border/40 bg-mg-surface-container text-[11px] font-semibold uppercase tracking-widest text-mg-on-surface">
-                          <th className="px-6 py-4">Programme</th>
-                          <th className="px-6 py-4 text-right">Government</th>
-                          <th className="px-6 py-4 text-right">Private / Deemed</th>
-                          <th className="px-6 py-4 text-right">Central / AIIMS</th>
-                          <th className="px-6 py-4 text-right">Total Seats</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-mg-border/30 text-sm">
-                        {[
-                          { prog: "MBBS", govt: "56,943", private: "48,012", central: "3,985+", total: "1,08,940+" },
-                          { prog: "BDS", govt: "8,870", private: "18,079", central: "—", total: "26,949" },
-                          { prog: "BAMS (Ayurveda)", govt: "13,516", private: "26,200+", central: "—", total: "39,716+" },
-                          { prog: "BHMS (Homeopathy)", govt: "3,280", private: "9,724", central: "—", total: "13,004" },
-                          { prog: "BVSc & AH", govt: "3,489", private: "—", central: "—", total: "3,489" },
-                        ].map((row, i) => (
-                          <tr key={i} className="transition-colors hover:bg-mg-surface-low/50">
-                            <td className="px-6 py-4 font-bold text-mg-on-bg">{row.prog}</td>
-                            <td className="px-6 py-4 text-right text-mg-on-surface">{row.govt}</td>
-                            <td className="px-6 py-4 text-right text-mg-on-surface">{row.private}</td>
-                            <td className="px-6 py-4 text-right font-medium text-mg-on-surface">{row.central}</td>
-                            <td className="px-6 py-4 text-right font-bold text-mg-primary">{row.total}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <p className="mt-3 pl-1 text-[11px] text-mg-on-surface/70">
-                  * Seat counts are based on MCC, AACCC, and VCI official data for AY 2025–26. Final 2026 seat matrix will be published before Round 1 registration.
-                </p>
-              </section>
-
-              {/* Official Links */}
-              <section id="official-links">
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="text-[13px] font-semibold uppercase tracking-widest text-mg-primary">Official Resources</span>
-                  <div className="h-px flex-1 bg-mg-border/40" />
-                </div>
-                <div className="grid gap-4 md:grid-cols-2">
-                  {[
-                    { icon: "link", title: "MCC — Medical Counselling Committee", desc: "Central counselling for AIQ 15% seats, AIIMS, JIPMER, Deemed, and Central Universities.", url: "https://mcc.nic.in", label: "mcc.nic.in", hover: "hover:bg-blue-50", iconBg: "bg-blue-100 text-blue-700", labelColor: "text-mg-primary" },
-                    { icon: "link", title: "AACCC — Ayush Admissions Central", desc: "Centralized AYUSH seat allotment for BAMS, BHMS, BUMS, and BSMS programmes under MCC.", url: "https://aaccc.gov.in", label: "aaccc.gov.in", hover: "hover:bg-green-50", iconBg: "bg-green-100 text-green-700", labelColor: "text-green-700" },
-                    { icon: "link", title: "VCI — Veterinary Council of India", desc: "BVSc & AH seat counselling for government veterinary colleges across India.", url: "https://vci.admissions.nic.in", label: "vci.admissions.nic.in", hover: "hover:bg-orange-50", iconBg: "bg-orange-100 text-orange-700", labelColor: "text-orange-700" },
-                    { icon: "map", title: "State Counselling Authority Directory", desc: "All 28 state DME / CET Cell portals for MBBS, BDS, and private college admissions.", url: "/neet-ug-2026/counselling-websites", label: "View State Portals", hover: "hover:bg-teal-50", iconBg: "bg-teal-100 text-teal-700", labelColor: "text-teal-700", internal: true },
-                  ].map((link) => (
-                    <a
-                      key={link.title}
-                      href={link.url}
-                      target={link.internal ? undefined : "_blank"}
-                      rel={link.internal ? undefined : "noopener noreferrer"}
-                      className={`group flex items-start gap-4 rounded-lg border border-mg-border/40 bg-mg-surface p-4 no-underline transition-colors ${link.hover}`}
+            <GuideSection
+              embedded
+              id="comparison"
+              eyebrow="Comparison"
+              title="AIQ central vs state quota counselling"
+            >
+              <div className="grid gap-4 md:grid-cols-2">
+                {NEET_UG_COUNSELLING_COMPARISON.map((card) => (
+                  <GuideCard key={card.title} className="flex h-full flex-col">
+                    <span
+                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-on-primary"
+                      aria-hidden
                     >
-                      <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors ${link.iconBg}`}>
-                        <span className="material-symbols-outlined text-[17px]">{link.icon}</span>
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-mg-on-bg">{link.title}</h4>
-                        <p className="text-xs text-mg-on-surface">{link.desc}</p>
-                        <span className={`mt-1 flex items-center gap-1 text-xs font-bold ${link.labelColor}`}>
-                          {link.label}
-                          <span className="material-symbols-outlined text-[14px]">{link.internal ? "chevron_right" : "open_in_new"}</span>
-                        </span>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </section>
-            </div>
+                      <span className="material-symbols-outlined text-[22px] leading-none">
+                        {card.icon}
+                      </span>
+                    </span>
+                    <h3 className="mt-4 font-semibold text-on-surface">{card.title}</h3>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-on-surface-variant">
+                      {card.desc}
+                    </p>
+                  </GuideCard>
+                ))}
+              </div>
+            </GuideSection>
 
-            {/* ── Right Sidebar Column ── */}
-            <aside className="w-full shrink-0 space-y-6 lg:sticky lg:top-24 lg:w-80">
-              {/* Document Checklist */}
-              <DocumentChecklist />
-
-              {/* Expert Help Card */}
-              <SidebarLeadCard
-                theme="dark"
-                iconName="psychology"
-                title="Need Expert Help?"
-                description="Talk to our medical counsellors for personalized seat guidance."
-                ctaText="Book Session"
-                successTitle="Request Registered!"
-                successDesc="Our expert will contact you shortly."
-                showWhatsappHelp
+            <GuideSection
+              embedded
+              id="mcc-coverage"
+              eyebrow="Coverage"
+              title="Seats under central MCC counselling"
+            >
+              <DataTable
+                theme="guide"
+                scrollable
+                columns={[
+                  { key: "cat", label: "Seat category" },
+                  { key: "quota", label: "Quota" },
+                  { key: "by", label: "Conducted by" },
+                  { key: "inst", label: "Institutions included" },
+                ]}
+                rows={mccCoverageRows}
               />
-            </aside>
+            </GuideSection>
+
+            <GuideSection
+              embedded
+              id="rounds"
+              eyebrow="Round actions"
+              title="Counselling rounds & rules"
+              description="Exit, upgradation, and forfeiture rules differ by round — read before you accept a seat."
+            >
+              <CounsellingRounds />
+            </GuideSection>
+
+            <GuideSection
+              embedded
+              id="seat-matrix"
+              eyebrow="Seat matrix 2026"
+              title="Total seats under NEET UG 2026"
+              description="Indicative programme-wise split — final matrix is published before Round 1."
+            >
+              <MetricGrid
+                items={NEET_UG_COUNSELLING_SEAT_SUMMARY.map((s) => ({
+                  label: s.label,
+                  value: s.value,
+                }))}
+              />
+              <div className="mt-6">
+                <DataTable
+                  theme="guide"
+                  scrollable
+                  columns={[
+                    { key: "prog", label: "Programme" },
+                    { key: "govt", label: "Government", align: "right" },
+                    { key: "private", label: "Private / deemed", align: "right" },
+                    { key: "central", label: "Central / AIIMS", align: "right" },
+                    { key: "total", label: "Total seats", align: "right" },
+                  ]}
+                  rows={seatMatrixRows}
+                  footnote={NEET_UG_COUNSELLING_SEAT_MATRIX_FOOTNOTE}
+                />
+              </div>
+            </GuideSection>
+
+            <GuideSection
+              embedded
+              id="documents"
+              eyebrow="Before reporting"
+              title="Document checklist"
+              description="Originals and copies ready before MCC or state portal login and college reporting."
+            >
+              <DocumentChecklist />
+            </GuideSection>
+
+            <GuideSection
+              embedded
+              id="official-links"
+              eyebrow="Official resources"
+              title="Counselling portals"
+            >
+              <div className="grid gap-3 sm:grid-cols-2">
+                {NEET_UG_COUNSELLING_OFFICIAL_LINKS.map((link) => {
+                  const className = cn(
+                    guideCardClass,
+                    hubCardHoverClass,
+                    "group block no-underline"
+                  );
+                  const inner = (
+                    <>
+                      <div className="flex items-start gap-3">
+                        <span
+                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary"
+                          aria-hidden
+                        >
+                          <span className="material-symbols-outlined text-[22px] leading-none">
+                            {link.icon}
+                          </span>
+                        </span>
+                        <div>
+                          <p className="font-semibold text-on-surface group-hover:text-primary">
+                            {link.title}
+                          </p>
+                          <p className="mt-1 text-xs leading-relaxed text-on-surface-variant">
+                            {link.desc}
+                          </p>
+                          <span className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-primary">
+                            {link.label}
+                            <span className="material-symbols-outlined text-sm">
+                              {link.external ? "open_in_new" : "chevron_right"}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  );
+                  return link.external ? (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={className}
+                    >
+                      {inner}
+                    </a>
+                  ) : (
+                    <Link key={link.href} href={link.href} className={className}>
+                      {inner}
+                    </Link>
+                  );
+                })}
+              </div>
+            </GuideSection>
+
+            <GuideSection embedded id="related" eyebrow="More on MedSeat" title="Related guides">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {NEET_UG_COUNSELLING_RELATED_LINKS.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(guideCardClass, hubCardHoverClass, "group block no-underline")}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span
+                        className="material-symbols-outlined text-2xl text-primary"
+                        aria-hidden
+                      >
+                        {item.icon}
+                      </span>
+                      <div>
+                        <p className="font-semibold text-on-surface group-hover:text-primary">
+                          {item.label}
+                        </p>
+                        <p className="mt-1 text-xs leading-relaxed text-on-surface-variant">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </GuideSection>
+
+            <GuideSection embedded id="tools-cta" eyebrow="Plan ahead" title="Start with your score or rank">
+              <NeetUgHubFinalCta />
+            </GuideSection>
           </div>
-        </Container>
-      </Section>
-    </>
+
+          <div className="hidden lg:col-start-3 lg:row-start-1 lg:mt-0 lg:block">
+            <NeetUgUpdatesSidebar />
+          </div>
+        </div>
+      </Container>
+    </NeetUg2026Shell>
   );
 }

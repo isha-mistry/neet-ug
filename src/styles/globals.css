@@ -521,7 +521,7 @@ body {
 .rp-hero {
   position: relative;
   overflow: hidden;
-  padding: 0rem 4rem;
+  padding: 1.75rem 0 3rem;
   background: var(--color-surface-container-lowest);
 }
 
@@ -570,6 +570,11 @@ body {
   .rp-hero-grid {
     grid-template-columns: 1.02fr 0.98fr;
     gap: 3.5rem;
+    align-items: start;
+  }
+
+  .rp-hero-aside {
+    padding-top: 3.375rem;
   }
 }
 
@@ -805,7 +810,7 @@ body {
   -webkit-appearance: none;
 }
 
-.rp-form-stack > label.flex.flex-col:first-child input {
+.rp-form-stack > label.flex.flex-col:first-child input[type="number"] {
   font-family: ui-monospace, monospace;
   font-size: 1.125rem;
   font-weight: 700;
@@ -850,6 +855,13 @@ body {
 
 .rp-form-stack select:invalid {
   color: var(--color-outline);
+}
+
+.rp-phone-code-grid select {
+  padding-right: 1.65rem;
+  padding-left: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 .rp-form-stack label.flex.cursor-pointer.items-center {

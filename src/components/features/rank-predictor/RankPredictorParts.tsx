@@ -33,38 +33,90 @@ interface RankPredictorHeroProps {
   children?: ReactNode;
 }
 
-export function RankPredictorHero({ children }: RankPredictorHeroProps) {
+export type RpHeroBreadcrumb = { label: string; href?: string };
+
+export interface RpMarketingHeroProps {
+  children?: ReactNode;
+  id?: string;
+  breadcrumbs: readonly RpHeroBreadcrumb[];
+  title: string;
+  titleEmphasis: string;
+  lede: string;
+  trio: readonly { key: string; value: string }[];
+  fine: string;
+}
+
+export function RpMarketingHero({
+  children,
+  id = "predict",
+  breadcrumbs,
+  title,
+  titleEmphasis,
+  lede,
+  trio,
+  fine,
+}: RpMarketingHeroProps) {
   return (
-    <header className="rp-hero rp-bleed" id="predict">
+    <header className="rp-hero rp-bleed" id={id}>
       <div className="rp-hero-inner">
         <div className="rp-hero-grid">
           <div>
             <nav className="rp-crumb" aria-label="Breadcrumb">
-              <Link href="/">Home</Link>
-              <span className="rp-crumb-sep">/</span>
-              <Link href="/rank-predictor">Predictors</Link>
-              <span className="rp-crumb-sep">/</span>
-              <span style={{ color: "var(--color-primary)" }}>Rank Predictor</span>
+              {breadcrumbs.map((crumb, index) => {
+                const isLast = index === breadcrumbs.length - 1;
+                return (
+                  <span key={`${crumb.label}-${index}`} className="contents">
+                    {index > 0 ? <span className="rp-crumb-sep">/</span> : null}
+                    {isLast || !crumb.href ? (
+                      <span style={isLast ? { color: "var(--color-primary)" } : undefined}>
+                        {crumb.label}
+                      </span>
+                    ) : (
+                      <Link href={crumb.href}>{crumb.label}</Link>
+                    )}
+                  </span>
+                );
+              })}
             </nav>
             <h1 className="rp-hero-title">
-              {RANK_PREDICTOR_HERO.title}
-              <em>{RANK_PREDICTOR_HERO.titleEmphasis}</em>
+              {title}
+              <em>{titleEmphasis}</em>
             </h1>
-            <p className="rp-hero-lede">{RANK_PREDICTOR_HERO.lede}</p>
+            <p className="rp-hero-lede">{lede}</p>
             <div className="rp-trio">
-              {RANK_PREDICTOR_HERO.trio.map((item) => (
+              {trio.map((item) => (
                 <div key={item.key} className="rp-trio-card">
                   <span className="rp-trio-k">{item.key}</span>
                   <b className="rp-trio-b">{item.value}</b>
                 </div>
               ))}
             </div>
-            <p className="rp-hero-fine">{RANK_PREDICTOR_HERO.fine}</p>
+            <p className="rp-hero-fine">{fine}</p>
           </div>
-          <div className="relative">{children}</div>
+          <div className="relative rp-hero-aside">{children}</div>
         </div>
       </div>
     </header>
+  );
+}
+
+export function RankPredictorHero({ children }: RankPredictorHeroProps) {
+  return (
+    <RpMarketingHero
+      id="predict"
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Predictors", href: "/rank-predictor" },
+        { label: "Rank Predictor" },
+      ]}
+      title={RANK_PREDICTOR_HERO.title}
+      titleEmphasis={RANK_PREDICTOR_HERO.titleEmphasis}
+      lede={RANK_PREDICTOR_HERO.lede}
+      trio={RANK_PREDICTOR_HERO.trio}
+      fine={RANK_PREDICTOR_HERO.fine}
+    >
+      {children}
+    </RpMarketingHero>
   );
 }
 
@@ -721,7 +773,15 @@ export function VerifyModal({
   );
 }
 
-export function FormPanel({ children }: { children: ReactNode }) {
+export function FormPanel({
+  children,
+  title = RANK_PREDICTOR_HERO.formTitle,
+  subtitle = RANK_PREDICTOR_HERO.formSubtitle,
+}: {
+  children: ReactNode;
+  title?: string;
+  subtitle?: string;
+}) {
   return (
     <div className="rp-fcard">
       <div className="rp-fhead">
@@ -729,8 +789,8 @@ export function FormPanel({ children }: { children: ReactNode }) {
           <RankPredictorNeetDetailsIcon className="h-[21px] w-[21px]" />
         </span>
         <div>
-          <h3>{RANK_PREDICTOR_HERO.formTitle}</h3>
-          <p>{RANK_PREDICTOR_HERO.formSubtitle}</p>
+          <h3>{title}</h3>
+          <p>{subtitle}</p>
         </div>
       </div>
       <div className="rp-fbody">{children}</div>
