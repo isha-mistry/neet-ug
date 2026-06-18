@@ -127,7 +127,7 @@ interface RankPredictorShellProps {
 
 export function RankPredictorShell({ children, className }: RankPredictorShellProps) {
   return (
-    <div className={cn("rp-page relative min-h-[60vh] pb-16 pt-0 md:pb-24", className)}>
+    <div className={cn("rp-page relative overflow-hidden min-h-[60vh] pb-16 pt-0 md:pb-24", className)}>
       {children}
     </div>
   );

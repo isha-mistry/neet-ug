@@ -156,7 +156,7 @@ export function FreeCounsellingLeadForm({
             onChange={(e) => setFullName(e.target.value)}
             hint="We'll share exam and counselling updates on WhatsApp."
           />
-          <div className="rp-phone-code-grid grid grid-cols-1 gap-4 sm:grid-cols-[minmax(6.75rem,0.32fr)_minmax(0,1fr)]">
+          <div className="rp-phone-code-grid grid grid-cols-1 gap-4 sm:grid-cols-[minmax(7.5rem,0.32fr)_minmax(0,1fr)]">
             <Select
               label="Country code"
               name="countryCode"
@@ -175,6 +175,7 @@ export function FreeCounsellingLeadForm({
               placeholder="10-digit number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              className="h-11"
             />
           </div>
         </>

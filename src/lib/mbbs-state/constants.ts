@@ -10,7 +10,7 @@ export const FOCUS_STATE_SLUGS = [
 export const COUNSEL_WHATSAPP_URL =
   "https://wa.me/919090909090?text=Hi%20MedSeat%2C%20I%20need%20help%20with%20MBBS%20admission";
 
-export const COUNSEL_BOOK_CALL_URL = "/#contact";
+export const COUNSEL_BOOK_CALL_URL = "/contact";
 
 export function mbbsStatePath(slug: string) {
   return `/mbbs-in-india/${slug}`;
