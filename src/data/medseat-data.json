@@ -97,8 +97,8 @@
               "href": "/quota/general"
             },
             {
-              "label": "Counselling guide",
-              "href": "/neet-ug-2026/counselling-guide"
+              "label": "State Counselling",
+              "href": "/state-counselling"
             }
           ]
         },
@@ -106,8 +106,8 @@
           "title": "MedSeat",
           "links": [
             {
-              "label": "About",
-              "href": "/about"
+              "label": "About Us",
+              "href": "/about-us"
             },
             {
               "label": "FAQ",
@@ -122,7 +122,7 @@
               "href": "/blog"
             },
             {
-              "label": "Contact",
+              "label": "Contact Us",
               "href": "/#contact"
             },
             {
