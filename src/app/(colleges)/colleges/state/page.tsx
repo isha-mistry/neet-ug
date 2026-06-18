@@ -26,7 +26,7 @@ export default async function StatesDirectoryPage() {
   const totalSeats = mapStats.reduce((sum, s) => sum + s.totalSeats, 0);
 
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="ms-content-below-nav flex w-full flex-col gap-4">
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },
@@ -35,14 +35,14 @@ export default async function StatesDirectoryPage() {
         ]}
       />
 
-      <header className="w-full space-y-2 border-b border-border pb-4">
-        <p className="text-xs font-bold uppercase tracking-widest text-brand-700">
+      <header className="w-full space-y-2 border-b border-outline-variant/40 pb-4">
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary">
           State-wise discovery
         </p>
-        <h1 className="text-2xl font-extrabold tracking-tight text-text md:text-3xl">
-          MBBS colleges by state
+        <h1 className="rp-hero-title max-w-3xl text-balance">
+          MBBS colleges <em>by state.</em>
         </h1>
-        <p className="max-w-3xl text-sm text-text-secondary">
+        <p className="rp-hero-lede max-w-3xl">
           Darker blue on the map means more colleges in our catalog. Hover the
           map for counts, or choose a state in the list.
         </p>

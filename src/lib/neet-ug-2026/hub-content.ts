@@ -111,6 +111,12 @@ export const NEET_UG_HUB_RESOURCE_LINKS = [
     icon: "public",
     desc: "Category certificates, NRI quota, and domicile.",
   },
+  {
+    label: "Terms explained",
+    href: "/neet-ug-2026/terms-explained",
+    icon: "menu_book",
+    desc: "Counselling glossary — quotas, rounds, documents, and acronyms.",
+  },
 ] as const;
 
 export const NEET_UG_HUB_TIMELINE: TimelineEvent[] = [

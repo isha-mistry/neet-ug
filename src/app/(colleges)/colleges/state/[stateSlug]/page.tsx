@@ -60,7 +60,7 @@ export default async function StateCollegesPage({
   const filterOptions = await getFilterOptions();
 
   return (
-    <>
+    <div className="ms-content-below-nav flex flex-col gap-8">
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },
@@ -125,6 +125,6 @@ export default async function StateCollegesPage({
         hiddenFilters={["state"]}
         lockedFilters={{ state: stateSlug }}
       />
-    </>
+    </div>
   );
 }

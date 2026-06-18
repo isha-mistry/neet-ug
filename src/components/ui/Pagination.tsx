@@ -22,7 +22,7 @@ export function Pagination({
   return (
     <nav
       aria-label="Pagination"
-      className="flex flex-wrap items-center justify-between gap-3"
+      className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-16px_rgba(37,70,208,0.2)]"
     >
       <PageLink
         href={prevDisabled ? "#" : buildHref(currentPage - 1)}
@@ -36,7 +36,7 @@ export function Pagination({
         {pages.map((entry, index) => (
           <li key={`${entry}-${index}`}>
             {entry === "..." ? (
-              <span className="px-2 text-sm text-text-muted">...</span>
+              <span className="px-2 text-sm text-outline">...</span>
             ) : (
               <PageNumber
                 page={entry}
@@ -71,10 +71,10 @@ function PageLink({
   children: React.ReactNode;
 }) {
   const classes = cn(
-    "inline-flex items-center gap-2 rounded-[var(--radius-md)] border border-border px-3.5 py-2 text-sm font-medium tracking-wide transition-colors",
+    "inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-semibold tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30",
     disabled
-      ? "cursor-not-allowed border-border bg-surface text-text-muted opacity-60"
-      : "bg-background text-text hover:border-brand-300 hover:text-brand-700"
+      ? "cursor-not-allowed border-outline-variant bg-surface-container-low text-outline opacity-70"
+      : "border-outline-variant bg-surface text-on-surface hover:border-primary/40 hover:bg-primary-fixed/40 hover:text-primary"
   );
   if (disabled) {
     return (
@@ -104,10 +104,10 @@ function PageNumber({
       href={href}
       aria-current={isActive ? "page" : undefined}
       className={cn(
-        "inline-flex h-9 min-w-9 items-center justify-center rounded-[var(--radius-md)] border px-3 text-sm font-semibold tracking-wide transition-colors",
+        "inline-flex h-9 min-w-9 items-center justify-center rounded-full border px-3 text-sm font-semibold tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30",
         isActive
-          ? "border-brand-700 bg-brand-700 text-text-on-brand"
-          : "border-border bg-background text-text hover:border-brand-300 hover:text-brand-700"
+          ? "border-primary bg-primary text-on-primary shadow-primary-button"
+          : "border-outline-variant bg-surface text-on-surface hover:border-primary/40 hover:bg-primary-fixed/40 hover:text-primary"
       )}
     >
       {page}

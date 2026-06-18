@@ -68,22 +68,24 @@ export default async function CollegeDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <Breadcrumbs
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Colleges", href: "/colleges" },
-          { label: college.name },
-        ]}
-      />
+      <div className="ms-content-below-nav flex flex-col gap-4 md:gap-6">
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Colleges", href: "/colleges" },
+            { label: college.name },
+          ]}
+        />
 
-      <p className="max-w-3xl text-sm leading-relaxed text-on-surface-variant">
-        Fees, cutoffs, seat matrix, and bond details for{" "}
-        <span className="font-semibold text-on-surface">{college.name}</span> in{" "}
-        {college.city}, {college.stateName}.
-      </p>
+        <p className="max-w-3xl text-sm leading-relaxed text-on-surface-variant">
+          Fees, cutoffs, seat matrix, and bond details for{" "}
+          <span className="font-semibold text-on-surface">{college.name}</span> in{" "}
+          {college.city}, {college.stateName}.
+        </p>
 
-      <div className="mt-6 flex flex-col gap-8 md:mt-8 md:gap-10">
+        <div className="flex flex-col gap-8 md:gap-10">
         <CollegeDetailHeader
+          slug={college.slug}
           name={college.name}
           city={college.city}
           stateName={college.stateName}
@@ -197,6 +199,7 @@ export default async function CollegeDetailPage({ params }: PageProps) {
             stateName={college.stateName}
             stateSlug={college.stateSlug}
           />
+        </div>
         </div>
       </div>
 

@@ -22,6 +22,7 @@
 
 # local DB dumps (may be large; never commit)
 /data/dumps/
+/data/Colleges_Images/
 
 # catalog seed/import scripts (local ops; promote DB via scripts/db)
 /scripts/catalog/

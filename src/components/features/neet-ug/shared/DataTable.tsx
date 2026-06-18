@@ -28,7 +28,7 @@ interface DataTableProps {
   /** Highlight the last row (e.g., "expected" row in trend tables) */
   highlightLastRow?: boolean;
   scrollable?: boolean;
-  /** `guide` matches MBBS / rank-predictor hub tables; `clinical` keeps legacy NEET subpages. */
+  /** `guide` is the brand default; `clinical` remains only for legacy NEET subpages. */
   theme?: "clinical" | "guide";
 }
 
@@ -56,7 +56,7 @@ export function DataTable({
   footnote,
   highlightLastRow = false,
   scrollable = false,
-  theme = "clinical",
+  theme = "guide",
 }: DataTableProps) {
   const isGuide = theme === "guide";
   const badgeColorMap = isGuide ? guideBadgeColorMap : clinicalBadgeColorMap;

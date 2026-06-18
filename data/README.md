@@ -58,6 +58,7 @@ npm run db:seed:nirf
 - `npm run db:seed:mp` — **MP facts only** (`data/mp_data.sql`)
 - `npm run db:reconcile:medical-list` — local only: match `data/final_medical_colleges_list.sql`
 - `npm run db:seed:mh` — **Maharashtra facts only** (`data/mh_data.sql`: seats, fees, cutoffs)
+- `npm run db:seed:mcc` — **MCC AIQ facts** (`data/mcc_data_final.sql`: national cutoffs, AIQ seat matrix, deemed fees)
 - `npm run db:seed:nirf` — apply `data/nirf/medical-2025.json` (see `collegeSlug` mappings)
 
 NIRF source rows live in `data/nirf/medical-2025.json`. Entries without a `collegeSlug` are not written until the institute exists in `app.colleges` (e.g. PGIMER, SGPGI, NIMHANS).

@@ -1,6 +1,6 @@
 /** Shared layout tokens for MBBS in India guide */
 export const guideTableWrapClass =
-  "overflow-x-auto rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-8px_rgba(0,61,155,0.12)]";
+  "overflow-x-auto rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(37,70,208,0.18)]";
 
 export const guideTableClass =
   "w-full border-collapse text-sm [&_thead]:bg-surface-container-high [&_th]:px-4 [&_th]:py-3.5 [&_th]:text-[11px] [&_th]:font-bold [&_th]:uppercase [&_th]:tracking-wider [&_th]:text-on-surface [&_th]:align-middle [&_td]:px-4 [&_td]:py-3 [&_td]:align-middle [&_tbody_tr]:border-t [&_tbody_tr]:border-outline-variant/40 [&_tbody_tr:nth-child(even)]:bg-surface-container-lowest/50 [&_tbody_tr:hover]:bg-primary-fixed/20";
@@ -18,11 +18,11 @@ export const guideTableRankNameNumericColsClass =
   "[&_thead_th:nth-child(1)]:text-right [&_tbody_td:nth-child(1)]:text-right [&_thead_th:nth-child(n+2):nth-child(-n+5)]:text-left [&_tbody_td:nth-child(n+2):nth-child(-n+5)]:text-left [&_thead_th:nth-child(n+6)]:text-right [&_tbody_td:nth-child(n+6)]:text-right";
 
 export const guideCardClass =
-  "rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-12px_rgba(0,61,155,0.1)] p-5 md:p-6";
+  "rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6";
 
 /** Compact stat tiles in MBBS summary sections (no primary fill). */
 export const summaryHighlightCardClass =
-  "rounded-xl border border-outline-variant/40 bg-surface px-4 py-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-8px_rgba(0,61,155,0.08)]";
+  "rounded-xl border border-outline-variant/40 bg-surface px-4 py-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-14px_rgba(37,70,208,0.16)]";
 
 export const guideBandClass =
   "border-y border-outline-variant/30 bg-surface-container-low/60";

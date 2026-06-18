@@ -3,23 +3,15 @@
 import { useState, type FormEvent } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Select } from "@/components/ui/Select";
 import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
 import { cn } from "@/lib/utils";
-import type { OptionItem } from "@/types/core";
 
 const COUNTRY_CODES = [
-  { label: "India (+91)", value: "+91" },
-  { label: "Nepal (+977)", value: "+977" },
+  { label: "IND (+91)", value: "+91" },
+  { label: "NPL (+977)", value: "+977" },
   { label: "UAE (+971)", value: "+971" },
-  { label: "USA/Canada (+1)", value: "+1" },
+  { label: "USA (+1)", value: "+1" },
 ] as const;
-
-const COUNTRY_CODE_OPTIONS_COMPACT: OptionItem<string>[] = COUNTRY_CODES.map((c) => ({
-  value: c.value,
-  label: c.value,
-}));
 
 interface FreeCounsellingLeadFormProps {
   /** Shown in the WhatsApp message for attribution (e.g. "MBBS in Gujarat"). */
@@ -145,38 +137,59 @@ export function FreeCounsellingLeadForm({
     >
       {useRankPredictorFields ? (
         <>
-          <Input
-            label="Full name"
-            name="fullName"
-            type="text"
-            required
-            autoComplete="name"
-            placeholder="As on NEET application"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            hint="We'll share exam and counselling updates on WhatsApp."
-          />
-          <div className="rp-phone-code-grid grid grid-cols-1 gap-4 sm:grid-cols-[minmax(7.5rem,0.32fr)_minmax(0,1fr)]">
-            <Select
-              label="Country code"
-              name="countryCode"
-              options={COUNTRY_CODE_OPTIONS_COMPACT}
-              value={countryCode}
-              onValueChange={(v) => setCountryCode(v || "+91")}
+          <label htmlFor="lead-rp-full-name" className="flex flex-col gap-1.5">
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-outline">
+              Full name
+            </span>
+            <input
+              id="lead-rp-full-name"
+              name="fullName"
+              type="text"
               required
+              autoComplete="name"
+              placeholder="Enter Your Name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              className="h-10 w-full rounded-md border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
-            <Input
-              label="Mobile number"
-              name="phone"
-              type="tel"
-              required
-              autoComplete="tel-national"
-              inputMode="numeric"
-              placeholder="10-digit number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="h-11"
-            />
+          </label>
+          <div className="grid grid-cols-1 gap-4">
+            <label htmlFor="lead-rp-country" className="flex flex-col gap-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-outline">
+                Country code
+              </span>
+              <select
+                id="lead-rp-country"
+                name="countryCode"
+                value={countryCode}
+                onChange={(e) => setCountryCode(e.target.value)}
+                required
+                className="h-10 w-full rounded-md border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              >
+                {COUNTRY_CODES.map((c) => (
+                  <option key={c.value} value={c.value}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label htmlFor="lead-rp-phone" className="flex flex-col gap-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-outline">
+                Mobile number
+              </span>
+              <input
+                id="lead-rp-phone"
+                name="phone"
+                type="tel"
+                required
+                autoComplete="tel-national"
+                inputMode="numeric"
+                placeholder="10-digit number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="h-10 w-full rounded-md border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              />
+            </label>
           </div>
         </>
       ) : (
@@ -314,7 +327,7 @@ export function FreeCounsellingLeadForm({
         size="lg"
         fullWidth
         trailingIcon={variant === "card" ? <FiArrowRight className="text-lg" aria-hidden /> : undefined}
-        className={variant === "embedded" ? "h-12 rounded-xl text-[15px] font-bold" : "rounded-full"}
+        className={variant === "embedded" ? "h-11 rounded-xl text-sm font-bold" : "rounded-full"}
       >
         {submitLabel}
       </Button>

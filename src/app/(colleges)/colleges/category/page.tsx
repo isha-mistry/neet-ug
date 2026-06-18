@@ -18,7 +18,7 @@ export default async function CategoriesDirectoryPage() {
   const categories = await getCategoryDirectoryItems();
 
   return (
-    <>
+    <div className="ms-content-below-nav flex flex-col gap-8">
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },
@@ -32,6 +32,6 @@ export default async function CategoriesDirectoryPage() {
         description="Pick a category to view colleges that match your budget, college type, or admission goals."
       />
       <CategoryDirectoryGrid categories={categories} />
-    </>
+    </div>
   );
 }

@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { FiMenu, FiX } from "react-icons/fi";
 import type { LinkItem } from "@/types/core";
 import { isNavLinkActive } from "@/lib/navigation/is-nav-link-active";
+import { NEET_UG_2026_NAV_LINKS } from "@/lib/navigation/neet-ug-2026-nav";
 import { cn } from "@/lib/utils";
 
 interface MobileMenuProps {
@@ -25,16 +26,6 @@ function mobileLinkClass(active: boolean) {
   );
 }
 
-const NEET_UG_2026_LINKS: LinkItem[] = [
-  { label: "Exam Info Hub", href: "/neet-ug-2026" },
-  { label: "Live Updates & Alerts", href: "/neet-ug-2026/updates" },
-  { label: "Application & Admit Card", href: "/neet-ug-2026/application-form" },
-  { label: "Answer Key & Results", href: "/neet-ug-2026/answer-key" },
-  { label: "MCC Counselling Guide", href: "/neet-ug-2026/counselling-guide" },
-  { label: "Reservation & NRI Guide", href: "/neet-ug-2026/nri-guide" },
-  { label: "State Counselling Portals", href: "/neet-ug-2026/counselling-websites" },
-];
-
 function getDropdownLinks(
   label: string,
   homeLinks: LinkItem[],
@@ -44,7 +35,7 @@ function getDropdownLinks(
   if (label === "Home") return homeLinks;
   if (label === "Quota") return quotaLinks;
   if (label === "Predictors" || label === "Predictor") return predictorLinks;
-  if (label === "NEET UG 2026") return NEET_UG_2026_LINKS;
+  if (label === "NEET UG 2026") return NEET_UG_2026_NAV_LINKS;
   return null;
 }
 
@@ -73,13 +64,13 @@ export function MobileMenu({
         aria-label={open ? "Close navigation" : "Open navigation"}
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-background text-text transition-colors hover:border-brand-300 md:hidden"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface transition-colors hover:border-primary/40 hover:bg-primary-fixed/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 md:hidden"
       >
         {open ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
       </button>
       <div
         className={cn(
-          "fixed inset-x-0 top-[64px] z-40 origin-top border-t border-outline-variant bg-surface transition-transform md:hidden",
+          "fixed inset-x-0 top-[64px] z-40 origin-top border-t border-outline-variant bg-surface-container-lowest shadow-level-1 transition-transform md:hidden",
           open ? "scale-y-100 opacity-100" : "pointer-events-none scale-y-95 opacity-0"
         )}
       >
@@ -96,9 +87,9 @@ export function MobileMenu({
               return (
                 <div
                   key={link.label}
-                  className="flex flex-col gap-1 rounded-md bg-surface p-2"
+                  className="flex flex-col gap-1 rounded-2xl border border-outline-variant/35 bg-surface p-2"
                 >
-                  <span className="px-2 py-1 text-xs font-semibold uppercase tracking-widest text-text-muted">
+                  <span className="px-2 py-1 text-xs font-semibold uppercase tracking-widest text-outline">
                     {link.label}
                   </span>
                   {dropdownLinks.map((item) => (

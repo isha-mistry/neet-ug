@@ -13,6 +13,7 @@ export interface CollegeSummary {
   city: string;
   stateName: string;
   stateSlug: string;
+  universityName?: string;
   collegeType: CollegeType;
   totalAnnualFee: number;
   totalCourseFee: number;
@@ -27,6 +28,10 @@ export interface CollegeSummary {
   roiScore: number;
   safetyTag: SafeRiskTag;
   bond: CollegeBond;
+  nirfMedicalRank?: number;
+  nirfRankingYear?: number;
+  beds?: number;
+  patientFlowPerDay?: number;
 }
 
 export interface ListingPagination {

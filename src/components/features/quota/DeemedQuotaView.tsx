@@ -96,7 +96,7 @@ export function DeemedQuotaView() {
               <div className="flex items-center justify-between bg-surface-container rounded-lg p-4 relative overflow-hidden">
                 <div className="text-center z-10">
                   <p className="font-label-sm text-label-sm text-primary mb-1 uppercase tracking-wider font-bold">Reserved</p>
-                  <p className="font-label-md text-label-md leading-tight text-on-surface font-bold">NRI / Jain /<br/>Muslim</p>
+                  <p className="font-label-md text-label-md leading-tight text-on-surface font-bold">NRI / Jain /<br />Muslim</p>
                 </div>
                 <div className="relative flex items-center justify-center flex-grow">
                   <span className="material-symbols-outlined text-outline-variant text-[36px]">arrow_forward</span>

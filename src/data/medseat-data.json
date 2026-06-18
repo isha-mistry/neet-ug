@@ -1,4 +1,3 @@
-
 {
   "site": {
     "brandName": "MedSeat",
@@ -104,6 +103,10 @@
             {
               "label": "Career Guidance",
               "href": "/career-guidance"
+            },
+            {
+              "label": "State Counselling",
+              "href": "/state-counselling"
             }
           ]
         },
@@ -111,8 +114,8 @@
           "title": "MedSeat",
           "links": [
             {
-              "label": "About",
-              "href": "/#about"
+              "label": "About Us",
+              "href": "/about-us"
             },
             {
               "label": "FAQ",
@@ -221,8 +224,8 @@
   },
   "pages": {
     "allColleges": {
-      "title": "All MBBS Colleges in India",
-      "description": "Explore every MBBS college, filter by rank, budget and state, and compare options side by side."
+      "title": "MBBS Colleges in India — Fees, Cutoffs & Seats",
+      "description": "Search and filter MBBS colleges across India by quota, category, state, fees, and closing rank. Compare seats, bond rules, and counseling paths."
     },
     "comparison": {
       "title": "Compare MBBS Colleges",

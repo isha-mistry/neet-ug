@@ -13,7 +13,7 @@ import type {
 import type { CollegeDetailViewModel } from "@/types/detail";
 import { applyFilters } from "@/lib/colleges/filters";
 import { sortColleges } from "@/lib/colleges/sorting";
-import { toCollegeDetail, toCollegeSummary, mapDbCollegeToRecord } from "@/lib/colleges/mappers";
+import { toCollegeDetail, toCollegeSummary } from "@/lib/colleges/mappers";
 import { DEFAULT_PAGE_SIZE } from "@/lib/constants";
 import {
   LISTING_CATEGORY_OPTIONS,
@@ -22,6 +22,7 @@ import {
 } from "@/lib/colleges/listing-options";
 import { loadCatalogStates } from "./catalog-loader";
 import { setStateNameCache } from "@/lib/data/state-name-cache";
+import { medseatData } from "./source";
 
 export const getAllColleges = cache(async (): Promise<CollegeRecord[]> => {
   return loadCatalogColleges();
@@ -113,5 +114,7 @@ export async function getFilterOptions(): Promise<FilterOptionGroups> {
     quotas: LISTING_QUOTA_OPTIONS,
     categories: LISTING_CATEGORY_OPTIONS,
     collegeTypes: LISTING_COLLEGE_TYPE_OPTIONS,
+    feeRanges: medseatData.filterOptions.feeRanges,
+    cutoffRanges: medseatData.filterOptions.cutoffRanges,
   };
 }

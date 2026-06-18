@@ -34,7 +34,7 @@ export default async function DataQualityAdminPage() {
     .sort();
 
   return (
-    <Container size="2xl" className="py-10 md:py-14">
+    <Container size="2xl" className="ms-content-below-nav pb-10 md:pb-14">
       <header className="mb-8 border-b border-outline-variant pb-6">
         <p className="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant">
           Internal · not indexed
