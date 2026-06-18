@@ -230,7 +230,7 @@ export function CutoffAnalyserClient() {
 
   return (
     <RankPredictorShell>
-      <Container size="2xl" className="flex flex-col gap-10 md:gap-12">
+      <Container size="2xl" className="ms-content-below-nav flex flex-col gap-10 md:gap-12">
         <CutoffAnalyserHero>
           <FormPanel>
             <div className="flex flex-col gap-6">

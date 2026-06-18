@@ -33,6 +33,8 @@ export interface FilterOptionGroups {
   quotas: OptionItem<ListingQuota>[];
   categories: OptionItem<NeetCategory>[];
   collegeTypes: OptionItem<ListingCollegeType>[];
+  feeRanges: OptionItem<string>[];
+  cutoffRanges: OptionItem<string>[];
 }
 
 export type SortOption = OptionItem<SortValue>;

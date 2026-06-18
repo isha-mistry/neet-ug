@@ -11,7 +11,10 @@ export const NEET_SCORE_MAX = 720;
 /** POST JSON `{ score }` → wide AIR band (pre-verification). */
 export const RANK_PREDICT_AIR_WIDE_URL = process.env.RANK_PREDICT_AIR_WIDE_URL;
 
-/** POST JSON `{ score, state }` → AIR + state merit bands (post-verification). */
+/** POST JSON `{ score }` → refined AIR band (post-verification). */
+export const RANK_PREDICT_AIR_URL = process.env.RANK_PREDICT_AIR_URL;
+
+/** POST JSON `{ score, state }` → state merit band (post-verification). */
 export const RANK_PREDICT_STATE_RANK_URL = process.env.RANK_PREDICT_STATE_RANK_URL;
 
 /** AIR estimates map to All India Quota closing ranks in the catalog. */

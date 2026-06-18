@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { FiChevronDown } from "react-icons/fi";
 import type { LinkItem } from "@/types/core";
 import { isNavLinkActive } from "@/lib/navigation/is-nav-link-active";
+import { NEET_UG_2026_NAV_LINKS } from "@/lib/navigation/neet-ug-2026-nav";
 import { cn } from "@/lib/utils";
 
 function navLinkClassName(active: boolean) {
@@ -17,16 +18,6 @@ function navLinkClassName(active: boolean) {
 }
 
 const NAV_DROPDOWN_LABELS = ["Quota", "Predictors", "NEET UG 2026"] as const;
-
-const NEET_UG_2026_LINKS: LinkItem[] = [
-  { label: "Exam Info Hub", href: "/neet-ug-2026" },
-  { label: "Live Updates & Alerts", href: "/neet-ug-2026/updates" },
-  { label: "Application & Admit Card", href: "/neet-ug-2026/application-form" },
-  { label: "Answer Key & Results", href: "/neet-ug-2026/answer-key" },
-  { label: "MCC Counselling Guide", href: "/neet-ug-2026/counselling-guide" },
-  { label: "Reservation & NRI Guide", href: "/neet-ug-2026/nri-guide" },
-  // { label: "State Counselling Portals", href: "/neet-ug-2026/counselling-websites" },
-];
 
 interface PrimaryNavProps {
   links: LinkItem[];
@@ -44,7 +35,7 @@ function getDropdownLinks(
   if (label === "Home") return homeLinks;
   if (label === "Quota") return quotaLinks;
   if (label === "Predictors" || label === "Predictor") return predictorLinks;
-  if (label === "NEET UG 2026") return NEET_UG_2026_LINKS;
+  if (label === "NEET UG 2026") return NEET_UG_2026_NAV_LINKS;
   return null;
 }
 

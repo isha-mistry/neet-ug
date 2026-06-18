@@ -40,7 +40,7 @@ export default async function MbbsInIndiaPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-      <Container size="2xl" className="pt-4 pb-2">
+      <Container size="2xl" className="ms-content-below-nav pb-2">
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },

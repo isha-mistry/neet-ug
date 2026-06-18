@@ -65,7 +65,7 @@ export default async function MbbsStatePage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <Container size="2xl" className="pt-4 pb-2">
+      <Container size="2xl" className="ms-content-below-nav pb-2">
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },

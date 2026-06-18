@@ -8,7 +8,7 @@ export default function CollegesLayout({
   children: ReactNode;
 }) {
   return (
-    <section className="py-10 md:py-14">
+    <section className="pb-10 md:pb-14">
       <Container size="page" className="flex flex-col gap-8">
         {children}
         <DataSourceNotice />

@@ -149,36 +149,35 @@
   --shadow-clinical-hover: 0 14px 32px rgba(11, 28, 48, 0.08);
   --shadow-clinical-panel: 0 18px 42px rgba(11, 28, 48, 0.14);
 
-  /* Clinical Precision tokens for Tailwind utility usage in NEET guide pages. */
-  --color-clinical-background: #f8f9ff;
-  --color-clinical-surface: #ffffff;
-  --color-clinical-surface-low: #eff4ff;
-  --color-clinical-surface-container: #e5eeff;
-  --color-clinical-navy: #0b1c30;
-  --color-clinical-muted: #45464d;
-  --color-clinical-outline: #e2e8f0;
-  --color-clinical-outline-strong: #c6c6cd;
-  --color-clinical-blue: #0051d5;
-  --color-clinical-blue-bright: #316bf3;
-  --color-clinical-green: #009668;
-  --color-clinical-green-soft: #6ffbbe;
-  --color-clinical-dark: #131b2e;
+  /* Legacy clinical tokens now alias the shared MD3 brand system. */
+  --color-clinical-background: var(--color-surface);
+  --color-clinical-surface: var(--color-surface-container-lowest);
+  --color-clinical-surface-low: var(--color-primary-fixed);
+  --color-clinical-surface-container: var(--color-surface-container-low);
+  --color-clinical-navy: var(--color-on-surface);
+  --color-clinical-muted: var(--color-on-surface-variant);
+  --color-clinical-outline: var(--color-outline-variant);
+  --color-clinical-outline-strong: var(--color-outline);
+  --color-clinical-blue: var(--color-primary);
+  --color-clinical-blue-bright: var(--color-primary-hover);
+  --color-clinical-green: var(--color-secondary);
+  --color-clinical-green-soft: var(--color-secondary-fixed);
+  --color-clinical-dark: var(--color-inverse-surface);
 
   /* ── Counselling Guide page tokens (Material Design reference palette) ──
      These map to the exact colors from the HTML reference design so that
      components never need raw hex strings in classNames.
-     TODO: consolidate mg-* tokens with clinical-* tokens
      Naming convention: --color-mg-<role>                                   */
-  --color-mg-bg: #f8f9ff;
-  --color-mg-surface: #ffffff;
-  --color-mg-surface-container: #f0f5ff;
-  --color-mg-surface-low: #eff4ff;
-  --color-mg-on-bg: #0b1c30;
-  --color-mg-on-surface: #45464d;
-  --color-mg-border: #c6c6cd;
-  --color-mg-primary: #0051d5;
-  --color-mg-primary-bright: #316bf3;
-  --color-mg-dark: #131b2e;
+  --color-mg-bg: var(--color-surface);
+  --color-mg-surface: var(--color-surface-container-lowest);
+  --color-mg-surface-container: var(--color-surface-container-low);
+  --color-mg-surface-low: var(--color-primary-fixed);
+  --color-mg-on-bg: var(--color-on-surface);
+  --color-mg-on-surface: var(--color-on-surface-variant);
+  --color-mg-border: var(--color-outline);
+  --color-mg-primary: var(--color-primary);
+  --color-mg-primary-bright: var(--color-primary-hover);
+  --color-mg-dark: var(--color-inverse-surface);
   --shadow-primary-button: 0 10px 28px -10px rgba(37, 70, 208, 0.45);
   --shadow-primary-button-hover: 0 14px 36px -10px rgba(37, 70, 208, 0.55);
   --shadow-primary-glow: 0 15px 35px rgba(37, 70, 208, 0.35);
@@ -189,12 +188,15 @@
   --color-college-metric-fees: #dae2ff4d;
   --color-college-metric-fees-hover: #dae2ff66;
   --color-college-metric-fees-border: #2546d01a;
+  --color-college-metric-fees-fg: var(--color-primary);
   --color-college-metric-rank: #77fc9d33;
   --color-college-metric-rank-hover: #77fc9d4d;
   --color-college-metric-rank-border: #006d341a;
+  --color-college-metric-rank-fg: #006d34;
   --color-college-metric-seats: #ffdad74d;
   --color-college-metric-seats-hover: #ffdad766;
   --color-college-metric-seats-border: #5e3c001a;
+  --color-college-metric-seats-fg: var(--color-tertiary);
   --color-college-metric-bond: #dee9fc80;
   --color-college-metric-bond-hover: #dee9fc99;
   --color-college-metric-bond-border: #c3c6d633;
@@ -221,6 +223,9 @@
   --spacing-stack-sm: 12px;
   --spacing-stack-md: 24px;
   --spacing-stack-lg: 48px;
+  /* Space between site navbar and hero / page title (keep in sync across layouts) */
+  --spacing-below-navbar-y: 3rem;
+  --spacing-below-navbar-y-md: 5rem;
   --spacing-margin-mobile: 16px;
   --spacing-margin-desktop: 64px;
   /*
@@ -521,13 +526,26 @@ body {
 .rp-hero {
   position: relative;
   overflow: hidden;
-  padding: 1.75rem 0 3rem;
+  padding-top: var(--spacing-below-navbar-y);
+  padding-bottom: var(--spacing-below-navbar-y);
   background: var(--color-surface-container-lowest);
 }
 
 @media (min-width: 768px) {
   .rp-hero {
-    padding: 2.5rem 0 5rem;
+    padding-top: var(--spacing-below-navbar-y-md);
+    padding-bottom: var(--spacing-below-navbar-y-md);
+  }
+}
+
+/* Top inset below sticky navbar — use on non–full-bleed heroes and page shells */
+.ms-content-below-nav {
+  padding-top: var(--spacing-below-navbar-y);
+}
+
+@media (min-width: 768px) {
+  .ms-content-below-nav {
+    padding-top: var(--spacing-below-navbar-y-md);
   }
 }
 
@@ -670,6 +688,40 @@ body {
   color: var(--color-outline);
 }
 
+/* Listing and other utility pages — same brand, less vertical weight */
+.rp-hero-compact {
+  padding-top: calc(var(--spacing-below-navbar-y) * 0.85);
+  padding-bottom: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .rp-hero-compact {
+    padding-top: calc(var(--spacing-below-navbar-y-md) * 0.75);
+    padding-bottom: 1.75rem;
+  }
+}
+
+.rp-hero-compact::before {
+  opacity: 0.55;
+}
+
+.rp-hero-compact .rp-crumb {
+  margin-bottom: 0.75rem;
+}
+
+.rp-hero-title-compact {
+  margin-bottom: 0.625rem;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  letter-spacing: -0.022em;
+}
+
+.rp-hero-lede-compact {
+  margin-bottom: 0;
+  max-width: 36rem;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
 .rp-fcard {
   position: relative;
   overflow: hidden;
@@ -694,6 +746,9 @@ body {
     color-mix(in srgb, #15a45f 30%, transparent)
   );
   -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;

@@ -1,0 +1,2295 @@
+{
+  "cloudName": "dtcifon4g",
+  "folder": "colleges",
+  "uploadedAt": "2026-06-17T17:15:38.950Z",
+  "bySlug": {
+    "acpm-medical-college-dhule": {
+      "publicId": "colleges/acpm-medical-college-dhule",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716351/colleges/acpm-medical-college-dhule.jpg"
+    },
+    "a-j-institute-of-medical-sciences-research-centre-mangalore": {
+      "publicId": "colleges/a-j-institute-of-medical-sciences-research-centre-mangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716351/colleges/a-j-institute-of-medical-sciences-research-centre-mangalore.jpg"
+    },
+    "acs-medical-college-and-hospital-chennai": {
+      "publicId": "colleges/acs-medical-college-and-hospital-chennai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716351/colleges/acs-medical-college-and-hospital-chennai.jpg"
+    },
+    "acsr-government-medical-college": {
+      "publicId": "colleges/acsr-government-medical-college",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716351/colleges/acsr-government-medical-college.jpg"
+    },
+    "acharya-shri-chander-college-of-medical-sciences-jammu": {
+      "publicId": "colleges/acharya-shri-chander-college-of-medical-sciences-jammu",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716352/colleges/acharya-shri-chander-college-of-medical-sciences-jammu.jpg"
+    },
+    "adesh-medical-college-and-hospital-shahabad-kurukshetra-haryana": {
+      "publicId": "colleges/adesh-medical-college-and-hospital-shahabad-kurukshetra-haryana",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716353/colleges/adesh-medical-college-and-hospital-shahabad-kurukshetra-haryana.jpg"
+    },
+    "abhishek-mishra-memorial-medical-college-rc-bhiali-distt-durg-cg": {
+      "publicId": "colleges/abhishek-mishra-memorial-medical-college-rc-bhiali-distt-durg-cg",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716353/colleges/abhishek-mishra-memorial-medical-college-rc-bhiali-distt-durg-cg.jpg"
+    },
+    "adichunchanagiri-institute-of-medical-sciences-bellur": {
+      "publicId": "colleges/adichunchanagiri-institute-of-medical-sciences-bellur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716353/colleges/adichunchanagiri-institute-of-medical-sciences-bellur.jpg"
+    },
+    "al-falah-school-of-medical-sciences-research-centre-faridabad": {
+      "publicId": "colleges/al-falah-school-of-medical-sciences-research-centre-faridabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716354/colleges/al-falah-school-of-medical-sciences-research-centre-faridabad.jpg"
+    },
+    "government-medical-college-vidisha-mp": {
+      "publicId": "colleges/government-medical-college-vidisha-mp",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716354/colleges/government-medical-college-vidisha-mp.jpg"
+    },
+    "ajay-sangaal-institute-of-medical-sciences-and-ayushman-hospital-shamli-up": {
+      "publicId": "colleges/ajay-sangaal-institute-of-medical-sciences-and-ayushman-hospital-shamli-up",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716354/colleges/ajay-sangaal-institute-of-medical-sciences-and-ayushman-hospital-shamli-up.jpg"
+    },
+    "akash-institute-of-medical-sciences-research-centre-devanhalli-bangalore-karnataka": {
+      "publicId": "colleges/akash-institute-of-medical-sciences-research-centre-devanhalli-bangalore-karnataka",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716354/colleges/akash-institute-of-medical-sciences-research-centre-devanhalli-bangalore-karnataka.jpg"
+    },
+    "al0azhar-medical-college-and-super-speciality-hospital-thodupuzha": {
+      "publicId": "colleges/al0azhar-medical-college-and-super-speciality-hospital-thodupuzha",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716355/colleges/al0azhar-medical-college-and-super-speciality-hospital-thodupuzha.jpg"
+    },
+    "all-india-institute-of-medical-sciences-bhubaneswar": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-bhubaneswar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716355/colleges/all-india-institute-of-medical-sciences-bhubaneswar.jpg"
+    },
+    "all-india-institute-of-medical-sciences-bathinda": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-bathinda",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716355/colleges/all-india-institute-of-medical-sciences-bathinda.jpg"
+    },
+    "all-india-institute-of-medical-sciences-bibinagar": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-bibinagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716356/colleges/all-india-institute-of-medical-sciences-bibinagar.jpg"
+    },
+    "all-india-institute-of-medical-sciences-bilaspur": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-bilaspur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716356/colleges/all-india-institute-of-medical-sciences-bilaspur.jpg"
+    },
+    "all-india-institute-of-medical-sciences-deoghar": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-deoghar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716357/colleges/all-india-institute-of-medical-sciences-deoghar.jpg"
+    },
+    "all-india-institute-of-medical-sciences-gorakhpur": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-gorakhpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716357/colleges/all-india-institute-of-medical-sciences-gorakhpur.jpg"
+    },
+    "all-india-institute-of-medical-sciences-jodhpur": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-jodhpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716358/colleges/all-india-institute-of-medical-sciences-jodhpur.jpg"
+    },
+    "all-india-institute-of-medical-sciences-kalyani-nadia": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-kalyani-nadia",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716358/colleges/all-india-institute-of-medical-sciences-kalyani-nadia.jpg"
+    },
+    "all-india-institute-of-medical-sciences-guwahati": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-guwahati",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716357/colleges/all-india-institute-of-medical-sciences-guwahati.jpg"
+    },
+    "all-india-institute-of-medical-sciences-mangalagiri-vijayawada": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-mangalagiri-vijayawada",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716359/colleges/all-india-institute-of-medical-sciences-mangalagiri-vijayawada.jpg"
+    },
+    "all-india-institute-of-medical-sciences-nagpur": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-nagpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716360/colleges/all-india-institute-of-medical-sciences-nagpur.jpg"
+    },
+    "all-india-institute-of-medical-sciences-new-delhi": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-new-delhi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716360/colleges/all-india-institute-of-medical-sciences-new-delhi.jpg"
+    },
+    "all-india-institute-of-medical-sciences-patna": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-patna",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716361/colleges/all-india-institute-of-medical-sciences-patna.jpg"
+    },
+    "all-india-institute-of-medical-sciences-madurai": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-madurai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716359/colleges/all-india-institute-of-medical-sciences-madurai.jpg"
+    },
+    "all-india-institute-of-medical-sciences-rajkot": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-rajkot",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716362/colleges/all-india-institute-of-medical-sciences-rajkot.jpg"
+    },
+    "all-india-institute-of-medical-sciences-rishikesh": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-rishikesh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716362/colleges/all-india-institute-of-medical-sciences-rishikesh.jpg"
+    },
+    "all-india-institute-of-medical-sciences-vijaypur": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-vijaypur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716363/colleges/all-india-institute-of-medical-sciences-vijaypur.jpg"
+    },
+    "alluri-sitaram-raju-academy-of-medical-sciences-eluru": {
+      "publicId": "colleges/alluri-sitaram-raju-academy-of-medical-sciences-eluru",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716363/colleges/alluri-sitaram-raju-academy-of-medical-sciences-eluru.jpg"
+    },
+    "all-india-institute-of-medical-sciences-raipur": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-raipur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716363/colleges/all-india-institute-of-medical-sciences-raipur.jpg"
+    },
+    "amala-institute-of-medical-sciences-thrissur": {
+      "publicId": "colleges/amala-institute-of-medical-sciences-thrissur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716364/colleges/amala-institute-of-medical-sciences-thrissur.jpg"
+    },
+    "amaltas-institute-of-medical-sciences-dewas": {
+      "publicId": "colleges/amaltas-institute-of-medical-sciences-dewas",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716364/colleges/amaltas-institute-of-medical-sciences-dewas.jpg"
+    },
+    "amrita-school-of-medicine": {
+      "publicId": "colleges/amrita-school-of-medicine",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716365/colleges/amrita-school-of-medicine.jpg"
+    },
+    "ananya-college-of-medicine-research-gandhinagar": {
+      "publicId": "colleges/ananya-college-of-medicine-research-gandhinagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716365/colleges/ananya-college-of-medicine-research-gandhinagar.jpg"
+    },
+    "andaman-nicobar-islands-institute-of-medical-sciences-port-blair": {
+      "publicId": "colleges/andaman-nicobar-islands-institute-of-medical-sciences-port-blair",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716366/colleges/andaman-nicobar-islands-institute-of-medical-sciences-port-blair.jpg"
+    },
+    "anna-gowri-medical-college-and-hospital": {
+      "publicId": "colleges/anna-gowri-medical-college-and-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716366/colleges/anna-gowri-medical-college-and-hospital.jpg"
+    },
+    "anugrah-narayan-magadh-medical-college-gaya": {
+      "publicId": "colleges/anugrah-narayan-magadh-medical-college-gaya",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716367/colleges/anugrah-narayan-magadh-medical-college-gaya.jpg"
+    },
+    "andhra-medical-college-visakhapatnam": {
+      "publicId": "colleges/andhra-medical-college-visakhapatnam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716366/colleges/andhra-medical-college-visakhapatnam.jpg"
+    },
+    "apollo-institute-of-medical-sciences-and-research-chittoor": {
+      "publicId": "colleges/apollo-institute-of-medical-sciences-and-research-chittoor",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716367/colleges/apollo-institute-of-medical-sciences-and-research-chittoor.jpg"
+    },
+    "apollo-institute-of-medical-sciences-and-research-hyderabad": {
+      "publicId": "colleges/apollo-institute-of-medical-sciences-and-research-hyderabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716368/colleges/apollo-institute-of-medical-sciences-and-research-hyderabad.jpg"
+    },
+    "armed-forces-medical-college-pune": {
+      "publicId": "colleges/armed-forces-medical-college-pune",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716368/colleges/armed-forces-medical-college-pune.jpg"
+    },
+    "army-college-of-medical-sciences-new-delhi": {
+      "publicId": "colleges/army-college-of-medical-sciences-new-delhi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716368/colleges/army-college-of-medical-sciences-new-delhi.jpg"
+    },
+    "arunai-medical-college-and-hospital": {
+      "publicId": "colleges/arunai-medical-college-and-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716369/colleges/arunai-medical-college-and-hospital.jpg"
+    },
+    "arya-medical-college-and-hospital": {
+      "publicId": "colleges/arya-medical-college-and-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716369/colleges/arya-medical-college-and-hospital.jpg"
+    },
+    "assam-medial-college-dibrugarh": {
+      "publicId": "colleges/assam-medial-college-dibrugarh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716369/colleges/assam-medial-college-dibrugarh.jpg"
+    },
+    "atal-bihari-vajpayee-institute-of-medical-sciences-and-dr-rml-hospital-new-delhi": {
+      "publicId": "colleges/atal-bihari-vajpayee-institute-of-medical-sciences-and-dr-rml-hospital-new-delhi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716370/colleges/atal-bihari-vajpayee-institute-of-medical-sciences-and-dr-rml-hospital-new-delhi.jpg"
+    },
+    "autonomous-state-medical-college-lalitpur": {
+      "publicId": "colleges/autonomous-state-medical-college-lalitpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716371/colleges/autonomous-state-medical-college-lalitpur.jpg"
+    },
+    "autonomous-state-medical-college-kushinagar": {
+      "publicId": "colleges/autonomous-state-medical-college-kushinagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716371/colleges/autonomous-state-medical-college-kushinagar.jpg"
+    },
+    "all-india-institute-of-medical-sciences-bhopal": {
+      "publicId": "colleges/all-india-institute-of-medical-sciences-bhopal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716358/colleges/all-india-institute-of-medical-sciences-bhopal.jpg"
+    },
+    "autonomous-state-medical-college-pilibhit": {
+      "publicId": "colleges/autonomous-state-medical-college-pilibhit",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716372/colleges/autonomous-state-medical-college-pilibhit.jpg"
+    },
+    "autonomous-state-medical-college-pratapgarh": {
+      "publicId": "colleges/autonomous-state-medical-college-pratapgarh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716372/colleges/autonomous-state-medical-college-pratapgarh.jpg"
+    },
+    "autonomous-state-medical-college-society-etah-uttar-pradesh": {
+      "publicId": "colleges/autonomous-state-medical-college-society-etah-uttar-pradesh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716372/colleges/autonomous-state-medical-college-society-etah-uttar-pradesh.jpg"
+    },
+    "autonomous-state-medical-college-society-fatehpur": {
+      "publicId": "colleges/autonomous-state-medical-college-society-fatehpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716373/colleges/autonomous-state-medical-college-society-fatehpur.jpg"
+    },
+    "autonomous-state-medical-college-society-ghazipur": {
+      "publicId": "colleges/autonomous-state-medical-college-society-ghazipur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716372/colleges/autonomous-state-medical-college-society-ghazipur.jpg"
+    },
+    "autonomous-state-medical-college-sultanpur": {
+      "publicId": "colleges/autonomous-state-medical-college-sultanpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716373/colleges/autonomous-state-medical-college-sultanpur.jpg"
+    },
+    "autonomous-state-medical-college-and-hospital-gonda": {
+      "publicId": "colleges/autonomous-state-medical-college-and-hospital-gonda",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716373/colleges/autonomous-state-medical-college-and-hospital-gonda.jpg"
+    },
+    "autonomous-state-medical-college-and-hospital-kaushambi": {
+      "publicId": "colleges/autonomous-state-medical-college-and-hospital-kaushambi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716374/colleges/autonomous-state-medical-college-and-hospital-kaushambi.jpg"
+    },
+    "autonomous-state-medical-college-akbarpur-kanpur": {
+      "publicId": "colleges/autonomous-state-medical-college-akbarpur-kanpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716374/colleges/autonomous-state-medical-college-akbarpur-kanpur.jpg"
+    },
+    "autonomous-state-medical-college-siddharthnagar": {
+      "publicId": "colleges/autonomous-state-medical-college-siddharthnagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716374/colleges/autonomous-state-medical-college-siddharthnagar.jpg"
+    },
+    "autonomous-state-society-medical-college-mirzapur": {
+      "publicId": "colleges/autonomous-state-society-medical-college-mirzapur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716375/colleges/autonomous-state-society-medical-college-mirzapur.jpg"
+    },
+    "autonomous-state-medical-college-sonebhadra": {
+      "publicId": "colleges/autonomous-state-medical-college-sonebhadra",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716375/colleges/autonomous-state-medical-college-sonebhadra.jpg"
+    },
+    "autonomous-state-medical-college-amethi": {
+      "publicId": "colleges/autonomous-state-medical-college-amethi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716375/colleges/autonomous-state-medical-college-amethi.jpg"
+    },
+    "b-k-l-walawalkar-rural-medical-college-ratnagiri": {
+      "publicId": "colleges/b-k-l-walawalkar-rural-medical-college-ratnagiri",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716375/colleges/b-k-l-walawalkar-rural-medical-college-ratnagiri.jpg"
+    },
+    "b-l-d-e-university-bijapur": {
+      "publicId": "colleges/b-l-d-e-university-bijapur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716376/colleges/b-l-d-e-university-bijapur.jpg"
+    },
+    "belagavi-institute-of-medical-sciences-belagavi": {
+      "publicId": "colleges/belagavi-institute-of-medical-sciences-belagavi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716376/colleges/belagavi-institute-of-medical-sciences-belagavi.jpg"
+    },
+    "bgs-global-institute-of-medical-sciences-bangalore": {
+      "publicId": "colleges/bgs-global-institute-of-medical-sciences-bangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716376/colleges/bgs-global-institute-of-medical-sciences-bangalore.jpg"
+    },
+    "bgs-medical-college-and-hospital-bengaluru-karnataka": {
+      "publicId": "colleges/bgs-medical-college-and-hospital-bengaluru-karnataka",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716377/colleges/bgs-medical-college-and-hospital-bengaluru-karnataka.jpg"
+    },
+    "bps-government-medical-college-for-women-sonepat": {
+      "publicId": "colleges/bps-government-medical-college-for-women-sonepat",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716377/colleges/bps-government-medical-college-for-women-sonepat.jpg"
+    },
+    "brd-medical-college-gorakhpur": {
+      "publicId": "colleges/brd-medical-college-gorakhpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716377/colleges/brd-medical-college-gorakhpur.jpg"
+    },
+    "balvir-singh-tomar-institute-of-medical-sciences-and-research": {
+      "publicId": "colleges/balvir-singh-tomar-institute-of-medical-sciences-and-research",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716377/colleges/balvir-singh-tomar-institute-of-medical-sciences-and-research.jpg"
+    },
+    "banas-medical-college-and-research-institute-palanpur-gujarat": {
+      "publicId": "colleges/banas-medical-college-and-research-institute-palanpur-gujarat",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716378/colleges/banas-medical-college-and-research-institute-palanpur-gujarat.jpg"
+    },
+    "bangalore-medical-college-and-research-institute-bangalore": {
+      "publicId": "colleges/bangalore-medical-college-and-research-institute-bangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716378/colleges/bangalore-medical-college-and-research-institute-bangalore.jpg"
+    },
+    "barasat-government-medical-college-hospital": {
+      "publicId": "colleges/barasat-government-medical-college-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716378/colleges/barasat-government-medical-college-hospital.jpg"
+    },
+    "basaveswara-medical-college-and-hospital-chitradurga": {
+      "publicId": "colleges/basaveswara-medical-college-and-hospital-chitradurga",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716378/colleges/basaveswara-medical-college-and-hospital-chitradurga.jpg"
+    },
+    "bharati-vidyapeeth-deemed-university-medical-college-hospital-sangli": {
+      "publicId": "colleges/bharati-vidyapeeth-deemed-university-medical-college-hospital-sangli",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716379/colleges/bharati-vidyapeeth-deemed-university-medical-college-hospital-sangli.jpg"
+    },
+    "bharati-vidyapeeth-university-medical-college-pune": {
+      "publicId": "colleges/bharati-vidyapeeth-university-medical-college-pune",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716379/colleges/bharati-vidyapeeth-university-medical-college-pune.jpg"
+    },
+    "bharatratna-atal-bihari-vajpayee-medical-college-pune": {
+      "publicId": "colleges/bharatratna-atal-bihari-vajpayee-medical-college-pune",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716379/colleges/bharatratna-atal-bihari-vajpayee-medical-college-pune.jpg"
+    },
+    "bundelkhand-medical-college-sagar": {
+      "publicId": "colleges/bundelkhand-medical-college-sagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716380/colleges/bundelkhand-medical-college-sagar.jpg"
+    },
+    "bidar-institute-of-medical-sciences-bidar": {
+      "publicId": "colleges/bidar-institute-of-medical-sciences-bidar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716380/colleges/bidar-institute-of-medical-sciences-bidar.jpg"
+    },
+    "burdwan-medical-college-burdwan": {
+      "publicId": "colleges/burdwan-medical-college-burdwan",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716381/colleges/burdwan-medical-college-burdwan.jpg"
+    },
+    "bhaskar-medical-college-yenkapally": {
+      "publicId": "colleges/bhaskar-medical-college-yenkapally",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716380/colleges/bhaskar-medical-college-yenkapally.jpg"
+    },
+    "cmr-institute-of-medical-science": {
+      "publicId": "colleges/cmr-institute-of-medical-science",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716382/colleges/cmr-institute-of-medical-science.jpg"
+    },
+    "chamrajanagar-institute-of-medical-sciences-karnataka": {
+      "publicId": "colleges/chamrajanagar-institute-of-medical-sciences-karnataka",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716382/colleges/chamrajanagar-institute-of-medical-sciences-karnataka.jpg"
+    },
+    "cu-shah-medical-college-surendra-nagar": {
+      "publicId": "colleges/cu-shah-medical-college-surendra-nagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716382/colleges/cu-shah-medical-college-surendra-nagar.jpg"
+    },
+    "chandulal-chandrakar-memorial-medical-college-durg": {
+      "publicId": "colleges/chandulal-chandrakar-memorial-medical-college-durg",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716382/colleges/chandulal-chandrakar-memorial-medical-college-durg.jpg"
+    },
+    "chhattisgarh-institute-of-medical-sciences-bilaspur": {
+      "publicId": "colleges/chhattisgarh-institute-of-medical-sciences-bilaspur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716383/colleges/chhattisgarh-institute-of-medical-sciences-bilaspur.jpg"
+    },
+    "chirayu-medical-college-and-hospital-bairagarh-bhopal": {
+      "publicId": "colleges/chirayu-medical-college-and-hospital-bairagarh-bhopal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716383/colleges/chirayu-medical-college-and-hospital-bairagarh-bhopal.jpg"
+    },
+    "chitradurga-medical-college-and-research-institute": {
+      "publicId": "colleges/chitradurga-medical-college-and-research-institute",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716383/colleges/chitradurga-medical-college-and-research-institute.jpg"
+    },
+    "chikkamagaluru-institute-of-medical-sciences-chikkamagaluru": {
+      "publicId": "colleges/chikkamagaluru-institute-of-medical-sciences-chikkamagaluru",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716383/colleges/chikkamagaluru-institute-of-medical-sciences-chikkamagaluru.jpg"
+    },
+    "christian-medical-college-ludhiana": {
+      "publicId": "colleges/christian-medical-college-ludhiana",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716384/colleges/christian-medical-college-ludhiana.jpg"
+    },
+    "christian-medical-college-vellore": {
+      "publicId": "colleges/christian-medical-college-vellore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716384/colleges/christian-medical-college-vellore.jpg"
+    },
+    "college-of-medicine-and-jnm-hospital-kalyani-nadia": {
+      "publicId": "colleges/college-of-medicine-and-jnm-hospital-kalyani-nadia",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716384/colleges/college-of-medicine-and-jnm-hospital-kalyani-nadia.jpg"
+    },
+    "dy-patil-university-school-of-medicine": {
+      "publicId": "colleges/dy-patil-university-school-of-medicine",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716384/colleges/dy-patil-university-school-of-medicine.jpg"
+    },
+    "darbhanga-medical-college-lehriasarai": {
+      "publicId": "colleges/darbhanga-medical-college-lehriasarai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716385/colleges/darbhanga-medical-college-lehriasarai.jpg"
+    },
+    "datta-meghe-medical-college-nagpur": {
+      "publicId": "colleges/datta-meghe-medical-college-nagpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716385/colleges/datta-meghe-medical-college-nagpur.jpg"
+    },
+    "deccan-college-of-medical-sciences": {
+      "publicId": "colleges/deccan-college-of-medical-sciences",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716385/colleges/deccan-college-of-medical-sciences.jpg"
+    },
+    "dhanalakshmi-srinivasan-medical-college-and-hospital-perambalur": {
+      "publicId": "colleges/dhanalakshmi-srinivasan-medical-college-and-hospital-perambalur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716385/colleges/dhanalakshmi-srinivasan-medical-college-and-hospital-perambalur.jpg"
+    },
+    "dhubri-medical-college-dhubri": {
+      "publicId": "colleges/dhubri-medical-college-dhubri",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716386/colleges/dhubri-medical-college-dhubri.jpg"
+    },
+    "diphu-medical-college-hospital-diphu-assam": {
+      "publicId": "colleges/diphu-medical-college-hospital-diphu-assam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716386/colleges/diphu-medical-college-hospital-diphu-assam.jpg"
+    },
+    "dr-br-ambedkar-medical-college-bangalore": {
+      "publicId": "colleges/dr-br-ambedkar-medical-college-bangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716386/colleges/dr-br-ambedkar-medical-college-bangalore.jpg"
+    },
+    "dr-sn-medical-college-jodhpur": {
+      "publicId": "colleges/dr-sn-medical-college-jodhpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716386/colleges/dr-sn-medical-college-jodhpur.jpg"
+    },
+    "dr-vaishampayan-memorial-medical-college-solapur": {
+      "publicId": "colleges/dr-vaishampayan-memorial-medical-college-solapur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716387/colleges/dr-vaishampayan-memorial-medical-college-solapur.jpg"
+    },
+    "dr-b-s-kushwah-medical-college-kanpur": {
+      "publicId": "colleges/dr-b-s-kushwah-medical-college-kanpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716387/colleges/dr-b-s-kushwah-medical-college-kanpur.jpg"
+    },
+    "dr-baba-saheb-ambedkar-medical-college-rohini-delhi": {
+      "publicId": "colleges/dr-baba-saheb-ambedkar-medical-college-rohini-delhi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716387/colleges/dr-baba-saheb-ambedkar-medical-college-rohini-delhi.jpg"
+    },
+    "dr-chandramma-dayananda-sagar-instt-of-medical-education-research-harohalli-hubli": {
+      "publicId": "colleges/dr-chandramma-dayananda-sagar-instt-of-medical-education-research-harohalli-hubli",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716387/colleges/dr-chandramma-dayananda-sagar-instt-of-medical-education-research-harohalli-hubli.jpg"
+    },
+    "dr-d-y-patil-medical-college-hospital-and-research-centre-pimpri-pune": {
+      "publicId": "colleges/dr-d-y-patil-medical-college-hospital-and-research-centre-pimpri-pune",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716388/colleges/dr-d-y-patil-medical-college-hospital-and-research-centre-pimpri-pune.jpg"
+    },
+    "dr-d-y-patil-medical-college-kolhapur": {
+      "publicId": "colleges/dr-d-y-patil-medical-college-kolhapur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716388/colleges/dr-d-y-patil-medical-college-kolhapur.jpg"
+    },
+    "dr-n-d-desai-faculty-of-medical-science-and-research-nadiad": {
+      "publicId": "colleges/dr-n-d-desai-faculty-of-medical-science-and-research-nadiad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716388/colleges/dr-n-d-desai-faculty-of-medical-science-and-research-nadiad.jpg"
+    },
+    "dr-m-k-shah-medical-college-research-centre-ahmedabad": {
+      "publicId": "colleges/dr-m-k-shah-medical-college-research-centre-ahmedabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716388/colleges/dr-m-k-shah-medical-college-research-centre-ahmedabad.jpg"
+    },
+    "dr-p-s-i-medical-college-chinoutpalli": {
+      "publicId": "colleges/dr-p-s-i-medical-college-chinoutpalli",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716389/colleges/dr-p-s-i-medical-college-chinoutpalli.jpg"
+    },
+    "dr-patnam-mahender-reddy-institute-of-medical-sciences-chevella-rangareddy": {
+      "publicId": "colleges/dr-patnam-mahender-reddy-institute-of-medical-sciences-chevella-rangareddy",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716389/colleges/dr-patnam-mahender-reddy-institute-of-medical-sciences-chevella-rangareddy.jpg"
+    },
+    "dr-radhakrishnan-government-medical-college-hamirpur-h-p": {
+      "publicId": "colleges/dr-radhakrishnan-government-medical-college-hamirpur-h-p",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716389/colleges/dr-radhakrishnan-government-medical-college-hamirpur-h-p.jpg"
+    },
+    "dr-rajendar-prasad-government-medical-college-tanda-h-p": {
+      "publicId": "colleges/dr-rajendar-prasad-government-medical-college-tanda-h-p",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716390/colleges/dr-rajendar-prasad-government-medical-college-tanda-h-p.jpg"
+    },
+    "dr-ram-manohar-lohia-institute-of-medical-sciences-lucknow": {
+      "publicId": "colleges/dr-ram-manohar-lohia-institute-of-medical-sciences-lucknow",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716390/colleges/dr-ram-manohar-lohia-institute-of-medical-sciences-lucknow.jpg"
+    },
+    "dr-ulhas-patil-medical-college-hospital-jalgaon": {
+      "publicId": "colleges/dr-ulhas-patil-medical-college-hospital-jalgaon",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716390/colleges/dr-ulhas-patil-medical-college-hospital-jalgaon.jpg"
+    },
+    "dr-kiran-c-patel-medical-college-research-institute-bharuch": {
+      "publicId": "colleges/dr-kiran-c-patel-medical-college-research-institute-bharuch",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716390/colleges/dr-kiran-c-patel-medical-college-research-institute-bharuch.jpg"
+    },
+    "esic-medical-college-and-hospital-andheri": {
+      "publicId": "colleges/esic-medical-college-and-hospital-andheri",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716391/colleges/esic-medical-college-and-hospital-andheri.jpg"
+    },
+    "esic-medical-college-and-hospital-indore": {
+      "publicId": "colleges/esic-medical-college-and-hospital-indore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716391/colleges/esic-medical-college-and-hospital-indore.jpg"
+    },
+    "esic-medical-college-naroda-bapunagar-ahmedabad": {
+      "publicId": "colleges/esic-medical-college-naroda-bapunagar-ahmedabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716391/colleges/esic-medical-college-naroda-bapunagar-ahmedabad.jpg"
+    },
+    "esic-medical-college-hospital-basaidarapur-new-delhi": {
+      "publicId": "colleges/esic-medical-college-hospital-basaidarapur-new-delhi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716392/colleges/esic-medical-college-hospital-basaidarapur-new-delhi.jpg"
+    },
+    "esic-medical-college-ludhiana": {
+      "publicId": "colleges/esic-medical-college-ludhiana",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716392/colleges/esic-medical-college-ludhiana.jpg"
+    },
+    "esic-medical-college-and-hospital-beltola": {
+      "publicId": "colleges/esic-medical-college-and-hospital-beltola",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716392/colleges/esic-medical-college-and-hospital-beltola.jpg"
+    },
+    "employees-state-insurance-corporation-medical-college-bangalore": {
+      "publicId": "colleges/employees-state-insurance-corporation-medical-college-bangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716392/colleges/employees-state-insurance-corporation-medical-college-bangalore.jpg"
+    },
+    "employees-state-insurance-corporation-medical-college-faridabad": {
+      "publicId": "colleges/employees-state-insurance-corporation-medical-college-faridabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716393/colleges/employees-state-insurance-corporation-medical-college-faridabad.jpg"
+    },
+    "employees-state-insurance-corporation-medical-college-gulbarga": {
+      "publicId": "colleges/employees-state-insurance-corporation-medical-college-gulbarga",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716393/colleges/employees-state-insurance-corporation-medical-college-gulbarga.jpg"
+    },
+    "employees-state-insurance-corporation-medical-college-joka-kolkata": {
+      "publicId": "colleges/employees-state-insurance-corporation-medical-college-joka-kolkata",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716393/colleges/employees-state-insurance-corporation-medical-college-joka-kolkata.jpg"
+    },
+    "employees-state-insurance-corporation-medical-college-patna": {
+      "publicId": "colleges/employees-state-insurance-corporation-medical-college-patna",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716393/colleges/employees-state-insurance-corporation-medical-college-patna.jpg"
+    },
+    "employees-state-insurance-corporation-medical-college-alwar": {
+      "publicId": "colleges/employees-state-insurance-corporation-medical-college-alwar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716394/colleges/employees-state-insurance-corporation-medical-college-alwar.jpg"
+    },
+    "era-lucknow-medical-college-lucknow": {
+      "publicId": "colleges/era-lucknow-medical-college-lucknow",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716394/colleges/era-lucknow-medical-college-lucknow.jpg"
+    },
+    "farookh-academy-of-medical-education-hospital-and-research-institute": {
+      "publicId": "colleges/farookh-academy-of-medical-education-hospital-and-research-institute",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716394/colleges/farookh-academy-of-medical-education-hospital-and-research-institute.jpg"
+    },
+    "faculty-of-medicine-and-health-sciences-gurgaon-formarly-sggst-medical-college-r-centre-gurgaon": {
+      "publicId": "colleges/faculty-of-medicine-and-health-sciences-gurgaon-formarly-sggst-medical-college-r-centre-gurgaon",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716395/colleges/faculty-of-medicine-and-health-sciences-gurgaon-formarly-sggst-medical-college-r-centre-gurgaon.jpg"
+    },
+    "fakhruddin-ali-ahmed-medical-college-barpeta-assam": {
+      "publicId": "colleges/fakhruddin-ali-ahmed-medical-college-barpeta-assam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716395/colleges/fakhruddin-ali-ahmed-medical-college-barpeta-assam.jpg"
+    },
+    "father-mullers-medical-college-mangalore": {
+      "publicId": "colleges/father-mullers-medical-college-mangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716395/colleges/father-mullers-medical-college-mangalore.jpg"
+    },
+    "fathima-instt-of-medical-sciences-kadapa": {
+      "publicId": "colleges/fathima-instt-of-medical-sciences-kadapa",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716395/colleges/fathima-instt-of-medical-sciences-kadapa.jpg"
+    },
+    "g-r-medical-college-hospital-research-centre": {
+      "publicId": "colleges/g-r-medical-college-hospital-research-centre",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716396/colleges/g-r-medical-college-hospital-research-centre.jpg"
+    },
+    "geetanjali-institute-of-medical-sciences": {
+      "publicId": "colleges/geetanjali-institute-of-medical-sciences",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716396/colleges/geetanjali-institute-of-medical-sciences.jpg"
+    },
+    "gitam-institute-of-medical-sciences-and-research-visakhapatnam": {
+      "publicId": "colleges/gitam-institute-of-medical-sciences-and-research-visakhapatnam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716396/colleges/gitam-institute-of-medical-sciences-and-research-visakhapatnam.jpg"
+    },
+    "gmers-medical-college-morbi": {
+      "publicId": "colleges/gmers-medical-college-morbi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716396/colleges/gmers-medical-college-morbi.jpg"
+    },
+    "government-medical-college-porbandar": {
+      "publicId": "colleges/government-medical-college-porbandar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716397/colleges/government-medical-college-porbandar.jpg"
+    },
+    "government-medical-college-panchmahal-godhra": {
+      "publicId": "colleges/government-medical-college-panchmahal-godhra",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716397/colleges/government-medical-college-panchmahal-godhra.jpg"
+    },
+    "gmers-medical-college-dharpur-patan": {
+      "publicId": "colleges/gmers-medical-college-dharpur-patan",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716397/colleges/gmers-medical-college-dharpur-patan.jpg"
+    },
+    "gmers-medical-college-gandhinagar": {
+      "publicId": "colleges/gmers-medical-college-gandhinagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716397/colleges/gmers-medical-college-gandhinagar.jpg"
+    },
+    "gmers-medical-college-hadiyol-himmatnagar": {
+      "publicId": "colleges/gmers-medical-college-hadiyol-himmatnagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716398/colleges/gmers-medical-college-hadiyol-himmatnagar.jpg"
+    },
+    "gmers-medical-college-junagadh": {
+      "publicId": "colleges/gmers-medical-college-junagadh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716398/colleges/gmers-medical-college-junagadh.jpg"
+    },
+    "gmers-medical-college-gotri-vadodara": {
+      "publicId": "colleges/gmers-medical-college-gotri-vadodara",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716398/colleges/gmers-medical-college-gotri-vadodara.jpg"
+    },
+    "gmers-medical-college-navsari": {
+      "publicId": "colleges/gmers-medical-college-navsari",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716398/colleges/gmers-medical-college-navsari.jpg"
+    },
+    "gmers-medical-college-sola-ahmedabad": {
+      "publicId": "colleges/gmers-medical-college-sola-ahmedabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716399/colleges/gmers-medical-college-sola-ahmedabad.jpg"
+    },
+    "gmers-medical-college-rajpipla": {
+      "publicId": "colleges/gmers-medical-college-rajpipla",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716399/colleges/gmers-medical-college-rajpipla.jpg"
+    },
+    "gmers-medical-college-vadnagar-mehsana": {
+      "publicId": "colleges/gmers-medical-college-vadnagar-mehsana",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716399/colleges/gmers-medical-college-vadnagar-mehsana.jpg"
+    },
+    "government-medical-college-jangaon": {
+      "publicId": "colleges/government-medical-college-jangaon",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716399/colleges/government-medical-college-jangaon.jpg"
+    },
+    "government-medical-college-khammam": {
+      "publicId": "colleges/government-medical-college-khammam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716400/colleges/government-medical-college-khammam.jpg"
+    },
+    "government-medical-college-singrauli": {
+      "publicId": "colleges/government-medical-college-singrauli",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716400/colleges/government-medical-college-singrauli.jpg"
+    },
+    "government-medical-college-kodangal": {
+      "publicId": "colleges/government-medical-college-kodangal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716400/colleges/government-medical-college-kodangal.jpg"
+    },
+    "gsl-medical-college-rajahmundry": {
+      "publicId": "colleges/gsl-medical-college-rajahmundry",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716400/colleges/gsl-medical-college-rajahmundry.jpg"
+    },
+    "gsvm-medical-college-kanpur": {
+      "publicId": "colleges/gsvm-medical-college-kanpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716401/colleges/gsvm-medical-college-kanpur.jpg"
+    },
+    "gauhati-medical-college-guwahati": {
+      "publicId": "colleges/gauhati-medical-college-guwahati",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716401/colleges/gauhati-medical-college-guwahati.jpg"
+    },
+    "gajra-raja-medical-college-gwalior": {
+      "publicId": "colleges/gajra-raja-medical-college-gwalior",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716401/colleges/gajra-raja-medical-college-gwalior.jpg"
+    },
+    "gandhi-medical-college-bhopal": {
+      "publicId": "colleges/gandhi-medical-college-bhopal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716401/colleges/gandhi-medical-college-bhopal.jpg"
+    },
+    "gayathri-vidya-parishad-institute-of-health-care-medical-technology-visakhapatnam": {
+      "publicId": "colleges/gayathri-vidya-parishad-institute-of-health-care-medical-technology-visakhapatnam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716402/colleges/gayathri-vidya-parishad-institute-of-health-care-medical-technology-visakhapatnam.jpg"
+    },
+    "goa-medical-college-panaji": {
+      "publicId": "colleges/goa-medical-college-panaji",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716402/colleges/goa-medical-college-panaji.jpg"
+    },
+    "government-medical-college-bharat-ratna-shri-atal-bihari-vajpyee-memorial-med-col-rajnandgaon": {
+      "publicId": "colleges/government-medical-college-bharat-ratna-shri-atal-bihari-vajpyee-memorial-med-col-rajnandgaon",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716402/colleges/government-medical-college-bharat-ratna-shri-atal-bihari-vajpyee-memorial-med-col-rajnandgaon.jpg"
+    },
+    "gouri-devi-institute-of-medical-sciences-and-hospital-durgapur": {
+      "publicId": "colleges/gouri-devi-institute-of-medical-sciences-and-hospital-durgapur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716402/colleges/gouri-devi-institute-of-medical-sciences-and-hospital-durgapur.jpg"
+    },
+    "government-medical-college-kasaragod": {
+      "publicId": "colleges/government-medical-college-kasaragod",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716403/colleges/government-medical-college-kasaragod.jpg"
+    },
+    "government-medical-college-medak": {
+      "publicId": "colleges/government-medical-college-medak",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716403/colleges/government-medical-college-medak.jpg"
+    },
+    "government-medical-college-udhampur": {
+      "publicId": "colleges/government-medical-college-udhampur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716403/colleges/government-medical-college-udhampur.jpg"
+    },
+    "government-medical-college-alwar": {
+      "publicId": "colleges/government-medical-college-alwar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716404/colleges/government-medical-college-alwar.jpg"
+    },
+    "government-medical-college-akola": {
+      "publicId": "colleges/government-medical-college-akola",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716404/colleges/government-medical-college-akola.jpg"
+    },
+    "government-medical-college-alibag": {
+      "publicId": "colleges/government-medical-college-alibag",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716404/colleges/government-medical-college-alibag.jpg"
+    },
+    "government-medical-college-handwara": {
+      "publicId": "colleges/government-medical-college-handwara",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716405/colleges/government-medical-college-handwara.jpg"
+    },
+    "government-medical-college-ambernath": {
+      "publicId": "colleges/government-medical-college-ambernath",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716405/colleges/government-medical-college-ambernath.jpg"
+    },
+    "government-medical-college-amravati": {
+      "publicId": "colleges/government-medical-college-amravati",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716405/colleges/government-medical-college-amravati.jpg"
+    },
+    "government-medical-college-amritsar": {
+      "publicId": "colleges/government-medical-college-amritsar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716406/colleges/government-medical-college-amritsar.jpg"
+    },
+    "government-medical-college-ananthapuram": {
+      "publicId": "colleges/government-medical-college-ananthapuram",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716406/colleges/government-medical-college-ananthapuram.jpg"
+    },
+    "government-medical-college-anantnag": {
+      "publicId": "colleges/government-medical-college-anantnag",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716406/colleges/government-medical-college-anantnag.jpg"
+    },
+    "government-medical-college-ariyalur": {
+      "publicId": "colleges/government-medical-college-ariyalur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716407/colleges/government-medical-college-ariyalur.jpg"
+    },
+    "government-medical-college-badaun-u-p": {
+      "publicId": "colleges/government-medical-college-badaun-u-p",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716407/colleges/government-medical-college-badaun-u-p.jpg"
+    },
+    "government-medical-college-baramulla": {
+      "publicId": "colleges/government-medical-college-baramulla",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716407/colleges/government-medical-college-baramulla.jpg"
+    },
+    "government-medical-college-banswara": {
+      "publicId": "colleges/government-medical-college-banswara",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716407/colleges/government-medical-college-banswara.jpg"
+    },
+    "government-medical-college-barmer": {
+      "publicId": "colleges/government-medical-college-barmer",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716408/colleges/government-medical-college-barmer.jpg"
+    },
+    "government-medical-college-baran": {
+      "publicId": "colleges/government-medical-college-baran",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716408/colleges/government-medical-college-baran.jpg"
+    },
+    "government-medical-college-bhadradri-kothagudem": {
+      "publicId": "colleges/government-medical-college-bhadradri-kothagudem",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716408/colleges/government-medical-college-bhadradri-kothagudem.jpg"
+    },
+    "government-medical-college-bettiah": {
+      "publicId": "colleges/government-medical-college-bettiah",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716408/colleges/government-medical-college-bettiah.jpg"
+    },
+    "government-medical-college-bhandara": {
+      "publicId": "colleges/government-medical-college-bhandara",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716409/colleges/government-medical-college-bhandara.jpg"
+    },
+    "government-medical-college-bharatpur-rajasthan": {
+      "publicId": "colleges/government-medical-college-bharatpur-rajasthan",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716409/colleges/government-medical-college-bharatpur-rajasthan.jpg"
+    },
+    "government-medical-college-bhilwara-rajasthan": {
+      "publicId": "colleges/government-medical-college-bhilwara-rajasthan",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716409/colleges/government-medical-college-bhilwara-rajasthan.jpg"
+    },
+    "government-medical-college-buldhana": {
+      "publicId": "colleges/government-medical-college-buldhana",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716409/colleges/government-medical-college-buldhana.jpg"
+    },
+    "government-medical-college-bundi": {
+      "publicId": "colleges/government-medical-college-bundi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716410/colleges/government-medical-college-bundi.jpg"
+    },
+    "government-medical-college-chandigarh": {
+      "publicId": "colleges/government-medical-college-chandigarh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716410/colleges/government-medical-college-chandigarh.jpg"
+    },
+    "government-medical-college-chhindwara-mp": {
+      "publicId": "colleges/government-medical-college-chhindwara-mp",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716410/colleges/government-medical-college-chhindwara-mp.jpg"
+    },
+    "government-medical-college-chandrapur": {
+      "publicId": "colleges/government-medical-college-chandrapur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716410/colleges/government-medical-college-chandrapur.jpg"
+    },
+    "government-medical-college-chittorgarh": {
+      "publicId": "colleges/government-medical-college-chittorgarh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716411/colleges/government-medical-college-chittorgarh.jpg"
+    },
+    "government-medical-college-churachandpur": {
+      "publicId": "colleges/government-medical-college-churachandpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716411/colleges/government-medical-college-churachandpur.jpg"
+    },
+    "government-medical-college-datia-mp": {
+      "publicId": "colleges/government-medical-college-datia-mp",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716411/colleges/government-medical-college-datia-mp.jpg"
+    },
+    "government-medical-college-churu": {
+      "publicId": "colleges/government-medical-college-churu",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716411/colleges/government-medical-college-churu.jpg"
+    },
+    "government-medical-college-dausa": {
+      "publicId": "colleges/government-medical-college-dausa",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716411/colleges/government-medical-college-dausa.jpg"
+    },
+    "government-medical-college-dholpur": {
+      "publicId": "colleges/government-medical-college-dholpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716412/colleges/government-medical-college-dholpur.jpg"
+    },
+    "government-medical-college-dindigul": {
+      "publicId": "colleges/government-medical-college-dindigul",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716412/colleges/government-medical-college-dindigul.jpg"
+    },
+    "govt-medical-college-doda-kashmir": {
+      "publicId": "colleges/govt-medical-college-doda-kashmir",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716412/colleges/govt-medical-college-doda-kashmir.jpg"
+    },
+    "government-medical-college-dungarpur": {
+      "publicId": "colleges/government-medical-college-dungarpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716412/colleges/government-medical-college-dungarpur.jpg"
+    },
+    "government-medical-college-eluru": {
+      "publicId": "colleges/government-medical-college-eluru",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716413/colleges/government-medical-college-eluru.jpg"
+    },
+    "government-medical-college-ernakulam": {
+      "publicId": "colleges/government-medical-college-ernakulam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716413/colleges/government-medical-college-ernakulam.jpg"
+    },
+    "government-medical-college-gadchiroli": {
+      "publicId": "colleges/government-medical-college-gadchiroli",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716413/colleges/government-medical-college-gadchiroli.jpg"
+    },
+    "government-medical-college-gondia": {
+      "publicId": "colleges/government-medical-college-gondia",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716413/colleges/government-medical-college-gondia.jpg"
+    },
+    "government-medical-college-prev-uttarakhand-forest-hospital-trust-med-col-haldwani": {
+      "publicId": "colleges/government-medical-college-prev-uttarakhand-forest-hospital-trust-med-col-haldwani",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716414/colleges/government-medical-college-prev-uttarakhand-forest-hospital-trust-med-col-haldwani.jpg"
+    },
+    "government-medical-college-haridwar": {
+      "publicId": "colleges/government-medical-college-haridwar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716414/colleges/government-medical-college-haridwar.jpg"
+    },
+    "government-medical-college-hanumangarh": {
+      "publicId": "colleges/government-medical-college-hanumangarh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716414/colleges/government-medical-college-hanumangarh.jpg"
+    },
+    "government-medical-college-hingoli": {
+      "publicId": "colleges/government-medical-college-hingoli",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716414/colleges/government-medical-college-hingoli.jpg"
+    },
+    "government-medical-college-idukki": {
+      "publicId": "colleges/government-medical-college-idukki",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716415/colleges/government-medical-college-idukki.jpg"
+    },
+    "government-medical-college-jagtial": {
+      "publicId": "colleges/government-medical-college-jagtial",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716415/colleges/government-medical-college-jagtial.jpg"
+    },
+    "government-medical-college-jaisalmer": {
+      "publicId": "colleges/government-medical-college-jaisalmer",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716415/colleges/government-medical-college-jaisalmer.jpg"
+    },
+    "government-medical-college-jalgaon": {
+      "publicId": "colleges/government-medical-college-jalgaon",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716416/colleges/government-medical-college-jalgaon.jpg"
+    },
+    "government-medical-college-jammu": {
+      "publicId": "colleges/government-medical-college-jammu",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716416/colleges/government-medical-college-jammu.jpg"
+    },
+    "government-medical-college-jayashankar-bhupalpally": {
+      "publicId": "colleges/government-medical-college-jayashankar-bhupalpally",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716416/colleges/government-medical-college-jayashankar-bhupalpally.jpg"
+    },
+    "government-medical-college-jalna": {
+      "publicId": "colleges/government-medical-college-jalna",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716416/colleges/government-medical-college-jalna.jpg"
+    },
+    "government-medical-college-jhunjhunu": {
+      "publicId": "colleges/government-medical-college-jhunjhunu",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716417/colleges/government-medical-college-jhunjhunu.jpg"
+    },
+    "government-medical-college-kamareddy": {
+      "publicId": "colleges/government-medical-college-kamareddy",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716417/colleges/government-medical-college-kamareddy.jpg"
+    },
+    "government-medical-college-kallakurichi": {
+      "publicId": "colleges/government-medical-college-kallakurichi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716417/colleges/government-medical-college-kallakurichi.jpg"
+    },
+    "government-medical-college-karauli": {
+      "publicId": "colleges/government-medical-college-karauli",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716417/colleges/government-medical-college-karauli.jpg"
+    },
+    "government-medical-college-karimnagar": {
+      "publicId": "colleges/government-medical-college-karimnagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716418/colleges/government-medical-college-karimnagar.jpg"
+    },
+    "government-medical-college-khandwa-mp": {
+      "publicId": "colleges/government-medical-college-khandwa-mp",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716418/colleges/government-medical-college-khandwa-mp.jpg"
+    },
+    "government-medical-college-kathua": {
+      "publicId": "colleges/government-medical-college-kathua",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716418/colleges/government-medical-college-kathua.jpg"
+    },
+    "government-medical-college-karur": {
+      "publicId": "colleges/government-medical-college-karur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716418/colleges/government-medical-college-karur.jpg"
+    },
+    "government-medical-college-konni": {
+      "publicId": "colleges/government-medical-college-konni",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716419/colleges/government-medical-college-konni.jpg"
+    },
+    "government-medical-college-kota": {
+      "publicId": "colleges/government-medical-college-kota",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716419/colleges/government-medical-college-kota.jpg"
+    },
+    "government-medical-college-korba": {
+      "publicId": "colleges/government-medical-college-korba",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716419/colleges/government-medical-college-korba.jpg"
+    },
+    "government-medical-college-kottayam": {
+      "publicId": "colleges/government-medical-college-kottayam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716419/colleges/government-medical-college-kottayam.jpg"
+    },
+    "government-medical-college-kozhikode-calicut": {
+      "publicId": "colleges/government-medical-college-kozhikode-calicut",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716420/colleges/government-medical-college-kozhikode-calicut.jpg"
+    },
+    "government-medical-college-krishnagiri": {
+      "publicId": "colleges/government-medical-college-krishnagiri",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716420/colleges/government-medical-college-krishnagiri.jpg"
+    },
+    "government-medical-college-latur": {
+      "publicId": "colleges/government-medical-college-latur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716420/colleges/government-medical-college-latur.jpg"
+    },
+    "government-medical-college-machilipatnam": {
+      "publicId": "colleges/government-medical-college-machilipatnam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716421/colleges/government-medical-college-machilipatnam.jpg"
+    },
+    "government-medical-college-mahabubnagar": {
+      "publicId": "colleges/government-medical-college-mahabubnagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716421/colleges/government-medical-college-mahabubnagar.jpg"
+    },
+    "government-medical-college-maheshwaram": {
+      "publicId": "colleges/government-medical-college-maheshwaram",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716421/colleges/government-medical-college-maheshwaram.jpg"
+    },
+    "government-medical-college-mancherial": {
+      "publicId": "colleges/government-medical-college-mancherial",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716422/colleges/government-medical-college-mancherial.jpg"
+    },
+    "government-medical-college-mahasamund": {
+      "publicId": "colleges/government-medical-college-mahasamund",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716422/colleges/government-medical-college-mahasamund.jpg"
+    },
+    "government-medical-college-manjeri-malapuram-dist": {
+      "publicId": "colleges/government-medical-college-manjeri-malapuram-dist",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716422/colleges/government-medical-college-manjeri-malapuram-dist.jpg"
+    },
+    "government-medical-college-miraj": {
+      "publicId": "colleges/government-medical-college-miraj",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716422/colleges/government-medical-college-miraj.jpg"
+    },
+    "government-medical-college-mulugu": {
+      "publicId": "colleges/government-medical-college-mulugu",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716423/colleges/government-medical-college-mulugu.jpg"
+    },
+    "government-medical-college-nagapattinam": {
+      "publicId": "colleges/government-medical-college-nagapattinam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716423/colleges/government-medical-college-nagapattinam.jpg"
+    },
+    "government-medical-college-nagarkurnool": {
+      "publicId": "colleges/government-medical-college-nagarkurnool",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716423/colleges/government-medical-college-nagarkurnool.jpg"
+    },
+    "government-medical-college-nagaur": {
+      "publicId": "colleges/government-medical-college-nagaur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716423/colleges/government-medical-college-nagaur.jpg"
+    },
+    "government-medical-college-nagpur": {
+      "publicId": "colleges/government-medical-college-nagpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716424/colleges/government-medical-college-nagpur.jpg"
+    },
+    "government-medical-college-nahan-sirmour-h-p": {
+      "publicId": "colleges/government-medical-college-nahan-sirmour-h-p",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716424/colleges/government-medical-college-nahan-sirmour-h-p.jpg"
+    },
+    "government-medical-college-namakkal": {
+      "publicId": "colleges/government-medical-college-namakkal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716424/colleges/government-medical-college-namakkal.jpg"
+    },
+    "government-medical-college-nalgonda": {
+      "publicId": "colleges/government-medical-college-nalgonda",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716424/colleges/government-medical-college-nalgonda.jpg"
+    },
+    "government-medical-college-nandurbar": {
+      "publicId": "colleges/government-medical-college-nandurbar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716425/colleges/government-medical-college-nandurbar.jpg"
+    },
+    "government-medical-college-narsampet": {
+      "publicId": "colleges/government-medical-college-narsampet",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716425/colleges/government-medical-college-narsampet.jpg"
+    },
+    "government-medical-college-narayanpet": {
+      "publicId": "colleges/government-medical-college-narayanpet",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716425/colleges/government-medical-college-narayanpet.jpg"
+    },
+    "government-medical-college-nandyal": {
+      "publicId": "colleges/government-medical-college-nandyal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716425/colleges/government-medical-college-nandyal.jpg"
+    },
+    "government-medical-college-nirmal": {
+      "publicId": "colleges/government-medical-college-nirmal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716426/colleges/government-medical-college-nirmal.jpg"
+    },
+    "government-medical-college-ongole": {
+      "publicId": "colleges/government-medical-college-ongole",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716426/colleges/government-medical-college-ongole.jpg"
+    },
+    "government-medical-college-paderu": {
+      "publicId": "colleges/government-medical-college-paderu",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716426/colleges/government-medical-college-paderu.jpg"
+    },
+    "government-medical-college-pali-rajasthan": {
+      "publicId": "colleges/government-medical-college-pali-rajasthan",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716427/colleges/government-medical-college-pali-rajasthan.jpg"
+    },
+    "govt-medical-college-pariyaram-kannur-prev-known-as-academy-of-medical-sciences": {
+      "publicId": "colleges/govt-medical-college-pariyaram-kannur-prev-known-as-academy-of-medical-sciences",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716427/colleges/govt-medical-college-pariyaram-kannur-prev-known-as-academy-of-medical-sciences.jpg"
+    },
+    "government-medical-college-parbhani": {
+      "publicId": "colleges/government-medical-college-parbhani",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716427/colleges/government-medical-college-parbhani.jpg"
+    },
+    "government-medical-college-omandurar": {
+      "publicId": "colleges/government-medical-college-omandurar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716426/colleges/government-medical-college-omandurar.jpg"
+    },
+    "government-medical-college-patiala": {
+      "publicId": "colleges/government-medical-college-patiala",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716428/colleges/government-medical-college-patiala.jpg"
+    },
+    "government-medical-college-purnea": {
+      "publicId": "colleges/government-medical-college-purnea",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716428/colleges/government-medical-college-purnea.jpg"
+    },
+    "government-medical-college-rajamahendravaram": {
+      "publicId": "colleges/government-medical-college-rajamahendravaram",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716428/colleges/government-medical-college-rajamahendravaram.jpg"
+    },
+    "government-medical-college-rajanna-sircilla": {
+      "publicId": "colleges/government-medical-college-rajanna-sircilla",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716429/colleges/government-medical-college-rajanna-sircilla.jpg"
+    },
+    "government-medical-college-rajouri-j-k": {
+      "publicId": "colleges/government-medical-college-rajouri-j-k",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716429/colleges/government-medical-college-rajouri-j-k.jpg"
+    },
+    "government-medical-college-ramagundam": {
+      "publicId": "colleges/government-medical-college-ramagundam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716429/colleges/government-medical-college-ramagundam.jpg"
+    },
+    "government-medical-college-ramanathapuram": {
+      "publicId": "colleges/government-medical-college-ramanathapuram",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716429/colleges/government-medical-college-ramanathapuram.jpg"
+    },
+    "government-medical-college-rampur-basti": {
+      "publicId": "colleges/government-medical-college-rampur-basti",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716430/colleges/government-medical-college-rampur-basti.jpg"
+    },
+    "government-medical-college-sangareddy": {
+      "publicId": "colleges/government-medical-college-sangareddy",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716430/colleges/government-medical-college-sangareddy.jpg"
+    },
+    "dr-laxminarayan-pandey-government-medical-college-ratlam-m-p": {
+      "publicId": "colleges/dr-laxminarayan-pandey-government-medical-college-ratlam-m-p",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716430/colleges/dr-laxminarayan-pandey-government-medical-college-ratlam-m-p.jpg"
+    },
+    "government-medical-college-satara": {
+      "publicId": "colleges/government-medical-college-satara",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716430/colleges/government-medical-college-satara.jpg"
+    },
+    "government-medical-college-satna": {
+      "publicId": "colleges/government-medical-college-satna",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716430/colleges/government-medical-college-satna.jpg"
+    },
+    "government-medical-college-seoni": {
+      "publicId": "colleges/government-medical-college-seoni",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716431/colleges/government-medical-college-seoni.jpg"
+    },
+    "government-medical-college-sawai-madhopur": {
+      "publicId": "colleges/government-medical-college-sawai-madhopur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716431/colleges/government-medical-college-sawai-madhopur.jpg"
+    },
+    "government-medical-college-shahjahanpur-up": {
+      "publicId": "colleges/government-medical-college-shahjahanpur-up",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716432/colleges/government-medical-college-shahjahanpur-up.jpg"
+    },
+    "government-medical-college-shahdol-mp": {
+      "publicId": "colleges/government-medical-college-shahdol-mp",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716431/colleges/government-medical-college-shahdol-mp.jpg"
+    },
+    "government-medical-college-shivpuri-mp": {
+      "publicId": "colleges/government-medical-college-shivpuri-mp",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716432/colleges/government-medical-college-shivpuri-mp.jpg"
+    },
+    "government-medical-college-siddipet": {
+      "publicId": "colleges/government-medical-college-siddipet",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716432/colleges/government-medical-college-siddipet.jpg"
+    },
+    "government-medical-college-sirohi": {
+      "publicId": "colleges/government-medical-college-sirohi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716433/colleges/government-medical-college-sirohi.jpg"
+    },
+    "government-medical-college-sindhudurg": {
+      "publicId": "colleges/government-medical-college-sindhudurg",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716433/colleges/government-medical-college-sindhudurg.jpg"
+    },
+    "government-medical-college-sri-ganganagar": {
+      "publicId": "colleges/government-medical-college-sri-ganganagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716433/colleges/government-medical-college-sri-ganganagar.jpg"
+    },
+    "government-medical-college-srinagar": {
+      "publicId": "colleges/government-medical-college-srinagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716433/colleges/government-medical-college-srinagar.jpg"
+    },
+    "government-medical-college-sundargarh": {
+      "publicId": "colleges/government-medical-college-sundargarh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716434/colleges/government-medical-college-sundargarh.jpg"
+    },
+    "government-medical-college-surat": {
+      "publicId": "colleges/government-medical-college-surat",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716434/colleges/government-medical-college-surat.jpg"
+    },
+    "government-medical-college-suryapet": {
+      "publicId": "colleges/government-medical-college-suryapet",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716434/colleges/government-medical-college-suryapet.jpg"
+    },
+    "government-medical-college-the-nilgiris": {
+      "publicId": "colleges/government-medical-college-the-nilgiris",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716434/colleges/government-medical-college-the-nilgiris.jpg"
+    },
+    "medical-college-thiruvananthapuram": {
+      "publicId": "colleges/medical-college-thiruvananthapuram",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716435/colleges/medical-college-thiruvananthapuram.jpg"
+    },
+    "government-medical-college-thiruvallur": {
+      "publicId": "colleges/government-medical-college-thiruvallur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716434/colleges/government-medical-college-thiruvallur.jpg"
+    },
+    "government-medical-college-thrissur": {
+      "publicId": "colleges/government-medical-college-thrissur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716435/colleges/government-medical-college-thrissur.jpg"
+    },
+    "government-medical-college-tiruppur": {
+      "publicId": "colleges/government-medical-college-tiruppur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716435/colleges/government-medical-college-tiruppur.jpg"
+    },
+    "government-medical-college-virudhunagar": {
+      "publicId": "colleges/government-medical-college-virudhunagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716435/colleges/government-medical-college-virudhunagar.jpg"
+    },
+    "government-medical-college-wanaparthy": {
+      "publicId": "colleges/government-medical-college-wanaparthy",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716436/colleges/government-medical-college-wanaparthy.jpg"
+    },
+    "government-medical-college-washim": {
+      "publicId": "colleges/government-medical-college-washim",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716436/colleges/government-medical-college-washim.jpg"
+    },
+    "government-medical-college-wayanad": {
+      "publicId": "colleges/government-medical-college-wayanad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716436/colleges/government-medical-college-wayanad.jpg"
+    },
+    "government-medical-college-yadadri": {
+      "publicId": "colleges/government-medical-college-yadadri",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716436/colleges/government-medical-college-yadadri.jpg"
+    },
+    "government-medical-college-institute-of-integrated-medical-sciences-yakkara-palakkad": {
+      "publicId": "colleges/government-medical-college-institute-of-integrated-medical-sciences-yakkara-palakkad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716437/colleges/government-medical-college-institute-of-integrated-medical-sciences-yakkara-palakkad.jpg"
+    },
+    "government-medical-college-nashik": {
+      "publicId": "colleges/government-medical-college-nashik",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716437/colleges/government-medical-college-nashik.jpg"
+    },
+    "government-vellore-medical-college-vellore": {
+      "publicId": "colleges/government-vellore-medical-college-vellore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716437/colleges/government-vellore-medical-college-vellore.jpg"
+    },
+    "government-medical-college-quthbullapur": {
+      "publicId": "colleges/government-medical-college-quthbullapur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716437/colleges/government-medical-college-quthbullapur.jpg"
+    },
+    "government-medical-college-tonk": {
+      "publicId": "colleges/government-medical-college-tonk",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716438/colleges/government-medical-college-tonk.jpg"
+    },
+    "government-medical-college-vizianagaram": {
+      "publicId": "colleges/government-medical-college-vizianagaram",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716438/colleges/government-medical-college-vizianagaram.jpg"
+    },
+    "govt-medical-college-kolkata": {
+      "publicId": "colleges/govt-medical-college-kolkata",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716438/colleges/govt-medical-college-kolkata.jpg"
+    },
+    "grant-medical-college-mumbai": {
+      "publicId": "colleges/grant-medical-college-mumbai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716438/colleges/grant-medical-college-mumbai.jpg"
+    },
+    "great-eastern-medical-school-and-hospital-srikakulam": {
+      "publicId": "colleges/great-eastern-medical-school-and-hospital-srikakulam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716439/colleges/great-eastern-medical-school-and-hospital-srikakulam.jpg"
+    },
+    "gujarat-adani-institute-of-medical-sciences-bhuj": {
+      "publicId": "colleges/gujarat-adani-institute-of-medical-sciences-bhuj",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716439/colleges/gujarat-adani-institute-of-medical-sciences-bhuj.jpg"
+    },
+    "gulbarga-institute-of-medical-sciences-gulbarga": {
+      "publicId": "colleges/gulbarga-institute-of-medical-sciences-gulbarga",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716439/colleges/gulbarga-institute-of-medical-sciences-gulbarga.jpg"
+    },
+    "guntur-medical-college-guntur": {
+      "publicId": "colleges/guntur-medical-college-guntur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716439/colleges/guntur-medical-college-guntur.jpg"
+    },
+    "hamdard-institute-of-medical-sciences-research-new-delhi": {
+      "publicId": "colleges/hamdard-institute-of-medical-sciences-research-new-delhi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716440/colleges/hamdard-institute-of-medical-sciences-research-new-delhi.jpg"
+    },
+    "hassan-institute-of-medical-sciences-hassan": {
+      "publicId": "colleges/hassan-institute-of-medical-sciences-hassan",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716440/colleges/hassan-institute-of-medical-sciences-hassan.jpg"
+    },
+    "haveri-institute-of-medical-sciences-haveri": {
+      "publicId": "colleges/haveri-institute-of-medical-sciences-haveri",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716440/colleges/haveri-institute-of-medical-sciences-haveri.jpg"
+    },
+    "himalaya-medical-college-and-hospital-patna-bihar": {
+      "publicId": "colleges/himalaya-medical-college-and-hospital-patna-bihar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716440/colleges/himalaya-medical-college-and-hospital-patna-bihar.jpg"
+    },
+    "himalayan-institute-of-medical-sciences-dehradun": {
+      "publicId": "colleges/himalayan-institute-of-medical-sciences-dehradun",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716441/colleges/himalayan-institute-of-medical-sciences-dehradun.jpg"
+    },
+    "hind-institute-of-medical-sciences-barabanki": {
+      "publicId": "colleges/hind-institute-of-medical-sciences-barabanki",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716441/colleges/hind-institute-of-medical-sciences-barabanki.jpg"
+    },
+    "hind-institute-of-medical-sciences-sitapur": {
+      "publicId": "colleges/hind-institute-of-medical-sciences-sitapur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716441/colleges/hind-institute-of-medical-sciences-sitapur.jpg"
+    },
+    "index-medical-college-hospital-research-centre-indore": {
+      "publicId": "colleges/index-medical-college-hospital-research-centre-indore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716441/colleges/index-medical-college-hospital-research-centre-indore.jpg"
+    },
+    "indian-institute-of-medical-science-research-jalna": {
+      "publicId": "colleges/indian-institute-of-medical-science-research-jalna",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716442/colleges/indian-institute-of-medical-science-research-jalna.jpg"
+    },
+    "indira-gandhi-medical-college-research-institute-puducherry": {
+      "publicId": "colleges/indira-gandhi-medical-college-research-institute-puducherry",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716442/colleges/indira-gandhi-medical-college-research-institute-puducherry.jpg"
+    },
+    "indira-gandhi-institute-of-medical-sciences-sheikhpura-patna": {
+      "publicId": "colleges/indira-gandhi-institute-of-medical-sciences-sheikhpura-patna",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716442/colleges/indira-gandhi-institute-of-medical-sciences-sheikhpura-patna.jpg"
+    },
+    "institute-of-medical-sciences-bhu-varansi": {
+      "publicId": "colleges/institute-of-medical-sciences-bhu-varansi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716443/colleges/institute-of-medical-sciences-bhu-varansi.jpg"
+    },
+    "institute-of-postgraduate-medical-education-research-kolkata": {
+      "publicId": "colleges/institute-of-postgraduate-medical-education-research-kolkata",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716443/colleges/institute-of-postgraduate-medical-education-research-kolkata.jpg"
+    },
+    "indira-gandhi-medical-college-shimla": {
+      "publicId": "colleges/indira-gandhi-medical-college-shimla",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716443/colleges/indira-gandhi-medical-college-shimla.jpg"
+    },
+    "jiet-medical-college-and-hospital": {
+      "publicId": "colleges/jiet-medical-college-and-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716443/colleges/jiet-medical-college-and-hospital.jpg"
+    },
+    "jjm-medical-college-davangere": {
+      "publicId": "colleges/jjm-medical-college-davangere",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716444/colleges/jjm-medical-college-davangere.jpg"
+    },
+    "jmn-medical-college-nadia": {
+      "publicId": "colleges/jmn-medical-college-nadia",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716444/colleges/jmn-medical-college-nadia.jpg"
+    },
+    "jss-medical-college-mysore": {
+      "publicId": "colleges/jss-medical-college-mysore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716444/colleges/jss-medical-college-mysore.jpg"
+    },
+    "jagadguru-gangadhar-mahaswamigalu-moorusavirmath-medical-college-jgmmmc": {
+      "publicId": "colleges/jagadguru-gangadhar-mahaswamigalu-moorusavirmath-medical-college-jgmmmc",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716445/colleges/jagadguru-gangadhar-mahaswamigalu-moorusavirmath-medical-college-jgmmmc.jpg"
+    },
+    "jagannath-gupta-institute-of-medical-sciences-and-hospital": {
+      "publicId": "colleges/jagannath-gupta-institute-of-medical-sciences-and-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716445/colleges/jagannath-gupta-institute-of-medical-sciences-and-hospital.jpg"
+    },
+    "jannayak-karpoori-thakur-medical-college-hospital-madhepura-bihar": {
+      "publicId": "colleges/jannayak-karpoori-thakur-medical-college-hospital-madhepura-bihar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716445/colleges/jannayak-karpoori-thakur-medical-college-hospital-madhepura-bihar.jpg"
+    },
+    "jawaharlal-nehru-medical-college-aligarh": {
+      "publicId": "colleges/jawaharlal-nehru-medical-college-aligarh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716445/colleges/jawaharlal-nehru-medical-college-aligarh.jpg"
+    },
+    "jawaharlal-nehru-medical-college-ajmer": {
+      "publicId": "colleges/jawaharlal-nehru-medical-college-ajmer",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716446/colleges/jawaharlal-nehru-medical-college-ajmer.jpg"
+    },
+    "jawaharlal-nehru-medical-college-belgaum": {
+      "publicId": "colleges/jawaharlal-nehru-medical-college-belgaum",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716446/colleges/jawaharlal-nehru-medical-college-belgaum.jpg"
+    },
+    "jawaharlal-nehru-medical-college-bhagalpur": {
+      "publicId": "colleges/jawaharlal-nehru-medical-college-bhagalpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716446/colleges/jawaharlal-nehru-medical-college-bhagalpur.jpg"
+    },
+    "jhalawar-medical-college-jhalawar": {
+      "publicId": "colleges/jhalawar-medical-college-jhalawar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716446/colleges/jhalawar-medical-college-jhalawar.jpg"
+    },
+    "jorhat-medical-college-hospital-jorhat": {
+      "publicId": "colleges/jorhat-medical-college-hospital-jorhat",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716447/colleges/jorhat-medical-college-hospital-jorhat.jpg"
+    },
+    "k-s-hegde-medical-academy-mangalore": {
+      "publicId": "colleges/k-s-hegde-medical-academy-mangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716447/colleges/k-s-hegde-medical-academy-mangalore.jpg"
+    },
+    "k-h-patil-institute-of-medical-sciences": {
+      "publicId": "colleges/k-h-patil-institute-of-medical-sciences",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716447/colleges/k-h-patil-institute-of-medical-sciences.jpg"
+    },
+    "kj-somaiyya-medical-college-research-centre-mumbai": {
+      "publicId": "colleges/kj-somaiyya-medical-college-research-centre-mumbai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716447/colleges/kj-somaiyya-medical-college-research-centre-mumbai.jpg"
+    },
+    "kmct-medical-college-kozhikode-calicut": {
+      "publicId": "colleges/kmct-medical-college-kozhikode-calicut",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716448/colleges/kmct-medical-college-kozhikode-calicut.jpg"
+    },
+    "kpc-medical-college-jadavpur-kolkata": {
+      "publicId": "colleges/kpc-medical-college-jadavpur-kolkata",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716448/colleges/kpc-medical-college-jadavpur-kolkata.jpg"
+    },
+    "kmc-medical-college-hospital-maharajganj-uttar-pradesh": {
+      "publicId": "colleges/kmc-medical-college-hospital-maharajganj-uttar-pradesh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716449/colleges/kmc-medical-college-hospital-maharajganj-uttar-pradesh.jpg"
+    },
+    "kakatiya-medical-college-warangal": {
+      "publicId": "colleges/kakatiya-medical-college-warangal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716449/colleges/kakatiya-medical-college-warangal.jpg"
+    },
+    "kalinga-institute-of-medical-sciences-bhubaneswar": {
+      "publicId": "colleges/kalinga-institute-of-medical-sciences-bhubaneswar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716449/colleges/kalinga-institute-of-medical-sciences-bhubaneswar.jpg"
+    },
+    "kalpana-chawala-govt-medical-college-karnal-haryana": {
+      "publicId": "colleges/kalpana-chawala-govt-medical-college-karnal-haryana",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716449/colleges/kalpana-chawala-govt-medical-college-karnal-haryana.jpg"
+    },
+    "kamineni-institute-of-medical-sciences-narketpally": {
+      "publicId": "colleges/kamineni-institute-of-medical-sciences-narketpally",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716450/colleges/kamineni-institute-of-medical-sciences-narketpally.jpg"
+    },
+    "kanachur-institute-of-medical-sciences-mangalore": {
+      "publicId": "colleges/kanachur-institute-of-medical-sciences-mangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716450/colleges/kanachur-institute-of-medical-sciences-mangalore.jpg"
+    },
+    "kannur-medical-college-kannur": {
+      "publicId": "colleges/kannur-medical-college-kannur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716450/colleges/kannur-medical-college-kannur.jpg"
+    },
+    "karpaga-vinayaga-institute-of-medical-sciences-maduranthagam": {
+      "publicId": "colleges/karpaga-vinayaga-institute-of-medical-sciences-maduranthagam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716450/colleges/karpaga-vinayaga-institute-of-medical-sciences-maduranthagam.jpg"
+    },
+    "karnataka-medical-college-and-research-institute-hubballi-karnataka": {
+      "publicId": "colleges/karnataka-medical-college-and-research-institute-hubballi-karnataka",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716450/colleges/karnataka-medical-college-and-research-institute-hubballi-karnataka.jpg"
+    },
+    "karuna-medical-college-palakkad": {
+      "publicId": "colleges/karuna-medical-college-palakkad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716451/colleges/karuna-medical-college-palakkad.jpg"
+    },
+    "karwar-institute-of-medical-sciences-karwar": {
+      "publicId": "colleges/karwar-institute-of-medical-sciences-karwar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716451/colleges/karwar-institute-of-medical-sciences-karwar.jpg"
+    },
+    "kasturba-medical-college-mangalore": {
+      "publicId": "colleges/kasturba-medical-college-mangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716451/colleges/kasturba-medical-college-mangalore.jpg"
+    },
+    "kasturba-medical-college-manipal": {
+      "publicId": "colleges/kasturba-medical-college-manipal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716452/colleges/kasturba-medical-college-manipal.jpg"
+    },
+    "katihar-medical-college-katihar": {
+      "publicId": "colleges/katihar-medical-college-katihar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716452/colleges/katihar-medical-college-katihar.jpg"
+    },
+    "katuri-medical-college-guntur": {
+      "publicId": "colleges/katuri-medical-college-guntur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716452/colleges/katuri-medical-college-guntur.jpg"
+    },
+    "kerala-medical-college-mangode": {
+      "publicId": "colleges/kerala-medical-college-mangode",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716453/colleges/kerala-medical-college-mangode.jpg"
+    },
+    "king-george-medical-university-lucknow": {
+      "publicId": "colleges/king-george-medical-university-lucknow",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716453/colleges/king-george-medical-university-lucknow.jpg"
+    },
+    "khaja-bandanawaz-university-0-faculty-of-medical-sciences-gulbarga": {
+      "publicId": "colleges/khaja-bandanawaz-university-0-faculty-of-medical-sciences-gulbarga",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716453/colleges/khaja-bandanawaz-university-0-faculty-of-medical-sciences-gulbarga.jpg"
+    },
+    "kempegowda-institute-of-medical-sciences-bangalore": {
+      "publicId": "colleges/kempegowda-institute-of-medical-sciences-bangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716453/colleges/kempegowda-institute-of-medical-sciences-bangalore.jpg"
+    },
+    "kiran-medical-college-surat": {
+      "publicId": "colleges/kiran-medical-college-surat",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716454/colleges/kiran-medical-college-surat.jpg"
+    },
+    "kokrajhar-medical-college": {
+      "publicId": "colleges/kokrajhar-medical-college",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716454/colleges/kokrajhar-medical-college.jpg"
+    },
+    "kodagu-institute-of-medical-sciences-kodagu": {
+      "publicId": "colleges/kodagu-institute-of-medical-sciences-kodagu",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716454/colleges/kodagu-institute-of-medical-sciences-kodagu.jpg"
+    },
+    "konaseema-institute-of-medical-sciences-research-foundation-amalapuram": {
+      "publicId": "colleges/konaseema-institute-of-medical-sciences-research-foundation-amalapuram",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716454/colleges/konaseema-institute-of-medical-sciences-research-foundation-amalapuram.jpg"
+    },
+    "koppal-institute-of-medical-sciences-koppal": {
+      "publicId": "colleges/koppal-institute-of-medical-sciences-koppal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716455/colleges/koppal-institute-of-medical-sciences-koppal.jpg"
+    },
+    "krishna-institute-of-medical-sciences-karad": {
+      "publicId": "colleges/krishna-institute-of-medical-sciences-karad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716455/colleges/krishna-institute-of-medical-sciences-karad.jpg"
+    },
+    "krishna-mohan-medical-college-hospital-mathura": {
+      "publicId": "colleges/krishna-mohan-medical-college-hospital-mathura",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716456/colleges/krishna-mohan-medical-college-hospital-mathura.jpg"
+    },
+    "kurnool-medical-college-kurnool": {
+      "publicId": "colleges/kurnool-medical-college-kurnool",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716456/colleges/kurnool-medical-college-kurnool.jpg"
+    },
+    "llrm-medical-college-meerut": {
+      "publicId": "colleges/llrm-medical-college-meerut",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716456/colleges/llrm-medical-college-meerut.jpg"
+    },
+    "lnct-medical-college-sewakunj-hospital-indore": {
+      "publicId": "colleges/lnct-medical-college-sewakunj-hospital-indore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716456/colleges/lnct-medical-college-sewakunj-hospital-indore.jpg"
+    },
+    "lady-hardinge-medical-college-new-delhi": {
+      "publicId": "colleges/lady-hardinge-medical-college-new-delhi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716457/colleges/lady-hardinge-medical-college-new-delhi.jpg"
+    },
+    "lakhimpur-medical-college": {
+      "publicId": "colleges/lakhimpur-medical-college",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716457/colleges/lakhimpur-medical-college.jpg"
+    },
+    "late-shri-baliram-kashyap-memorial-ndmc-govt-medical-college-jagdalpur": {
+      "publicId": "colleges/late-shri-baliram-kashyap-memorial-ndmc-govt-medical-college-jagdalpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716457/colleges/late-shri-baliram-kashyap-memorial-ndmc-govt-medical-college-jagdalpur.jpg"
+    },
+    "late-shri-lakhi-ram-agrawal-memorial-govt-medical-college-raigarh": {
+      "publicId": "colleges/late-shri-lakhi-ram-agrawal-memorial-govt-medical-college-raigarh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716457/colleges/late-shri-lakhi-ram-agrawal-memorial-govt-medical-college-raigarh.jpg"
+    },
+    "laxmi-chandravansi-medical-college-hospital": {
+      "publicId": "colleges/laxmi-chandravansi-medical-college-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716458/colleges/laxmi-chandravansi-medical-college-hospital.jpg"
+    },
+    "lord-buddha-koshi-medical-college-and-hospital-saharsa": {
+      "publicId": "colleges/lord-buddha-koshi-medical-college-and-hospital-saharsa",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716458/colleges/lord-buddha-koshi-medical-college-and-hospital-saharsa.jpg"
+    },
+    "lokmanya-tilak-municipal-medical-college-sion-mumbai": {
+      "publicId": "colleges/lokmanya-tilak-municipal-medical-college-sion-mumbai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716458/colleges/lokmanya-tilak-municipal-medical-college-sion-mumbai.jpg"
+    },
+    "m-e-s-medical-college-perintalmanna-malappuram-distt-kerala": {
+      "publicId": "colleges/m-e-s-medical-college-perintalmanna-malappuram-distt-kerala",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716458/colleges/m-e-s-medical-college-perintalmanna-malappuram-distt-kerala.jpg"
+    },
+    "m-g-m-medical-college-indore": {
+      "publicId": "colleges/m-g-m-medical-college-indore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716459/colleges/m-g-m-medical-college-indore.jpg"
+    },
+    "m-g-m-medical-college-jamshedpur": {
+      "publicId": "colleges/m-g-m-medical-college-jamshedpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716459/colleges/m-g-m-medical-college-jamshedpur.jpg"
+    },
+    "mahabodhi-medical-college-hospital": {
+      "publicId": "colleges/mahabodhi-medical-college-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716460/colleges/mahabodhi-medical-college-hospital.jpg"
+    },
+    "mkcg-medical-college-berhampur": {
+      "publicId": "colleges/mkcg-medical-college-berhampur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716460/colleges/mkcg-medical-college-berhampur.jpg"
+    },
+    "m-s-ramaiah-medical-college-bangalore": {
+      "publicId": "colleges/m-s-ramaiah-medical-college-bangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716459/colleges/m-s-ramaiah-medical-college-bangalore.jpg"
+    },
+    "mp-shah-medical-college-jamnagar": {
+      "publicId": "colleges/mp-shah-medical-college-jamnagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716460/colleges/mp-shah-medical-college-jamnagar.jpg"
+    },
+    "madhubani-medical-college-madhubani": {
+      "publicId": "colleges/madhubani-medical-college-madhubani",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716462/colleges/madhubani-medical-college-madhubani.jpg"
+    },
+    "mysore-medical-college-and-research-instt-prev-name-government-medical-college-mysore": {
+      "publicId": "colleges/mysore-medical-college-and-research-instt-prev-name-government-medical-college-mysore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716461/colleges/mysore-medical-college-and-research-instt-prev-name-government-medical-college-mysore.jpg"
+    },
+    "mvj-medical-college-and-research-hospital-bangalore": {
+      "publicId": "colleges/mvj-medical-college-and-research-hospital-bangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716460/colleges/mvj-medical-college-and-research-hospital-bangalore.jpg"
+    },
+    "mahamaya-rajkiya-allopathic-medical-college-ambedkarnagar": {
+      "publicId": "colleges/mahamaya-rajkiya-allopathic-medical-college-ambedkarnagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716463/colleges/mahamaya-rajkiya-allopathic-medical-college-ambedkarnagar.jpg"
+    },
+    "maharajah-institute-of-medical-sciences-vizianagaram": {
+      "publicId": "colleges/maharajah-institute-of-medical-sciences-vizianagaram",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716465/colleges/maharajah-institute-of-medical-sciences-vizianagaram.jpg"
+    },
+    "maharaja-agrasen-medical-college-agroha": {
+      "publicId": "colleges/maharaja-agrasen-medical-college-agroha",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716464/colleges/maharaja-agrasen-medical-college-agroha.jpg"
+    },
+    "maharani-laxmi-bai-medical-college-jhansi": {
+      "publicId": "colleges/maharani-laxmi-bai-medical-college-jhansi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716465/colleges/maharani-laxmi-bai-medical-college-jhansi.jpg"
+    },
+    "maharashtra-institute-of-medical-sciences-research-latur": {
+      "publicId": "colleges/maharashtra-institute-of-medical-sciences-research-latur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716465/colleges/maharashtra-institute-of-medical-sciences-research-latur.jpg"
+    },
+    "maharishi-chyawan-medical-college-koriawas": {
+      "publicId": "colleges/maharishi-chyawan-medical-college-koriawas",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716466/colleges/maharishi-chyawan-medical-college-koriawas.jpg"
+    },
+    "maharishi-markandeshwar-institute-of-medical-sciences-research-mullana-ambala": {
+      "publicId": "colleges/maharishi-markandeshwar-institute-of-medical-sciences-research-mullana-ambala",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716467/colleges/maharishi-markandeshwar-institute-of-medical-sciences-research-mullana-ambala.jpg"
+    },
+    "maharishi-markandeshwar-college-of-medical-sciences-research-sadopur": {
+      "publicId": "colleges/maharishi-markandeshwar-college-of-medical-sciences-research-sadopur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716467/colleges/maharishi-markandeshwar-college-of-medical-sciences-research-sadopur.jpg"
+    },
+    "maharshi-devraha-baba-autonomous-state-medical-college-deoria": {
+      "publicId": "colleges/maharshi-devraha-baba-autonomous-state-medical-college-deoria",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716468/colleges/maharshi-devraha-baba-autonomous-state-medical-college-deoria.jpg"
+    },
+    "maharishi-markandeshwar-medical-college-hospital-solan": {
+      "publicId": "colleges/maharishi-markandeshwar-medical-college-hospital-solan",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716468/colleges/maharishi-markandeshwar-medical-college-hospital-solan.jpg"
+    },
+    "mahatma-gandhi-mission-medical-college-vashi": {
+      "publicId": "colleges/mahatma-gandhi-mission-medical-college-vashi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716469/colleges/mahatma-gandhi-mission-medical-college-vashi.jpg"
+    },
+    "mahatma-gandhi-missions-medical-college-navi-mumbai": {
+      "publicId": "colleges/mahatma-gandhi-missions-medical-college-navi-mumbai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716469/colleges/mahatma-gandhi-missions-medical-college-navi-mumbai.jpg"
+    },
+    "mahatma-vidur-autonomous-state-medical-college": {
+      "publicId": "colleges/mahatma-vidur-autonomous-state-medical-college",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716469/colleges/mahatma-vidur-autonomous-state-medical-college.jpg"
+    },
+    "maheshwara-medical-college-chitkul-patancheru-medak": {
+      "publicId": "colleges/maheshwara-medical-college-chitkul-patancheru-medak",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716469/colleges/maheshwara-medical-college-chitkul-patancheru-medak.jpg"
+    },
+    "malabar-medical-college-kozhikode-calicut": {
+      "publicId": "colleges/malabar-medical-college-kozhikode-calicut",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716470/colleges/malabar-medical-college-kozhikode-calicut.jpg"
+    },
+    "mamata-academy-of-medical-sciences-bachupally": {
+      "publicId": "colleges/mamata-academy-of-medical-sciences-bachupally",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716471/colleges/mamata-academy-of-medical-sciences-bachupally.jpg"
+    },
+    "malda-medical-college-hospital-malda": {
+      "publicId": "colleges/malda-medical-college-hospital-malda",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716471/colleges/malda-medical-college-hospital-malda.jpg"
+    },
+    "malankara-orthodox-syrian-church-medical-college-kolenchery": {
+      "publicId": "colleges/malankara-orthodox-syrian-church-medical-college-kolenchery",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716471/colleges/malankara-orthodox-syrian-church-medical-college-kolenchery.jpg"
+    },
+    "malla-reddy-institute-of-medical-sciences-hyderabad": {
+      "publicId": "colleges/malla-reddy-institute-of-medical-sciences-hyderabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716471/colleges/malla-reddy-institute-of-medical-sciences-hyderabad.jpg"
+    },
+    "mamata-medical-college-khammam": {
+      "publicId": "colleges/mamata-medical-college-khammam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716472/colleges/mamata-medical-college-khammam.jpg"
+    },
+    "mandya-institute-of-medical-sciences-mandya": {
+      "publicId": "colleges/mandya-institute-of-medical-sciences-mandya",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716474/colleges/mandya-institute-of-medical-sciences-mandya.jpg"
+    },
+    "mata-gujri-memorial-medical-college-kishanganj": {
+      "publicId": "colleges/mata-gujri-memorial-medical-college-kishanganj",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716474/colleges/mata-gujri-memorial-medical-college-kishanganj.jpg"
+    },
+    "manipal-tata-medical-college-baridih-jameshedpur": {
+      "publicId": "colleges/manipal-tata-medical-college-baridih-jameshedpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716474/colleges/manipal-tata-medical-college-baridih-jameshedpur.jpg"
+    },
+    "maulana-azad-medical-college-new-delhi": {
+      "publicId": "colleges/maulana-azad-medical-college-new-delhi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716476/colleges/maulana-azad-medical-college-new-delhi.jpg"
+    },
+    "medical-college-baroda": {
+      "publicId": "colleges/medical-college-baroda",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716476/colleges/medical-college-baroda.jpg"
+    },
+    "mediciti-institute-of-medical-sciences-ghanpur": {
+      "publicId": "colleges/mediciti-institute-of-medical-sciences-ghanpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716476/colleges/mediciti-institute-of-medical-sciences-ghanpur.jpg"
+    },
+    "matushri-prabhaben-khodabhai-boghara-medical-college-research-centre-rajkot": {
+      "publicId": "colleges/matushri-prabhaben-khodabhai-boghara-medical-college-research-centre-rajkot",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716477/colleges/matushri-prabhaben-khodabhai-boghara-medical-college-research-centre-rajkot.jpg"
+    },
+    "palamu-medical-college-palamu": {
+      "publicId": "colleges/palamu-medical-college-palamu",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716479/colleges/palamu-medical-college-palamu.jpg"
+    },
+    "melmaruvathur-adiparasakthi-instt-medical-sciences-and-research": {
+      "publicId": "colleges/melmaruvathur-adiparasakthi-instt-medical-sciences-and-research",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716479/colleges/melmaruvathur-adiparasakthi-instt-medical-sciences-and-research.jpg"
+    },
+    "meenakshi-medical-college-and-research-institute-enathur": {
+      "publicId": "colleges/meenakshi-medical-college-and-research-institute-enathur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716479/colleges/meenakshi-medical-college-and-research-institute-enathur.jpg"
+    },
+    "moti-lal-nehru-medical-college-allahabad": {
+      "publicId": "colleges/moti-lal-nehru-medical-college-allahabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716479/colleges/moti-lal-nehru-medical-college-allahabad.jpg"
+    },
+    "muzaffarnagar-medical-college-muzaffarnagar": {
+      "publicId": "colleges/muzaffarnagar-medical-college-muzaffarnagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716482/colleges/muzaffarnagar-medical-college-muzaffarnagar.jpg"
+    },
+    "n-c-medical-college-hospital-panipat": {
+      "publicId": "colleges/n-c-medical-college-hospital-panipat",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716483/colleges/n-c-medical-college-hospital-panipat.jpg"
+    },
+    "namo-medical-education-and-research-institute-silvassa-formerly-known-as-shri-vinoba-bhave-insti": {
+      "publicId": "colleges/namo-medical-education-and-research-institute-silvassa-formerly-known-as-shri-vinoba-bhave-insti",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716483/colleges/namo-medical-education-and-research-institute-silvassa-formerly-known-as-shri-vinoba-bhave-insti.jpg"
+    },
+    "netaji-subhas-medical-college-and-hospital": {
+      "publicId": "colleges/netaji-subhas-medical-college-and-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716484/colleges/netaji-subhas-medical-college-and-hospital.jpg"
+    },
+    "nri-institute-of-medical-sciences-visakhapatnam": {
+      "publicId": "colleges/nri-institute-of-medical-sciences-visakhapatnam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716484/colleges/nri-institute-of-medical-sciences-visakhapatnam.jpg"
+    },
+    "neelima-institute-of-medical-sciences": {
+      "publicId": "colleges/neelima-institute-of-medical-sciences",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716485/colleges/neelima-institute-of-medical-sciences.jpg"
+    },
+    "nalanda-medical-college-patna": {
+      "publicId": "colleges/nalanda-medical-college-patna",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716486/colleges/nalanda-medical-college-patna.jpg"
+    },
+    "nagaon-medical-college": {
+      "publicId": "colleges/nagaon-medical-college",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716486/colleges/nagaon-medical-college.jpg"
+    },
+    "nri-medical-college-guntur": {
+      "publicId": "colleges/nri-medical-college-guntur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716487/colleges/nri-medical-college-guntur.jpg"
+    },
+    "nalbari-medical-college-nalbari": {
+      "publicId": "colleges/nalbari-medical-college-nalbari",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716487/colleges/nalbari-medical-college-nalbari.jpg"
+    },
+    "narayan-medical-college-hospital-sasaram": {
+      "publicId": "colleges/narayan-medical-college-hospital-sasaram",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716488/colleges/narayan-medical-college-hospital-sasaram.jpg"
+    },
+    "narayana-medical-college-nellore": {
+      "publicId": "colleges/narayana-medical-college-nellore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716488/colleges/narayana-medical-college-nellore.jpg"
+    },
+    "narendra-modi-medical-college-ahmedabad": {
+      "publicId": "colleges/narendra-modi-medical-college-ahmedabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716488/colleges/narendra-modi-medical-college-ahmedabad.jpg"
+    },
+    "national-institute-of-medical-science-research-jaipur": {
+      "publicId": "colleges/national-institute-of-medical-science-research-jaipur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716489/colleges/national-institute-of-medical-science-research-jaipur.jpg"
+    },
+    "navodaya-medical-college-raichur": {
+      "publicId": "colleges/navodaya-medical-college-raichur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716490/colleges/navodaya-medical-college-raichur.jpg"
+    },
+    "netaji-subhash-chandra-bose-medical-college-jabalpur": {
+      "publicId": "colleges/netaji-subhash-chandra-bose-medical-college-jabalpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716490/colleges/netaji-subhash-chandra-bose-medical-college-jabalpur.jpg"
+    },
+    "nimra-institute-of-medical-sciences-krishna-dist": {
+      "publicId": "colleges/nimra-institute-of-medical-sciences-krishna-dist",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716490/colleges/nimra-institute-of-medical-sciences-krishna-dist.jpg"
+    },
+    "netaji-subhas-medical-college-hospital-amhara-bihta-patna": {
+      "publicId": "colleges/netaji-subhas-medical-college-hospital-amhara-bihta-patna",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716490/colleges/netaji-subhas-medical-college-hospital-amhara-bihta-patna.jpg"
+    },
+    "noida-international-institute-of-medical-sciences": {
+      "publicId": "colleges/noida-international-institute-of-medical-sciences",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716491/colleges/noida-international-institute-of-medical-sciences.jpg"
+    },
+    "north-bengal-medical-college-darjeeling": {
+      "publicId": "colleges/north-bengal-medical-college-darjeeling",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716492/colleges/north-bengal-medical-college-darjeeling.jpg"
+    },
+    "north-delhi-muncipal-corporation-medical-college-delhi": {
+      "publicId": "colleges/north-delhi-muncipal-corporation-medical-college-delhi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716492/colleges/north-delhi-muncipal-corporation-medical-college-delhi.jpg"
+    },
+    "nootan-medical-college-and-research-centre-mehsana": {
+      "publicId": "colleges/nootan-medical-college-and-research-centre-mehsana",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716492/colleges/nootan-medical-college-and-research-centre-mehsana.jpg"
+    },
+    "nova-institute-of-medical-sciences-and-research-centre": {
+      "publicId": "colleges/nova-institute-of-medical-sciences-and-research-centre",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716493/colleges/nova-institute-of-medical-sciences-and-research-centre.jpg"
+    },
+    "p-e-s-institute-of-medical-sciences-and-research-kuppam": {
+      "publicId": "colleges/p-e-s-institute-of-medical-sciences-and-research-kuppam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716493/colleges/p-e-s-institute-of-medical-sciences-and-research-kuppam.jpg"
+    },
+    "osmania-medical-college-hyderabad": {
+      "publicId": "colleges/osmania-medical-college-hyderabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716493/colleges/osmania-medical-college-hyderabad.jpg"
+    },
+    "pa-sangama-international-medical-college-and-hospital": {
+      "publicId": "colleges/pa-sangama-international-medical-college-and-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716494/colleges/pa-sangama-international-medical-college-and-hospital.jpg"
+    },
+    "pes-university-institute-of-medical-sciences-and-reseach-bangalore": {
+      "publicId": "colleges/pes-university-institute-of-medical-sciences-and-reseach-bangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716496/colleges/pes-university-institute-of-medical-sciences-and-reseach-bangalore.jpg"
+    },
+    "pkg-medical-college-hospital": {
+      "publicId": "colleges/pkg-medical-college-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716497/colleges/pkg-medical-college-hospital.jpg"
+    },
+    "psg-institute-of-medical-sciences-coimbatore": {
+      "publicId": "colleges/psg-institute-of-medical-sciences-coimbatore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716497/colleges/psg-institute-of-medical-sciences-coimbatore.jpg"
+    },
+    "pt-neki-ram-sharma-government-medical-college-bhiwani": {
+      "publicId": "colleges/pt-neki-ram-sharma-government-medical-college-bhiwani",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716496/colleges/pt-neki-ram-sharma-government-medical-college-bhiwani.jpg"
+    },
+    "dumka-medical-college-dighi-dumka": {
+      "publicId": "colleges/dumka-medical-college-dighi-dumka",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716498/colleges/dumka-medical-college-dighi-dumka.jpg"
+    },
+    "patna-medical-college-patna": {
+      "publicId": "colleges/patna-medical-college-patna",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716498/colleges/patna-medical-college-patna.jpg"
+    },
+    "pandit-deendayal-upadhyay-medical-college-rajkot": {
+      "publicId": "colleges/pandit-deendayal-upadhyay-medical-college-rajkot",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716498/colleges/pandit-deendayal-upadhyay-medical-college-rajkot.jpg"
+    },
+    "parul-institute-of-medical-sciences-research-vadodara": {
+      "publicId": "colleges/parul-institute-of-medical-sciences-research-vadodara",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716499/colleges/parul-institute-of-medical-sciences-research-vadodara.jpg"
+    },
+    "prakash-institute-of-medical-sciences-research-sangli": {
+      "publicId": "colleges/prakash-institute-of-medical-sciences-research-sangli",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716502/colleges/prakash-institute-of-medical-sciences-research-sangli.jpg"
+    },
+    "pramukhswami-medical-college-karmsad": {
+      "publicId": "colleges/pramukhswami-medical-college-karmsad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716502/colleges/pramukhswami-medical-college-karmsad.jpg"
+    },
+    "prasad-institute-of-medical-sciences-lucknow": {
+      "publicId": "colleges/prasad-institute-of-medical-sciences-lucknow",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716502/colleges/prasad-institute-of-medical-sciences-lucknow.jpg"
+    },
+    "pt-b-d-sharma-postgraduate-institute-of-medical-sciences-rohtak-haryana": {
+      "publicId": "colleges/pt-b-d-sharma-postgraduate-institute-of-medical-sciences-rohtak-haryana",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716505/colleges/pt-b-d-sharma-postgraduate-institute-of-medical-sciences-rohtak-haryana.jpg"
+    },
+    "prathima-institute-of-medical-sciences-karimnagar": {
+      "publicId": "colleges/prathima-institute-of-medical-sciences-karimnagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716505/colleges/prathima-institute-of-medical-sciences-karimnagar.jpg"
+    },
+    "pragjyotishpur-medical-college": {
+      "publicId": "colleges/pragjyotishpur-medical-college",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716501/colleges/pragjyotishpur-medical-college.jpg"
+    },
+    "pt-raghunath-murmu-medical-college-and-hospital-baripada-odisha": {
+      "publicId": "colleges/pt-raghunath-murmu-medical-college-and-hospital-baripada-odisha",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716506/colleges/pt-raghunath-murmu-medical-college-and-hospital-baripada-odisha.jpg"
+    },
+    "pt-jawahar-lal-nehru-government-medical-college-chamba": {
+      "publicId": "colleges/pt-jawahar-lal-nehru-government-medical-college-chamba",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716506/colleges/pt-jawahar-lal-nehru-government-medical-college-chamba.jpg"
+    },
+    "punjab-institute-of-medical-sciences-jalandhar": {
+      "publicId": "colleges/punjab-institute-of-medical-sciences-jalandhar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716507/colleges/punjab-institute-of-medical-sciences-jalandhar.jpg"
+    },
+    "radha-devi-jageshwari-memorial-medical-college-and-hospital": {
+      "publicId": "colleges/radha-devi-jageshwari-memorial-medical-college-and-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716507/colleges/radha-devi-jageshwari-memorial-medical-college-and-hospital.jpg"
+    },
+    "raichur-institute-of-medical-sciences-raichur": {
+      "publicId": "colleges/raichur-institute-of-medical-sciences-raichur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716507/colleges/raichur-institute-of-medical-sciences-raichur.jpg"
+    },
+    "rimt-medical-college-and-hospital": {
+      "publicId": "colleges/rimt-medical-college-and-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716507/colleges/rimt-medical-college-and-hospital.jpg"
+    },
+    "raipur-institute-of-medical-sciences-rims-raipur": {
+      "publicId": "colleges/raipur-institute-of-medical-sciences-rims-raipur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716508/colleges/raipur-institute-of-medical-sciences-rims-raipur.jpg"
+    },
+    "raja-rajeswari-medical-college-hospital-bangalore": {
+      "publicId": "colleges/raja-rajeswari-medical-college-hospital-bangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716508/colleges/raja-rajeswari-medical-college-hospital-bangalore.jpg"
+    },
+    "rajendra-institute-of-medical-sciences-ranchi": {
+      "publicId": "colleges/rajendra-institute-of-medical-sciences-ranchi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716509/colleges/rajendra-institute-of-medical-sciences-ranchi.jpg"
+    },
+    "rajiv-gandhi-institute-of-medical-sciences-srikakulam": {
+      "publicId": "colleges/rajiv-gandhi-institute-of-medical-sciences-srikakulam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716509/colleges/rajiv-gandhi-institute-of-medical-sciences-srikakulam.jpg"
+    },
+    "rajmata-shrimata-devendra-kumari-singhdeo-government-medical-college-ambikapur-surguja-chhattisg": {
+      "publicId": "colleges/rajmata-shrimata-devendra-kumari-singhdeo-government-medical-college-ambikapur-surguja-chhattisg",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716509/colleges/rajmata-shrimata-devendra-kumari-singhdeo-government-medical-college-ambikapur-surguja-chhattisg.jpg"
+    },
+    "rajshree-medical-research-institute-bareilly": {
+      "publicId": "colleges/rajshree-medical-research-institute-bareilly",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716510/colleges/rajshree-medical-research-institute-bareilly.jpg"
+    },
+    "rajkiya-allopathic-medical-college-bahraich-up": {
+      "publicId": "colleges/rajkiya-allopathic-medical-college-bahraich-up",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716510/colleges/rajkiya-allopathic-medical-college-bahraich-up.jpg"
+    },
+    "rama-medical-college-and-hospital-kanpur": {
+      "publicId": "colleges/rama-medical-college-and-hospital-kanpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716510/colleges/rama-medical-college-and-hospital-kanpur.jpg"
+    },
+    "rangaraya-medical-college-kakinada": {
+      "publicId": "colleges/rangaraya-medical-college-kakinada",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716510/colleges/rangaraya-medical-college-kakinada.jpg"
+    },
+    "regional-institute-of-medical-sciences-imphal": {
+      "publicId": "colleges/regional-institute-of-medical-sciences-imphal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716511/colleges/regional-institute-of-medical-sciences-imphal.jpg"
+    },
+    "government-allopathic-medical-college-banda-up": {
+      "publicId": "colleges/government-allopathic-medical-college-banda-up",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716511/colleges/government-allopathic-medical-college-banda-up.jpg"
+    },
+    "rohilkhand-medical-college-hospital-bareilly": {
+      "publicId": "colleges/rohilkhand-medical-college-hospital-bareilly",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716511/colleges/rohilkhand-medical-college-hospital-bareilly.jpg"
+    },
+    "rural-medical-college-loni": {
+      "publicId": "colleges/rural-medical-college-loni",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716512/colleges/rural-medical-college-loni.jpg"
+    },
+    "s-s-institute-of-medical-sciences-research-centre-davangere": {
+      "publicId": "colleges/s-s-institute-of-medical-sciences-research-centre-davangere",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716512/colleges/s-s-institute-of-medical-sciences-research-centre-davangere.jpg"
+    },
+    "s-v-s-medical-college-mehboobnagar": {
+      "publicId": "colleges/s-v-s-medical-college-mehboobnagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716512/colleges/s-v-s-medical-college-mehboobnagar.jpg"
+    },
+    "sal-institute-of-medical-sciences-ahmedabad": {
+      "publicId": "colleges/sal-institute-of-medical-sciences-ahmedabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716513/colleges/sal-institute-of-medical-sciences-ahmedabad.jpg"
+    },
+    "s-nijalingappa-medical-college-hsk-hospital-research-centre-bagalkot": {
+      "publicId": "colleges/s-nijalingappa-medical-college-hsk-hospital-research-centre-bagalkot",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716513/colleges/s-nijalingappa-medical-college-hsk-hospital-research-centre-bagalkot.jpg"
+    },
+    "sbks-medical-instt-research-centre-vadodra": {
+      "publicId": "colleges/sbks-medical-instt-research-centre-vadodra",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716513/colleges/sbks-medical-instt-research-centre-vadodra.jpg"
+    },
+    "sdm-college-of-medical-sciences-hospital-sattur-dharwad": {
+      "publicId": "colleges/sdm-college-of-medical-sciences-hospital-sattur-dharwad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716513/colleges/sdm-college-of-medical-sciences-hospital-sattur-dharwad.jpg"
+    },
+    "hazaribagh-medical-college-hazaribagh": {
+      "publicId": "colleges/hazaribagh-medical-college-hazaribagh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716513/colleges/hazaribagh-medical-college-hazaribagh.jpg"
+    },
+    "shri-mata-vaishno-devi-institute-of-medical-excellence": {
+      "publicId": "colleges/shri-mata-vaishno-devi-institute-of-medical-excellence",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716514/colleges/shri-mata-vaishno-devi-institute-of-medical-excellence.jpg"
+    },
+    "shyamlal-chandrashekhar-medical-college-s-p-n-m-hopsital": {
+      "publicId": "colleges/shyamlal-chandrashekhar-medical-college-s-p-n-m-hopsital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716514/colleges/shyamlal-chandrashekhar-medical-college-s-p-n-m-hopsital.jpg"
+    },
+    "silchar-medical-college-silchar": {
+      "publicId": "colleges/silchar-medical-college-silchar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716514/colleges/silchar-medical-college-silchar.jpg"
+    },
+    "sms-medical-college-jaipur": {
+      "publicId": "colleges/sms-medical-college-jaipur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716515/colleges/sms-medical-college-jaipur.jpg"
+    },
+    "srtr-medical-college-ambajogai": {
+      "publicId": "colleges/srtr-medical-college-ambajogai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716515/colleges/srtr-medical-college-ambajogai.jpg"
+    },
+    "sr-patil-medical-college-and-hospital-distt-bagalkot": {
+      "publicId": "colleges/sr-patil-medical-college-and-hospital-distt-bagalkot",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716515/colleges/sr-patil-medical-college-and-hospital-distt-bagalkot.jpg"
+    },
+    "swamiinarayan-institute-of-medical-sciences-research": {
+      "publicId": "colleges/swamiinarayan-institute-of-medical-sciences-research",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716515/colleges/swamiinarayan-institute-of-medical-sciences-research.jpg"
+    },
+    "sambharam-institute-of-medical-sciences-research-kolar": {
+      "publicId": "colleges/sambharam-institute-of-medical-sciences-research-kolar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716516/colleges/sambharam-institute-of-medical-sciences-research-kolar.jpg"
+    },
+    "santhiram-medical-college-nandyal": {
+      "publicId": "colleges/santhiram-medical-college-nandyal",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716516/colleges/santhiram-medical-college-nandyal.jpg"
+    },
+    "santosh-medical-college-ghaziabad": {
+      "publicId": "colleges/santosh-medical-college-ghaziabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716516/colleges/santosh-medical-college-ghaziabad.jpg"
+    },
+    "sapthagiri-institute-of-medical-sciences-research-centre-bangalore": {
+      "publicId": "colleges/sapthagiri-institute-of-medical-sciences-research-centre-bangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716516/colleges/sapthagiri-institute-of-medical-sciences-research-centre-bangalore.jpg"
+    },
+    "saraswati-institute-of-medical-sciences-hapur": {
+      "publicId": "colleges/saraswati-institute-of-medical-sciences-hapur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716517/colleges/saraswati-institute-of-medical-sciences-hapur.jpg"
+    },
+    "saraswati-medical-college-unnao-u-p": {
+      "publicId": "colleges/saraswati-medical-college-unnao-u-p",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716517/colleges/saraswati-medical-college-unnao-u-p.jpg"
+    },
+    "sardar-patel-medical-college-bikaner": {
+      "publicId": "colleges/sardar-patel-medical-college-bikaner",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716517/colleges/sardar-patel-medical-college-bikaner.jpg"
+    },
+    "school-of-medical-sciences-sri-satya-sai-university-of-technology-and-medical-sciences": {
+      "publicId": "colleges/school-of-medical-sciences-sri-satya-sai-university-of-technology-and-medical-sciences",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716517/colleges/school-of-medical-sciences-sri-satya-sai-university-of-technology-and-medical-sciences.jpg"
+    },
+    "saveetha-medical-college-and-hospital-kanchipuram": {
+      "publicId": "colleges/saveetha-medical-college-and-hospital-kanchipuram",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716517/colleges/saveetha-medical-college-and-hospital-kanchipuram.jpg"
+    },
+    "shaheed-hasan-khan-mewati-government-medical-college-nalhar": {
+      "publicId": "colleges/shaheed-hasan-khan-mewati-government-medical-college-nalhar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716518/colleges/shaheed-hasan-khan-mewati-government-medical-college-nalhar.jpg"
+    },
+    "seth-gs-medical-college-mumbai": {
+      "publicId": "colleges/seth-gs-medical-college-mumbai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716518/colleges/seth-gs-medical-college-mumbai.jpg"
+    },
+    "shaheed-nirmal-mahto-medical-college-hospital-dhanbad-formely-known-as-patliputra-medical-colleg": {
+      "publicId": "colleges/shaheed-nirmal-mahto-medical-college-hospital-dhanbad-formely-known-as-patliputra-medical-colleg",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716518/colleges/shaheed-nirmal-mahto-medical-college-hospital-dhanbad-formely-known-as-patliputra-medical-colleg.jpg"
+    },
+    "shantabaa-medical-college-amreli": {
+      "publicId": "colleges/shantabaa-medical-college-amreli",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716518/colleges/shantabaa-medical-college-amreli.jpg"
+    },
+    "sher0i0kashmir-instt-of-medical-sciences-srinagar": {
+      "publicId": "colleges/sher0i0kashmir-instt-of-medical-sciences-srinagar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716519/colleges/sher0i0kashmir-instt-of-medical-sciences-srinagar.jpg"
+    },
+    "shija-academy-of-health-sciences": {
+      "publicId": "colleges/shija-academy-of-health-sciences",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716519/colleges/shija-academy-of-health-sciences.jpg"
+    },
+    "shimoga-institute-of-medical-sciences-shimoga": {
+      "publicId": "colleges/shimoga-institute-of-medical-sciences-shimoga",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716519/colleges/shimoga-institute-of-medical-sciences-shimoga.jpg"
+    },
+    "shree-narayan-medical-institute-and-hospital": {
+      "publicId": "colleges/shree-narayan-medical-institute-and-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716519/colleges/shree-narayan-medical-institute-and-hospital.jpg"
+    },
+    "shri-atal-bihari-vajpayee-government-medical-college-faridabad": {
+      "publicId": "colleges/shri-atal-bihari-vajpayee-government-medical-college-faridabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716520/colleges/shri-atal-bihari-vajpayee-government-medical-college-faridabad.jpg"
+    },
+    "shri-atal-bihari-vajpayee-medical-college-research-institute": {
+      "publicId": "colleges/shri-atal-bihari-vajpayee-medical-college-research-institute",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716520/colleges/shri-atal-bihari-vajpayee-medical-college-research-institute.jpg"
+    },
+    "shri-lal-bahadur-shastri-government-medical-college-mandi-hp": {
+      "publicId": "colleges/shri-lal-bahadur-shastri-government-medical-college-mandi-hp",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716521/colleges/shri-lal-bahadur-shastri-government-medical-college-mandi-hp.jpg"
+    },
+    "shri-ram-murti-smarak-institute-of-medical-sciences-bareilly": {
+      "publicId": "colleges/shri-ram-murti-smarak-institute-of-medical-sciences-bareilly",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716521/colleges/shri-ram-murti-smarak-institute-of-medical-sciences-bareilly.jpg"
+    },
+    "shri-balaji-institute-of-medical-science": {
+      "publicId": "colleges/shri-balaji-institute-of-medical-science",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716520/colleges/shri-balaji-institute-of-medical-science.jpg"
+    },
+    "shri-krishna-medical-college-muzzafarpur": {
+      "publicId": "colleges/shri-krishna-medical-college-muzzafarpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716520/colleges/shri-krishna-medical-college-muzzafarpur.jpg"
+    },
+    "shri-rawatpura-sarkar-institute-of-medical-sciences-and-research-atal-nagar-dist0-raipur-c-g": {
+      "publicId": "colleges/shri-rawatpura-sarkar-institute-of-medical-sciences-and-research-atal-nagar-dist0-raipur-c-g",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716522/colleges/shri-rawatpura-sarkar-institute-of-medical-sciences-and-research-atal-nagar-dist0-raipur-c-g.jpg"
+    },
+    "shri-shankaracharya-institute-of-medical-sciences-bhilai": {
+      "publicId": "colleges/shri-shankaracharya-institute-of-medical-sciences-bhilai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716522/colleges/shri-shankaracharya-institute-of-medical-sciences-bhilai.jpg"
+    },
+    "shrimati-indira-gandhi-memorial-govt-medical-college-kanker-chattisgarh": {
+      "publicId": "colleges/shrimati-indira-gandhi-memorial-govt-medical-college-kanker-chattisgarh",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716522/colleges/shrimati-indira-gandhi-memorial-govt-medical-college-kanker-chattisgarh.jpg"
+    },
+    "shyam-shah-medical-college-rewa": {
+      "publicId": "colleges/shyam-shah-medical-college-rewa",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716522/colleges/shyam-shah-medical-college-rewa.jpg"
+    },
+    "siddaganga-medical-college-and-research-institute-tumakuru": {
+      "publicId": "colleges/siddaganga-medical-college-and-research-institute-tumakuru",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716523/colleges/siddaganga-medical-college-and-research-institute-tumakuru.jpg"
+    },
+    "government-siddhartha-medical-college-vijaywada": {
+      "publicId": "colleges/government-siddhartha-medical-college-vijaywada",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716523/colleges/government-siddhartha-medical-college-vijaywada.jpg"
+    },
+    "smt-n-h-l-municipal-medical-college-ahmedabad": {
+      "publicId": "colleges/smt-n-h-l-municipal-medical-college-ahmedabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716523/colleges/smt-n-h-l-municipal-medical-college-ahmedabad.jpg"
+    },
+    "sikkim-manipal-institute-of-medical-sciences-gangtok": {
+      "publicId": "colleges/sikkim-manipal-institute-of-medical-sciences-gangtok",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716523/colleges/sikkim-manipal-institute-of-medical-sciences-gangtok.jpg"
+    },
+    "sree-gokulam-medical-college-trust-research-foundation-trivandrum": {
+      "publicId": "colleges/sree-gokulam-medical-college-trust-research-foundation-trivandrum",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716524/colleges/sree-gokulam-medical-college-trust-research-foundation-trivandrum.jpg"
+    },
+    "sree-mookambika-institute-of-medical-sciences-kanyakumari": {
+      "publicId": "colleges/sree-mookambika-institute-of-medical-sciences-kanyakumari",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716524/colleges/sree-mookambika-institute-of-medical-sciences-kanyakumari.jpg"
+    },
+    "sri-balaji-medical-college-hospital-and-research-instiutute-chittoor": {
+      "publicId": "colleges/sri-balaji-medical-college-hospital-and-research-instiutute-chittoor",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716524/colleges/sri-balaji-medical-college-hospital-and-research-instiutute-chittoor.jpg"
+    },
+    "sree-narayana-instt-of-medical-sciences-chalakka-ernakulam": {
+      "publicId": "colleges/sree-narayana-instt-of-medical-sciences-chalakka-ernakulam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716524/colleges/sree-narayana-instt-of-medical-sciences-chalakka-ernakulam.jpg"
+    },
+    "sri-bhausaheb-hire-government-medical-college-dhule": {
+      "publicId": "colleges/sri-bhausaheb-hire-government-medical-college-dhule",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716525/colleges/sri-bhausaheb-hire-government-medical-college-dhule.jpg"
+    },
+    "sri-chamundeshwari-medical-college-hospital-research-institute": {
+      "publicId": "colleges/sri-chamundeshwari-medical-college-hospital-research-institute",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716525/colleges/sri-chamundeshwari-medical-college-hospital-research-institute.jpg"
+    },
+    "sri-jagannath-medical-college-hospital-puri": {
+      "publicId": "colleges/sri-jagannath-medical-college-hospital-puri",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716525/colleges/sri-jagannath-medical-college-hospital-puri.jpg"
+    },
+    "sri-devaraj-urs-medical-college-kolar": {
+      "publicId": "colleges/sri-devaraj-urs-medical-college-kolar",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716525/colleges/sri-devaraj-urs-medical-college-kolar.jpg"
+    },
+    "sri-lakshmi-narayana-institute-of-medical-sciences-pondicherry": {
+      "publicId": "colleges/sri-lakshmi-narayana-institute-of-medical-sciences-pondicherry",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716526/colleges/sri-lakshmi-narayana-institute-of-medical-sciences-pondicherry.jpg"
+    },
+    "sri-manakula-vinayagar-medical-college-hospital-pondicherry": {
+      "publicId": "colleges/sri-manakula-vinayagar-medical-college-hospital-pondicherry",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716526/colleges/sri-manakula-vinayagar-medical-college-hospital-pondicherry.jpg"
+    },
+    "sri-muthukumaran-medical-college-chennai": {
+      "publicId": "colleges/sri-muthukumaran-medical-college-chennai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716527/colleges/sri-muthukumaran-medical-college-chennai.jpg"
+    },
+    "sri-siddhartha-medical-college-tumkur": {
+      "publicId": "colleges/sri-siddhartha-medical-college-tumkur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716527/colleges/sri-siddhartha-medical-college-tumkur.jpg"
+    },
+    "svims-0-sri-padmavathi-medical-college-for-women-alipiri-road-tirupati": {
+      "publicId": "colleges/svims-0-sri-padmavathi-medical-college-for-women-alipiri-road-tirupati",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716527/colleges/svims-0-sri-padmavathi-medical-college-for-women-alipiri-road-tirupati.jpg"
+    },
+    "sri-venkateswaraa-medical-college-hospital-research-centre-pondicherry": {
+      "publicId": "colleges/sri-venkateswaraa-medical-college-hospital-research-centre-pondicherry",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716527/colleges/sri-venkateswaraa-medical-college-hospital-research-centre-pondicherry.jpg"
+    },
+    "srinivas-institute-of-medical-research-centre-srinivasnagar-mangalore": {
+      "publicId": "colleges/srinivas-institute-of-medical-research-centre-srinivasnagar-mangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716528/colleges/srinivas-institute-of-medical-research-centre-srinivasnagar-mangalore.jpg"
+    },
+    "srinivasan-medical-college-and-hospital": {
+      "publicId": "colleges/srinivasan-medical-college-and-hospital",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716528/colleges/srinivasan-medical-college-and-hospital.jpg"
+    },
+    "stanley-medical-college-chennai": {
+      "publicId": "colleges/stanley-medical-college-chennai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716528/colleges/stanley-medical-college-chennai.jpg"
+    },
+    "st-johns-medical-college-bangalore": {
+      "publicId": "colleges/st-johns-medical-college-bangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716528/colleges/st-johns-medical-college-bangalore.jpg"
+    },
+    "subharti-medical-college-meerut": {
+      "publicId": "colleges/subharti-medical-college-meerut",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716529/colleges/subharti-medical-college-meerut.jpg"
+    },
+    "subbaiah-institute-of-medical-sciences-shimoga-karnataka-1": {
+      "publicId": "colleges/subbaiah-institute-of-medical-sciences-shimoga-karnataka-1",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716529/colleges/subbaiah-institute-of-medical-sciences-shimoga-karnataka-1.jpg"
+    },
+    "sundarlal-patwa-govt-medical-college": {
+      "publicId": "colleges/sundarlal-patwa-govt-medical-college",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716529/colleges/sundarlal-patwa-govt-medical-college.jpg"
+    },
+    "surabhi-institute-of-medical-sciences-siddipet-telangana": {
+      "publicId": "colleges/surabhi-institute-of-medical-sciences-siddipet-telangana",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716529/colleges/surabhi-institute-of-medical-sciences-siddipet-telangana.jpg"
+    },
+    "surat-municipal-institute-of-medical-education-research-surat": {
+      "publicId": "colleges/surat-municipal-institute-of-medical-education-research-surat",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716530/colleges/surat-municipal-institute-of-medical-education-research-surat.jpg"
+    },
+    "swamy-vivekanandha-medical-college-hospital-and-research-institute": {
+      "publicId": "colleges/swamy-vivekanandha-medical-college-hospital-and-research-institute",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716530/colleges/swamy-vivekanandha-medical-college-hospital-and-research-institute.jpg"
+    },
+    "t-d-medical-college-alleppey-allappuzha": {
+      "publicId": "colleges/t-d-medical-college-alleppey-allappuzha",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716530/colleges/t-d-medical-college-alleppey-allappuzha.jpg"
+    },
+    "symbiosis-medical-college-for-women-pune": {
+      "publicId": "colleges/symbiosis-medical-college-for-women-pune",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716530/colleges/symbiosis-medical-college-for-women-pune.jpg"
+    },
+    "takshashila-medical-college": {
+      "publicId": "colleges/takshashila-medical-college",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716531/colleges/takshashila-medical-college.jpg"
+    },
+    "t-s-misra-medical-college-hospital-amusi-lucknow": {
+      "publicId": "colleges/t-s-misra-medical-college-hospital-amusi-lucknow",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716531/colleges/t-s-misra-medical-college-hospital-amusi-lucknow.jpg"
+    },
+    "teerthanker-mahaveer-medical-college-moradabad": {
+      "publicId": "colleges/teerthanker-mahaveer-medical-college-moradabad",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716531/colleges/teerthanker-mahaveer-medical-college-moradabad.jpg"
+    },
+    "trr-institute-of-medical-sciences-patancheru": {
+      "publicId": "colleges/trr-institute-of-medical-sciences-patancheru",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716531/colleges/trr-institute-of-medical-sciences-patancheru.jpg"
+    },
+    "tinsukia-medical-college-hospital-tinsukia": {
+      "publicId": "colleges/tinsukia-medical-college-hospital-tinsukia",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716532/colleges/tinsukia-medical-college-hospital-tinsukia.jpg"
+    },
+    "terna-medical-college-navi-mumbai": {
+      "publicId": "colleges/terna-medical-college-navi-mumbai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716532/colleges/terna-medical-college-navi-mumbai.jpg"
+    },
+    "tezpur-medical-college-hospital-tezpur": {
+      "publicId": "colleges/tezpur-medical-college-hospital-tezpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716532/colleges/tezpur-medical-college-hospital-tezpur.jpg"
+    },
+    "thoothukudi-medical-college-thoothukudi": {
+      "publicId": "colleges/thoothukudi-medical-college-thoothukudi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716532/colleges/thoothukudi-medical-college-thoothukudi.jpg"
+    },
+    "tomo-riba-institute-of-health-medical-sciences-naharlagun": {
+      "publicId": "colleges/tomo-riba-institute-of-health-medical-sciences-naharlagun",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716533/colleges/tomo-riba-institute-of-health-medical-sciences-naharlagun.jpg"
+    },
+    "topiwala-national-medical-college-mumbai": {
+      "publicId": "colleges/topiwala-national-medical-college-mumbai",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716533/colleges/topiwala-national-medical-college-mumbai.jpg"
+    },
+    "travancore-medical-college-kollam": {
+      "publicId": "colleges/travancore-medical-college-kollam",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716533/colleges/travancore-medical-college-kollam.jpg"
+    },
+    "uma-nath-singh-autonomous-state-medical-college-society-jaunpur": {
+      "publicId": "colleges/uma-nath-singh-autonomous-state-medical-college-society-jaunpur",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716533/colleges/uma-nath-singh-autonomous-state-medical-college-society-jaunpur.jpg"
+    },
+    "university-college-of-medical-sciences-gtb-hospital-new-delhi": {
+      "publicId": "colleges/university-college-of-medical-sciences-gtb-hospital-new-delhi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716534/colleges/university-college-of-medical-sciences-gtb-hospital-new-delhi.jpg"
+    },
+    "uttar-pradesh-university-of-medical-sciences-prev-up-rural-inst-of-med-sc-r-etawah": {
+      "publicId": "colleges/uttar-pradesh-university-of-medical-sciences-prev-up-rural-inst-of-med-sc-r-etawah",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716534/colleges/uttar-pradesh-university-of-medical-sciences-prev-up-rural-inst-of-med-sc-r-etawah.jpg"
+    },
+    "bhagwan-mahavir-institute-of-medical-sciences-pawapuri-formerly-vardhman-institute-of-medical-sc": {
+      "publicId": "colleges/bhagwan-mahavir-institute-of-medical-sciences-pawapuri-formerly-vardhman-institute-of-medical-sc",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716534/colleges/bhagwan-mahavir-institute-of-medical-sciences-pawapuri-formerly-vardhman-institute-of-medical-sc.jpg"
+    },
+    "viraat-ramayan-institute-of-medical-sciences": {
+      "publicId": "colleges/viraat-ramayan-institute-of-medical-sciences",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716534/colleges/viraat-ramayan-institute-of-medical-sciences.jpg"
+    },
+    "vardhman-mahavir-medical-college-safdarjung-hospital-delhi": {
+      "publicId": "colleges/vardhman-mahavir-medical-college-safdarjung-hospital-delhi",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716535/colleges/vardhman-mahavir-medical-college-safdarjung-hospital-delhi.jpg"
+    },
+    "venkateshwara-institute-of-medical-sciences-gajraula": {
+      "publicId": "colleges/venkateshwara-institute-of-medical-sciences-gajraula",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716535/colleges/venkateshwara-institute-of-medical-sciences-gajraula.jpg"
+    },
+    "veer-surendra-sai-institute-of-medical-sciences-and-research-burla": {
+      "publicId": "colleges/veer-surendra-sai-institute-of-medical-sciences-and-research-burla",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716535/colleges/veer-surendra-sai-institute-of-medical-sciences-and-research-burla.jpg"
+    },
+    "vedantaa-institute-of-medical-sciences-palghar-maharashtra": {
+      "publicId": "colleges/vedantaa-institute-of-medical-sciences-palghar-maharashtra",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716535/colleges/vedantaa-institute-of-medical-sciences-palghar-maharashtra.jpg"
+    },
+    "vijaynagar-institute-of-medical-sciences-bellary": {
+      "publicId": "colleges/vijaynagar-institute-of-medical-sciences-bellary",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716536/colleges/vijaynagar-institute-of-medical-sciences-bellary.jpg"
+    },
+    "vinayaka-missions-medical-college-karaikal-pondicherry": {
+      "publicId": "colleges/vinayaka-missions-medical-college-karaikal-pondicherry",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716536/colleges/vinayaka-missions-medical-college-karaikal-pondicherry.jpg"
+    },
+    "virendra-kumar-sakhlecha-government-medical-college": {
+      "publicId": "colleges/virendra-kumar-sakhlecha-government-medical-college",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716536/colleges/virendra-kumar-sakhlecha-government-medical-college.jpg"
+    },
+    "viswabharathi-medical-college": {
+      "publicId": "colleges/viswabharathi-medical-college",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716536/colleges/viswabharathi-medical-college.jpg"
+    },
+    "yadgiri-institute-of-medical-sciences-yadgiri": {
+      "publicId": "colleges/yadgiri-institute-of-medical-sciences-yadgiri",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716537/colleges/yadgiri-institute-of-medical-sciences-yadgiri.jpg"
+    },
+    "world-college-of-medical-sciences-researc-jhajjar-haryana": {
+      "publicId": "colleges/world-college-of-medical-sciences-researc-jhajjar-haryana",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716537/colleges/world-college-of-medical-sciences-researc-jhajjar-haryana.jpg"
+    },
+    "zoram-medical-college-mizoram": {
+      "publicId": "colleges/zoram-medical-college-mizoram",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716537/colleges/zoram-medical-college-mizoram.jpg"
+    },
+    "yenepoya-medical-college-mangalore": {
+      "publicId": "colleges/yenepoya-medical-college-mangalore",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716538/colleges/yenepoya-medical-college-mangalore.jpg"
+    },
+    "zydus-medical-college-hospital-dahod": {
+      "publicId": "colleges/zydus-medical-college-hospital-dahod",
+      "secureUrl": "https://res.cloudinary.com/dtcifon4g/image/upload/v1781716538/colleges/zydus-medical-college-hospital-dahod.jpg"
+    }
+  }
+}

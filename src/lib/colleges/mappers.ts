@@ -85,6 +85,7 @@ export function toCollegeSummary(
     city: record.city,
     stateSlug: record.stateSlug,
     stateName: getStateName(record.stateSlug),
+    ...(record.universityName ? { universityName: record.universityName } : {}),
     collegeType: record.collegeType,
     totalAnnualFee: record.fees.totalAnnual,
     totalCourseFee: record.fees.totalCourse,
@@ -100,7 +101,13 @@ export function toCollegeSummary(
          : `${record.bond.years} Year${record.bond.years === 1 ? "" : "s"}`,
     roiScore: record.roiScore,
     safetyTag: deriveSafetyTag(latest?.rank ?? 0),
-    bond: record.bond
+    bond: record.bond,
+    ...(record.nirfMedicalRank ? { nirfMedicalRank: record.nirfMedicalRank } : {}),
+    ...(record.nirfRankingYear ? { nirfRankingYear: record.nirfRankingYear } : {}),
+    ...(record.infrastructure?.beds ? { beds: record.infrastructure.beds } : {}),
+    ...(record.infrastructure?.patientFlowPerDay
+      ? { patientFlowPerDay: record.infrastructure.patientFlowPerDay }
+      : {}),
   };
 }
 

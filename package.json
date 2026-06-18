@@ -13,6 +13,7 @@
     "db:seed:catalog": "tsx scripts/catalog/seed-catalog.ts",
     "db:seed:mp": "tsx scripts/catalog/seed-mp.ts",
     "db:seed:mh": "tsx scripts/catalog/seed-mh.ts",
+    "db:seed:mcc": "tsx scripts/catalog/seed-mcc.ts",
     "db:reconcile:medical-list": "tsx scripts/catalog/reconcile-catalog-to-medical-list.ts",
     "db:seed:rajasthan": "tsx scripts/catalog/seed-rajasthan.ts",
     "db:seed:nirf": "tsx scripts/catalog/seed-nirf-ranks.ts",

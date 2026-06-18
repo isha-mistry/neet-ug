@@ -14,8 +14,9 @@ import {
   NEET_SCORE_MIN,
 } from "./constants";
 import {
+  fetchAirRange,
   fetchAirWideRange,
-  fetchStateRankPrediction,
+  fetchStateMeritRange,
 } from "./predict-api";
 
 const CATEGORY_NOTE =
@@ -75,14 +76,14 @@ export async function computeUnlockedResult(
 ): Promise<RankPredictorUnlockedResult> {
   const teaser = await computeTeaserResult(input);
   const config = getRankPredictorConfig();
-  const { airRange, stateMeritRange } = await fetchStateRankPrediction(
-    input.score,
-    input.stateSlug
-  );
+  const [tight, stateMeritRange] = await Promise.all([
+    fetchAirRange(input.score),
+    fetchStateMeritRange(input.score, input.stateSlug),
+  ]);
   const limit = config.previewLimits.verifiedPreviewCount;
   const preview = await getCollegesForRankPreview(
-    airRange.min,
-    airRange.max,
+    tight.min,
+    tight.max,
     {
       ...previewOptions(input),
       limit,
@@ -101,7 +102,7 @@ export async function computeUnlockedResult(
 
   return {
     ...teaser,
-    tight: airRange,
+    tight,
     stateMeritRange,
     previewColleges: preview.colleges.map((c) =>
       toCollegeSummary(c, summaryContext)

@@ -1,17 +1,16 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
-import { cn, formatNumber } from "@/lib/utils";
+import { CollegeCoverPhoto } from "@/components/features/colleges/shared/CollegeCoverPhoto";
+import { AiGeneratedCoverBadge } from "@/components/features/colleges/shared/AiGeneratedCoverBadge";
+import { getCollegeCoverImageUrl, hasUploadedCollegePhoto } from "@/lib/colleges/cover-images";
+import { cn, formatINR, formatNumber } from "@/lib/utils";
 import {
   parseSeatDistributionChips,
   seatQuotaChipsFromMatrix,
 } from "@/lib/colleges/quota-display";
 import type { CollegeSummary } from "@/types/listing";
 import type { CollegeType } from "@/types/college";
-
-/** Placeholder campus photo for listing cards until per-college images exist in data. */
-const COLLEGE_LIST_IMAGE = "/sample_college_img.png";
 
 interface CollegeCardProps {
   college: CollegeSummary;
@@ -57,6 +56,18 @@ function typePillClass(type: CollegeType): string {
   }
 }
 
+function safetyLabel(tag: CollegeSummary["safetyTag"]): string {
+  if (tag === "safe") return "Reachable";
+  if (tag === "risky") return "Competitive";
+  return "Moderate";
+}
+
+function safetyClass(tag: CollegeSummary["safetyTag"]): string {
+  if (tag === "safe") return "border-secondary/25 bg-secondary-fixed/75 text-secondary";
+  if (tag === "risky") return "border-error/25 bg-error-container text-on-error-container";
+  return "border-tertiary-fixed-dim/60 bg-tertiary-fixed text-on-tertiary-fixed-variant";
+}
+
 export function CollegeCard({
   college,
   rankCategoryShort,
@@ -93,26 +104,7 @@ export function CollegeCard({
           isGrid ? "flex-row items-stretch" : "items-stretch flex-col md:flex-row"
         )}
       >
-        <div
-          className={cn(
-            "relative shrink-0 overflow-hidden bg-surface-container-low",
-            isGrid
-              ? "h-full min-h-[6rem] w-[8.25rem] self-stretch sm:w-[8.75rem] lg:w-36"
-              : "self-stretch h-44 w-full md:h-auto md:min-h-[228px] md:w-72 lg:min-h-[240px] lg:w-80"
-          )}
-        >
-          <Image
-            src={COLLEGE_LIST_IMAGE}
-            alt={`${college.name} campus`}
-            fill
-            className="object-cover object-center"
-            sizes={
-              isGrid
-                ? "(max-width: 1024px) 8.5rem, 9rem"
-                : "(max-width: 768px) 100vw, (max-width: 1024px) 288px, 320px"
-            }
-          />
-        </div>
+        <CollegeCardVisual college={college} compact={isGrid} />
 
         <div
           className={cn(
@@ -122,15 +114,7 @@ export function CollegeCard({
         >
           <header>
             {isGrid ? null : (
-              <div className="mb-2 flex items-start justify-between gap-3">
-                <span
-                  className={cn(
-                    "inline-flex rounded-full px-3 py-1 font-label-md text-label-md uppercase tracking-wider",
-                    typePillClass(college.collegeType)
-                  )}
-                >
-                  {collegeTypeLabel(college.collegeType)}
-                </span>
+              <div className="mb-2 flex items-start justify-end gap-3">
                 <div className="flex shrink-0 items-baseline gap-1.5 text-right">
                   <span className="text-xs font-semibold uppercase tracking-wide text-on-surface-variant">
                     Seats
@@ -157,7 +141,11 @@ export function CollegeCard({
                 isGrid && "mt-0.5"
               )}
             >
-              <MaterialSymbol name="location_on" size={isGrid ? "sm" : undefined} />
+              <MaterialSymbol
+                name="location_on"
+                size={isGrid ? "xs" : "sm"}
+                className={cn(isGrid && "text-outline")}
+              />
               <span
                 className={cn(
                   isGrid
@@ -168,6 +156,16 @@ export function CollegeCard({
                 {college.city}, {college.stateName}
               </span>
             </p>
+            {college.universityName ? (
+              <p
+                className={cn(
+                  "mt-1 truncate text-on-surface-variant",
+                  isGrid ? "text-[11px]" : "font-body-sm text-body-sm"
+                )}
+              >
+                {college.universityName}
+              </p>
+            ) : null}
           </header>
 
           <div
@@ -209,114 +207,232 @@ export function CollegeCard({
             ) : null}
           </div>
 
+          <CollegeInsightRow college={college} compact={isGrid} />
+
           {(isGrid ||
             seatChips.length > 0 ||
             college.bondLabel) && (
-            <div
-              className={cn(
-                "flex items-center justify-between gap-3 border-t border-outline-variant/25 pt-2",
-                isGrid && "pt-1.5"
-              )}
-            >
               <div
                 className={cn(
-                  "flex min-w-0 flex-1 items-center gap-2",
-                  isGrid && "gap-1.5"
+                  "flex items-center justify-between gap-3 border-t border-outline-variant/25 pt-2",
+                  isGrid && "pt-1.5"
                 )}
               >
-                {isGrid ? (
-                  <span
-                    className={cn(
-                      "inline-flex shrink-0 rounded-full px-2 py-px font-label-sm text-[11px] uppercase tracking-wider",
-                      typePillClass(college.collegeType)
-                    )}
-                  >
-                    {collegeTypeLabel(college.collegeType)}
-                  </span>
-                ) : null}
                 <div
                   className={cn(
-                    "flex min-w-0 flex-1 flex-wrap items-center gap-1.5",
-                    isGrid && "flex-nowrap overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    "flex min-w-0 flex-1 items-center gap-2",
+                    isGrid && "gap-1.5"
                   )}
                 >
-                {seatChips.length > 0 ? (
-                  seatChips.map((chip) => (
-                    <span
-                      key={chip.label}
-                      className={cn(
-                        "inline-flex items-center gap-1.5 rounded-lg border border-outline-variant/35 bg-surface-container-low",
-                        isGrid ? "px-1.5 py-px" : "px-2.5 py-1"
-                      )}
-                    >
+                  <div
+                    className={cn(
+                      "flex min-w-0 flex-1 flex-wrap items-center gap-1.5",
+                      isGrid && "flex-nowrap overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    )}
+                  >
+                    {seatChips.length > 0 ? (
+                      seatChips.map((chip) => (
+                        <span
+                          key={chip.label}
+                          className={cn(
+                            "inline-flex items-center gap-1.5 rounded-lg border border-outline-variant/35 bg-surface-container-low",
+                            isGrid ? "px-1.5 py-px" : "px-2.5 py-1"
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              "h-1.5 w-1.5 shrink-0 rounded-full ring-2 ring-white/80",
+                              chip.variant === "brand" ? "bg-primary" : "bg-secondary"
+                            )}
+                            aria-hidden
+                          />
+                          <span
+                            className={cn(
+                              "font-semibold uppercase tracking-wide text-on-surface-variant",
+                              isGrid ? "text-[10px]" : "text-xs"
+                            )}
+                          >
+                            {chip.quota}
+                          </span>
+                          <span
+                            className={cn(
+                              "font-bold tabular-nums leading-none",
+                              chip.variant === "brand" ? "text-primary" : "text-secondary",
+                              isGrid ? "text-xs" : "text-sm"
+                            )}
+                          >
+                            {chip.seats}
+                          </span>
+                        </span>
+                      ))
+                    ) : (
                       <span
                         className={cn(
-                          "h-1.5 w-1.5 shrink-0 rounded-full ring-2 ring-white/80",
-                          chip.variant === "brand" ? "bg-primary" : "bg-secondary"
-                        )}
-                        aria-hidden
-                      />
-                      <span
-                        className={cn(
-                          "font-semibold uppercase tracking-wide text-on-surface-variant",
+                          "truncate text-on-surface-variant",
                           isGrid ? "text-[10px]" : "text-xs"
                         )}
                       >
-                        {chip.quota}
+                        {college.quotaInfo}
                       </span>
-                      <span
-                        className={cn(
-                          "font-bold tabular-nums leading-none",
-                          chip.variant === "brand" ? "text-primary" : "text-secondary",
-                          isGrid ? "text-xs" : "text-sm"
-                        )}
-                      >
-                        {chip.seats}
-                      </span>
-                    </span>
-                  ))
-                ) : (
+                    )}
+                  </div>
+                </div>
+                {college.bondLabel ? (
                   <span
                     className={cn(
-                      "truncate text-on-surface-variant",
-                      isGrid ? "text-[10px]" : "text-xs"
+                      "shrink-0 font-semibold text-on-surface",
+                      isGrid ? "text-xs" : "text-sm"
                     )}
+                    title={
+                      college.bond.penalty > 0
+                        ? `Bond penalty: ${formatINR(college.bond.penalty, { compact: true })}`
+                        : college.bond.note
+                    }
                   >
-                    {college.quotaInfo}
+                    {college.bondLabel}
+                    {college.bond.penalty > 0 && !isGrid
+                      ? ` · ${formatINR(college.bond.penalty, { compact: true })}`
+                      : ""}
                   </span>
-                )}
+                ) : null}
               </div>
-              </div>
-              {college.bondLabel ? (
-                <span
-                  className={cn(
-                    "shrink-0 font-semibold text-on-surface",
-                    isGrid ? "text-xs" : "text-sm"
-                  )}
-                >
-                  {college.bondLabel}
-                </span>
-              ) : null}
-            </div>
-          )}
+            )}
         </div>
       </div>
     </article>
   );
 }
 
+function CollegeCardVisual({
+  college,
+  compact,
+}: {
+  college: CollegeSummary;
+  compact: boolean;
+}) {
+  const coverSrc = getCollegeCoverImageUrl(college.slug, "card");
+  const isUploadedPhoto = hasUploadedCollegePhoto(college.slug);
+  const frameClass = cn(
+    "relative shrink-0 overflow-hidden",
+    compact
+      ? "h-full min-h-[7rem] w-[10.25rem] self-stretch sm:w-[11rem] lg:w-44"
+      : "h-44 w-full self-stretch md:h-auto md:min-h-[228px] md:w-72 lg:min-h-[240px] lg:w-80"
+  );
+
+  return (
+    <div className={frameClass}>
+      <CollegeCoverPhoto
+        src={coverSrc}
+        alt={
+          isUploadedPhoto
+            ? `${college.name} campus`
+            : `Illustration for ${college.name}`
+        }
+        sizes={
+          compact
+            ? "(max-width: 1024px) 11rem, 12rem"
+            : "(max-width: 768px) 100vw, (max-width: 1024px) 288px, 320px"
+        }
+        className="absolute inset-0"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+      <div className="relative flex h-full flex-col justify-between p-2.5">
+        <span
+          className={cn(
+            "inline-flex w-fit rounded-full border px-2 py-1 text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm",
+            typePillClass(college.collegeType)
+          )}
+        >
+          {collegeTypeLabel(college.collegeType)}
+        </span>
+        {college.nirfMedicalRank ? (
+          <span className="inline-flex w-fit rounded-full border border-white/30 bg-black/35 px-2 py-1 text-[10px] font-bold text-white backdrop-blur-sm">
+            NIRF #{college.nirfMedicalRank}
+          </span>
+        ) : null}
+      </div>
+      {!isUploadedPhoto ? <AiGeneratedCoverBadge compact={compact} /> : null}
+    </div>
+  );
+}
+
+function CollegeInsightRow({
+  college,
+  compact,
+}: {
+  college: CollegeSummary;
+  compact: boolean;
+}) {
+  const insights = [
+    { label: "ROI", value: `${college.roiScore}/100`, className: "text-primary" },
+    {
+      label: "Safety",
+      value: safetyLabel(college.safetyTag),
+      className: safetyClass(college.safetyTag),
+      pill: true,
+    },
+    {
+      label: "5 yr fee",
+      value: college.totalCourseFee > 0 ? formatINR(college.totalCourseFee, { compact: true }) : "N/A",
+    },
+    {
+      label: "Cutoff",
+      value: college.latestCutoffYear > 0 ? String(college.latestCutoffYear) : "N/A",
+    },
+  ];
+
+  return (
+    <div
+      className={cn(
+        "grid gap-1.5",
+        compact ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-2 md:grid-cols-4"
+      )}
+    >
+      {insights.map((insight) => (
+        <div
+          key={insight.label}
+          className="min-w-0 rounded-lg border border-outline-variant/30 bg-surface-container-low/55 px-2 py-1.5"
+        >
+          <p className="text-[9px] font-bold uppercase tracking-wider text-outline">
+            {insight.label}
+          </p>
+          {insight.pill ? (
+            <span
+              className={cn(
+                "mt-1 inline-flex max-w-full rounded-full border px-1.5 py-px text-[10px] font-bold",
+                insight.className
+              )}
+            >
+              {insight.value}
+            </span>
+          ) : (
+            <p
+              className={cn(
+                "mt-1 truncate text-[11px] font-bold text-on-surface",
+                insight.className
+              )}
+            >
+              {insight.value}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const metricTileStyles = {
   fees: {
     box: "border-college-metric-fees-border bg-college-metric-fees hover:bg-college-metric-fees-hover",
-    value: "text-primary",
+    value: "text-college-metric-fees-fg",
   },
   rank: {
     box: "border-college-metric-rank-border bg-college-metric-rank hover:bg-college-metric-rank-hover",
-    value: "text-primary",
+    value: "text-college-metric-rank-fg",
   },
   seats: {
     box: "border-college-metric-seats-border bg-college-metric-seats hover:bg-college-metric-seats-hover",
-    value: "text-on-surface",
+    value: "text-college-metric-seats-fg",
   },
   bond: {
     box: "border-college-metric-bond-border bg-college-metric-bond hover:bg-college-metric-bond-hover",
@@ -456,6 +572,8 @@ function MetricTile({
   compact?: boolean;
 }) {
   const styles = metricTileStyles[variant];
+  const compactNeutralBox =
+    "border-outline-variant/40 bg-transparent hover:bg-surface-container-low/50";
 
   return (
     <div
@@ -464,7 +582,7 @@ function MetricTile({
         compact
           ? "flex h-full min-h-[3.85rem] flex-col justify-between gap-2 px-2 py-2"
           : "flex flex-col gap-2.5 p-3.5 md:gap-3 md:p-4",
-        styles.box
+        compact ? compactNeutralBox : styles.box
       )}
     >
       {compact ? (

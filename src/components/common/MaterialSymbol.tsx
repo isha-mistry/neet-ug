@@ -4,10 +4,11 @@ import { cn } from "@/lib/utils";
 interface MaterialSymbolProps extends HTMLAttributes<HTMLSpanElement> {
   /** Material Symbols Outlined ligature name (e.g. `search`, `expand_more`). */
   name: string;
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
 }
 
 const sizeClass = {
+  xs: "text-[10px]",
   sm: "text-base",
   md: "text-[18px]",
   lg: "text-2xl",

@@ -1,7 +1,7 @@
 "use client";
 
 import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
-import { FormPanel } from "@/components/features/rank-predictor/RankPredictorParts";
+import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
 
 export type NeetUgLeadMagnetContent = {
   formTitle: string;
@@ -18,17 +18,31 @@ export function NeetUgLeadMagnetPanel({
   content: NeetUgLeadMagnetContent;
 }) {
   return (
-    <FormPanel title={content.formTitle} subtitle={content.formSubtitle}>
-      <div className="rp-form-stack flex flex-col gap-4">
+    <GuideCard>
+      <div className="flex flex-col gap-4">
+        <div className="flex items-start gap-3 border-b border-outline-variant/50 pb-4">
+          <span
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary"
+            aria-hidden
+          >
+            <span className="material-symbols-outlined block text-[22px] leading-none">description</span>
+          </span>
+          <div>
+            <h3 className="text-base font-bold leading-snug text-on-surface">{content.formTitle}</h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-on-surface-variant">
+              {content.formSubtitle}
+            </p>
+          </div>
+        </div>
+
         <FreeCounsellingLeadForm
           variant="embedded"
-          embeddedInPanel
           pageLabel={pageLabel}
           fields="name-phone-only"
           submitLabel={content.submitLabel}
           whatsappIntro={content.whatsappIntro}
         />
       </div>
-    </FormPanel>
+    </GuideCard>
   );
 }

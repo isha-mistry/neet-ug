@@ -1,48 +1,149 @@
 import Link from "next/link";
-import { getSiteIdentity } from "@/lib/data/site";
+import { FiCalendar, FiMessageCircle } from "react-icons/fi";
 import { Container } from "@/components/common/Container";
+import { Button } from "@/components/ui/Button";
+import { getSiteIdentity } from "@/lib/data/site";
+import { FOOTER_QUOTA_LINKS } from "@/lib/navigation/footer-nav";
+import { NEET_UG_2026_NAV_LINKS } from "@/lib/navigation/neet-ug-2026-nav";
+import { PREDICTOR_NAV_LINKS } from "@/lib/navigation/predictor-nav";
+import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
+import type { NavSection } from "@/types/core";
+import { cn } from "@/lib/utils";
 import { BrandMark } from "./BrandMark";
+
+function FooterLinkColumn({
+  column,
+  className,
+}: {
+  column: NavSection;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex min-w-0 flex-col gap-3.5", className)}>
+      <h3 className="text-[11px] font-bold uppercase tracking-[0.12em] text-on-surface">
+        {column.title}
+      </h3>
+      <ul className="flex flex-col gap-2.5">
+        {column.links.map((link) => (
+          <li key={`${column.title}-${link.href}-${link.label}`}>
+            <Link
+              href={link.href}
+              className="text-sm leading-snug text-on-surface-variant transition-colors hover:text-primary"
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function buildLinkColumns(site: ReturnType<typeof getSiteIdentity>): NavSection[] {
+  const explore = site.footer.columns.find((column) => column.title === "Explore");
+  const states = site.footer.columns.find(
+    (column) => column.title === "Medical Colleges in India"
+  );
+  const decisionTools = site.footer.columns.find((column) => column.title === "Decision Tools");
+  const medseat = site.footer.columns.find((column) => column.title === "MedSeat");
+
+  const exploreLinks = [
+    ...(explore?.links ?? []),
+    ...(decisionTools?.links.filter((link) => link.href !== "/quota/general") ?? []),
+  ];
+
+  const uniqueExplore = exploreLinks.filter(
+    (link, index, arr) => arr.findIndex((item) => item.href === link.href) === index
+  );
+
+  const columns: NavSection[] = [
+    { title: "Predictors", links: PREDICTOR_NAV_LINKS },
+    { title: "NEET 2026", links: NEET_UG_2026_NAV_LINKS },
+    { title: "Quota guides", links: FOOTER_QUOTA_LINKS },
+  ];
+
+  if (uniqueExplore.length > 0) {
+    columns.push({ title: "Explore colleges", links: uniqueExplore });
+  }
+
+  if (states) {
+    columns.push({ title: "MBBS by state", links: states.links });
+  }
+
+  if (medseat) {
+    columns.push({ title: "MedSeat", links: medseat.links });
+  }
+
+  return columns;
+}
 
 export function Footer() {
   const site = getSiteIdentity();
   const year = new Date().getFullYear();
+  const linkColumns = buildLinkColumns(site);
+
+  const whatsappHref = `${COUNSEL_WHATSAPP_URL.split("?")[0]}?text=${encodeURIComponent(
+    "Hi MedSeat, I'd like to book a counselling session for NEET UG MBBS admissions."
+  )}`;
+
   return (
-    <footer className="border-t border-border bg-surface">
-      <Container size="page" className="py-12">
-        <div className="grid gap-10 md:grid-cols-[1.2fr_2fr]">
-          <div className="flex flex-col gap-4">
+    <footer className="border-t border-outline-variant/50 bg-surface-container-low">
+      <Container size="page" className="py-14 md:py-16">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16 xl:grid-cols-[minmax(0,24rem)_1fr] xl:gap-20">
+          <div className="flex flex-col gap-5">
             <BrandMark brandName={site.brandName} />
-            <p className="max-w-sm text-sm leading-relaxed text-text-muted">
+            <p className="text-base font-semibold leading-snug text-on-surface">{site.tagline}</p>
+            <p className="max-w-sm text-sm leading-relaxed text-on-surface-variant">
               {site.description}
             </p>
+            <div className="flex flex-wrap gap-3 pt-1">
+              <Button
+                as="link"
+                href={whatsappHref}
+                variant="primary"
+                size="sm"
+                leadingIcon={<FiCalendar aria-hidden="true" />}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book counselling
+              </Button>
+              <Button
+                as="link"
+                href={whatsappHref}
+                variant="outline"
+                size="sm"
+                leadingIcon={<FiMessageCircle aria-hidden="true" />}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp
+              </Button>
+            </div>
           </div>
-          <div className="grid w-full grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-2 md:grid-cols-4">
-            {site.footer.columns.map((column) => (
-              <div key={column.title} className="flex flex-col gap-3">
-                <h4 className="text-xs font-semibold uppercase tracking-widest text-text">
-                  {column.title}
-                </h4>
-                <ul className="flex flex-col gap-2">
-                  {column.links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-sm tracking-wide text-text-muted transition-colors hover:text-brand-700"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+            {linkColumns.map((column) => (
+              <FooterLinkColumn key={column.title} column={column} />
             ))}
           </div>
         </div>
-        <div className="mt-10 flex flex-col gap-3 border-t border-border pt-6 text-xs leading-relaxed tracking-wide text-text-muted md:flex-row md:items-center md:justify-between">
-          <p>{site.footer.legal}</p>
-          <p>
-            © {year} {site.brandName}. All rights reserved.
+
+        <div className="mt-12 flex flex-col gap-5 border-t border-outline-variant/40 pt-8 md:mt-14 md:flex-row md:items-end md:justify-between md:gap-8">
+          <p className="max-w-3xl text-xs leading-relaxed text-on-surface-variant">
+            {site.footer.legal}
           </p>
+          <div className="flex shrink-0 flex-col gap-2 text-xs text-on-surface-variant sm:flex-row sm:items-center sm:gap-4">
+            <Link href="/privacy" className="font-medium transition-colors hover:text-primary">
+              Privacy policy
+            </Link>
+            <span className="hidden text-outline-variant sm:inline" aria-hidden>
+              ·
+            </span>
+            <p className="text-on-surface-variant/90">
+              © {year} {site.brandName}
+            </p>
+          </div>
         </div>
       </Container>
     </footer>

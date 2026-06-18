@@ -1,12 +1,15 @@
-import Image from "next/image";
-import { MaterialSymbol } from "@/components/common/MaterialSymbol";
+import { CollegeCoverPhoto } from "@/components/features/colleges/shared/CollegeCoverPhoto";
+import { AiGeneratedCoverBadge } from "@/components/features/colleges/shared/AiGeneratedCoverBadge";
+import { getCollegeCoverImageUrl, hasUploadedCollegePhoto } from "@/lib/colleges/cover-images";
 import { CollegeTypeBadge } from "@/components/features/colleges/shared/CollegeTypeBadge";
 import { RuralBondBadge } from "@/components/features/colleges/shared/RuralBondBadge";
 import { Button } from "@/components/ui/Button";
 import type { CollegeBond, CollegeSeatMatrix, CollegeType } from "@/types/college";
 import { cn, formatNumber } from "@/lib/utils";
+import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 
 interface CollegeDetailHeaderProps {
+  slug: string;
   name: string;
   city: string;
   stateName: string;
@@ -47,6 +50,7 @@ function isValidExternalUrl(url: string | undefined): url is string {
 }
 
 export function CollegeDetailHeader({
+  slug,
   name,
   city,
   stateName,
@@ -63,17 +67,19 @@ export function CollegeDetailHeader({
 }: CollegeDetailHeaderProps) {
   const showWebsite = isValidExternalUrl(officialWebsite);
   const showBrochure = isValidExternalUrl(counsellingBrochureUrl);
+  const coverSrc = getCollegeCoverImageUrl(slug, "detail");
+  const isUploadedPhoto = hasUploadedCollegePhoto(slug);
 
   const quotaLine = seatMatrix
     ? [
-        seatMatrix.aiq > 0 ? `AIQ ${seatMatrix.aiq}` : "",
-        seatMatrix.stateQuota > 0 ? `State ${seatMatrix.stateQuota}` : "",
-        seatMatrix.esic > 0 ? `ESIC ${seatMatrix.esic}` : "",
-        seatMatrix.management > 0 ? `MQ ${seatMatrix.management}` : "",
-        seatMatrix.nri > 0 ? `NRI ${seatMatrix.nri}` : "",
-      ]
-        .filter(Boolean)
-        .join(" · ") || quotaInfo
+      seatMatrix.aiq > 0 ? `AIQ ${seatMatrix.aiq}` : "",
+      seatMatrix.stateQuota > 0 ? `State ${seatMatrix.stateQuota}` : "",
+      seatMatrix.esic > 0 ? `ESIC ${seatMatrix.esic}` : "",
+      seatMatrix.management > 0 ? `MQ ${seatMatrix.management}` : "",
+      seatMatrix.nri > 0 ? `NRI ${seatMatrix.nri}` : "",
+    ]
+      .filter(Boolean)
+      .join(" · ") || quotaInfo
     : quotaInfo;
 
   return (
@@ -84,15 +90,16 @@ export function CollegeDetailHeader({
       />
       <div className="relative w-full shrink-0 md:w-[260px] lg:w-[300px]">
         <div className="relative aspect-[16/10] md:aspect-auto md:min-h-[220px] md:h-full">
-          <Image
-            src="/sample_college_img.png"
-            alt={`${name} campus`}
-            fill
+          <CollegeCoverPhoto
+            src={coverSrc}
+            alt={isUploadedPhoto ? `${name} campus` : `Illustration for ${name}`}
             sizes="(max-width: 768px) 100vw, 300px"
             priority
-            className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+            className="absolute inset-0"
+            imageClassName="transition-transform duration-500 hover:scale-[1.02]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/10" />
+          {!isUploadedPhoto ? <AiGeneratedCoverBadge /> : null}
         </div>
       </div>
 

@@ -1,7 +1,6 @@
 import rawData from "@/data/medseat-data.json";
 import rankPredictorSeed from "@/data/rank-predictor-seed.json";
 import type { RankPredictorConfig } from "@/types/rank-predictor";
-import type { FilterOptionGroups } from "@/types/filters";
 import type {
   HomeContent,
   PageMetaContent,

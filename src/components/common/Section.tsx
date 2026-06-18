@@ -25,7 +25,7 @@ export function Section({
 }: SectionProps) {
   return (
     <Component
-      className={cn("py-10 md:py-16", toneClasses[tone], className)}
+      className={cn("ms-content-below-nav pb-10 md:pb-16", toneClasses[tone], className)}
       {...rest}
     >
       {children}

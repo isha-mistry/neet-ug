@@ -51,7 +51,7 @@ export function useCollegeListingNavigation({
       basePath,
       filters,
       hiddenFields,
-      lockedFilters?.feeMax,
+      lockedFilters,
       lockedState,
       lockedTypes,
       router,
