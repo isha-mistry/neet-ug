@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { QuotaHeader, SeatMatrixDonut, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel, QuotaCta, LiveDecisionTools } from "./QuotaShared";
 import { MccCounsellingRounds } from "./MccContentBlocks";
 import {
@@ -15,10 +14,10 @@ export function DeemedQuotaView() {
   const deemedDeposit = securityDepositsData.find(d => d.type === "Deemed Universities");
 
   return (
-    <QuotaPageShell current="Deemed Universities" className="pb-8" containerClassName="py-8 animate-fadeIn">
+    <QuotaPageShell current="Deemed Universities">
       <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6">
         {/* Left Content Area (8 Columns) */}
-        <div className="lg:col-span-8 space-y-12">
+        <div className="lg:col-span-8 space-y-10">
           {/* Page Header */}
           <QuotaHeader
             eyebrow="Information Bulletin"
@@ -31,7 +30,7 @@ export function DeemedQuotaView() {
 
           {/* Security Deposit Callout Box */}
           {deemedDeposit && (
-            <section className="mb-12 flex flex-col items-start justify-between gap-4 rounded-2xl border border-error/20 bg-error-container/15 p-5 shadow-clinical-soft md:flex-row md:items-center md:p-6">
+            <section className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-error/20 bg-error-container/15 p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] md:flex-row md:items-center md:p-6">
               <div className="flex items-start gap-3">
                 <span className="material-symbols-outlined text-error text-[24px] shrink-0 mt-0.5">warning</span>
                 <div>
@@ -46,24 +45,24 @@ export function DeemedQuotaView() {
           )}
 
           {/* Overview Section (Bento Grid) */}
-          <section className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-12">
+          <section className="grid grid-cols-1 md:grid-cols-12 gap-6">
             <div className="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Management % */}
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft">
+              <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
                 <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2 block font-bold">Management</span>
-                <div className="text-headline-md font-headline-md font-bold text-on-surface mb-1">100% MCC</div>
+                <div className="font-headline-md text-xl font-bold md:text-2xl font-bold text-on-surface mb-1">100% MCC</div>
                 <p className="font-body-sm text-body-sm text-on-surface-variant">All seats are filled via centralized MCC counselling rounds.</p>
               </div>
 
               {/* Domicile Rule */}
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft">
+              <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
                 <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2 block font-bold">Domicile Rule</span>
-                <div className="text-headline-md font-headline-md font-bold text-on-surface mb-1">No Restrictions</div>
+                <div className="font-headline-md text-xl font-bold md:text-2xl font-bold text-on-surface mb-1">No Restrictions</div>
                 <p className="font-body-sm text-body-sm text-on-surface-variant">Open to all NEET-UG qualified candidates from across India.</p>
               </div>
 
               {/* Seat Matrix Placeholder */}
-              <div className="flex items-center justify-between rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft md:col-span-2">
+              <div className="flex items-center justify-between rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 md:col-span-2">
                 <div>
                   <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2 block font-bold">Data Authority</span>
                   <div className="font-title-lg text-title-lg text-on-surface font-bold">Prepared by MCC/DGHS, MoHFW</div>
@@ -72,7 +71,7 @@ export function DeemedQuotaView() {
               </div>
 
               {/* Critical Alert */}
-              <div className="flex gap-4 rounded-2xl border border-error/20 bg-error-container p-6 shadow-clinical-soft md:col-span-2">
+              <div className="flex gap-4 rounded-2xl border border-error/20 bg-error-container p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] md:col-span-2">
                 <span className="material-symbols-outlined text-error text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
                 <div>
                   <p className="font-label-md text-label-md text-on-error-container font-bold mb-1 tracking-wider uppercase">Critical Notice</p>
@@ -82,7 +81,7 @@ export function DeemedQuotaView() {
             </div>
 
             {/* Round 3 Conversion Logic */}
-            <div className="flex h-full flex-col justify-between rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft md:col-span-4">
+            <div className="flex h-full flex-col justify-between rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 md:col-span-4">
               <div>
                 <div className="flex items-center gap-2 mb-6">
                   <span className="material-symbols-outlined text-primary">analytics</span>
@@ -111,7 +110,7 @@ export function DeemedQuotaView() {
             </div>
           </section>
 
-          <section className="mb-12">
+          <section className="">
             <QuotaInfoGrid
               items={[
                 {
@@ -133,10 +132,10 @@ export function DeemedQuotaView() {
             />
           </section>
 
-          <QuotaTheoryPanel className="mb-12" {...quotaTheoryContent.deemed} />
+          <QuotaTheoryPanel className="" {...quotaTheoryContent.deemed} />
 
           {/* Enriched Deemed Reservation details */}
-          <section className="mb-12 space-y-4 rounded-2xl border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-clinical-soft">
+          <section className="space-y-4 rounded-2xl border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
             <PremiumSectionHeader icon="gavel" title="Deemed University Reservation & Fee Structure Rules" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2 rounded-xl border border-outline-variant bg-surface-container-low p-5">
@@ -161,23 +160,23 @@ export function DeemedQuotaView() {
           </section>
 
           {/* Eligibility Conditions */}
-          <section className="mb-12">
+          <section className="">
             <h2 className="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2 font-bold">
               <span className="material-symbols-outlined text-primary text-[28px]">rule</span>
               Eligibility Conditions
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-colors hover:border-primary/50">
+              <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-colors hover:border-primary/30">
                 <span className="material-symbols-outlined text-primary mb-4 text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                 <h4 className="font-title-lg text-title-lg mb-2 font-bold text-on-surface">NEET Qualified</h4>
                 <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Candidate must have qualified NEET-UG with the minimum percentile prescribed by NTA for the current year.</p>
               </div>
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-colors hover:border-primary/50">
+              <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-colors hover:border-primary/30">
                 <span className="material-symbols-outlined text-primary mb-4 text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                 <h4 className="font-title-lg text-title-lg mb-2 font-bold text-on-surface">No Domicile Bar</h4>
                 <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Residential status of any state does not affect eligibility for Deemed Quota seats via MCC.</p>
               </div>
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-colors hover:border-primary/50">
+              <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-colors hover:border-primary/30">
                 <span className="material-symbols-outlined text-primary mb-4 text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                 <h4 className="font-title-lg text-title-lg mb-2 font-bold text-on-surface">UT Eligibility</h4>
                 <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">All India Quota qualified candidates including J&amp;K and Ladakh UT are eligible for Deemed seats.</p>
@@ -186,7 +185,7 @@ export function DeemedQuotaView() {
           </section>
 
           <QuotaProcessList
-            className="mb-12"
+            className=""
             title="Deemed University Choice Checklist"
             subtitle="Use this before submitting or locking MCC preferences."
             steps={[
@@ -198,7 +197,7 @@ export function DeemedQuotaView() {
           />
 
           {/* Counselling Rounds Flow */}
-          <section className="mb-12">
+          <section className="">
             <div className="mb-8">
               <h2 className="font-headline-md text-headline-md text-on-surface mb-2 font-bold">Deemed Counselling Rounds</h2>
               <p className="font-body-md text-body-md text-on-surface-variant">Step-by-step progression of the MCC counselling process for Deemed seats.</p>
@@ -207,8 +206,8 @@ export function DeemedQuotaView() {
           </section>
 
           {/* Seat Matrix Breakdown Section (Analytical Card) */}
-          <section className="mb-12">
-            <div className="overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-clinical-soft">
+          <section className="">
+            <div className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-0">
               <div className="bg-surface-container-low px-6 py-4 border-b border-outline-variant flex justify-between items-center">
                 <h3 className="font-title-lg text-title-lg font-bold text-on-surface">Deemed University Seat Distribution</h3>
                 <div className="flex gap-4">
@@ -280,7 +279,7 @@ export function DeemedQuotaView() {
             <LiveDecisionTools excludeIds={["rank"]} highlightId="predictor" />
 
             {/* Security Deposit Forfeiture Alert */}
-            <div className="flex gap-3 rounded-2xl border border-l-4 border-error/20 border-l-error bg-error-container/10 p-4 shadow-clinical-soft">
+            <div className="flex gap-3 rounded-2xl border border-l-4 border-error/20 border-l-error bg-error-container/10 p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
               <span className="material-symbols-outlined text-error text-[24px] shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>error</span>
               <div>
                 <span className="font-label-md text-label-md text-error block font-bold mb-1 uppercase tracking-wider">Forfeiture Rule</span>

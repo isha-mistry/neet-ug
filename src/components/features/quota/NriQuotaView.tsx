@@ -1,16 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import { QuotaHeader, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel, QuotaCta, LiveDecisionTools } from "./QuotaShared";
+import { QuotaHeader, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel, LiveDecisionTools } from "./QuotaShared";
 
 import { nriDocumentationCards as documentationCards, nriStatesData as nriStates, quotaTheoryContent } from "./content";
 
 export function NriQuotaView() {
   return (
-    <QuotaPageShell current="NRI Quota" className="pb-8" containerClassName="py-8 animate-fadeIn">
+    <QuotaPageShell current="NRI Quota">
       <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6">
         {/* Left Content Area (8 Columns) */}
-        <div className="lg:col-span-8 space-y-12">
+        <div className="lg:col-span-8 space-y-10">
           <QuotaHeader
             eyebrow="Global Aspirants"
             title="NRI Quota"
@@ -21,7 +20,7 @@ export function NriQuotaView() {
           />
 
           {/* Eligibility & Fees */}
-          <section className="mb-12">
+          <section className="">
             <div className="mb-6">
               <h2 className="font-headline-md text-headline-md text-on-surface mb-2 font-bold">Eligibility &amp; Fees</h2>
               <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Core requirements for NRI/OCI/PIO candidates and financial commitments for medical courses.</p>
@@ -29,7 +28,7 @@ export function NriQuotaView() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
               {/* Applicant Profile */}
-              <div className="flex h-full flex-col rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-colors hover:border-primary/50">
+              <div className="flex h-full flex-col rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-colors hover:border-primary/30">
                 <div className="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mb-6 border border-primary-fixed-dim/20">
                   <span className="material-symbols-outlined text-primary text-[24px]">person</span>
                 </div>
@@ -55,7 +54,7 @@ export function NriQuotaView() {
               </div>
 
               {/* Financials */}
-              <div className="flex h-full flex-col rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-colors hover:border-tertiary/50">
+              <div className="flex h-full flex-col rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-colors hover:border-tertiary/50">
                 <div className="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center mb-6 border border-tertiary-fixed-dim/20">
                   <span className="material-symbols-outlined text-tertiary text-[24px]">payments</span>
                 </div>
@@ -84,7 +83,7 @@ export function NriQuotaView() {
             </div>
           </section>
 
-          <section className="mb-12">
+          <section className="">
             <QuotaInfoGrid
               columns="three"
               items={[
@@ -107,10 +106,10 @@ export function NriQuotaView() {
             />
           </section>
 
-          <QuotaTheoryPanel className="mb-12" {...quotaTheoryContent.nri} />
+          <QuotaTheoryPanel className="" {...quotaTheoryContent.nri} />
 
           {/* Enriched Sponsor Relationship Section */}
-          <section className="mb-12 space-y-4 rounded-2xl border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-clinical-soft">
+          <section className="space-y-4 rounded-2xl border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
             <PremiumSectionHeader icon="family_history" title="Supreme Court Sponsorship Relationship Rules" subtitle="As per the landmark Anshul Tomar judgment" />
             <div className="space-y-4 rounded-xl border border-outline-variant bg-surface-container-low p-5">
               <p className="text-body-sm text-on-surface-variant leading-relaxed">
@@ -137,7 +136,7 @@ export function NriQuotaView() {
           </section>
 
           {/* Mandatory Documentation Grid */}
-          <section className="mb-12">
+          <section className="">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
               <div>
                 <h2 className="font-headline-md text-headline-md text-on-surface mb-2 font-bold">Mandatory Documentation</h2>
@@ -150,7 +149,7 @@ export function NriQuotaView() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {documentationCards.map((card, idx) => (
-                <div key={idx} className="cursor-default rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 text-center shadow-clinical-soft transition-colors duration-300 hover:border-primary/40 hover:bg-surface-container-low">
+                <div key={idx} className="cursor-default rounded-2xl border border-outline-variant bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-colors duration-300 hover:border-primary/40 hover:bg-surface-container-low">
                   <span className="material-symbols-outlined text-primary mb-4 text-[32px]">{card.icon}</span>
                   <h4 className="font-label-md text-label-md text-on-surface mb-2 font-bold tracking-wide">{card.title}</h4>
                   <p className="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">{card.desc}</p>
@@ -160,7 +159,7 @@ export function NriQuotaView() {
           </section>
 
           <QuotaProcessList
-            className="mb-12"
+            className=""
             title="NRI Documentation Flow"
             subtitle="A practical sequence for avoiding verification delays."
             steps={[
@@ -172,12 +171,12 @@ export function NriQuotaView() {
           />
 
           {/* State-wise Seat Distribution Table */}
-          <section className="mb-12">
+          <section className="">
             <div className="mb-6">
               <h2 className="font-headline-md text-headline-md text-on-surface mb-2 font-bold">State-wise Seat Distribution</h2>
               <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Comparative analysis of NRI seat availability and expected NEET ranks for key medical hubs.</p>
             </div>
-            <div className="overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-clinical-soft">
+            <div className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-0">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
@@ -211,7 +210,7 @@ export function NriQuotaView() {
           </section>
 
           {/* NRI Embassy Attestation Step-by-Step Guide */}
-          <section className="mt-12 rounded-3xl border border-outline-variant bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.03] p-6 shadow-clinical-soft md:p-8">
+          <section className="mt-12 rounded-3xl border border-outline-variant bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.03] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] md:p-8">
             <div className="mb-6">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-fixed px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-primary">
                 <span className="material-symbols-outlined text-[12px] font-black">gavel</span>
@@ -226,7 +225,7 @@ export function NriQuotaView() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover">
+              <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
                   <span className="material-symbols-outlined text-[20px]">edit_note</span>
                 </div>
@@ -236,7 +235,7 @@ export function NriQuotaView() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover">
+              <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
                   <span className="material-symbols-outlined text-[20px]">badge</span>
                 </div>
@@ -246,7 +245,7 @@ export function NriQuotaView() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover">
+              <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
                   <span className="material-symbols-outlined text-[20px]">person_pin</span>
                 </div>
@@ -256,7 +255,7 @@ export function NriQuotaView() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover">
+              <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
                   <span className="material-symbols-outlined text-[20px]">draw</span>
                 </div>
@@ -266,7 +265,7 @@ export function NriQuotaView() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover">
+              <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
                   <span className="material-symbols-outlined text-[20px]">scanner</span>
                 </div>
@@ -276,7 +275,7 @@ export function NriQuotaView() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover bg-primary-fixed/20 border-primary/20">
+              <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)] bg-primary-fixed/20 border-primary/20">
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-on-primary mb-4">
                   <span className="material-symbols-outlined text-[20px]">mark_email_read</span>
                 </div>
@@ -296,7 +295,7 @@ export function NriQuotaView() {
             <LiveDecisionTools highlightId="predictor" />
 
             {/* Document Warning Alert Card */}
-            <div className="flex gap-3 rounded-2xl border border-l-4 border-outline-variant border-l-tertiary bg-surface-container-lowest p-4 shadow-clinical-soft">
+            <div className="flex gap-3 rounded-2xl border border-l-4 border-outline-variant border-l-tertiary bg-surface-container-lowest p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
               <span className="material-symbols-outlined text-tertiary text-[24px] shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
               <div>
                 <span className="font-label-md text-label-md text-tertiary block font-bold mb-1 uppercase tracking-wider">OCI Cut-off Warning</span>

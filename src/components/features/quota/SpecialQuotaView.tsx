@@ -7,7 +7,7 @@ import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsel
 
 export function SpecialQuotaView() {
   return (
-    <QuotaPageShell current="Special & Institutional Quotas" className="pb-8" containerClassName="py-12 animate-fadeIn">
+    <QuotaPageShell current="Special & Institutional Quotas">
       <QuotaHeader
         eyebrow="Special Guidelines"
         title="Special &amp; Institutional"
@@ -47,7 +47,7 @@ export function SpecialQuotaView() {
         <div className="col-span-12 lg:col-span-8 space-y-8">
 
           {/* Central Institutions Overview */}
-          <section className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+          <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
             <div className="flex items-center gap-3 mb-6">
               <span className="material-symbols-outlined text-primary text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>account_balance</span>
               <h2 className="font-headline-md text-headline-md">Central Institutions &amp; AFMC</h2>
@@ -76,7 +76,7 @@ export function SpecialQuotaView() {
           </section>
 
           {/* Reservation & Conversion Logic Table */}
-          <section className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+          <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-primary text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>rule</span>
@@ -125,7 +125,7 @@ export function SpecialQuotaView() {
           </section>
 
           {/* ESIC Insured Persons Details */}
-          <section className="relative overflow-hidden rounded-2xl border border-primary/15 bg-gradient-to-br from-primary via-primary to-primary-hover p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]">
+          <section className="relative overflow-hidden rounded-2xl border border-primary/15 bg-linear-to-br from-primary via-primary to-primary-hover p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]">
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-4 text-white">
                 <span className="material-symbols-outlined text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>verified_user</span>
@@ -165,7 +165,7 @@ export function SpecialQuotaView() {
 
           {/* Central University Details (Grid) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
               <h3 className="font-headline-sm text-headline-sm mb-4 border-b border-outline-variant pb-2 font-bold">Delhi University (DU)</h3>
               <ul className="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
                 <li className="flex items-start gap-2">
@@ -178,7 +178,7 @@ export function SpecialQuotaView() {
                 </li>
               </ul>
             </div>
-            <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
               <h3 className="font-headline-sm text-headline-sm mb-4 border-b border-outline-variant pb-2 font-bold">AMU &amp; BHU</h3>
               <ul className="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
                 <li className="flex items-start gap-2">
@@ -204,11 +204,11 @@ export function SpecialQuotaView() {
               title="Book Expert Counselling"
               submitLabel="Submit Details"
               fields="name-phone-only"
-              className="border border-outline-variant shadow-clinical-soft bg-surface"
+              className="border border-outline-variant shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] bg-surface"
             />
 
             {/* Info Alert */}
-            <div className="flex gap-3 rounded-2xl border border-l-4 border-outline-variant border-l-tertiary bg-surface-container-lowest p-4 shadow-clinical-soft">
+            <div className="flex gap-3 rounded-2xl border border-l-4 border-outline-variant border-l-tertiary bg-surface-container-lowest p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
               <span className="material-symbols-outlined text-tertiary text-[24px] shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>campaign</span>
               <div>
                 <span className="font-label-md text-label-md text-tertiary block font-bold mb-1 uppercase tracking-wider">LATEST UPDATE</span>
@@ -217,7 +217,7 @@ export function SpecialQuotaView() {
             </div>
 
             {/* Featured Image Card */}
-            <div className="group relative h-64 cursor-pointer overflow-hidden rounded-2xl border border-outline-variant shadow-clinical-soft">
+            <div className="group relative h-64 cursor-pointer overflow-hidden rounded-2xl border border-outline-variant shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Seat Matrix" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNxCUIVz64YIs-V2XKvctakH_HtiwuYXw5TSHfn7yKQxT_ArXg3GuETefqpU4W81XHaKXWK5s2PiheukoI_JUXQX2jAH0NP6GocotyLqAXudJ4fhok2Wk-t-2o7OMXOugaO3LfsiuM0ZmdGcJfjmvOIhiBl4JOYisClGY9RWSnK4B_FZlpfPFKh8bQQTDu1NSZE3mQNTVP5Vg0U3bcpPYq3j1-5u_9I2bMVmfWNI0LUzK8u01_JLQINHOOy2IXx55kt86l_lH0Sw0" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
@@ -227,7 +227,7 @@ export function SpecialQuotaView() {
             </div>
 
             {/* Quick Links */}
-            <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
               <h4 className="font-label-md text-label-md text-outline uppercase tracking-widest mb-4 font-bold">Related Tools</h4>
               <ul className="space-y-4">
                 <li>
@@ -261,22 +261,22 @@ export function SpecialQuotaView() {
           {/* Connectors for desktop */}
           <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-outline-variant -z-10"></div>
 
-          <div className="w-full rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 text-center shadow-clinical-soft transition-colors hover:border-primary/50 md:w-1/4">
+          <div className="w-full rounded-2xl border border-outline-variant bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-colors hover:border-primary/50 md:w-1/4">
             <div className="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">1</div>
             <p className="font-label-md text-label-md font-bold uppercase tracking-wider">Register on MCC Portal</p>
           </div>
 
-          <div className="w-full rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 text-center shadow-clinical-soft transition-colors hover:border-primary/50 md:w-1/4">
+          <div className="w-full rounded-2xl border border-outline-variant bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-colors hover:border-primary/50 md:w-1/4">
             <div className="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">2</div>
             <p className="font-label-md text-label-md font-bold uppercase tracking-wider">Select AFMC Option</p>
           </div>
 
-          <div className="w-full rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 text-center shadow-clinical-soft transition-colors hover:border-primary/50 md:w-1/4">
+          <div className="w-full rounded-2xl border border-outline-variant bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-colors hover:border-primary/50 md:w-1/4">
             <div className="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">3</div>
             <p className="font-label-md text-label-md font-bold uppercase tracking-wider">AFMC Screening Call</p>
           </div>
 
-          <div className="w-full rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 text-center shadow-clinical-soft transition-colors hover:border-primary/50 md:w-1/4">
+          <div className="w-full rounded-2xl border border-outline-variant bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-colors hover:border-primary/50 md:w-1/4">
             <div className="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">4</div>
             <p className="font-label-md text-label-md font-bold uppercase tracking-wider">ToELR &amp; Interview</p>
           </div>

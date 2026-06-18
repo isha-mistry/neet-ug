@@ -9,10 +9,10 @@ import { quotaTheoryContent, resourceData, topPortals } from "./content";
 
 export function CounsellingResourcesView() {
   return (
-    <QuotaPageShell current="Counselling Resources" className="pb-8" containerClassName="py-8 animate-fadeIn">
+    <QuotaPageShell current="Counselling Resources">
       <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6">
         {/* Left Content Area (8 Columns) */}
-        <div className="lg:col-span-8 space-y-12">
+        <div className="lg:col-span-8 space-y-10">
 
           {/* Hero Section */}
           <QuotaHeader
@@ -47,7 +47,7 @@ export function CounsellingResourcesView() {
           <QuotaTheoryPanel {...quotaTheoryContent.resources} />
 
           {/* Central Portals Section */}
-          <section className="overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-clinical-soft" id="central-portals">
+          <section className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-0" id="central-portals">
             <div className="p-6 bg-surface-container-low border-b border-outline-variant flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-primary-container text-on-primary-container rounded-lg flex items-center justify-center">
@@ -107,7 +107,7 @@ export function CounsellingResourcesView() {
                 .map(([key, rows]) => {
                   const stateName = key === "mp" ? "Madhya Pradesh" : key.charAt(0).toUpperCase() + key.slice(1);
                   return rows.map((row, idx) => (
-                    <div key={`${key}-${idx}`} className="flex flex-col justify-between rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+                    <div key={`${key}-${idx}`} className="flex flex-col justify-between rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
                       <div>
                         <div className="flex items-center justify-between mb-6">
                           <div className="font-headline-sm text-headline-sm font-bold text-primary">{stateName}</div>
@@ -135,7 +135,7 @@ export function CounsellingResourcesView() {
           </section>
 
           {/* State Counselling Hub Section */}
-          <section className="relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-clinical-soft md:p-8">
+          <section className="relative overflow-hidden rounded-3xl border border-primary/20 bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] md:p-8">
             <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-primary/5 blur-2xl" aria-hidden />
 
             <div className="relative grid gap-6 md:grid-cols-[minmax(0,1fr)_220px] items-center">
@@ -212,7 +212,7 @@ export function CounsellingResourcesView() {
           <div className="sticky top-24 space-y-6">
 
             {/* On this page Navigation */}
-            <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft">
+            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
               <h3 className="text-label-sm text-on-surface-variant uppercase tracking-widest font-bold mb-4">On this page</h3>
               <nav className="space-y-1">
                 <a className="block py-2 px-3 rounded-lg text-primary bg-primary/5 font-bold border-l-4 border-primary" href="#central-portals">Central Portals</a>
@@ -228,11 +228,11 @@ export function CounsellingResourcesView() {
               title="Book free counselling"
               submitLabel="Book counselling"
               fields="name-phone-only"
-              className="border border-outline-variant/60 shadow-clinical-soft bg-surface"
+              className="border border-outline-variant/60 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] bg-surface"
             />
 
             {/* Critical Notice */}
-            <div className="space-y-4 rounded-2xl border border-error/20 bg-error-container/20 p-6 text-on-error-container shadow-clinical-soft">
+            <div className="space-y-4 rounded-2xl border border-error/20 bg-error-container/20 p-6 text-on-error-container shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
               <div className="flex items-start gap-3">
                 <span className="material-symbols-outlined text-error mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>error</span>
                 <div>
@@ -247,7 +247,7 @@ export function CounsellingResourcesView() {
             </div>
 
             {/* Additional Tools */}
-            <div id="top-verified" className="mt-6 overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-clinical-soft">
+            <div id="top-verified" className="mt-6 overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-0">
               <div className="px-6 py-4 bg-surface-container-low border-b border-outline-variant">
                 <h3 className="font-label-md text-on-surface-variant uppercase tracking-widest font-bold">Verified Portal Links</h3>
               </div>

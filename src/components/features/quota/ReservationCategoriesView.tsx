@@ -11,7 +11,7 @@ export function ReservationCategoriesView() {
   const currentTable = tableData[activeTab];
 
   return (
-    <QuotaPageShell current="Reservation Categories" className="pb-8 text-on-background" containerClassName="py-12 animate-fadeIn">
+    <QuotaPageShell current="Reservation Categories">
       <div className="mb-10">
         <QuotaHeader
           eyebrow="Reservation Policy"
@@ -52,9 +52,9 @@ export function ReservationCategoriesView() {
         <div className="col-span-12 lg:col-span-8 space-y-6">
 
           {/* Vertical Reservation Section */}
-          <section className="rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-6 shadow-clinical-soft transition-all duration-200 hover:shadow-clinical-hover" id="vertical">
+          <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6" id="vertical">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#004ac6] to-[#2563eb] flex items-center justify-center text-white shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-linear-to-br from-[#004ac6] to-[#2563eb] flex items-center justify-center text-white shrink-0">
                 <span className="material-symbols-outlined leading-none" style={{ fontVariationSettings: "'FILL' 0" }}>layers</span>
               </div>
               <div>
@@ -82,7 +82,7 @@ export function ReservationCategoriesView() {
           </section>
 
           {/* Detailed Category Breakdown Table */}
-          <section className="overflow-hidden rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-6 shadow-clinical-soft transition-all duration-200 hover:shadow-clinical-hover" id="breakdown">
+          <section className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6" id="breakdown">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
               <h3 className="font-headline-sm text-headline-sm">Detailed Category Breakdown</h3>
               {/* State switch tabs */}
@@ -133,7 +133,7 @@ export function ReservationCategoriesView() {
           </section>
 
           {/* Horizontal Reservation Section */}
-          <section className="rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-6 shadow-clinical-soft transition-all duration-200 hover:shadow-clinical-hover" id="horizontal">
+          <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6" id="horizontal">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-lg bg-tertiary flex items-center justify-center text-white shrink-0">
                 <span className="material-symbols-outlined leading-none" style={{ fontVariationSettings: "'FILL' 0" }}>splitscreen</span>
@@ -215,7 +215,7 @@ export function ReservationCategoriesView() {
         <aside className="col-span-12 lg:col-span-4 space-y-6">
           <div className="sticky top-24 space-y-6">
             {/* Quick Actions Card */}
-            <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary via-primary to-primary-hover p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]">
+            <div className="rounded-2xl border border-primary/20 bg-linear-to-br from-primary via-primary to-primary-hover p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]">
               <h3 className="font-headline-sm text-headline-sm mb-4 font-bold text-white">Book a Counselling Session</h3>
               <p className="font-body-sm text-body-sm mb-6 text-white/90 leading-relaxed">Talk to our medical admission experts for personalized category-based strategy.</p>
               <button className="w-full rounded-xl bg-on-primary py-3 font-title-lg text-title-lg font-bold text-primary shadow-sm transition-all hover:bg-on-primary/95 active:scale-[0.98]">Start Registration</button>
@@ -226,7 +226,7 @@ export function ReservationCategoriesView() {
             </div>
 
             {/* Navigation Shortcut Card */}
-            <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
               <h3 className="font-label-md text-label-md text-outline uppercase mb-4 font-bold tracking-widest">On this page</h3>
               <nav className="flex flex-col gap-3">
                 <a className="flex items-center justify-between group p-2 rounded-lg hover:bg-surface-container-low transition-colors" href="#vertical">
@@ -245,7 +245,7 @@ export function ReservationCategoriesView() {
             </div>
 
             {/* Predictor Ad Card */}
-            <div className="flex flex-col items-center rounded-2xl border-2 border-dashed border-primary/30 bg-surface-container-lowest p-6 text-center shadow-clinical-soft">
+            <div className="flex flex-col items-center rounded-2xl border-2 border-dashed border-primary/30 bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img alt="Medical College Prediction" className="w-full h-32 object-cover rounded-lg mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD29W2rgl-CUbBSlW1Vxee0GmpiIAyskz3w5-gM3N4zYPrmTFIC4tNdkOQsPVpUUYM1crgczeBrwmkzwtNr46KB5iLgK0wKTzwjo5A93jyjSo4d-fWucVF108mn6WAYm5waCudSYxWaJIv5gLqhKIILzdf2UbQSG-SEllrUOHQRLRJ-3lhO_WQX_LJSFhNCPE8lhb0GTkeMKeyDvyLHdkJTTs8Qbpi2H1JdPETEiHvaCLyQYsVHN0KTh2rv246qXnkeBzYo1Yrnsp0" />
               <h4 className="font-headline-sm text-headline-sm mb-2 font-bold text-on-surface">College Predictor</h4>
@@ -254,7 +254,7 @@ export function ReservationCategoriesView() {
             </div>
 
             {/* Related Topics */}
-            <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
               <h3 className="font-label-md text-label-md text-outline uppercase mb-4 font-bold tracking-widest">Related Topics</h3>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer group">
@@ -278,13 +278,13 @@ export function ReservationCategoriesView() {
       </div>
 
       {/* FAQs on Reservation & Category Claims */}
-      <section className="mt-12 rounded-3xl border border-outline-variant bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.03] p-6 shadow-clinical-soft md:p-8">
-        <h3 className="text-headline-md font-headline-md text-on-surface mb-6 flex items-center gap-2 font-bold">
+      <section className="mt-12 rounded-3xl border border-outline-variant bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.03] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] md:p-8">
+        <h3 className="font-headline-md text-xl font-bold md:text-2xl text-on-surface mb-6 flex items-center gap-2 font-bold">
           <span className="material-symbols-outlined text-primary text-[28px]">quiz</span>
           Reservation & Category FAQs
         </h3>
         <div className="space-y-4">
-          <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover">
+          <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
             <h4 className="text-sm font-bold text-on-surface mb-1.5 flex items-center gap-2">
               <span className="material-symbols-outlined text-primary text-[18px]">help_center</span>
               1. Can I change my category from OBC/SC/ST to General in later rounds?
@@ -294,7 +294,7 @@ export function ReservationCategoriesView() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover">
+          <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
             <h4 className="text-sm font-bold text-on-surface mb-1.5 flex items-center gap-2">
               <span className="material-symbols-outlined text-primary text-[18px]">help_center</span>
               2. What happens if my EWS or OBC-NCL certificate is issued before April 1, 2026?
@@ -304,7 +304,7 @@ export function ReservationCategoriesView() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-5 shadow-xs transition-all hover:shadow-clinical-hover">
+          <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
             <h4 className="text-sm font-bold text-on-surface mb-1.5 flex items-center gap-2">
               <span className="material-symbols-outlined text-primary text-[18px]">help_center</span>
               3. How does horizontal reservation work inside vertical categories?

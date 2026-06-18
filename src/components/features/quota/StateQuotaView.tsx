@@ -53,7 +53,7 @@ export function StateQuotaView() {
   const docs = stateDocumentation[activeTab];
 
   return (
-    <QuotaPageShell current="State Quota" className="pb-8" containerClassName="py-8 animate-fadeIn">
+    <QuotaPageShell current="State Quota">
       <div className="grid grid-cols-12 items-start gap-8">
         {/* Left Content Area (8 Columns) */}
         <div className="col-span-12 lg:col-span-8 space-y-6">
@@ -68,7 +68,7 @@ export function StateQuotaView() {
             watermarkIcon="location_on"
           />
 
-          <div className="mt-8 grid grid-cols-1 gap-4 rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft md:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-4 rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 md:grid-cols-3">
             <div className="flex items-center gap-4 rounded-xl border border-outline-variant/60 bg-surface-container-low p-4">
               <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0">
                 <span className="material-symbols-outlined">percent</span>
@@ -122,7 +122,7 @@ export function StateQuotaView() {
 
           {/* State Selection Filter */}
           <section className="flex flex-col items-center gap-6 py-8">
-            <h2 className="text-headline-md font-headline-md text-on-surface font-bold">Explore State-Specific Quotas</h2>
+            <h2 className="font-headline-md text-xl font-bold md:text-2xl text-on-surface">Explore State-Specific Quotas</h2>
             <div className="flex flex-wrap justify-center gap-3">
               {([
                 { id: "gujarat", label: "Gujarat" },
@@ -135,7 +135,7 @@ export function StateQuotaView() {
                   onClick={() => {
                     setActiveTab(tab.id);
                   }}
-                  className={`px-6 py-2 rounded-full border font-label-md flex items-center gap-2 transition-colors active:scale-95 font-bold uppercase tracking-wider ${activeTab === tab.id
+                  className={`px-3 py-2 rounded-full border text-body-sm flex items-center gap-2 transition-colors active:scale-95 font-bold uppercase tracking-wider ${activeTab === tab.id
                       ? "border-primary bg-primary text-on-primary shadow-sm"
                       : "border-outline text-on-surface-variant hover:bg-surface-container-high"
                     }`}
@@ -147,33 +147,30 @@ export function StateQuotaView() {
           </section>
 
           {/* Detailed View */}
-          <section className="overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+          <section className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-0 transition-shadow hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
             <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-on-surface text-surface flex items-center justify-center rounded-full font-bold text-lg">
-                  {activeTab.charAt(0).toUpperCase()}
-                </div>
                 <h2 className="text-headline-sm font-headline-sm flex items-center gap-2 font-bold">
                   <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>account_balance</span>
                   {content.title}
                 </h2>
               </div>
-              <a className="text-primary font-label-md hover:underline flex items-center gap-1 font-bold uppercase tracking-wider" href={content.portalUrl} target="_blank" rel="noopener noreferrer">
+              <a className="text-primary text-body-md hover:underline flex items-center gap-1 font-bold uppercase tracking-wider" href={content.portalUrl} target="_blank" rel="noopener noreferrer">
                 Official Portal <span className="material-symbols-outlined text-[16px]">open_in_new</span>
               </a>
             </div>
             <div className="divide-y divide-outline-variant">
               {content.rows.map((row, idx) => (
                 <div key={idx} className="grid grid-cols-1 md:grid-cols-3 p-4 items-center hover:bg-surface-container-low/50 transition-colors">
-                  <div className="font-label-md text-on-surface-variant font-bold uppercase tracking-wider">{row.parameter}</div>
-                  <div className="col-span-2 text-body-md font-medium leading-relaxed">{row.detail}</div>
+                  <div className="text-body-sm text-on-surface-variant font-bold uppercase tracking-wider">{row.parameter}</div>
+                  <div className="col-span-2 text-body-sm font-medium leading-relaxed">{row.detail}</div>
                 </div>
               ))}
             </div>
           </section>
 
           {/* Seat Matrix Distribution */}
-          <section className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+          <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-headline-sm font-headline-sm font-bold">Seat Matrix Distribution</h3>
               <span className="text-label-sm bg-surface-container-high px-2 py-1 rounded font-bold uppercase tracking-wider">
@@ -234,7 +231,7 @@ export function StateQuotaView() {
           </section>
 
           {/* Comparison Tool */}
-          <section className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft">
+          <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
             <div className="flex items-center gap-4 mb-6">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-surface-container-low shadow-sm">
                 <span className="material-symbols-outlined text-primary text-[32px]">compare_arrows</span>
@@ -284,7 +281,7 @@ export function StateQuotaView() {
         <aside className="col-span-12 lg:col-span-4 space-y-6 lg:sticky lg:top-24">
 
           {/* Live College Predictor Card */}
-          <section className="overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-clinical-soft hover:shadow-clinical-hover transition-all">
+          <section className="overflow-hidden rounded-2xl border border-primary/20 bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)] transition-all">
             <div className="flex items-center gap-3.5 mb-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary shadow-sm">
                 <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 0" }}>
@@ -326,7 +323,7 @@ export function StateQuotaView() {
           </section>
 
           {/* Warning Card */}
-          <section className="relative overflow-hidden rounded-2xl border border-primary/15 bg-primary-container p-6 text-on-primary-container shadow-clinical-soft">
+          <section className="relative overflow-hidden rounded-2xl border border-primary/15 bg-primary-container p-6 text-on-primary-container shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
             <div className="relative z-10">
               <h4 className="font-bold text-headline-sm mb-2">SEBC Rule</h4>
               <p className="text-body-sm opacity-90 mb-4 leading-relaxed">
@@ -342,7 +339,7 @@ export function StateQuotaView() {
           </section>
 
           {/* Documentation Sticky */}
-          <section className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-shadow hover:shadow-clinical-hover">
+          <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
             <h3 className="text-title-lg mb-4 flex items-center gap-2 font-bold text-on-surface">
               <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>description</span>
               Mandatory Documentation
