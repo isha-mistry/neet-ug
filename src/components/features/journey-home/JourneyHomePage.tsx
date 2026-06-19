@@ -7,6 +7,7 @@ import {
 import {
   JOURNEY_CHALLENGE_BAND,
   JOURNEY_COMPARISON_ROWS,
+  JOURNEY_COUNSELING_MISTAKES,
   JOURNEY_PROBLEM_CARDS,
   JOURNEY_RESOURCES,
   JOURNEY_AIQ_CARD,
@@ -20,6 +21,8 @@ import { JourneyHomeEffects } from "./JourneyHomeEffects";
 import { SeatRadarCard, PlaybookForm } from "./SeatRadarCard";
 import { RoundsPanel } from "./RoundsPanel";
 import { JourneyStateHub } from "./JourneyStateCard";
+import { JourneyComparisonCta } from "./JourneyComparisonCta";
+import { JourneyPackagePacks } from "./JourneyPackagePacks";
 
 type JourneyHomePageProps = {
   hero: HomeHeroContent;
@@ -77,6 +80,19 @@ function ProblemIcon({ name }: { name: string }) {
   }
 }
 
+function MistakeMark() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M18 6L6 18M6 6l12 12"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) {
   return (
     <div className="journey-home">
@@ -95,20 +111,13 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
               {hero.eyebrow}
             </span>
             <h1>
-              {hero.title.split(".").length > 1 ? (
-                <>
-                  {hero.title.replace(/\.$/, "")} — <em>with a plan.</em>
-                </>
-              ) : (
-                <>
-                  {hero.title} — <em>with a plan.</em>
-                </>
-              )}
+              {hero.title.replace(/\s*and a clear plan\.\s*$/, "")}{" "}
+              <em>and a clear plan.</em>
             </h1>
             <p className="lede">{hero.subtitle}</p>
             <div className="hero-ctas">
               <a href="#radar" className="btn btn-blue">
-                Scan my chances — free
+                Check my MBBS seat chances
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path
                     d="M3 8h10M9 4l4 4-4 4"
@@ -164,6 +173,10 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
           </div>
         </div>
       </div>
+      <p className="ticker-note wrap">
+        Your score decides where you enter this funnel. Start by checking your seat
+        chances.
+      </p>
 
       <ScrollJourney>
         <section className="section jstop" id="radar">
@@ -489,19 +502,50 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 </tbody>
               </table>
             </div>
-            <p className="cmp-note">
+            <JourneyComparisonCta />
+            {/* <p className="cmp-note">
               The right guidance doesn&apos;t change your rank.{" "}
               <b>It changes what you do with it.</b>
-            </p>
+            </p> */}
           </div>
         </section>
 
-        <section className="section jstop" id="packages" style={{ background: "var(--alt)" }}>
+        <section className="section jstop" id="mistakes" style={{ background: "var(--alt)" }}>
           <span className="jnode jn-r" data-jnode>
             08
           </span>
           <div className="wrap">
-            <span className="eyebrow">Step 08 · Your expert</span>
+            <span className="eyebrow">{JOURNEY_COUNSELING_MISTAKES.eyebrow}</span>
+            <h2 className="t">
+              {JOURNEY_COUNSELING_MISTAKES.title}
+              <em>{JOURNEY_COUNSELING_MISTAKES.titleEmphasis}</em>
+            </h2>
+            <p className="lede">{JOURNEY_COUNSELING_MISTAKES.lede}</p>
+            <div className="mistwrap reveal">
+              <ul className="mistgrid">
+                {JOURNEY_COUNSELING_MISTAKES.items.map((item) => (
+                  <li key={item} className="mist-item">
+                    <span className="mist-ico">
+                      <MistakeMark />
+                    </span>
+                    <span className="mist-label">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p className="fun-note mist-close">
+              {JOURNEY_COUNSELING_MISTAKES.closingBefore}{" "}
+              <b>{JOURNEY_COUNSELING_MISTAKES.closingEmphasis}</b>
+            </p>
+          </div>
+        </section>
+
+        <section className="section jstop" id="packages">
+          <span className="jnode jn-l" data-jnode>
+            09
+          </span>
+          <div className="wrap">
+            <span className="eyebrow">Step 09 · Your expert</span>
             <h2 className="t">
               Counseling that <em>pays for itself.</em>
             </h2>
@@ -509,80 +553,12 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
               A government seat instead of management quota saves over ₹60 lakh across the course.
               Strategy costs a fraction of that.
             </p>
-            <div className="packs">
-              <article className="card spot pack reveal">
-                <h3>Essentials</h3>
-                <p className="for">
-                  For confident students who want every tool unlocked and the data to decide
-                  themselves.
-                </p>
-                <div className="pr">
-                  ₹2,999<small> /season</small>
-                </div>
-                <ul>
-                  <li>Cutoff Analyser — full unlock</li>
-                  <li>College Predictor + exportable choice list</li>
-                  <li>Rank Predictor, all 4 state ranks</li>
-                  <li>Personalized document checklist</li>
-                  <li>Round Tracker with alerts</li>
-                  <li>Counseling Playbook PDF</li>
-                </ul>
-                <a href="#cta" className="btn btn-line">
-                  Get started
-                </a>
-              </article>
-              <article className="card spot pack pop reveal">
-                <span className="pflag">Most popular</span>
-                <h3>Expert</h3>
-                <p className="for">
-                  End-to-end support through every round, with a counselor who knows your case.
-                </p>
-                <div className="pr">
-                  ₹9,999<small> /season</small>
-                </div>
-                <ul>
-                  <li className="up">Everything in Essentials +</li>
-                  <li>1-on-1 session with an MBBS expert (60 min)</li>
-                  <li>Choice list for every state &amp; round</li>
-                  <li>Strategy note before each round</li>
-                  <li>Upgrade-or-lock call after each allotment</li>
-                  <li>Priority WhatsApp support, Aug–Nov</li>
-                  <li>Written domicile &amp; quota eligibility report</li>
-                </ul>
-                <a href="#cta" className="btn btn-blue">
-                  Book now — seats limited
-                </a>
-              </article>
-              <article className="card spot pack reveal">
-                <h3>Premium</h3>
-                <p className="for">
-                  Maximum attention, multi-state strategy and NRI quota guidance for the family.
-                </p>
-                <div className="pr">
-                  ₹19,999<small> /season</small>
-                </div>
-                <ul>
-                  <li className="up">Everything in Expert +</li>
-                  <li>Unlimited counselor calls all season</li>
-                  <li>Separate parent briefing (30 min)</li>
-                  <li>NRI quota eligibility &amp; documentation</li>
-                  <li>Parallel strategy across all 4 states</li>
-                  <li>Post-admission: bond, hostel, joining</li>
-                </ul>
-                <a href="#cta" className="btn btn-line">
-                  Contact us
-                </a>
-              </article>
-            </div>
-            <p className="pfoot">
-              Not sure which fits?{" "}
-              <a href="#cta">Talk to us free — 15 minutes</a>, no obligation.
-            </p>
+            <JourneyPackagePacks />
           </div>
         </section>
 
         <section className="final jstop" id="cta">
-          <span className="jnode jn-l fin" data-jnode>
+          <span className="jnode jn-r fin" data-jnode>
             <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path
                 d="M4 10.5l4 4L16 6"

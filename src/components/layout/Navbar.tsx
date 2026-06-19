@@ -15,10 +15,13 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-outline-variant bg-surface">
-      <Container size="page" className="flex h-16 items-center justify-between gap-4 py-2">
+      <Container
+        size="page"
+        className="flex h-16 items-center justify-between gap-3 py-0 md:gap-4"
+      >
         <BrandMark
           brandName={site.brandName}
-          className="text-primary [&_span:last-child]:font-headline-md [&_span:last-child]:text-headline-md [&_span:last-child]:font-bold"
+          className="shrink-0 text-primary [&_span:last-child]:font-headline-md [&_span:last-child]:text-headline-md [&_span:last-child]:font-bold"
         />
         <PrimaryNav
           links={site.primaryNav}
@@ -26,7 +29,7 @@ export function Navbar() {
           quotaLinks={quotaLinks}
           predictorLinks={PREDICTOR_NAV_LINKS}
         />
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2 self-center">
           <Button
             type="button"
             variant="primary"

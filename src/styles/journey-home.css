@@ -11,11 +11,15 @@
   --bg: var(--color-surface-container-lowest);
   --alt: var(--color-surface);
   --line: var(--color-outline-variant);
-  --line-2: color-mix(in srgb, var(--color-outline-variant) 75%, var(--color-outline));
-  --safe: var(--color-secondary);
-  --safe-bg: var(--color-secondary-fixed);
-  --warn: var(--color-tertiary);
-  --warn-bg: var(--color-tertiary-fixed);
+  --line-2: color-mix(
+    in srgb,
+    var(--color-outline-variant) 75%,
+    var(--color-outline)
+  );
+  --safe: var(--color-tertiary);
+  --safe-bg: var(--color-tertiary-fixed);
+  --warn: var(--color-secondary);
+  --warn-bg: var(--color-secondary-fixed);
   --risk: var(--color-error);
   --risk-bg: var(--color-error-container);
   --gold: #b97e14;
@@ -557,10 +561,19 @@
 .journey-home .tick b .u {
   color: var(--blue);
 }
-.journey-home .tick span {
+.journey-home .tick > span {
   font-size: 12.5px;
   color: var(--muted);
   font-weight: 500;
+}
+.journey-home .ticker-note {
+  margin: 0;
+  padding: 16px 28px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-align: center;
+  background: transparent;
 }
 
 .journey-home #journey {
@@ -835,7 +848,7 @@
   overflow: hidden;
   border: 1px solid var(--line);
   margin-bottom: 8px;
-  background: var(--alt);
+  background: var(--blue-tint);
 }
 .journey-home .rstack i {
   display: block;
@@ -865,11 +878,15 @@
   border-top: 1px solid var(--line);
   font-size: 13.5px;
 }
+.journey-home .rstate:last-of-type {
+  border-bottom: 1px solid var(--line);
+}
 .journey-home .rstate .nm {
   font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.02em;
 }
 .journey-home .rchips {
   display: flex;
@@ -898,6 +915,146 @@
   letter-spacing: 0.08em;
 }
 
+.journey-home .radar-cta {
+  margin-top: 18px;
+  padding-top: 0;
+}
+.journey-home .radar-cta-heading {
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.journey-home .radar-cta-copy {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.journey-home .radar-cta .btn {
+  width: 100%;
+}
+
+.journey-home .radar-modal {
+  margin: auto;
+  max-width: 400px;
+  width: calc(100% - 32px);
+  padding: 0;
+  border: none;
+  border-radius: 20px;
+  background: transparent;
+  overflow: visible;
+}
+.journey-home .radar-modal::backdrop {
+  background: rgba(14, 27, 51, 0.52);
+  backdrop-filter: blur(4px);
+}
+.journey-home .radar-modal-panel {
+  position: relative;
+  padding: 22px 20px 20px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-lg);
+}
+.journey-home .radar-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  background: var(--alt);
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.journey-home .radar-modal-close:hover {
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+.journey-home .radar-modal-title {
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+  padding-right: 32px;
+}
+.journey-home .radar-modal-lede {
+  margin: 0 0 14px;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.journey-home .radar-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.journey-home .radar-modal-form .field label {
+  font-size: 9px;
+  margin-bottom: 5px;
+  letter-spacing: 0.12em;
+}
+.journey-home .radar-modal-form .field input,
+.journey-home .radar-modal-form .field select {
+  padding: 10px 12px;
+  font-size: 13px;
+  border-radius: 10px;
+}
+.journey-home .radar-modal-form .field input.mono {
+  font-size: 14px;
+}
+.journey-home .radar-modal-form .rrow {
+  margin-bottom: 0;
+  gap: 10px;
+}
+.journey-home .radar-modal-form .wa-row {
+  display: grid;
+  grid-template-columns: 102px minmax(0, 1fr);
+  gap: 8px;
+  align-items: stretch;
+}
+.journey-home .radar-modal-form .wa-row select,
+.journey-home .radar-modal-form .wa-row input {
+  width: 100%;
+  padding: 10px 10px;
+  background: var(--alt);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.journey-home .radar-modal-form .wa-row select {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding-inline: 8px;
+}
+.journey-home .radar-modal-form .wa-row input {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+}
+.journey-home .radar-modal-form .wa-row select:focus,
+.journey-home .radar-modal-form .wa-row input:focus {
+  border-color: var(--blue);
+  background: #fff;
+  outline: none;
+}
+.journey-home .radar-modal-form .btn {
+  width: 100%;
+  margin-top: 2px;
+  padding: 11px 18px;
+  font-size: 14px;
+}
+
 .journey-home .sgrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -907,11 +1064,26 @@
 .journey-home .shub {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 0;
   margin-top: 46px;
 }
 .journey-home .shub .sgrid {
   margin-top: 0;
+  margin-bottom: 22px;
+}
+
+.journey-home .shub-footnote {
+  margin-top: 0px;
+  padding-top: 0px;
+  /* border-top: 1px solid var(--line); */
+}
+.journey-home .fun-note a {
+  color: inherit;
+  text-decoration: none;
+}
+.journey-home .fun-note a:hover b {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .journey-home .aiq-band {
   display: grid;
@@ -1978,6 +2150,64 @@
   background: var(--blue-tint);
 }
 
+/* ============ COUNSELING MISTAKES ============ */
+.journey-home .mistwrap {
+  margin-top: 46px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--color-surface-container-lowest);
+  box-shadow: var(--shadow-sm);
+}
+.journey-home .mistgrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.journey-home .mist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px 26px;
+  border-bottom: 1px solid var(--line);
+}
+.journey-home .mist-item:nth-child(odd) {
+  border-right: 1px solid var(--line);
+}
+.journey-home .mist-item:nth-child(5),
+.journey-home .mist-item:nth-child(6) {
+  border-bottom: none;
+}
+.journey-home .mist-ico {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--risk-bg);
+  color: var(--risk);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.journey-home .mist-ico svg {
+  width: 18px;
+  height: 18px;
+}
+.journey-home .mist-label {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+  color: var(--ink);
+  padding-top: 10px;
+}
+.journey-home .mist-close {
+  margin-top: 28px;
+}
+
 /* ============ COMPARISON (going alone vs counseling) ============ */
 .journey-home .cmpwrap {
   margin-top: 46px;
@@ -2037,6 +2267,22 @@
 }
 .journey-home .cmp tr:hover td.withus {
   background: var(--blue-tint);
+}
+.journey-home .cmp-cta {
+  margin-top: 32px;
+  text-align: center;
+  max-width: 520px;
+  margin-inline: auto;
+}
+.journey-home .cmp-cta-copy {
+  margin: 0 0 20px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.journey-home .cmp-cta .btn {
+  width: 100%;
+  max-width: 360px;
 }
 .journey-home .cmp-note {
   text-align: center;
@@ -2169,6 +2415,18 @@
   .journey-home .chgrid {
     grid-template-columns: 1fr;
   }
+  .journey-home .mistgrid {
+    grid-template-columns: 1fr;
+  }
+  .journey-home .mist-item {
+    border-right: none !important;
+  }
+  .journey-home .mist-item:nth-child(5) {
+    border-bottom: 1px solid var(--line);
+  }
+  .journey-home .mist-item:last-child {
+    border-bottom: none;
+  }
   .journey-home .resgrid {
     grid-template-columns: 1fr 1fr;
   }
@@ -2185,7 +2443,8 @@
   }
   .journey-home .sgrid,
   .journey-home .tools-grid,
-  .journey-home .packs {
+  .journey-home .packs,
+  .journey-home .mistgrid {
     grid-template-columns: 1fr;
   }
   .journey-home .rounds-track {
