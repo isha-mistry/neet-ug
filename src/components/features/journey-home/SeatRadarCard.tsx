@@ -164,7 +164,7 @@ export function PlaybookForm() {
             aria-label="WhatsApp number"
           />
           <button className="btn" type="submit">
-            Send it →
+            Send me the playbook →
           </button>
           <p className="pb-fine">
             FREE · SENT INSTANTLY · COUNSELING UPDATES ONLY · UNSUBSCRIBE ANY TIME

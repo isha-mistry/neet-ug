@@ -99,73 +99,114 @@ const getCardIcon = (slug: string) => {
   }
 };
 
+const QUOTA_OVERVIEW_JUMP_SECTIONS = [
+  { id: "decision-signals", label: "Decision Signals" },
+  { id: "primer", label: "Theory Primer" },
+  { id: "seat-sharing", label: "Seat Sharing" },
+  { id: "quota-types", label: "Quota Directory" },
+  { id: "rules", label: "Key Rules" },
+  { id: "framework", label: "Choice Framework" },
+];
+
 export function QuotaOverview() {
-  return (
-    <QuotaOverviewShell>
-      <section>
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary-fixed px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
-              <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified_user</span>
-              Medical admission guide
+  const header = (
+    <section id="overview">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
+        <div>
+          <span className="inline-flex items-center gap-2 rounded-full bg-primary-fixed px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
+            <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified_user</span>
+            Medical admission guide
+          </span>
+          <h1 className="rp-hero-title mt-4">
+            Understand every <em>medical seat quota</em> before you register
+          </h1>
+          <p className="rp-hero-lede max-w-3xl">
+            Quotas decide the counselling authority, the seat pool you can access, document proof,
+            fee category and round strategy. Use this page as the starting map before opening MCC,
+            state, management, NRI or deemed university counselling choices.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href="#quota-types"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-on-primary shadow-sm transition hover:bg-primary-hover active:scale-[0.98]"
+            >
+              Compare quota types
+              <span className="material-symbols-outlined text-lg">arrow_downward</span>
+            </a>
+            <Link
+              href="/college-predictor"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-outline-variant/40 bg-surface px-5 py-3 text-sm font-bold text-on-surface-variant transition hover:border-primary hover:text-primary"
+            >
+              Check college fit
+              <span className="material-symbols-outlined text-lg">analytics</span>
+            </Link>
+          </div>
+        </div>
+        <GuideCard>
+          <div className="flex items-center gap-3">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary">
+              <span className="material-symbols-outlined text-[28px]">hub</span>
             </span>
-            <h1 className="rp-hero-title mt-4">
-              Understand every <em>medical seat quota</em> before you register
-            </h1>
-            <p className="rp-hero-lede max-w-3xl">
-              Quotas decide the counselling authority, the seat pool you can access, document proof,
-              fee category and round strategy. Use this page as the starting map before opening MCC,
-              state, management, NRI or deemed university counselling choices.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="#quota-types"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-on-primary shadow-sm transition hover:bg-primary-hover active:scale-[0.98]"
-              >
-                Compare quota types
-                <span className="material-symbols-outlined text-lg">arrow_downward</span>
-              </a>
-              <Link
-                href="/college-predictor"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-outline-variant bg-surface px-5 py-3 text-sm font-bold text-on-surface-variant transition hover:border-primary hover:text-primary"
-              >
-                Check college fit
-                <span className="material-symbols-outlined text-lg">analytics</span>
-              </Link>
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-primary">Start here</p>
+              <p className="text-sm font-bold leading-snug text-on-surface">
+                Rank + domicile + category + budget = quota strategy
+              </p>
             </div>
           </div>
-          <GuideCard>
-            <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary">
-                <span className="material-symbols-outlined text-[28px]">hub</span>
-              </span>
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-primary">Start here</p>
-                <p className="text-sm font-bold leading-snug text-on-surface">
-                  Rank + domicile + category + budget = quota strategy
+          <div className="mt-5 grid grid-cols-2 gap-3">
+            {[
+              { value: "15%", label: "AIQ govt seats" },
+              { value: "85%", label: "State govt seats" },
+              { value: "MCC", label: "Central pools" },
+              { value: "DME", label: "State pools" },
+            ].map((stat) => (
+              <div key={stat.label} className={summaryHighlightCardClass}>
+                <p className="text-2xl font-bold text-on-surface">{stat.value}</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
+                  {stat.label}
                 </p>
               </div>
-            </div>
-            <div className="mt-5 grid grid-cols-2 gap-3">
-              {[
-                { value: "15%", label: "AIQ govt seats" },
-                { value: "85%", label: "State govt seats" },
-                { value: "MCC", label: "Central pools" },
-                { value: "DME", label: "State pools" },
-              ].map((stat) => (
-                <div key={stat.label} className={summaryHighlightCardClass}>
-                  <p className="text-2xl font-bold text-on-surface">{stat.value}</p>
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </GuideCard>
-        </div>
-      </section>
+            ))}
+          </div>
+        </GuideCard>
+      </div>
+    </section>
+  );
 
-      <section>
+  const sidebar = (
+    <aside className="space-y-6">
+      <GuideCard className="h-fit">
+        <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-primary">
+          Planning checklist
+        </span>
+        <h2 className="mt-2 font-headline-md text-lg font-bold text-on-surface">
+          Build your quota shortlist in this order
+        </h2>
+        <div className="mt-5 space-y-4">
+          {planningSignals.map((signal) => (
+            <div key={signal.label} className="flex gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary">
+                <span className="material-symbols-outlined text-[22px]">{signal.icon}</span>
+              </span>
+              <div>
+                <h3 className="text-sm font-bold text-on-surface">{signal.label}</h3>
+                <p className="mt-0.5 text-sm leading-relaxed text-on-surface-variant">{signal.value}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </GuideCard>
+    </aside>
+  );
+
+  return (
+    <QuotaOverviewShell
+      header={header}
+      sidebar={sidebar}
+      jumpSections={QUOTA_OVERVIEW_JUMP_SECTIONS}
+    >
+      <section id="decision-signals">
         <QuotaSectionHeading
           eyebrow="Decision signals"
           title="What changes when the "
@@ -194,32 +235,11 @@ export function QuotaOverview() {
         />
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div id="primer">
         <QuotaTheoryPanel className="h-full" {...quotaTheoryContent.overview} />
-        <GuideCard className="h-fit">
-          <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-primary">
-            Planning checklist
-          </span>
-          <h2 className="mt-2 font-headline-md text-lg font-bold text-on-surface">
-            Build your quota shortlist in this order
-          </h2>
-          <div className="mt-5 space-y-4">
-            {planningSignals.map((signal) => (
-              <div key={signal.label} className="flex gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary">
-                  <span className="material-symbols-outlined text-[22px]">{signal.icon}</span>
-                </span>
-                <div>
-                  <h3 className="text-sm font-bold text-on-surface">{signal.label}</h3>
-                  <p className="mt-0.5 text-sm leading-relaxed text-on-surface-variant">{signal.value}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </GuideCard>
-      </section>
+      </div>
 
-      <section>
+      <section id="seat-sharing">
         <div className="mb-6 grid gap-4 md:grid-cols-[minmax(0,1fr)_280px] md:items-end">
           <QuotaSectionHeading
             eyebrow="Seat matrix view"
@@ -337,7 +357,7 @@ export function QuotaOverview() {
         </div>
       </section>
 
-      <section className="rp-brand-gradient rp-brand-elevated relative overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-10 md:py-10">
+      <section id="rules" className="rp-brand-gradient rp-brand-elevated relative overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-10 md:py-10">
         <div className="relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
           <div>
             <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-on-primary/20">
@@ -390,16 +410,18 @@ export function QuotaOverview() {
         />
       </section>
 
-      <QuotaProcessList
-        title="How to Choose Your Quota Path"
-        subtitle="A quick framework before opening any counselling form."
-        steps={[
-          { title: "Start with mandatory eligibility", body: "List your domicile, category, PwD, minority, NRI sponsor, and schooling claims with proof documents." },
-          { title: "Map counselling bodies", body: "Separate MCC choices from each state portal so you do not miss parallel registrations." },
-          { title: "Build budget bands", body: "Mark government, state private, management, NRI, and deemed options by total payable cost." },
-          { title: "Compare round behavior", body: "Study previous R1, R2, mop-up, and stray vacancy cutoffs because each quota behaves differently late in counselling." },
-        ]}
-      />
+      <div id="framework">
+        <QuotaProcessList
+          title="How to Choose Your Quota Path"
+          subtitle="A quick framework before opening any counselling form."
+          steps={[
+            { title: "Start with mandatory eligibility", body: "List your domicile, category, PwD, minority, NRI sponsor, and schooling claims with proof documents." },
+            { title: "Map counselling bodies", body: "Separate MCC choices from each state portal so you do not miss parallel registrations." },
+            { title: "Build budget bands", body: "Mark government, state private, management, NRI, and deemed options by total payable cost." },
+            { title: "Compare round behavior", body: "Study previous R1, R2, mop-up, and stray vacancy cutoffs because each quota behaves differently late in counselling." },
+          ]}
+        />
+      </div>
     </QuotaOverviewShell>
   );
 }

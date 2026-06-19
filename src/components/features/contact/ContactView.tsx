@@ -11,10 +11,11 @@ import { ContactFaqs } from "./ContactFaqs";
 import { AdditionalResources } from "./AdditionalResources";
 import { Container } from "@/components/common/Container";
 import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
+import { NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
 
 export function ContactView() {
     return (
-        <div className="relative flex min-h-screen flex-col overflow-hidden bg-background text-on-surface before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-[560px] before:bg-[radial-gradient(circle_at_top_left,color-mix(in_srgb,var(--color-primary)_14%,transparent),transparent_42%),linear-gradient(180deg,color-mix(in_srgb,var(--color-primary-fixed)_42%,transparent),transparent)]">
+        <NeetUg2026Shell>
             <ContactHero />
             <HelpServices />
             <ContactInfoGrid />
@@ -49,6 +50,6 @@ export function ContactView() {
                     </div>
                 </Container>
             </section>
-        </div>
+        </NeetUg2026Shell>
     );
 }

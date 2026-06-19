@@ -46,321 +46,334 @@ const stateDocumentation: Record<StateTab, string[]> = {
   ],
 };
 
+const STATE_QUOTA_JUMP_SECTIONS = [
+  { id: "overview", label: "Overview" },
+  { id: "state-directory", label: "State Directory" },
+  { id: "seat-matrix", label: "Seat Matrix" },
+  { id: "comparison", label: "State vs AIQ" },
+  { id: "prep-flow", label: "Preparation Flow" },
+];
+
 export function StateQuotaView() {
   const [activeTab, setActiveTab] = useState<StateTab>("gujarat");
   const content = stateDetails[activeTab];
   const matrix = stateSeatMatrix[activeTab];
   const docs = stateDocumentation[activeTab];
 
+  const header = (
+    <QuotaHeader
+      eyebrow="Medical Counselling Guide"
+      title="State Quota"
+      highlightedText="(SQ) Overview"
+      description="The State Quota is the most critical pathway for medical aspirants, reserving the vast majority of seats for local residents. It is governed by state-specific medical counseling bodies and offers a significant advantage to domicile candidates."
+      eyebrowIcon="verified"
+      watermarkIcon="location_on"
+    />
+  );
+
+  const sidebar = (
+    <aside className="space-y-6">
+      {/* Live College Predictor Card */}
+      <section className="overflow-hidden rounded-2xl border border-primary/20 bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)] transition-all">
+        <div className="flex items-center gap-3.5 mb-4">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary shadow-sm">
+            <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 0" }}>
+              online_prediction
+            </span>
+          </div>
+          <div>
+            <h3 className="text-base font-extrabold tracking-tight text-on-surface md:text-lg">NEET UG College Predictor</h3>
+            <p className="text-xs text-on-surface-variant leading-relaxed">Our live predictor is ready for you</p>
+          </div>
+        </div>
+
+        <p className="text-sm text-on-surface-variant leading-relaxed mb-5">
+          Don&apos;t guess your admission chances. Our live intelligent data engine cross-references your NEET Rank, Category, and State Domicile to give you a definitive prediction map.
+        </p>
+
+        <div className="space-y-3.5 mb-6">
+          <div className="flex items-center gap-2.5 text-xs font-semibold text-on-surface">
+            <span className="material-symbols-outlined text-primary text-base">check_circle</span>
+            Automatic 85% State Quota Logic
+          </div>
+          <div className="flex items-center gap-2.5 text-xs font-semibold text-on-surface">
+            <span className="material-symbols-outlined text-primary text-base">check_circle</span>
+            Real-time seat matrix & fees
+          </div>
+          <div className="flex items-center gap-2.5 text-xs font-semibold text-on-surface">
+            <span className="material-symbols-outlined text-primary text-base">check_circle</span>
+            Category conversion rules supported
+          </div>
+        </div>
+
+        <Link
+          href="/college-predictor"
+          className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-on-primary transition hover:bg-primary-hover active:scale-95 shadow-sm"
+        >
+          Go to College Predictor
+          <span className="material-symbols-outlined text-sm">arrow_forward</span>
+        </Link>
+      </section>
+
+      {/* Warning Card */}
+      <section className="relative overflow-hidden rounded-2xl border border-primary/15 bg-primary-container p-6 text-on-primary-container shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+        <div className="relative z-10">
+          <h4 className="font-bold text-headline-sm mb-2">SEBC Rule</h4>
+          <p className="text-body-sm opacity-90 mb-4 leading-relaxed">
+            Gujarat follows strict SEBC (Socially and Educationally Backward Classes) norms. A valid Non-Creamy Layer (NCL) certificate from Gujarat is mandatory.
+          </p>
+          <div className="flex items-center gap-2 text-label-md font-bold uppercase tracking-wider">
+            <span className="material-symbols-outlined text-[18px]">info</span>
+            Check validity before Aug 2026
+          </div>
+        </div>
+        {/* Decorative Icon */}
+        <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-[120px] opacity-10 rotate-12 pointer-events-none" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
+      </section>
+
+      {/* Documentation Sticky */}
+      <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+        <h3 className="text-title-lg mb-4 flex items-center gap-2 font-bold text-on-surface">
+          <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>description</span>
+          Mandatory Documentation
+        </h3>
+        <ul className="space-y-3">
+          {docs.map((doc, idx) => (
+            <li key={idx} className="flex items-start gap-3">
+              <span className="material-symbols-outlined text-green-600 text-[20px] shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+              <span className="text-body-sm text-on-surface-variant font-medium leading-relaxed">{doc}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-6 p-4 bg-surface-container-highest rounded-lg border border-outline-variant/30">
+          <p className="text-label-sm text-on-surface-variant flex items-center gap-2 font-bold uppercase tracking-wider">
+            <span className="material-symbols-outlined text-[16px] text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>lightbulb</span>
+            Tip: Document verification requires physical presence at Help Centers.
+          </p>
+        </div>
+      </section>
+    </aside>
+  );
+
   return (
-    <QuotaPageShell current="State Quota">
-      <div className="grid grid-cols-12 items-start gap-8">
-        {/* Left Content Area (8 Columns) */}
-        <div className="col-span-12 lg:col-span-8 space-y-6">
-
-          {/* Hero Overview Card */}
-          <QuotaHeader
-            eyebrow="Medical Counselling Guide"
-            title="State Quota"
-            highlightedText="(SQ) Overview"
-            description="The State Quota is the most critical pathway for medical aspirants, reserving the vast majority of seats for local residents. It is governed by state-specific medical counseling bodies and offers a significant advantage to domicile candidates."
-            eyebrowIcon="verified"
-            watermarkIcon="location_on"
-          />
-
-          <div className="mt-8 grid grid-cols-1 gap-4 rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 md:grid-cols-3">
-            <div className="flex items-center gap-4 rounded-xl border border-outline-variant/60 bg-surface-container-low p-4">
-              <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0">
-                <span className="material-symbols-outlined">percent</span>
-              </div>
-              <div>
-                <h3 className="text-title-lg font-title-lg text-on-surface font-bold">85%</h3>
-                <p className="text-label-sm font-label-sm text-on-surface-variant leading-tight">Seats reserved for Govt. candidates</p>
-              </div>
+    <QuotaPageShell
+      current="State Quota"
+      header={header}
+      sidebar={sidebar}
+      jumpSections={STATE_QUOTA_JUMP_SECTIONS}
+    >
+      {/* Hero Overview Card */}
+      <div id="overview" className="space-y-6">
+        <div className="grid grid-cols-1 gap-4 rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 md:grid-cols-3">
+          <div className="flex items-center gap-4 rounded-xl border border-outline-variant/60 bg-surface-container-low p-4">
+            <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0">
+              <span className="material-symbols-outlined">percent</span>
             </div>
-            <div className="flex items-center gap-4 rounded-xl border border-outline-variant/60 bg-surface-container-low p-4">
-              <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0">
-                <span className="material-symbols-outlined">description</span>
-              </div>
-              <div>
-                <h3 className="text-title-lg font-title-lg text-on-surface font-bold">Mandatory</h3>
-                <p className="text-label-sm font-label-sm text-on-surface-variant leading-tight">Domicile Certificate is essential</p>
-              </div>
+            <div>
+              <h3 className="text-title-lg font-title-lg text-on-surface font-bold">85%</h3>
+              <p className="text-label-sm font-label-sm text-on-surface-variant leading-tight">Seats reserved for Govt. candidates</p>
             </div>
-            <div className="flex items-center gap-4 rounded-xl border border-outline-variant/60 bg-surface-container-low p-4">
-              <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0">
-                <span className="material-symbols-outlined">account_balance</span>
+          </div>
+          <div className="flex items-center gap-4 rounded-xl border border-outline-variant/60 bg-surface-container-low p-4">
+            <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0">
+              <span className="material-symbols-outlined">description</span>
+            </div>
+            <div>
+              <h3 className="text-title-lg font-title-lg text-on-surface font-bold">Mandatory</h3>
+              <p className="text-label-sm font-label-sm text-on-surface-variant leading-tight">Domicile Certificate is essential</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 rounded-xl border border-outline-variant/60 bg-surface-container-low p-4">
+            <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0">
+              <span className="material-symbols-outlined">account_balance</span>
+            </div>
+            <div>
+              <h3 className="text-title-lg font-title-lg text-on-surface font-bold">State Body</h3>
+              <p className="text-label-sm font-label-sm text-on-surface-variant leading-tight">Independent state counseling</p>
+            </div>
+          </div>
+        </div>
+
+        <QuotaInfoGrid
+          items={[
+            {
+              icon: "home_pin",
+              title: "Domicile is state-specific",
+              body: "A certificate accepted in one state may not satisfy another state's medical admission rules. Always read the current state information bulletin.",
+            },
+            {
+              icon: "school",
+              title: "Schooling can matter",
+              body: "Several states use Class 10, Class 12, parent service, or local education clauses in addition to domicile proof.",
+            },
+            {
+              icon: "event_available",
+              title: "State timelines are independent",
+              body: "State counselling can begin after MCC rounds or overlap with them, so track registration, verification, merit list, and choice-locking dates separately.",
+            },
+          ]}
+        />
+
+        <QuotaTheoryPanel {...quotaTheoryContent.state} />
+      </div>
+
+      {/* State Selection Filter & Detailed View */}
+      <div id="state-directory" className="space-y-6">
+        <section className="flex flex-col items-center gap-6 py-8">
+          <h2 className="font-headline-md text-xl font-bold md:text-2xl text-on-surface">Explore State-Specific Quotas</h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            {([
+              { id: "gujarat", label: "Gujarat" },
+              { id: "maharashtra", label: "Maharashtra" },
+              { id: "mp", label: "Madhya Pradesh" },
+              { id: "rajasthan", label: "Rajasthan" },
+            ] as const).map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  setActiveTab(tab.id);
+                }}
+                className={`px-3 py-2 rounded-full border text-body-sm flex items-center gap-2 transition-colors active:scale-95 font-bold uppercase tracking-wider ${activeTab === tab.id
+                    ? "border-primary bg-primary text-on-primary shadow-sm"
+                    : "border-outline text-on-surface-variant hover:bg-surface-container-high"
+                  }`}
+              >
+                <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: activeTab === tab.id ? "'FILL' 1" : "'FILL' 0" }}>location_on</span> {tab.label}
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-0 transition-shadow hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
+          <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+            <div className="flex items-center gap-3">
+              <h2 className="text-headline-sm font-headline-sm flex items-center gap-2 font-bold">
+                <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>account_balance</span>
+                {content.title}
+              </h2>
+            </div>
+            <a className="text-primary text-body-md hover:underline flex items-center gap-1 font-bold uppercase tracking-wider" href={content.portalUrl} target="_blank" rel="noopener noreferrer">
+              Official Portal <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+            </a>
+          </div>
+          <div className="divide-y divide-outline-variant">
+            {content.rows.map((row, idx) => (
+              <div key={idx} className="grid grid-cols-1 md:grid-cols-3 p-4 items-center hover:bg-surface-container-low/50 transition-colors">
+                <div className="text-body-sm text-on-surface-variant font-bold uppercase tracking-wider">{row.parameter}</div>
+                <div className="col-span-2 text-body-sm font-medium leading-relaxed">{row.detail}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* Seat Matrix Distribution */}
+      <section id="seat-matrix" className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-headline-sm font-headline-sm font-bold">Seat Matrix Distribution</h3>
+          <span className="text-label-sm bg-surface-container-high px-2 py-1 rounded font-bold uppercase tracking-wider">
+            {activeTab === "mp" ? "MADHYA PRADESH" : activeTab.toUpperCase()} STATE
+          </span>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <p className="text-body-sm text-on-surface-variant mb-4 leading-relaxed">A visual breakdown of how seats are allocated across different institutional categories in the state quota.</p>
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between text-label-md mb-1">
+                  <span className="font-bold text-on-surface">Government Seats</span>
+                  <span className="font-bold text-primary">{matrix.govt}%</span>
+                </div>
+                <div className="w-full h-2 bg-surface-container rounded-full overflow-hidden border border-outline-variant/30">
+                  <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${matrix.govt}%` }}></div>
+                </div>
               </div>
               <div>
-                <h3 className="text-title-lg font-title-lg text-on-surface font-bold">State Body</h3>
-                <p className="text-label-sm font-label-sm text-on-surface-variant leading-tight">Independent state counseling</p>
+                <div className="flex justify-between text-label-md mb-1">
+                  <span className="font-bold text-on-surface">Management Quota</span>
+                  <span className="font-bold text-secondary">{matrix.mq}%</span>
+                </div>
+                <div className="w-full h-2 bg-surface-container rounded-full overflow-hidden border border-outline-variant/30">
+                  <div className="h-full bg-secondary rounded-full transition-all duration-500" style={{ width: `${matrix.mq}%` }}></div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-label-md mb-1">
+                  <span className="font-bold text-on-surface">NRI Quota</span>
+                  <span className="font-bold text-tertiary-container">{matrix.nri}%</span>
+                </div>
+                <div className="w-full h-2 bg-surface-container rounded-full overflow-hidden border border-outline-variant/30">
+                  <div className="h-full bg-tertiary-container rounded-full transition-all duration-500" style={{ width: `${matrix.nri}%` }}></div>
+                </div>
               </div>
             </div>
           </div>
-
-          <QuotaInfoGrid
-            items={[
-              {
-                icon: "home_pin",
-                title: "Domicile is state-specific",
-                body: "A certificate accepted in one state may not satisfy another state's medical admission rules. Always read the current state information bulletin.",
-              },
-              {
-                icon: "school",
-                title: "Schooling can matter",
-                body: "Several states use Class 10, Class 12, parent service, or local education clauses in addition to domicile proof.",
-              },
-              {
-                icon: "event_available",
-                title: "State timelines are independent",
-                body: "State counselling can begin after MCC rounds or overlap with them, so track registration, verification, merit list, and choice-locking dates separately.",
-              },
-            ]}
-          />
-
-          <QuotaTheoryPanel {...quotaTheoryContent.state} />
-
-          {/* State Selection Filter */}
-          <section className="flex flex-col items-center gap-6 py-8">
-            <h2 className="font-headline-md text-xl font-bold md:text-2xl text-on-surface">Explore State-Specific Quotas</h2>
-            <div className="flex flex-wrap justify-center gap-3">
-              {([
-                { id: "gujarat", label: "Gujarat" },
-                { id: "maharashtra", label: "Maharashtra" },
-                { id: "mp", label: "Madhya Pradesh" },
-                { id: "rajasthan", label: "Rajasthan" },
-              ] as const).map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => {
-                    setActiveTab(tab.id);
-                  }}
-                  className={`px-3 py-2 rounded-full border text-body-sm flex items-center gap-2 transition-colors active:scale-95 font-bold uppercase tracking-wider ${activeTab === tab.id
-                      ? "border-primary bg-primary text-on-primary shadow-sm"
-                      : "border-outline text-on-surface-variant hover:bg-surface-container-high"
-                    }`}
-                >
-                  <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: activeTab === tab.id ? "'FILL' 1" : "'FILL' 0" }}>location_on</span> {tab.label}
-                </button>
-              ))}
+          <div className="relative flex items-center justify-center p-4 border border-outline-variant/40 rounded-xl bg-surface-bright overflow-hidden">
+            <div className="text-center z-10">
+              <div className="text-display-lg font-bold text-primary">{matrix.total}</div>
+              <div className="text-label-md text-on-surface-variant font-bold uppercase tracking-wider mt-1">TOTAL STATE SEATS</div>
             </div>
-          </section>
-
-          {/* Detailed View */}
-          <section className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-0 transition-shadow hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
-            <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
-              <div className="flex items-center gap-3">
-                <h2 className="text-headline-sm font-headline-sm flex items-center gap-2 font-bold">
-                  <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>account_balance</span>
-                  {content.title}
-                </h2>
-              </div>
-              <a className="text-primary text-body-md hover:underline flex items-center gap-1 font-bold uppercase tracking-wider" href={content.portalUrl} target="_blank" rel="noopener noreferrer">
-                Official Portal <span className="material-symbols-outlined text-[16px]">open_in_new</span>
-              </a>
+            {/* Subtle Background Pattern */}
+            <div className="absolute inset-0 opacity-5 pointer-events-none">
+              <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern height="20" id="grid" patternUnits="userSpaceOnUse" width="20">
+                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect fill="url(#grid)" height="100%" width="100%"></rect>
+              </svg>
             </div>
-            <div className="divide-y divide-outline-variant">
-              {content.rows.map((row, idx) => (
-                <div key={idx} className="grid grid-cols-1 md:grid-cols-3 p-4 items-center hover:bg-surface-container-low/50 transition-colors">
-                  <div className="text-body-sm text-on-surface-variant font-bold uppercase tracking-wider">{row.parameter}</div>
-                  <div className="col-span-2 text-body-sm font-medium leading-relaxed">{row.detail}</div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Seat Matrix Distribution */}
-          <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-headline-sm font-headline-sm font-bold">Seat Matrix Distribution</h3>
-              <span className="text-label-sm bg-surface-container-high px-2 py-1 rounded font-bold uppercase tracking-wider">
-                {activeTab === "mp" ? "MADHYA PRADESH" : activeTab.toUpperCase()} STATE
-              </span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <p className="text-body-sm text-on-surface-variant mb-4 leading-relaxed">A visual breakdown of how seats are allocated across different institutional categories in the state quota.</p>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-label-md mb-1">
-                      <span className="font-bold text-on-surface">Government Seats</span>
-                      <span className="font-bold text-primary">{matrix.govt}%</span>
-                    </div>
-                    <div className="w-full h-2 bg-surface-container rounded-full overflow-hidden border border-outline-variant/30">
-                      <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${matrix.govt}%` }}></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-label-md mb-1">
-                      <span className="font-bold text-on-surface">Management Quota</span>
-                      <span className="font-bold text-secondary">{matrix.mq}%</span>
-                    </div>
-                    <div className="w-full h-2 bg-surface-container rounded-full overflow-hidden border border-outline-variant/30">
-                      <div className="h-full bg-secondary rounded-full transition-all duration-500" style={{ width: `${matrix.mq}%` }}></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-label-md mb-1">
-                      <span className="font-bold text-on-surface">NRI Quota</span>
-                      <span className="font-bold text-tertiary-container">{matrix.nri}%</span>
-                    </div>
-                    <div className="w-full h-2 bg-surface-container rounded-full overflow-hidden border border-outline-variant/30">
-                      <div className="h-full bg-tertiary-container rounded-full transition-all duration-500" style={{ width: `${matrix.nri}%` }}></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="relative flex items-center justify-center p-4 border border-outline-variant rounded-xl bg-surface-bright overflow-hidden">
-                <div className="text-center z-10">
-                  <div className="text-display-lg font-bold text-primary">{matrix.total}</div>
-                  <div className="text-label-md text-on-surface-variant font-bold uppercase tracking-wider mt-1">TOTAL STATE SEATS</div>
-                </div>
-                {/* Subtle Background Pattern */}
-                <div className="absolute inset-0 opacity-5 pointer-events-none">
-                  <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <pattern height="20" id="grid" patternUnits="userSpaceOnUse" width="20">
-                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5"></path>
-                      </pattern>
-                    </defs>
-                    <rect fill="url(#grid)" height="100%" width="100%"></rect>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Comparison Tool */}
-          <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-surface-container-low shadow-sm">
-                <span className="material-symbols-outlined text-primary text-[32px]">compare_arrows</span>
-              </div>
-              <div>
-                <h3 className="text-title-lg font-title-lg font-bold">State vs All India Quota (AIQ)</h3>
-                <p className="text-body-sm text-on-surface-variant">Deciding where to apply? See the difference in cutoffs and fees.</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="rounded-xl border border-outline-variant bg-surface-container-low p-4 transition-shadow hover:shadow-md">
-                <h4 className="font-bold mb-2 flex items-center gap-2 text-on-surface">
-                  <span className="material-symbols-outlined text-blue-500" style={{ fontVariationSettings: "'FILL' 1" }}>public</span> AIQ (15%)
-                </h4>
-                <ul className="text-body-sm space-y-2 text-on-surface-variant">
-                  <li className="flex gap-2"><span className="text-green-500 font-bold">✓</span> Higher cutoff scores required</li>
-                  <li className="flex gap-2"><span className="text-green-500 font-bold">✓</span> Any Indian citizen can apply</li>
-                  <li className="flex gap-2"><span className="text-green-500 font-bold">✓</span> Centralized MCC Counseling</li>
-                </ul>
-              </div>
-              <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 transition-shadow hover:shadow-md">
-                <h4 className="font-bold mb-2 flex items-center gap-2 text-primary">
-                  <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span> State Quota (85%)
-                </h4>
-                <ul className="text-body-sm space-y-2 text-on-surface-variant">
-                  <li className="flex gap-2"><span className="text-primary font-bold">✓</span> Significant rank advantage</li>
-                  <li className="flex gap-2"><span className="text-primary font-bold">✓</span> Strict domicile requirements</li>
-                  <li className="flex gap-2"><span className="text-primary font-bold">✓</span> Specific state-wise rules</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          <QuotaProcessList
-            title="State Quota Preparation Flow"
-            subtitle="Complete these steps before the state registration window opens."
-            steps={[
-              { title: "Read the state bulletin", body: "Confirm eligibility clauses, document formats, verification centers, bond terms, and category certificate validity." },
-              { title: "Build a college list", body: "Use state quota closing ranks by category, fee type, bond, and location instead of comparing only all-India rank." },
-              { title: "Attend verification", body: "Many states require physical document verification or help-center confirmation before merit list publication." },
-              { title: "Lock choices carefully", body: "Choice locking rules, upgrade options, and resignation windows vary by state and can affect later rounds." },
-            ]}
-          />
+          </div>
         </div>
+      </section>
 
-        {/* Right Sidebar Area (4 Columns) */}
-        <aside className="col-span-12 lg:col-span-4 space-y-6 lg:sticky lg:top-24">
-
-          {/* Live College Predictor Card */}
-          <section className="overflow-hidden rounded-2xl border border-primary/20 bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)] transition-all">
-            <div className="flex items-center gap-3.5 mb-4">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary shadow-sm">
-                <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 0" }}>
-                  online_prediction
-                </span>
-              </div>
-              <div>
-                <h3 className="text-base font-extrabold tracking-tight text-on-surface md:text-lg">NEET UG College Predictor</h3>
-                <p className="text-xs text-on-surface-variant leading-relaxed">Our live predictor is ready for you</p>
-              </div>
-            </div>
-
-            <p className="text-sm text-on-surface-variant leading-relaxed mb-5">
-              Don&apos;t guess your admission chances. Our live intelligent data engine cross-references your NEET Rank, Category, and State Domicile to give you a definitive prediction map.
-            </p>
-
-            <div className="space-y-3.5 mb-6">
-              <div className="flex items-center gap-2.5 text-xs font-semibold text-on-surface">
-                <span className="material-symbols-outlined text-primary text-base">check_circle</span>
-                Automatic 85% State Quota Logic
-              </div>
-              <div className="flex items-center gap-2.5 text-xs font-semibold text-on-surface">
-                <span className="material-symbols-outlined text-primary text-base">check_circle</span>
-                Real-time seat matrix & fees
-              </div>
-              <div className="flex items-center gap-2.5 text-xs font-semibold text-on-surface">
-                <span className="material-symbols-outlined text-primary text-base">check_circle</span>
-                Category conversion rules supported
-              </div>
-            </div>
-
-            <Link
-              href="/college-predictor"
-              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-on-primary transition hover:bg-primary-hover active:scale-95 shadow-sm"
-            >
-              Go to College Predictor
-              <span className="material-symbols-outlined text-sm">arrow_forward</span>
-            </Link>
-          </section>
-
-          {/* Warning Card */}
-          <section className="relative overflow-hidden rounded-2xl border border-primary/15 bg-primary-container p-6 text-on-primary-container shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
-            <div className="relative z-10">
-              <h4 className="font-bold text-headline-sm mb-2">SEBC Rule</h4>
-              <p className="text-body-sm opacity-90 mb-4 leading-relaxed">
-                Gujarat follows strict SEBC (Socially and Educationally Backward Classes) norms. A valid Non-Creamy Layer (NCL) certificate from Gujarat is mandatory.
-              </p>
-              <div className="flex items-center gap-2 text-label-md font-bold uppercase tracking-wider">
-                <span className="material-symbols-outlined text-[18px]">info</span>
-                Check validity before Aug 2026
-              </div>
-            </div>
-            {/* Decorative Icon */}
-            <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-[120px] opacity-10 rotate-12 pointer-events-none" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
-          </section>
-
-          {/* Documentation Sticky */}
-          <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
-            <h3 className="text-title-lg mb-4 flex items-center gap-2 font-bold text-on-surface">
-              <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>description</span>
-              Mandatory Documentation
-            </h3>
-            <ul className="space-y-3">
-              {docs.map((doc, idx) => (
-                <li key={idx} className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-green-600 text-[20px] shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                  <span className="text-body-sm text-on-surface-variant font-medium leading-relaxed">{doc}</span>
-                </li>
-              ))}
+      {/* Comparison Tool */}
+      <section id="comparison" className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-surface-container-low shadow-sm">
+            <span className="material-symbols-outlined text-primary text-[32px]">compare_arrows</span>
+          </div>
+          <div>
+            <h3 className="text-title-lg font-title-lg font-bold">State vs All India Quota (AIQ)</h3>
+            <p className="text-body-sm text-on-surface-variant">Deciding where to apply? See the difference in cutoffs and fees.</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="rounded-xl border border-outline-variant/40 bg-surface-container-low p-4 transition-shadow hover:shadow-md">
+            <h4 className="font-bold mb-2 flex items-center gap-2 text-on-surface">
+              <span className="material-symbols-outlined text-blue-500" style={{ fontVariationSettings: "'FILL' 1" }}>public</span> AIQ (15%)
+            </h4>
+            <ul className="text-body-sm space-y-2 text-on-surface-variant">
+              <li className="flex gap-2"><span className="text-green-500 font-bold">✓</span> Higher cutoff scores required</li>
+              <li className="flex gap-2"><span className="text-green-500 font-bold">✓</span> Any Indian citizen can apply</li>
+              <li className="flex gap-2"><span className="text-green-500 font-bold">✓</span> Centralized MCC Counseling</li>
             </ul>
-            <div className="mt-6 p-4 bg-surface-container-highest rounded-lg border border-outline-variant/30">
-              <p className="text-label-sm text-on-surface-variant flex items-center gap-2 font-bold uppercase tracking-wider">
-                <span className="material-symbols-outlined text-[16px] text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>lightbulb</span>
-                Tip: Document verification requires physical presence at Help Centers.
-              </p>
-            </div>
-          </section>
+          </div>
+          <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 transition-shadow hover:shadow-md">
+            <h4 className="font-bold mb-2 flex items-center gap-2 text-primary">
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span> State Quota (85%)
+            </h4>
+            <ul className="text-body-sm space-y-2 text-on-surface-variant">
+              <li className="flex gap-2"><span className="text-primary font-bold">✓</span> Significant rank advantage</li>
+              <li className="flex gap-2"><span className="text-primary font-bold">✓</span> Strict domicile requirements</li>
+              <li className="flex gap-2"><span className="text-primary font-bold">✓</span> Specific state-wise rules</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-        </aside>
+      <div id="prep-flow">
+        <QuotaProcessList
+          title="State Quota Preparation Flow"
+          subtitle="Complete these steps before the state registration window opens."
+          steps={[
+            { title: "Read the state bulletin", body: "Confirm eligibility clauses, document formats, verification centers, bond terms, and category certificate validity." },
+            { title: "Build a college list", body: "Use state quota closing ranks by category, fee type, bond, and location instead of comparing only all-India rank." },
+            { title: "Attend verification", body: "Many states require physical document verification or help-center confirmation before merit list publication." },
+            { title: "Lock choices carefully", body: "Choice locking rules, upgrade options, and resignation windows vary by state and can affect later rounds." },
+          ]}
+        />
       </div>
 
       {/* Large CTA Section */}
@@ -380,7 +393,6 @@ export function StateQuotaView() {
           }
         ]}
       />
-
     </QuotaPageShell>
   );
 }

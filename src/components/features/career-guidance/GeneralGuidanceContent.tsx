@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { Container } from "@/components/common/Container";
+import { guideCardClass, summaryHighlightCardClass } from "@/lib/neet-ug-2026/section-styles";
+import { cn } from "@/lib/utils";
 
 const ASSESSMENT_PILLARS = [
   {
@@ -54,7 +56,7 @@ export function GeneralGuidanceContent() {
 
           <div className="grid gap-6 md:grid-cols-3">
             {ASSESSMENT_PILLARS.map((p, idx) => (
-              <div key={idx} className="bg-surface-container-low border border-outline-variant/60 p-6 rounded-3xl space-y-3 shadow-xs">
+              <div key={idx} className={cn(guideCardClass, "space-y-3 bg-surface border-outline-variant/40")}>
                 <h3 className="font-black text-sm text-primary">{p.title}</h3>
                 <p className="text-xs text-on-surface-variant leading-relaxed">{p.desc}</p>
               </div>
@@ -63,7 +65,7 @@ export function GeneralGuidanceContent() {
         </div>
 
         {/* Aptitude Parameters Section */}
-        <div className="bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.02] border border-outline-variant p-6 md:p-10 rounded-3xl shadow-clinical-soft">
+        <div className={cn(guideCardClass, "bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.02] border-outline-variant/40 md:p-10")}>
           <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-5 space-y-4">
               <span className="text-[10px] font-black text-primary bg-primary/10 px-2.5 py-1 rounded-md uppercase tracking-wider font-semibold">Assessment Parameters</span>
@@ -74,7 +76,7 @@ export function GeneralGuidanceContent() {
             </div>
             <div className="lg:col-span-7 grid gap-4 sm:grid-cols-2">
               {APTITUDE_PARAMETERS.map((ap, idx) => (
-                <div key={idx} className="bg-surface border border-outline-variant/40 p-4.5 rounded-2xl">
+                <div key={idx} className={cn(summaryHighlightCardClass, "border-outline-variant/40 bg-surface-container-lowest")}>
                   <h4 className="text-xs font-black text-on-surface flex items-center gap-1.5">
                     <span className="material-symbols-outlined text-sm text-primary">psychology</span>
                     {ap.name}
@@ -120,7 +122,7 @@ export function GeneralGuidanceContent() {
             <h4 className="text-xs font-black text-on-surface uppercase tracking-wider">Verification Document Checklist</h4>
             <div className="space-y-2.5">
               {DOCUMENTS_CHECKLIST.map((d, idx) => (
-                <div key={idx} className="border border-outline-variant/60 rounded-2xl bg-surface-container-lowest overflow-hidden">
+                <div key={idx} className="border border-outline-variant/40 rounded-2xl bg-surface-container-lowest overflow-hidden">
                   <button
                     onClick={() => setOpenDoc(openDoc === idx ? null : idx)}
                     className="w-full text-left px-4.5 py-3.5 flex items-center justify-between text-xs font-bold text-on-surface hover:bg-surface-container-low cursor-pointer transition-colors"
@@ -131,7 +133,7 @@ export function GeneralGuidanceContent() {
                     </span>
                   </button>
                   {openDoc === idx && (
-                    <div className="px-4.5 pb-3.5 pt-1 text-[11px] text-on-surface-variant leading-relaxed border-t border-outline-variant/30 bg-surface-container-low/20">
+                    <div className="px-4.5 pb-3.5 pt-1 text-[11px] text-on-surface-variant leading-relaxed border-t border-outline-variant/40 bg-surface-container-low/20">
                       {d.detail}
                     </div>
                   )}
@@ -145,3 +147,4 @@ export function GeneralGuidanceContent() {
     </section>
   );
 }
+

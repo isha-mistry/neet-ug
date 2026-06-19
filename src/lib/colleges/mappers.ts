@@ -150,6 +150,8 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
     stateClosingRank: c.closing_state_merit_rank ? Number(c.closing_state_merit_rank) : undefined,
     categoryOpeningRank: c.opening_category_rank ?? undefined,
     categoryClosingRank: c.closing_category_rank ?? undefined,
+    dbCategory: c.category,
+    dbSeatType: c.seat_type,
   }));
 
   // 2. Map fee schedules

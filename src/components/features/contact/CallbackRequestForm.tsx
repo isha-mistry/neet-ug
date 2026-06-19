@@ -3,6 +3,8 @@
 import React, { useState, type FormEvent } from "react";
 import { Container } from "@/components/common/Container";
 import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
+import { guideCardClass } from "@/lib/neet-ug-2026/section-styles";
+import { cn } from "@/lib/utils";
 
 const TIME_SLOTS = [
     "Morning (10:00 AM - 12:00 PM)",
@@ -51,15 +53,15 @@ export function CallbackRequestForm() {
     return (
         <section id="callback-section" className="py-12 bg-surface">
             <Container size="page">
-                <div className="rounded-3xl bg-linear-to-br from-primary/55 via-primary-fixed to-surface-container-low p-[1px] shadow-[0_20px_56px_-30px_color-mix(in_srgb,var(--color-primary)_52%,transparent)]">
-                <div className="rounded-[calc(1.5rem-1px)] bg-surface-container-lowest p-6 shadow-clinical-soft md:p-10">
+                <div className="rounded-[1.75rem] bg-linear-to-br from-primary/55 via-primary-fixed to-surface-container-low p-px shadow-[0_20px_56px_-30px_color-mix(in_srgb,var(--color-primary)_52%,transparent)]">
+                <div className={cn(guideCardClass, "rounded-[calc(1.75rem-1px)] border-0 bg-surface-container-lowest p-6 md:p-10")}>
                     <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
                         {/* Context Text - Left Column */}
                         <div className="space-y-4 lg:col-span-5">
-                            <div className="inline-flex items-center gap-1.5 rounded-full bg-primary-fixed px-3 py-1 text-primary border border-primary/10">
-                                <span className="material-symbols-outlined text-xs font-semibold">check</span>
-                                <span className="font-label-md text-[9px] uppercase tracking-wider font-bold">Quick Callback</span>
-                            </div>
+                            <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-primary-fixed px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                                <span className="material-symbols-outlined block text-sm leading-none">check</span>
+                                Quick Callback
+                            </span>
                             <h2 className="text-3xl font-black text-on-surface tracking-tight">
                                 Prefer a phone call?
                             </h2>
@@ -163,3 +165,4 @@ export function CallbackRequestForm() {
         </section>
     );
 }
+

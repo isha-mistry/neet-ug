@@ -3,6 +3,8 @@
 import React from "react";
 import { Container } from "@/components/common/Container";
 import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
+import { guideCardClass, hubCardHoverClass } from "@/lib/neet-ug-2026/section-styles";
+import { cn } from "@/lib/utils";
 
 const CONTACT_CHANNELS = [
     {
@@ -50,7 +52,7 @@ export function ContactInfoGrid() {
                 {/* Header split layout */}
                 <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
                     <div>
-                        <span className="text-[10px] font-black uppercase tracking-[0.16em] text-primary">
+                        <span className="mb-1 block text-label-md font-label-md uppercase tracking-wider text-primary">
                             Contact options
                         </span>
                         <h2 className="mt-2 text-2xl font-black tracking-tight text-on-surface md:text-3xl">
@@ -68,7 +70,12 @@ export function ContactInfoGrid() {
                     {CONTACT_CHANNELS.map((item, idx) => (
                         <div
                             key={idx}
-                            className={`group flex min-h-[190px] flex-col justify-between rounded-3xl border border-outline-variant bg-surface-container-lowest p-6 shadow-clinical-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-clinical-hover ${item.hoverColor}`}
+                            className={cn(
+                                guideCardClass,
+                                hubCardHoverClass,
+                                "group flex min-h-[190px] flex-col justify-between",
+                                item.hoverColor
+                            )}
                         >
                             <div>
                                 {/* Icon Container */}

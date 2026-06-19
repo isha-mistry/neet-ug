@@ -38,7 +38,7 @@ export function ContactFaqs() {
       <Container size="page">
         <div className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-[0.16em] text-primary">
+            <span className="mb-1 block text-label-md font-label-md uppercase tracking-wider text-primary">
               Common questions
             </span>
             <h2 className="mt-2 text-2xl font-black tracking-tight text-on-surface md:text-3xl">
@@ -50,13 +50,13 @@ export function ContactFaqs() {
             </p>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-clinical-soft">
+          <div className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
             {FAQS.map((faq, index) => {
               const isOpen = openIndex === index;
               return (
                 <div
                   key={index}
-                  className="border-b border-outline-variant/70 last:border-b-0"
+                  className="border-b border-outline-variant/40 last:border-b-0"
                 >
                   <button
                     onClick={() => toggleFaq(index)}
@@ -68,7 +68,7 @@ export function ContactFaqs() {
                     </span>
                   </button>
                   <div
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-[220px] border-t border-outline-variant/30" : "max-h-0"
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-[220px] border-t border-outline-variant/40" : "max-h-0"
                       }`}
                   >
                     <p className="p-5 text-sm font-medium leading-relaxed text-on-surface-variant">

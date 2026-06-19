@@ -2,6 +2,8 @@
 
 import React from "react";
 import { Container } from "@/components/common/Container";
+import { guideCardClass } from "@/lib/neet-ug-2026/section-styles";
+import { cn } from "@/lib/utils";
 
 export function CareerRoadmaps() {
   return (
@@ -18,7 +20,7 @@ export function CareerRoadmaps() {
 
         <div className="grid gap-8 md:grid-cols-2">
           {/* MBBS Roadmap */}
-          <div className="bg-surface border border-outline-variant p-6 md:p-8 rounded-3xl shadow-clinical-soft">
+          <div className={guideCardClass}>
             <h3 className="text-lg font-black text-on-surface mb-6 flex items-center gap-2">
               <span className="material-symbols-outlined text-primary">healing</span>
               MBBS Specialization Timeline
@@ -58,7 +60,7 @@ export function CareerRoadmaps() {
           </div>
 
           {/* BDS Roadmap */}
-          <div className="bg-surface border border-outline-variant p-6 md:p-8 rounded-3xl shadow-clinical-soft">
+          <div className={guideCardClass}>
             <h3 className="text-lg font-black text-on-surface mb-6 flex items-center gap-2">
               <span className="material-symbols-outlined text-primary">masks</span>
               BDS Dentistry Timeline
@@ -92,7 +94,7 @@ export function CareerRoadmaps() {
           </div>
 
           {/* BAMS Roadmap */}
-          <div className="bg-surface border border-outline-variant p-6 md:p-8 rounded-3xl shadow-clinical-soft">
+          <div className={guideCardClass}>
             <h3 className="text-lg font-black text-on-surface mb-6 flex items-center gap-2">
               <span className="material-symbols-outlined text-primary">spa</span>
               BAMS Ayurveda Timeline
@@ -126,7 +128,7 @@ export function CareerRoadmaps() {
           </div>
 
           {/* Nursing Roadmap */}
-          <div className="bg-surface border border-outline-variant p-6 md:p-8 rounded-3xl shadow-clinical-soft">
+          <div className={guideCardClass}>
             <h3 className="text-lg font-black text-on-surface mb-6 flex items-center gap-2">
               <span className="material-symbols-outlined text-primary">medical_services</span>
               B.Sc Nursing Science Timeline
@@ -163,3 +165,4 @@ export function CareerRoadmaps() {
     </section>
   );
 }
+

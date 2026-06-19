@@ -2,6 +2,8 @@
 
 import React from "react";
 import { Container } from "@/components/common/Container";
+import { guideTableWrapClass, guideTableClass } from "@/lib/neet-ug-2026/section-styles";
+import { cn } from "@/lib/utils";
 
 const COMPARISON_ROWS = [
     { name: "MBBS", duration: "5.5 Years", fees: "Govt: ₹50k-3L | Private: ₹40L-1.2Cr", govt: "Excellent", private: "Highly Profitable", balance: "Demanding", growth: "Outstanding" },
@@ -27,37 +29,36 @@ export function CareerComparisonTable() {
                 </div>
 
                 {/* Interactive Table Wrapper */}
-                <div className="overflow-hidden rounded-3xl border border-outline-variant bg-surface-container-lowest shadow-clinical-soft">
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="bg-surface-container-high border-b border-outline-variant">
-                                    <th className="px-5 py-4 text-xs font-black uppercase tracking-wider text-on-surface-variant">Course</th>
-                                    <th className="px-5 py-4 text-xs font-black uppercase tracking-wider text-on-surface-variant">Duration</th>
-                                    <th className="px-5 py-4 text-xs font-black uppercase tracking-wider text-on-surface-variant">Est. Tuition Fees</th>
-                                    <th className="px-5 py-4 text-xs font-black uppercase tracking-wider text-on-surface-variant">Govt Job Prospects</th>
-                                    <th className="px-5 py-4 text-xs font-black uppercase tracking-wider text-on-surface-variant">Private Practice</th>
-                                    <th className="px-5 py-4 text-xs font-black uppercase tracking-wider text-on-surface-variant">Work-Life Balance</th>
-                                    <th className="px-5 py-4 text-xs font-black uppercase tracking-wider text-on-surface-variant">Career Growth</th>
+                <div className={guideTableWrapClass}>
+                    <table className={guideTableClass}>
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Duration</th>
+                                <th>Est. Tuition Fees</th>
+                                <th>Govt Job Prospects</th>
+                                <th>Private Practice</th>
+                                <th>Work-Life Balance</th>
+                                <th>Career Growth</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {COMPARISON_ROWS.map((row, idx) => (
+                                <tr key={idx}>
+                                    <td className="font-bold text-on-surface">{row.name}</td>
+                                    <td>{row.duration}</td>
+                                    <td className="font-semibold text-primary">{row.fees}</td>
+                                    <td>{row.govt}</td>
+                                    <td>{row.private}</td>
+                                    <td>{row.balance}</td>
+                                    <td className="font-bold text-on-surface">{row.growth}</td>
                                 </tr>
-                            </thead>
-                            <tbody className="divide-y divide-outline-variant">
-                                {COMPARISON_ROWS.map((row, idx) => (
-                                    <tr key={idx} className="hover:bg-surface-container-low transition-colors even:bg-surface-bright">
-                                        <td className="px-5 py-4.5 font-bold text-xs text-on-surface">{row.name}</td>
-                                        <td className="px-5 py-4.5 text-xs text-on-surface-variant">{row.duration}</td>
-                                        <td className="px-5 py-4.5 text-xs font-semibold text-primary">{row.fees}</td>
-                                        <td className="px-5 py-4.5 text-xs text-on-surface-variant font-medium">{row.govt}</td>
-                                        <td className="px-5 py-4.5 text-xs text-on-surface-variant font-medium">{row.private}</td>
-                                        <td className="px-5 py-4.5 text-xs text-on-surface-variant font-medium">{row.balance}</td>
-                                        <td className="px-5 py-4.5 text-xs font-bold text-on-surface">{row.growth}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </Container>
         </section>
     );
 }
+

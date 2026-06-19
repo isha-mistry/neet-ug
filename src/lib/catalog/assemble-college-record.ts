@@ -395,6 +395,8 @@ function buildCutoffs(row: CollegeCatalogRow): CollegeCutoff[] {
       quota,
       round: c.admissionRound,
       closingRank: closingAir,
+      dbCategory: c.category,
+      dbSeatType: c.seatType,
       ...(c.openingRankAir != null ? { openingRank: c.openingRankAir } : {}),
       ...(c.openingStateMeritRank != null
         ? { stateOpeningRank: Number(c.openingStateMeritRank) }

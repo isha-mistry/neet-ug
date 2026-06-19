@@ -132,6 +132,18 @@
 .journey-home .btn:active {
   transform: translateY(1px);
 }
+.journey-home .btn svg {
+  transition: transform 0.2s cubic-bezier(0.2, 0.6, 0.2, 1);
+  flex-shrink: 0;
+}
+.journey-home .btn:hover svg {
+  transform: translateX(4px);
+}
+.journey-home .tool .btn,
+.journey-home .rescard .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
 .journey-home .btn-blue {
   background: var(--blue);
   color: #fff;
@@ -1410,6 +1422,23 @@
   font-weight: 500;
 }
 
+.journey-home .rounds-footer {
+  text-align: center;
+  margin-top: 60px;
+  max-width: 680px;
+  margin-inline: auto;
+}
+.journey-home .rounds-footer h3 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.015em;
+}
+.journey-home .rounds-footer .lede {
+  margin-inline: auto;
+  margin-bottom: 32px;
+}
+
 .journey-home .packs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1620,6 +1649,21 @@
   margin-top: 18px;
   padding-top: 16px;
   border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.journey-home .tst .who-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1.5px solid var(--blue-tint);
+}
+.journey-home .tst .who-info {
+  min-width: 0;
+  flex: 1;
 }
 .journey-home .tst .who b {
   font-size: 14px;
@@ -1630,6 +1674,7 @@
   font-size: 10.5px;
   color: var(--dim);
   font-weight: 500;
+  display: block;
 }
 .journey-home .mq-note {
   text-align: center;

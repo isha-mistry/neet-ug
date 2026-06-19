@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Container } from "@/components/common/Container";
+import { guideCardClass, hubCardHoverClass } from "@/lib/neet-ug-2026/section-styles";
 import { cn } from "@/lib/utils";
 
 interface Course {
@@ -142,7 +143,7 @@ const COURSES: Course[] = [
     id: "boptom",
     name: "B.Optom",
     fullName: "Bachelor of Optometry",
-    duration: "4 Years (3 Years Academic + 1 Year Internship)",
+    duration: "4.5 Years (3 Years Academic + 1 Year Internship)",
     eligibility: "10+2 with PCB/PCM (min 50%)",
     scope: "Optometrist, Refractionist, Vision Care Consultant, Lab Manager",
     higherEd: "M.Optom, Fellowships in Cornea/Contact Lens, PhD",
@@ -204,7 +205,6 @@ function ExpandableRow({ label, value, valueClassName }: ExpandableRowProps) {
         className={cn(
           "flex justify-between items-center gap-2 cursor-pointer select-none transition-all duration-200 py-1 px-2 -mx-2 rounded-lg",
           "hover:bg-primary/5 active:scale-[0.99]",
-          // isExpanded && "bg-primary/5"
         )}
         title={isExpanded ? "Click to collapse" : "Click to view detail"}
       >
@@ -235,7 +235,7 @@ function ExpandableRow({ label, value, valueClassName }: ExpandableRowProps) {
       {isExpanded && (
         <div
           onClick={() => setIsExpanded(false)}
-          className="mt-1 px-3 py-2.5 rounded-xl bg-surface-container-high/40 border border-outline-variant/30 text-left text-xs font-semibold leading-relaxed text-on-surface cursor-pointer hover:bg-surface-container-high/60 transition-colors"
+          className="mt-1 px-3 py-2.5 rounded-xl bg-surface-container-high/40 border border-outline-variant/40 text-left text-xs font-semibold leading-relaxed text-on-surface cursor-pointer hover:bg-surface-container-high/60 transition-colors"
         >
           {value}
         </div>
@@ -294,7 +294,11 @@ export function CareerExplorer() {
           {filteredCourses.map((course) => (
             <div
               key={course.id}
-              className="group relative flex flex-col justify-between rounded-3xl border border-outline-variant bg-surface p-6 shadow-clinical-soft transition-all duration-300 hover:-translate-y-1 hover:border-primary/45 hover:shadow-clinical-hover"
+              className={cn(
+                guideCardClass,
+                hubCardHoverClass,
+                "flex flex-col justify-between"
+              )}
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -343,3 +347,4 @@ export function CareerExplorer() {
     </section>
   );
 }
+

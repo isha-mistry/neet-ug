@@ -64,6 +64,8 @@ export interface CollegeCutoff {
   stateClosingRank?: number;
   categoryOpeningRank?: string;
   categoryClosingRank?: string;
+  dbCategory?: string;
+  dbSeatType?: string;
 }
 
 export interface CollegeBond {

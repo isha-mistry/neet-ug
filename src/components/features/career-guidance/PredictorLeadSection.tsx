@@ -4,6 +4,7 @@ import React, { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Container } from "@/components/common/Container";
 import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
+import { FormPanel } from "@/components/features/rank-predictor/RankPredictorParts";
 
 const CATEGORY_OPTIONS = ["General", "OBC", "SC", "ST", "EWS"];
 const STATE_OPTIONS = [
@@ -111,11 +112,10 @@ export function PredictorLeadSection() {
 
           {/* Lead Form Column */}
           <div className="lg:col-span-5">
-            <div className="rounded-3xl bg-linear-to-br from-primary/60 via-primary-fixed to-surface-container-low p-[1px] shadow-[0_22px_60px_-30px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]">
-            <div className="rounded-[calc(1.5rem-1px)] bg-surface p-6 shadow-clinical-soft md:p-8">
-              <h3 className="text-lg font-black text-on-surface mb-1">Check Matching Colleges</h3>
-              <p className="text-xs text-on-surface-variant mb-6">Enter details to generate your score mapping and proceed to the predictor.</p>
-
+            <FormPanel
+              title="Check Matching Colleges"
+              subtitle="Enter details to generate your score mapping and proceed to the predictor."
+            >
               <form onSubmit={handleSubmit} className="space-y-4.5">
                 <div>
                   <label className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
@@ -127,7 +127,7 @@ export function PredictorLeadSection() {
                     placeholder="e.g. Rahul Sharma"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
@@ -141,7 +141,7 @@ export function PredictorLeadSection() {
                     placeholder="e.g. 9876543210"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
@@ -158,7 +158,7 @@ export function PredictorLeadSection() {
                       placeholder="e.g. 580"
                       value={score}
                       onChange={(e) => setScore(e.target.value)}
-                      className="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                   </div>
 
@@ -169,7 +169,7 @@ export function PredictorLeadSection() {
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
-                      className="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-3 py-3 text-xs text-on-surface focus:border-primary focus:outline-none"
+                      className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-3 py-3 text-xs text-on-surface focus:border-primary focus:outline-none"
                     >
                       {CATEGORY_OPTIONS.map((cat) => (
                         <option key={cat} value={cat}>
@@ -186,7 +186,7 @@ export function PredictorLeadSection() {
                     <select
                       value={domicile}
                       onChange={(e) => setDomicile(e.target.value)}
-                      className="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-3 py-3 text-xs text-on-surface focus:border-primary focus:outline-none"
+                      className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-3 py-3 text-xs text-on-surface focus:border-primary focus:outline-none"
                     >
                       {STATE_OPTIONS.map((st) => (
                         <option key={st} value={st}>
@@ -211,11 +211,11 @@ export function PredictorLeadSection() {
                   <span className="material-symbols-outlined text-sm">arrow_forward</span>
                 </button>
               </form>
-            </div>
-            </div>
+            </FormPanel>
           </div>
         </div>
       </Container>
     </section>
   );
 }
+

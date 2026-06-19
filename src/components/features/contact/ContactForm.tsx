@@ -82,7 +82,7 @@ export function ContactForm() {
         return (
             <section id="contact-form-section" className="relative z-10 py-12">
                 <Container size="page" className="max-w-2xl">
-                    <div className="rounded-3xl border border-primary/15 bg-primary-fixed/35 p-8 text-center shadow-clinical-soft">
+                    <div className="rounded-3xl border border-primary/15 bg-primary-fixed/35 p-8 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
                         <span className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-on-primary">
                             <span className="material-symbols-outlined text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
                         </span>
@@ -118,7 +118,7 @@ export function ContactForm() {
                 <div className="rounded-3xl bg-linear-to-br from-primary/60 via-primary-fixed to-surface-container-low p-[1px] shadow-[0_22px_60px_-30px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]">
                     <div className="grid gap-8 rounded-[calc(1.5rem-1px)] bg-surface-container-lowest p-5 md:p-7 lg:grid-cols-[320px_minmax(0,1fr)]">
                     <div className="rounded-2xl bg-linear-to-br from-primary-fixed via-surface-container-lowest to-surface-container-low p-5">
-                        <span className="text-[10px] font-black uppercase tracking-[0.16em] text-primary">
+                        <span className="mb-1 block text-label-md font-label-md uppercase tracking-wider text-primary">
                             Detailed inquiry
                         </span>
                         <h2 className="mt-2 text-2xl font-black tracking-tight text-on-surface md:text-3xl">
@@ -155,7 +155,7 @@ export function ContactForm() {
                                     placeholder="As on your NEET scorecard"
                                     value={fullName}
                                     onChange={(e) => setFullName(e.target.value)}
-                                    className="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                 />
                             </div>
 
@@ -168,7 +168,7 @@ export function ContactForm() {
                                     placeholder="e.g. name@example.com"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                 />
                             </div>
                         </div>
@@ -184,7 +184,7 @@ export function ContactForm() {
                                     placeholder="10-digit mobile number"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
-                                    className="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                 />
                             </div>
 
@@ -199,7 +199,7 @@ export function ContactForm() {
                                     placeholder="e.g. 590"
                                     value={score}
                                     onChange={(e) => setScore(e.target.value)}
-                                    className="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                 />
                             </div>
                         </div>
@@ -212,7 +212,7 @@ export function ContactForm() {
                                 <select
                                     value={queryType}
                                     onChange={(e) => setQueryType(e.target.value)}
-                                    className="w-full rounded-xl border border-outline-variant bg-surface-container-low px-3 py-3.5 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-low px-3 py-3.5 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                 >
                                     {QUERY_TYPES.map((q) => (
                                         <option key={q} value={q}>
@@ -229,7 +229,7 @@ export function ContactForm() {
                                 <select
                                     value={preferredState}
                                     onChange={(e) => setPreferredState(e.target.value)}
-                                    className="w-full rounded-xl border border-outline-variant bg-surface-container-low px-3 py-3.5 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-low px-3 py-3.5 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                 >
                                     {PREFERRED_STATES.map((s) => (
                                         <option key={s} value={s}>
@@ -250,7 +250,7 @@ export function ContactForm() {
                                 placeholder="Briefly describe what help you need..."
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
-                                className="w-full resize-none rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                className="w-full resize-none rounded-xl border border-outline-variant/40 bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                             />
                         </div>
 

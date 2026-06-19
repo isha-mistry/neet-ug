@@ -1,103 +1,134 @@
 "use client";
 
 import Link from "next/link";
-import { QuotaHeader, QuotaCta, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
+import { QuotaHeader, QuotaCta, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel, LiveDecisionTools } from "./QuotaShared";
 import {
   mqStatesData as mqStates,
   openClosedStatesData,
   quotaTheoryContent,
 } from "./content";
 
-export function ManagementQuotaView() {
-  return (
-    <QuotaPageShell current="Management Quota">
-      {/* Hero Section: Management Quota Intro */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-        <div className="lg:col-span-8 space-y-6">
-          <QuotaHeader
-            eyebrow="Admission Guide 2026"
-            title="Understanding"
-            highlightedText="Management Quota (MQ)"
-            description="A strategic pathway for medical aspirants seeking admission into private institutions across India, offering flexibility without domicile restrictions. We break down the complexities of MQ seats for the 2026 session."
-            eyebrowIcon="verified"
-            watermarkIcon="payments"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex items-start gap-4 rounded-xl border border-outline-variant/40 bg-surface p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
-              <span className="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">person_check</span>
-              <div>
-                <h3 className="font-title-lg text-title-lg text-on-surface font-bold">Eligibility</h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant">NEET Qualified Candidates Only</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4 rounded-xl border border-outline-variant/40 bg-surface p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
-              <span className="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">public</span>
-              <div>
-                <h3 className="font-title-lg text-title-lg text-on-surface font-bold">Domicile Rules</h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant">Open to all candidates across India</p>
-              </div>
-            </div>
-          </div>
-        </div>
+const MANAGEMENT_QUOTA_JUMP_SECTIONS = [
+  { id: "overview", label: "Overview" },
+  { id: "state-mq", label: "State MQ Cutoffs" },
+  { id: "open-vs-closed", label: "Open vs Closed" },
+  { id: "decision-flow", label: "Decision Flow" },
+];
 
-        {/* Open State Advantage: Glassmorphism / Vibrant CTA */}
-        <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-primary/20 bg-linear-to-br from-primary via-primary to-primary-hover p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)] lg:col-span-4 h-fit">
-          <div className="absolute -right-12 -top-12 opacity-10 pointer-events-none select-none">
-            <span className="material-symbols-outlined text-[180px]">public</span>
+export function ManagementQuotaView() {
+  const header = (
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+      <div className="lg:col-span-8 space-y-6">
+        <QuotaHeader
+          eyebrow="Admission Guide 2026"
+          title="Understanding"
+          highlightedText="Management Quota (MQ)"
+          description="A strategic pathway for medical aspirants seeking admission into private institutions across India, offering flexibility without domicile restrictions. We break down the complexities of MQ seats for the 2026 session."
+          eyebrowIcon="verified"
+          watermarkIcon="payments"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex items-start gap-4 rounded-xl border border-outline-variant/40 bg-surface p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+            <span className="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">person_check</span>
+            <div>
+              <h3 className="font-title-lg text-title-lg text-on-surface font-bold">Eligibility</h3>
+              <p className="font-body-sm text-body-sm text-on-surface-variant">NEET Qualified Candidates Only</p>
+            </div>
           </div>
-          <div className="relative z-10">
-            <span className="material-symbols-outlined text-[36px] mb-4 text-white">language</span>
-            <h2 className="font-headline-md text-headline-md mb-4 font-bold text-white">Open State Advantage</h2>
-            <p className="font-body-sm text-body-sm mb-6 opacity-90 text-white/90 leading-relaxed">
-              Open states allow candidates from any state to apply for their private college management quota seats, presenting excellent options for students with moderate NEET scores.
-            </p>
+          <div className="flex items-start gap-4 rounded-xl border border-outline-variant/40 bg-surface p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+            <span className="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">public</span>
+            <div>
+              <h3 className="font-title-lg text-title-lg text-on-surface font-bold">Domicile Rules</h3>
+              <p className="font-body-sm text-body-sm text-on-surface-variant">Open to all candidates across India</p>
+            </div>
           </div>
-          <a href="#open-states" className="relative z-10 w-full rounded-xl bg-surface-container-lowest py-3 text-center font-label-md font-bold uppercase tracking-wider text-primary transition-colors hover:bg-surface-bright active:scale-95">
-            View Open States List
-          </a>
         </div>
       </div>
 
-      {/* Overview Grid */}
-      <section className="">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="font-headline-md text-headline-md flex items-center gap-2 text-on-surface font-bold">
-            <span className="material-symbols-outlined text-primary text-[28px]">analytics</span>
-            Overview
-          </h2>
-          <span className="text-label-md text-secondary italic tracking-wider">For private college admissions</span>
+      {/* Open State Advantage: Glassmorphism / Vibrant CTA */}
+      <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-primary/20 bg-linear-to-br from-primary via-primary to-primary-hover p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)] lg:col-span-4 h-fit">
+        <div className="absolute -right-12 -top-12 opacity-10 pointer-events-none select-none">
+          <span className="material-symbols-outlined text-[180px]">public</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
-            <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Scope</p>
-            <p className="text-title-lg font-title-lg mb-2 text-on-surface font-bold">~35-50% seats</p>
-            <p className="text-body-sm text-on-surface-variant">In private medical colleges</p>
-          </div>
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
-            <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Counselling</p>
-            <p className="text-title-lg font-title-lg mb-2 text-on-surface font-bold">State Authorities</p>
-            <p className="text-body-sm text-on-surface-variant">Conducted by respective state DME</p>
-          </div>
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
-            <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Annual Fees</p>
-            <p className="text-title-lg font-title-lg mb-2 text-on-surface font-bold">8 Lakhs – 25 Lakhs</p>
-            <p className="text-body-sm text-on-surface-variant">Varies widely by state and college</p>
-          </div>
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
-            <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Domicile Rule</p>
-            <p className="text-title-lg font-title-lg mb-2 text-primary font-bold">Open To All States</p>
-            <p className="text-body-sm text-on-surface-variant">No residency restriction for MQ</p>
-          </div>
-        </div>
-        <div className="mt-6 bg-surface-container-high/50 p-4 rounded-lg flex items-start gap-4 border-l-4 border-primary shadow-sm border-t border-b border-r border-outline-variant/40">
-          <span className="material-symbols-outlined text-primary text-[24px] shrink-0 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>info</span>
-          <p className="text-body-sm text-on-surface leading-relaxed">
-            <strong className="tracking-wider">Process Note:</strong> Management quota registrations and fee submission details vary for each state authority. Candidates must register on the state DME portals during the scheduled windows.
+        <div className="relative z-10">
+          <span className="material-symbols-outlined text-[36px] mb-4 text-white">language</span>
+          <h2 className="font-headline-md text-headline-md mb-4 font-bold text-white">Open State Advantage</h2>
+          <p className="font-body-sm text-body-sm mb-6 opacity-90 text-white/90 leading-relaxed">
+            Open states allow candidates from any state to apply for their private college management quota seats, presenting excellent options for students with moderate NEET scores.
           </p>
         </div>
-      </section>
+        <a href="#open-states" className="relative z-10 w-full rounded-xl bg-surface-container-lowest py-3 text-center font-label-md font-bold uppercase tracking-wider text-primary transition-colors hover:bg-surface-bright active:scale-95">
+          View Open States List
+        </a>
+      </div>
+    </div>
+  );
 
-      <section className="">
+  const sidebar = (
+    <aside className="space-y-6">
+      {/* Live Decision Tools Component */}
+      <LiveDecisionTools highlightId="predictor" />
+
+      {/* Confused about MQ? Card */}
+      <section className="flex flex-col items-center rounded-2xl border border-outline-variant/40 bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+        <span className="material-symbols-outlined text-primary mb-3 text-[32px]">help_center</span>
+        <h4 className="font-title-lg text-title-lg mb-2 font-bold text-on-surface">Need help with private seats?</h4>
+        <p className="font-body-sm text-body-sm text-on-surface-variant mb-4 leading-relaxed">Compare fees, bond, and cutoffs with similar colleges.</p>
+        <div className="flex flex-col gap-2 w-full">
+          <Link href="/compare" className="text-on-surface-variant font-label-md text-xs border border-outline-variant/60 bg-surface px-4 py-2.5 rounded-lg hover:bg-surface-container-low transition-colors font-bold uppercase tracking-wider text-center">Compare colleges</Link>
+          <a href="#counselling-lead-section" className="text-on-primary bg-primary font-label-md text-xs px-4 py-2.5 rounded-lg hover:bg-primary-hover transition-colors font-bold uppercase tracking-wider text-center shadow-md">Free counselling</a>
+        </div>
+      </section>
+    </aside>
+  );
+
+  return (
+    <QuotaPageShell
+      current="Management Quota"
+      header={header}
+      sidebar={sidebar}
+      jumpSections={MANAGEMENT_QUOTA_JUMP_SECTIONS}
+    >
+      {/* Overview Grid */}
+      <div id="overview" className="space-y-10">
+        <section className="pt-2">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="font-headline-md text-headline-md flex items-center gap-2 text-on-surface font-bold">
+              <span className="material-symbols-outlined text-primary text-[28px]">analytics</span>
+              Overview
+            </h2>
+            <span className="text-label-md text-secondary italic tracking-wider">For private college admissions</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
+              <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Scope</p>
+              <p className="text-title-lg font-title-lg mb-2 text-on-surface font-bold">~35-50% seats</p>
+              <p className="text-body-sm text-on-surface-variant">In private medical colleges</p>
+            </div>
+            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
+              <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Counselling</p>
+              <p className="text-title-lg font-title-lg mb-2 text-on-surface font-bold">State Authorities</p>
+              <p className="text-body-sm text-on-surface-variant">Conducted by respective state DME</p>
+            </div>
+            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
+              <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Annual Fees</p>
+              <p className="text-title-lg font-title-lg mb-2 text-on-surface font-bold">8 Lakhs – 25 Lakhs</p>
+              <p className="text-body-sm text-on-surface-variant">Varies widely by state and college</p>
+            </div>
+            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
+              <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Domicile Rule</p>
+              <p className="text-title-lg font-title-lg mb-2 text-primary font-bold">Open To All States</p>
+              <p className="text-body-sm text-on-surface-variant">No residency restriction for MQ</p>
+            </div>
+          </div>
+          <div className="mt-6 bg-surface-container-high/50 p-4 rounded-lg flex items-start gap-4 border-l-4 border-primary shadow-sm border-t border-b border-r border-outline-variant/40">
+            <span className="material-symbols-outlined text-primary text-[24px] shrink-0 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>info</span>
+            <p className="text-body-sm text-on-surface leading-relaxed">
+              <strong className="tracking-wider">Process Note:</strong> Management quota registrations and fee submission details vary for each state authority. Candidates must register on the state DME portals during the scheduled windows.
+            </p>
+          </div>
+        </section>
+
         <QuotaInfoGrid
           items={[
             {
@@ -117,12 +148,12 @@ export function ManagementQuotaView() {
             },
           ]}
         />
-      </section>
 
-      <QuotaTheoryPanel className="" {...quotaTheoryContent.management} />
+        <QuotaTheoryPanel className="" {...quotaTheoryContent.management} />
+      </div>
 
       {/* State-wise Management Quota Directory */}
-      <section id="open-states" className="scroll-mt-24">
+      <section id="state-mq" className="scroll-mt-24">
         <h2 className="font-headline-md text-headline-md mb-2 text-on-surface font-bold">State-wise Management Quotas</h2>
         <p className="text-body-md text-on-surface-variant mb-8 leading-relaxed">Highlights of key medical hubs and their estimated MQ cutoffs.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeIn">
@@ -164,7 +195,7 @@ export function ManagementQuotaView() {
       </section>
 
       {/* Open vs Closed States Comparison */}
-      <section className="">
+      <section id="open-vs-closed">
         <PremiumSectionHeader icon="swap_horiz" title="Open States vs. Closed States Policies" subtitle="Understanding residency eligibility for Private Management seats" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Open States */}
@@ -202,17 +233,18 @@ export function ManagementQuotaView() {
         </div>
       </section>
 
-      <QuotaProcessList
-        className=""
-        title="Management Quota Decision Flow"
-        subtitle="A cleaner way to compare private college options before locking choices."
-        steps={[
-          { title: "Confirm open or restricted status", body: "Check whether the state allows non-domicile candidates for private management seats in the current bulletin." },
-          { title: "Map total payable cost", body: "Compare annual tuition, hostel, refundable deposits, bond penalty, and payment schedule across the full course duration." },
-          { title: "Check college risk factors", body: "Review NMC recognition, permitted intake, hospital load, bond service terms, and recent fee fixation orders." },
-          { title: "Rank choices by fit", body: "Order colleges by academics, affordability, location, and cutoff realism instead of placing the lowest fee option blindly first." },
-        ]}
-      />
+      <div id="decision-flow">
+        <QuotaProcessList
+          title="Management Quota Decision Flow"
+          subtitle="A cleaner way to compare private college options before locking choices."
+          steps={[
+            { title: "Confirm open or restricted status", body: "Check whether the state allows non-domicile candidates for private management seats in the current bulletin." },
+            { title: "Map total payable cost", body: "Compare annual tuition, hostel, refundable deposits, bond penalty, and payment schedule across the full course duration." },
+            { title: "Check college risk factors", body: "Review NMC recognition, permitted intake, hospital load, bond service terms, and recent fee fixation orders." },
+            { title: "Rank choices by fit", body: "Order colleges by academics, affordability, location, and cutoff realism instead of placing the lowest fee option blindly first." },
+          ]}
+        />
+      </div>
 
       {/* Compare Fees Section */}
       <QuotaCta
@@ -231,27 +263,6 @@ export function ManagementQuotaView() {
           }
         ]}
       />
-
-      {/* Confused about MQ? Card */}
-      <section className="flex flex-col items-center justify-between gap-8 rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 md:flex-row md:p-8">
-        <div className="flex-1">
-          <h2 className="font-headline-md text-xl font-bold md:text-2xl text-on-surface mb-2">Not sure if this college fits your rank?</h2>
-          <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed">
-            Compare fees, bond, and cutoffs with similar colleges — or talk to our counselling team for a free second opinion.
-          </p>
-        </div>
-        <div className="flex gap-4 w-full md:w-auto">
-          <button className="w-full md:w-auto bg-surface-container-lowest border border-outline-variant px-6 py-3.5 rounded-lg font-bold text-on-surface-variant hover:bg-surface-container-low transition-colors text-xs cursor-pointer flex items-center justify-center gap-2">
-            <span className="material-symbols-outlined text-primary">view_quilt</span>
-            Compare colleges
-          </button>
-          <button className="w-full md:w-auto bg-primary text-on-primary px-6 py-3.5 rounded-lg font-bold hover:bg-primary-hover transition-all shadow-md text-xs cursor-pointer flex items-center justify-center gap-2 active:scale-[0.98]">
-            <span className="material-symbols-outlined text-white">chat_bubble</span>
-            Free counselling
-          </button>
-        </div>
-      </section>
-
     </QuotaPageShell>
   );
 }

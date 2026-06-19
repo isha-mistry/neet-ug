@@ -114,6 +114,61 @@ export function ScrollJourney({ children }: { children: ReactNode }) {
       }
 
       targetP = mapScrollProgress(raw);
+
+      // Adjust progress for the rounds horizontal track so it transitions exactly while centered on screen
+      const nodes = getNodes();
+      const r1Idx = nodes.findIndex(n => n.textContent?.trim() === "R1");
+      const svIdx = nodes.findIndex(n => n.textContent?.trim() === "SV");
+
+      if (
+        r1Idx !== -1 &&
+        svIdx !== -1 &&
+        nodeFracs[r1Idx] !== undefined &&
+        nodeFracs[svIdx] !== undefined
+      ) {
+        const pStart = nodeFracs[r1Idx];
+        const pEnd = nodeFracs[svIdx];
+        const rpanel = root.querySelector<HTMLElement>("#rpanel");
+        const diffSection = document.getElementById("difference");
+
+        if (rpanel && diffSection) {
+          const pRect = rpanel.getBoundingClientRect();
+          const dRect = diffSection.getBoundingClientRect();
+
+          const yStart = vh * 0.65;
+          const yEnd = vh * 0.35;
+
+          if (pRect.top <= yStart && pRect.top >= yEnd) {
+            // Zone 2: Transitioning
+            const t = (yStart - pRect.top) / (yStart - yEnd);
+            targetP = pStart + t * (pEnd - pStart);
+          } else if (pRect.top > yStart) {
+            // Zone 1: Entering
+            if (targetP > pStart) {
+              targetP = pStart;
+            }
+          } else if (pRect.top < yEnd) {
+            // Zone 3: Resting (hold at pEnd until next section enters)
+            if (dRect.top > vh * 0.75) {
+              targetP = pEnd;
+            } else {
+              // Zone 4: Exiting (smooth transition from pEnd to next node)
+              const dStart = vh * 0.75;
+              const dEnd = vh * 0.42;
+              const pNext = nodeFracs[svIdx + 1] !== undefined ? nodeFracs[svIdx + 1] : pEnd + 0.05;
+
+              if (dRect.top <= dStart && dRect.top >= dEnd) {
+                const t = (dStart - dRect.top) / (dStart - dEnd);
+                targetP = pEnd + t * (pNext - pEnd);
+              } else if (dRect.top < dEnd) {
+                if (targetP < pNext) {
+                  targetP = pNext;
+                }
+              }
+            }
+          }
+        }
+      }
     }
 
     function frame() {

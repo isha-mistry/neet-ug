@@ -15,12 +15,17 @@ import {
 } from "@/lib/neet-ug-2026/section-styles";
 import { cn } from "@/lib/utils";
 
+import { GuidePageJumpNav, type GuideJumpItem } from "@/components/features/mbbs-india/GuidePageJumpNav";
+
 /** Re-export brand card surface for quota page sections. */
 export const quotaCardClass = guideCardClass;
 
 interface QuotaPageShellProps {
   current: string;
   children: ReactNode;
+  header?: ReactNode;
+  sidebar?: ReactNode;
+  jumpSections?: readonly GuideJumpItem[];
   className?: string;
   containerClassName?: string;
 }
@@ -50,11 +55,24 @@ function QuotaBreadcrumbs({ items }: { items: { label: string; href?: string }[]
 export function QuotaPageShell({
   current,
   children,
+  header,
+  sidebar,
+  jumpSections,
   className,
   containerClassName,
 }: QuotaPageShellProps) {
   return (
     <RankPredictorShell className={className}>
+      {jumpSections && (
+        <nav
+          aria-label="Page sections"
+          className="sticky top-16 z-30 border-b border-outline-variant/40 bg-surface/90 backdrop-blur-lg lg:hidden"
+        >
+          <Container size="page" className="py-3">
+            <GuidePageJumpNav variant="horizontal" jumpSections={jumpSections} />
+          </Container>
+        </nav>
+      )}
       <Container size="page" className={cn("py-8 md:py-10", containerClassName)}>
         <div className="relative z-10 mb-8">
           <QuotaBreadcrumbs
@@ -65,7 +83,31 @@ export function QuotaPageShell({
             ]}
           />
         </div>
-        <div className="relative z-10 space-y-10">{children}</div>
+        
+        {header && <div className="relative z-10 mb-8">{header}</div>}
+
+        {jumpSections && sidebar ? (
+          <div className="relative z-10 mt-8 lg:mt-10 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)_minmax(17rem,20rem)] lg:items-start lg:gap-8 xl:grid-cols-[12.5rem_minmax(0,1fr)_22rem] xl:gap-10">
+            <aside
+              className={cn(
+                "sticky top-[4.25rem] z-20 hidden max-h-[calc(100dvh-4.5rem)] self-start overflow-y-auto overscroll-contain",
+                "lg:col-start-1 lg:row-start-1 lg:block lg:w-full"
+              )}
+            >
+              <GuidePageJumpNav variant="sidebar" jumpSections={jumpSections} />
+            </aside>
+
+            <div className="min-w-0 lg:col-start-2 lg:row-start-1 space-y-10">
+              {children}
+            </div>
+
+            <div className="hidden lg:col-start-3 lg:row-start-1 lg:mt-0 lg:block">
+              {sidebar}
+            </div>
+          </div>
+        ) : (
+          <div className="relative z-10 space-y-10">{children}</div>
+        )}
         <QuotaLeadBlock pageLabel={`Quota: ${current}`} />
       </Container>
     </RankPredictorShell>
@@ -74,11 +116,24 @@ export function QuotaPageShell({
 
 interface QuotaOverviewShellProps {
   children: ReactNode;
+  header?: ReactNode;
+  sidebar?: ReactNode;
+  jumpSections?: readonly GuideJumpItem[];
 }
 
-export function QuotaOverviewShell({ children }: QuotaOverviewShellProps) {
+export function QuotaOverviewShell({ children, header, sidebar, jumpSections }: QuotaOverviewShellProps) {
   return (
     <RankPredictorShell>
+      {jumpSections && (
+        <nav
+          aria-label="Page sections"
+          className="sticky top-16 z-30 border-b border-outline-variant/40 bg-surface/90 backdrop-blur-lg lg:hidden"
+        >
+          <Container size="page" className="py-3">
+            <GuidePageJumpNav variant="horizontal" jumpSections={jumpSections} />
+          </Container>
+        </nav>
+      )}
       <Container size="page" className="py-8 md:py-10">
         <div className="mb-8">
           <QuotaBreadcrumbs
@@ -88,7 +143,31 @@ export function QuotaOverviewShell({ children }: QuotaOverviewShellProps) {
             ]}
           />
         </div>
-        <div className="space-y-10">{children}</div>
+
+        {header && <div className="relative mb-8">{header}</div>}
+
+        {jumpSections && sidebar ? (
+          <div className="mt-8 lg:mt-10 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)_minmax(17rem,20rem)] lg:items-start lg:gap-8 xl:grid-cols-[12.5rem_minmax(0,1fr)_22rem] xl:gap-10">
+            <aside
+              className={cn(
+                "sticky top-[4.25rem] z-20 hidden max-h-[calc(100dvh-4.5rem)] self-start overflow-y-auto overscroll-contain",
+                "lg:col-start-1 lg:row-start-1 lg:block lg:w-full"
+              )}
+            >
+              <GuidePageJumpNav variant="sidebar" jumpSections={jumpSections} />
+            </aside>
+
+            <div className="min-w-0 lg:col-start-2 lg:row-start-1 space-y-10">
+              {children}
+            </div>
+
+            <div className="hidden lg:col-start-3 lg:row-start-1 lg:mt-0 lg:block">
+              {sidebar}
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-10">{children}</div>
+        )}
         <QuotaLeadBlock pageLabel="Quota overview" />
       </Container>
     </RankPredictorShell>

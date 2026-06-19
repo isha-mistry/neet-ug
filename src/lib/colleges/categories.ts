@@ -8,7 +8,7 @@ export const CATEGORIES = [
   { value: "obc", label: "OBC / SEBC" },
   { value: "sc", label: "SC" },
   { value: "st", label: "ST" },
-  { value: "management", label: "Management quota" },
+  // { value: "management", label: "Management quota" },
 ] as const;
 
 /**

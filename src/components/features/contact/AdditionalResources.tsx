@@ -3,6 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { Container } from "@/components/common/Container";
+import { guideCardClass, hubCardHoverClass } from "@/lib/neet-ug-2026/section-styles";
+import { cn } from "@/lib/utils";
 
 const RESOURCES = [
     {
@@ -41,7 +43,7 @@ export function AdditionalResources() {
             <Container size="page">
                 <div className="mb-6 flex flex-col justify-between gap-3 md:flex-row md:items-end">
                     <div>
-                        <span className="text-[10px] font-black uppercase tracking-[0.16em] text-primary">
+                        <span className="mb-1 block text-label-md font-label-md uppercase tracking-wider text-primary">
                             Self-service tools
                         </span>
                         <h2 className="mt-2 text-2xl font-black tracking-tight text-on-surface md:text-3xl">
@@ -59,7 +61,11 @@ export function AdditionalResources() {
                         <Link
                             key={idx}
                             href={res.href}
-                            className="group flex min-h-[220px] flex-col justify-between rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-clinical-soft transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-clinical-hover"
+                            className={cn(
+                                guideCardClass,
+                                hubCardHoverClass,
+                                "group flex min-h-[220px] flex-col justify-between"
+                            )}
                         >
                             <div>
                                 <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary-fixed text-primary transition group-hover:bg-primary group-hover:text-on-primary">
@@ -82,3 +88,4 @@ export function AdditionalResources() {
         </section>
     );
 }
+

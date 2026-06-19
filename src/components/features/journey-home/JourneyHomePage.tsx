@@ -20,6 +20,7 @@ import { JourneyHomeEffects } from "./JourneyHomeEffects";
 import { SeatRadarCard, PlaybookForm } from "./SeatRadarCard";
 import { RoundsPanel } from "./RoundsPanel";
 import { JourneyStateHub } from "./JourneyStateCard";
+import Image from "next/image";
 
 type JourneyHomePageProps = {
   hero: HomeHeroContent;
@@ -29,51 +30,51 @@ type JourneyHomePageProps = {
 
 function ProblemIcon({ name }: { name: string }) {
   switch (name) {
-  case "portals":
-    return (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="3" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-        <rect x="13" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-        <rect x="3" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-        <rect x="13" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-      </svg>
-    );
-  case "order":
-    return (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  case "upgrade":
-    return (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
-        <path
-          d="M12 16V8M8.5 11.5L12 8l3.5 3.5"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  default:
-    return (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
+    case "portals":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+          <rect x="13" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+          <rect x="3" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+          <rect x="13" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        </svg>
+      );
+    case "order":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        </svg>
+      );
+    case "upgrade":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+          <path
+            d="M12 16V8M8.5 11.5L12 8l3.5 3.5"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    default:
+      return (
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
   }
 }
 
@@ -212,11 +213,37 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
           <div className="wrap">
             <span className="eyebrow">Step 03 · The reality</span>
             <h2 className="t">
-              Know the <em>funnel</em> you&apos;re in.
+              Know the <em>funnel</em> &nbsp;you&apos;re in.
             </h2>
             <p className="lede">
               Qualifying NEET is not getting a seat. Here is what 2026 actually looks like.
             </p>
+            <div className="hero-ctas" style={{ marginTop: 24 }}>
+              <Link href="/cutoff-analyser" className="btn btn-blue">
+                Check where I stand
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path
+                    d="M3 8h10M9 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
+              <Link href="/neet-ug-2026/counselling-guide" className="btn btn-line">
+                Understand the counselling process
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path
+                    d="M3 8h10M9 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
+            </div>
             <div className="fun">
               <div className="card frow reveal" data-w="100">
                 <div className="fl">
@@ -299,7 +326,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 competing for <b>7,500+ state quota seats</b> across 43 colleges. Getting the
                 right seat is not just about rank — it&apos;s about what you do with it.
               </p>
-              <a className="btn" href={JOURNEY_CHALLENGE_BAND.href}>
+              <a className="btn btn-line" href={COUNSEL_WHATSAPP_URL}>
                 {JOURNEY_CHALLENGE_BAND.cta}
               </a>
             </div>
@@ -342,8 +369,17 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                   <li>Year-wise trend per college</li>
                   <li>Filter by state, tier and quota</li>
                 </ul>
-                <Link className="go" href="/cutoff-analyser">
-                  Analyse my score →
+                <Link className="btn btn-blue" href="/cutoff-analyser">
+                  Analyse my score
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </Link>
               </article>
               <article className="card spot tool big reveal">
@@ -365,8 +401,17 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                   <li>4-college comparison view</li>
                   <li>Exportable choice list</li>
                 </ul>
-                <Link className="go" href="/college-predictor">
-                  Predict my college →
+                <Link className="btn btn-blue" href="/college-predictor">
+                  Predict my college
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </Link>
               </article>
               <article className="card spot tool reveal">
@@ -382,9 +427,18 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                   </svg>
                 </div>
                 <h3>Rank Predictor</h3>
-                <p>Marks → estimated AIR plus state rank trends from 2022–2025 NTA data.</p>
-                <Link className="go" href="/rank-predictor">
-                  Predict my rank →
+                <p className="pb-5">Marks → estimated AIR plus state rank trends from 2022–2025 NTA data.</p>
+                <Link className="btn btn-blue" href="/rank-predictor">
+                  Predict my rank
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </Link>
               </article>
               <article className="card spot tool reveal">
@@ -408,9 +462,18 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                   </svg>
                 </div>
                 <h3>Round Tracker</h3>
-                <p>Counseling deadlines across ACPUGMEC, RUHS, DMAT, CET Cell and MCC.</p>
-                <Link className="go" href="/neet-ug-2026/updates">
-                  Track my rounds →
+                <p className="pb-5">Counseling deadlines across ACPUGMEC, RUHS, DMAT, CET Cell and MCC.</p>
+                <Link className="btn btn-blue" href="/neet-ug-2026/updates">
+                  Track my rounds
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </Link>
               </article>
               <article className="card spot tool reveal">
@@ -434,10 +497,19 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                   </svg>
                 </div>
                 <h3>Document Checklist</h3>
-                <p>State-specific checklist from your category and quota — including NCL traps.</p>
-                <a className="go" href="#playbook">
-                  Get my checklist →
-                </a>
+                <p className="pb-5">State-specific checklist from your category and quota — including NCL traps.</p>
+                <Link className="btn btn-blue" href="#playbook">
+                  Get my checklist
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
               </article>
             </div>
           </div>
@@ -450,13 +522,38 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
           <div className="wrap">
             <span className="eyebrow">Step 06 · The game</span>
             <h2 className="t">
-              Counseling is played in <em>rounds.</em>
+              Counselling is played in <em>rounds.</em>
             </h2>
             <p className="lede">
               Each round is a different decision. Click through to see what happens — and what we
               do for you at each stage.
             </p>
             <RoundsPanel />
+            <div className="rounds-footer">
+              <h3>
+                Each round changes your options.
+              </h3>
+              <p className="lede">
+                A good choice list for Round 1 may not be the right strategy for Round 2, mop-up, or stray vacancy. Plan your rounds before the counselling window opens.
+              </p>
+              <div className="final-ctas">
+                <Link href="/counseling" className="btn btn-blue">
+                  Plan my rounds
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
+                <Link href="/neet-ug-2026/updates" className="btn btn-line">
+                  Track counselling rounds
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -597,11 +694,10 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             <h2>
               22 lakh wrote the exam.
               <br />
-              <em>You came with a plan.</em>
+              <em>You need a plan.</em>
             </h2>
             <p className="lede" style={{ maxWidth: 480, marginLeft: "auto", marginRight: "auto" }}>
-              Free, honest, specific to your score, category and target states. That&apos;s the first
-              call.
+              Start with a free 15-minute review of your score, category, domicile, and target states.
             </p>
             <div className="final-ctas">
               <a className="btn btn-blue" href={COUNSEL_WHATSAPP_URL}>
@@ -635,8 +731,13 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 </div>
                 <p>{t.quote}</p>
                 <div className="who">
-                  <b>{t.who}</b>
-                  <span>{t.meta}</span>
+                  {t.avatar && (
+                    <img src={t.avatar} alt={t.who} className="who-img" />
+                  )}
+                  <div className="who-info">
+                    <b>{t.who}</b>
+                    <span>{t.meta}</span>
+                  </div>
                 </div>
               </article>
             ))}
@@ -652,7 +753,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
           <div className="pb reveal">
             <div className="tx">
               <span className="eyebrow">Free download</span>
-              <h2>The NEET 2026 Counseling Playbook</h2>
+              <h2>Get the NEET 2026 Counselling Playbook</h2>
               <p>
                 Seat matrices, cutoff tables, document checklists, round timelines and the 10 most
                 common counseling mistakes — all four states, one PDF, sent to your WhatsApp.
@@ -677,9 +778,18 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             {JOURNEY_RESOURCES.map((res) => (
               <article key={res.href} className="card spot rescard reveal">
                 <h3>{res.title}</h3>
-                <p>{res.body}</p>
-                <Link className="go" href={res.href}>
-                  Read more →
+                <p className="pb-5">{res.body}</p>
+                <Link className="btn btn-blue" href={res.href}>
+                  {res.cta}
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </Link>
               </article>
             ))}
@@ -704,11 +814,11 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
         </div>
       </section>
 
-      <a className="fab" href={COUNSEL_WHATSAPP_URL} aria-label="Chat on WhatsApp">
+      <Link target="_blank" className="fab" href={COUNSEL_WHATSAPP_URL} aria-label="Chat on WhatsApp">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3a8.2 8.2 0 117 3.8zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4 0-.6.2-.8l.4-.5c.1-.2.2-.3.1-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.2 2.2-.4 3.7a12 12 0 004.6 4.4c1.7.8 2.4.9 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.1z" />
         </svg>
-      </a>
+      </Link>
     </div>
   );
 }

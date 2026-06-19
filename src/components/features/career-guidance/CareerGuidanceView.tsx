@@ -18,23 +18,20 @@ export function CareerGuidanceView() {
   return (
     <NeetUg2026Shell>
       {/* Premium Hero Section */}
-      <section className="relative overflow-hidden bg-surface-container-lowest py-12 md:py-20">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary/10 blur-3xl" aria-hidden />
-        <div className="pointer-events-none absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-primary-fixed/50 blur-3xl" aria-hidden />
-
-        <Container size="page" className="relative z-10">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
+      <section className="rp-hero rp-bleed">
+        <div className="rp-hero-inner">
+          <div className="rp-hero-grid">
             <div>
               <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary-fixed px-3 py-1 text-primary">
                 <span className="material-symbols-outlined text-sm">school</span>
                 <span className="font-label-md text-label-sm uppercase tracking-wider font-semibold">NEET UG Career Hub</span>
               </div>
 
-              <h1 className="mb-6 max-w-4xl text-4xl font-black leading-tight tracking-tight text-on-surface md:text-6xl">
-                Career Guidance <span className="text-primary">After NEET UG</span>
+              <h1 className="rp-hero-title">
+                Career Guidance <em>After NEET UG</em>
               </h1>
 
-              <p className="mb-4 max-w-3xl text-lg font-semibold leading-relaxed text-on-surface-variant">
+              <p className="rp-hero-lede">
                 Explore MBBS, BDS, AYUSH, Nursing, Allied Health Sciences, Veterinary Sciences, Research, Public Health, and Emerging Healthcare Careers.
               </p>
 
@@ -95,7 +92,7 @@ export function CareerGuidanceView() {
               </div>
             </div>
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* NEET Score Based Guidance */}
@@ -128,7 +125,7 @@ export function CareerGuidanceView() {
       {/* Final CTA Section */}
       <section id="counselling-form" className="py-16 bg-surface border-t border-outline-variant/40">
         <Container size="page">
-          <div className="relative overflow-hidden rounded-3xl border border-primary/20 bg-linear-to-br from-primary via-primary to-primary/95 p-6 shadow-clinical-soft md:p-10 text-on-primary">
+          <div className="relative overflow-hidden rounded-[1.75rem] bg-linear-to-br from-primary via-primary to-primary/95 p-6 shadow-clinical-soft md:p-10 text-on-primary ring-1 ring-on-primary/15">
             {/* Subtle Glows */}
             <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/[0.06] blur-2xl" aria-hidden />
             <div className="pointer-events-none absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-white/[0.04] blur-2xl" aria-hidden />
@@ -162,7 +159,7 @@ export function CareerGuidanceView() {
               </div>
 
               <div className="lg:col-span-5">
-                <div className="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl shadow-clinical-soft overflow-hidden">
+                <div className="bg-surface-container-lowest border border-outline-variant/40 rounded-2xl shadow-clinical-soft overflow-hidden">
                   {/* Header Part */}
                   <div className="bg-surface-container-low/40 px-5 py-4 border-b border-outline-variant/40 flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0">

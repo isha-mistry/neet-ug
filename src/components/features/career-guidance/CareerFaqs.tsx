@@ -41,7 +41,7 @@ export function CareerFaqs() {
                     {FAQS.map((faq, idx) => (
                         <div
                             key={idx}
-                            className="rounded-2xl border border-outline-variant/60 bg-surface shadow-xs overflow-hidden transition-all"
+                            className="rounded-2xl border border-outline-variant/40 bg-surface shadow-xs overflow-hidden transition-all"
                         >
                             <button
                                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
@@ -53,7 +53,7 @@ export function CareerFaqs() {
                                 </span>
                             </button>
                             {openFaq === idx && (
-                                <div className="px-5 pb-4.5 pt-1 text-xs text-on-surface-variant leading-relaxed border-t border-outline-variant/30 bg-surface-container-lowest/30">
+                                <div className="px-5 pb-4.5 pt-1 text-xs text-on-surface-variant leading-relaxed border-t border-outline-variant/40 bg-surface-container-lowest/30">
                                     {faq.a}
                                 </div>
                             )}

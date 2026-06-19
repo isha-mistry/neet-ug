@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Container } from "@/components/common/Container";
+import { guideCardClass } from "@/lib/neet-ug-2026/section-styles";
 import { cn } from "@/lib/utils";
 
 const SCORE_RANGES = [
@@ -50,10 +51,11 @@ export function ScoreGuidance() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {/* 650+ Card */}
           <div className={cn(
-            "rounded-3xl border p-6 transition-all duration-300",
+            guideCardClass,
+            "transition-all duration-300",
             selectedScoreRange === "650" || selectedScoreRange === "all"
-              ? "border-primary bg-primary/[0.02] shadow-clinical-soft scale-100 opacity-100"
-              : "border-outline-variant/40 bg-surface opacity-55 scale-98"
+              ? "border-primary bg-primary/[0.02] scale-100 opacity-100"
+              : "opacity-55 scale-98"
           )}>
             <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2.5 py-1 rounded-md mb-4 font-semibold">Score: 650+</span>
             <h3 className="text-lg font-black text-on-surface mb-2">Premier MBBS Opportunities</h3>
@@ -69,10 +71,11 @@ export function ScoreGuidance() {
 
           {/* 550 - 650 Card */}
           <div className={cn(
-            "rounded-3xl border p-6 transition-all duration-300",
+            guideCardClass,
+            "transition-all duration-300",
             selectedScoreRange === "550" || selectedScoreRange === "all"
-              ? "border-primary bg-primary/[0.02] shadow-clinical-soft scale-100 opacity-100"
-              : "border-outline-variant/40 bg-surface opacity-55 scale-98"
+              ? "border-primary bg-primary/[0.02] scale-100 opacity-100"
+              : "opacity-55 scale-98"
           )}>
             <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2.5 py-1 rounded-md mb-4 font-semibold">Score: 550 - 650</span>
             <h3 className="text-lg font-black text-on-surface mb-2">Government &amp; Semi-Gov MBBS</h3>
@@ -88,10 +91,11 @@ export function ScoreGuidance() {
 
           {/* 450 - 550 Card */}
           <div className={cn(
-            "rounded-3xl border p-6 transition-all duration-300",
+            guideCardClass,
+            "transition-all duration-300",
             selectedScoreRange === "450" || selectedScoreRange === "all"
-              ? "border-primary bg-primary/[0.02] shadow-clinical-soft scale-100 opacity-100"
-              : "border-outline-variant/40 bg-surface opacity-55 scale-98"
+              ? "border-primary bg-primary/[0.02] scale-100 opacity-100"
+              : "opacity-55 scale-98"
           )}>
             <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2.5 py-1 rounded-md mb-4 font-semibold">Score: 450 - 550</span>
             <h3 className="text-lg font-black text-on-surface mb-2">BDS, AYUSH &amp; Private MBBS</h3>
@@ -107,10 +111,11 @@ export function ScoreGuidance() {
 
           {/* Below 450 Card */}
           <div className={cn(
-            "rounded-3xl border p-6 transition-all duration-300",
+            guideCardClass,
+            "transition-all duration-300",
             selectedScoreRange === "below450" || selectedScoreRange === "all"
-              ? "border-primary bg-primary/[0.02] shadow-clinical-soft scale-100 opacity-100"
-              : "border-outline-variant/40 bg-surface opacity-55 scale-98"
+              ? "border-primary bg-primary/[0.02] scale-100 opacity-100"
+              : "opacity-55 scale-98"
           )}>
             <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2.5 py-1 rounded-md mb-4 font-semibold">Score: Below 450</span>
             <h3 className="text-lg font-black text-on-surface mb-2">Allied Health &amp; Specialized Care</h3>
@@ -128,3 +133,4 @@ export function ScoreGuidance() {
     </section>
   );
 }
+

@@ -156,7 +156,7 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
 
                         {/* Seat Type (Quota) */}
                         <td className="px-4 py-3.5 font-semibold text-text-secondary">
-                          {cutoff.category} / {cutoff.quota}
+                          {cutoff.dbCategory || cutoff.category} / {cutoff.dbSeatType || cutoff.quota}
                         </td>
 
                         {/* Closing Rank (AIR) */}

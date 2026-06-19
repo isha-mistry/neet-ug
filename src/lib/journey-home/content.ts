@@ -109,8 +109,8 @@ export const JOURNEY_PROBLEM_CARDS = [
 export const JOURNEY_CHALLENGE_BAND = {
   stat: "50%",
   body: "In Gujarat alone, roughly half of aspirants qualify NEET each year, competing for 7,500+ state quota seats across 43 colleges. Getting the right seat is not just about rank — it's about what you do with it.",
-  cta: "See how we help →",
-  href: "#tools",
+  cta: "Review my counselling plan →",
+  href: "",
 } as const;
 
 export const JOURNEY_COMPARISON_ROWS = [
@@ -156,21 +156,25 @@ export const JOURNEY_RESOURCES = [
     title: "NEET UG 2026 Hub",
     body: "Exam dates, counselling timeline and official updates in one place.",
     href: "/neet-ug-2026",
+    cta: "Explore NEET UG 2026 timeline",
   },
   {
     title: "Counselling Guide",
     body: "The step-by-step process for AIQ and state quota rounds, explained.",
     href: "/neet-ug-2026/counselling-guide",
+    cta: "Understand counselling steps",
   },
   {
     title: "MBBS in India",
     body: "State-wise seats, fees and the full admission landscape.",
     href: "/mbbs-in-india",
+    cta: "Compare state-wise MBBS options",
   },
   {
     title: "Latest Updates",
     body: "Round alerts and official notifications as they drop.",
     href: "/neet-ug-2026/updates",
+    cta: "Track latest counselling updates",
   },
 ] as const;
 
@@ -181,6 +185,7 @@ export const JOURNEY_TESTIMONIALS = [
       '"I wasn\'t sure GMERS was even possible. They looked at my state rank, not just AIR, and told me exactly which 8 colleges to fill in which order. Got GMERS Gandhinagar in Round 1 — exactly as predicted."',
     who: "Priya M. · Ahmedabad",
     meta: "GMERS GANDHINAGAR · STATE QUOTA · GENERAL",
+    avatar: "/testimonials/priya.png",
   },
   {
     score: "Score 612",
@@ -188,6 +193,7 @@ export const JOURNEY_TESTIMONIALS = [
       '"After Round 1 I wanted to lock my seat out of fear. They showed me the Round 2 data and convinced me to opt for upgrade. I moved from a private GQ seat to GMC — one call saved my family ₹40 lakh."',
     who: "Arjun S. · Jaipur",
     meta: "GOVT MEDICAL COLLEGE · STATE QUOTA · SEBC",
+    avatar: "/testimonials/arjun.png",
   },
   {
     score: "Score 488",
@@ -195,6 +201,7 @@ export const JOURNEY_TESTIMONIALS = [
       '"As a non-domicile student I had no idea MP was my best AIQ option. They built a parallel strategy across three states. The document checklist alone saved me — my EWS certificate would have been invalid."',
     who: "Sneha K. · Nagpur",
     meta: "GMC VIA MCC AIQ · EWS",
+    avatar: "/testimonials/sneha.png",
   },
   {
     score: "Score 575",
@@ -202,5 +209,6 @@ export const JOURNEY_TESTIMONIALS = [
       '"My parents wanted Maharashtra only. The counselor showed us the CET Cell data honestly — and the MP backup that actually got me a govt seat. No false promises at any point."',
     who: "Rohan D. · Pune",
     meta: "GMC · MCC AIQ · GENERAL",
+    avatar: "/testimonials/rohan.png",
   },
 ] as const;
