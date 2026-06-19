@@ -2,6 +2,12 @@
 
 import { useState, type FormEvent, type KeyboardEvent } from "react";
 import { fmtIN, runSeatRadar } from "@/lib/journey-home/seat-radar";
+import {
+  getSeatRadarCtaContent,
+  getSeatRadarCtaTier,
+} from "@/lib/journey-home/seat-radar-cta";
+import { SeatRadarLeadModal } from "./SeatRadarLeadModal";
+import { SeatRadarResultCta } from "./SeatRadarResultCta";
 
 export function SeatRadarCard() {
   const [score, setScore] = useState("");
@@ -9,13 +15,30 @@ export function SeatRadarCard() {
   const [result, setResult] = useState<ReturnType<typeof runSeatRadar> | null>(
     null,
   );
+  const [hasScanned, setHasScanned] = useState(false);
+  const [leadOpen, setLeadOpen] = useState(false);
+  const [leadRedirect, setLeadRedirect] = useState("/counseling");
 
   function scan() {
+    setHasScanned(true);
     setResult(runSeatRadar(parseInt(score, 10), cat));
   }
 
   function onKey(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") scan();
+  }
+
+  const ctaTier =
+    result !== null && hasScanned ? getSeatRadarCtaTier(result) : null;
+  const ctaContent = ctaTier ? getSeatRadarCtaContent(ctaTier) : null;
+
+  function openLeadModal(redirectTo: string) {
+    setLeadRedirect(redirectTo);
+    setLeadOpen(true);
+  }
+
+  function closeLeadModal() {
+    setLeadOpen(false);
   }
 
   return (
@@ -47,7 +70,7 @@ export function SeatRadarCard() {
             value={cat}
             onChange={(e) => {
               setCat(e.target.value);
-              if (score) scan();
+              if (score && hasScanned) scan();
             }}
           >
             <option value="gen">General</option>
@@ -73,16 +96,40 @@ export function SeatRadarCard() {
             Enter a valid NEET score between 0 and 720.
           </div>
         ) : result.kind === "below" ? (
-          <div className="rempty">
-            <span className="blink">· · ·</span>
-            Below the qualifying range (137 for General). There are still paths —
-            talk to us before assuming anything.
-          </div>
+          <>
+            <div className="rempty">
+              <span className="blink">· · ·</span>
+              Below the qualifying range (137 for General). There are still paths —
+              talk to us before assuming anything.
+            </div>
+            {hasScanned && ctaContent ? (
+              <SeatRadarResultCta
+                content={ctaContent}
+                onAction={() => openLeadModal(ctaContent.redirectTo)}
+              />
+            ) : null}
+          </>
         ) : (
-          <SeatRadarOutput result={result} />
+          <>
+            <SeatRadarOutput result={result} />
+            {hasScanned && ctaContent ? (
+              <SeatRadarResultCta
+                content={ctaContent}
+                onAction={() => openLeadModal(ctaContent.redirectTo)}
+              />
+            ) : null}
+          </>
         )}
       </div>
       <p className="rnote">ESTIMATE · 2023–2025 TRENDS · NOT AN ALLOTMENT GUARANTEE</p>
+
+      <SeatRadarLeadModal
+        open={leadOpen}
+        redirectTo={leadRedirect}
+        neetScore={score}
+        category={cat}
+        onClose={closeLeadModal}
+      />
     </div>
   );
 }
@@ -92,7 +139,7 @@ function SeatRadarOutput({
 }: {
   result: Extract<ReturnType<typeof runSeatRadar>, { kind: "ok" }>;
 }) {
-  const { rank, tS, tB, tR, rows, verdict } = result;
+  const { rank, tS, tB, tR, rows } = result;
   const tot = tS + tB + tR || 1;
 
   return (
@@ -102,9 +149,9 @@ function SeatRadarOutput({
         <span className="v">~{fmtIN(rank)}</span>
       </div>
       <div className="rstack">
-        <i style={{ width: `${(tS / tot) * 100}%`, background: "var(--safe)" }} />
-        <i style={{ width: `${(tB / tot) * 100}%`, background: "var(--warn)" }} />
-        <i style={{ width: `${(tR / tot) * 100}%`, background: "var(--risk)" }} />
+        <i style={{ width: `${(tS / tot) * 100}%`, background: "var(--safe-bg)" }} />
+        <i style={{ width: `${(tB / tot) * 100}%`, background: "var(--warn-bg)" }} />
+        <i style={{ width: `${(tR / tot) * 100}%`, background: "var(--risk-bg)" }} />
       </div>
       <div className="rkey">
         <span>
@@ -132,10 +179,12 @@ function SeatRadarOutput({
           </div>
         </div>
       ))}
+      {/* Verdict message — hidden for now
       <div
         className="rverdict"
-        dangerouslySetInnerHTML={{ __html: verdict }}
+        dangerouslySetInnerHTML={{ __html: result.verdict }}
       />
+      */}
     </>
   );
 }

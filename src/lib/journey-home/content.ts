@@ -10,6 +10,7 @@ export type JourneyStateCardItem = {
   colleges: string;
   diff: string;
   href: string;
+  ctaLabel: string;
 };
 
 export const JOURNEY_STATE_CARDS: ReadonlyArray<JourneyStateCardItem> = [
@@ -22,6 +23,7 @@ export const JOURNEY_STATE_CARDS: ReadonlyArray<JourneyStateCardItem> = [
     colleges: "43",
     diff: "India's only 3-tier system — Govt ₹25K/yr · GMERS ₹3.75L/yr · Private. Uses SEBC, not OBC.",
     href: mbbsStatePath("gujarat"),
+    ctaLabel: "Explore Gujarat MBBS options →",
   },
   {
     code: "RJ",
@@ -32,6 +34,7 @@ export const JOURNEY_STATE_CARDS: ReadonlyArray<JourneyStateCardItem> = [
     colleges: "49",
     diff: "Highest government-college share in the group. SMS Jaipur is one of India's toughest cutoffs.",
     href: mbbsStatePath("rajasthan"),
+    ctaLabel: "Explore Rajasthan MBBS options →",
   },
   {
     code: "MP",
@@ -42,6 +45,7 @@ export const JOURNEY_STATE_CARDS: ReadonlyArray<JourneyStateCardItem> = [
     colleges: "35",
     diff: "The most AIQ-accessible state here — the smart target for non-domicile students.",
     href: mbbsStatePath("madhya-pradesh"),
+    ctaLabel: "Explore MP MBBS options →",
   },
   {
     code: "MH",
@@ -52,6 +56,7 @@ export const JOURNEY_STATE_CARDS: ReadonlyArray<JourneyStateCardItem> = [
     colleges: "85",
     diff: "Biggest seat pool in the group — Grant Medical, KEM, Sion and BJ Government Mumbai.",
     href: mbbsStatePath("maharashtra"),
+    ctaLabel: "Explore Maharashtra MBBS options →",
   },
 ];
 
@@ -63,6 +68,7 @@ export type JourneyAiqCardItem = {
   colleges: string;
   diff: string;
   href: string;
+  ctaLabel: string;
 };
 
 /** MCC All India Quota — fifth hub card alongside the four state guides. */
@@ -74,6 +80,7 @@ export const JOURNEY_AIQ_CARD: JourneyAiqCardItem = {
   colleges: "500+",
   diff: "15% of seats in participating colleges — counseled by MCC, open to eligible candidates from any state. Separate rounds from state quota.",
   href: "/neet-ug-2026/counselling-guide",
+  ctaLabel: "Understand my AIQ options →",
 };
 
 export const JOURNEY_STATES_SECTION = {
@@ -81,6 +88,10 @@ export const JOURNEY_STATES_SECTION = {
   title: "Four States. All India Quota — ",
   titleEmphasis: "One Platform.",
   lede: "MBBS only — every cutoff, quota rule and counseling authority across Gujarat, Rajasthan, Madhya Pradesh and Maharashtra, plus MCC All India Quota (AIQ) counseling.",
+  quotaOverviewHref: "/quota",
+  quotaOverviewLead:
+    "Not sure whether AIQ, state quota, management quota, or NRI quota applies to you?",
+  quotaOverviewLinkLabel: "View quota overview →",
 } as const;
 
 export const JOURNEY_PROBLEM_CARDS = [
@@ -150,6 +161,57 @@ export const JOURNEY_COMPARISON_ROWS = [
     withUs: "Best possible seat for your rank",
   },
 ] as const;
+
+export const JOURNEY_COMPARISON_CTA = {
+  copy: "If you already have a score, category, and target states, we can review your options before choice filling starts.",
+  buttonLabel: "Get my options reviewed",
+  redirectTo: "/counseling",
+  introLine:
+    "Hi MedSeat, I'd like my MBBS options reviewed before choice filling (from home page — Step 07).",
+  modalLede:
+    "Share your details and we'll follow up on WhatsApp to review your score, category, and target states.",
+} as const;
+
+export const JOURNEY_COUNSELING_MISTAKES = {
+  eyebrow: "Step 08 · What happens if you do nothing",
+  title: "Common ",
+  titleEmphasis: "counseling mistakes",
+  lede: "Small oversights in round timing, quota choice, and paperwork compound — and strong ranks still lose seats.",
+  items: [
+    "Miss Round 2",
+    "Ignore AIQ",
+    "Wrong choice order",
+    "Miss document deadline",
+    "Apply only in home state",
+    "Take management quota too early",
+  ],
+  closingBefore: "These mistakes cost students",
+  closingEmphasis: "seats every year.",
+} as const;
+
+export const JOURNEY_PACKAGE_CTAS = {
+  redirectTo: "/counseling",
+  essentials: {
+    buttonLabel: "Get Essentials",
+    introLine: "Hi MedSeat, I'm interested in the Essentials plan (home page).",
+    modalLede:
+      "Share your details for tool access — we'll follow up on WhatsApp with next steps.",
+  },
+  expert: {
+    buttonLabel: "Book Expert counselling",
+    introLine: "Hi MedSeat, I'd like to book Expert counselling (home page).",
+    modalLede:
+      "Tell us about the student and target states — we'll confirm your Expert counselling slot on WhatsApp.",
+  },
+  premium: {
+    buttonLabel: "Discuss Premium support",
+    introLine: "Hi MedSeat, I'd like to discuss Premium support (home page).",
+    modalLede:
+      "Brief enquiry for complex cases — we'll follow up on WhatsApp about quota and target states.",
+  },
+  planHelpWhatsAppIntro:
+    "Hi MedSeat, I'm not sure which counseling plan fits — can we talk free for 15 minutes?",
+} as const;
 
 export const JOURNEY_RESOURCES = [
   {

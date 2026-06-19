@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { IndiaMiniMap } from "@/components/features/home-05/IndiaMiniMap";
 import { StateDistrictMiniMap } from "@/components/features/home-05/StateDistrictMiniMap";
-import type {
-  JourneyAiqCardItem,
-  JourneyStateCardItem,
+import {
+  JOURNEY_STATES_SECTION,
+  type JourneyAiqCardItem,
+  type JourneyStateCardItem,
 } from "@/lib/journey-home/content";
 
 export function JourneyStateCard({ state }: { state: JourneyStateCardItem }) {
@@ -40,7 +41,7 @@ export function JourneyStateCard({ state }: { state: JourneyStateCardItem }) {
       </div>
       <p className="sdiff">{state.diff}</p>
       <Link className="slink" href={state.href}>
-        {state.name} guide →
+        {state.ctaLabel}
       </Link>
     </article>
   );
@@ -75,8 +76,7 @@ function JourneyAiqBand({ card }: { card: JourneyAiqCardItem }) {
         </div>
         <p className="aiq-band-copy">{card.diff}</p>
         <Link className="aiq-band-cta" href={card.href}>
-          Open MCC counseling guide
-          <span aria-hidden>→</span>
+          {card.ctaLabel}
         </Link>
       </div>
     </article>
@@ -98,6 +98,12 @@ export function JourneyStateHub({
         ))}
       </div>
       <JourneyAiqBand card={aiq} />
+      <p className="fun-note shub-footnote">
+        {JOURNEY_STATES_SECTION.quotaOverviewLead}{" "}
+        <Link href={JOURNEY_STATES_SECTION.quotaOverviewHref}>
+          <b>{JOURNEY_STATES_SECTION.quotaOverviewLinkLabel}</b>
+        </Link>
+      </p>
     </div>
   );
 }
