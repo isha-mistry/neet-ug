@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "About Us — MBBS Counseling You Can Trust | MedSeat",
+  title: "About MedSeat — Verified MBBS admission guidance for NEET students",
   description:
-    "Why MedSeat exists: MBBS-only counseling across Gujarat, Rajasthan, MP and Maharashtra, grounded in verified cutoff data and honest fit checks — not seat guarantees.",
+    "MedSeat helps students and parents make informed MBBS admission decisions using verified data, historical trends, and clear guidance across Gujarat, Rajasthan, Madhya Pradesh and Maharashtra.",
   path: "/about-us",
 });
 

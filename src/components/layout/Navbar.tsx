@@ -1,5 +1,6 @@
 import { FiCalendar } from "react-icons/fi";
 import { getSiteIdentity } from "@/lib/data/site";
+import { COUNSEL_BOOK_CALL_URL } from "@/lib/mbbs-state/constants";
 import { HOME_NAV_LINKS } from "@/lib/navigation/home-nav";
 import { PREDICTOR_NAV_LINKS } from "@/lib/navigation/predictor-nav";
 import { QUOTA_NAV_LINKS } from "@/lib/navigation/quota-nav";
@@ -21,7 +22,7 @@ export function Navbar() {
       >
         <BrandMark
           brandName={site.brandName}
-          className="shrink-0 text-primary [&_span:last-child]:font-headline-md [&_span:last-child]:text-headline-md [&_span:last-child]:font-bold"
+          className="min-w-0 shrink text-primary [&_span:last-child]:truncate [&_span:last-child]:font-headline-md [&_span:last-child]:text-headline-md [&_span:last-child]:font-bold max-sm:[&_span:last-child]:text-base"
         />
         <PrimaryNav
           links={site.primaryNav}
@@ -31,11 +32,12 @@ export function Navbar() {
         />
         <div className="flex shrink-0 items-center gap-2 self-center">
           <Button
-            type="button"
+            as="link"
+            href={COUNSEL_BOOK_CALL_URL}
             variant="primary"
             size="sm"
             leadingIcon={<FiCalendar aria-hidden="true" />}
-            className="hidden md:inline-flex"
+            className="hidden lg:inline-flex"
           >
             Book a Counselling
           </Button>

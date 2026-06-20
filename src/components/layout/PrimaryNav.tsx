@@ -6,16 +6,12 @@ import { FiChevronDown } from "react-icons/fi";
 import type { LinkItem } from "@/types/core";
 import { isNavLinkActive } from "@/lib/navigation/is-nav-link-active";
 import { NEET_UG_2026_NAV_LINKS } from "@/lib/navigation/neet-ug-2026-nav";
+import {
+  navDropdownLinkClassName,
+  navItemBorderClass,
+  navItemClassName,
+} from "@/components/layout/nav-styles";
 import { cn } from "@/lib/utils";
-
-function navItemClassName(active: boolean) {
-  return cn(
-    "flex items-center gap-1 whitespace-nowrap border-b-2 pb-1 font-label-md text-label-md leading-none transition-colors duration-200",
-    active
-      ? "border-primary font-bold text-primary"
-      : "border-transparent font-medium text-on-surface-variant hover:border-primary hover:text-primary",
-  );
-}
 
 interface PrimaryNavProps {
   links: LinkItem[];
@@ -52,7 +48,10 @@ function NavDropdown({
     <div className="group relative flex h-full items-center">
       <button
         type="button"
-        className={navItemClassName(dropdownActive)}
+        className={navItemClassName(
+          dropdownActive,
+          cn(navItemBorderClass, "text-[13px] xl:text-label-md"),
+        )}
         aria-haspopup="true"
         aria-expanded="false"
       >
@@ -78,12 +77,7 @@ function NavDropdown({
               <Link
                 key={item.href}
                 href={item.href}
-                className={cn(
-                  "block rounded-lg px-3 py-2.5 text-sm transition-colors duration-150",
-                  active
-                    ? "font-semibold text-primary"
-                    : "font-medium text-on-surface-variant hover:text-primary",
-                )}
+                className={navDropdownLinkClassName(active)}
               >
                 {item.label}
               </Link>
@@ -106,7 +100,7 @@ export function PrimaryNav({
   return (
     <nav
       aria-label="Primary"
-      className="hidden h-16 min-w-0 flex-1 items-center justify-center gap-6 md:flex lg:gap-8"
+      className="hidden h-16 min-w-0 flex-1 items-center justify-center gap-3 lg:flex xl:gap-6 2xl:gap-8"
     >
       {links.map((link) => {
         const dropdownLinks = getDropdownLinks(
@@ -132,7 +126,10 @@ export function PrimaryNav({
           <Link
             key={link.href}
             href={link.href}
-            className={navItemClassName(active)}
+            className={navItemClassName(
+              active,
+              cn(navItemBorderClass, "text-[13px] xl:text-label-md"),
+            )}
             aria-current={active ? "page" : undefined}
           >
             {link.label}
