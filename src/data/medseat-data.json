@@ -21,12 +21,8 @@
         "href": "/neet-ug-2026"
       },
       {
-        "label": "Blog",
-        "href": "/blog"
-      },
-      {
-        "label": "States",
-        "href": "/colleges/state"
+        "label": "About",
+        "href": "/about-us"
       }
     ],
     "footer": {
