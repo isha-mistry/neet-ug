@@ -159,7 +159,7 @@ export function AllIndiaQuotaView() {
           </div>
 
           {/* SVG Visual Charts */}
-          <div className="xl:col-span-1 flex gap-6 w-full">
+          <div className="xl:col-span-1 flex flex-col sm:flex-row gap-6 w-full">
             <SeatMatrixDonut percent={15} total="15%" label="Govt Seats Share" />
             <CategoryProgressBars items={aiqCategoryShares} />
           </div>

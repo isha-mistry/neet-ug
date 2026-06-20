@@ -80,7 +80,7 @@ export function CutoffAnalyserBanner() {
   const c = CUTOFF_ANALYSER_STRIP;
   return (
     <div className="rp-strip rp-bleed">
-      <div className="rp-strip-in ms-layout-page">
+      <div className="rp-strip-in ms-layout-page px-5!">
         <p>
           <b>{c.bold}</b> {c.text}
         </p>
@@ -203,16 +203,6 @@ export function CutoffAnalyserCollegeCard({
 
   return (
     <article className="rp-tool-card group">
-      <div
-        className={cn(
-          "h-1",
-          status === "safe"
-            ? "bg-linear-to-r from-primary to-primary-container"
-            : status === "borderline"
-              ? "bg-linear-to-r from-tertiary-container to-tertiary-fixed"
-              : "bg-linear-to-r from-error/80 to-error-container",
-        )}
-      />
       <div className="rp-tool-card-body">
         <div className="flex flex-wrap items-center gap-2">
           <CollegeTypeBadge type={college.collegeType} />
@@ -233,12 +223,12 @@ export function CutoffAnalyserCollegeCard({
           <span
             className={cn(
               status === "safe"
-                ? "bg-primary"
+                ? "bg-tertiary"
                 : status === "borderline"
-                  ? "bg-tertiary-container"
-                  : "bg-error/70",
+                  ? "bg-amber-500"
+                  : "bg-error",
             )}
-            style={{ width: `${likelihoodPercent}%` }}
+            style={{ width: `${likelihoodPercent}%`, backgroundImage: "none" }}
           />
         </div>
         <dl className="grid grid-cols-2 gap-4 rounded-xl bg-surface-container-low p-3.5 text-sm">

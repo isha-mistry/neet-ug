@@ -502,8 +502,8 @@ export function RankPredictorCollegePreview({
 export function CollegePredictorBanner() {
   return (
     <div className="rp-strip rp-bleed">
-      <div className="rp-strip-in ms-layout-page">
-        <p>
+      <div className="rp-strip-in ms-layout-page px-5!">
+        <p className="">
           <b>{RANK_PREDICTOR_STRIP.bold}</b> {RANK_PREDICTOR_STRIP.text}
         </p>
         <Link
@@ -658,19 +658,20 @@ export function RankPredictorFinalCta({ onRunAgain }: { onRunAgain: () => void }
         </h2>
         <p className="rp-hero-lede mx-auto mt-[18px] max-w-[500px]">{c.lede}</p>
         <div className="relative mt-8 flex flex-wrap justify-center gap-3.5">
-          <a
+          <Button
+            as="link"
+            variant="primary"
             href={COUNSEL_WHATSAPP_URL}
-            className="inline-flex items-center justify-center rounded-xl bg-primary px-7 py-3.5 text-[15px] font-bold text-on-primary shadow-[0_10px_28px_-10px_color-mix(in_srgb,var(--color-primary)_55%,transparent)] transition hover:bg-primary-hover"
           >
             {c.book}
-          </a>
-          <button
+          </Button>
+          <Button
             type="button"
             onClick={onRunAgain}
-            className="inline-flex items-center justify-center rounded-xl border-[1.5px] border-outline-variant bg-surface-container-lowest px-7 py-3.5 text-[15px] font-bold text-primary transition hover:border-primary hover:bg-primary-fixed"
+            variant="secondary"
           >
             {c.again}
-          </button>
+          </Button>
         </div>
         <p className="rp-final-meta">{c.meta}</p>
       </div>

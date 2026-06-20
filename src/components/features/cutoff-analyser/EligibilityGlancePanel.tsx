@@ -45,9 +45,9 @@ function hoverFill(
   if (muted || !row) return "var(--color-outline-variant)";
   switch (row.status) {
     case "safe":
-      return "var(--color-primary-container)";
-    case "borderline":
       return "var(--color-tertiary-fixed)";
+    case "borderline":
+      return "#fde68a"; // amber-200
     case "out":
       return "var(--color-error-container)";
     default:

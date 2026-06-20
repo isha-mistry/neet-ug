@@ -52,7 +52,6 @@ import {
 import {
   DEMO_FEE_BY_STATE,
   DEMO_INITIAL_PREFERENCE_LIST,
-  DEMO_MAP_MUTED_STATE_SLUGS,
   DEMO_SCORE,
   filterDemoRowsByQuota,
   getDemoCutoffAnalysis,
@@ -123,6 +122,13 @@ export function CutoffAnalyserClient() {
     () => filterDemoRowsByQuota(result.stateQuotaRows, quotaTableFilter),
     [result.stateQuotaRows, quotaTableFilter]
   );
+
+  const mutedStateSlugs = useMemo(() => {
+    if (domicileState === "maharashtra") {
+      return ["gujarat"] as FocusStateSlug[];
+    }
+    return ["maharashtra"] as FocusStateSlug[];
+  }, [domicileState]);
 
   function toggleSort(key: typeof sortKey) {
     if (sortKey === key) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
@@ -327,329 +333,331 @@ export function CutoffAnalyserClient() {
         </div>
 
         <div className="ca-page-stack">
-        <AnalyserSectionBlock
-          title="How you compare"
-          className="pt-8"
-          description="Opening and closing ranks for Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra — all quotas (sample data)."
-          actions={
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              leadingIcon={<FiDownload aria-hidden />}
-              onClick={exportCsv}
-              className="rounded-xl"
-            >
-              Export CSV
-            </Button>
-          }
-        >
-          <AnalyserSectionBody toolbar>
-            <div className="flex flex-wrap gap-2">
-              {(["all", ...QUOTA_OPTIONS.map((q) => q.value)] as const).map(
-                (q) => (
-                  <FilterPill
-                    key={q}
-                    active={quotaTableFilter === q}
-                    onClick={() => setQuotaTableFilter(q)}
-                  >
-                    {q === "all"
-                      ? "All quotas"
-                      : QUOTA_OPTIONS.find((o) => o.value === q)?.label}
-                  </FilterPill>
-                )
-              )}
-            </div>
-          </AnalyserSectionBody>
-          <AnalyserSectionBody flush>
-            <CutoffComparisonTable
-              rows={filteredRows}
-              sortKey={sortKey}
-              sortDir={sortDir}
-              onSort={toggleSort}
-            />
-          </AnalyserSectionBody>
-        </AnalyserSectionBlock>
-
-        <AnalyserSectionBlock
-          title="Which colleges can you get?"
-          description="Ranked by likelihood at your score. Filter by institution type — quota follows your selection above."
-          actions={
-            <div className="flex flex-wrap gap-2">
-              {(["government", "private", "all"] as const).map((t) => (
-                <FilterPill
-                  key={t}
-                  active={collegeTypeFilter === t}
-                  onClick={() => setCollegeTypeFilter(t)}
-                >
-                  {t === "all" ? "All types" : t}
-                </FilterPill>
-              ))}
-            </div>
-          }
-        >
-          <AnalyserSectionBody>
-            <div className="rp-tool-card-grid">
-            {result.collegeMatches.slice(0, 12).map((match) => {
-              const selected = preferenceList.some(
-                (p) => p.collegeSlug === match.college.slug
-              );
-              return (
-                <CutoffAnalyserCollegeCard
-                  key={match.college.slug}
-                  college={match.college}
-                  closingRank={match.closingRank}
-                  gapToUser={match.gapToUser}
-                  likelihoodPercent={match.likelihoodPercent}
-                  status={match.status}
-                  selected={selected}
-                  onAdd={() => addToPreference(match)}
-                />
-              );
-            })}
-          </div>
-          </AnalyserSectionBody>
-        </AnalyserSectionBlock>
-
-        <CutoffAnalyserLeadMagnet
-          className="ca-lead-band"
-          content={CUTOFF_ANALYSER_LEAD_MAGNET_CHOICE}
-        />
-
-        <AnalyserSectionBlock
-          title="How competition has changed"
-          description="Closing rank movement across five years (illustrative aggregates — verify against official bulletins)."
-        >
-          <AnalyserSectionBody>
-            <TrendChart />
-          </AnalyserSectionBody>
-        </AnalyserSectionBlock>
-
-        <AnalyserSectionBlock
-          title="Your options at a glance"
-          description="Chances in Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra at your estimated rank. Compare the map with the state cards."
-        >
-          <AnalyserSectionBody flush className="p-0">
-            <EligibilityGlancePanel
-              eligibility={result.stateEligibility}
-              mutedStateSlugs={DEMO_MAP_MUTED_STATE_SLUGS}
-            />
-          </AnalyserSectionBody>
-        </AnalyserSectionBlock>
-
-        <CutoffAnalyserLeadMagnet
-          className="ca-lead-band"
-          content={CUTOFF_ANALYSER_LEAD_MAGNET_ROUNDS}
-        />
-
-        <AnalyserSectionBlock
-          title="Don't miss your round"
-          description="Key counseling milestones for your focus states and MCC AIQ—dates update as portals publish notices."
-        >
-          <AnalyserSectionBody flush className="p-0">
-            <CounselingTimelinePanel
-              events={counselingTimeline}
-              sessionYear={COUNSELING_SESSION_YEAR}
-              disclaimer={COUNSELING_TIMELINE_DISCLAIMER}
-            />
-          </AnalyserSectionBody>
-        </AnalyserSectionBlock>
-
-        <AnalyserSectionBlock
-          id="college-list"
-          title="Build your preference order"
-          description="Drag to reorder on desktop. Tag Safe, Target, or Reach, then export or save locally."
-        >
-          <AnalyserSectionBody className="space-y-4">
-          <p className="rp-field-hint italic">
-            MCC limits AIQ choices to 20 colleges. State counseling may differ.
-          </p>
-          {listWarnings.map((w) => (
-            <ToolCallout key={w} variant="safe">
-              {w}
-            </ToolCallout>
-          ))}
-          <ul className="space-y-2">
-            {preferenceList.map((item, index) => {
-              const gap = gapDisplay(item.gapToUser);
-              return (
-                <li
-                  key={item.id}
-                  draggable
-                  onDragStart={(e) => onDragStart(e, item.id)}
-                  onDragOver={(e) => e.preventDefault()}
-                  onDrop={(e) => onDrop(e, item.id)}
-                  className="rp-pref-row"
-                >
-                  <div className="flex items-center gap-2">
-                    <FiMenu
-                      className="hidden h-4 w-4 text-outline sm:block"
-                      aria-hidden
-                    />
-                    <span className="rp-pref-rank">{index + 1}</span>
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <Link
-                      href={
-                        item.collegeSlug.startsWith("demo-")
-                          ? "#college-list"
-                          : `/colleges/${item.collegeSlug}`
-                      }
-                      className="font-semibold text-on-surface hover:text-primary"
-                    >
-                      {item.name}
-                    </Link>
-                    <p className="text-xs text-on-surface-variant">
-                      {item.city}, {item.affiliation}
-                    </p>
-                    <p className={cn("text-xs", gap.className)}>
-                      Closing {formatNumber(item.closingRank)} · {gap.text}
-                    </p>
-                  </div>
-                  <select
-                    value={item.tag}
-                    onChange={(e) =>
-                      setPreferenceList((prev) =>
-                        prev.map((p) =>
-                          p.id === item.id
-                            ? {
-                                ...p,
-                                tag: e.target.value as PreferenceListItem["tag"],
-                              }
-                            : p
-                        )
-                      )
-                    }
-                    className="rounded-xl border border-outline-variant bg-surface-container-lowest px-3 py-2 text-xs font-semibold"
-                    aria-label={`Tag for ${item.name}`}
-                  >
-                    <option value="safe">Safe</option>
-                    <option value="target">Target</option>
-                    <option value="reach">Reach</option>
-                  </select>
-                  <button
-                    type="button"
-                    className="rounded-lg p-2 text-outline transition hover:bg-error-container hover:text-error"
-                    aria-label={`Remove ${item.name}`}
-                    onClick={() =>
-                      setPreferenceList((prev) =>
-                        prev.filter((p) => p.id !== item.id)
-                      )
-                    }
-                  >
-                    <FiX />
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-          <div className="flex flex-wrap gap-2 pt-2">
-            <Button
-              type="button"
-              variant="secondary"
-              size="sm"
-              className="rounded-xl"
-              onClick={() => window.print()}
-            >
-              Export / Print
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="rounded-xl"
-              onClick={() => {
-                const blob = new Blob(
-                  [JSON.stringify(preferenceList, null, 2)],
-                  { type: "application/json" }
-                );
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "college-preferences.json";
-                a.click();
-                URL.revokeObjectURL(url);
-              }}
-            >
-              Save JSON
-            </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              className="rounded-xl"
-              onClick={() => setPreferenceList([])}
-            >
-              Clear list
-            </Button>
-          </div>
-          </AnalyserSectionBody>
-        </AnalyserSectionBlock>
-
-        <AnalyserSectionBlock
-          title="Understand the cost"
-          description="Annual fees from our catalog for each focus state."
-        >
-          <AnalyserSectionBody toolbar>
-            <div className="flex flex-wrap gap-2">
-            {FOCUS_STATE_OPTIONS.map((s) => (
-              <FilterPill
-                key={s.slug}
-                active={feeState === s.slug}
-                onClick={() => setFeeState(s.slug)}
+          <AnalyserSectionBlock
+            title="How you compare"
+            className="pt-8"
+            description="Opening and closing ranks for Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra — all quotas (sample data)."
+            actions={
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                leadingIcon={<FiDownload aria-hidden />}
+                onClick={exportCsv}
+                className="rounded-xl"
               >
-                {s.label}
-              </FilterPill>
-            ))}
-            </div>
-          </AnalyserSectionBody>
-          <AnalyserSectionBody flush>
-            <div className="quota-table-wrap">
-              <table className="quota-table">
-                <thead>
-                  <tr>
-                    <th className="p-3">College</th>
-                    <th className="p-3">Type</th>
-                    <th className="p-3 text-right">Annual fee</th>
-                    <th className="p-3 text-right">Seats</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {feeColleges.map((c) => (
-                    <tr
-                      key={c.slug}
-                      className="border-b border-outline-variant hover:bg-surface-container-low/80"
+                Export CSV
+              </Button>
+            }
+          >
+            <AnalyserSectionBody toolbar>
+              <div className="flex flex-wrap gap-2">
+                {(["all", ...QUOTA_OPTIONS.map((q) => q.value)] as const).map(
+                  (q) => (
+                    <FilterPill
+                      key={q}
+                      active={quotaTableFilter === q}
+                      onClick={() => setQuotaTableFilter(q)}
                     >
-                      <td className="p-3">
-                        {c.slug.startsWith("demo-") ? (
-                          <span className="font-semibold text-on-surface">
-                            {c.name}
-                          </span>
-                        ) : (
-                          <Link
-                            href={`/colleges/${c.slug}`}
-                            className="font-semibold text-primary hover:underline"
-                          >
-                            {c.name}
-                          </Link>
-                        )}
-                      </td>
-                      <td className="p-3 capitalize text-on-surface-variant">
-                        {c.collegeType}
-                      </td>
-                      <td className="p-3 text-right tabular-nums font-semibold text-on-surface">
-                        {formatINR(c.totalAnnualFee)}
-                      </td>
-                      <td className="p-3 text-right tabular-nums">{c.seatCount}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </AnalyserSectionBody>
-        </AnalyserSectionBlock>
+                      {q === "all"
+                        ? "All quotas"
+                        : QUOTA_OPTIONS.find((o) => o.value === q)?.label}
+                    </FilterPill>
+                  )
+                )}
+              </div>
+            </AnalyserSectionBody>
+            <AnalyserSectionBody flush>
+              <CutoffComparisonTable
+                rows={filteredRows}
+                sortKey={sortKey}
+                sortDir={sortDir}
+                onSort={toggleSort}
+              />
+            </AnalyserSectionBody>
+          </AnalyserSectionBlock>
 
-        <RankPredictorFaqSection items={faqItems} />
+          <AnalyserSectionBlock
+            title="Which colleges can you get?"
+            description="Ranked by likelihood at your score. Filter by institution type — quota follows your selection above."
+            actions={
+              <div className="flex flex-wrap gap-2">
+                {(["government", "private", "all"] as const).map((t) => (
+                  <FilterPill
+                    key={t}
+                    active={collegeTypeFilter === t}
+                    onClick={() => setCollegeTypeFilter(t)}
+                  >
+                    {t === "all" ? "All types" : t}
+                  </FilterPill>
+                ))}
+              </div>
+            }
+          >
+            <AnalyserSectionBody>
+              <div className="rp-tool-card-grid">
+                {result.collegeMatches.slice(0, 12).map((match) => {
+                  const selected = preferenceList.some(
+                    (p) => p.collegeSlug === match.college.slug
+                  );
+                  return (
+                    <CutoffAnalyserCollegeCard
+                      key={match.college.slug}
+                      college={match.college}
+                      closingRank={match.closingRank}
+                      gapToUser={match.gapToUser}
+                      likelihoodPercent={match.likelihoodPercent}
+                      status={match.status}
+                      selected={selected}
+                      onAdd={() => addToPreference(match)}
+                    />
+                  );
+                })}
+              </div>
+            </AnalyserSectionBody>
+          </AnalyserSectionBlock>
+
+          <AnalyserSectionBlock
+            id="college-list"
+            title="Build your preference order"
+            description="Drag to reorder on desktop. Tag Safe, Target, or Reach, then export or save locally."
+          >
+            <AnalyserSectionBody className="space-y-4">
+              <p className="rp-field-hint italic">
+                MCC limits AIQ choices to 20 colleges. State counseling may differ.
+              </p>
+              {listWarnings.map((w) => (
+                <ToolCallout key={w} variant="safe">
+                  {w}
+                </ToolCallout>
+              ))}
+              <ul className="space-y-2">
+                {preferenceList.map((item, index) => {
+                  const gap = gapDisplay(item.gapToUser);
+                  return (
+                    <li
+                      key={item.id}
+                      draggable
+                      onDragStart={(e) => onDragStart(e, item.id)}
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={(e) => onDrop(e, item.id)}
+                      className="rp-pref-row"
+                    >
+                      <div className="flex items-center gap-2">
+                        <FiMenu
+                          className="hidden h-4 w-4 text-outline sm:block"
+                          aria-hidden
+                        />
+                        <span className="rp-pref-rank">{index + 1}</span>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <Link
+                          href={
+                            item.collegeSlug.startsWith("demo-")
+                              ? "#college-list"
+                              : `/colleges/${item.collegeSlug}`
+                          }
+                          className="font-semibold text-on-surface hover:text-primary"
+                        >
+                          {item.name}
+                        </Link>
+                        <p className="text-xs text-on-surface-variant">
+                          {item.city}, {item.affiliation}
+                        </p>
+                        <p className={cn("text-xs", gap.className)}>
+                          Closing {formatNumber(item.closingRank)} · {gap.text}
+                        </p>
+                      </div>
+                      <select
+                        value={item.tag}
+                        onChange={(e) =>
+                          setPreferenceList((prev) =>
+                            prev.map((p) =>
+                              p.id === item.id
+                                ? {
+                                  ...p,
+                                  tag: e.target.value as PreferenceListItem["tag"],
+                                }
+                                : p
+                            )
+                          )
+                        }
+                        className="rounded-xl border border-outline-variant bg-surface-container-lowest px-3 py-2 text-xs font-semibold"
+                        aria-label={`Tag for ${item.name}`}
+                      >
+                        <option value="safe">Safe</option>
+                        <option value="target">Target</option>
+                        <option value="reach">Reach</option>
+                      </select>
+                      <button
+                        type="button"
+                        className="rounded-lg p-2 text-outline transition hover:bg-error-container hover:text-error"
+                        aria-label={`Remove ${item.name}`}
+                        onClick={() =>
+                          setPreferenceList((prev) =>
+                            prev.filter((p) => p.id !== item.id)
+                          )
+                        }
+                      >
+                        <FiX />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="flex flex-wrap gap-2 pt-2">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  className="rounded-xl"
+                  onClick={() => window.print()}
+                >
+                  Export / Print
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="rounded-xl"
+                  onClick={() => {
+                    const blob = new Blob(
+                      [JSON.stringify(preferenceList, null, 2)],
+                      { type: "application/json" }
+                    );
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = "college-preferences.json";
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
+                  Save JSON
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="rounded-xl"
+                  onClick={() => setPreferenceList([])}
+                >
+                  Clear list
+                </Button>
+              </div>
+            </AnalyserSectionBody>
+          </AnalyserSectionBlock>
+
+          <CutoffAnalyserLeadMagnet
+            className="ca-lead-band"
+            content={CUTOFF_ANALYSER_LEAD_MAGNET_CHOICE}
+          />
+
+          <AnalyserSectionBlock
+            title="How competition has changed"
+            description="Closing rank movement across five years (illustrative aggregates — verify against official bulletins)."
+          >
+            <AnalyserSectionBody>
+              <TrendChart />
+            </AnalyserSectionBody>
+          </AnalyserSectionBlock>
+
+          <AnalyserSectionBlock
+            title="Your options at a glance"
+            description="Chances in Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra at your estimated rank. Compare the map with the state cards."
+          >
+            <AnalyserSectionBody flush className="p-0">
+              <EligibilityGlancePanel
+                eligibility={result.stateEligibility}
+                mutedStateSlugs={mutedStateSlugs}
+              />
+            </AnalyserSectionBody>
+          </AnalyserSectionBlock>
+
+          <CutoffAnalyserLeadMagnet
+            className="ca-lead-band"
+            content={CUTOFF_ANALYSER_LEAD_MAGNET_ROUNDS}
+          />
+
+          <AnalyserSectionBlock
+            title="Don't miss your round"
+            description="Key counseling milestones for your focus states and MCC AIQ—dates update as portals publish notices."
+          >
+            <AnalyserSectionBody flush className="p-0">
+              <CounselingTimelinePanel
+                events={counselingTimeline}
+                sessionYear={COUNSELING_SESSION_YEAR}
+                disclaimer={COUNSELING_TIMELINE_DISCLAIMER}
+              />
+            </AnalyserSectionBody>
+          </AnalyserSectionBlock>
+
+
+
+          <AnalyserSectionBlock
+            title="Understand the cost"
+            description="Annual fees from our catalog for each focus state."
+          >
+            <AnalyserSectionBody toolbar>
+              <div className="flex flex-wrap gap-2">
+                {FOCUS_STATE_OPTIONS.map((s) => (
+                  <FilterPill
+                    key={s.slug}
+                    active={feeState === s.slug}
+                    onClick={() => setFeeState(s.slug)}
+                  >
+                    {s.label}
+                  </FilterPill>
+                ))}
+              </div>
+            </AnalyserSectionBody>
+            <AnalyserSectionBody flush>
+              <div className="quota-table-wrap">
+                <table className="quota-table">
+                  <thead>
+                    <tr>
+                      <th className="p-3">College</th>
+                      <th className="p-3">Type</th>
+                      <th className="p-3 text-right">Annual fee</th>
+                      <th className="p-3 text-right">Seats</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {feeColleges.map((c) => (
+                      <tr
+                        key={c.slug}
+                        className="border-b border-outline-variant hover:bg-surface-container-low/80"
+                      >
+                        <td className="p-3">
+                          {c.slug.startsWith("demo-") ? (
+                            <span className="font-semibold text-on-surface">
+                              {c.name}
+                            </span>
+                          ) : (
+                            <Link
+                              href={`/colleges/${c.slug}`}
+                              className="font-semibold text-primary hover:underline"
+                            >
+                              {c.name}
+                            </Link>
+                          )}
+                        </td>
+                        <td className="p-3 capitalize text-on-surface-variant">
+                          {c.collegeType}
+                        </td>
+                        <td className="p-3 text-right tabular-nums font-semibold text-on-surface">
+                          {formatINR(c.totalAnnualFee)}
+                        </td>
+                        <td className="p-3 text-right tabular-nums">{c.seatCount}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </AnalyserSectionBody>
+          </AnalyserSectionBlock>
+
+          <RankPredictorFaqSection items={faqItems} />
         </div>
 
         <section className="py-12 md:py-16">

@@ -94,7 +94,7 @@ export function GuidePageJumpNav({
   }
 
   return (
-    <ul className="flex gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <ul className="flex gap-2 py-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {jumpSections.map((item) => {
         const isActive = item.id === activeId;
         return (

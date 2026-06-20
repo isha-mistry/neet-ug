@@ -101,7 +101,7 @@ export function CollegeCard({
       <div
         className={cn(
           "relative z-0 flex min-h-0 flex-1 pointer-events-none",
-          isGrid ? "flex-row items-stretch" : "items-stretch flex-col md:flex-row"
+          isGrid ? "flex-col sm:flex-row items-stretch" : "items-stretch flex-col md:flex-row"
         )}
       >
         <CollegeCardVisual college={college} compact={isGrid} />
@@ -315,7 +315,7 @@ function CollegeCardVisual({
   const frameClass = cn(
     "relative shrink-0 overflow-hidden",
     compact
-      ? "h-full min-h-[7rem] w-[10.25rem] self-stretch sm:w-[11rem] lg:w-44"
+      ? "h-40 w-full self-stretch sm:h-full sm:min-h-[7rem] sm:w-[11rem] lg:w-44"
       : "h-44 w-full self-stretch md:h-auto md:min-h-[228px] md:w-72 lg:min-h-[240px] lg:w-80"
   );
 
@@ -330,7 +330,7 @@ function CollegeCardVisual({
         }
         sizes={
           compact
-            ? "(max-width: 1024px) 11rem, 12rem"
+            ? "(max-width: 640px) 100vw, (max-width: 1024px) 11rem, 12rem"
             : "(max-width: 768px) 100vw, (max-width: 1024px) 288px, 320px"
         }
         className="absolute inset-0"

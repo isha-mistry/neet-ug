@@ -80,7 +80,7 @@ function getCategoryBarColor(catName: string): string {
 
 function CategorySeatRows({ rows }: { rows: CategoryChartPoint[] }) {
   return (
-    <ul className="grid grid-cols-[minmax(5rem,6.25rem)_minmax(0,1fr)_8.25rem] items-center gap-x-4 gap-y-5 sm:grid-cols-[6.5rem_minmax(0,1fr)_8.75rem] sm:gap-x-5">
+    <ul className="grid grid-cols-[4rem_minmax(0,1fr)_5.25rem] items-center gap-x-4 gap-y-5 sm:grid-cols-[6.5rem_minmax(0,1fr)_8.75rem] sm:gap-x-5">
       {rows.map((row) => (
         <li key={row.name} className="contents">
           <span className="text-right text-[11px] font-bold uppercase leading-snug tracking-wide text-on-surface-variant sm:text-xs [text-wrap:balance]">

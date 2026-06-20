@@ -342,9 +342,11 @@ export function CollegePredictorHowItWorks() {
         {steps.map((item, i) => (
           <div key={item.title} className="rp-step">
             <span className="rp-step-n">{i + 1}</span>
-            <span className="rp-step-ic material-symbols-outlined text-[21px]">
-              {item.icon}
-            </span>
+            <div className="rp-step-ic ">
+              <span className="material-symbols-outlined text-[21px]">
+                {item.icon}
+              </span>
+            </div>
             <h3 className="text-lg font-extrabold tracking-tight">{item.title}</h3>
             <p className="mt-2 text-[13.5px] leading-relaxed text-on-surface-variant">
               {item.body}
