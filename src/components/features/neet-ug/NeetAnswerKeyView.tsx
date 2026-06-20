@@ -8,7 +8,7 @@ import {
   GuideSection,
   GuideSteps,
   MetricGrid,
-} from "@/components/features/mbbs-india/MbbsIndiaParts";
+} from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
 import { NeetUgUpdatesSidebar } from "@/components/features/neet-ug/NeetUgUpdatesParts";
 import { NeetUgHubFinalCta, NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
@@ -103,7 +103,7 @@ export function NeetAnswerKeyView() {
             >
               <GuideCard>
                 <GuideSteps size="compact" steps={[...NEET_UG_ANSWER_KEY_OMR_STEPS]} />
-                <p className="mt-5 border-t border-outline-variant/40 pt-4 text-sm leading-relaxed text-on-surface-variant">
+                <p className="mt-5 border-t border-outline-variant pt-4 text-sm leading-relaxed text-on-surface-variant">
                   Portal:{" "}
                   <Link
                     href="https://neet.nta.nic.in"
@@ -115,9 +115,9 @@ export function NeetAnswerKeyView() {
                   </Link>
                 </p>
               </GuideCard>
-              <GuideCard className="mt-4 border-emerald-200/80 bg-emerald-50/40">
-                <h3 className="flex items-center gap-2 text-sm font-bold text-emerald-900">
-                  <span className="material-symbols-outlined text-lg text-emerald-700" aria-hidden>
+              <GuideCard className="mt-4 border-tertiary/25 bg-tertiary-fixed/30">
+                <h3 className="flex items-center gap-2 text-sm font-bold text-on-surface">
+                  <span className="material-symbols-outlined text-lg text-tertiary" aria-hidden>
                     gavel
                   </span>
                   Challenging an answer key
@@ -229,7 +229,7 @@ export function NeetAnswerKeyView() {
               </div>
 
               <div className="mt-8">
-                <div className="rp-brand-gradient rp-brand-elevated relative overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-8">
+                <div className="bg-linear-to-br from-primary to-primary-pressed rp-brand-elevated relative overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-8">
                   <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-wider text-on-primary/80">

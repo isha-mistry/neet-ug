@@ -36,6 +36,7 @@ import {
   guideTableClass,
   guideTableLabelNumericColsClass,
   guideTableWrapClass,
+  summaryHighlightCardClass,
 } from "@/lib/mbbs-india/section-styles";
 import { MBBS_INDIA_PAGE_PATH } from "@/lib/mbbs-india/constants";
 import { cn, formatNumber } from "@/lib/utils";
@@ -62,7 +63,7 @@ export function MbbsStateClient({
 
       <nav
         aria-label="Page sections"
-        className="sticky top-16 z-30 border-b border-outline-variant/40 bg-surface/90 backdrop-blur-lg lg:hidden"
+        className="sticky top-16 z-30 border-b border-outline-variant bg-surface-container-lowest/90 backdrop-blur-lg lg:hidden"
       >
         <Container size="2xl" className="py-3">
           <GuidePageJumpNav variant="horizontal" jumpSections={jumpSections} />
@@ -441,12 +442,12 @@ export function MbbsStateClient({
           {config.chances.stats.map((item) => (
             <div
               key={item.label}
-              className="rounded-xl border border-outline-variant/30 bg-surface p-4 shadow-sm"
+              className={summaryHighlightCardClass}
             >
-              <p className="text-[10px] font-bold uppercase tracking-wider text-outline">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                 {item.label}
               </p>
-              <p className="mt-2 text-xl font-bold text-primary">{item.value}</p>
+              <p className="mt-1 text-xl font-bold tabular-nums text-primary">{item.value}</p>
             </div>
           ))}
         </div>

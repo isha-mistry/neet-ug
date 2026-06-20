@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Container } from "@/components/common/Container";
 import { GuidePageJumpNav } from "@/components/features/mbbs-india/GuidePageJumpNav";
-import { GuideCard, GuideSection } from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { GuideCard, GuideSection } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
 import { NeetUgUpdatesSidebar } from "@/components/features/neet-ug/NeetUgUpdatesParts";
 import { NeetUgHubFinalCta, NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
@@ -178,7 +178,7 @@ export function TermsExplainedView() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="e.g. AIQ, GMERS, mop-up, NCL certificate…"
-                    className="w-full rounded-xl border border-outline-variant bg-surface py-2.5 pl-11 pr-3 text-sm outline-none focus:ring-2 focus:ring-primary/25"
+                    className="w-full rounded-xl border border-outline-variant bg-surface-container-lowest py-2.5 pl-11 pr-3 text-sm outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 transition-all duration-150"
                     aria-describedby="glossary-search-hint"
                   />
                 </div>
@@ -225,7 +225,7 @@ export function TermsExplainedView() {
                   </Link>{" "}
                   page.
                 </p>
-                <dl className="mt-6 grid gap-3 border-t border-outline-variant/40 pt-5 text-sm sm:grid-cols-2">
+                <dl className="mt-6 grid gap-3 border-t border-outline-variant pt-5 text-sm sm:grid-cols-2">
                   <div>
                     <dt className="text-xs font-bold uppercase tracking-wider text-outline">
                       Last verified

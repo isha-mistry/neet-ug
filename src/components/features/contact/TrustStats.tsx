@@ -38,7 +38,7 @@ export function TrustStats() {
     return (
         <section className="relative z-10 py-12 bg-surface">
             <Container size="page">
-                <div className="rounded-3xl bg-linear-to-br from-primary/55 via-primary-fixed to-surface-container-low p-[1px] shadow-[0_20px_56px_-30px_color-mix(in_srgb,var(--color-primary)_50%,transparent)]">
+                <div className="rounded-3xl gradient-border-panel bg-linear-to-br from-primary/55 via-primary-fixed to-surface-container-low shadow-[0_20px_56px_-30px_color-mix(in_srgb,var(--color-primary)_50%,transparent)]">
                 <div className="overflow-hidden rounded-[calc(1.5rem-1px)] bg-surface-container-lowest">
                     <div className="grid gap-0 lg:grid-cols-[300px_minmax(0,1fr)]">
                         {/* Left intro panel */}
@@ -59,7 +59,7 @@ export function TrustStats() {
                             {STATS.map((stat, idx) => (
                                 <div
                                     key={idx}
-                                    className="group flex flex-col justify-between border-b border-outline-variant/40 p-5 last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 lg:border-b-0 lg:[&:nth-child(2n)]:border-r lg:last:border-r-0 hover:bg-surface-container-low/20 transition-colors duration-200"
+                                    className="group flex flex-col justify-between border-b border-outline-variant p-5 last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 lg:border-b-0 lg:[&:nth-child(2n)]:border-r lg:last:border-r-0 hover:bg-surface-container-low/20 transition-colors duration-200"
                                 >
                                     <div>
                                         <div className={`mb-4 flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${stat.color}`}>

@@ -58,11 +58,11 @@ export function HelpServices() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+          <div className="overflow-hidden rounded-2xl border border-outline-variant bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
             {SERVICES.map((s, idx) => (
               <div
                 key={idx}
-                className="group grid gap-4 border-b border-outline-variant/40 p-5 transition-colors hover:bg-surface-container-low/45 last:border-b-0 md:grid-cols-[44px_minmax(0,1fr)]"
+                className="group grid gap-4 border-b border-outline-variant p-5 transition-colors hover:bg-surface-container-low/45 last:border-b-0 md:grid-cols-[44px_minmax(0,1fr)]"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-fixed text-primary transition group-hover:bg-primary group-hover:text-on-primary">
                   <span className="material-symbols-outlined text-[22px]">{s.icon}</span>

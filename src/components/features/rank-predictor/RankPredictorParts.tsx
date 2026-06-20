@@ -43,7 +43,7 @@ export interface RpMarketingHeroProps {
   titleEmphasis: string;
   lede: string;
   trio: readonly { key: string; value: string }[];
-  fine: string;
+  fine: ReactNode;
 }
 
 export function RpMarketingHero({
@@ -127,7 +127,7 @@ interface RankPredictorShellProps {
 
 export function RankPredictorShell({ children, className }: RankPredictorShellProps) {
   return (
-    <div className={cn("rp-page relative overflow-hidden min-h-[60vh] pb-16 pt-0 md:pb-24", className)}>
+    <div className={cn("rp-page relative overflow-x-clip min-h-[60vh] pb-16 pt-0 md:pb-24", className)}>
       {children}
     </div>
   );

@@ -6,12 +6,9 @@ import {
   QuotaTheoryPanel,
   QuotaSectionHeading,
 } from "./QuotaShared";
-import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
-import {
-  guideCardClass,
-  summaryHighlightCardClass,
-} from "@/lib/neet-ug-2026/section-styles";
-import { cn } from "@/lib/utils";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge, type BadgeTone } from "@/components/ui/Badge";
 import { quotaTheoryContent, quotaTypesOverviewData as quotaTypes } from "./content";
 
 const keyGuidelines = [
@@ -68,34 +65,34 @@ const planningSignals = [
   { label: "Timing", value: "Parallel registrations", icon: "schedule" },
 ];
 
-const getBadgeClasses = (slug: string) => {
+const getBadgeTone = (slug: string): BadgeTone => {
   switch (slug) {
-  case "all-india":
-    return "bg-blue-100 text-blue-700";
-  case "state":
-    return "bg-primary-container text-on-primary-container";
-  case "management":
-    return "bg-secondary-container text-on-secondary-container";
-  case "nri":
-    return "bg-tertiary-fixed text-on-tertiary-fixed";
-  case "deemed":
-    return "bg-outline text-surface-container-lowest";
-  case "special":
-    return "bg-primary-fixed-dim text-on-primary-fixed-variant";
-  default:
-    return "bg-surface-container-high text-on-surface";
+    case "all-india":
+      return "brand";
+    case "state":
+      return "brand";
+    case "management":
+      return "warn";
+    case "nri":
+      return "safe";
+    case "deemed":
+      return "neutral";
+    case "special":
+      return "brand";
+    default:
+      return "neutral";
   }
 };
 
 const getCardIcon = (slug: string) => {
   switch (slug) {
-  case "all-india": return "public";
-  case "state": return "location_on";
-  case "management": return "payments";
-  case "nri": return "language";
-  case "deemed": return "account_balance";
-  case "special": return "award_star";
-  default: return "school";
+    case "all-india": return "public";
+    case "state": return "location_on";
+    case "management": return "payments";
+    case "nri": return "language";
+    case "deemed": return "account_balance";
+    case "special": return "award_star";
+    default: return "school";
   }
 };
 
@@ -113,11 +110,10 @@ export function QuotaOverview() {
     <section id="overview">
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
         <div>
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary-fixed px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
-            <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified_user</span>
+          <Badge tone="brand" icon={<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified_user</span>} className="mb-4">
             Medical admission guide
-          </span>
-          <h1 className="rp-hero-title mt-4">
+          </Badge>
+          <h1 className="rp-hero-title max-w-3xl">
             Understand every <em>medical seat quota</em> before you register
           </h1>
           <p className="rp-hero-lede max-w-3xl">
@@ -126,23 +122,25 @@ export function QuotaOverview() {
             state, management, NRI or deemed university counselling choices.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a
+            <Button
+              as="link"
               href="#quota-types"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-on-primary shadow-sm transition hover:bg-primary-hover active:scale-[0.98]"
+              variant="primary"
+              trailingIcon={<span className="material-symbols-outlined text-lg">arrow_downward</span>}
             >
               Compare quota types
-              <span className="material-symbols-outlined text-lg">arrow_downward</span>
-            </a>
-            <Link
+            </Button>
+            <Button
+              as="link"
               href="/college-predictor"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-outline-variant/40 bg-surface px-5 py-3 text-sm font-bold text-on-surface-variant transition hover:border-primary hover:text-primary"
+              variant="secondary"
+              trailingIcon={<span className="material-symbols-outlined text-lg">analytics</span>}
             >
               Check college fit
-              <span className="material-symbols-outlined text-lg">analytics</span>
-            </Link>
+            </Button>
           </div>
         </div>
-        <GuideCard>
+        <Card>
           <div className="flex items-center gap-3">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary">
               <span className="material-symbols-outlined text-[28px]">hub</span>
@@ -161,52 +159,26 @@ export function QuotaOverview() {
               { value: "MCC", label: "Central pools" },
               { value: "DME", label: "State pools" },
             ].map((stat) => (
-              <div key={stat.label} className={summaryHighlightCardClass}>
+              <Card key={stat.label} padded={false} className="p-3 shadow-sm border-outline-variant/40">
                 <p className="text-2xl font-bold text-on-surface">{stat.value}</p>
                 <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                   {stat.label}
                 </p>
-              </div>
+              </Card>
             ))}
           </div>
-        </GuideCard>
+        </Card>
       </div>
     </section>
-  );
-
-  const sidebar = (
-    <aside className="space-y-6">
-      <GuideCard className="h-fit">
-        <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-primary">
-          Planning checklist
-        </span>
-        <h2 className="mt-2 font-headline-md text-lg font-bold text-on-surface">
-          Build your quota shortlist in this order
-        </h2>
-        <div className="mt-5 space-y-4">
-          {planningSignals.map((signal) => (
-            <div key={signal.label} className="flex gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary">
-                <span className="material-symbols-outlined text-[22px]">{signal.icon}</span>
-              </span>
-              <div>
-                <h3 className="text-sm font-bold text-on-surface">{signal.label}</h3>
-                <p className="mt-0.5 text-sm leading-relaxed text-on-surface-variant">{signal.value}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </GuideCard>
-    </aside>
   );
 
   return (
     <QuotaOverviewShell
       header={header}
-      sidebar={sidebar}
+      sidebar={undefined}
       jumpSections={QUOTA_OVERVIEW_JUMP_SECTIONS}
     >
-      <section id="decision-signals">
+      <section id="decision-signals" className="space-y-6">
         <QuotaSectionHeading
           eyebrow="Decision signals"
           title="What changes when the "
@@ -233,10 +205,33 @@ export function QuotaOverview() {
             },
           ]}
         />
+
+        {/* Planning Checklist */}
+        <Card>
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-primary">
+            Planning checklist
+          </span>
+          <h2 className="mt-2 font-headline-md text-lg font-bold text-on-surface">
+            Build your quota shortlist in this order
+          </h2>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {planningSignals.map((signal, idx) => (
+              <div key={signal.label} className="flex gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary font-bold text-sm">
+                  {idx + 1}
+                </span>
+                <div>
+                  <h3 className="text-sm font-bold text-on-surface">{signal.label}</h3>
+                  <p className="mt-0.5 text-xs leading-relaxed text-on-surface-variant">{signal.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
       </section>
 
       <div id="primer">
-        <QuotaTheoryPanel className="h-full" {...quotaTheoryContent.overview} />
+        <QuotaTheoryPanel className="h-full" {...quotaTheoryContent.quotaTheoryContent} />
       </div>
 
       <section id="seat-sharing">
@@ -247,50 +242,39 @@ export function QuotaOverview() {
             emphasis="eligibility summary"
             description="A quick comparison of how government, private and deemed colleges expose their seats across AIQ, state, management and NRI routes."
           />
-          <div className={cn(summaryHighlightCardClass, "bg-primary-fixed/55")}>
-            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-primary">Read this first</p>
-            <p className="mt-1 text-sm font-semibold leading-relaxed text-on-primary-fixed">
-              Treat every percentage as a planning guide. Final seat matrix and eligibility are
-              controlled by the latest MCC or state bulletin.
-            </p>
-          </div>
         </div>
-        <div className={cn(guideCardClass, "overflow-hidden p-0")}>
-          <div className="hidden grid-cols-[180px_repeat(4,minmax(0,1fr))] border-b border-outline-variant/40 bg-primary text-[10px] font-bold uppercase tracking-widest text-on-primary lg:grid">
-            <div className="px-5 py-4">College type</div>
-            <div className="px-5 py-4">AIQ</div>
-            <div className="px-5 py-4">State quota</div>
-            <div className="px-5 py-4">Management</div>
-            <div className="px-5 py-4">NRI</div>
-          </div>
-          {quotaComparisonRows.map((row) => (
-            <div
-              key={row.collegeType}
-              className="grid gap-3 border-b border-outline-variant/40 p-5 last:border-b-0 lg:grid-cols-[180px_repeat(4,minmax(0,1fr))] lg:gap-0 lg:p-0"
-            >
-              <div className="text-base font-bold text-on-surface lg:bg-surface-container-low/50 lg:px-5 lg:py-5 lg:text-sm">
-                {row.collegeType}
-              </div>
-              {[
-                ["AIQ", row.aiq],
-                ["State quota", row.state],
-                ["Management", row.management],
-                ["NRI", row.nri],
-              ].map(([label, value]) => (
-                <div
-                  key={label}
-                  className="rounded-xl bg-surface-container-low/55 p-4 lg:rounded-none lg:bg-transparent lg:px-5 lg:py-5"
-                >
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-primary lg:hidden">
-                    {label}
-                  </span>
-                  <p className="mt-1 text-sm font-semibold leading-relaxed text-on-surface-variant lg:mt-0">
-                    {value}
-                  </p>
-                </div>
+        <div className="rounded-xl border border-outline-variant/40 bg-primary-fixed px-4 py-3 mb-3 shadow-sm">
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-primary">Read this first</p>
+          <p className="mt-1 text-sm font-semibold leading-relaxed text-primary">
+            Treat every percentage as a planning guide. Final seat matrix and eligibility are
+            controlled by the latest MCC or state bulletin.
+          </p>
+        </div>
+        <div className="quota-table-wrap">
+          <table className="quota-table">
+            <thead>
+              <tr>
+                <th className="pl-6">College type</th>
+                <th>AIQ</th>
+                <th>State quota</th>
+                <th>Management</th>
+                <th className="pr-6">NRI</th>
+              </tr>
+            </thead>
+            <tbody>
+              {quotaComparisonRows.map((row) => (
+                <tr key={row.collegeType} className="hover:bg-surface-container-low/20 transition-colors duration-200">
+                  <td className="pl-6 font-bold text-on-surface">
+                    {row.collegeType}
+                  </td>
+                  <td>{row.aiq}</td>
+                  <td>{row.state}</td>
+                  <td>{row.management}</td>
+                  <td className="pr-6 text-on-surface-variant">{row.nri}</td>
+                </tr>
               ))}
-            </div>
-          ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -302,62 +286,86 @@ export function QuotaOverview() {
             emphasis="quota types"
             description="Scan seat share, counselling body, domicile rules and fee category before opening the detailed guide."
           />
-          <Link
+          <Button
+            as="link"
             href="/rank-predictor"
-            className="inline-flex w-fit items-center gap-2 rounded-xl bg-primary-fixed px-4 py-2 text-sm font-bold text-primary transition hover:bg-primary hover:text-on-primary"
+            variant="secondary"
+            size="sm"
+            trailingIcon={<span className="material-symbols-outlined text-base">query_stats</span>}
           >
             Estimate rank fit
-            <span className="material-symbols-outlined text-base">query_stats</span>
-          </Link>
+          </Button>
         </div>
-        <div className={cn(guideCardClass, "overflow-hidden p-0")}>
+        <Card padded={false} className="overflow-hidden">
+          {/* Table Header for Desktop */}
+          <div className="hidden md:grid md:grid-cols-[200px_100px_130px_110px_1fr_40px] md:gap-4 md:items-center md:px-5 md:py-3 border-b border-outline-variant/40 bg-surface-container-high/40 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
+            <div>Quota / Category</div>
+            <div>Seats</div>
+            <div>Counselling</div>
+            <div>Domicile</div>
+            <div>Fee Range</div>
+            <div></div>
+          </div>
           {quotaTypes.map((quota) => (
             <Link
               key={quota.slug}
               href={`/quota/${quota.slug}`}
-              className="group grid gap-4 border-b border-outline-variant/40 p-5 transition hover:bg-surface-container-low/45 last:border-b-0 md:grid-cols-[180px_minmax(0,1fr)_180px_170px_42px] md:items-center"
+              className="group grid grid-cols-2 gap-y-4 gap-x-2 border-b border-outline-variant/40 p-5 transition hover:bg-surface-container-low/45 last:border-b-0 md:grid-cols-[200px_100px_130px_110px_1fr_40px] md:items-center md:gap-4"
             >
-              <div className="flex items-center gap-3">
+              {/* Quota details (Name / Icon / Abbr) - Spans 2 cols on mobile, 1 col on desktop */}
+              <div className="col-span-2 flex items-center gap-3 md:col-span-1">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary transition group-hover:bg-primary group-hover:text-on-primary">
                   <span className="material-symbols-outlined text-[22px]">{getCardIcon(quota.slug)}</span>
                 </span>
                 <div>
-                  <span className={`rounded px-2 py-0.5 text-[10px] font-bold ${getBadgeClasses(quota.slug)}`}>
+                  <Badge tone={getBadgeTone(quota.slug)} className="mb-1">
                     {quota.abbreviation}
-                  </span>
-                  <h3 className="mt-1 text-sm font-bold text-on-surface">{quota.name}</h3>
+                  </Badge>
+                  <h3 className="text-sm font-bold text-on-surface">{quota.name}</h3>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Seats</span>
-                  <p className="mt-1 font-bold text-on-surface">{quota.seats}</p>
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Counselling</span>
-                  <p className="mt-1 font-semibold text-on-surface-variant">{quota.counseling}</p>
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Domicile</span>
-                  <p className="mt-1 font-semibold text-on-surface-variant">
-                    {quota.domicileStatus === "DOMICILE YES" ? "Required" : quota.domicileStatus === "NO DOMICILE" ? "Not required" : "Specific proof"}
-                  </p>
-                </div>
+
+              {/* Seats */}
+              <div className="col-span-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant md:hidden">Seats</span>
+                <p className="mt-0.5 font-bold text-on-surface md:mt-0 text-sm md:text-body-sm">{quota.seats}</p>
               </div>
-              <div className="text-sm">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Fee range</span>
-                <p className="mt-1 font-bold text-primary">{quota.feeRange}</p>
+
+              {/* Counselling */}
+              <div className="col-span-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant md:hidden">Counselling</span>
+                <p className="mt-0.5 font-semibold text-on-surface-variant md:mt-0 text-sm md:text-body-sm">{quota.counseling}</p>
               </div>
-              <span className="text-sm font-bold text-primary">View details</span>
-              <span className="hidden h-10 w-10 items-center justify-center rounded-full bg-surface-container-low text-primary transition group-hover:bg-primary group-hover:text-on-primary md:flex">
-                <span className="material-symbols-outlined text-lg">arrow_forward</span>
-              </span>
+
+              {/* Domicile */}
+              <div className="col-span-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant md:hidden">Domicile</span>
+                <p className="mt-0.5 font-semibold text-on-surface-variant md:mt-0 text-sm md:text-body-sm">
+                  {quota.domicileStatus === "DOMICILE YES" ? "Required" : quota.domicileStatus === "NO DOMICILE" ? "Not required" : "Specific proof"}
+                </p>
+              </div>
+
+              {/* Fee Range */}
+              <div className="col-span-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant md:hidden">Fee range</span>
+                <p className="mt-0.5 font-bold text-primary md:mt-0 text-sm md:text-body-sm">{quota.feeRange}</p>
+              </div>
+
+              {/* Arrow Icon */}
+              <div className="col-span-2 flex justify-end md:col-span-1 md:block">
+                <span className="hidden h-10 w-10 items-center justify-center rounded-full bg-surface-container-low text-primary transition group-hover:bg-primary group-hover:text-on-primary md:flex justify-self-end">
+                  <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                </span>
+                <span className="flex items-center gap-1 text-xs font-bold text-primary md:hidden">
+                  View details <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                </span>
+              </div>
             </Link>
           ))}
-        </div>
+        </Card>
       </section>
 
-      <section id="rules" className="rp-brand-gradient rp-brand-elevated relative overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-10 md:py-10">
+      <section id="rules" className="bg-linear-to-br from-primary to-primary-pressed rp-brand-elevated relative overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-10 md:py-10">
         <div className="relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
           <div>
             <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-on-primary/20">
@@ -374,22 +382,25 @@ export function QuotaOverview() {
               document proof, scheme acceptance and authority-specific instructions.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link
+              <Button
+                as="link"
                 href="/neet-ug-2026/counselling-guide"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-on-primary px-5 py-3 text-sm font-bold text-primary shadow-sm transition hover:scale-[1.02]"
+                variant="inverse"
+                leadingIcon={<span className="material-symbols-outlined text-lg">download</span>}
               >
-                <span className="material-symbols-outlined text-lg">download</span>
                 Full MCC guide
-              </Link>
-              <a
+              </Button>
+              <Button
+                as="link"
                 href="https://mcc.nic.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-on-primary/40 px-5 py-3 text-sm font-bold text-on-primary transition hover:bg-on-primary/10"
+                variant="outline"
+                className="border-on-primary/40 text-on-primary hover:bg-on-primary/10 hover:border-on-primary/80 active:bg-on-primary/20"
+                leadingIcon={<span className="material-symbols-outlined text-lg">language</span>}
               >
-                <span className="material-symbols-outlined text-lg">language</span>
                 Official MCC portal
-              </a>
+              </Button>
             </div>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">

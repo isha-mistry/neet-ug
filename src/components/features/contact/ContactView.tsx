@@ -12,6 +12,7 @@ import { AdditionalResources } from "./AdditionalResources";
 import { Container } from "@/components/common/Container";
 import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
 import { NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
+import { Button } from "@/components/ui/Button";
 
 export function ContactView() {
     return (
@@ -38,15 +39,15 @@ export function ContactView() {
                         can help you decide whether to start with a callback, WhatsApp chat or detailed inquiry.
                     </p>
                     <div className="mt-8 flex justify-center">
-                        <a
+                        <Button
                             href={COUNSEL_WHATSAPP_URL}
-                            target="_blank"
+                            as="link"
+                            variant="primary"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-8 py-4 text-sm font-bold text-on-primary shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
+                            trailingIcon={<span className="material-symbols-outlined text-sm font-bold">arrow_forward</span>}
                         >
                             <span>Chat with counsellor</span>
-                            <span className="material-symbols-outlined text-sm font-bold">arrow_forward</span>
-                        </a>
+                        </Button>
                     </div>
                 </Container>
             </section>

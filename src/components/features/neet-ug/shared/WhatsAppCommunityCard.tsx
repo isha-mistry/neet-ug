@@ -1,10 +1,9 @@
 "use client";
 
 import { FiArrowRight } from "react-icons/fi";
-import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { GuideCard } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { Button } from "@/components/ui/Button";
 import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
-import { cn } from "@/lib/utils";
 
 export function WhatsAppCommunityCard({ className }: { className?: string }) {
   return (
@@ -38,7 +37,6 @@ export function WhatsAppCommunityCard({ className }: { className?: string }) {
           size="md"
           fullWidth
           trailingIcon={<FiArrowRight className="text-lg" aria-hidden />}
-          className="h-11 w-full rounded-xl border-0 bg-[#22c55e] text-sm font-bold text-white shadow-[0_10px_28px_-12px_rgba(34,197,94,0.55)] hover:bg-[#1fb565]"
         >
           Join on WhatsApp
         </Button>

@@ -1,7 +1,7 @@
 "use client";
 
 import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
-import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { GuideCard } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 
 export type NeetUgLeadMagnetContent = {
   formTitle: string;
@@ -18,9 +18,9 @@ export function NeetUgLeadMagnetPanel({
   content: NeetUgLeadMagnetContent;
 }) {
   return (
-    <GuideCard>
+    <GuideCard className="gradient-border-panel relative overflow-hidden">
       <div className="flex flex-col gap-4">
-        <div className="flex items-start gap-3 border-b border-outline-variant/50 pb-4">
+        <div className="flex items-start gap-3 border-b border-outline-variant pb-4">
           <span
             className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary"
             aria-hidden

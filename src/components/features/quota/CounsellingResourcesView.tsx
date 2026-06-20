@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Card } from "@/components/ui/Card";
 import { QuotaHeader, QuotaCta, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
 import { DocumentChecklistWidget } from "./MccContentBlocks";
 import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
@@ -117,12 +118,12 @@ export function CounsellingResourcesView() {
           <span className="text-label-md text-on-surface-variant font-bold tracking-wider uppercase">{resourceData.central?.length || 0} Gateways Active</span>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="quota-table">
             <thead>
-              <tr className="bg-surface-container-lowest border-b border-outline-variant">
-                <th className="px-6 py-4 font-label-md text-on-surface-variant tracking-wider uppercase">Authority</th>
-                <th className="px-6 py-4 font-label-md text-on-surface-variant tracking-wider uppercase">Primary Usage</th>
-                <th className="px-6 py-4 font-label-md text-on-surface-variant tracking-wider uppercase text-right">Action</th>
+              <tr>
+                <th className="pl-6">Authority</th>
+                <th>Primary Usage</th>
+                <th className="pr-6 text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant">
@@ -194,7 +195,7 @@ export function CounsellingResourcesView() {
       </section>
 
       {/* State Counselling Hub Section */}
-      <section className="relative overflow-hidden rounded-3xl border border-primary/20 bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] md:p-8">
+      <Card as="section" padded={false} className="relative overflow-hidden p-6 md:p-8">
         <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-primary/5 blur-2xl" aria-hidden />
 
         <div className="relative grid gap-6 md:grid-cols-[minmax(0,1fr)_220px] items-center">
@@ -229,7 +230,7 @@ export function CounsellingResourcesView() {
             </Link>
           </div>
         </div>
-      </section>
+      </Card>
 
       {/* Document Checklist Integration */}
       <section id="documents" className="scroll-mt-20 pt-4">

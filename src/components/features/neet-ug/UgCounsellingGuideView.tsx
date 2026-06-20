@@ -8,7 +8,7 @@ import {
   GuideSection,
   GuideSteps,
   MetricGrid,
-} from "@/components/features/mbbs-india/MbbsIndiaParts";
+} from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { ChronologyJourney } from "@/components/features/neet-ug/counselling/ChronologyJourney";
 import { CounsellingFeeTable } from "@/components/features/neet-ug/counselling/CounsellingFeeTable";
 import { CounsellingRounds } from "@/components/features/neet-ug/counselling/CounsellingRounds";

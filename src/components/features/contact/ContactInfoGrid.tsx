@@ -104,7 +104,7 @@ export function ContactInfoGrid() {
                             </div>
 
                             {/* Card Footer Tag */}
-                            <div className="mt-6 border-t border-outline-variant/30 pt-3">
+                            <div className="mt-6 border-t border-outline-variant pt-3">
                                 <span className="text-[10px] font-bold uppercase tracking-wider text-outline group-hover:text-primary transition-colors">
                                     {item.label}
                                 </span>

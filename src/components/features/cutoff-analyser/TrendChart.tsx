@@ -6,6 +6,7 @@ import {
   TREND_BY_STATE,
   type TrendView,
 } from "@/lib/cutoff-analyser/content";
+import { ToolFilterPill } from "@/components/features/predictors/PredictorToolParts";
 import { cn, formatNumber } from "@/lib/utils";
 
 const YEAR_COLORS: Record<number, string> = {
@@ -41,9 +42,9 @@ export function TrendChart({ className }: TrendChartProps) {
     return max * 1.05;
   }, [series]);
 
-  const width = 680;
-  const height = 260;
-  const pad = { top: 16, right: 16, bottom: 36, left: 48 };
+  const width = 900;
+  const height = 280;
+  const pad = { top: 20, right: 20, bottom: 40, left: 52 };
   const innerW = width - pad.left - pad.right;
   const innerH = height - pad.top - pad.bottom;
 
@@ -67,138 +68,138 @@ export function TrendChart({ className }: TrendChartProps) {
   }
 
   return (
-    <div className={cn("space-y-3", className)}>
+    <div className={cn("space-y-4", className)}>
       <div className="flex flex-wrap gap-2">
-        <div className="inline-flex rounded-lg border border-border p-0.5 text-xs">
-          {(["state", "quota"] as const).map((v) => (
-            <button
-              key={v}
-              type="button"
-              className={cn(
-                "rounded-md px-3 py-1.5 font-medium transition-colors",
-                view === v
-                  ? "bg-primary text-on-primary"
-                  : "text-text-secondary hover:bg-surface-container"
-              )}
-              onClick={() => setView(v)}
-            >
-              {v === "state" ? "By state" : "By quota"}
-            </button>
-          ))}
-        </div>
+        {(["state", "quota"] as const).map((v) => (
+          <ToolFilterPill key={v} active={view === v} onClick={() => setView(v)}>
+            {v === "state" ? "By state" : "By quota"}
+          </ToolFilterPill>
+        ))}
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-outline-variant/50 bg-surface-container-lowest p-3 md:p-4">
-        <svg
-          viewBox={`0 0 ${width} ${height}`}
-          className="min-w-[320px] w-full max-w-[680px]"
-          role="img"
-          aria-label="Closing rank trend chart 2021 to 2025"
-        >
-          {[0, 0.25, 0.5, 0.75, 1].map((t) => {
-            const rank = Math.round(maxRank * t);
-            const y = yForRank(rank);
-            return (
-              <g key={t}>
-                <line
-                  x1={pad.left}
-                  x2={width - pad.right}
-                  y1={y}
-                  y2={y}
-                  stroke="var(--color-border)"
-                  strokeWidth={0.5}
+      <div className="ca-chart-panel">
+        <div className="ca-chart-canvas">
+          <svg
+            viewBox={`0 0 ${width} ${height}`}
+            role="img"
+            aria-label="Closing rank trend chart 2021 to 2025"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            {[0, 0.25, 0.5, 0.75, 1].map((t) => {
+              const rank = Math.round(maxRank * t);
+              const y = yForRank(rank);
+              return (
+                <g key={t}>
+                  <line
+                    x1={pad.left}
+                    x2={width - pad.right}
+                    y1={y}
+                    y2={y}
+                    stroke="var(--color-outline-variant)"
+                    strokeWidth={1}
+                    strokeDasharray="4 6"
+                  />
+                  <text
+                    x={pad.left - 8}
+                    y={y + 4}
+                    textAnchor="end"
+                    className="fill-outline text-[10px] font-medium"
+                  >
+                    {formatNumber(rank)}
+                  </text>
+                </g>
+              );
+            })}
+
+            {keys.map((key, i) => (
+              <text
+                key={key}
+                x={xForIndex(i)}
+                y={height - 10}
+                textAnchor="middle"
+                className="fill-on-surface-variant text-[11px] font-semibold"
+              >
+                {key}
+              </text>
+            ))}
+
+            {series.map((row) => {
+              if (hiddenYears.has(row.year)) return null;
+              const color = YEAR_COLORS[row.year] ?? "#378ADD";
+              const points = keys
+                .map((key, i) => {
+                  const rank = row.values[key];
+                  if (rank == null) return null;
+                  return `${xForIndex(i)},${yForRank(rank)}`;
+                })
+                .filter(Boolean)
+                .join(" ");
+
+              return (
+                <polyline
+                  key={row.year}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth={row.year === 2025 ? 2.75 : 2}
+                  strokeDasharray={row.year === 2021 ? "5 4" : undefined}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  points={points}
                 />
-                <text
-                  x={pad.left - 6}
-                  y={y + 4}
-                  textAnchor="end"
-                  className="fill-text-muted text-[10px]"
-                >
-                  {formatNumber(rank)}
-                </text>
-              </g>
-            );
-          })}
+              );
+            })}
 
-          {keys.map((key, i) => (
-            <text
-              key={key}
-              x={xForIndex(i)}
-              y={height - 8}
-              textAnchor="middle"
-              className="fill-text-secondary text-[11px]"
-            >
-              {key}
-            </text>
-          ))}
-
-          {series.map((row) => {
-            if (hiddenYears.has(row.year)) return null;
-            const color = YEAR_COLORS[row.year] ?? "#378ADD";
-            const points = keys
-              .map((key, i) => {
+            {series.map((row) => {
+              if (hiddenYears.has(row.year)) return null;
+              const color = YEAR_COLORS[row.year] ?? "#378ADD";
+              return keys.map((key, i) => {
                 const rank = row.values[key];
                 if (rank == null) return null;
-                return `${xForIndex(i)},${yForRank(rank)}`;
-              })
-              .filter(Boolean)
-              .join(" ");
+                return (
+                  <circle
+                    key={`${row.year}-${key}`}
+                    cx={xForIndex(i)}
+                    cy={yForRank(rank)}
+                    r={row.year === 2025 ? 4.5 : 3.5}
+                    fill={color}
+                    stroke="#fff"
+                    strokeWidth={1.5}
+                  >
+                    <title>{`${row.year} ${key}: ${formatNumber(rank)}`}</title>
+                  </circle>
+                );
+              });
+            })}
+          </svg>
+        </div>
 
-            return (
-              <polyline
-                key={row.year}
-                fill="none"
-                stroke={color}
-                strokeWidth={row.year === 2025 ? 2.5 : 2}
-                strokeDasharray={row.year === 2021 ? "4 3" : undefined}
-                points={points}
-              />
-            );
-          })}
-
-          {series.map((row) => {
-            if (hiddenYears.has(row.year)) return null;
-            const color = YEAR_COLORS[row.year] ?? "#378ADD";
-            return keys.map((key, i) => {
-              const rank = row.values[key];
-              if (rank == null) return null;
-              return (
-                <circle
-                  key={`${row.year}-${key}`}
-                  cx={xForIndex(i)}
-                  cy={yForRank(rank)}
-                  r={row.year === 2025 ? 4 : 3}
-                  fill={color}
-                >
-                  <title>{`${row.year} ${key}: ${formatNumber(rank)}`}</title>
-                </circle>
-              );
-            });
-          })}
-        </svg>
+        <ul className="ca-chart-legend">
+          {series.map((row) => (
+            <li key={row.year}>
+              <button
+                type="button"
+                className={cn(
+                  "ca-chart-legend-btn",
+                  hiddenYears.has(row.year) && "ca-chart-legend-btn-off",
+                )}
+                onClick={() => toggleYear(row.year)}
+              >
+                <span
+                  className="h-2 w-4 shrink-0 rounded-sm"
+                  style={{ background: YEAR_COLORS[row.year] }}
+                  aria-hidden
+                />
+                {row.year}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
 
-      <ul className="flex flex-wrap gap-3 text-xs text-text-secondary">
-        {series.map((row) => (
-          <li key={row.year}>
-            <button
-              type="button"
-              className={cn(
-                "inline-flex items-center gap-1.5 rounded-md px-1 py-0.5",
-                hiddenYears.has(row.year) && "opacity-40 line-through"
-              )}
-              onClick={() => toggleYear(row.year)}
-            >
-              <span
-                className="h-2 w-4 rounded-sm"
-                style={{ background: YEAR_COLORS[row.year] }}
-                aria-hidden
-              />
-              {row.year}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <p className="rp-field-hint">
+        Lower closing rank is better. Toggle years to compare movement — verify against official
+        bulletins before planning choices.
+      </p>
     </div>
   );
 }

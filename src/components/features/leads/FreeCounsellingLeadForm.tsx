@@ -32,7 +32,7 @@ interface FreeCounsellingLeadFormProps {
 }
 
 const inputClass =
-  "w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20";
+  "w-full rounded-2xl border border-outline-variant bg-surface-container-lowest px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20";
 
 export function FreeCounsellingLeadForm({
   pageLabel,
@@ -150,7 +150,7 @@ export function FreeCounsellingLeadForm({
               placeholder="Enter Your Name"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="h-10 w-full rounded-md border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="h-10 w-full rounded-2xl border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
           </label>
           <div className="grid grid-cols-1 gap-4">
@@ -260,7 +260,7 @@ export function FreeCounsellingLeadForm({
                 name="countryCode"
                 value={countryCode}
                 onChange={(e) => setCountryCode(e.target.value)}
-                className="w-[7.25rem] shrink-0 rounded-xl border border-outline-variant bg-surface-container-lowest px-3 py-3 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                className="w-[7.25rem] shrink-0 rounded-2xl border border-outline-variant bg-surface-container-lowest px-3 py-3 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 aria-label="Country code"
               >
                 {COUNTRY_CODES.map((c) => (
@@ -282,7 +282,7 @@ export function FreeCounsellingLeadForm({
                 placeholder="Enter contact number*"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="min-w-0 flex-1 rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                className="min-w-0 flex-1 rounded-2xl border border-outline-variant bg-surface-container-lowest px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
               />
             </div>
           )}
@@ -327,7 +327,6 @@ export function FreeCounsellingLeadForm({
         size="lg"
         fullWidth
         trailingIcon={variant === "card" ? <FiArrowRight className="text-lg" aria-hidden /> : undefined}
-        className={variant === "embedded" ? "h-11 rounded-xl text-sm font-bold" : "rounded-full"}
       >
         {submitLabel}
       </Button>
@@ -341,7 +340,7 @@ export function FreeCounsellingLeadForm({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-outline-variant/40 bg-surface p-6 shadow-[0_12px_40px_-24px_rgba(0,0,0,0.35)] md:p-8",
+        "rounded-2xl gradient-border-panel bg-surface p-6 shadow-[0_12px_40px_-24px_rgba(0,0,0,0.35)] md:p-8",
         className
       )}
     >

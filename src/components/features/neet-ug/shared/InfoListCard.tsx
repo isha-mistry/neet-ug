@@ -1,5 +1,7 @@
 import React from "react";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
+import { neetCardClass, neetIconTileClass } from "@/lib/neet-ug-2026/design-system";
+import { cn } from "@/lib/utils";
 
 interface InfoListCardProps {
   iconName: string;
@@ -24,21 +26,17 @@ export function InfoListCard({
 
   return (
     <div
-      className={`rounded-lg border shadow-sm p-6 ${
-        bgVariant === "subtle"
-          ? "border-clinical-outline bg-clinical-surface-low/70"
-          : "border-clinical-outline bg-clinical-surface"
-      }`}
+      className={cn(neetCardClass, bgVariant === "subtle" && "bg-surface-container-low")}
     >
-      <div className="flex items-center gap-2 mb-4">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-clinical-surface-low text-clinical-muted ring-1 ring-clinical-outline/50">
+      <div className="mb-4 flex items-center gap-3">
+        <span className={cn(neetIconTileClass, "h-10 w-10")}>
           <MaterialSymbol name={iconName} size="sm" />
         </span>
-        <h3 className="text-sm font-extrabold text-clinical-navy">{title}</h3>
+        <h3 className="text-[16.5px] font-extrabold tracking-[-0.01em] text-on-surface">{title}</h3>
       </div>
 
       {description && (
-        <p className="mb-3 text-xs leading-relaxed text-clinical-muted">
+        <p className="mb-4 text-sm leading-[1.6] text-on-surface-variant">
           {description}
         </p>
       )}
@@ -55,15 +53,15 @@ export function InfoListCard({
             key={i}
             className={`flex ${
               listType === "checkmarks" ? "items-center" : "items-start"
-            } gap-2.5 text-xs text-clinical-muted`}
+            } gap-2.5 text-sm leading-relaxed text-on-surface-variant`}
           >
             {listType === "numbered-round" && (
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-clinical-blue text-[10px] font-extrabold text-white">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-[10px] font-extrabold text-on-primary">
                 {i + 1}
               </span>
             )}
             {listType === "numbered-square" && (
-              <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border border-clinical-outline bg-clinical-surface-low text-[10px] font-extrabold text-clinical-blue">
+              <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border border-outline-variant bg-primary-fixed text-[10px] font-extrabold text-primary">
                 {i + 1}
               </span>
             )}
@@ -71,7 +69,7 @@ export function InfoListCard({
               <MaterialSymbol
                 name="check"
                 size="sm"
-                className="text-clinical-blue shrink-0 mt-0.5"
+                className="mt-0.5 shrink-0 text-primary"
               />
             )}
             {item}

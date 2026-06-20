@@ -122,9 +122,9 @@ export function WebsiteDirectory({ links = defaultLinks }: WebsiteDirectoryProps
   });
 
   const statusBadgeColors = {
-    Active: "bg-blue-50 text-blue-700 border-blue-100",
-    "Not Started": "bg-slate-50 text-slate-500 border-slate-100",
-    "Counselling Live": "bg-green-50 text-green-700 border-green-100",
+    Active: "bg-primary-fixed/50 text-primary border-primary/20",
+    "Not Started": "bg-surface-container-high text-on-surface-variant border-outline-variant",
+    "Counselling Live": "bg-tertiary-fixed/50 text-tertiary border-tertiary/25",
   };
 
   return (
@@ -147,9 +147,9 @@ export function WebsiteDirectory({ links = defaultLinks }: WebsiteDirectoryProps
             <button
               key={type}
               onClick={() => setActiveType(type)}
-              className={`px-4 py-1.5 text-xs font-bold rounded-lg capitalize transition-colors ${
+              className={`px-4 py-1.5 text-xs font-bold rounded-xl capitalize transition-colors ${
                 activeType === type
-                  ? "bg-white text-primary shadow-sm border border-border/50"
+                  ? "bg-surface-container-lowest text-primary shadow-[0_1px_2px_rgba(0,0,0,0.04)] border border-outline-variant"
                   : "text-text-secondary hover:text-text"
               }`}
             >
@@ -163,11 +163,11 @@ export function WebsiteDirectory({ links = defaultLinks }: WebsiteDirectoryProps
       <div className="flex flex-col gap-4">
         {filteredSites.length > 0 ? (
           filteredSites.map((site) => (
-            <Card key={site.id} padded bordered className="bg-white/80 hover:bg-white hover:shadow-sm transition-all rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <Card key={site.id} padded bordered className="bg-surface-container-lowest hover:bg-surface-container-lowest hover:shadow-[0_2px_6px_rgba(0,0,0,0.04),0_30px_70px_-30px_rgba(37,70,208,0.28)] transition-all rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center gap-2">
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${
-                    site.scope === "Central" ? "bg-purple-50 text-purple-700 border-purple-100" : "bg-orange-50 text-orange-700 border-orange-100"
+                    site.scope === "Central" ? "bg-primary-fixed text-primary border-primary/15" : "bg-secondary-fixed/80 text-secondary border-secondary/25"
                   }`}>
                     {site.scope}
                   </span>
@@ -209,7 +209,7 @@ export function WebsiteDirectory({ links = defaultLinks }: WebsiteDirectoryProps
                   variant="subtle"
                   size="sm"
                   fullWidth
-                  className={copiedId === site.id ? "text-green-600 bg-green-50 border border-green-100" : ""}
+                  className={copiedId === site.id ? "text-tertiary bg-tertiary-fixed/50 border border-tertiary/25" : ""}
                   leadingIcon={<MaterialSymbol name={copiedId === site.id ? "check" : "content_copy"} size="sm" />}
                 >
                   {copiedId === site.id ? "Copied!" : "Copy Link"}
@@ -218,7 +218,7 @@ export function WebsiteDirectory({ links = defaultLinks }: WebsiteDirectoryProps
             </Card>
           ))
         ) : (
-          <div className="text-center py-12 bg-white/50 border border-border border-dashed rounded-2xl">
+          <div className="text-center py-12 bg-surface-container-lowest border border-outline-variant border-dashed rounded-2xl">
             <MaterialSymbol name="search_off" className="text-text-muted text-4xl block mb-2" />
             <h4 className="font-bold text-text">No Counselling Boards Found</h4>
             <p className="text-xs text-text-secondary mt-1">Try modifying your search query or switching filters.</p>

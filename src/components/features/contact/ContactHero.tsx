@@ -3,6 +3,7 @@
 import React from "react";
 import { Container } from "@/components/common/Container";
 import { summaryHighlightCardClass } from "@/lib/neet-ug-2026/section-styles";
+import { Button } from "@/components/ui/Button";
 
 const HERO_STATS = [
     { value: "12-24h", label: "Response window" },
@@ -59,20 +60,23 @@ export function ContactHero() {
                         </p>
 
                         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                            <button
+                            <Button
+                                className="flex gap-3"
+                                variant="primary"
                                 onClick={() => scrollToSection("contact-form-section")}
-                                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-on-primary shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
+                                trailingIcon={<span className="material-symbols-outlined text-sm font-bold">mail</span>}
                             >
                                 Submit an inquiry
-                                <span className="material-symbols-outlined text-sm font-bold">mail</span>
-                            </button>
-                            <button
+
+                            </Button>
+                            <Button
+                                variant="secondary"
                                 onClick={() => scrollToSection("callback-section")}
-                                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-6 py-3.5 text-sm font-bold text-on-surface-variant transition-all hover:border-primary hover:text-primary active:scale-[0.98]"
+                            // className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-outline-variant bg-surface-container-lowest px-6 py-3.5 text-sm font-bold text-on-surface-variant transition-all hover:border-primary hover:text-primary active:scale-[0.98]"
                             >
                                 Request callback
                                 <span className="material-symbols-outlined text-sm font-bold">call</span>
-                            </button>
+                            </Button>
                         </div>
 
                         <div className="mt-8 grid max-w-2xl grid-cols-3 gap-3">
@@ -87,58 +91,58 @@ export function ContactHero() {
                         </div>
                     </div>
 
-                    <div className="rounded-4xl bg-linear-to-br from-primary/70 via-primary-fixed to-surface-container-low p-[1px] shadow-[0_24px_70px_-32px_color-mix(in_srgb,var(--color-primary)_60%,transparent)]">
+                    <div className="rounded-4xl gradient-border-panel bg-linear-to-br from-primary/70 via-primary-fixed to-surface-container-low shadow-[0_24px_70px_-32px_color-mix(in_srgb,var(--color-primary)_60%,transparent)]">
                         <div className="rounded-[calc(2rem-1px)] bg-surface-container-lowest p-5">
                             <div className="rounded-3xl bg-linear-to-br from-primary-fixed via-surface-container-lowest to-surface-container-low p-5">
-                            <div className="flex items-start justify-between gap-4">
-                                <div>
-                                    <p className="text-[10px] font-black uppercase tracking-[0.16em] text-primary">
-                                        Support dashboard
-                                    </p>
-                                    <h2 className="mt-2 text-xl font-black tracking-tight text-on-surface">
-                                        Tell us what you need help with
-                                    </h2>
-                                </div>
-                                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-on-primary">
-                                    <span className="material-symbols-outlined text-[28px]">forum</span>
-                                </span>
-                            </div>
-
-                            <div className="mt-5 space-y-3">
-                                {SUPPORT_ROUTES.map((route) => (
-                                    <div key={route.title} className="flex gap-3 rounded-2xl bg-surface-container-lowest/85 p-4">
-                                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary">
-                                            <span className="material-symbols-outlined text-[22px]">{route.icon}</span>
-                                        </span>
-                                        <div>
-                                            <h3 className="text-sm font-black text-on-surface">{route.title}</h3>
-                                            <p className="mt-0.5 text-xs font-medium leading-relaxed text-on-surface-variant">
-                                                {route.body}
-                                            </p>
-                                        </div>
+                                <div className="flex items-start justify-between gap-4">
+                                    <div>
+                                        <p className="text-[10px] font-black uppercase tracking-[0.16em] text-primary">
+                                            Support dashboard
+                                        </p>
+                                        <h2 className="mt-2 text-xl font-black tracking-tight text-on-surface">
+                                            Tell us what you need help with
+                                        </h2>
                                     </div>
-                                ))}
-                            </div>
+                                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-on-primary">
+                                        <span className="material-symbols-outlined text-[28px]">forum</span>
+                                    </span>
+                                </div>
 
-                            <div className="mt-5 rounded-2xl bg-primary px-4 py-4 text-on-primary">
-                                <p className="text-[10px] font-black uppercase tracking-[0.16em] text-on-primary/70">
-                                    What happens next
-                                </p>
-                                <div className="mt-3 grid grid-cols-3 gap-2">
-                                    {NEXT_STEPS.map((step, index) => (
-                                        <div key={step} className="rounded-xl bg-on-primary/10 p-3 text-center">
-                                            <div className="mx-auto mb-2 flex h-7 w-7 items-center justify-center rounded-full bg-on-primary text-xs font-black text-primary">
-                                                {index + 1}
+                                <div className="mt-5 space-y-3">
+                                    {SUPPORT_ROUTES.map((route) => (
+                                        <div key={route.title} className="flex gap-3 rounded-2xl bg-surface-container-lowest/85 p-4">
+                                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary">
+                                                <span className="material-symbols-outlined text-[22px]">{route.icon}</span>
+                                            </span>
+                                            <div>
+                                                <h3 className="text-sm font-black text-on-surface">{route.title}</h3>
+                                                <p className="mt-0.5 text-xs font-medium leading-relaxed text-on-surface-variant">
+                                                    {route.body}
+                                                </p>
                                             </div>
-                                            <p className="text-[11px] font-bold leading-tight">{step}</p>
                                         </div>
                                     ))}
+                                </div>
+
+                                <div className="mt-5 rounded-2xl bg-primary px-4 py-4 text-on-primary">
+                                    <p className="text-[10px] font-black uppercase tracking-[0.16em] text-on-primary/70">
+                                        What happens next
+                                    </p>
+                                    <div className="mt-3 grid grid-cols-3 gap-2">
+                                        {NEXT_STEPS.map((step, index) => (
+                                            <div key={step} className="rounded-xl bg-on-primary/10 p-3 text-center">
+                                                <div className="mx-auto mb-2 flex h-7 w-7 items-center justify-center rounded-full bg-on-primary text-xs font-black text-primary">
+                                                    {index + 1}
+                                                </div>
+                                                <p className="text-[11px] font-bold leading-tight">{step}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            </div>
             </div>
         </section>
     );

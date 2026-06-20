@@ -32,7 +32,7 @@ function SortHeader({
     <th
       scope="col"
       className={cn(
-        "px-4 py-3 text-xs font-bold uppercase tracking-wider text-outline",
+        "px-5 py-4 text-[10px] font-bold uppercase tracking-[0.14em] text-on-primary",
         align === "right" && "text-right"
       )}
     >
@@ -40,16 +40,16 @@ function SortHeader({
         type="button"
         onClick={onClick}
         className={cn(
-          "inline-flex items-center gap-1 transition-colors hover:text-primary",
+          "inline-flex items-center gap-1 transition-colors hover:text-white/80",
           align === "right" && "ml-auto",
-          active && "text-primary"
+          active ? "text-white" : "text-white/70"
         )}
       >
         {label}
         <span
           className={cn(
             "material-symbols-outlined text-base",
-            !active && "opacity-30"
+            !active && "opacity-50"
           )}
           aria-hidden
         >
@@ -105,10 +105,10 @@ export function CutoffComparisonTable({
 
   return (
     <>
-      <div className="hidden overflow-x-auto md:block">
-        <table className="w-full min-w-[720px] border-collapse text-sm">
-          <thead className="sticky top-0 z-10 bg-surface-container-high/95 backdrop-blur-sm">
-            <tr className="border-b border-outline-variant">
+      <div className="hidden md:block quota-table-wrap">
+        <table className="quota-table min-w-[720px]">
+          <thead className="sticky top-0 z-10 bg-primary">
+            <tr>
               <SortHeader
                 label="State"
                 active={sortKey === "state"}
@@ -117,13 +117,13 @@ export function CutoffComparisonTable({
               />
               <th
                 scope="col"
-                className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-outline"
+                className="px-5 py-4 text-left text-[10px] font-bold uppercase tracking-[0.14em] text-on-primary"
               >
                 Quota
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 text-right text-xs font-bold uppercase tracking-wider text-outline"
+                className="px-5 py-4 text-right text-[10px] font-bold uppercase tracking-[0.14em] text-on-primary"
               >
                 Opening
               </th>
@@ -151,16 +151,15 @@ export function CutoffComparisonTable({
             </tr>
           </thead>
           <tbody>
-            {sorted.map((row, index) => (
+            {sorted.map((row) => (
               <tr
                 key={`${row.stateSlug}-${row.quota}`}
                 className={cn(
-                  "border-b border-outline-variant/50 transition-colors last:border-b-0 hover:bg-surface-container-low/90",
-                  index % 2 === 1 && "bg-surface-container-low/40",
-                  STATUS_ROW_CLASS[row.status]
+                  "border-b border-outline-variant/70 transition-colors last:border-b-0 hover:bg-surface-container-low/70",
+                  STATUS_ROW_CLASS[row.status],
                 )}
               >
-                <td className="px-4 py-3.5">
+                <td className="px-5 py-4">
                   <div className="flex items-center gap-2">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary-fixed text-xs font-bold text-primary">
                       {row.stateAbbrev}
@@ -170,19 +169,19 @@ export function CutoffComparisonTable({
                     </span>
                   </div>
                 </td>
-                <td className="px-4 py-3.5 text-on-surface-variant">
+                <td className="px-5 py-4 text-on-surface-variant">
                   {row.quotaLabel}
                 </td>
-                <td className="px-4 py-3.5 text-right font-mono tabular-nums text-on-surface-variant">
+                <td className="px-5 py-4 text-right font-mono tabular-nums text-on-surface-variant">
                   {row.openingRank ? formatNumber(row.openingRank) : "—"}
                 </td>
-                <td className="px-4 py-3.5 text-right font-mono text-base font-bold tabular-nums text-on-surface">
+                <td className="px-5 py-4 text-right font-mono text-base font-bold tabular-nums text-on-surface">
                   {row.closingRank ? formatNumber(row.closingRank) : "—"}
                 </td>
-                <td className="px-4 py-3.5 text-right text-sm">
+                <td className="px-5 py-4 text-right text-sm">
                   {gapCell(row.gapToUser)}
                 </td>
-                <td className="px-4 py-3.5 text-right">
+                <td className="px-5 py-4 text-right">
                   <CutoffStatusBadge status={row.status} />
                 </td>
               </tr>
@@ -196,8 +195,8 @@ export function CutoffComparisonTable({
           <div
             key={`m-${row.stateSlug}-${row.quota}`}
             className={cn(
-              "rounded-2xl border border-outline-variant/50 p-4 shadow-sm",
-              STATUS_ROW_CLASS[row.status]
+              "rounded-xl border border-outline-variant p-4",
+              STATUS_ROW_CLASS[row.status],
             )}
           >
             <div className="flex items-start justify-between gap-2">

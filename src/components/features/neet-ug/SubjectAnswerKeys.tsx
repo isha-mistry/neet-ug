@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 export interface AnswerKeyItem {
   qNo: number;
@@ -60,51 +62,55 @@ export function SubjectAnswerKeys({
   biology = defaultBiology,
 }: SubjectAnswerKeysProps) {
   const [activeTab, setActiveTab] = useState<"physics" | "chemistry" | "biology">("physics");
-
   const sampleAnswerKey = { physics, chemistry, biology };
 
   return (
     <div className="mt-2 flex flex-col gap-4">
-      <div className="flex gap-6 border-b border-clinical-outline">
+      <div className="flex gap-6 border-b border-outline-variant">
         {(["physics", "chemistry", "biology"] as const).map((sub) => (
           <button
             key={sub}
+            type="button"
             onClick={() => setActiveTab(sub)}
-            className={`-mb-px border-b-2 px-0 py-3 text-[12px] font-bold capitalize transition-colors ${
+            className={cn(
+              "-mb-px border-b-2 px-0 py-3 text-sm font-bold capitalize transition-colors",
               activeTab === sub
-                ? "border-clinical-navy text-clinical-navy"
-                : "border-transparent text-clinical-muted/60 hover:text-clinical-muted"
-            }`}
+                ? "border-primary text-primary"
+                : "border-transparent text-on-surface-variant hover:text-on-surface"
+            )}
           >
             {sub}
           </button>
         ))}
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-clinical-outline bg-clinical-surface shadow-clinical-soft transition-opacity duration-200">
-        <table className="w-full min-w-[680px] border-collapse text-left tabular-nums">
-          <thead>
-            <tr className="border-b border-clinical-outline bg-clinical-surface-low text-[10px] font-extrabold uppercase tracking-[0.16em] text-clinical-muted/75">
-              <th className="p-4 pl-7">Question No.</th>
-              <th className="p-4">Set Code A Answer</th>
-              <th className="p-4">Set Code B Answer</th>
-              <th className="p-4 pr-7 text-right">Status</th>
+      <div className="overflow-x-auto rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_26px_-16px_rgba(37,70,208,0.2)]">
+        <table className="w-full min-w-[680px] border-collapse text-left text-sm tabular-nums">
+          <thead className="bg-primary">
+            <tr>
+              <th className="px-5 py-4 text-[10px] font-bold uppercase tracking-[0.14em] text-on-primary">Question No.</th>
+              <th className="px-5 py-4 text-[10px] font-bold uppercase tracking-[0.14em] text-on-primary">Set Code A Answer</th>
+              <th className="px-5 py-4 text-[10px] font-bold uppercase tracking-[0.14em] text-on-primary">Set Code B Answer</th>
+              <th className="px-5 py-4 text-right text-[10px] font-bold uppercase tracking-[0.14em] text-on-primary">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-clinical-outline text-[13px]">
+          <tbody>
             {sampleAnswerKey[activeTab].map((item) => (
-              <tr key={item.qNo} className="transition-colors hover:bg-clinical-surface-low/45">
-                <td className="p-4 pl-7 font-extrabold text-clinical-navy">
+              <tr key={item.qNo} className="border-b border-outline-variant transition-colors last:border-b-0 hover:bg-primary-fixed/20">
+                <td className="bg-surface-container-low/60 px-5 py-4 font-bold text-on-surface">
                   Question {item.qNo}
                 </td>
-                <td className="p-4 font-bold text-clinical-blue">{item.codeA}</td>
-                <td className="p-4 font-bold text-clinical-blue">{item.codeB}</td>
-                <td className="p-4 pr-7 text-right">
-                  <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[0.14em] ${
-                    item.status === "Challenged"
-                      ? "bg-amber-50 text-amber-700 ring-1 ring-amber-100"
-                      : "bg-emerald-50 text-clinical-green ring-1 ring-emerald-100"
-                  }`}>
+                <td className="px-5 py-4 font-bold text-primary">{item.codeA}</td>
+                <td className="px-5 py-4 font-bold text-primary">{item.codeB}</td>
+                <td className="px-5 py-4 text-right">
+                  <span
+                    className={cn(
+                      "inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]",
+                      item.status === "Challenged"
+                        ? "border-tertiary-fixed-dim/60 bg-tertiary-fixed text-on-tertiary-fixed-variant"
+                        : "border-secondary/25 bg-secondary-fixed/80 text-secondary"
+                    )}
+                  >
                     {item.status}
                   </span>
                 </td>
@@ -112,10 +118,10 @@ export function SubjectAnswerKeys({
             ))}
           </tbody>
         </table>
-        <div className="border-t border-clinical-outline py-4 text-center">
-          <button className="text-[12px] font-extrabold text-clinical-blue transition-colors hover:text-clinical-navy">
-            View All 180 Questions +
-          </button>
+        <div className="border-t border-outline-variant py-4 text-center">
+          <Button variant="text" size="sm" type="button">
+            View all 180 questions +
+          </Button>
         </div>
       </div>
     </div>

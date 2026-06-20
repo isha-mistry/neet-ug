@@ -8,7 +8,7 @@ import {
   GuideSection,
   GuideSteps,
   MetricGrid,
-} from "@/components/features/mbbs-india/MbbsIndiaParts";
+} from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
 import { NeetUgUpdatesSidebar } from "@/components/features/neet-ug/NeetUgUpdatesParts";
 import { NeetUgHubFinalCta, NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
@@ -54,9 +54,9 @@ function GuideAllowedProhibited({
 }) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
-      <GuideCard className="border-emerald-200/80 bg-emerald-50/40">
-        <h3 className="flex items-center gap-2 text-sm font-bold text-emerald-900">
-          <span className="material-symbols-outlined text-lg text-emerald-700" aria-hidden>
+      <GuideCard className="border-tertiary/25 bg-tertiary-fixed/30">
+        <h3 className="flex items-center gap-2 text-sm font-bold text-on-surface">
+          <span className="material-symbols-outlined text-lg text-tertiary" aria-hidden>
             check_circle
           </span>
           {allowedTitle}
@@ -64,7 +64,7 @@ function GuideAllowedProhibited({
         <ul className="mt-4 space-y-2.5 text-sm text-on-surface-variant">
           {allowed.map((item) => (
             <li key={item} className="flex gap-2 leading-relaxed">
-              <span className="text-emerald-600" aria-hidden>
+              <span className="text-tertiary" aria-hidden>
                 ·
               </span>
               <span>{item}</span>
@@ -72,9 +72,9 @@ function GuideAllowedProhibited({
           ))}
         </ul>
       </GuideCard>
-      <GuideCard className="border-rose-200/80 bg-rose-50/40">
-        <h3 className="flex items-center gap-2 text-sm font-bold text-rose-900">
-          <span className="material-symbols-outlined text-lg text-rose-700" aria-hidden>
+      <GuideCard className="border-error/30 bg-error-container/70">
+        <h3 className="flex items-center gap-2 text-sm font-bold text-on-error-container">
+          <span className="material-symbols-outlined text-lg text-error" aria-hidden>
             block
           </span>
           {prohibitedTitle}
@@ -82,7 +82,7 @@ function GuideAllowedProhibited({
         <ul className="mt-4 space-y-2.5 text-sm text-on-surface-variant">
           {prohibited.map((item) => (
             <li key={item} className="flex gap-2 leading-relaxed">
-              <span className="text-rose-600" aria-hidden>
+              <span className="text-error" aria-hidden>
                 ·
               </span>
               <span>{item}</span>
@@ -90,7 +90,7 @@ function GuideAllowedProhibited({
           ))}
         </ul>
         {footnote ? (
-          <p className="mt-4 border-t border-rose-200/60 pt-4 text-xs leading-relaxed text-rose-900/90">
+          <p className="mt-4 border-t border-error/30 pt-4 text-xs leading-relaxed text-on-error-container/90">
             <strong className="font-semibold">Note:</strong> {footnote}
           </p>
         ) : null}
@@ -173,7 +173,7 @@ export function ApplicationFormView() {
             >
               <GuideCard>
                 <GuideSteps size="compact" steps={[...NEET_UG_APPLICATION_STEPS]} />
-                <p className="mt-5 border-t border-outline-variant/40 pt-4 text-sm leading-relaxed text-on-surface-variant">
+                <p className="mt-5 border-t border-outline-variant pt-4 text-sm leading-relaxed text-on-surface-variant">
                   <strong className="font-semibold text-on-surface">Official portal:</strong> Submit
                   applications only through{" "}
                   <Link
@@ -269,8 +269,8 @@ export function ApplicationFormView() {
                 ]}
                 rows={slipRows}
               />
-              <GuideCard className="mt-4 border-amber-200/80 bg-amber-50/50">
-                <p className="text-sm leading-relaxed text-amber-950/90">
+              <GuideCard className="mt-4 border-secondary/25 bg-secondary-fixed/70">
+                <p className="text-sm leading-relaxed text-on-secondary-fixed-variant">
                   <strong className="font-semibold">Admit card errors:</strong> If name, DOB, or photo
                   are wrong, contact NTA at{" "}
                   <span className="font-semibold">011-40759000</span> or{" "}

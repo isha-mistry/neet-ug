@@ -619,7 +619,7 @@ export const openClosedStatesData = {
 };
 
 export const quotaTheoryContent = {
-  overview: {
+  quotaTheoryContent: {
     title: "The theory behind medical seat quotas",
     intro:
       "A quota is not a shortcut or a separate admission process. It is the seat pool under which your NEET rank, category, domicile, fee type, and document proof are evaluated by the appropriate counselling authority.",

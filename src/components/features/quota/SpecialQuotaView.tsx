@@ -4,6 +4,9 @@ import Link from "next/link";
 import { QuotaHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
 import { quotaTheoryContent } from "./content";
 import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 
 const SPECIAL_QUOTA_JUMP_SECTIONS = [
   { id: "overview", label: "Overview" },
@@ -38,48 +41,48 @@ export function SpecialQuotaView() {
       />
 
       {/* Info Alert */}
-      <div className="flex gap-3 rounded-2xl border border-l-4 border-outline-variant/40 border-l-tertiary bg-surface-container-lowest p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+      <Card padded={true} className="flex gap-3 bg-surface-container-low shadow-sm">
         <span className="material-symbols-outlined text-tertiary text-[24px] shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>campaign</span>
         <div>
           <span className="font-label-md text-label-md text-tertiary block font-bold mb-1 uppercase tracking-wider">LATEST UPDATE</span>
           <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">JIPMER Internal Quota registration is now separate within the MCC portal. Ensure certificate uploads before Round 1.</p>
         </div>
-      </div>
+      </Card>
 
       {/* Featured Image Card */}
-      <div className="group relative h-64 cursor-pointer overflow-hidden rounded-2xl border border-outline-variant/40 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+      <Card padded={false} className="group relative h-64 cursor-pointer overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Seat Matrix" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNxCUIVz64YIs-V2XKvctakH_HtiwuYXw5TSHfn7yKQxT_ArXg3GuETefqpU4W81XHaKXWK5s2PiheukoI_JUXQX2jAH0NP6GocotyLqAXudJ4fhok2Wk-t-2o7OMXOugaO3LfsiuM0ZmdGcJfjmvOIhiBl4JOYisClGY9RWSnK4B_FZlpfPFKh8bQQTDu1NSZE3mQNTVP5Vg0U3bcpPYq3j1-5u_9I2bMVmfWNI0LUzK8u01_JLQINHOOy2IXx55kt86l_lH0Sw0" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
           <span className="text-white font-title-lg text-title-lg font-bold">Seat Matrix Analysis 2024</span>
           <p className="text-white/80 font-body-sm text-body-sm leading-relaxed">Deep dive into category-wise distributions.</p>
         </div>
-      </div>
+      </Card>
 
       {/* Quick Links */}
-      <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+      <Card padded={true}>
         <h4 className="font-label-md text-label-md text-outline uppercase tracking-widest mb-4 font-bold">Related Tools</h4>
         <ul className="space-y-4">
           <li>
-            <Link className="flex items-center gap-3 text-body-md hover:text-primary group transition-colors" href="/rank-predictor">
+            <Link className="flex items-center gap-3 text-body-md hover:text-primary group transition-colors text-on-surface" href="/rank-predictor">
               <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">analytics</span>
               <span className="font-medium">AIQ Rank Predictor</span>
             </Link>
           </li>
           <li>
-            <Link className="flex items-center gap-3 text-body-md hover:text-primary group transition-colors" href="#">
+            <Link className="flex items-center gap-3 text-body-md hover:text-primary group transition-colors text-on-surface" href="#">
               <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">account_balance_wallet</span>
               <span className="font-medium">Fee Structure Analyser</span>
             </Link>
           </li>
           <li>
-            <Link className="flex items-center gap-3 text-body-md hover:text-primary group transition-colors" href="#">
+            <Link className="flex items-center gap-3 text-body-md hover:text-primary group transition-colors text-on-surface" href="#">
               <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">description</span>
               <span className="font-medium">Reservation Policy PDF</span>
             </Link>
           </li>
         </ul>
-      </div>
+      </Card>
     </aside>
   );
 
@@ -116,85 +119,110 @@ export function SpecialQuotaView() {
       </div>
 
       {/* Central Institutions Overview */}
-      <section id="central-institutions" className="scroll-mt-20 rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+      <Card id="central-institutions" as="section" className="scroll-mt-20">
         <div className="flex items-center gap-3 mb-6">
           <span className="material-symbols-outlined text-primary text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>account_balance</span>
-          <h2 className="font-headline-md text-headline-md">Central Institutions &amp; AFMC</h2>
+          <h2 className="font-headline-md text-headline-md text-on-surface">Central Institutions &amp; AFMC</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex flex-col justify-between rounded-xl border border-outline-variant/40 bg-surface-container-low p-4">
+          <Card className="flex flex-col justify-between bg-surface-container-low" padded={true}>
             <div>
-              <h3 className="font-title-lg text-title-lg mb-2 font-bold">AIIMS &amp; JIPMER</h3>
+              <h3 className="font-title-lg text-title-lg mb-2 font-bold text-on-surface">AIIMS &amp; JIPMER</h3>
               <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">100% seats are contributed to MCC. JIPMER includes Internal Quota for Puducherry residents.</p>
             </div>
-            <div className="mt-4 flex gap-2">
-              <span className="px-2 py-1 bg-tertiary-container text-on-tertiary-container rounded text-label-sm font-label-sm font-bold uppercase tracking-wider">High Priority</span>
-              <span className="px-2 py-1 bg-secondary-container text-on-secondary-container rounded text-label-sm font-label-sm font-bold uppercase tracking-wider">Central Gov</span>
+            <div className="mt-4 flex gap-2 flex-wrap">
+              <Badge tone="safe">High Priority</Badge>
+              <Badge tone="brand">Central Gov</Badge>
             </div>
-          </div>
-          <div className="flex flex-col justify-between rounded-xl border border-outline-variant/40 bg-surface-container-low p-4">
+          </Card>
+          <Card className="flex flex-col justify-between bg-surface-container-low" padded={true}>
             <div>
-              <h3 className="font-title-lg text-title-lg mb-2 font-bold">AFMC Pune Selection Rules</h3>
+              <h3 className="font-title-lg text-title-lg mb-2 font-bold text-on-surface">AFMC Pune Selection Rules</h3>
               <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">MCC registration is mandatory. Screened candidates (typical NEET score: 625+ for boys, 645+ for girls) must undergo the ToELR, PAT, and physical medical interview at Pune.</p>
             </div>
-            <a href="#afmc-flow" className="mt-4 text-primary font-label-md text-label-md flex items-center gap-1 hover:underline font-bold uppercase tracking-wider">
-              View Registration Flow <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </a>
-          </div>
+            <div className="flex justify-start">
+              <Button
+                as="link"
+                variant="text"
+                href="#afmc-flow"
+                className="mt-4 font-bold uppercase tracking-wider text-xs"
+                trailingIcon={<span className="material-symbols-outlined text-[16px]">arrow_forward</span>}
+              >
+                View Registration Flow
+              </Button>
+            </div>
+          </Card>
         </div>
-      </section>
+      </Card>
 
       {/* Reservation & Conversion Logic Table */}
-      <section id="conversion-logic" className="scroll-mt-20 rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
-        <div className="flex justify-between items-center mb-6">
+      <div id="conversion-logic" className="scroll-mt-20 quota-table-wrap">
+        <div className="flex justify-between items-center p-5 md:p-6 pb-4">
           <div className="flex items-center gap-3">
             <span className="material-symbols-outlined text-primary text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>rule</span>
-            <h2 className="font-headline-md text-headline-md">Round 3 Seat Conversion Logic</h2>
+            <h2 className="font-headline-md text-headline-md text-on-surface">Category Conversion Flow</h2>
           </div>
-          <span className="material-symbols-outlined text-outline cursor-help text-[24px]" title="Policy as per latest MCC handbook">info</span>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left font-body-sm text-body-sm border-collapse">
-            <thead>
-              <tr className="bg-surface-container-high text-on-surface-variant">
-                <th className="p-3 font-label-md text-label-md uppercase tracking-wider rounded-tl-lg font-bold">Original Category</th>
-                <th className="p-3 font-label-md text-label-md uppercase tracking-wider font-bold">Converted Category</th>
-                <th className="p-3 font-label-md text-label-md uppercase tracking-wider rounded-tr-lg font-bold">Condition</th>
+        <table className="quota-table">
+          <thead>
+            <tr>
+              <th className="pl-5 md:pl-6">Seat Pool</th>
+              <th>Converted To</th>
+              <th className="pr-5 md:pr-6">Condition</th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr className="border-b border-outline-variant/40 hover:bg-primary/5 transition-colors duration-200">
+                <td className="p-4 pl-5 md:pl-6 font-bold text-on-surface">
+                  <Badge tone="brand">ST PwD</Badge>
+                </td>
+                <td className="p-4 text-primary font-bold">
+                  <Badge tone="neutral">ST</Badge>
+                </td>
+                <td className="p-4 pr-5 md:pr-6 text-on-surface-variant">Non-availability of ST PwD candidates</td>
               </tr>
-            </thead>
-            <tbody className="[&>tr:nth-child(even)]:bg-surface-container-low/50">
-              <tr className="border-b border-outline-variant hover:bg-primary/5 transition-colors duration-200">
-                <td className="p-4 font-bold">ST (PwD)</td>
-                <td className="p-4 text-primary font-bold">ST</td>
-                <td className="p-4 text-on-surface-variant">Non-availability of ST PwD candidates</td>
+              <tr className="border-b border-outline-variant/40 hover:bg-primary/5 transition-colors duration-200">
+                <td className="p-4 pl-5 md:pl-6 font-bold text-on-surface">
+                  <Badge tone="brand">SC PwD</Badge>
+                </td>
+                <td className="p-4 text-primary font-bold">
+                  <Badge tone="neutral">SC</Badge>
+                </td>
+                <td className="p-4 pr-5 md:pr-6 text-on-surface-variant">Non-availability of SC PwD candidates</td>
               </tr>
-              <tr className="border-b border-outline-variant hover:bg-primary/5 transition-colors duration-200">
-                <td className="p-4 font-bold">SC (PwD)</td>
-                <td className="p-4 text-primary font-bold">SC</td>
-                <td className="p-4 text-on-surface-variant">Non-availability of SC PwD candidates</td>
+              <tr className="border-b border-outline-variant/40 hover:bg-primary/5 transition-colors duration-200">
+                <td className="p-4 pl-5 md:pl-6 font-bold text-on-surface">
+                  <Badge tone="brand">OBC PwD</Badge>
+                </td>
+                <td className="p-4 text-primary font-bold">
+                  <Badge tone="neutral">OBC</Badge>
+                </td>
+                <td className="p-4 pr-5 md:pr-6 text-on-surface-variant">Non-availability of OBC PwD candidates</td>
               </tr>
-              <tr className="border-b border-outline-variant hover:bg-primary/5 transition-colors duration-200">
-                <td className="p-4 font-bold">OBC (PwD)</td>
-                <td className="p-4 text-primary font-bold">OBC</td>
-                <td className="p-4 text-on-surface-variant">Non-availability of OBC PwD candidates</td>
-              </tr>
-              <tr className="border-b border-outline-variant hover:bg-primary/5 transition-colors duration-200">
-                <td className="p-4 font-bold">UR (PwD)</td>
-                <td className="p-4 text-primary font-bold">UR</td>
-                <td className="p-4 text-on-surface-variant">Non-availability of UR PwD candidates</td>
+              <tr className="border-b border-outline-variant/40 hover:bg-primary/5 transition-colors duration-200">
+                <td className="p-4 pl-5 md:pl-6 font-bold text-on-surface">
+                  <Badge tone="brand">UR PwD</Badge>
+                </td>
+                <td className="p-4 text-primary font-bold">
+                  <Badge tone="neutral">UR</Badge>
+                </td>
+                <td className="p-4 pr-5 md:pr-6 text-on-surface-variant">Non-availability of UR PwD candidates</td>
               </tr>
               <tr className="hover:bg-primary/5 transition-colors duration-200">
-                <td className="p-4 font-bold">NRI / OCI</td>
-                <td className="p-4 text-primary font-bold">UR Management</td>
-                <td className="p-4 text-on-surface-variant">Final conversion in Mop-up/Stray rounds</td>
+                <td className="p-4 pl-5 md:pl-6 font-bold text-on-surface">
+                  <Badge tone="brand">NRI / OCI</Badge>
+                </td>
+                <td className="p-4 text-primary font-bold">
+                  <Badge tone="neutral">UR Management</Badge>
+                </td>
+                <td className="p-4 pr-5 md:pr-6 text-on-surface-variant">Final conversion in Mop-up/Stray rounds</td>
               </tr>
             </tbody>
           </table>
-        </div>
-      </section>
+      </div>
 
       {/* ESIC Insured Persons Details */}
-      <section id="esic-quota" className="scroll-mt-20 relative overflow-hidden rounded-2xl border border-primary/15 bg-linear-to-br from-primary via-primary to-primary-hover p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]">
+      <Card id="esic-quota" as="section" padded={false} bordered={false} className="scroll-mt-20 relative overflow-hidden bg-linear-to-br from-primary to-primary-pressed p-6 text-on-primary shadow-[0_18px_42px_-22px_rgba(37,70,208,0.25)]">
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-4 text-white">
             <span className="material-symbols-outlined text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>verified_user</span>
@@ -230,12 +258,12 @@ export function SpecialQuotaView() {
           </div>
         </div>
         <div className="absolute right-0 top-0 w-64 h-64 bg-white/5 rounded-full -mr-20 -mt-20 blur-3xl pointer-events-none"></div>
-      </section>
+      </Card>
 
       {/* Central University Details (Grid) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
-          <h3 className="font-headline-sm text-headline-sm mb-4 border-b border-outline-variant pb-2 font-bold">Delhi University (DU)</h3>
+        <Card padded={true}>
+          <h3 className="font-headline-sm text-headline-sm mb-4 border-b border-outline-variant/40 pb-2 font-bold text-on-surface">Delhi University (DU)</h3>
           <ul className="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
             <li className="flex items-start gap-2">
               <span className="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
@@ -246,9 +274,9 @@ export function SpecialQuotaView() {
               <span className="leading-relaxed">Colleges: MAMC, LHMC, UCMS.</span>
             </li>
           </ul>
-        </div>
-        <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
-          <h3 className="font-headline-sm text-headline-sm mb-4 border-b border-outline-variant pb-2 font-bold">AMU &amp; BHU</h3>
+        </Card>
+        <Card padded={true}>
+          <h3 className="font-headline-sm text-headline-sm mb-4 border-b border-outline-variant/40 pb-2 font-bold text-on-surface">AMU &amp; BHU</h3>
           <ul className="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
             <li className="flex items-start gap-2">
               <span className="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
@@ -259,35 +287,35 @@ export function SpecialQuotaView() {
               <span className="leading-relaxed">AMU: 50% Institutional quota for internal students.</span>
             </li>
           </ul>
-        </div>
+        </Card>
       </div>
 
       {/* AFMC Registration Flow Section */}
       <section className="scroll-mt-20 mt-12" id="afmc-flow">
-        <h2 className="font-headline-md text-headline-md mb-8 text-center font-bold">AFMC Registration &amp; Selection Flow</h2>
+        <h2 className="font-headline-md text-headline-md mb-8 text-center font-bold text-on-surface">AFMC Registration &amp; Selection Flow</h2>
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative">
           {/* Connectors for desktop */}
-          <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-outline-variant -z-10"></div>
+          <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-outline-variant/40 -z-10"></div>
 
-          <div className="w-full rounded-2xl border border-outline-variant/40 bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-colors hover:border-primary/50 md:w-1/4">
+          <Card hover={true} className="w-full text-center md:w-1/4">
             <div className="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">1</div>
-            <p className="font-label-md text-label-md font-bold uppercase tracking-wider">Register on MCC Portal</p>
-          </div>
+            <p className="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface">Register on MCC Portal</p>
+          </Card>
 
-          <div className="w-full rounded-2xl border border-outline-variant/40 bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-colors hover:border-primary/50 md:w-1/4">
+          <Card hover={true} className="w-full text-center md:w-1/4">
             <div className="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">2</div>
-            <p className="font-label-md text-label-md font-bold uppercase tracking-wider">Select AFMC Option</p>
-          </div>
+            <p className="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface">Select AFMC Option</p>
+          </Card>
 
-          <div className="w-full rounded-2xl border border-outline-variant/40 bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-colors hover:border-primary/50 md:w-1/4">
+          <Card hover={true} className="w-full text-center md:w-1/4">
             <div className="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">3</div>
-            <p className="font-label-md text-label-md font-bold uppercase tracking-wider">AFMC Screening Call</p>
-          </div>
+            <p className="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface">AFMC Screening Call</p>
+          </Card>
 
-          <div className="w-full rounded-2xl border border-outline-variant/40 bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-colors hover:border-primary/50 md:w-1/4">
+          <Card hover={true} className="w-full text-center md:w-1/4">
             <div className="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">4</div>
-            <p className="font-label-md text-label-md font-bold uppercase tracking-wider">ToELR &amp; Interview</p>
-          </div>
+            <p className="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface">ToELR &amp; Interview</p>
+          </Card>
         </div>
       </section>
 

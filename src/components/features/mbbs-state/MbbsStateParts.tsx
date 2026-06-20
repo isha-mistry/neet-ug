@@ -2,8 +2,8 @@
 
 import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
 import type { MbbsStateConfig } from "@/lib/mbbs-state/types";
-import { mbbsStatePageTitle } from "@/lib/mbbs/constants";
 import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import {
   MBBS_STATE_LAST_UPDATED,
   collegesStateListingPath,
@@ -11,31 +11,64 @@ import {
 import { summaryHighlightCardClass } from "@/lib/mbbs-india/section-styles";
 import { cn, formatNumber } from "@/lib/utils";
 import { FiArrowRight } from "react-icons/fi";
+import { MBBS_ACADEMIC_SESSION, mbbsStatePageTitle } from "@/lib/mbbs/constants";
 
 export function MbbsStateHero({ config }: { config: MbbsStateConfig }) {
-  const title = mbbsStatePageTitle(config.name);
   const { stats } = config;
   return (
-    <div className="relative overflow-hidden rounded-[2rem] border border-outline-variant/30 bg-surface p-6 shadow-[0_24px_64px_-32px_rgba(0,61,155,0.35)] md:p-10">
-      <div className="relative grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+    <div className="relative overflow-hidden py-6 md:py-8">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-28 -left-16 h-80 w-80 rounded-full blur-3xl"
+      />
+      <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_580px] lg:items-start xl:gap-12">
         <div className="flex flex-col gap-4">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-label-sm text-on-primary">
-            {config.code} · {config.counselingAuthorityShort}
-          </span>
-          <p className="text-sm text-on-surface-variant">Updated {MBBS_STATE_LAST_UPDATED}</p>
-          <h1 className="text-[1.75rem] font-bold leading-tight text-primary md:text-[2.35rem]">
-            {title}
+          <div className="flex flex-wrap items-center gap-3">
+            <Badge tone="brand" icon={<span className="material-symbols-outlined text-sm">location_on</span>}>
+              {config.code} · {config.counselingAuthorityShort}
+            </Badge>
+            <span className="text-sm text-on-surface-variant font-medium">
+              Updated {MBBS_STATE_LAST_UPDATED}
+            </span>
+          </div>
+          
+          <h1 className="rp-hero-title max-w-2xl text-balance">
+            MBBS in {config.name} {MBBS_ACADEMIC_SESSION}: <em>Colleges, Seats & Admission</em>
           </h1>
-          <p className="text-body-md leading-relaxed text-on-surface-variant">
-            {config.name} has {stats.totalColleges} medical colleges with{" "}
-            {stats.totalSeats.toLocaleString("en-IN")} MBBS seats. State quota admissions are
-            managed by {config.counselingAuthorityShort}.
+          
+          <p className="rp-hero-lede max-w-xl">
+            Complete details on {formatNumber(stats.totalColleges)} medical colleges and{" "}
+            {formatNumber(stats.totalSeats)} MBBS seats — counseling procedures, domicile rules, and fee structures in {config.name}.
           </p>
+
+          <div className="rp-trio max-w-xl">
+            <div className="rp-trio-card">
+              <span className="rp-trio-k">Colleges</span>
+              <p className="rp-trio-b text-on-surface">{formatNumber(stats.totalColleges)}</p>
+            </div>
+            <div className="rp-trio-card">
+              <span className="rp-trio-k">Govt Seats</span>
+              <p className="rp-trio-b text-on-surface">{formatNumber(stats.govtSeats)}</p>
+            </div>
+            <div className="rp-trio-card">
+              <span className="rp-trio-k">Private Seats</span>
+              <p className="rp-trio-b text-on-surface">{formatNumber(stats.pvtSeats)}</p>
+            </div>
+          </div>
+
           <div className="flex flex-wrap gap-3">
-            <Button as="link" href="/cutoff-analyser" variant="primary" size="md">
+            <Button as="link" href="/cutoff-analyser" variant="primary">
               Check {config.name} cutoffs
             </Button>
+            <Button as="link" href="#colleges-list" variant="secondary">
+              View colleges
+            </Button>
           </div>
+          <p className="rp-hero-fine">Data updated for {MBBS_ACADEMIC_SESSION} counseling cycle</p>
         </div>
         <FreeCounsellingLeadForm
           pageLabel={`MBBS in ${config.name}`}
@@ -75,7 +108,7 @@ export function StateCollegesExploreCta({ config }: { config: MbbsStateConfig })
   return (
     <div
       className={cn(
-        "mt-6 flex flex-col gap-4 rounded-xl border border-outline-variant/40 bg-surface px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 md:px-5 md:py-5",
+        "mt-6 flex flex-col gap-4 rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 md:px-5 md:py-5",
         "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-8px_rgba(0,61,155,0.08)]"
       )}
     >

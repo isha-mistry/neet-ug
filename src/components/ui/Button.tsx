@@ -6,7 +6,7 @@ import type {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "subtle";
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "subtle" | "inverse" | "text";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface BaseProps {
@@ -31,24 +31,29 @@ type ButtonAsLink = BaseProps & {
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const baseClasses =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] font-semibold tracking-wide transition-[color,background-color,box-shadow,transform] duration-150 disabled:cursor-not-allowed disabled:opacity-60";
+  "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl font-bold tracking-wide transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-60";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-on-primary shadow-[var(--shadow-primary-button)] hover:bg-primary-hover hover:shadow-[var(--shadow-primary-button-hover)] hover:-translate-y-px active:translate-y-0 active:bg-primary-pressed",
+    "bg-primary text-on-primary shadow-sm hover:bg-primary-pressed hover:shadow-md hover:-translate-y-px active:translate-y-px active:bg-primary-pressed",
   secondary:
-    "bg-brand-50 text-brand-800 hover:bg-brand-100 active:bg-brand-200",
+    "bg-surface text-primary border-[1.5px] border-outline-variant hover:border-primary hover:bg-surface-container-low active:bg-primary-fixed/40",
   outline:
-    "border border-border-strong bg-background text-text hover:bg-surface",
-  ghost: "text-brand-700 hover:bg-brand-50",
+    "border-[1.5px] border-outline bg-background text-on-surface hover:bg-surface-container-low active:bg-surface-container-high",
+  inverse:
+    "bg-on-primary text-primary hover:bg-primary-fixed hover:-translate-y-px active:translate-y-px",
+  ghost:
+    "text-primary hover:bg-primary-fixed/30 active:bg-primary-fixed/50",
   subtle:
-    "bg-surface text-text-secondary hover:bg-surface-muted active:bg-brand-50",
+    "bg-surface text-on-surface-variant hover:bg-surface-container-low active:bg-primary-fixed",
+  text:
+    "text-primary hover:text-primary-hover shadow-none bg-transparent hover:translate-y-0 active:translate-y-0",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "h-9 px-3 text-sm",
-  md: "h-11 px-5 text-sm",
-  lg: "h-12 px-6 text-base",
+  sm: "h-9 px-3.5 text-xs",
+  md: "h-12 px-7 text-[15px]",
+  lg: "h-14 px-8 text-base",
 };
 
 export function Button(props: ButtonProps) {
@@ -65,7 +70,8 @@ export function Button(props: ButtonProps) {
   const classes = cn(
     baseClasses,
     variantClasses[variant],
-    sizeClasses[size],
+    variant !== "text" && sizeClasses[size],
+    variant === "text" && "p-0 h-auto min-h-0 inline-flex items-center gap-1.5 hover:gap-2.5",
     fullWidth && "w-full",
     className
   );
@@ -79,7 +85,7 @@ export function Button(props: ButtonProps) {
         ) : null}
         {children ? <span className="inline-flex items-center">{children}</span> : null}
         {trailingIcon ? (
-          <span className="inline-flex shrink-0 items-center">{trailingIcon}</span>
+          <span className="inline-flex shrink-0 items-center transition-transform duration-200 group-hover:translate-x-1">{trailingIcon}</span>
         ) : null}
       </Link>
     );
@@ -93,7 +99,7 @@ export function Button(props: ButtonProps) {
       ) : null}
       {children ? <span className="inline-flex items-center">{children}</span> : null}
       {trailingIcon ? (
-        <span className="inline-flex shrink-0 items-center">{trailingIcon}</span>
+        <span className="inline-flex shrink-0 items-center transition-transform duration-200 group-hover:translate-x-1">{trailingIcon}</span>
       ) : null}
     </button>
   );

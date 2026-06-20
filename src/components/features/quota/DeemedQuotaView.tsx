@@ -2,6 +2,10 @@
 
 import { QuotaHeader, SeatMatrixDonut, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel, QuotaCta, LiveDecisionTools } from "./QuotaShared";
 import { MccCounsellingRounds } from "./MccContentBlocks";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { cn } from "@/lib/utils";
 import {
   mccCounsellingGuide,
   quotaTheoryContent,
@@ -36,18 +40,18 @@ export function DeemedQuotaView() {
 
       {/* Security Deposit Callout Box */}
       {deemedDeposit && (
-        <div className="mt-6 flex flex-col items-start justify-between gap-4 rounded-2xl border border-error/20 bg-error-container/15 p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] md:flex-row md:items-center md:p-6">
+        <Card padded={true} className="mt-6 flex flex-col items-start justify-between gap-4 border-error/20 bg-error-container/15 md:flex-row md:items-center">
           <div className="flex items-start gap-3">
-            <span className="material-symbols-outlined text-error text-[24px] shrink-0 mt-0.5">warning</span>
+            <span className="material-symbols-outlined text-error text-[24px] shrink-0 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
             <div>
               <h4 className="text-body-sm font-bold text-error">Mandatory Refundable Security Deposit: {deemedDeposit.amount}</h4>
               <p className="text-[11px] text-on-surface-variant leading-relaxed mt-1">{deemedDeposit.rules}</p>
             </div>
           </div>
-          <div className="text-[10px] font-bold text-on-surface-variant bg-surface-container-high px-3 py-1.5 rounded-full border border-outline-variant/60 shrink-0 uppercase tracking-wider">
-            Refundable Status: {deemedDeposit.refundable}
-          </div>
-        </div>
+          <Badge tone="neutral" className="shrink-0">
+            Refundable: {deemedDeposit.refundable}
+          </Badge>
+        </Card>
       )}
     </>
   );
@@ -58,7 +62,7 @@ export function DeemedQuotaView() {
       <LiveDecisionTools excludeIds={["rank"]} highlightId="predictor" />
 
       {/* Security Deposit Forfeiture Alert */}
-      <div className="flex gap-3 rounded-2xl border border-l-4 border-error/20 border-l-error bg-error-container/10 p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+      <Card padded={true} className="flex gap-3 bg-error-container/10">
         <span className="material-symbols-outlined text-error text-[24px] shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>error</span>
         <div>
           <span className="font-label-md text-label-md text-error block font-bold mb-1 uppercase tracking-wider">Forfeiture Rule</span>
@@ -66,12 +70,12 @@ export function DeemedQuotaView() {
             If you are allotted a Deemed University seat in Round 2 or later and fail to report, your ₹2 Lakh security deposit is forfeited.
           </p>
         </div>
-      </div>
+      </Card>
 
       {/* Helpline Info */}
-      <div className="p-4 bg-surface-container-high/60 border border-outline-variant/40 rounded-xl text-center leading-relaxed italic text-[11px] text-on-surface-variant">
+      <Card padded={false} className="p-4 rounded-xl bg-surface-container-high/60 text-center leading-relaxed italic text-[11px] text-on-surface-variant">
         Deemed university reporting requires a bank guarantee or demand draft for first-year fees. Check specific college annexures beforehand.
-      </div>
+      </Card>
     </aside>
   );
 
@@ -81,47 +85,46 @@ export function DeemedQuotaView() {
       header={header}
       sidebar={sidebar}
       jumpSections={DEEMED_QUOTA_JUMP_SECTIONS}
-    >
-      {/* Overview Group */}
+    >      {/* Overview Group */}
       <div id="overview" className="space-y-10">
         {/* Overview Section (Bento Grid) */}
         <section className="grid grid-cols-1 md:grid-cols-12 gap-6">
           <div className="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Management % */}
-            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+            <Card>
               <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2 block font-bold">Management</span>
               <div className="font-headline-md text-xl font-bold md:text-2xl font-bold text-on-surface mb-1">100% MCC</div>
               <p className="font-body-sm text-body-sm text-on-surface-variant">All seats are filled via centralized MCC counselling rounds.</p>
-            </div>
+            </Card>
 
             {/* Domicile Rule */}
-            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+            <Card>
               <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2 block font-bold">Domicile Rule</span>
               <div className="font-headline-md text-xl font-bold md:text-2xl font-bold text-on-surface mb-1">No Restrictions</div>
               <p className="font-body-sm text-body-sm text-on-surface-variant">Open to all NEET-UG qualified candidates from across India.</p>
-            </div>
+            </Card>
 
             {/* Seat Matrix Placeholder */}
-            <div className="flex items-center justify-between rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 md:col-span-2">
+            <Card className="flex items-center justify-between md:col-span-2">
               <div>
                 <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2 block font-bold">Data Authority</span>
                 <div className="font-title-lg text-title-lg text-on-surface font-bold">Prepared by MCC/DGHS, MoHFW</div>
               </div>
               <span className="material-symbols-outlined text-primary text-[40px]">verified_user</span>
-            </div>
+            </Card>
 
             {/* Critical Alert */}
-            <div className="flex gap-4 rounded-2xl border border-error/20 bg-error-container p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] md:col-span-2">
-              <span className="material-symbols-outlined text-error text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
+            <Card padded={true} className="flex gap-4 border-error/20 bg-error-container md:col-span-2 text-on-error-container">
+              <span className="material-symbols-outlined text-error text-[24px] shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
               <div>
                 <p className="font-label-md text-label-md text-on-error-container font-bold mb-1 tracking-wider uppercase">Critical Notice</p>
                 <p className="font-body-sm text-body-sm text-on-error-container">Deemed Universities are strictly under MCC — not state counselling. OCI cardholders are treated at par with Indian citizens for UR (General) and NRI seats as per Supreme Court directions.</p>
               </div>
-            </div>
+            </Card>
           </div>
 
           {/* Round 3 Conversion Logic */}
-          <div className="flex h-full flex-col justify-between rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 md:col-span-4">
+          <Card className="flex h-full flex-col justify-between md:col-span-4">
             <div>
               <div className="flex items-center gap-2 mb-6">
                 <span className="material-symbols-outlined text-primary">analytics</span>
@@ -132,7 +135,7 @@ export function DeemedQuotaView() {
               </p>
             </div>
 
-            <div className="flex items-center justify-between bg-surface-container rounded-lg p-4 relative overflow-hidden">
+            <div className="flex items-center justify-between bg-surface-container rounded-xl p-4 relative overflow-hidden">
               <div className="text-center z-10">
                 <p className="font-label-sm text-label-sm text-primary mb-1 uppercase tracking-wider font-bold">Reserved</p>
                 <p className="font-label-md text-label-md leading-tight text-on-surface font-bold">NRI / Jain /<br />Muslim</p>
@@ -147,7 +150,7 @@ export function DeemedQuotaView() {
               {/* Subtle background graphic */}
               <div className="absolute -right-4 top-0 w-24 h-24 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
             </div>
-          </div>
+          </Card>
         </section>
 
         <QuotaInfoGrid
@@ -174,10 +177,10 @@ export function DeemedQuotaView() {
       </div>
 
       {/* Enriched Deemed Reservation details */}
-      <section id="rules" className="scroll-mt-20 space-y-4 rounded-2xl border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+      <Card id="rules" as="section" className="scroll-mt-20 space-y-4 bg-surface-container-lowest">
         <PremiumSectionHeader icon="gavel" title="Deemed University Reservation & Fee Structure Rules" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2 rounded-xl border border-outline-variant/40 bg-surface-container-low p-5">
+          <Card className="space-y-2 bg-surface-container-low">
             <h4 className="font-bold text-on-surface flex items-center gap-1.5 text-body-md">
               <span className="material-symbols-outlined text-primary">cancel</span>
               No Standard Caste-Based Reservations
@@ -185,8 +188,8 @@ export function DeemedQuotaView() {
             <p className="text-body-sm text-on-surface-variant leading-relaxed">
               Deemed Universities do not offer reservations for OBC, SC, ST, or EWS categories on standard seats. All seats (apart from NRI and institutional minority seats) are classified as general/open unreserved seats and allotted purely based on NEET-UG score rank.
             </p>
-          </div>
-          <div className="space-y-2 rounded-xl border border-outline-variant/40 bg-surface-container-low p-5">
+          </Card>
+          <Card className="space-y-2 bg-surface-container-low">
             <h4 className="font-bold text-on-surface flex items-center gap-1.5 text-body-md">
               <span className="material-symbols-outlined text-primary">groups</span>
               Minority Sub-Categories
@@ -194,9 +197,9 @@ export function DeemedQuotaView() {
             <p className="text-body-sm text-on-surface-variant leading-relaxed">
               Certain Deemed universities have minority quota reservations (e.g., Muslim Minority seats in Hamdard, Delhi; Jain Minority seats in Sumandeep, Vadodara). Candidates claiming these seats must upload valid community certificates during the MCC registration window.
             </p>
-          </div>
+          </Card>
         </div>
-      </section>
+      </Card>
 
       {/* Eligibility Conditions */}
       <section id="eligibility" className="scroll-mt-20">
@@ -205,21 +208,21 @@ export function DeemedQuotaView() {
           Eligibility Conditions
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-colors hover:border-primary/30">
-            <span className="material-symbols-outlined text-primary mb-4 text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+          <Card hover={true}>
+            <span className="material-symbols-outlined text-tertiary mb-4 text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
             <h4 className="font-title-lg text-title-lg mb-2 font-bold text-on-surface">NEET Qualified</h4>
             <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Candidate must have qualified NEET-UG with the minimum percentile prescribed by NTA for the current year.</p>
-          </div>
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-colors hover:border-primary/30">
-            <span className="material-symbols-outlined text-primary mb-4 text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+          </Card>
+          <Card hover={true}>
+            <span className="material-symbols-outlined text-tertiary mb-4 text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
             <h4 className="font-title-lg text-title-lg mb-2 font-bold text-on-surface">No Domicile Bar</h4>
             <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Residential status of any state does not affect eligibility for Deemed Quota seats via MCC.</p>
-          </div>
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-colors hover:border-primary/30">
-            <span className="material-symbols-outlined text-primary mb-4 text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+          </Card>
+          <Card hover={true}>
+            <span className="material-symbols-outlined text-tertiary mb-4 text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
             <h4 className="font-title-lg text-title-lg mb-2 font-bold text-on-surface">UT Eligibility</h4>
             <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">All India Quota qualified candidates including J&amp;K and Ladakh UT are eligible for Deemed seats.</p>
-          </div>
+          </Card>
         </div>
       </section>
 
@@ -247,51 +250,49 @@ export function DeemedQuotaView() {
       </section>
 
       {/* Seat Matrix Breakdown Section (Analytical Card) */}
-      <section id="seat-distribution" className="scroll-mt-20">
-        <div className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-0">
-          <div className="bg-surface-container-low px-6 py-4 border-b border-outline-variant flex justify-between items-center">
-            <h3 className="font-title-lg text-title-lg font-bold text-on-surface">Deemed University Seat Distribution</h3>
-            <div className="flex gap-4">
-              <span className="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">
-                <div className="w-3 h-3 bg-primary rounded-full"></div> Management
-              </span>
-              <span className="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">
-                <div className="w-3 h-3 bg-tertiary-container rounded-full"></div> NRI Quota
-              </span>
-            </div>
+      <Card id="seat-distribution" as="section" padded={false} className="scroll-mt-20 overflow-hidden">
+        <div className="bg-surface-container-low px-6 py-4 border-b border-outline-variant/40 flex justify-between items-center">
+          <h3 className="font-title-lg text-title-lg font-bold text-on-surface">Deemed University Seat Distribution</h3>
+          <div className="flex gap-4">
+            <span className="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">
+              <div className="w-3 h-3 bg-primary rounded-full"></div> Management
+            </span>
+            <span className="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">
+              <div className="w-3 h-3 bg-tertiary-container rounded-full"></div> NRI Quota
+            </span>
           </div>
-          <div className="p-6 flex flex-col md:flex-row gap-12 items-center">
-            <div className="w-full md:w-1/3 flex justify-center relative">
-              {/* Progress Circle Chart via Component */}
-              <SeatMatrixDonut percent={85} total="100%" label="Total Capacity" />
-            </div>
-            <div className="w-full md:w-2/3">
-              <div className="space-y-6">
-                <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="font-label-md text-label-md font-bold uppercase text-on-surface tracking-wider">Management Seats</span>
-                    <span className="font-label-md text-label-md font-bold text-primary">85% of Total</span>
-                  </div>
-                  <div className="w-full h-3 bg-surface-container rounded-full overflow-hidden border border-outline-variant/20">
-                    <div className="bg-primary h-full rounded-full" style={{ width: "85%" }}></div>
-                  </div>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-2 leading-relaxed">Open to all Indian candidates. Fees are generally higher than government quotas.</p>
+        </div>
+        <div className="p-6 flex flex-col md:flex-row gap-12 items-center">
+          <div className="w-full md:w-1/3 flex justify-center relative">
+            {/* Progress Circle Chart via Component */}
+            <SeatMatrixDonut percent={85} total="100%" label="Total Capacity" />
+          </div>
+          <div className="w-full md:w-2/3">
+            <div className="space-y-6">
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="font-label-md text-label-md font-bold uppercase text-on-surface tracking-wider">Management Seats</span>
+                  <span className="font-label-md text-label-md font-bold text-primary">85% of Total</span>
                 </div>
-                <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="font-label-md text-label-md font-bold uppercase text-on-surface tracking-wider">NRI Quota Seats</span>
-                    <span className="font-label-md text-label-md font-bold text-tertiary">15% of Total</span>
-                  </div>
-                  <div className="w-full h-3 bg-surface-container rounded-full overflow-hidden border border-outline-variant/20">
-                    <div className="bg-tertiary-container h-full rounded-full" style={{ width: "15%" }}></div>
-                  </div>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-2 leading-relaxed">Reserved for candidates under NRI status. Documents verification is critical.</p>
+                <div className="w-full h-3 bg-surface-container rounded-full overflow-hidden border border-outline-variant/20">
+                  <div className="bg-primary h-full rounded-full" style={{ width: "85%" }}></div>
                 </div>
+                <p className="font-body-sm text-body-sm text-on-surface-variant mt-2 leading-relaxed">Open to all Indian candidates. Fees are generally higher than government quotas.</p>
+              </div>
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="font-label-md text-label-md font-bold uppercase text-on-surface tracking-wider">NRI Quota Seats</span>
+                  <span className="font-label-md text-label-md font-bold text-tertiary">15% of Total</span>
+                </div>
+                <div className="w-full h-3 bg-surface-container rounded-full overflow-hidden border border-outline-variant/20">
+                  <div className="bg-tertiary-container h-full rounded-full" style={{ width: "15%" }}></div>
+                </div>
+                <p className="font-body-sm text-body-sm text-on-surface-variant mt-2 leading-relaxed">Reserved for candidates under NRI status. Documents verification is critical.</p>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </Card>
 
       {/* CTA Section */}
       <QuotaCta

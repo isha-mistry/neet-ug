@@ -73,7 +73,7 @@ export function GuidePageJumpNav({
         <p className="mb-2 px-3 text-[10px] font-bold uppercase tracking-wider text-outline">
           On this page
         </p>
-        <ul className="flex flex-col gap-0.5 border-l border-outline-variant/40">
+        <ul className="flex flex-col gap-0.5 border-l border-outline-variant">
           {jumpSections.map((item) => {
             const isActive = item.id === activeId;
             return (

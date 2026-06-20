@@ -50,13 +50,13 @@ export function ContactFaqs() {
             </p>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+          <div className="overflow-hidden rounded-2xl border border-outline-variant bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
             {FAQS.map((faq, index) => {
               const isOpen = openIndex === index;
               return (
                 <div
                   key={index}
-                  className="border-b border-outline-variant/40 last:border-b-0"
+                  className="border-b border-outline-variant last:border-b-0"
                 >
                   <button
                     onClick={() => toggleFaq(index)}
@@ -68,7 +68,7 @@ export function ContactFaqs() {
                     </span>
                   </button>
                   <div
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-[220px] border-t border-outline-variant/40" : "max-h-0"
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-[220px] border-t border-outline-variant" : "max-h-0"
                       }`}
                   >
                     <p className="p-5 text-sm font-medium leading-relaxed text-on-surface-variant">

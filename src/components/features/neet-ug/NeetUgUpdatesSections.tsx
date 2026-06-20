@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { GuideCard } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import type { UpdatesNoticeItem } from "@/lib/neet-ug-2026/updates-content";
 import { cn } from "@/lib/utils";
 
@@ -46,11 +46,11 @@ export function UpdatesNoticeFeed({ items }: { items: readonly UpdatesNoticeItem
 
 export function UpdatesFaqBlock({ items }: { items: { q: string; a: string }[] }) {
   return (
-    <div className="border-y border-outline-variant/50">
+    <div className="border-y border-outline-variant">
       {items.map((item, index) => (
         <details
           key={item.q}
-          className="group border-b border-outline-variant/40 last:border-b-0"
+          className="group border-b border-outline-variant last:border-b-0"
           open={index === 0}
         >
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-[15px] font-bold leading-snug text-on-surface marker:content-none [&::-webkit-details-marker]:hidden">

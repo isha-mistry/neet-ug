@@ -61,9 +61,9 @@ export function NriCollegesGrid({ colleges = defaultColleges }: NriCollegesGridP
           key={idx}
           padded={false}
           bordered
-          className="overflow-hidden rounded-lg border-clinical-outline bg-clinical-surface shadow-sm transition-colors duration-200 hover:border-clinical-outline-strong"
+          className="overflow-hidden rounded-xl border-outline-variant bg-surface-container-lowest shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_26px_-16px_rgba(37,70,208,0.2)] transition-colors duration-200 hover:border-primary/30"
         >
-          <div className="relative h-40 w-full overflow-hidden bg-clinical-surface-low">
+          <div className="relative h-40 w-full overflow-hidden bg-surface-container-low">
             <Image
               src="/brand/college_building.png"
               alt=""
@@ -71,33 +71,33 @@ export function NriCollegesGrid({ colleges = defaultColleges }: NriCollegesGridP
               sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"
             />
-            <span className="absolute right-3 top-3 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/90 text-amber-600 ring-1 ring-amber-100">
+            <span className="absolute right-3 top-3 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-surface-container-lowest/90 text-secondary ring-1 ring-secondary/20">
               <MaterialSymbol name={col.icon} size="sm" />
             </span>
           </div>
 
           <div className="flex flex-col gap-4 p-5">
             <div>
-              <h4 className="text-base font-bold leading-snug text-clinical-navy">
+              <h4 className="text-base font-bold leading-snug text-on-surface">
                 {col.name}
               </h4>
-              <span className="mt-0.5 block text-xs text-clinical-muted">
+              <span className="mt-0.5 block text-xs text-on-surface-variant">
                 {col.location}
               </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 border-t border-clinical-outline pt-3 text-xs">
+            <div className="grid grid-cols-2 gap-3 border-t border-outline-variant pt-3 text-xs">
               <div>
-                <span className="block font-medium text-clinical-muted">NRI Tuition Fee</span>
-                <span className="mt-0.5 block font-extrabold text-clinical-blue">{col.annualFee} / yr</span>
+                <span className="block font-medium text-on-surface-variant">NRI Tuition Fee</span>
+                <span className="mt-0.5 block font-extrabold text-primary">{col.annualFee} / yr</span>
               </div>
               <div>
-                <span className="block font-medium text-clinical-muted">Allocated Seats</span>
-                <span className="mt-0.5 block font-bold text-clinical-navy">{col.totalSeats}</span>
+                <span className="block font-medium text-on-surface-variant">Allocated Seats</span>
+                <span className="mt-0.5 block font-bold text-on-surface">{col.totalSeats}</span>
               </div>
             </div>
 
-            <span className="rounded-md border border-clinical-outline bg-clinical-surface-low py-1 text-center text-[10px] font-bold uppercase tracking-wider text-clinical-muted">
+            <span className="rounded-lg border border-outline-variant bg-surface-container-low py-1 text-center text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
               {col.rating}
             </span>
           </div>

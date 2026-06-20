@@ -103,17 +103,17 @@ export function EligibilityStatesMap({
   return (
     <div
       className={cn(
-        "relative flex min-h-[280px] flex-col justify-center overflow-hidden rounded-2xl bg-linear-to-br from-surface-container-low via-[#eef2f8] to-primary-fixed/25",
-        className
+        "ca-map-shell relative flex min-h-[280px] flex-col justify-center overflow-hidden",
+        className,
       )}
     >
-      <p className="pointer-events-none absolute left-4 top-3 text-[11px] font-bold uppercase tracking-wider text-outline">
-        India · focus states highlighted
+      <p className="pointer-events-none absolute left-4 top-3 z-10 text-[10px] font-bold uppercase tracking-[0.14em] text-outline">
+        India · focus states
       </p>
 
       <div
         ref={mapRootRef}
-        className="relative w-full px-2 pb-2 pt-10 sm:px-4"
+        className="relative w-full px-3 pb-3 pt-11 sm:px-5"
         onMouseLeave={() => setTooltip(null)}
       >
         <ComposableMap
@@ -124,7 +124,7 @@ export function EligibilityStatesMap({
             scale: INDIA_MAP_BANNER_SCALE,
             center: INDIA_MAP_CENTER,
           }}
-          className="block w-full [&_svg]:mx-auto [&_svg]:block [&_svg]:h-auto [&_svg]:max-h-[min(42vh,26rem)] [&_svg]:w-full [&_svg]:drop-shadow-sm"
+          className="block w-full [&_svg]:mx-auto [&_svg]:block [&_svg]:h-auto [&_svg]:max-h-[min(38vh,22rem)] [&_svg]:w-full"
         >
           <Geographies geography={india}>
             {({ geographies }) =>
@@ -201,7 +201,7 @@ export function EligibilityStatesMap({
         {tooltip ? (
           <div
             role="tooltip"
-            className="pointer-events-none absolute z-20 w-[min(240px,calc(100%-1rem))] rounded-xl border border-outline-variant/60 bg-surface-container-lowest px-3 py-2.5 shadow-lg"
+            className="pointer-events-none absolute z-20 w-[min(240px,calc(100%-1rem))] rounded-xl border border-outline-variant bg-surface-container-lowest px-3 py-2.5 shadow-lg"
             style={{
               left: Math.min(
                 Math.max(tooltip.x + 12, 8),
@@ -296,16 +296,15 @@ export function EligibilityGlancePanel({
   }, [eligibility]);
 
   return (
-    <div className="grid gap-0 lg:grid-cols-[minmax(0,1.1fr)_minmax(300px,0.9fr)] lg:divide-x lg:divide-outline-variant/50">
-      <div className="p-4 md:p-5 lg:pr-4">
+    <div className="grid gap-0 lg:grid-cols-2 lg:divide-x lg:divide-outline-variant/60">
+      <div className="p-4 md:p-5 lg:pr-5">
         <EligibilityStatesMap
           eligibility={eligibility}
           selectedSlug={selectedSlug}
           onSelectState={setSelectedSlug}
           mutedStateSlugs={mutedStateSlugs}
-          className="min-h-[300px] border border-outline-variant/40 shadow-sm"
         />
-        <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-on-surface-variant">
+        <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-on-surface-variant">
           <li className="inline-flex items-center gap-2">
             <span
               className="h-3 w-3 rounded-md ring-1 ring-black/5"
@@ -342,14 +341,13 @@ export function EligibilityGlancePanel({
         </ul>
       </div>
 
-      <div className="flex flex-col border-t border-outline-variant/50 bg-surface-container-low/40 lg:border-t-0">
-        <div className="border-b border-outline-variant/40 px-4 py-3 md:px-5">
-          <h3 className="text-sm font-semibold text-on-surface">
+      <div className="flex flex-col border-t border-outline-variant/60 bg-surface-container-lowest lg:border-t-0">
+        <div className="border-b border-outline-variant/60 px-4 py-3.5 md:px-5">
+          <h3 className="text-sm font-extrabold tracking-tight text-on-surface">
             Focus states
           </h3>
-          <p className="mt-0.5 text-xs text-on-surface-variant">
-            Tap a state on the map or choose a card. Sorted Safe → Borderline →
-            Unlikely.
+          <p className="mt-1 text-xs leading-relaxed text-on-surface-variant">
+            Tap the map or a card below. Sorted Safe → Borderline → Unlikely.
           </p>
         </div>
 
@@ -363,10 +361,9 @@ export function EligibilityGlancePanel({
                   type="button"
                   onClick={() => setSelectedSlug(row.stateSlug)}
                   className={cn(
-                    "w-full rounded-2xl border border-outline-variant/50 p-3.5 text-left transition-all",
+                    "w-full rounded-xl border border-outline-variant p-3 text-left transition-all hover:border-primary/25 hover:shadow-sm",
                     STATUS_ROW_CLASS[row.status],
-                    active &&
-                      "border-primary/40 shadow-[0_8px_24px_-12px_rgba(0,61,155,0.35)] ring-2 ring-primary/25"
+                    active && "border-primary/35 shadow-[0_8px_24px_-14px_color-mix(in_srgb,var(--color-primary)_35%,transparent)] ring-2 ring-primary/15",
                   )}
                 >
                   <div className="flex items-start justify-between gap-2">
@@ -398,7 +395,7 @@ export function EligibilityGlancePanel({
         </ul>
 
         {selected ? (
-          <div className="border-t border-outline-variant/40 bg-surface-container-lowest px-4 py-4 md:px-5">
+          <div className="border-t border-outline-variant/60 bg-surface-container-low px-4 py-4 md:px-5">
             <p className="text-[11px] font-bold uppercase tracking-wider text-outline">
               Selected · {selected.stateAbbrev}
             </p>

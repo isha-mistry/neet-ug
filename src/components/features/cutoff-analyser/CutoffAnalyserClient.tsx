@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Container } from "@/components/common/Container";
 import { DataSourceNotice } from "@/components/common/DataSourceNotice";
+import { ToolCallout } from "@/components/features/predictors/PredictorToolParts";
 import { CutoffComparisonTable } from "./CutoffComparisonTable";
 import { TrendChart } from "./TrendChart";
 import {
@@ -20,22 +21,27 @@ import {
   AnalyserMetricCard,
   AnalyserSectionBlock,
   AnalyserSectionBody,
-  CollegePredictorBanner,
-  CollegePredictorQuotaField,
+  CutoffAnalyserBanner,
   CutoffAnalyserCollegeCard,
   CutoffAnalyserHero,
+  CutoffAnalyserLeadMagnet,
   CutoffAnalyserResultHeader,
+  CollegePredictorQuotaField,
   FilterPill,
-  FormPanel,
   gapDisplay,
   GlossaryGrid,
-  RankPredictorFaq,
+  RankPredictorFaqSection,
   RankPredictorShell,
-  ResultsPanel,
 } from "./CutoffAnalyserParts";
 import { EligibilityGlancePanel } from "./EligibilityGlancePanel";
 import { CounselingTimelinePanel } from "./CounselingTimelinePanel";
 import { STATUS_LABEL } from "./section-styles";
+import {
+  CUTOFF_ANALYSER_HERO,
+  CUTOFF_ANALYSER_LEAD_MAGNET_CHOICE,
+  CUTOFF_ANALYSER_LEAD_MAGNET_ROUNDS,
+  CUTOFF_ANALYSER_LEAD_MAGNET_SUMMARY,
+} from "@/lib/cutoff-analyser/page-content";
 import {
   ANALYSER_DISCLAIMER,
   FOCUS_STATE_OPTIONS,
@@ -229,98 +235,101 @@ export function CutoffAnalyserClient() {
   );
 
   return (
-    <RankPredictorShell>
-      <Container size="2xl" className="ms-content-below-nav flex flex-col gap-10 md:gap-12">
-        <CutoffAnalyserHero>
-          <FormPanel>
-            <div className="flex flex-col gap-6">
-              <Input
-                label="NEET score"
-                type="number"
-                min={NEET_SCORE_MIN}
-                max={NEET_SCORE_MAX}
-                placeholder="e.g. 580"
-                value={score}
-                onChange={(e) => setScore(Number(e.target.value))}
-                hint="Whole marks out of 720. Results update automatically."
-                aria-label="NEET score"
-              />
-              <div className="grid gap-5 sm:grid-cols-2">
-                <Select
-                  label="Category"
-                  options={CATEGORY_OPTIONS}
-                  value={category}
-                  onValueChange={(v) => v && setCategory(v as NeetCategory)}
-                />
-                <Select
-                  label="Domicile state"
-                  options={DOMICILE_OPTIONS}
-                  value={domicileState}
-                  onValueChange={(v) =>
-                    v && setDomicileState(v as FocusStateSlug)
-                  }
-                />
-                <p className="text-xs text-on-surface-variant">
-                  Home state for counseling. Analysis still shows cutoffs for GJ,
-                  RJ, MP & MH.
-                </p>
-              </div>
-              <CollegePredictorQuotaField value={quota} onChange={setQuota} />
-            </div>
-          </FormPanel>
-        </CutoffAnalyserHero>
-
-        <CollegePredictorBanner />
-
-        <CutoffAnalyserResultHeader referenceYear={result.referenceYear} />
-
-        <p className="rounded-2xl border border-secondary/25 bg-secondary-fixed/30 px-4 py-3 text-sm text-on-surface-variant">
-          <span className="font-semibold text-on-surface">Sample preview.</span>{" "}
-          Figures match the product spec (score {DEMO_SCORE}, AIR{" "}
-          {formatNumber(result.userRank)}, General). Domicile: {domicileLabel}.
-          All four focus states are shown in the analysis below.
-        </p>
-
-        <AnalyserInputChip
-          score={score}
-          categoryLabel={getListingCategoryShortLabel(category)}
-          statesLabel={`Domicile ${domicileLabel} · Comparing GJ, RJ, MP, MH`}
-        />
-
-        <ResultsPanel>
-          <div
-            aria-live="polite"
-            className={cn(
-              "grid gap-4 sm:grid-cols-2 lg:grid-cols-4",
-              analysing && "opacity-60 transition-opacity duration-200"
-            )}
-          >
-            <AnalyserMetricCard
-              label="Your chances"
-              value={`${result.admissionProbabilityPercent}%`}
-              context={result.probabilityLabel}
-              progress={result.admissionProbabilityPercent}
+    <RankPredictorShell className="ca-page">
+      <CutoffAnalyserHero>
+        <div className="rp-form-stack flex flex-col gap-4">
+          <Input
+            label="NEET score"
+            type="number"
+            min={NEET_SCORE_MIN}
+            max={NEET_SCORE_MAX}
+            placeholder="e.g. 580"
+            value={score}
+            onChange={(e) => setScore(Number(e.target.value))}
+            hint={CUTOFF_ANALYSER_HERO.submitHint}
+            aria-label="NEET score"
+          />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Select
+              label="Category"
+              options={CATEGORY_OPTIONS}
+              value={category}
+              onValueChange={(v) => v && setCategory(v as NeetCategory)}
             />
-            <AnalyserMetricCard
-              label="Estimated rank"
-              value={formatNumber(result.userRank)}
-              context={`Band ${formatNumber(result.rankRange.min)} – ${formatNumber(result.rankRange.max)}`}
-            />
-            <AnalyserMetricCard
-              label="Safe colleges"
-              value={String(result.safeCollegeCount)}
-              context="Per college-type filter below"
-            />
-            <AnalyserMetricCard
-              label="States eligible"
-              value={`${result.statesEligibleCount} / ${result.statesSelectedCount}`}
-              context={result.eligibleStateAbbrevs || "—"}
+            <Select
+              label="Domicile state"
+              options={DOMICILE_OPTIONS}
+              value={domicileState}
+              onValueChange={(v) => v && setDomicileState(v as FocusStateSlug)}
             />
           </div>
-        </ResultsPanel>
+          <p className="rp-field-hint">
+            Home state for counseling. Analysis still shows cutoffs for GJ, RJ, MP & MH.
+          </p>
+          <CollegePredictorQuotaField value={quota} onChange={setQuota} />
+        </div>
+      </CutoffAnalyserHero>
 
+      <CutoffAnalyserBanner />
+
+      <Container size="page">
+        <div className="ca-results-head pt-6 md:pt-8">
+          <CutoffAnalyserResultHeader referenceYear={result.referenceYear} />
+
+          <ToolCallout variant="warn">
+            <span className="font-bold text-on-surface">Sample preview.</span> Figures match the
+            product spec (score {DEMO_SCORE}, AIR {formatNumber(result.userRank)}, General).
+            Domicile: {domicileLabel}. All four focus states are shown in the analysis below.
+          </ToolCallout>
+
+          <div className="ca-metric-block">
+            <AnalyserInputChip
+              score={score}
+              categoryLabel={getListingCategoryShortLabel(category)}
+              statesLabel={`Domicile ${domicileLabel} · Comparing GJ, RJ, MP, MH`}
+            />
+
+            <div
+              aria-live="polite"
+              className={cn(
+                "rp-metric-grid",
+                analysing && "opacity-60 transition-opacity duration-200",
+              )}
+            >
+              <AnalyserMetricCard
+                label="Your chances"
+                value={`${result.admissionProbabilityPercent}%`}
+                context={result.probabilityLabel}
+                progress={result.admissionProbabilityPercent}
+              />
+              <AnalyserMetricCard
+                label="Estimated rank"
+                value={formatNumber(result.userRank)}
+                context={`Band ${formatNumber(result.rankRange.min)} – ${formatNumber(result.rankRange.max)}`}
+              />
+              <AnalyserMetricCard
+                label="Safe colleges"
+                value={String(result.safeCollegeCount)}
+                context="Per college-type filter below"
+              />
+              <AnalyserMetricCard
+                label="States eligible"
+                value={`${result.statesEligibleCount} / ${result.statesSelectedCount}`}
+                context={result.eligibleStateAbbrevs || "—"}
+              />
+            </div>
+
+            {/* <CutoffAnalyserLeadMagnet
+              className="ca-lead-band"
+              content={CUTOFF_ANALYSER_LEAD_MAGNET_SUMMARY}
+            /> */}
+          </div>
+        </div>
+
+        <div className="ca-page-stack">
         <AnalyserSectionBlock
           title="How you compare"
+          className="pt-8"
           description="Opening and closing ranks for Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra — all quotas (sample data)."
           actions={
             <Button
@@ -335,7 +344,7 @@ export function CutoffAnalyserClient() {
             </Button>
           }
         >
-          <AnalyserSectionBody className="space-y-4 border-b border-outline-variant/40 bg-surface-container-low/30">
+          <AnalyserSectionBody toolbar>
             <div className="flex flex-wrap gap-2">
               {(["all", ...QUOTA_OPTIONS.map((q) => q.value)] as const).map(
                 (q) => (
@@ -380,7 +389,7 @@ export function CutoffAnalyserClient() {
           }
         >
           <AnalyserSectionBody>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="rp-tool-card-grid">
             {result.collegeMatches.slice(0, 12).map((match) => {
               const selected = preferenceList.some(
                 (p) => p.collegeSlug === match.college.slug
@@ -401,6 +410,11 @@ export function CutoffAnalyserClient() {
           </div>
           </AnalyserSectionBody>
         </AnalyserSectionBlock>
+
+        <CutoffAnalyserLeadMagnet
+          className="ca-lead-band"
+          content={CUTOFF_ANALYSER_LEAD_MAGNET_CHOICE}
+        />
 
         <AnalyserSectionBlock
           title="How competition has changed"
@@ -423,6 +437,11 @@ export function CutoffAnalyserClient() {
           </AnalyserSectionBody>
         </AnalyserSectionBlock>
 
+        <CutoffAnalyserLeadMagnet
+          className="ca-lead-band"
+          content={CUTOFF_ANALYSER_LEAD_MAGNET_ROUNDS}
+        />
+
         <AnalyserSectionBlock
           title="Don't miss your round"
           description="Key counseling milestones for your focus states and MCC AIQ—dates update as portals publish notices."
@@ -442,16 +461,13 @@ export function CutoffAnalyserClient() {
           description="Drag to reorder on desktop. Tag Safe, Target, or Reach, then export or save locally."
         >
           <AnalyserSectionBody className="space-y-4">
-          <p className="text-xs italic text-on-surface-variant">
+          <p className="rp-field-hint italic">
             MCC limits AIQ choices to 20 colleges. State counseling may differ.
           </p>
           {listWarnings.map((w) => (
-            <p
-              key={w}
-              className="rounded-xl bg-tertiary-fixed/50 px-3 py-2 text-xs text-on-tertiary-fixed-variant"
-            >
+            <ToolCallout key={w} variant="safe">
               {w}
-            </p>
+            </ToolCallout>
           ))}
           <ul className="space-y-2">
             {preferenceList.map((item, index) => {
@@ -463,16 +479,14 @@ export function CutoffAnalyserClient() {
                   onDragStart={(e) => onDragStart(e, item.id)}
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => onDrop(e, item.id)}
-                  className="flex flex-col gap-2 rounded-2xl border border-outline-variant/50 bg-surface-container-low p-4 sm:flex-row sm:items-center"
+                  className="rp-pref-row"
                 >
                   <div className="flex items-center gap-2">
                     <FiMenu
                       className="hidden h-4 w-4 text-outline sm:block"
                       aria-hidden
                     />
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-fixed text-sm font-bold text-primary">
-                      {index + 1}
-                    </span>
+                    <span className="rp-pref-rank">{index + 1}</span>
                   </div>
                   <div className="min-w-0 flex-1">
                     <Link
@@ -576,7 +590,7 @@ export function CutoffAnalyserClient() {
           title="Understand the cost"
           description="Annual fees from our catalog for each focus state."
         >
-          <AnalyserSectionBody className="space-y-4 border-b border-outline-variant/40 bg-surface-container-low/30">
+          <AnalyserSectionBody toolbar>
             <div className="flex flex-wrap gap-2">
             {FOCUS_STATE_OPTIONS.map((s) => (
               <FilterPill
@@ -590,70 +604,63 @@ export function CutoffAnalyserClient() {
             </div>
           </AnalyserSectionBody>
           <AnalyserSectionBody flush>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-outline-variant bg-surface-container-low text-left text-xs font-bold uppercase tracking-wider text-outline">
-                  <th className="p-3">College</th>
-                  <th className="p-3">Type</th>
-                  <th className="p-3">Annual fee</th>
-                  <th className="p-3">Seats</th>
-                </tr>
-              </thead>
-              <tbody>
-                {feeColleges.map((c) => (
-                  <tr
-                    key={c.slug}
-                    className="border-b border-outline-variant/40 hover:bg-surface-container-low/80"
-                  >
-                    <td className="p-3">
-                      {c.slug.startsWith("demo-") ? (
-                        <span className="font-semibold text-on-surface">
-                          {c.name}
-                        </span>
-                      ) : (
-                        <Link
-                          href={`/colleges/${c.slug}`}
-                          className="font-semibold text-primary hover:underline"
-                        >
-                          {c.name}
-                        </Link>
-                      )}
-                    </td>
-                    <td className="p-3 capitalize text-on-surface-variant">
-                      {c.collegeType}
-                    </td>
-                    <td className="p-3 tabular-nums font-medium">
-                      {formatINR(c.totalAnnualFee)}
-                    </td>
-                    <td className="p-3 tabular-nums">{c.seatCount}</td>
+            <div className="quota-table-wrap">
+              <table className="quota-table">
+                <thead>
+                  <tr>
+                    <th className="p-3">College</th>
+                    <th className="p-3">Type</th>
+                    <th className="p-3 text-right">Annual fee</th>
+                    <th className="p-3 text-right">Seats</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {feeColleges.map((c) => (
+                    <tr
+                      key={c.slug}
+                      className="border-b border-outline-variant hover:bg-surface-container-low/80"
+                    >
+                      <td className="p-3">
+                        {c.slug.startsWith("demo-") ? (
+                          <span className="font-semibold text-on-surface">
+                            {c.name}
+                          </span>
+                        ) : (
+                          <Link
+                            href={`/colleges/${c.slug}`}
+                            className="font-semibold text-primary hover:underline"
+                          >
+                            {c.name}
+                          </Link>
+                        )}
+                      </td>
+                      <td className="p-3 capitalize text-on-surface-variant">
+                        {c.collegeType}
+                      </td>
+                      <td className="p-3 text-right tabular-nums font-semibold text-on-surface">
+                        {formatINR(c.totalAnnualFee)}
+                      </td>
+                      <td className="p-3 text-right tabular-nums">{c.seatCount}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </AnalyserSectionBody>
         </AnalyserSectionBlock>
 
-        <section>
-          <div className="mb-6">
-            <h2 className="font-headline-md text-headline-md text-on-surface">
-              Common questions
-            </h2>
+        <RankPredictorFaqSection items={faqItems} />
+        </div>
+
+        <section className="py-12 md:py-16">
+          <span className="rp-eyebrow">Reference</span>
+          <h2 className="rp-section-title">Glossary of terms</h2>
+          <div className="mt-10">
+            <GlossaryGrid terms={GLOSSARY} />
           </div>
-          <RankPredictorFaq items={faqItems} />
         </section>
 
-        <section>
-          <div className="mb-6">
-            <h2 className="font-headline-md text-headline-md text-on-surface">
-              Glossary of terms
-            </h2>
-          </div>
-          <GlossaryGrid terms={GLOSSARY} />
-        </section>
-
-        <p className="text-center text-xs leading-relaxed text-on-surface-variant">
+        <p className="pb-8 text-center text-xs leading-relaxed text-outline">
           {ANALYSER_DISCLAIMER}
         </p>
 

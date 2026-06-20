@@ -1,9 +1,4 @@
 import React from "react";
-import {
-  guideTableClass,
-  guideTableLabelNumericColsClass,
-  guideTableWrapClass,
-} from "@/lib/mbbs-india/section-styles";
 import { cn } from "@/lib/utils";
 
 export interface DataTableColumn {
@@ -33,11 +28,11 @@ interface DataTableProps {
 }
 
 const clinicalBadgeColorMap: Record<string, string> = {
-  blue: "bg-clinical-surface-low text-clinical-blue border-clinical-outline",
-  rose: "bg-rose-50 text-rose-600 border-rose-100/50",
-  amber: "bg-amber-50 text-amber-700 border-amber-100/50",
-  emerald: "bg-emerald-50 text-clinical-green border-emerald-100/50",
-  slate: "bg-slate-100 text-slate-600 border-slate-200",
+  blue: "border-primary/15 bg-primary-fixed/50 text-primary",
+  rose: "border-error/30 bg-error-container text-on-error-container",
+  amber: "border-tertiary-fixed-dim/60 bg-tertiary-fixed text-on-tertiary-fixed-variant",
+  emerald: "border-secondary/25 bg-secondary-fixed/80 text-secondary",
+  slate: "border-outline-variant bg-surface-container-high text-on-surface-variant",
 };
 
 const guideBadgeColorMap: Record<string, string> = {
@@ -60,6 +55,9 @@ export function DataTable({
 }: DataTableProps) {
   const isGuide = theme === "guide";
   const badgeColorMap = isGuide ? guideBadgeColorMap : clinicalBadgeColorMap;
+  const guideWrapClass = "overflow-x-auto rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_26px_-16px_rgba(37,70,208,0.2)]";
+  const guideTableClass = "w-full border-collapse text-sm tabular-nums [&_thead]:bg-primary [&_th]:px-5 [&_th]:py-4 [&_th]:text-[10px] [&_th]:font-bold [&_th]:uppercase [&_th]:tracking-[0.14em] [&_th]:text-on-primary [&_td]:px-5 [&_td]:py-4 [&_td]:align-top [&_td]:leading-[1.6] [&_tbody_tr]:border-b [&_tbody_tr]:border-outline-variant [&_tbody_tr:last-child]:border-b-0 [&_tbody_tr:hover]:bg-primary-fixed/20 [&_tbody_td:first-child]:bg-surface-container-low/60 [&_tbody_td:first-child]:font-bold [&_tbody_td:first-child]:text-on-surface";
+  const guideTableLabelNumericColsClass = "[&_thead_th:first-child]:text-left [&_tbody_td:first-child]:text-left [&_tfoot_td:first-child]:text-left [&_thead_th:not(:first-child)]:text-right [&_tbody_td:not(:first-child)]:text-right [&_tfoot_td:not(:first-child)]:text-right";
 
   const alignClass = (align?: "left" | "right" | "center") => {
     if (align === "right") return "text-right";
@@ -72,8 +70,8 @@ export function DataTable({
       <div
         className={cn(
           isGuide
-            ? guideTableWrapClass
-            : "overflow-hidden rounded-lg border border-clinical-outline bg-clinical-surface shadow-sm",
+            ? guideWrapClass
+            : "overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_26px_-16px_rgba(37,70,208,0.2)]",
           scrollable && "overflow-x-auto"
         )}
       >
@@ -90,7 +88,7 @@ export function DataTable({
               className={
                 isGuide
                   ? undefined
-                  : "border-b border-clinical-outline bg-clinical-surface-container text-[11px] font-bold uppercase tracking-[0.08em] text-clinical-muted"
+                  : "border-b border-outline-variant bg-primary text-[10px] font-bold uppercase tracking-[0.14em] text-on-primary"
               }
             >
               {columns.map((col) => (
@@ -106,16 +104,16 @@ export function DataTable({
               ))}
             </tr>
           </thead>
-          <tbody className={isGuide ? undefined : "divide-y divide-clinical-outline text-sm"}>
+          <tbody className={isGuide ? undefined : "divide-y divide-outline-variant text-sm"}>
             {rows.map((row, ri) => (
               <tr
                 key={ri}
                 className={cn(
-                  !isGuide && "transition-colors hover:bg-clinical-surface-low/45",
+                  !isGuide && "transition-colors hover:bg-primary-fixed/20",
                   !isGuide &&
                     highlightLastRow &&
                     ri === rows.length - 1 &&
-                    "bg-clinical-surface-low/60 font-semibold"
+                    "bg-primary-fixed/40 font-semibold"
                 )}
               >
                 {columns.map((col, ci) => {
@@ -130,12 +128,12 @@ export function DataTable({
                     <td
                       key={col.key}
                       className={cn(
-                        !isGuide && "px-6 py-4",
+                        !isGuide && "px-5 py-4",
                         alignClass(col.align),
                         !isGuide &&
                           (ci === 0
-                            ? "font-semibold text-clinical-navy"
-                            : "font-medium text-clinical-muted"),
+                            ? "font-semibold text-on-surface"
+                            : "font-medium text-on-surface-variant"),
                         isGuide && ci === 0 && "font-semibold text-on-surface"
                       )}
                     >
@@ -163,7 +161,7 @@ export function DataTable({
         <p
           className={cn(
             "pl-1 text-[11px]",
-            isGuide ? "text-outline" : "text-clinical-muted/70"
+            isGuide ? "text-outline" : "text-on-surface-variant"
           )}
         >
           {footnote}

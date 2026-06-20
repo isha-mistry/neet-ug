@@ -1,13 +1,13 @@
-"use client";
-
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { FiExternalLink, FiDownload, FiArrowRight } from "react-icons/fi";
 import { Container } from "@/components/common/Container";
-import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
 import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
 import { RankPredictorShell } from "@/components/features/rank-predictor/RankPredictorParts";
 import { SectionHeading } from "@/components/features/neet-ug/shared/SectionHeading";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
 import {
   guideCardClass,
   hubCardHoverClass,
@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 import { GuidePageJumpNav, type GuideJumpItem } from "@/components/features/mbbs-india/GuidePageJumpNav";
 
 /** Re-export brand card surface for quota page sections. */
-export const quotaCardClass = guideCardClass;
+export const quotaCardClass = "rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_26px_-16px_rgba(37,70,208,0.2)] p-5 md:p-6";
 
 interface QuotaPageShellProps {
   current: string;
@@ -39,7 +39,7 @@ function QuotaBreadcrumbs({ items }: { items: { label: string; href?: string }[]
           <span key={`${crumb.label}-${index}`} className="contents">
             {index > 0 ? <span className="rp-crumb-sep">/</span> : null}
             {isLast || !crumb.href ? (
-              <span style={isLast ? { color: "var(--color-primary)" } : undefined}>
+              <span className={cn(isLast && "text-primary")}>
                 {crumb.label}
               </span>
             ) : (
@@ -86,8 +86,13 @@ export function QuotaPageShell({
         
         {header && <div className="relative z-10 mb-8">{header}</div>}
 
-        {jumpSections && sidebar ? (
-          <div className="relative z-10 mt-8 lg:mt-10 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)_minmax(17rem,20rem)] lg:items-start lg:gap-8 xl:grid-cols-[12.5rem_minmax(0,1fr)_22rem] xl:gap-10">
+        {jumpSections ? (
+          <div className={cn(
+            "relative z-10 mt-8 lg:mt-10 lg:grid lg:items-start",
+            sidebar
+              ? "lg:grid-cols-[11rem_minmax(0,1fr)_16rem] lg:gap-6 xl:grid-cols-[12.5rem_minmax(0,1fr)_18rem] xl:gap-8"
+              : "lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[12.5rem_minmax(0,1fr)] xl:gap-10"
+          )}>
             <aside
               className={cn(
                 "sticky top-[4.25rem] z-20 hidden max-h-[calc(100dvh-4.5rem)] self-start overflow-y-auto overscroll-contain",
@@ -101,9 +106,11 @@ export function QuotaPageShell({
               {children}
             </div>
 
-            <div className="hidden lg:col-start-3 lg:row-start-1 lg:mt-0 lg:block">
-              {sidebar}
-            </div>
+            {sidebar && (
+              <div className="hidden lg:col-start-3 lg:row-start-1 lg:mt-0 lg:block">
+                {sidebar}
+              </div>
+            )}
           </div>
         ) : (
           <div className="relative z-10 space-y-10">{children}</div>
@@ -146,8 +153,13 @@ export function QuotaOverviewShell({ children, header, sidebar, jumpSections }: 
 
         {header && <div className="relative mb-8">{header}</div>}
 
-        {jumpSections && sidebar ? (
-          <div className="mt-8 lg:mt-10 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)_minmax(17rem,20rem)] lg:items-start lg:gap-8 xl:grid-cols-[12.5rem_minmax(0,1fr)_22rem] xl:gap-10">
+        {jumpSections ? (
+          <div className={cn(
+            "mt-8 lg:mt-10 lg:grid lg:items-start",
+            sidebar
+              ? "lg:grid-cols-[11rem_minmax(0,1fr)_16rem] lg:gap-6 xl:grid-cols-[12.5rem_minmax(0,1fr)_18rem] xl:gap-8"
+              : "lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[12.5rem_minmax(0,1fr)] xl:gap-10"
+          )}>
             <aside
               className={cn(
                 "sticky top-[4.25rem] z-20 hidden max-h-[calc(100dvh-4.5rem)] self-start overflow-y-auto overscroll-contain",
@@ -161,9 +173,11 @@ export function QuotaOverviewShell({ children, header, sidebar, jumpSections }: 
               {children}
             </div>
 
-            <div className="hidden lg:col-start-3 lg:row-start-1 lg:mt-0 lg:block">
-              {sidebar}
-            </div>
+            {sidebar && (
+              <div className="hidden lg:col-start-3 lg:row-start-1 lg:mt-0 lg:block">
+                {sidebar}
+              </div>
+            )}
           </div>
         ) : (
           <div className="space-y-10">{children}</div>
@@ -177,23 +191,21 @@ export function QuotaOverviewShell({ children, header, sidebar, jumpSections }: 
 function QuotaLeadBlock({ pageLabel }: { pageLabel: string }) {
   return (
     <section id="counselling-lead-section" className="relative mt-12 md:mt-14">
-      <div className="rounded-[1.75rem] bg-linear-to-br from-primary via-primary to-primary-hover p-px shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]">
-        <div className={cn(guideCardClass, "relative overflow-hidden rounded-[calc(1.75rem-1px)] border-0 bg-surface p-6 md:p-8")}>
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -left-16 -top-16 h-40 w-40 rounded-full bg-primary/5 blur-2xl"
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -bottom-16 -right-16 h-40 w-40 rounded-full bg-primary/5 blur-2xl"
-          />
+      <div className="gradient-border-panel relative overflow-hidden p-6 md:p-8">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-16 -top-16 h-40 w-40 rounded-full bg-primary/5 blur-2xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-16 -right-16 h-40 w-40 rounded-full bg-primary/5 blur-2xl"
+        />
 
           <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-fixed px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
-                <span className="material-symbols-outlined text-[12px]">support_agent</span>
+              <Badge tone="brand" icon={<span className="material-symbols-outlined text-[12px]">support_agent</span>}>
                 Need help choosing?
-              </span>
+              </Badge>
               <h2 className="rp-section-title mt-4">
                 Talk to a counsellor <em>before locking</em> quota choices
               </h2>
@@ -209,7 +221,7 @@ function QuotaLeadBlock({ pageLabel }: { pageLabel: string }) {
                   { icon: "compare_arrows", title: "Quota comparisons", body: "Analyze state quota vs. deemed and management routes." },
                   { icon: "notifications_active", title: "Cut-off alerts", body: "Updates on registration dates and round results." },
                 ].map((item) => (
-                  <div key={item.title} className={cn(summaryHighlightCardClass, "flex gap-3")}>
+                  <Card key={item.title} padded={false} className="flex gap-3 p-4 shadow-sm border-outline-variant/40">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary">
                       <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
                     </div>
@@ -217,7 +229,7 @@ function QuotaLeadBlock({ pageLabel }: { pageLabel: string }) {
                       <h4 className="text-xs font-bold text-on-surface">{item.title}</h4>
                       <p className="mt-0.5 text-[11px] leading-normal text-on-surface-variant">{item.body}</p>
                     </div>
-                  </div>
+                  </Card>
                 ))}
               </div>
 
@@ -237,14 +249,13 @@ function QuotaLeadBlock({ pageLabel }: { pageLabel: string }) {
               </div>
             </div>
 
-            <FreeCounsellingLeadForm
-              pageLabel={pageLabel}
-              title="Book free counselling"
-              submitLabel="Request call"
-              fields="name-phone-only"
-              className="border border-outline-variant/60 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(37,70,208,0.18)]"
-            />
-          </div>
+          <FreeCounsellingLeadForm
+            pageLabel={pageLabel}
+            title="Book free counselling"
+            submitLabel="Request call"
+            fields="name-phone-only"
+            className="border border-outline-variant/60 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(37,70,208,0.18)]"
+          />
         </div>
       </div>
     </section>
@@ -265,9 +276,9 @@ interface QuotaInfoGridProps {
 
 export function QuotaInfoGrid({ items, columns = "three", className }: QuotaInfoGridProps) {
   return (
-    <section
+    <Card
+      padded={false}
       className={cn(
-        guideCardClass,
         "grid grid-cols-1 overflow-hidden p-0",
         columns === "two" ? "md:grid-cols-2" : "md:grid-cols-3",
         className
@@ -291,7 +302,7 @@ export function QuotaInfoGrid({ items, columns = "three", className }: QuotaInfo
           </div>
         </div>
       ))}
-    </section>
+    </Card>
   );
 }
 
@@ -309,8 +320,7 @@ interface QuotaProcessListProps {
 
 export function QuotaProcessList({ title, subtitle, steps, className }: QuotaProcessListProps) {
   return (
-    <section className={cn(guideCardClass, "relative overflow-hidden pl-6 md:pl-7", className)}>
-      <span className="absolute left-0 top-0 h-full w-1 bg-primary" aria-hidden />
+    <Card padded={true} className={cn("border-l-4 border-l-primary", className)}>
       <PremiumSectionHeader icon="route" title={title} subtitle={subtitle} />
       <div className="relative grid grid-cols-1 gap-0 overflow-hidden rounded-xl border border-outline-variant/40 md:grid-cols-2">
         {steps.map((step, index) => (
@@ -328,7 +338,7 @@ export function QuotaProcessList({ title, subtitle, steps, className }: QuotaPro
           </div>
         ))}
       </div>
-    </section>
+    </Card>
   );
 }
 
@@ -359,11 +369,11 @@ export function QuotaTheoryPanel({
   className,
 }: QuotaTheoryPanelProps) {
   return (
-    <section className={cn(guideCardClass, "relative overflow-hidden pl-6 md:pl-7", className)}>
-      <span className="absolute left-0 top-0 h-full w-1 bg-primary" aria-hidden />
+    <Card padded={true} className={cn("relative overflow-hidden pl-6 md:pl-7", className)}>
+      <span className="absolute left-0 top-0 h-full w-[3px] bg-primary" aria-hidden />
       <QuotaSectionHeading eyebrow={eyebrow} title={title} description={intro} className="mb-6" />
       <div className="grid grid-cols-1 gap-x-8 gap-y-5 md:grid-cols-2">
-        {points.map((point) => (
+        {points?.map((point) => (
           <div
             key={point.title}
             className="group flex gap-4 border-b border-outline-variant/40 pb-5 last:border-b-0 md:nth-last-[-n+2]:border-b-0"
@@ -379,11 +389,11 @@ export function QuotaTheoryPanel({
         ))}
       </div>
       {note ? (
-        <div className="mt-5 rounded-xl border border-primary/15 bg-primary-fixed/55 px-4 py-3 text-xs font-semibold leading-relaxed text-on-primary-fixed">
+        <div className="mt-5 rounded-xl border border-primary/15 bg-primary-fixed px-4 py-3 text-xs font-semibold leading-relaxed text-primary">
           {note}
         </div>
       ) : null}
-    </section>
+    </Card>
   );
 }
 
@@ -410,7 +420,7 @@ export function QuotaSectionHeading({
         {emphasis ? <em>{emphasis}</em> : null}
       </h2>
       {description ? (
-        <p className="max-w-3xl text-sm leading-relaxed text-on-surface-variant">{description}</p>
+        <p className="max-w-2xl text-[15px] md:text-base leading-relaxed text-on-surface-variant">{description}</p>
       ) : null}
     </div>
   );
@@ -439,19 +449,18 @@ export function QuotaHeader({
     <section className="mb-2">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-end">
         <div className="max-w-3xl">
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary-fixed px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
-            <span className="material-symbols-outlined text-sm">{eyebrowIcon}</span>
+          <Badge tone="brand" icon={<span className="material-symbols-outlined text-xs">{eyebrowIcon}</span>} className="mb-4">
             {eyebrow}
-          </span>
-          <h1 className="rp-hero-title mt-4">
+          </Badge>
+          <h1 className="rp-hero-title">
             {title} <em>{highlightedText}</em>
             {titleSuffix ? ` ${titleSuffix}` : ""}
           </h1>
           <p className="rp-hero-lede">{description}</p>
         </div>
-        <GuideCard className="hidden h-fit md:block">
+        <Card className="hidden h-fit md:block">
           <div className="flex flex-col gap-4">
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-on-primary">
+            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-on-primary">
               <span
                 className="material-symbols-outlined text-[28px]"
                 style={{ fontVariationSettings: "'FILL' 1" }}
@@ -468,7 +477,7 @@ export function QuotaHeader({
               </p>
             </div>
           </div>
-        </GuideCard>
+        </Card>
       </div>
     </section>
   );
@@ -494,13 +503,10 @@ export function QuotaMetrics({ title = "Key facts at a glance", metrics }: Quota
       ) : null}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-5">
         {metrics.map((metric, idx) => (
-          <div
+          <Card
             key={idx}
-            className={cn(
-              summaryHighlightCardClass,
-              hubCardHoverClass,
-              "flex min-h-[128px] flex-col justify-between"
-            )}
+            hover={true}
+            className="flex min-h-[128px] flex-col justify-between p-4"
           >
             <div className="mb-3 flex items-center gap-2 text-primary">
               <span className="material-symbols-outlined text-[20px]">{metric.icon}</span>
@@ -512,7 +518,7 @@ export function QuotaMetrics({ title = "Key facts at a glance", metrics }: Quota
               <div className="text-sm font-bold text-on-surface">{metric.value}</div>
               <div className="mt-0.5 text-[11px] leading-normal text-on-surface-variant">{metric.caption}</div>
             </div>
-          </div>
+          </Card>
         ))}
       </div>
     </section>
@@ -536,7 +542,7 @@ interface QuotaCtaProps {
 
 export function QuotaCta({ title, description, actions, footerNote, customGraphic }: QuotaCtaProps) {
   return (
-    <section className="rp-brand-gradient rp-brand-elevated relative overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-10 md:py-9">
+    <section className="bg-linear-to-br from-primary to-primary-pressed rp-brand-elevated relative overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-10 md:py-9">
       <div
         aria-hidden
         className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-on-primary/10 blur-2xl"
@@ -557,27 +563,29 @@ export function QuotaCta({ title, description, actions, footerNote, customGraphi
 
         <div className="flex w-full flex-col justify-center gap-3 sm:flex-row md:w-auto md:shrink-0">
           {actions.map((act, idx) => (
-            <Link
+            <Button
               key={idx}
+              as="link"
               href={act.href}
               target={act.isExternal ? "_blank" : undefined}
               rel={act.isExternal ? "noopener noreferrer" : undefined}
+              variant={act.variant === "primary" ? "inverse" : "outline"}
               className={cn(
-                "inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-all duration-200 active:scale-[0.98] sm:w-auto",
-                act.variant === "primary"
-                  ? "bg-on-primary text-primary shadow-sm hover:bg-on-primary/95"
-                  : "border border-on-primary/40 text-on-primary hover:bg-on-primary/10"
+                "w-full sm:w-auto",
+                act.variant === "secondary" && "border-on-primary/40 text-on-primary hover:bg-on-primary/10 hover:border-on-primary/80 active:bg-on-primary/20"
               )}
+              trailingIcon={
+                act.isExternal ? (
+                  <FiExternalLink className="text-xs" />
+                ) : act.variant === "primary" ? (
+                  <FiArrowRight className="text-xs" />
+                ) : (
+                  <FiDownload className="text-xs" />
+                )
+              }
             >
               {act.label}
-              {act.isExternal ? (
-                <FiExternalLink className="shrink-0 text-xs" />
-              ) : act.variant === "primary" ? (
-                <FiArrowRight className="shrink-0 text-xs" />
-              ) : (
-                <FiDownload className="shrink-0 text-xs" />
-              )}
-            </Link>
+            </Button>
           ))}
         </div>
       </div>
@@ -615,7 +623,7 @@ export function SeatMatrixDonut({
   const offset = circumference - (percent / 100) * circumference;
 
   return (
-    <div className={cn(guideCardClass, "mx-auto flex w-full flex-col items-center justify-center")}>
+    <Card className="mx-auto flex w-full flex-col items-center justify-center">
       <div className="relative h-48 w-48">
         <svg className="h-full w-full -rotate-90 transform" viewBox="0 0 100 100">
           <circle
@@ -645,7 +653,7 @@ export function SeatMatrixDonut({
           </span>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
 
@@ -662,7 +670,7 @@ interface CategoryProgressBarsProps {
 
 export function CategoryProgressBars({ items }: CategoryProgressBarsProps) {
   return (
-    <div className={cn(guideCardClass, "w-full space-y-4")}>
+    <Card className="w-full space-y-4">
       <h4 className="mb-2 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
         Category-wise share
       </h4>
@@ -680,7 +688,7 @@ export function CategoryProgressBars({ items }: CategoryProgressBarsProps) {
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   );
 }
 
@@ -726,7 +734,7 @@ export function LiveDecisionTools({ excludeIds = [], highlightId }: LiveDecision
   ].filter((t) => !excludeIds.includes(t.id));
 
   return (
-    <GuideCard>
+    <Card>
       <div className="mb-5 flex items-center justify-between">
         <h4 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
           <span className="relative flex h-2 w-2">
@@ -744,50 +752,50 @@ export function LiveDecisionTools({ excludeIds = [], highlightId }: LiveDecision
         {tools.map((tool) => {
           const isHighlighted = tool.id === highlightId;
           return (
-            <Link
-              key={tool.id}
-              href={tool.href}
-              className={cn(
-                guideCardClass,
-                hubCardHoverClass,
-                "group block p-4 no-underline",
-                isHighlighted && "border-primary/40 bg-primary/[0.03]"
-              )}
-            >
-              <div className="flex items-start gap-3">
-                <div
-                  className={cn(
-                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300",
-                    isHighlighted
-                      ? "bg-primary text-on-primary"
-                      : "bg-primary-fixed text-primary group-hover:bg-primary group-hover:text-on-primary"
-                  )}
-                >
-                  <span className="material-symbols-outlined text-[22px]">{tool.icon}</span>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-on-surface transition-colors group-hover:text-primary">
-                      {tool.name}
-                    </span>
-                    {isHighlighted ? (
-                      <span className="rounded-sm border border-primary/20 bg-primary-fixed px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide text-primary">
-                        Recommended
-                      </span>
-                    ) : null}
+            <Link key={tool.id} href={tool.href} className="block no-underline">
+              <Card
+                hover={true}
+                padded={false}
+                className={cn(
+                  "group p-4",
+                  isHighlighted && "border-primary bg-primary-fixed/30"
+                )}
+              >
+                <div className="flex items-start gap-3">
+                  <div
+                    className={cn(
+                      "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300",
+                      isHighlighted
+                        ? "bg-primary text-on-primary"
+                        : "bg-primary-fixed text-primary group-hover:bg-primary group-hover:text-on-primary"
+                    )}
+                  >
+                    <span className="material-symbols-outlined text-[22px]">{tool.icon}</span>
                   </div>
-                  <p className="mt-1 text-[11px] font-medium leading-relaxed text-on-surface-variant">
-                    {tool.desc}
-                  </p>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-on-surface transition-colors group-hover:text-primary">
+                        {tool.name}
+                      </span>
+                      {isHighlighted ? (
+                        <span className="rounded-sm border border-primary/20 bg-primary-fixed px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide text-primary">
+                          Recommended
+                        </span>
+                      ) : null}
+                    </div>
+                    <p className="mt-1 text-[11px] font-medium leading-relaxed text-on-surface-variant">
+                      {tool.desc}
+                    </p>
+                  </div>
+                  <span className="material-symbols-outlined text-sm text-on-surface-variant opacity-0 transition-all group-hover:opacity-100">
+                    arrow_forward
+                  </span>
                 </div>
-                <span className="material-symbols-outlined text-sm text-on-surface-variant opacity-0 transition-all group-hover:opacity-100">
-                  arrow_forward
-                </span>
-              </div>
+              </Card>
             </Link>
           );
         })}
       </div>
-    </GuideCard>
+    </Card>
   );
 }

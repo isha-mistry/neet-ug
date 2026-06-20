@@ -56,7 +56,7 @@ export function HighYieldChaptersWidget({
     <div className="flex flex-col gap-6">
       {showHeading ? (
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-outline-variant/40 bg-primary-fixed text-primary">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-outline-variant bg-primary-fixed text-primary">
             <MaterialSymbol name="menu_book" size="md" />
           </div>
           <h3 className="m-0 text-left font-headline-md text-xl font-bold leading-none text-on-surface md:text-2xl">
@@ -100,7 +100,7 @@ export function HighYieldChaptersWidget({
       </div>
 
       <div
-        className="inline-flex self-start gap-1 rounded-xl border border-outline-variant/40 bg-surface-container-high p-1"
+        className="inline-flex self-start gap-1 rounded-xl border border-outline-variant bg-surface-container-high p-1"
         role="tablist"
         aria-label="PCB subjects"
       >

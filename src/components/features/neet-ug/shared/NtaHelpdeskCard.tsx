@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { GuideCard } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NEET_UG_NTA_HELPDESK } from "@/lib/neet-ug-2026/hub-content";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/Button";
 
 function telHref(display: string) {
   return `tel:${display.replace(/\D/g, "")}`;
@@ -15,7 +16,7 @@ export function NtaHelpdeskCard({ className }: { className?: string }) {
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-3">
           <span
-            className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-fixed text-primary"
+            className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-fixed text-primary"
             aria-hidden
           >
             <span className="material-symbols-outlined block text-[22px] leading-none [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24]">
@@ -28,7 +29,7 @@ export function NtaHelpdeskCard({ className }: { className?: string }) {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3.5 border-t border-outline-variant/50 pt-4">
+        <div className="flex flex-col gap-3.5 border-t border-outline-variant pt-4">
           <div className="flex items-start gap-2.5">
             <span
               className="material-symbols-outlined mt-0.5 shrink-0 text-lg text-outline"
@@ -79,24 +80,20 @@ export function NtaHelpdeskCard({ className }: { className?: string }) {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 border-t border-outline-variant/50 pt-4">
+        <div className="flex flex-col gap-2 border-t border-outline-variant pt-4">
           {portalLinks.map((portal) => (
-            <Link
+            <Button
               key={portal.href}
               href={portal.href}
+              variant="secondary"
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                "flex h-11 w-full items-center justify-center gap-1.5 rounded-xl border border-outline-variant",
-                "bg-surface-container-lowest text-sm font-bold text-on-surface no-underline",
-                "transition-colors hover:border-primary/35 hover:bg-primary-fixed/40"
-              )}
             >
               {portal.label}
               <span className="material-symbols-outlined text-base text-outline" aria-hidden>
                 open_in_new
               </span>
-            </Link>
+            </Button>
           ))}
         </div>
       </div>

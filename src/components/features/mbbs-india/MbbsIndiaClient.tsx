@@ -89,7 +89,7 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
 
       <nav
         aria-label="Page sections"
-        className="sticky top-16 z-30 border-b border-outline-variant/40 bg-surface/90 backdrop-blur-lg lg:hidden"
+        className="sticky top-16 z-30 border-b border-outline-variant bg-surface-container-lowest/90 backdrop-blur-lg lg:hidden"
       >
         <Container size="2xl" className="py-3">
           <GuidePageJumpNav variant="horizontal" jumpSections={MBBS_INDIA_JUMP_SECTIONS} />
@@ -164,7 +164,7 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
         description="Darker states have more MBBS seats. Click a state to open its college directory."
       >
         <GuideCard padding={false} className="overflow-x-hidden">
-          <div className="border-b border-outline-variant/40 bg-surface-container-low/50 px-5 py-4 md:px-6">
+          <div className="border-b border-outline-variant bg-surface-container-low px-5 py-4 md:px-6">
             <p className="text-sm leading-relaxed text-on-surface-variant">
               Darker states have more MBBS seats. Southern and western states lead in
               private college capacity; several northeastern states and UTs have fewer seats.
@@ -274,7 +274,7 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
             </tbody>
           </table>
         </div>
-        <GuideCard className="flex flex-col gap-4 border-primary/20 bg-linear-to-br from-surface via-surface to-primary-fixed/30 sm:flex-row sm:items-center sm:justify-between">
+        <GuideCard className="flex flex-col gap-4 border-primary/20 bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary-fixed/30 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <SubsectionTitle>Check your NEET score</SubsectionTitle>
             <p className="mt-1 text-sm text-on-surface-variant">
@@ -371,7 +371,7 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
           {FOCUS_STATE_COUNSELORS.map((s) => (
             <div
               key={s.state}
-              className="rounded-xl border border-outline-variant/30 bg-surface px-4 py-3.5 shadow-sm"
+              className="rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-3.5 shadow-sm"
             >
               <p className="font-semibold text-on-surface">{s.state}</p>
               <p className="text-sm text-on-surface-variant">{s.authority}</p>
@@ -535,7 +535,7 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
       </GuideSection>
 
       <GuideSection embedded title="Student stories">
-        <GuideCard className="border border-dashed border-outline-variant/60 bg-surface-container-low/40 text-center">
+        <GuideCard className="border border-dashed border-outline-variant bg-surface-container-low text-center">
           <span className="material-symbols-outlined text-4xl text-outline">forum</span>
           <h3 className="mt-3 text-lg font-bold text-on-surface">Coming soon — our students speak</h3>
           <p className="mx-auto mt-2 max-w-md text-sm text-on-surface-variant">

@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { QuotaHeader, QuotaCta, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { cn } from "@/lib/utils";
 
 import { quotaTheoryContent, stateDetailsData as stateDetails, type StateTab } from "./content";
 
@@ -74,7 +77,7 @@ export function StateQuotaView() {
   const sidebar = (
     <aside className="space-y-6">
       {/* Live College Predictor Card */}
-      <section className="overflow-hidden rounded-2xl border border-primary/20 bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.04] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)] transition-all">
+      <Card hover={true}>
         <div className="flex items-center gap-3.5 mb-4">
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary shadow-sm">
             <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 0" }}>
@@ -106,33 +109,34 @@ export function StateQuotaView() {
           </div>
         </div>
 
-        <Link
+        <Button
+          as="link"
           href="/college-predictor"
-          className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-on-primary transition hover:bg-primary-hover active:scale-95 shadow-sm"
+          fullWidth
+          trailingIcon={<span className="material-symbols-outlined text-sm">arrow_forward</span>}
         >
           Go to College Predictor
-          <span className="material-symbols-outlined text-sm">arrow_forward</span>
-        </Link>
-      </section>
+        </Button>
+      </Card>
 
       {/* Warning Card */}
-      <section className="relative overflow-hidden rounded-2xl border border-primary/15 bg-primary-container p-6 text-on-primary-container shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+      <Card padded={true} bordered={false} className="relative overflow-hidden bg-clinical-blue! text-on-primary-container shadow-sm">
         <div className="relative z-10">
-          <h4 className="font-bold text-headline-sm mb-2">SEBC Rule</h4>
-          <p className="text-body-sm opacity-90 mb-4 leading-relaxed">
+          <h4 className="font-bold text-headline-sm mb-2 text-on-primary-container">SEBC Rule</h4>
+          <p className="text-body-sm opacity-90 mb-4 leading-relaxed text-on-primary-container">
             Gujarat follows strict SEBC (Socially and Educationally Backward Classes) norms. A valid Non-Creamy Layer (NCL) certificate from Gujarat is mandatory.
           </p>
-          <div className="flex items-center gap-2 text-label-md font-bold uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-label-md font-bold uppercase tracking-wider text-on-primary-container">
             <span className="material-symbols-outlined text-[18px]">info</span>
             Check validity before Aug 2026
           </div>
         </div>
         {/* Decorative Icon */}
         <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-[120px] opacity-10 rotate-12 pointer-events-none" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
-      </section>
+      </Card>
 
       {/* Documentation Sticky */}
-      <section className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+      <Card>
         <h3 className="text-title-lg mb-4 flex items-center gap-2 font-bold text-on-surface">
           <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>description</span>
           Mandatory Documentation
@@ -140,18 +144,18 @@ export function StateQuotaView() {
         <ul className="space-y-3">
           {docs.map((doc, idx) => (
             <li key={idx} className="flex items-start gap-3">
-              <span className="material-symbols-outlined text-green-600 text-[20px] shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+              <span className="material-symbols-outlined text-tertiary text-[20px] shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
               <span className="text-body-sm text-on-surface-variant font-medium leading-relaxed">{doc}</span>
             </li>
           ))}
         </ul>
-        <div className="mt-6 p-4 bg-surface-container-highest rounded-lg border border-outline-variant/30">
+        <div className="mt-6 p-4 bg-surface-container-highest rounded-xl border border-outline-variant/30">
           <p className="text-label-sm text-on-surface-variant flex items-center gap-2 font-bold uppercase tracking-wider">
             <span className="material-symbols-outlined text-[16px] text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>lightbulb</span>
             Tip: Document verification requires physical presence at Help Centers.
           </p>
         </div>
-      </section>
+      </Card>
     </aside>
   );
 
@@ -164,7 +168,7 @@ export function StateQuotaView() {
     >
       {/* Hero Overview Card */}
       <div id="overview" className="space-y-6">
-        <div className="grid grid-cols-1 gap-4 rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 md:grid-cols-3">
+        <Card className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div className="flex items-center gap-4 rounded-xl border border-outline-variant/60 bg-surface-container-low p-4">
             <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0">
               <span className="material-symbols-outlined">percent</span>
@@ -192,7 +196,7 @@ export function StateQuotaView() {
               <p className="text-label-sm font-label-sm text-on-surface-variant leading-tight">Independent state counseling</p>
             </div>
           </div>
-        </div>
+        </Card>
 
         <QuotaInfoGrid
           items={[
@@ -221,7 +225,7 @@ export function StateQuotaView() {
       <div id="state-directory" className="space-y-6">
         <section className="flex flex-col items-center gap-6 py-8">
           <h2 className="font-headline-md text-xl font-bold md:text-2xl text-on-surface">Explore State-Specific Quotas</h2>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-2 bg-surface-container-low p-1.5 rounded-full border border-outline-variant/40 w-fit mx-auto">
             {([
               { id: "gujarat", label: "Gujarat" },
               { id: "maharashtra", label: "Maharashtra" },
@@ -230,33 +234,43 @@ export function StateQuotaView() {
             ] as const).map((tab) => (
               <button
                 key={tab.id}
+                type="button"
                 onClick={() => {
                   setActiveTab(tab.id);
                 }}
-                className={`px-3 py-2 rounded-full border text-body-sm flex items-center gap-2 transition-colors active:scale-95 font-bold uppercase tracking-wider ${activeTab === tab.id
-                    ? "border-primary bg-primary text-on-primary shadow-sm"
-                    : "border-outline text-on-surface-variant hover:bg-surface-container-high"
-                  }`}
+                className={cn(
+                  "px-4 py-2 rounded-full text-xs flex items-center gap-2 transition-all duration-150 active:scale-95 font-bold uppercase tracking-wider cursor-pointer",
+                  activeTab === tab.id
+                    ? "bg-primary text-on-primary shadow-sm"
+                    : "text-on-surface-variant hover:text-primary hover:bg-surface-container-high/60"
+                )}
               >
-                <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: activeTab === tab.id ? "'FILL' 1" : "'FILL' 0" }}>location_on</span> {tab.label}
+                <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: activeTab === tab.id ? "'FILL' 1" : "'FILL' 0" }}>location_on</span> {tab.label}
               </button>
             ))}
           </div>
         </section>
 
-        <section className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-0 transition-shadow hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
-          <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+        <Card padded={false} className="overflow-hidden">
+          <div className="p-6 border-b border-outline-variant/40 flex justify-between items-center bg-surface-bright">
             <div className="flex items-center gap-3">
               <h2 className="text-headline-sm font-headline-sm flex items-center gap-2 font-bold">
                 <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>account_balance</span>
                 {content.title}
               </h2>
             </div>
-            <a className="text-primary text-body-md hover:underline flex items-center gap-1 font-bold uppercase tracking-wider" href={content.portalUrl} target="_blank" rel="noopener noreferrer">
-              Official Portal <span className="material-symbols-outlined text-[16px]">open_in_new</span>
-            </a>
+            <Button
+              as="link"
+              variant="text"
+              href={content.portalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              trailingIcon={<span className="material-symbols-outlined text-[16px]">open_in_new</span>}
+            >
+              Official Portal
+            </Button>
           </div>
-          <div className="divide-y divide-outline-variant">
+          <div className="divide-y divide-outline-variant/40">
             {content.rows.map((row, idx) => (
               <div key={idx} className="grid grid-cols-1 md:grid-cols-3 p-4 items-center hover:bg-surface-container-low/50 transition-colors">
                 <div className="text-body-sm text-on-surface-variant font-bold uppercase tracking-wider">{row.parameter}</div>
@@ -264,16 +278,16 @@ export function StateQuotaView() {
               </div>
             ))}
           </div>
-        </section>
+        </Card>
       </div>
 
       {/* Seat Matrix Distribution */}
-      <section id="seat-matrix" className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+      <Card id="seat-matrix" as="section">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-headline-sm font-headline-sm font-bold">Seat Matrix Distribution</h3>
-          <span className="text-label-sm bg-surface-container-high px-2 py-1 rounded font-bold uppercase tracking-wider">
+          <Badge tone="neutral">
             {activeTab === "mp" ? "MADHYA PRADESH" : activeTab.toUpperCase()} STATE
-          </span>
+          </Badge>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
@@ -326,10 +340,10 @@ export function StateQuotaView() {
             </div>
           </div>
         </div>
-      </section>
+      </Card>
 
       {/* Comparison Tool */}
-      <section id="comparison" className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+      <Card id="comparison" as="section">
         <div className="flex items-center gap-4 mb-6">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-surface-container-low shadow-sm">
             <span className="material-symbols-outlined text-primary text-[32px]">compare_arrows</span>
@@ -340,17 +354,17 @@ export function StateQuotaView() {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-xl border border-outline-variant/40 bg-surface-container-low p-4 transition-shadow hover:shadow-md">
+          <Card hover={true} className="bg-surface-container-low">
             <h4 className="font-bold mb-2 flex items-center gap-2 text-on-surface">
-              <span className="material-symbols-outlined text-blue-500" style={{ fontVariationSettings: "'FILL' 1" }}>public</span> AIQ (15%)
+              <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>public</span> AIQ (15%)
             </h4>
             <ul className="text-body-sm space-y-2 text-on-surface-variant">
-              <li className="flex gap-2"><span className="text-green-500 font-bold">✓</span> Higher cutoff scores required</li>
-              <li className="flex gap-2"><span className="text-green-500 font-bold">✓</span> Any Indian citizen can apply</li>
-              <li className="flex gap-2"><span className="text-green-500 font-bold">✓</span> Centralized MCC Counseling</li>
+              <li className="flex gap-2"><span className="text-tertiary font-bold">✓</span> Higher cutoff scores required</li>
+              <li className="flex gap-2"><span className="text-tertiary font-bold">✓</span> Any Indian citizen can apply</li>
+              <li className="flex gap-2"><span className="text-tertiary font-bold">✓</span> Centralized MCC Counseling</li>
             </ul>
-          </div>
-          <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 transition-shadow hover:shadow-md">
+          </Card>
+          <Card hover={true} className="bg-primary-fixed/30">
             <h4 className="font-bold mb-2 flex items-center gap-2 text-primary">
               <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span> State Quota (85%)
             </h4>
@@ -359,9 +373,9 @@ export function StateQuotaView() {
               <li className="flex gap-2"><span className="text-primary font-bold">✓</span> Strict domicile requirements</li>
               <li className="flex gap-2"><span className="text-primary font-bold">✓</span> Specific state-wise rules</li>
             </ul>
-          </div>
+          </Card>
         </div>
-      </section>
+      </Card>
 
       <div id="prep-flow">
         <QuotaProcessList

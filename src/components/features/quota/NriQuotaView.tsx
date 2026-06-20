@@ -1,6 +1,8 @@
-"use client";
-
 import { QuotaHeader, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel, LiveDecisionTools } from "./QuotaShared";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { cn } from "@/lib/utils";
 
 import { nriDocumentationCards as documentationCards, nriStatesData as nriStates, quotaTheoryContent } from "./content";
 
@@ -31,7 +33,7 @@ export function NriQuotaView() {
       <LiveDecisionTools highlightId="predictor" />
 
       {/* Document Warning Alert Card */}
-      <div className="flex gap-3 rounded-2xl border border-l-4 border-outline-variant border-l-tertiary bg-surface-container-lowest p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+      <Card padded={true} className="flex gap-3 bg-surface-container-low shadow-sm">
         <span className="material-symbols-outlined text-tertiary text-[24px] shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
         <div>
           <span className="font-label-md text-label-md text-tertiary block font-bold mb-1 uppercase tracking-wider">OCI Cut-off Warning</span>
@@ -39,12 +41,12 @@ export function NriQuotaView() {
             OCI cardholders registered after March 4, 2021 are treated as foreign nationals and are only eligible for NRI seats, not general seats.
           </p>
         </div>
-      </div>
+      </Card>
 
       {/* Document Check Reminder */}
-      <div className="p-4 bg-surface-container-high/60 border border-outline-variant/40 rounded-xl text-center leading-relaxed italic text-[11px] text-on-surface-variant">
+      <Card padded={false} className="p-4 rounded-xl bg-surface-container-high/60 text-center leading-relaxed italic text-[11px] text-on-surface-variant">
         Embassy attestation is mandatory for both the relationship affidavit and physical financial undertaking.
-      </div>
+      </Card>
     </aside>
   );
 
@@ -90,7 +92,7 @@ export function NriQuotaView() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
           {/* Applicant Profile */}
-          <div className="flex h-full flex-col rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-colors hover:border-primary/30">
+          <Card hover={true} className="flex h-full flex-col">
             <div className="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mb-6 border border-primary-fixed-dim/20">
               <span className="material-symbols-outlined text-primary text-[24px]">person</span>
             </div>
@@ -113,10 +115,10 @@ export function NriQuotaView() {
                 <span className="font-body-sm text-body-sm text-primary font-bold leading-relaxed">NEET UG Qualification is Mandatory</span>
               </li>
             </ul>
-          </div>
+          </Card>
 
           {/* Financials */}
-          <div className="flex h-full flex-col rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-colors hover:border-tertiary/50">
+          <Card hover={true} className="flex h-full flex-col">
             <div className="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center mb-6 border border-tertiary-fixed-dim/20">
               <span className="material-symbols-outlined text-tertiary text-[24px]">payments</span>
             </div>
@@ -140,13 +142,13 @@ export function NriQuotaView() {
                 <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"><strong>NRO Account Required:</strong> Security deposits/fees refunds for NRI candidates must be routed through NRO accounts as per banking guidelines.</p>
               </div>
             </div>
-          </div>
+          </Card>
 
         </div>
       </section>
 
       {/* Enriched Sponsor Relationship Section */}
-      <section id="sponsorship-rules" className="scroll-mt-20 space-y-4 rounded-2xl border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+      <Card id="sponsorship-rules" as="section" className="scroll-mt-20 space-y-4 bg-surface-container-lowest">
         <PremiumSectionHeader icon="family_history" title="Supreme Court Sponsorship Relationship Rules" subtitle="As per the landmark Anshul Tomar judgment" />
         <div className="space-y-4 rounded-xl border border-outline-variant/40 bg-surface-container-low p-5">
           <p className="text-body-sm text-on-surface-variant leading-relaxed">
@@ -166,11 +168,11 @@ export function NriQuotaView() {
               Direct children of your father&apos;s or mother&apos;s real siblings (first-cousins).
             </div>
           </div>
-          <div className="p-3 bg-error-container/10 border-l-4 border-error text-xs text-on-error-container">
+          <div className="p-3 bg-error-container text-xs text-on-error-container rounded-xl">
             <strong>Caution:</strong> Sponsorships from distant relatives, family friends, or corporate entities are strictly rejected during online and physical document verification.
           </div>
         </div>
-      </section>
+      </Card>
 
       {/* Mandatory Documentation Grid */}
       <section id="documentation" className="scroll-mt-20">
@@ -179,18 +181,21 @@ export function NriQuotaView() {
             <h2 className="font-headline-md text-headline-md text-on-surface mb-2 font-bold">Mandatory Documentation</h2>
             <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Ensure all sponsor documents are attested by the Indian Embassy or Consulate.</p>
           </div>
-          <button className="flex items-center gap-2 text-primary font-label-md text-label-md hover:underline font-bold uppercase tracking-wider bg-primary/5 px-4 py-2 rounded-lg border border-primary/20 active:scale-95 transition-all">
-            <span className="material-symbols-outlined text-[18px]">download</span>
+          <Button
+            variant="secondary"
+            size="sm"
+            leadingIcon={<span className="material-symbols-outlined text-[18px]">download</span>}
+          >
             Download PDF Checklist
-          </button>
+          </Button>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {documentationCards.map((card, idx) => (
-            <div key={idx} className="cursor-default rounded-2xl border border-outline-variant/40 bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-colors duration-300 hover:border-primary/40 hover:bg-surface-container-low">
+            <Card key={idx} hover={true} className="text-center cursor-default">
               <span className="material-symbols-outlined text-primary mb-4 text-[32px]">{card.icon}</span>
               <h4 className="font-label-md text-label-md text-on-surface mb-2 font-bold tracking-wide">{card.title}</h4>
               <p className="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">{card.desc}</p>
-            </div>
+            </Card>
           ))}
         </div>
       </section>
@@ -213,19 +218,18 @@ export function NriQuotaView() {
           <h2 className="font-headline-md text-headline-md text-on-surface mb-2 font-bold">State-wise Seat Distribution</h2>
           <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Comparative analysis of NRI seat availability and expected NEET ranks for key medical hubs.</p>
         </div>
-        <div className="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-surface-container-high">
-                  <th className="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold">State</th>
-                  <th className="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold">Seats &amp; Rank</th>
-                  <th className="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold">Financials / Authority</th>
-                  <th className="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold">Key Characteristic</th>
-                  <th className="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-bold text-right">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-outline-variant">
+      <div className="quota-table-wrap">
+        <table className="quota-table">
+          <thead>
+            <tr>
+              <th className="pl-6">State</th>
+              <th>Seats &amp; Rank</th>
+              <th>Financials / Authority</th>
+              <th>Key Characteristic</th>
+              <th className="pr-6 text-right">Action</th>
+            </tr>
+          </thead>
+              <tbody className="divide-y divide-outline-variant/40">
                 {nriStates.map((row, idx) => (
                   <tr key={idx} className="hover:bg-surface-container-low transition-colors group cursor-pointer even:bg-surface-bright">
                     <td className="px-6 py-4 font-title-lg text-title-lg text-on-surface font-bold">{row.state}</td>
@@ -242,17 +246,15 @@ export function NriQuotaView() {
                 ))}
               </tbody>
             </table>
-          </div>
-        </div>
+      </div>
       </section>
 
       {/* NRI Embassy Attestation Step-by-Step Guide */}
-      <section id="embassy-guide" className="scroll-mt-20 mt-12 rounded-3xl border border-outline-variant/40 bg-linear-to-br from-surface-container-lowest via-surface-container-lowest to-primary/[0.03] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] md:p-8">
+      <Card id="embassy-guide" as="section" className="scroll-mt-20 mt-12 p-6 md:p-8">
         <div className="mb-6">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-fixed px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-primary">
-            <span className="material-symbols-outlined text-[12px] font-black">gavel</span>
+          <Badge tone="brand" icon={<span className="material-symbols-outlined text-[12px] font-black">gavel</span>}>
             Embassy Attestation
-          </span>
+          </Badge>
           <h3 className="mt-4 text-xl font-black leading-tight tracking-tight text-on-surface md:text-2xl">
             Sponsor Embassy Attestation Guide
           </h3>
@@ -262,7 +264,7 @@ export function NriQuotaView() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
+          <Card hover={true} className="shadow-xs bg-surface p-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
               <span className="material-symbols-outlined text-[20px]">edit_note</span>
             </div>
@@ -270,9 +272,9 @@ export function NriQuotaView() {
             <p className="text-xs text-on-surface-variant leading-relaxed">
               Prepare the Sponsorship Affidavit and Relationship Undertaking as per the formats specified in the MCC bulletin. Avoid spelling discrepancies in names.
             </p>
-          </div>
+          </Card>
 
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
+          <Card hover={true} className="shadow-xs bg-surface p-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
               <span className="material-symbols-outlined text-[20px]">badge</span>
             </div>
@@ -280,9 +282,9 @@ export function NriQuotaView() {
             <p className="text-xs text-on-surface-variant leading-relaxed">
               Sponsor must gather their original Indian/Foreign Passport, valid Visa or Resident Permit, and utility bills showing foreign address proof.
             </p>
-          </div>
+          </Card>
 
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
+          <Card hover={true} className="shadow-xs bg-surface p-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
               <span className="material-symbols-outlined text-[20px]">person_pin</span>
             </div>
@@ -290,9 +292,9 @@ export function NriQuotaView() {
             <p className="text-xs text-on-surface-variant leading-relaxed">
               The sponsor must physically visit the Indian Consulate/Embassy. Some jurisdictions require prior appointment scheduling on the Consular portal.
             </p>
-          </div>
+          </Card>
 
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
+          <Card hover={true} className="shadow-xs bg-surface p-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
               <span className="material-symbols-outlined text-[20px]">draw</span>
             </div>
@@ -300,9 +302,9 @@ export function NriQuotaView() {
             <p className="text-xs text-on-surface-variant leading-relaxed">
               Sign the documents in the presence of the Consular Officer. The consulate will verify, seal, and stamp the undertaking page.
             </p>
-          </div>
+          </Card>
 
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
+          <Card hover={true} className="shadow-xs bg-surface p-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
               <span className="material-symbols-outlined text-[20px]">scanner</span>
             </div>
@@ -310,9 +312,9 @@ export function NriQuotaView() {
             <p className="text-xs text-on-surface-variant leading-relaxed">
               Scan the attested papers in a high-resolution PDF format (no mobile snapshots). The Consulate stamp and officer signature must be clearly legible.
             </p>
-          </div>
+          </Card>
 
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-xs transition-all hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)] bg-primary-fixed/20 border-primary/20">
+          <Card hover={true} className="shadow-xs bg-primary-fixed/30 p-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-on-primary mb-4">
               <span className="material-symbols-outlined text-[20px]">mark_email_read</span>
             </div>
@@ -320,9 +322,9 @@ export function NriQuotaView() {
             <p className="text-xs text-on-surface-variant leading-relaxed">
               Courier the physical stamped documents to the candidate in India. Original attested copies are mandatory during physical reporting at Helplines.
             </p>
-          </div>
+          </Card>
         </div>
-      </section>
+      </Card>
     </QuotaPageShell>
   );
 }

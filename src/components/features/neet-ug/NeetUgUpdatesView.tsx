@@ -8,7 +8,7 @@ import {
   GuideSection,
   GuideSteps,
   MetricGrid,
-} from "@/components/features/mbbs-india/MbbsIndiaParts";
+} from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NeetTimeline } from "@/components/features/neet-ug/NeetTimeline";
 import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
 import {
@@ -199,7 +199,7 @@ export function NeetUgUpdatesView() {
             >
               <GuideCard>
                 <GuideSteps size="compact" steps={[...NEET_UG_UPDATES_DOCUMENT_CHECKLIST]} />
-                <p className="mt-5 border-t border-outline-variant/40 pt-4 text-sm text-on-surface-variant">
+                <p className="mt-5 border-t border-outline-variant pt-4 text-sm text-on-surface-variant">
                   Step-by-step counselling:{" "}
                   <Link href="/neet-ug-2026/counselling-guide" className="font-semibold text-primary hover:underline">
                     NEET UG 2026 counselling guide

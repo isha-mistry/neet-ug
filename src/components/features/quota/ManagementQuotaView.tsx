@@ -1,7 +1,8 @@
-"use client";
-
-import Link from "next/link";
 import { QuotaHeader, QuotaCta, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel, LiveDecisionTools } from "./QuotaShared";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { cn } from "@/lib/utils";
 import {
   mqStatesData as mqStates,
   openClosedStatesData,
@@ -28,25 +29,25 @@ export function ManagementQuotaView() {
           watermarkIcon="payments"
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex items-start gap-4 rounded-xl border border-outline-variant/40 bg-surface p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+          <Card padded={false} className="flex items-start gap-4 p-4">
             <span className="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">person_check</span>
             <div>
               <h3 className="font-title-lg text-title-lg text-on-surface font-bold">Eligibility</h3>
               <p className="font-body-sm text-body-sm text-on-surface-variant">NEET Qualified Candidates Only</p>
             </div>
-          </div>
-          <div className="flex items-start gap-4 rounded-xl border border-outline-variant/40 bg-surface p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+          </Card>
+          <Card padded={false} className="flex items-start gap-4 p-4">
             <span className="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">public</span>
             <div>
               <h3 className="font-title-lg text-title-lg text-on-surface font-bold">Domicile Rules</h3>
               <p className="font-body-sm text-body-sm text-on-surface-variant">Open to all candidates across India</p>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
 
       {/* Open State Advantage: Glassmorphism / Vibrant CTA */}
-      <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-primary/20 bg-linear-to-br from-primary via-primary to-primary-hover p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)] lg:col-span-4 h-fit">
+      <Card padded={false} bordered={false} className="group relative flex flex-col justify-between overflow-hidden bg-linear-to-br from-primary to-primary-pressed p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)] lg:col-span-4 h-fit">
         <div className="absolute -right-12 -top-12 opacity-10 pointer-events-none select-none">
           <span className="material-symbols-outlined text-[180px]">public</span>
         </div>
@@ -57,10 +58,15 @@ export function ManagementQuotaView() {
             Open states allow candidates from any state to apply for their private college management quota seats, presenting excellent options for students with moderate NEET scores.
           </p>
         </div>
-        <a href="#open-states" className="relative z-10 w-full rounded-xl bg-surface-container-lowest py-3 text-center font-label-md font-bold uppercase tracking-wider text-primary transition-colors hover:bg-surface-bright active:scale-95">
+        <Button
+          as="link"
+          href="#open-states"
+          variant="inverse"
+          fullWidth
+        >
           View Open States List
-        </a>
-      </div>
+        </Button>
+      </Card>
     </div>
   );
 
@@ -70,15 +76,31 @@ export function ManagementQuotaView() {
       <LiveDecisionTools highlightId="predictor" />
 
       {/* Confused about MQ? Card */}
-      <section className="flex flex-col items-center rounded-2xl border border-outline-variant/40 bg-surface p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
+      <Card as="section" className="flex flex-col items-center text-center">
         <span className="material-symbols-outlined text-primary mb-3 text-[32px]">help_center</span>
         <h4 className="font-title-lg text-title-lg mb-2 font-bold text-on-surface">Need help with private seats?</h4>
         <p className="font-body-sm text-body-sm text-on-surface-variant mb-4 leading-relaxed">Compare fees, bond, and cutoffs with similar colleges.</p>
         <div className="flex flex-col gap-2 w-full">
-          <Link href="/compare" className="text-on-surface-variant font-label-md text-xs border border-outline-variant/60 bg-surface px-4 py-2.5 rounded-lg hover:bg-surface-container-low transition-colors font-bold uppercase tracking-wider text-center">Compare colleges</Link>
-          <a href="#counselling-lead-section" className="text-on-primary bg-primary font-label-md text-xs px-4 py-2.5 rounded-lg hover:bg-primary-hover transition-colors font-bold uppercase tracking-wider text-center shadow-md">Free counselling</a>
+          <Button
+            as="link"
+            href="/compare"
+            variant="secondary"
+            size="sm"
+            fullWidth
+          >
+            Compare colleges
+          </Button>
+          <Button
+            as="link"
+            href="#counselling-lead-section"
+            variant="primary"
+            size="sm"
+            fullWidth
+          >
+            Free counselling
+          </Button>
         </div>
-      </section>
+      </Card>
     </aside>
   );
 
@@ -100,33 +122,33 @@ export function ManagementQuotaView() {
             <span className="text-label-md text-secondary italic tracking-wider">For private college admissions</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
+            <Card hover={true}>
               <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Scope</p>
               <p className="text-title-lg font-title-lg mb-2 text-on-surface font-bold">~35-50% seats</p>
               <p className="text-body-sm text-on-surface-variant">In private medical colleges</p>
-            </div>
-            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
+            </Card>
+            <Card hover={true}>
               <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Counselling</p>
               <p className="text-title-lg font-title-lg mb-2 text-on-surface font-bold">State Authorities</p>
               <p className="text-body-sm text-on-surface-variant">Conducted by respective state DME</p>
-            </div>
-            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
+            </Card>
+            <Card hover={true}>
               <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Annual Fees</p>
               <p className="text-title-lg font-title-lg mb-2 text-on-surface font-bold">8 Lakhs – 25 Lakhs</p>
               <p className="text-body-sm text-on-surface-variant">Varies widely by state and college</p>
-            </div>
-            <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6 transition-all hover:border-primary/30">
+            </Card>
+            <Card hover={true}>
               <p className="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider font-bold">Domicile Rule</p>
               <p className="text-title-lg font-title-lg mb-2 text-primary font-bold">Open To All States</p>
               <p className="text-body-sm text-on-surface-variant">No residency restriction for MQ</p>
-            </div>
+            </Card>
           </div>
-          <div className="mt-6 bg-surface-container-high/50 p-4 rounded-lg flex items-start gap-4 border-l-4 border-primary shadow-sm border-t border-b border-r border-outline-variant/40">
+          <Card padded={false} className="mt-6 bg-surface-container-high/50 p-4 flex items-start gap-4 rounded-xl">
             <span className="material-symbols-outlined text-primary text-[24px] shrink-0 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>info</span>
             <p className="text-body-sm text-on-surface leading-relaxed">
               <strong className="tracking-wider">Process Note:</strong> Management quota registrations and fee submission details vary for each state authority. Candidates must register on the state DME portals during the scheduled windows.
             </p>
-          </div>
+          </Card>
         </section>
 
         <QuotaInfoGrid
@@ -159,36 +181,41 @@ export function ManagementQuotaView() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeIn">
           {mqStates.map((item, idx) => {
             return (
-              <div key={idx} className="group overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-0 transition-shadow hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
-                <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-bright group-hover:bg-primary/5 transition-colors">
+              <Card key={idx} padded={false} hover={true} className="group overflow-hidden">
+                <div className="p-6 border-b border-outline-variant/40 flex justify-between items-center bg-surface-bright group-hover:bg-primary/5 transition-colors">
                   <div className="flex items-center gap-3">
                     <span className="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">location_on</span>
                     <h3 className="font-title-lg text-title-lg text-on-surface font-bold">{item.state}</h3>
                   </div>
-                  <span className="flex items-center gap-1 text-label-sm text-secondary bg-secondary-container px-2 py-1 rounded font-bold uppercase tracking-wider">
-                    <span className="material-symbols-outlined text-xs">trending_down</span> Cutoff
-                  </span>
+                  <Badge tone="warn" icon={<span className="material-symbols-outlined text-xs">trending_down</span>}>
+                    Cutoff
+                  </Badge>
                 </div>
                 <div className="p-6">
                   <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="bg-surface-container p-4 rounded-lg border border-outline-variant/40">
+                    <Card padded={false} className="bg-surface-container p-4 border border-outline-variant/40 shadow-none">
                       <p className="text-label-sm text-on-surface-variant mb-1 font-bold tracking-wider">SEATS AVAILABLE</p>
                       <p className="font-bold text-lg text-on-surface">{item.seats}</p>
-                    </div>
-                    <div className="bg-surface-container p-4 rounded-lg border border-outline-variant/40">
+                    </Card>
+                    <Card padded={false} className="bg-surface-container p-4 border border-outline-variant/40 shadow-none">
                       <p className="text-label-sm text-on-surface-variant mb-1 font-bold tracking-wider">EXPECTED RANK</p>
                       <p className="font-bold text-lg text-primary">{item.rankRange}</p>
-                    </div>
+                    </Card>
                   </div>
                   <p className="text-body-sm text-on-surface-variant mb-6 leading-relaxed min-h-[40px]">{item.notes}</p>
                   <div className="flex items-center justify-between pt-4 border-t border-outline-variant/40">
                     <span className="text-label-md text-secondary font-bold tracking-wider">ESTIMATED CUTOFF</span>
-                    <Link className="text-primary font-label-md flex items-center gap-1 hover:underline font-bold uppercase tracking-wider" href={item.link}>
-                      Counselling Details <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                    </Link>
+                    <Button
+                      as="link"
+                      variant="text"
+                      href={item.link}
+                      trailingIcon={<span className="material-symbols-outlined text-[16px]">arrow_forward</span>}
+                    >
+                      Counselling Details
+                    </Button>
                   </div>
                 </div>
-              </div>
+              </Card>
             );
           })}
         </div>
@@ -199,37 +226,39 @@ export function ManagementQuotaView() {
         <PremiumSectionHeader icon="swap_horiz" title="Open States vs. Closed States Policies" subtitle="Understanding residency eligibility for Private Management seats" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Open States */}
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+          <Card>
             <h3 className="text-title-lg font-bold text-primary mb-4 flex items-center gap-2">
               <span className="material-symbols-outlined">lock_open</span> Open States (Allows Non-Domicile Candidates)
             </h3>
             <div className="space-y-4">
               {openClosedStatesData.open.map((item) => (
-                <div key={item.state} className="p-3 bg-surface-container-low/40 rounded-lg border border-outline-variant/40 flex justify-between items-center">
+                <div key={item.state} className="p-3 bg-surface-container-low/40 rounded-xl border border-outline-variant/40 flex justify-between items-center">
                   <div>
                     <div className="font-bold text-on-surface text-sm">{item.state}</div>
                     <div className="text-[11px] text-on-surface-variant mt-0.5">{item.seats} • {item.avgFee}</div>
                   </div>
-                  <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-1 rounded uppercase tracking-wider">{item.remark}</span>
+                  <Badge tone="brand">
+                    {item.remark}
+                  </Badge>
                 </div>
               ))}
             </div>
-          </div>
+          </Card>
 
           {/* Closed States */}
-          <div className="rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] p-5 md:p-6">
+          <Card>
             <h3 className="text-title-lg font-bold text-error mb-4 flex items-center gap-2">
               <span className="material-symbols-outlined">lock</span> Closed/Restricted States (Domicile Mandatory)
             </h3>
             <div className="space-y-4">
               {openClosedStatesData.closed.map((item) => (
-                <div key={item.state} className="p-3 bg-surface-container-low/40 rounded-lg border border-outline-variant/40">
+                <div key={item.state} className="p-3 bg-surface-container-low/40 rounded-xl border border-outline-variant/40">
                   <div className="font-bold text-on-surface text-sm">{item.state}</div>
                   <p className="text-xs text-on-surface-variant mt-1 leading-relaxed">{item.rule}</p>
                 </div>
               ))}
             </div>
-          </div>
+          </Card>
         </div>
       </section>
 
@@ -249,7 +278,7 @@ export function ManagementQuotaView() {
       {/* Compare Fees Section */}
       <QuotaCta
         title="Compare Private College Fee Structures"
-        description="Don't get overwhelmed by complex fee structures. Access our comprehensive database of management quota seat matrices and year-wise fees for all open states."
+        description="Don't get overwhelmed by complex fee structures. Access our database of management quota seat matrices and year-wise fees for all open states."
         actions={[
           {
             label: "Compare Colleges",

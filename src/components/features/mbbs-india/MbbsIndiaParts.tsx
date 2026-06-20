@@ -5,12 +5,13 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { Container } from "@/components/common/Container";
 import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
 import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import {
   COUNSEL_BOOK_CALL_URL,
   MBBS_INDIA_LAST_UPDATED,
 } from "@/lib/mbbs-india/constants";
 import type { CatalogSeatBreakdown } from "@/lib/mbbs/catalog-aggregates";
-import { mbbsIndiaPageTitle } from "@/lib/mbbs/constants";
+import { MBBS_ACADEMIC_SESSION, mbbsIndiaPageTitle } from "@/lib/mbbs/constants";
 import {
   guideBandClass,
   guideCardClass,
@@ -19,84 +20,63 @@ import {
 import { cn, formatNumber } from "@/lib/utils";
 
 export function MbbsIndiaHero({ catalog }: { catalog: CatalogSeatBreakdown }) {
-  const pageTitle = mbbsIndiaPageTitle();
   return (
-    <div className="relative overflow-hidden rounded-[2rem] border border-outline-variant/30 bg-surface p-6 shadow-[0_24px_64px_-32px_rgba(0,61,155,0.35)] md:p-10">
+    <div className="relative overflow-hidden py-6 md:py-8">
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-primary-fixed/40 blur-3xl"
+        className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-28 -left-16 h-80 w-80 rounded-full bg-secondary-container/25 blur-3xl"
+        className="pointer-events-none absolute -bottom-28 -left-16 h-80 w-80 rounded-full blur-3xl"
       />
-      <div className="relative grid gap-10 lg:grid-cols-[1.1fr_0.85fr] lg:items-start">
-        <div className="flex flex-col gap-5">
+      <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_580px] lg:items-start xl:gap-12">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-label-sm font-label-sm text-on-primary">
-              <span className="material-symbols-outlined text-base">local_hospital</span>
+            <Badge tone="brand" icon={<span className="material-symbols-outlined text-sm">local_hospital</span>}>
               National MBBS guide
-            </span>
-            <span className="text-sm text-on-surface-variant">
+            </Badge>
+            <span className="text-sm text-on-surface-variant font-medium">
               Updated {MBBS_INDIA_LAST_UPDATED}
             </span>
           </div>
-          <h1 className="max-w-2xl font-headline-xl text-[1.85rem] font-bold leading-[1.1] tracking-tight text-primary md:text-[2.5rem]">
-            {pageTitle}
+          
+          <h1 className="rp-hero-title max-w-2xl text-balance">
+            MBBS in India {MBBS_ACADEMIC_SESSION}: <em>Colleges, Seats & Admission</em>
           </h1>
-          <p className="max-w-xl text-body-md leading-relaxed text-on-surface-variant md:text-body-lg">
-            {formatNumber(catalog.totalColleges)} colleges and{" "}
-            {formatNumber(catalog.totalSeats)} MBBS seats in our catalog — cutoffs, fees, and
-            counseling in one place for NEET UG admission in India.
+          
+          <p className="rp-hero-lede max-w-xl">
+            Complete details on {formatNumber(catalog.totalColleges)} medical colleges and{" "}
+            {formatNumber(catalog.totalSeats)} MBBS seats — fee structures, domicile rules, and counseling procedures in one place.
           </p>
-          <div className="grid gap-3 sm:grid-cols-3">
-            <HeroStatPill
-              icon="school"
-              label="Colleges"
-              value={formatNumber(catalog.totalColleges)}
-            />
-            <HeroStatPill
-              icon="event_seat"
-              label="MBBS seats"
-              value={formatNumber(catalog.totalSeats)}
-            />
-            <HeroStatPill
-              icon="domain"
-              label="Govt seats"
-              value={formatNumber(catalog.govtSeats)}
-            />
+
+          <div className="rp-trio max-w-xl">
+            <div className="rp-trio-card">
+              <span className="rp-trio-k">Colleges</span>
+              <p className="rp-trio-b text-on-surface">{formatNumber(catalog.totalColleges)}</p>
+            </div>
+            <div className="rp-trio-card">
+              <span className="rp-trio-k">Total Seats</span>
+              <p className="rp-trio-b text-on-surface">{formatNumber(catalog.totalSeats)}</p>
+            </div>
+            <div className="rp-trio-card">
+              <span className="rp-trio-k">Govt Seats</span>
+              <p className="rp-trio-b text-on-surface">{formatNumber(catalog.govtSeats)}</p>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-3 pt-1">
-            <Button as="link" href="/cutoff-analyser" variant="primary" size="md">
+
+          <div className="flex flex-wrap gap-3">
+            <Button as="link" href="/cutoff-analyser" variant="primary">
               Check cutoffs
             </Button>
+            <Button as="link" href="#colleges-seats" variant="secondary">
+              View overview
+            </Button>
           </div>
-          <p className="text-xs text-outline">Data: MedSeat college catalog (live database)</p>
+          <p className="rp-hero-fine">Data: MedSeat live college database ({MBBS_ACADEMIC_SESSION} session)</p>
         </div>
-        <FreeCounsellingLeadForm pageLabel="MBBS in India" className="mx-auto w-full max-w-sm lg:max-w-none" />
+        <FreeCounsellingLeadForm pageLabel="MBBS in India" className="mx-auto w-full max-w-md lg:max-w-none" />
       </div>
-    </div>
-  );
-}
-
-function HeroStatPill({
-  icon,
-  label,
-  value,
-}: {
-  icon: string;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest/90 p-3.5">
-      <div className="mb-2 flex items-center gap-2">
-        <span className="material-symbols-outlined rounded-lg bg-primary-fixed p-1.5 text-lg text-primary">
-          {icon}
-        </span>
-        <p className="text-[10px] font-bold uppercase tracking-wider text-outline">{label}</p>
-      </div>
-      <p className="text-lg font-bold tabular-nums leading-tight text-on-surface">{value}</p>
     </div>
   );
 }
@@ -223,7 +203,7 @@ export function RelatedLinksGrid({
         <li key={link.href}>
           <Link
             href={link.href}
-            className="group flex h-full items-center gap-3 rounded-xl border border-outline-variant/30 bg-surface px-4 py-4 text-sm font-semibold text-on-surface transition-all hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-md"
+            className="group flex h-full items-center gap-3 rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-4 text-sm font-semibold text-on-surface transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
           >
             <span className="material-symbols-outlined rounded-lg bg-surface-container-high p-2 text-lg text-primary group-hover:bg-primary group-hover:text-on-primary">
               arrow_forward

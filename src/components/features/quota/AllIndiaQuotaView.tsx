@@ -1,8 +1,9 @@
-"use client";
-
 import { QuotaHeader, QuotaMetrics, QuotaCta, SeatMatrixDonut, CategoryProgressBars, PremiumSectionHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel, LiveDecisionTools } from "./QuotaShared";
 import { ConversionAlgorithmGrid, EligibilityChecklist, MccCounsellingRounds } from "./MccContentBlocks";
 import { FiAlertTriangle } from "react-icons/fi";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import {
   aiqMetrics,
   quotaTheoryContent,
@@ -59,9 +60,9 @@ export function AllIndiaQuotaView() {
       />
 
       {/* Disclaimer */}
-      <div className="p-4 bg-surface-container-high/60 border border-outline-variant/40 rounded-xl text-center leading-relaxed italic text-[11px] text-on-surface-variant">
+      <Card padded={false} className="p-4 bg-surface-container-high/60 border border-outline-variant/40 rounded-xl text-center leading-relaxed italic text-[11px] text-on-surface-variant">
         For state quota and private colleges, contact the respective state government/admission authority — MCC cannot guide on state admissions.
-      </div>
+      </Card>
     </aside>
   );
 
@@ -100,10 +101,10 @@ export function AllIndiaQuotaView() {
       </div>
 
       {/* Detailed Counselling Policy & Warnings */}
-      <section id="rules" className="bg-surface-container-low/40 rounded-xl p-6 border border-outline-variant/50 space-y-4">
+      <section id="rules" className="bg-surface-container-low/40 rounded-2xl p-6 border border-outline-variant/50 space-y-4">
         <PremiumSectionHeader icon="gavel" title="Important Counselling Rules & Policies" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-xl border border-outline-variant/40 bg-surface p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-14px_rgba(37,70,208,0.16)]">
+          <Card className="p-5">
             <h4 className="font-bold text-on-surface mb-2 flex items-center gap-1.5 text-body-md">
               <span className="material-symbols-outlined text-primary text-lg">check_circle</span>
               Round 1 Free Exit Rule
@@ -111,8 +112,8 @@ export function AllIndiaQuotaView() {
             <p className="text-body-sm text-on-surface-variant leading-relaxed">
               Round 1 is a completely free exit round. If you are allotted a seat, you can choose not to report/join the college. Your registration and security deposit will remain completely safe, and you will automatically remain eligible for Round 2 without any penalty.
             </p>
-          </div>
-          <div className="rounded-xl border border-outline-variant/40 bg-surface p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-14px_rgba(37,70,208,0.16)]">
+          </Card>
+          <Card className="p-5">
             <h4 className="font-bold text-on-surface mb-2 flex items-center gap-1.5 text-body-md">
               <span className="material-symbols-outlined text-error text-lg">warning</span>
               Round 2+ Security Deposit Forfeiture
@@ -120,7 +121,7 @@ export function AllIndiaQuotaView() {
             <p className="text-body-sm text-on-surface-variant leading-relaxed">
               From Round 2 onwards, if a seat is allotted and you fail to report/join, your security deposit (₹10,000 for UR/EWS or ₹5,000 for SC/ST/OBC) will be forfeited. In the Stray Vacancy round, non-joining candidates are also barred from appearing in NEET-UG the subsequent academic year.
             </p>
-          </div>
+          </Card>
         </div>
       </section>
 
@@ -131,24 +132,24 @@ export function AllIndiaQuotaView() {
             <h2 className="font-headline-md text-xl font-bold md:text-2xl">Reservation Policy for 15% AIQ Seats</h2>
             <p className="text-body-sm font-body-sm text-on-surface-variant mt-1">15% AIQ roster applied by MCC/DGHS as per DoPT, MoHFW norms (2026 Updates).</p>
           </div>
-          <div className="bg-surface-container-high px-4 py-1.5 rounded-full text-label-md font-label-md text-on-surface hidden sm:block">
+          <Badge tone="neutral" className="hidden sm:inline-flex">
             Updated: Jan 2026
-          </div>
+          </Badge>
         </div>
 
         <div className="flex flex-col w-full gap-6 items-start">
           {/* Table Block */}
-          <div className="overflow-hidden w-full rounded-2xl border border-outline-variant/40 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] xl:col-span-2">
-            <table className="w-full text-left border-collapse">
-              <thead className="bg-surface-container-low border-b border-outline-variant">
+          <div className="quota-table-wrap w-full xl:col-span-2">
+            <table className="quota-table">
+              <thead>
                 <tr>
-                  <th className="px-6 py-4 text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Category</th>
-                  <th className="px-6 py-4 text-label-md font-label-md text-on-surface-variant uppercase tracking-wider text-right">Quota %</th>
+                  <th className="pl-6">Category</th>
+                  <th className="pr-6 text-right">Quota %</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant text-body-md">
                 {reservationCategories.map((row) => (
-                  <tr key={row.category} className="hover:bg-surface-container transition-colors">
+                  <tr key={row.category} className="hover:bg-surface-container-low/40 transition-colors">
                     <td className="px-6 py-4 font-semibold text-on-surface">{row.category}</td>
                     <td className="px-6 py-4 text-right text-primary font-bold">{row.percentage}</td>
                   </tr>
@@ -165,12 +166,12 @@ export function AllIndiaQuotaView() {
         </div>
 
         {/* Warning Alert Banner */}
-        <div className="mt-6 p-4 rounded-xl bg-error-container text-on-error-container text-body-sm font-body-sm flex items-start gap-3 border border-error/25 shadow-sm">
+        <Card padded={false} className="mt-6 p-4 bg-error-container/20 border border-error/15 text-on-error-container text-body-sm flex items-start gap-3 shadow-xs">
           <FiAlertTriangle className="text-lg shrink-0 mt-0.5 text-error" />
-          <p>
+          <p className="leading-relaxed">
             <strong>Important:</strong> AIQ uses the <strong>Central OBC-NCL list</strong>. State-only OBC certificates are not valid. PwD reservation is 5% horizontal on AIQ seats.
           </p>
-        </div>
+        </Card>
       </section>
 
       {/* Domicile Free Seat Pools */}
@@ -178,10 +179,10 @@ export function AllIndiaQuotaView() {
         <h2 className="font-headline-md text-xl font-bold md:text-2xl text-center mb-8">Open (Domicile-Free) Seat Pools</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {aiqChapter.openSeatsDomicileFree?.map((seat) => (
-            <div key={seat} className="flex items-center gap-4 rounded-2xl border border-outline-variant/40 bg-surface p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-shadow hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
-              <span className="material-symbols-outlined text-primary bg-primary/10 p-3 rounded-full" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+            <Card key={seat} hover={true} className="flex items-center gap-4">
+              <span className="material-symbols-outlined text-primary bg-primary-fixed p-3 rounded-full" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
               <span className="text-body-md font-body-md font-semibold text-on-surface">{seat}</span>
-            </div>
+            </Card>
           ))}
         </div>
       </section>
@@ -208,7 +209,7 @@ export function AllIndiaQuotaView() {
       {/* OCI Rules & Conversion side-by-side */}
       <section id="oci-rules" className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
         {/* OCI/PIO Card */}
-        <div className="flex flex-col justify-between rounded-2xl border border-l-4 border-outline-variant/60 border-l-tertiary bg-surface-container-lowest p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] transition-shadow hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(0,61,155,0.14)]">
+        <Card hover={true} className="flex flex-col justify-between bg-surface-container-low">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <span className="material-symbols-outlined text-tertiary text-2xl">passkey</span>
@@ -218,7 +219,7 @@ export function AllIndiaQuotaView() {
               Overseas Citizens of India (OCI) and Persons of Indian Origin (PIO) candidates registered before <strong>March 4, 2021</strong> are treated exactly like Indian citizens. They can claim open general seats as well as NRI seats. Candidates registered after this date are treated as foreign nationals and are only eligible for NRI quota seats.
             </p>
           </div>
-        </div>
+        </Card>
 
         {/* R3 Conversion Card */}
         <ConversionAlgorithmGrid

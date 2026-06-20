@@ -33,21 +33,21 @@ function statusStyles(status: CounselingEvent["status"]) {
       return {
         dot: "bg-secondary ring-secondary/30",
         badge: "bg-secondary text-on-secondary",
-        row: "bg-secondary-fixed/15",
+        row: "ca-timeline-row ca-timeline-row-live",
         accent: "bg-secondary",
       };
     case "done":
       return {
         dot: "bg-outline/80 ring-outline-variant/50",
         badge: "bg-surface-container-high text-outline",
-        row: "bg-surface-container-low/50",
-        accent: "bg-transparent",
+        row: "ca-timeline-row opacity-90",
+        accent: "bg-outline-variant/60",
       };
     default:
       return {
         dot: "bg-primary ring-primary/25",
         badge: "bg-primary-fixed text-primary",
-        row: "bg-surface-container-lowest",
+        row: "ca-timeline-row",
         accent: "bg-transparent",
       };
   }
@@ -59,16 +59,15 @@ function TimelineEventRow({ event }: { event: CounselingEvent }) {
   return (
     <article
       className={cn(
-        "relative grid gap-3 border-b border-outline-variant/25 py-5 last:border-b-0 md:grid-cols-[8rem_minmax(0,1fr)] md:gap-x-8 md:py-6",
-        "px-4 md:px-6",
-        styles.row
+        "relative grid gap-3 px-4 py-5 last:border-b-0 md:grid-cols-[8rem_minmax(0,1fr)] md:gap-x-8 md:px-6 md:py-5",
+        styles.row,
       )}
     >
       <span
         className={cn(
           "absolute bottom-0 left-0 top-0 w-1",
           styles.accent,
-          event.status === "live" && "animate-pulse"
+          event.status === "live" && "animate-pulse",
         )}
         aria-hidden
       />
@@ -80,19 +79,19 @@ function TimelineEventRow({ event }: { event: CounselingEvent }) {
         <span
           className={cn(
             "inline-flex w-fit rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide",
-            styles.badge
+            styles.badge,
           )}
         >
           {COUNSELING_STATUS_LABEL[event.status]}
         </span>
       </div>
 
-      <div className="relative min-w-0 md:border-l md:border-outline-variant/35 md:pl-6">
+      <div className="relative min-w-0 md:border-l md:border-outline-variant/70 md:pl-6">
         <span
           className={cn(
             "absolute -left-[calc(0.375rem+1px)] top-1.5 hidden h-2.5 w-2.5 rounded-full ring-4 ring-surface-container-lowest md:block",
             event.status === "live" && "animate-pulse",
-            styles.dot
+            styles.dot,
           )}
           aria-hidden
         />
@@ -149,14 +148,14 @@ export function CounselingTimelinePanel({
 
   return (
     <div className="flex flex-col">
-      <div className="border-b border-outline-variant/40 bg-linear-to-r from-primary-fixed/40 via-surface-container-low to-surface-container-lowest px-4 py-4 md:px-6 md:py-5">
+      <div className="ca-timeline-head">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-bold text-on-primary">
               <span className="material-symbols-outlined text-sm">calendar_month</span>
               Session {sessionYear}
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-surface-container-lowest px-3 py-1 text-xs font-medium text-on-surface-variant ring-1 ring-outline-variant/50">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-outline-variant bg-surface-container-lowest px-3 py-1 text-xs font-medium text-on-surface-variant">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
               {counts.upcoming} upcoming
             </span>
@@ -195,7 +194,7 @@ export function CounselingTimelinePanel({
         </div>
 
         {liveEvent ? (
-          <div className="mt-4 flex gap-3 rounded-xl border border-secondary/30 bg-secondary-fixed/30 px-3 py-2.5 md:items-center">
+          <div className="mt-4 flex gap-3 rounded-xl border border-secondary/40 bg-secondary-fixed/25 px-3 py-2.5 md:items-center">
             <span className="material-symbols-outlined shrink-0 text-secondary">campaign</span>
             <p className="text-sm text-on-surface">
               <span className="font-semibold">Active now:</span>{" "}
@@ -209,8 +208,8 @@ export function CounselingTimelinePanel({
       <div className="relative pb-1">
         {groups.map((group) => (
           <section key={`${group.label}-${group.events[0]?.id ?? ""}`}>
-            <div className="border-b border-outline-variant/30 bg-surface-container-low/60 px-4 py-2.5 md:px-6">
-              <h3 className="text-[11px] font-bold uppercase tracking-wider text-outline">
+            <div className="border-b border-outline-variant/70 bg-surface-container-low px-4 py-2.5 md:px-6">
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.12em] text-outline">
                 {group.label}
               </h3>
             </div>

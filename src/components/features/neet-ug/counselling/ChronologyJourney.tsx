@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FiCheckCircle, FiAlertTriangle, FiArrowRight, FiInfo, FiLayers, FiLock, FiLogOut, FiRefreshCw, FiAlertOctagon } from "react-icons/fi";
+import { FiAlertTriangle, FiInfo, FiLayers, FiLock, FiLogOut, FiRefreshCw, FiAlertOctagon } from "react-icons/fi";
 import { cn } from "@/lib/utils";
 
 interface TimelineStep {
@@ -25,16 +25,16 @@ const IconMap = {
 
 const badgeClasses = {
   primary: "bg-primary-fixed text-primary",
-  emerald: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100",
-  amber: "bg-amber-50 text-amber-700 ring-1 ring-amber-100",
+  emerald: "bg-tertiary-fixed/50 text-tertiary ring-1 ring-tertiary/15",
+  amber: "bg-secondary-fixed/70 text-secondary ring-1 ring-secondary/20",
   error: "bg-error-container/10 text-error border border-error/20",
   errorSolid: "bg-error text-on-error",
 };
 
 const iconBgClasses = {
   primary: "bg-primary/10 text-primary",
-  emerald: "bg-emerald-50 text-emerald-700",
-  amber: "bg-amber-50 text-amber-700",
+  emerald: "bg-tertiary-fixed/50 text-tertiary",
+  amber: "bg-secondary-fixed/70 text-secondary",
   error: "bg-error-container/10 text-error",
   errorSolid: "bg-error text-on-error",
 };
@@ -138,8 +138,8 @@ export function ChronologyJourney() {
                   isLeft ? "pl-0 md:pl-12 order-2 md:order-2" : "pr-0 md:pr-12 order-2 md:order-1 flex justify-end"
                 )}
               >
-                <div className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-sm w-full max-w-md relative overflow-hidden group hover:shadow-md transition-shadow">
-                  <div className="flex justify-between items-center mb-4 pb-3 border-b border-outline-variant/50">
+                <div className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_26px_-16px_rgba(37,70,208,0.2)] w-full max-w-md relative overflow-hidden group hover:shadow-[0_2px_6px_rgba(0,0,0,0.04),0_30px_70px_-30px_rgba(37,70,208,0.28)] transition-shadow">
+                  <div className="flex justify-between items-center mb-4 pb-3 border-b border-outline-variant">
                     <span className={cn("p-2 rounded-xl", iconBgClasses[step.cardBadgeTone])}>
                       <IconComponent className="text-lg" />
                     </span>
@@ -152,15 +152,15 @@ export function ChronologyJourney() {
                   {step.centerNumber === 1 && (
                     <div className="space-y-4">
                       <div className="grid grid-cols-1 gap-2 text-xs text-on-surface-variant">
-                        <div className="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low border border-outline-variant">
+                        <div className="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low border border-outline-variant">
                           <span className="material-symbols-outlined text-sm text-primary">how_to_reg</span>
                           <span><strong>1. Registration:</strong> Submit NTA details on mcc.nic.in</span>
                         </div>
-                        <div className="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low border border-outline-variant">
+                        <div className="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low border border-outline-variant">
                           <span className="material-symbols-outlined text-sm text-primary">payments</span>
                           <span><strong>2. Fee Payment:</strong> Registration + Security Deposit</span>
                         </div>
-                        <div className="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low border border-outline-variant">
+                        <div className="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low border border-outline-variant">
                           <span className="material-symbols-outlined text-sm text-primary">lock_open</span>
                           <span><strong>3. Choice Filling:</strong> Select & lock preferred colleges</span>
                         </div>
@@ -177,31 +177,31 @@ export function ChronologyJourney() {
                       <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">Round 1 Decision Flowchart</div>
                       <div className="grid grid-cols-2 gap-3 text-xs">
                         {/* Option A: Joined */}
-                        <div className="border border-emerald-100 bg-emerald-50/20 rounded-xl p-3 space-y-2 flex flex-col justify-between">
+                        <div className="border border-tertiary/25 bg-tertiary-fixed/25 rounded-xl p-3 space-y-2 flex flex-col justify-between">
                           <div>
-                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded mb-1">
+                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-tertiary bg-tertiary-fixed/50 px-1.5 py-0.5 rounded mb-1">
                               Option A: Joined
                             </span>
                             <p className="text-[10px] text-on-surface-variant leading-normal">
                               Report to allotted college and complete admission.
                             </p>
                           </div>
-                          <div className="pt-2 border-t border-emerald-100/50 flex items-center gap-1 text-[9px] font-bold text-emerald-700">
+                          <div className="pt-2 border-t border-tertiary/25 flex items-center gap-1 text-[9px] font-bold text-tertiary">
                             <FiRefreshCw className="animate-spin-slow" /> Will Upgrade to R2
                           </div>
                         </div>
 
                         {/* Option B: Not Joined */}
-                        <div className="border border-blue-100 bg-blue-50/20 rounded-xl p-3 space-y-2 flex flex-col justify-between">
+                        <div className="border border-primary/20 bg-primary-fixed/25 rounded-xl p-3 space-y-2 flex flex-col justify-between">
                           <div>
-                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded mb-1">
+                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-primary bg-primary-fixed/50 px-1.5 py-0.5 rounded mb-1">
                               Option B: Not Joined
                             </span>
                             <p className="text-[10px] text-on-surface-variant leading-normal">
                               Do not report or join the college.
                             </p>
                           </div>
-                          <div className="pt-2 border-t border-blue-100/50 flex items-center gap-1 text-[9px] font-bold text-blue-700">
+                          <div className="pt-2 border-t border-primary/20 flex items-center gap-1 text-[9px] font-bold text-primary">
                             <FiLogOut /> Free Exit (No Penalty)
                           </div>
                         </div>
@@ -215,36 +215,36 @@ export function ChronologyJourney() {
                       <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">Round 2 Decision Flowchart</div>
                       <div className="grid grid-cols-2 gap-3 text-xs">
                         {/* Option A: Joined */}
-                        <div className="border border-emerald-100 bg-emerald-50/20 rounded-xl p-3 space-y-2 flex flex-col justify-between">
+                        <div className="border border-tertiary/25 bg-tertiary-fixed/25 rounded-xl p-3 space-y-2 flex flex-col justify-between">
                           <div>
-                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded mb-1">
+                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-tertiary bg-tertiary-fixed/50 px-1.5 py-0.5 rounded mb-1">
                               Joined
                             </span>
                             <p className="text-[10px] text-on-surface-variant leading-normal">
                               Seat is locked. Willingness to Upgrade to R3 can be submitted.
                             </p>
                           </div>
-                          <div className="pt-2 border-t border-emerald-100/50 text-[9px] font-semibold text-emerald-700">
+                          <div className="pt-2 border-t border-tertiary/25 text-[9px] font-semibold text-tertiary">
                             * Can upgrade to Round 3
                           </div>
                         </div>
 
                         {/* Option B: Not Joined */}
-                        <div className="border border-rose-100 bg-rose-50/20 rounded-xl p-3 space-y-2 flex flex-col justify-between">
+                        <div className="border border-error/30 bg-error-container/45 rounded-xl p-3 space-y-2 flex flex-col justify-between">
                           <div>
-                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded mb-1">
+                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-error bg-error-container px-1.5 py-0.5 rounded mb-1">
                               Not Joined
                             </span>
                             <p className="text-[10px] text-on-surface-variant leading-normal">
                               Fails to report or join the college.
                             </p>
                           </div>
-                          <div className="pt-2 border-t border-rose-100/50 flex items-center gap-1 text-[9px] font-bold text-rose-700">
+                          <div className="pt-2 border-t border-error/30 flex items-center gap-1 text-[9px] font-bold text-error">
                             <FiAlertTriangle /> Deposit Forfeited
                           </div>
                         </div>
                       </div>
-                      <div className="text-[10px] bg-surface-container-low p-2 rounded-lg border border-outline-variant flex items-center gap-2">
+                      <div className="text-[10px] bg-surface-container-low p-2 rounded-xl border border-outline-variant flex items-center gap-2">
                         <FiInfo className="text-primary shrink-0" />
                         <span><strong>Upgrade Rule:</strong> If upgraded, Relieving Letter from Round 1 is mandatory to join Round 2.</span>
                       </div>
@@ -257,36 +257,36 @@ export function ChronologyJourney() {
                       <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">Round 3 Decision Flowchart</div>
                       <div className="grid grid-cols-2 gap-3 text-xs">
                         {/* Option A: Joined */}
-                        <div className="border border-emerald-100 bg-emerald-50/20 rounded-xl p-3 space-y-2 flex flex-col justify-between">
+                        <div className="border border-tertiary/25 bg-tertiary-fixed/25 rounded-xl p-3 space-y-2 flex flex-col justify-between">
                           <div>
-                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded mb-1">
+                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-tertiary bg-tertiary-fixed/50 px-1.5 py-0.5 rounded mb-1">
                               Joined
                             </span>
                             <p className="text-[10px] text-on-surface-variant leading-normal">
                               Once joined, candidate CANNOT resign or upgrade further.
                             </p>
                           </div>
-                          <div className="pt-2 border-t border-emerald-100/50 flex items-center gap-1 text-[9px] font-bold text-emerald-700">
+                          <div className="pt-2 border-t border-tertiary/25 flex items-center gap-1 text-[9px] font-bold text-tertiary">
                             <FiLock /> Locked Seat
                           </div>
                         </div>
 
                         {/* Option B: Not Joined */}
-                        <div className="border border-rose-150 bg-rose-50/30 rounded-xl p-3 space-y-2 flex flex-col justify-between">
+                        <div className="border border-error/30 bg-error-container/60 rounded-xl p-3 space-y-2 flex flex-col justify-between">
                           <div>
-                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-rose-800 bg-rose-100 px-1.5 py-0.5 rounded mb-1">
+                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-on-error-container bg-error-container px-1.5 py-0.5 rounded mb-1">
                               Not Joined
                             </span>
                             <p className="text-[10px] text-on-surface-variant leading-normal">
                               Candidate fails to report to allotted seat.
                             </p>
                           </div>
-                          <div className="pt-2 border-t border-rose-150 flex items-center gap-1 text-[9px] font-bold text-rose-800">
+                          <div className="pt-2 border-t border-error/30 flex items-center gap-1 text-[9px] font-bold text-on-error-container">
                             <FiAlertOctagon /> Forfeited &amp; Eliminated
                           </div>
                         </div>
                       </div>
-                      <div className="text-[10px] bg-surface-container-low p-2 rounded-lg border border-outline-variant flex items-center gap-2">
+                      <div className="text-[10px] bg-surface-container-low p-2 rounded-xl border border-outline-variant flex items-center gap-2">
                         <FiInfo className="text-primary shrink-0" />
                         <span><strong>No Allotment:</strong> If not allotted in Round 3, candidate is eligible for Stray Round.</span>
                       </div>
@@ -299,36 +299,36 @@ export function ChronologyJourney() {
                       <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">Final Stray Round Flowchart</div>
                       <div className="grid grid-cols-2 gap-3 text-xs">
                         {/* Option A: Joined */}
-                        <div className="border border-emerald-100 bg-emerald-50/20 rounded-xl p-3 space-y-2 flex flex-col justify-between">
+                        <div className="border border-tertiary/25 bg-tertiary-fixed/25 rounded-xl p-3 space-y-2 flex flex-col justify-between">
                           <div>
-                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded mb-1">
+                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-tertiary bg-tertiary-fixed/50 px-1.5 py-0.5 rounded mb-1">
                               Joined
                             </span>
                             <p className="text-[10px] text-on-surface-variant leading-normal">
                               Joins seat at college. Once joined, cannot resign.
                             </p>
                           </div>
-                          <div className="pt-2 border-t border-emerald-100/50 text-[9px] font-semibold text-emerald-700">
+                          <div className="pt-2 border-t border-tertiary/25 text-[9px] font-semibold text-tertiary">
                             * Admission Finalized
                           </div>
                         </div>
 
                         {/* Option B: Not Joined */}
-                        <div className="border border-rose-200 bg-rose-50/40 rounded-xl p-3 space-y-2 flex flex-col justify-between">
+                        <div className="border border-error/30 bg-error-container/70 rounded-xl p-3 space-y-2 flex flex-col justify-between">
                           <div>
-                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-rose-900 bg-rose-200 px-1.5 py-0.5 rounded mb-1">
+                            <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-on-error-container bg-error-container px-1.5 py-0.5 rounded mb-1">
                               Not Joined
                             </span>
                             <p className="text-[10px] text-on-surface-variant leading-normal">
                               Fails to report to allotted stray vacancy seat.
                             </p>
                           </div>
-                          <div className="pt-2 border-t border-rose-200 flex items-center gap-1 text-[9px] font-bold text-rose-900">
+                          <div className="pt-2 border-t border-error/30 flex items-center gap-1 text-[9px] font-bold text-on-error-container">
                             <FiAlertOctagon /> 2-Yr NEET Exam Ban
                           </div>
                         </div>
                       </div>
-                      <div className="text-[10px] bg-error-container/10 text-error border border-error/20 p-2.5 rounded-lg font-medium leading-relaxed">
+                      <div className="text-[10px] bg-error-container/10 text-error border border-error/20 p-2.5 rounded-xl font-medium leading-relaxed">
                         ⚠️ <strong>Elimination Rule:</strong> Candidates holding a seat anywhere or listed as allotted in Round 3 (Centre/State) are automatically barred from Stray Round.
                       </div>
                     </div>

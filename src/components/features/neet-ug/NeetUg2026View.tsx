@@ -7,7 +7,7 @@ import {
   GuideCard,
   GuideSection,
   MetricGrid,
-} from "@/components/features/mbbs-india/MbbsIndiaParts";
+} from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NeetTimeline } from "@/components/features/neet-ug/NeetTimeline";
 import {
   NeetUg2026Hero,

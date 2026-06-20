@@ -1,6 +1,6 @@
 "use client";
 
-import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { GuideCard } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { DataTable } from "@/components/features/neet-ug/shared/DataTable";
 
 export interface FeeItem {
@@ -104,10 +104,10 @@ export function CounsellingFeeTable() {
         footnote="Pay using an account you control long-term — refunds go back to the same payment source only."
       />
 
-      <GuideCard className="border-amber-200/80 bg-amber-50/40">
-        <h3 className="flex items-center gap-2 text-sm font-bold text-amber-950">
+      <GuideCard className="border-secondary/25 bg-secondary-fixed/70">
+        <h3 className="flex items-center gap-2 text-sm font-bold text-on-secondary-fixed-variant">
           <span
-            className="material-symbols-outlined text-lg text-amber-800"
+            className="material-symbols-outlined text-lg text-secondary"
             aria-hidden
           >
             payments

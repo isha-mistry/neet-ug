@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { GuideCard } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { cn } from "@/lib/utils";
 
 export interface TimelineEvent {
@@ -29,7 +29,7 @@ export function NeetTimeline({ dates }: NeetTimelineProps) {
                   className={cn(
                     "absolute left-0 top-1.5 flex h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full border-2",
                     completed
-                      ? "border-primary bg-primary shadow-sm"
+                      ? "border-primary bg-primary shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_26px_-16px_rgba(37,70,208,0.2)]"
                       : "border-outline bg-surface"
                   )}
                   aria-hidden

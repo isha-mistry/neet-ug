@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { Container } from "@/components/common/Container";
@@ -8,7 +8,7 @@ import {
   GuideSection,
   GuideSteps,
   MetricGrid,
-} from "@/components/features/mbbs-india/MbbsIndiaParts";
+} from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
 import { NeetUgUpdatesSidebar } from "@/components/features/neet-ug/NeetUgUpdatesParts";
 import { NeetUgHubFinalCta, NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
@@ -119,7 +119,7 @@ export function NriAdmissionGuideView() {
                       <GuideSteps size="compact" steps={[...NEET_UG_NRI_AIQ_RULES]} />
                     </div>
                   </div>
-                  <div className="md:border-l md:border-outline-variant/50 md:pl-8">
+                  <div className="md:border-l md:border-outline-variant md:pl-8">
                     <p className="text-[10px] font-bold uppercase tracking-wider text-secondary">
                       State quota (85%)
                     </p>
@@ -174,7 +174,7 @@ export function NriAdmissionGuideView() {
               title="NRI eligibility & sponsor framework"
               description="Two candidate types qualify for NRI quota seats in Deemed and private colleges — both need a valid NEET UG 2026 score."
             >
-              <div className="rp-brand-gradient rp-brand-elevated relative mb-6 overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-8">
+              <div className="bg-linear-to-br from-primary to-primary-pressed  rp-brand-elevated relative mb-6 overflow-hidden rounded-[1.75rem] px-6 py-8 text-on-primary ring-1 ring-on-primary/15 md:px-8">
                 <p className="relative text-sm leading-relaxed text-on-primary/90">
                   NRI and NRI-sponsored seats are filled through MCC for Deemed universities and
                   through state portals for private colleges. Fees are typically in foreign currency

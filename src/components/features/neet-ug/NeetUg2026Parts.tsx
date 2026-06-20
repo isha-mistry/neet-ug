@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { FiArrowRight } from "react-icons/fi";
-import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { GuideCard } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import {
   RankPredictorShell,
   RpMarketingHero,
@@ -90,7 +90,7 @@ export function NeetUgHubSidebarPromos() {
               size="md"
               fullWidth
               trailingIcon={<FiArrowRight className="text-lg" aria-hidden />}
-              className="h-11 w-full rounded-xl text-sm font-bold shadow-[0_10px_28px_-12px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]"
+              className="w-full text-sm font-bold shadow-[0_10px_28px_-12px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]"
             >
               {tool.cta}
             </Button>
@@ -148,7 +148,7 @@ export function NeetUgHubResourceGrid() {
 
 export function NeetUgHubFinalCta() {
   return (
-    <div className="rp-brand-gradient rp-brand-elevated relative overflow-hidden rounded-[1.75rem] px-6 py-10 text-on-primary ring-1 ring-on-primary/15 md:px-10 md:py-12">
+    <div className="bg-linear-to-br from-primary to-primary-pressed rp-brand-elevated relative overflow-hidden rounded-[1.75rem] px-6 py-10 text-on-primary ring-1 ring-on-primary/15 md:px-10 md:py-12">
       <div
         aria-hidden
         className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-on-primary/10 blur-3xl"
@@ -168,7 +168,7 @@ export function NeetUgHubFinalCta() {
           <Button
             as="link"
             href="/college-predictor"
-            variant="ghost"
+            variant="secondary"
             size="md"
             className="border border-on-primary/30 text-on-primary hover:bg-on-primary/10"
           >

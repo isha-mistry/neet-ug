@@ -68,7 +68,7 @@ export function StateCollegeTable({ rows }: StateCollegeTableProps) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="College name…"
-            className="rounded-xl border border-outline-variant bg-surface px-3 py-2 outline-none focus:ring-2 focus:ring-primary/25"
+            className="rounded-xl border border-outline-variant bg-surface-container-low px-3 py-2 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
@@ -76,7 +76,7 @@ export function StateCollegeTable({ rows }: StateCollegeTableProps) {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value as TypeFilter)}
-            className="rounded-xl border border-outline-variant bg-surface px-3 py-2"
+            className="rounded-xl border border-outline-variant bg-surface-container-low px-3 py-2 text-sm text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20"
           >
             <option value="all">All</option>
             <option value="Government">Government</option>
@@ -90,7 +90,7 @@ export function StateCollegeTable({ rows }: StateCollegeTableProps) {
           <select
             value={cityFilter}
             onChange={(e) => setCityFilter(e.target.value)}
-            className="max-w-[180px] rounded-xl border border-outline-variant bg-surface px-3 py-2"
+            className="max-w-[180px] rounded-xl border border-outline-variant bg-surface-container-low px-3 py-2 text-sm text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20"
           >
             <option value="all">All cities</option>
             {cities.map((c) => (
@@ -119,7 +119,10 @@ export function StateCollegeTable({ rows }: StateCollegeTableProps) {
                 <button
                   type="button"
                   onClick={() => toggleSort("name")}
-                  className="inline-flex w-full items-center justify-start gap-1 font-bold"
+                  className={cn(
+                    "inline-flex w-full items-center justify-start gap-1 font-bold transition-colors",
+                    sortKey === "name" ? "text-white" : "text-white/80 hover:text-white"
+                  )}
                 >
                   College {sortKey === "name" ? (sortDir === "asc" ? "↑" : "↓") : ""}
                 </button>
@@ -131,7 +134,10 @@ export function StateCollegeTable({ rows }: StateCollegeTableProps) {
                 <button
                   type="button"
                   onClick={() => toggleSort("seats")}
-                  className="inline-flex w-full items-center justify-end gap-1 font-bold"
+                  className={cn(
+                    "inline-flex w-full items-center justify-end gap-1 font-bold transition-colors",
+                    sortKey === "seats" ? "text-white" : "text-white/80 hover:text-white"
+                  )}
                 >
                   Seats {sortKey === "seats" ? (sortDir === "asc" ? "↑" : "↓") : ""}
                 </button>

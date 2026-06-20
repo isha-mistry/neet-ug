@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GuideCard } from "@/components/features/mbbs-india/MbbsIndiaParts";
+import { GuideCard } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { cn } from "@/lib/utils";
 
 export interface RoundRule {
@@ -83,7 +83,7 @@ export function CounsellingRounds({ rules = defaultRules }: CounsellingRoundsPro
   return (
     <div className="flex flex-col gap-5">
       <div
-        className="inline-flex w-fit max-w-full self-start gap-1 overflow-x-auto rounded-xl border border-outline-variant/40 bg-surface-container-high p-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="inline-flex w-fit max-w-full self-start gap-1 overflow-x-auto rounded-xl border border-outline-variant bg-surface-container-high p-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         role="tablist"
         aria-label="Counselling rounds"
       >
@@ -141,7 +141,7 @@ export function CounsellingRounds({ rules = defaultRules }: CounsellingRoundsPro
           </div>
         </div>
 
-        <div className="mt-6 grid gap-6 border-t border-outline-variant/50 pt-6 md:grid-cols-2">
+        <div className="mt-6 grid gap-6 border-t border-outline-variant pt-6 md:grid-cols-2">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
               Exit &amp; forfeiture rules

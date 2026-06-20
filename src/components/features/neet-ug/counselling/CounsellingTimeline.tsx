@@ -67,34 +67,34 @@ export function CounsellingTimeline({ steps = defaultSteps }: CounsellingTimelin
             <button
               key={idx}
               onClick={() => setActiveStep(idx)}
-              className={`group flex w-[130px] shrink-0 flex-col gap-2 rounded-lg border p-3.5 text-left transition-all sm:w-auto sm:shrink ${
+              className={`group flex w-[130px] shrink-0 flex-col gap-2 rounded-2xl border p-3.5 text-left transition-all sm:w-auto sm:shrink ${
                 isActive
-                  ? "border-emerald-100 bg-emerald-50/40 shadow-clinical-soft ring-1 ring-clinical-green/10"
-                  : "border-clinical-outline bg-clinical-surface hover:border-clinical-outline-strong hover:shadow-clinical-soft"
+                  ? "border-primary/30 bg-primary-fixed/40 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_26px_-16px_rgba(37,70,208,0.2)] ring-1 ring-primary/10"
+                  : "border-outline-variant bg-surface-container-lowest hover:border-primary/30 hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_26px_-16px_rgba(37,70,208,0.2)]"
               }`}
             >
               <div className="flex items-center gap-2">
                 <span
-                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-xs font-extrabold transition-colors ${
+                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-2xl text-xs font-extrabold transition-colors ${
                     isActive
-                      ? "bg-clinical-green text-white"
-                      : "bg-clinical-surface-low text-clinical-muted ring-1 ring-clinical-outline group-hover:bg-clinical-surface-container"
+                      ? "bg-primary text-on-primary"
+                      : "bg-surface-container-low text-on-surface-variant ring-1 ring-outline-variant group-hover:bg-primary-fixed/40"
                   }`}
                 >
                   {idx + 1}
                 </span>
-                <span className="text-[11px] font-extrabold uppercase tracking-wider text-clinical-muted/70">
+                <span className="text-[11px] font-extrabold uppercase tracking-wider text-outline">
                   Step {idx + 1}
                 </span>
               </div>
               <h3
                 className={`mt-1 text-xs font-extrabold leading-tight transition-colors ${
-                  isActive ? "text-clinical-navy" : "text-clinical-navy group-hover:text-clinical-blue"
+                  isActive ? "text-on-surface" : "text-on-surface group-hover:text-primary"
                 }`}
               >
                 {st.title}
               </h3>
-              <p className="mt-1 line-clamp-2 text-xs leading-4 text-clinical-muted">
+              <p className="mt-1 line-clamp-2 text-xs leading-4 text-on-surface-variant">
                 {st.shortDesc}
               </p>
             </button>
@@ -105,22 +105,22 @@ export function CounsellingTimeline({ steps = defaultSteps }: CounsellingTimelin
       {/* Expanded detail card */}
       <Card
         padded={false}
-        className="relative overflow-hidden rounded-lg border border-clinical-outline bg-clinical-surface p-6 shadow-sm"
+        className="relative overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_26px_-16px_rgba(37,70,208,0.2)]"
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-clinical-green ring-1 ring-emerald-100/50">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-primary-fixed text-primary ring-1 ring-primary/10">
             <MaterialSymbol name={steps[activeStep].icon} size="sm" />
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="text-base font-semibold text-clinical-navy">
+              <h3 className="text-base font-semibold text-on-surface">
                 Stage {activeStep + 1}: {steps[activeStep].title}
               </h3>
-              <span className="inline-flex rounded-md bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-clinical-green ring-1 ring-emerald-100">
+              <span className="inline-flex rounded-md bg-primary-fixed px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-primary ring-1 ring-primary/10">
                 Official Step
               </span>
             </div>
-            <p className="max-w-3xl text-sm leading-relaxed text-clinical-muted">
+            <p className="max-w-3xl text-sm leading-relaxed text-on-surface-variant">
               {steps[activeStep].details}
             </p>
           </div>

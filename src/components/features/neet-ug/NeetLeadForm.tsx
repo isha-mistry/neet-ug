@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
+import { cn } from "@/lib/utils";
 
 interface NeetLeadFormProps {
   type: "email-guide" | "phone-whatsapp" | "whatsapp-alerts";
@@ -45,16 +46,14 @@ export function NeetLeadForm({
 
   if (submitted) {
     return (
-      <div className={`flex flex-col items-center gap-2 rounded-2xl border p-6 text-center shadow-clinical-soft transition-opacity duration-200 ${
-        variant === "dark" ? "bg-white/10 border-white/20 text-white" : "border-emerald-100 bg-emerald-50 text-emerald-800"
-      }`}>
-        <span className={variant === "dark" ? "text-emerald-400" : "text-clinical-green"}>
+      <div className={cn("flex flex-col items-center gap-2 rounded-2xl border p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_26px_-16px_rgba(37,70,208,0.2)] transition-opacity duration-200", variant === "dark" ? "border-on-primary/20 bg-on-primary/10 text-on-primary" : "border-tertiary/25 bg-tertiary-fixed/30 text-on-surface")}>
+        <span className={variant === "dark" ? "text-tertiary-fixed" : "text-tertiary"}>
           <MaterialSymbol name="check_circle" size="lg" />
         </span>
-        <h4 className={`mt-1 text-base font-bold ${variant === "dark" ? "text-white" : "text-clinical-navy"}`}>
+        <h4 className={`mt-1 text-base font-bold ${variant === "dark" ? "text-on-primary" : "text-on-surface"}`}>
           {successTitle || (type === "email-guide" ? "Guide Sent to Email!" : "Request Registered!")}
         </h4>
-        <p className={`text-xs leading-relaxed ${variant === "dark" ? "text-white/80" : "text-clinical-muted"}`}>
+        <p className={`text-xs leading-relaxed ${variant === "dark" ? "text-on-primary/80" : "text-on-surface-variant"}`}>
           {successDesc || (
             type === "email-guide"
               ? `Check your inbox. We have sent the PDF download link to ${email}.`
@@ -68,14 +67,14 @@ export function NeetLeadForm({
   return (
     <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-5">
       <div className="flex flex-col">
-        <label className={`mb-1.5 block text-[11px] font-extrabold uppercase tracking-wider ${
-          variant === "dark" ? "text-white/80" : "text-clinical-muted/75"
+        <label className={`mb-1.5 block text-[10.5px] font-bold uppercase leading-none tracking-[0.14em] ${
+          variant === "dark" ? "text-on-primary/80" : "text-outline"
         }`}>
           Full Name
         </label>
         <div className="relative flex items-center">
           <span className={`pointer-events-none absolute left-4 flex items-center justify-center ${
-            variant === "dark" ? "text-white/50" : "text-clinical-muted/60"
+            variant === "dark" ? "text-on-primary/55" : "text-outline"
           }`}>
             <MaterialSymbol name="person" size="md" />
           </span>
@@ -85,10 +84,10 @@ export function NeetLeadForm({
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className={`w-full rounded-lg border py-3.5 pl-11 pr-4 text-sm transition-all duration-200 focus:outline-none focus:ring-4 ${
+            className={`w-full rounded-xl border py-3.5 pl-11 pr-4 text-sm transition-all duration-200 focus:outline-none focus:ring-4 ${
               variant === "dark" 
-                ? "bg-white/10 border-white/20 text-white placeholder-white/40 focus:border-white focus:ring-white/10" 
-                : "bg-white/90 border-clinical-outline text-clinical-navy placeholder-clinical-muted/55 focus:border-clinical-blue focus:ring-clinical-blue/10"
+                ? "border-on-primary/20 bg-on-primary/10 text-on-primary placeholder-on-primary/45 focus:border-on-primary focus:ring-on-primary/10" 
+                : "border-outline-variant bg-surface-container-lowest text-on-surface placeholder-outline focus:border-primary focus:ring-primary/15"
             }`}
           />
         </div>
@@ -96,14 +95,14 @@ export function NeetLeadForm({
 
       {type === "email-guide" && (
         <div className="flex flex-col">
-          <label className={`mb-1.5 block text-[11px] font-extrabold uppercase tracking-wider ${
-            variant === "dark" ? "text-white/80" : "text-clinical-muted/75"
+          <label className={`mb-1.5 block text-[10.5px] font-bold uppercase leading-none tracking-[0.14em] ${
+            variant === "dark" ? "text-on-primary/80" : "text-outline"
           }`}>
             Email Address
           </label>
           <div className="relative flex items-center">
             <span className={`pointer-events-none absolute left-4 flex items-center justify-center ${
-              variant === "dark" ? "text-white/50" : "text-clinical-muted/60"
+              variant === "dark" ? "text-on-primary/55" : "text-outline"
             }`}>
               <MaterialSymbol name="mail" size="md" />
             </span>
@@ -113,10 +112,10 @@ export function NeetLeadForm({
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={`w-full rounded-lg border py-3.5 pl-11 pr-4 text-sm transition-all duration-200 focus:outline-none focus:ring-4 ${
+              className={`w-full rounded-xl border py-3.5 pl-11 pr-4 text-sm transition-all duration-200 focus:outline-none focus:ring-4 ${
                 variant === "dark" 
-                  ? "bg-white/10 border-white/20 text-white placeholder-white/40 focus:border-white focus:ring-white/10" 
-                  : "bg-white/90 border-clinical-outline text-clinical-navy placeholder-clinical-muted/55 focus:border-clinical-blue focus:ring-clinical-blue/10"
+                  ? "border-on-primary/20 bg-on-primary/10 text-on-primary placeholder-on-primary/45 focus:border-on-primary focus:ring-on-primary/10" 
+                  : "border-outline-variant bg-surface-container-lowest text-on-surface placeholder-outline focus:border-primary focus:ring-primary/15"
               }`}
             />
           </div>
@@ -125,14 +124,14 @@ export function NeetLeadForm({
 
       {(type === "phone-whatsapp" || type === "whatsapp-alerts") && (
         <div className="flex flex-col">
-          <label className={`mb-1.5 block text-[11px] font-extrabold uppercase tracking-wider ${
-            variant === "dark" ? "text-white/80" : "text-clinical-muted/75"
+          <label className={`mb-1.5 block text-[10.5px] font-bold uppercase leading-none tracking-[0.14em] ${
+            variant === "dark" ? "text-on-primary/80" : "text-outline"
           }`}>
             WhatsApp Number
           </label>
           <div className="relative flex items-center">
             <span className={`pointer-events-none absolute left-4 flex items-center justify-center ${
-              variant === "dark" ? "text-white/50" : "text-clinical-muted/60"
+              variant === "dark" ? "text-on-primary/55" : "text-outline"
             }`}>
               <MaterialSymbol name="phone" size="md" />
             </span>
@@ -142,10 +141,10 @@ export function NeetLeadForm({
               required
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className={`w-full rounded-lg border py-3.5 pl-11 pr-4 text-sm transition-all duration-200 focus:outline-none focus:ring-4 ${
+              className={`w-full rounded-xl border py-3.5 pl-11 pr-4 text-sm transition-all duration-200 focus:outline-none focus:ring-4 ${
                 variant === "dark" 
-                  ? "bg-white/10 border-white/20 text-white placeholder-white/40 focus:border-white focus:ring-white/10" 
-                  : "bg-white/90 border-clinical-outline text-clinical-navy placeholder-clinical-muted/55 focus:border-clinical-blue focus:ring-clinical-blue/10"
+                  ? "border-on-primary/20 bg-on-primary/10 text-on-primary placeholder-on-primary/45 focus:border-on-primary focus:ring-on-primary/10" 
+                  : "border-outline-variant bg-surface-container-lowest text-on-surface placeholder-outline focus:border-primary focus:ring-primary/15"
               }`}
             />
           </div>
@@ -155,11 +154,11 @@ export function NeetLeadForm({
       {type === "whatsapp-alerts" && (
         <>
           <div className="flex flex-col">
-            <label className="mb-1.5 block text-[11px] font-extrabold uppercase tracking-wider text-clinical-muted/75">
+            <label className="mb-1.5 block text-[10.5px] font-bold uppercase leading-none tracking-[0.14em] text-outline">
               State of Interest
             </label>
             <div className="relative flex items-center">
-              <span className="pointer-events-none absolute left-4 flex items-center justify-center text-clinical-muted/60">
+              <span className="pointer-events-none absolute left-4 flex items-center justify-center text-outline">
                 <MaterialSymbol name="map" size="md" />
               </span>
               <input
@@ -167,39 +166,39 @@ export function NeetLeadForm({
                 placeholder="e.g. Maharashtra, Gujarat"
                 value={targetState}
                 onChange={(e) => setTargetState(e.target.value)}
-                className="w-full rounded-lg border border-clinical-outline bg-white/90 py-3.5 pl-11 pr-4 text-sm text-clinical-navy placeholder-clinical-muted/55 transition-all duration-200 focus:border-clinical-blue focus:outline-none focus:ring-4 focus:ring-clinical-blue/10"
+                className="w-full rounded-xl border border-outline-variant bg-surface-container-lowest py-3.5 pl-11 pr-4 text-sm text-on-surface placeholder-outline transition-all duration-200 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15"
               />
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <span className="block text-[11px] font-extrabold uppercase tracking-wider text-clinical-muted/75">
+            <span className="block text-[10.5px] font-bold uppercase leading-none tracking-[0.14em] text-outline">
               Choose Alert Channels
             </span>
-            <div className="flex flex-col gap-2.5 rounded-xl border border-clinical-outline bg-clinical-surface-low/70 p-4">
-              <label className="flex cursor-pointer select-none items-center gap-2.5 text-xs font-semibold text-clinical-muted">
+            <div className="flex flex-col gap-2.5 rounded-xl border border-outline-variant bg-surface-container-low p-4">
+              <label className="flex cursor-pointer select-none items-center gap-2.5 text-xs font-semibold text-on-surface-variant">
                 <input
                   type="checkbox"
                   checked={topics.includes("all-india")}
                   onChange={() => toggleTopic("all-india")}
-                  className="h-4 w-4 rounded border-clinical-outline text-clinical-blue transition-colors focus:ring-clinical-blue"
+                  className="h-4 w-4 rounded border-outline-variant text-primary transition-colors focus:ring-primary"
                 />
                 All India Counselling (MCC)
               </label>
-              <label className="flex cursor-pointer select-none items-center gap-2.5 text-xs font-semibold text-clinical-muted">
+              <label className="flex cursor-pointer select-none items-center gap-2.5 text-xs font-semibold text-on-surface-variant">
                 <input
                   type="checkbox"
                   checked={topics.includes("state")}
                   onChange={() => toggleTopic("state")}
-                  className="h-4 w-4 rounded border-clinical-outline text-clinical-blue transition-colors focus:ring-clinical-blue"
+                  className="h-4 w-4 rounded border-outline-variant text-primary transition-colors focus:ring-primary"
                 />
                 State Counselling Alerts
               </label>
-              <label className="flex cursor-pointer select-none items-center gap-2.5 text-xs font-semibold text-clinical-muted">
+              <label className="flex cursor-pointer select-none items-center gap-2.5 text-xs font-semibold text-on-surface-variant">
                 <input
                   type="checkbox"
                   checked={topics.includes("results")}
                   onChange={() => toggleTopic("results")}
-                  className="h-4 w-4 rounded border-clinical-outline text-clinical-blue transition-colors focus:ring-clinical-blue"
+                  className="h-4 w-4 rounded border-outline-variant text-primary transition-colors focus:ring-primary"
                 />
                 Result Announcements & Keys
               </label>
@@ -211,12 +210,12 @@ export function NeetLeadForm({
       <button
         type="submit"
         disabled={loading}
-        className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-3.5 text-sm font-bold shadow-md transition-all active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 ${
+        className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-150 hover:-translate-y-px active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50 ${
           variant === "dark"
-            ? "bg-white text-blue-900 hover:bg-blue-50 shadow-white/10"
+            ? "bg-on-primary text-primary hover:bg-primary-fixed"
             : type === "phone-whatsapp" || type === "whatsapp-alerts"
-            ? "bg-clinical-green text-white hover:bg-emerald-700 shadow-emerald-500/10"
-            : "bg-clinical-blue text-white hover:bg-clinical-blue-bright shadow-clinical-blue/10"
+            ? "bg-primary text-on-primary shadow-primary-button hover:bg-primary-pressed hover:shadow-primary-button-hover"
+            : "bg-primary text-on-primary shadow-primary-button hover:bg-primary-pressed hover:shadow-primary-button-hover"
         }`}
       >
         {loading ? (
