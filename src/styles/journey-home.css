@@ -596,7 +596,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
   overflow: visible;
 }
@@ -616,7 +616,7 @@
 }
 .journey-home #jdot {
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -629,6 +629,7 @@
   pointer-events: none;
   left: 0;
   top: 0;
+  will-change: transform;
 }
 .journey-home #jdot::after {
   content: "";
@@ -1484,13 +1485,7 @@
   position: relative;
 }
 .journey-home .rounds-track::before {
-  content: "";
-  position: absolute;
-  top: 25px;
-  left: 6%;
-  right: 6%;
-  height: 2px;
-  background: var(--line);
+  display: none;
 }
 .journey-home .rnode2 {
   flex: 1;
@@ -1513,15 +1508,27 @@
   border: 2px solid var(--line-2);
   background: #fff;
   font-family: var(--mono);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
+  line-height: 1;
   color: var(--muted);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  z-index: 1;
-  transition: all 0.25s;
+  z-index: 10;
+  transition:
+    background 0.35s cubic-bezier(0.3, 0.8, 0.3, 1),
+    color 0.35s cubic-bezier(0.3, 0.8, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.3, 0.8, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.3, 0.8, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+}
+.journey-home .rnode2.past .rdot {
+  background: #fff;
+  color: var(--blue);
+  border-color: var(--blue);
+  box-shadow: 0 0 0 5px var(--blue-tint);
 }
 .journey-home .rnode2.on .rdot {
   background: var(--blue);
@@ -1529,13 +1536,16 @@
   border-color: var(--blue);
   box-shadow:
     0 0 0 7px var(--blue-tint),
-    0 10px 26px -8px rgba(37, 70, 208, 0.55);
+    0 12px 30px -8px rgba(37, 70, 208, 0.55);
 }
 .journey-home .rnode2 .rl {
   font-size: 13.5px;
   font-weight: 700;
   color: var(--muted);
-  transition: color 0.2s;
+  transition: color 0.35s cubic-bezier(0.3, 0.8, 0.3, 1);
+}
+.journey-home .rnode2.past .rl {
+  color: var(--blue);
 }
 .journey-home .rnode2.on .rl {
   color: var(--ink);
@@ -1546,6 +1556,10 @@
   color: var(--dim);
   letter-spacing: 0.06em;
   font-weight: 500;
+  transition: color 0.35s cubic-bezier(0.3, 0.8, 0.3, 1);
+}
+.journey-home .rnode2.on .rt {
+  color: var(--muted);
 }
 .journey-home .rpanel {
   padding: 32px;
@@ -1553,7 +1567,34 @@
   grid-template-columns: 1.1fr 0.9fr;
   gap: 36px;
   align-items: center;
-  min-height: 166px;
+  min-height: 180px;
+}
+.journey-home .rpanel-copy,
+.journey-home .rpanel .our {
+  transition: opacity 0.28s ease;
+}
+.journey-home .rounds-section {
+  background: var(--alt);
+}
+.journey-home #rounds.rounds-pinned {
+  position: sticky;
+  top: var(--rounds-sticky-top, 70px);
+  z-index: 5;
+  background: var(--alt);
+}
+.journey-home #rounds.rounds-pinned > .jnode {
+  z-index: 7;
+}
+.journey-home #rounds.rounds-pinned .wrap {
+  position: relative;
+  z-index: 7;
+}
+/* Lift dotted path above pinned section bg — scoped to Step 06 pin only */
+.journey-home.journey-rounds-pinned #jsvg {
+  z-index: 6;
+}
+.journey-home.journey-rounds-pinned #jdot {
+  z-index: 8;
 }
 .journey-home .rpanel h3 {
   font-size: 21px;
@@ -1592,6 +1633,27 @@
   color: var(--ink);
   font-size: 14.5px;
   font-weight: 500;
+}
+
+.journey-home .rpanel-swap {
+  animation: rpanel-swap-in 0.35s cubic-bezier(0.3, 0.8, 0.3, 1) both;
+}
+
+@keyframes rpanel-swap-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-home .rpanel-swap {
+    animation: none;
+  }
 }
 
 .journey-home .rounds-footer {

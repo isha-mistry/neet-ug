@@ -528,13 +528,15 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
           </div>
         </section>
 
-        <section className="section jstop" id="rounds" style={{ background: "var(--alt)" }}>
+        <section className="section jstop rounds-section" id="rounds">
           <span className="jnode jn-r" data-jnode>
             06
           </span>
           <div className="wrap">
-            <span className="eyebrow">Step 06 · The game</span>
-            <h2 className="t">
+            <span className="eyebrow" id="rounds-eyebrow">
+              Step 06 · The game
+            </span>
+            <h2 className="t" id="rounds-heading">
               Counselling is played in <em>rounds.</em>
             </h2>
             <p className="lede">
@@ -754,8 +756,8 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             {JOURNEY_RESOURCES.map((res) => (
               <article key={res.href} className="card spot rescard reveal">
                 <h3>{res.title}</h3>
-                <p className="pb-5">{res.body}</p>
-                <Link className="btn btn-blue" href={res.href}>
+                <p>{res.body}</p>
+                <Link className="go flex items-center" href={res.href}>
                   {res.cta}
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path
