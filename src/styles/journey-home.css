@@ -596,7 +596,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
   overflow: visible;
 }
@@ -616,7 +616,7 @@
 }
 .journey-home #jdot {
   position: absolute;
-  z-index: 3;
+  z-index: 50;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -630,6 +630,9 @@
   left: 0;
   top: 0;
   will-change: transform;
+}
+.journey-home #jdot.is-behind-fin {
+  z-index: 0;
 }
 .journey-home #jdot::after {
   content: "";
@@ -651,7 +654,7 @@
 }
 .journey-home .jnode {
   position: absolute;
-  z-index: 2;
+  z-index: 51;
   width: 46px;
   height: 46px;
   border-radius: 50%;
@@ -679,6 +682,15 @@
 .journey-home .jnode.fin svg {
   width: 20px;
   height: 20px;
+  position: relative;
+  z-index: 1;
+}
+.journey-home #cta {
+  position: relative;
+  z-index: 2;
+}
+.journey-home #cta .jnode.fin {
+  z-index: 3;
 }
 .journey-home .jn-l {
   left: max(14px, calc(50% - 660px));
@@ -691,6 +703,8 @@
 }
 .journey-home .section.jstop {
   padding-top: 128px;
+  position: relative;
+  z-index: 1;
 }
 .journey-home #journey .wrap {
   position: relative;
@@ -1478,6 +1492,113 @@
   gap: 13px;
 }
 
+.journey-home .rounds-experience {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 40px 0 8px;
+  width: 100%;
+  position: relative;
+}
+.journey-home .rounds-row {
+  padding: 28px 0;
+  scroll-margin-top: calc(var(--nav-h, 70px) + 32px);
+  position: relative;
+  z-index: 1;
+}
+.journey-home .rounds-row-anim {
+  display: grid;
+  grid-template-columns: minmax(140px, 168px) minmax(0, 1fr);
+  gap: 20px 36px;
+  align-items: center;
+  width: 100%;
+}
+.journey-home .rounds-row-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+.journey-home .rounds-marker-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.journey-home .rounds-row .rdot {
+  width: 46px;
+  height: 46px;
+  font-size: 12px;
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 5px var(--blue-tint);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+.journey-home .rounds-row.is-active .rdot {
+  box-shadow:
+    0 0 0 7px var(--blue-tint),
+    0 10px 24px -8px rgba(37, 70, 208, 0.5);
+  transform: scale(1.04);
+}
+.journey-home .rounds-row.is-upcoming .rl {
+  color: var(--muted);
+  font-weight: 600;
+}
+.journey-home .rounds-row.is-past .rl {
+  color: var(--blue);
+  font-weight: 700;
+}
+.journey-home .rounds-row.is-active .rl {
+  color: var(--ink);
+  font-weight: 700;
+}
+.journey-home .rounds-row .rt {
+  color: var(--blue);
+}
+.journey-home .rounds-row-card {
+  padding: 28px 32px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px 36px;
+  align-items: center;
+  min-height: 0;
+  width: 100%;
+  box-shadow: var(--shadow-sm);
+}
+.journey-home .rounds-row-card h3 {
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+.journey-home .rounds-row-card h3 .mono {
+  display: inline;
+  margin: 0 0 0 10px;
+  font-size: 12px;
+  line-height: inherit;
+}
+.journey-home .rounds-row-card .rpanel-copy p,
+.journey-home .rounds-row-card .our p {
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.journey-home .rounds-row-card .our {
+  border-left: 3px solid var(--blue);
+  border-top: none;
+  padding: 6px 0 6px 20px;
+  margin: 0;
+  background: linear-gradient(90deg, var(--blue-soft), transparent);
+}
+.journey-home .rounds-row-card .our .k {
+  font-size: inherit;
+  margin-bottom: 8px;
+}
+
 .journey-home .rounds-track {
   display: flex;
   align-items: flex-start;
@@ -1575,26 +1696,6 @@
 }
 .journey-home .rounds-section {
   background: var(--alt);
-}
-.journey-home #rounds.rounds-pinned {
-  position: sticky;
-  top: var(--rounds-sticky-top, 70px);
-  z-index: 5;
-  background: var(--alt);
-}
-.journey-home #rounds.rounds-pinned > .jnode {
-  z-index: 7;
-}
-.journey-home #rounds.rounds-pinned .wrap {
-  position: relative;
-  z-index: 7;
-}
-/* Lift dotted path above pinned section bg — scoped to Step 06 pin only */
-.journey-home.journey-rounds-pinned #jsvg {
-  z-index: 6;
-}
-.journey-home.journey-rounds-pinned #jdot {
-  z-index: 8;
 }
 .journey-home .rpanel h3 {
   font-size: 21px;
@@ -2053,6 +2154,7 @@
   text-align: center;
   padding: 120px 0;
   position: relative;
+  z-index: 2;
   overflow: hidden;
   background: var(--alt);
   border-top: 1px solid var(--line);
@@ -2553,6 +2655,43 @@
   .journey-home .packs,
   .journey-home .mistgrid {
     grid-template-columns: 1fr;
+  }
+  .journey-home .rounds-experience {
+    margin-top: 32px;
+  }
+  .journey-home .rounds-row {
+    padding: 20px 0;
+  }
+  .journey-home .rounds-row-anim {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .journey-home .rounds-row-marker {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+  }
+  .journey-home .rounds-marker-text {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .journey-home .rounds-row-card {
+    padding: 18px 20px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .journey-home .rounds-row-card .our {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding: 12px 0 0;
+    background: none;
+  }
+  .journey-home .rounds-row-card h3 .mono {
+    display: block;
+    margin: 6px 0 0;
+    font-size: 10.5px;
   }
   .journey-home .rounds-track {
     flex-wrap: wrap;

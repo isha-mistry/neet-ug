@@ -1,20 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ROUNDS_DATA } from "@/lib/journey-home/rounds-data";
-import {
-  addRoundsScrollDelta,
-  autoPinAtStep06,
-  canExitRoundsScroll,
-  getRoundIndex,
-  getRoundsPinScrollY,
-  goToRound,
-  isRoundsEngageZone,
-  isRoundsPinned,
-  releaseRoundsPin,
-  shouldClampPinnedScroll,
-  subscribeActiveRound,
-} from "@/lib/journey-home/rounds-bridge";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 const ROUND_BUTTONS = [
   { i: 0, dot: "R1", label: "Round 1", time: "AUG–SEP" },
@@ -23,138 +11,143 @@ const ROUND_BUTTONS = [
   { i: 3, dot: "SV", label: "Stray vacancy", time: "NOV" },
 ];
 
-function roundNodeClass(index: number, active: number) {
-  if (index === active) return "rnode2 on";
-  if (index < active) return "rnode2 past";
-  return "rnode2";
+function showReveal(el: HTMLElement) {
+  el.classList.add("in");
+}
+
+function isInRevealViewport(el: HTMLElement) {
+  const rect = el.getBoundingClientRect();
+  const vh = window.innerHeight;
+  return rect.top < vh * 0.92 && rect.bottom > vh * 0.06;
 }
 
 export function RoundsPanel() {
   const [active, setActive] = useState(0);
-  const d = ROUNDS_DATA[active];
+  const rowRefs = useRef<(HTMLElement | null)[]>([]);
+  const experienceRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = usePrefersReducedMotion();
 
-  const selectRound = useCallback(
-    (idx: number, source: "wheel" | "touch" | "click" | "engage") => {
-      if (!goToRound(idx, source)) return false;
-      setActive(idx);
-      return true;
-    },
-    [],
-  );
-
-  useEffect(() => {
-    goToRound(0, "enter");
+  const scrollToRound = useCallback((idx: number) => {
+    const el = rowRefs.current[idx];
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    setActive(idx);
   }, []);
 
-  useEffect(() => subscribeActiveRound(() => setActive(getRoundIndex())), []);
-
   useEffect(() => {
-    function clampPinnedScroll() {
-      if (!shouldClampPinnedScroll()) return;
-      const pinY = getRoundsPinScrollY();
-      if (pinY === null) return;
-      if (Math.abs(window.scrollY - pinY) > 1) {
-        window.scrollTo({ top: pinY, behavior: "instant" });
-      }
-    }
+    const rows = rowRefs.current.filter(Boolean) as HTMLElement[];
+    if (!rows.length) return;
 
-    function handleWheel(e: WheelEvent) {
-      if (!isRoundsPinned()) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (!visible.length) return;
+        const idx = Number(
+          (visible[0].target as HTMLElement).dataset.roundStep ?? 0,
+        );
+        setActive(idx);
+      },
+      {
+        root: null,
+        rootMargin: "-40% 0px -40% 0px",
+        threshold: [0, 0.2, 0.45, 0.7, 1],
+      },
+    );
 
-      const down = e.deltaY > 0;
-      const up = e.deltaY < 0;
-
-      if (down && canExitRoundsScroll("down")) {
-        releaseRoundsPin("down");
-        return;
-      }
-
-      if (up && canExitRoundsScroll("up")) {
-        releaseRoundsPin("up");
-        return;
-      }
-
-      e.preventDefault();
-      addRoundsScrollDelta(e.deltaY, "wheel");
-    }
-
-    let touchStartY = 0;
-    function handleTouchStart(e: TouchEvent) {
-      touchStartY = e.touches[0].clientY;
-    }
-
-    function handleTouchMove(e: TouchEvent) {
-      if (!isRoundsEngageZone()) return;
-
-      const diffY = touchStartY - e.touches[0].clientY;
-      if (Math.abs(diffY) < 6) return;
-
-      const down = diffY > 0;
-      const up = diffY < 0;
-
-      if (down && canExitRoundsScroll("down")) {
-        releaseRoundsPin("down");
-        return;
-      }
-
-      if (up && canExitRoundsScroll("up")) {
-        releaseRoundsPin("up");
-        return;
-      }
-
-      e.preventDefault();
-      addRoundsScrollDelta(diffY, "touch");
-      touchStartY = e.touches[0].clientY;
-    }
-
-    window.addEventListener("scroll", clampPinnedScroll, { passive: true });
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
-
-    return () => {
-      window.removeEventListener("scroll", clampPinnedScroll);
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-    };
+    rows.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
-  function handleRoundClick(idx: number) {
-    if (!isRoundsPinned()) {
-      autoPinAtStep06();
+  useLayoutEffect(() => {
+    const root = experienceRef.current;
+    if (!root) return;
+
+    const targets = root.querySelectorAll<HTMLElement>("[data-rounds-reveal]");
+    if (!targets.length) return;
+
+    if (reduceMotion) {
+      targets.forEach((el) => showReveal(el));
+      return;
     }
-    selectRound(idx, "click");
-  }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          showReveal(entry.target as HTMLElement);
+          io.unobserve(entry.target);
+        });
+      },
+      { threshold: 0, rootMargin: "0px 0px -6% 0px" },
+    );
+
+    targets.forEach((el) => {
+      if (isInRevealViewport(el)) {
+        showReveal(el);
+        return;
+      }
+      io.observe(el);
+    });
+
+    return () => io.disconnect();
+  }, [reduceMotion]);
 
   return (
-    <>
-      <div className="rounds-track" id="rtrack">
-        {ROUND_BUTTONS.map((btn) => (
-          <div key={btn.i} className={roundNodeClass(btn.i, active)} data-i={btn.i}>
-            <button type="button" onClick={() => handleRoundClick(btn.i)}>
-              <span className="rdot" data-jnode>
-                {btn.dot}
-              </span>
-              <span className="rl">{btn.label}</span>
-              <span className="rt">{btn.time}</span>
-            </button>
-          </div>
-        ))}
-      </div>
-      <div className="card rpanel" id="rpanel">
-        <div className="rpanel-copy">
-          <h3>
-            {d.t}{" "}
-            <span className="mono">{d.m}</span>
-          </h3>
-          <p>{d.d}</p>
-        </div>
-        <div className="our">
-          <span className="k">What we do</span>
-          <p>{d.o}</p>
-        </div>
-      </div>
-    </>
+    <div
+      ref={experienceRef}
+      className="rounds-experience"
+      id="rounds-experience"
+    >
+      {ROUND_BUTTONS.map((btn, i) => {
+        const d = ROUNDS_DATA[i];
+        const state =
+          i === active ? "is-active" : i < active ? "is-past" : "is-upcoming";
+
+        return (
+          <article
+            key={btn.i}
+            ref={(el) => {
+              rowRefs.current[i] = el;
+            }}
+            className={`rounds-row ${state}`}
+            data-round-step={i}
+          >
+            <div
+              className="rounds-row-anim reveal"
+              data-rounds-reveal
+            >
+              <button
+                type="button"
+                className="rounds-row-marker"
+                onClick={() => scrollToRound(i)}
+                aria-current={i === active ? "step" : undefined}
+              >
+                <span className="rdot">{btn.dot}</span>
+                <span className="rounds-marker-text">
+                  <span className="rl">{btn.label}</span>
+                  <span className="rt">{btn.time}</span>
+                </span>
+              </button>
+
+              <div className="card rpanel rounds-row-card">
+                <div className="rpanel-copy">
+                  <h3>
+                    {d.t}{" "}
+                    <span className="mono">{d.m}</span>
+                  </h3>
+                  <p>{d.d}</p>
+                </div>
+                <div className="our">
+                  <span className="k">What we do</span>
+                  <p>{d.o}</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
   );
 }

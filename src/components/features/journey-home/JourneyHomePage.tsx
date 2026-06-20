@@ -540,7 +540,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
               Counselling is played in <em>rounds.</em>
             </h2>
             <p className="lede">
-              Each round is a different decision. Click through to see what happens — and what we
+              Each round is a different decision. Scroll to see what happens — and what we
               do for you at each stage.
             </p>
             <RoundsPanel />

@@ -32,7 +32,9 @@ export function JourneyHomeEffects() {
     const root = document.querySelector(".journey-home");
     if (!root) return;
 
-    const revealEls = root.querySelectorAll<HTMLElement>(".reveal");
+    const revealEls = root.querySelectorAll<HTMLElement>(
+      ".reveal:not([data-rounds-reveal])",
+    );
     const io = new IntersectionObserver(
       (es) => {
         es.forEach((e) => {
