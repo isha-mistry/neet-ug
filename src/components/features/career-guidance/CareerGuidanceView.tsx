@@ -42,14 +42,14 @@ export function CareerGuidanceView() {
               <div className="flex flex-col gap-4 sm:flex-row">
                 <a
                   href="#score-guidance"
-                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-8 py-4 text-base font-bold text-on-primary shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
+                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-[14px] bg-primary px-8 py-4 text-base font-bold text-on-primary shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
                 >
                   Explore Career Paths
                   <span className="material-symbols-outlined text-base">arrow_downward</span>
                 </a>
                 <a
                   href="#counselling-form"
-                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-outline-variant bg-surface-container-lowest px-8 py-4 text-base font-bold text-on-surface transition-all hover:border-primary hover:text-primary active:scale-[0.98]"
+                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-8 py-4 text-base font-bold text-on-surface transition-all hover:border-primary hover:text-primary active:scale-[0.98]"
                 >
                   Talk To A Counsellor
                   <span className="material-symbols-outlined text-base">support_agent</span>
@@ -162,7 +162,7 @@ export function CareerGuidanceView() {
                 <div className="bg-surface-container-lowest border border-outline-variant/40 rounded-2xl shadow-clinical-soft overflow-hidden">
                   {/* Header Part */}
                   <div className="bg-surface-container-low/40 px-5 py-4 border-b border-outline-variant/40 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-[14px] bg-primary text-on-primary flex items-center justify-center shrink-0">
                       <span className="material-symbols-outlined text-[20px]">support_agent</span>
                     </div>
                     <div>

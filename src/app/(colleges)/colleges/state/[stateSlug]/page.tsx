@@ -77,7 +77,7 @@ export default async function StateCollegesPage({
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Card padded bordered className="flex items-center gap-4">
-          <span className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] bg-brand-50 text-brand-700">
+          <span className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-brand-50 text-brand-700">
             <FiUsers aria-hidden="true" />
           </span>
           <div className="flex flex-col gap-1">
@@ -90,7 +90,7 @@ export default async function StateCollegesPage({
           </div>
         </Card>
         <Card padded bordered className="flex items-center gap-4">
-          <span className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] bg-brand-50 text-brand-700">
+          <span className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-brand-50 text-brand-700">
             <FiActivity aria-hidden="true" />
           </span>
           <div className="flex flex-col gap-1">
@@ -103,7 +103,7 @@ export default async function StateCollegesPage({
           </div>
         </Card>
         <Card padded bordered className="flex items-center gap-4">
-          <span className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] bg-brand-50 text-brand-700">
+          <span className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-brand-50 text-brand-700">
             <FiUsers aria-hidden="true" />
           </span>
           <div className="flex flex-col gap-1">

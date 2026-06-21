@@ -109,7 +109,7 @@ export function RelatedLinksGrid({
         <li key={link.href}>
           <Link
             href={link.href}
-            className="group flex h-full items-center gap-3 rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-4 text-sm font-semibold text-on-surface transition-all duration-200 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_2px_6px_rgba(0,0,0,0.04),0_30px_70px_-30px_rgba(37,70,208,0.28)]"
+            className="group flex h-full items-center gap-3 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-4 py-4 text-sm font-semibold text-on-surface transition-all duration-200 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_2px_6px_rgba(0,0,0,0.04),0_30px_70px_-30px_rgba(37,70,208,0.28)]"
           >
             <span className="material-symbols-outlined rounded-lg bg-surface-container-high p-2 text-lg text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
               arrow_forward

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { QuotaHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
 import { quotaTheoryContent } from "./content";
-import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
+import { QuotaBookCounsellingCard } from "./QuotaBookCounsellingCard";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -32,13 +32,7 @@ export function SpecialQuotaView() {
   const sidebar = (
     <aside className="space-y-6">
       {/* Live Counselling Lead Form */}
-      <FreeCounsellingLeadForm
-        pageLabel="Special Quota"
-        title="Book Expert Counselling"
-        submitLabel="Submit Details"
-        fields="name-phone-only"
-        className="border border-outline-variant/40 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] bg-surface"
-      />
+      <QuotaBookCounsellingCard source="Special Quota" />
 
       {/* Info Alert */}
       <Card padded={true} className="flex gap-3 bg-surface-container-low shadow-sm">

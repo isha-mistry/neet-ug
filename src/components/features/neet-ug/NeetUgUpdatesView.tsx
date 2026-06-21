@@ -11,6 +11,7 @@ import {
 } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NeetTimeline } from "@/components/features/neet-ug/NeetTimeline";
 import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
+import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import {
   UpdatesFaqBlock,
   UpdatesNoticeFeed,
@@ -82,6 +83,9 @@ export function NeetUgUpdatesView() {
         <NeetUgLeadMagnetPanel
           pageLabel="NEET UG 2026 Live Updates"
           content={NEET_UG_UPDATES_LEAD_MAGNET}
+          formType={LEAD_FORM_TYPES.neetUgLiveUpdates}
+          redirectToWhatsApp={false}
+          consentFieldId="lead-neet-ug-2026-live-updates-consent"
         />
       </RpMarketingHero>
 
@@ -247,7 +251,7 @@ export function NeetUgUpdatesView() {
             <GuideSection
               embedded
               id="related"
-              eyebrow="More on MedSeat"
+              eyebrow="More on Dravio"
               title="Related guides"
             >
               <div className="grid gap-3 sm:grid-cols-3">

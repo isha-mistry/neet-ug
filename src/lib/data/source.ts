@@ -1,11 +1,7 @@
-import rawData from "@/data/medseat-data.json";
+import rawData from "@/data/dravio-data.json";
 import rankPredictorSeed from "@/data/rank-predictor-seed.json";
 import type { RankPredictorConfig } from "@/types/rank-predictor";
-import type {
-  HomeContent,
-  PageMetaContent,
-  SiteIdentity,
-} from "@/types/site";
+import type { HomeContent, PageMetaContent, SiteIdentity } from "@/types/site";
 import type { ComparisonMetric } from "@/types/comparison";
 import type {
   BlogContent,
@@ -16,7 +12,7 @@ import type {
 import type { CategoryRecord } from "@/types/college";
 import { CATALOG_SOURCE_LABEL } from "./catalog-loader";
 
-interface MedseatRawData {
+interface DravioRawData {
   site: SiteIdentity;
   home: HomeContent;
   pages: {
@@ -44,10 +40,10 @@ interface MedseatRawData {
   rankPredictor: RankPredictorConfig;
 }
 
-const base = rawData as unknown as MedseatRawData;
+const base = rawData as unknown as DravioRawData;
 
 /** Site copy, blog, categories metadata (colleges/states via catalog-loader). */
-export const medseatData: MedseatRawData = {
+export const dravioData: DravioRawData = {
   ...base,
   rankPredictor: rankPredictorSeed.rankPredictor as RankPredictorConfig,
 };

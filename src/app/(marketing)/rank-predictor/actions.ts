@@ -6,9 +6,11 @@ import {
   validateRankPredictorInput,
   sessionsMatch,
 } from "@/lib/rank-predictor/compute";
-import {
-  RANK_PREDICTOR_DEMO_OTP,
-} from "@/lib/rank-predictor/constants";
+import { createLead } from "@/lib/leads/create-lead";
+import { verifyPhoneLoginOtp } from "@/lib/otp/phone-otp-session";
+import { assertPhoneVerifiedSession } from "@/lib/otp/phone-verified-session";
+import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
+import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import {
   getRankPredictorPhoneVerifiedSession,
   getRankPredictorSession,
@@ -42,7 +44,28 @@ export async function submitRankPredictorAction(
     return { success: false, error: validated.message };
   }
   try {
-    return { success: true, data: await computeTeaserResult(validated.input) };
+    const data = await computeTeaserResult(validated.input);
+
+    const leadSaved = await createLead({
+      formType: LEAD_FORM_TYPES.rankPredictor,
+      pagePath: "/rank-predictor",
+      pageLabel: "Rank predictor — estimate only",
+      variant: "estimate_only",
+      neetScore: validated.input.score,
+      neetCategory: validated.input.category,
+      domicileState: validated.input.stateSlug,
+      consent: false,
+      rawPayload: {
+        input: validated.input,
+        coarse: data.coarse,
+        referenceYear: data.referenceYear,
+      },
+    });
+    if (!leadSaved.success) {
+      console.error("[submitRankPredictorAction] estimate_only lead", leadSaved.error);
+    }
+
+    return { success: true, data };
   } catch (error) {
     return { success: false, error: predictionErrorMessage(error) };
   }
@@ -54,18 +77,15 @@ export async function verifyRankPredictorOtpAction(payload: {
   phone?: string;
   consent: boolean;
   input: RankPredictorFormInput;
+  /** Skip OTP when the number is in the 30-minute verified session. */
+  trustedSession?: boolean;
 }): Promise<ActionResult<{ phoneVerified: true }>> {
   const validated = validateRankPredictorInput(payload.input);
   if (!validated.ok) {
     return { success: false, error: validated.message };
   }
   if (!payload.consent) {
-    return { success: false, error: "Please accept the terms to continue." };
-  }
-
-  const otp = payload.otp.trim();
-  if (otp !== RANK_PREDICTOR_DEMO_OTP) {
-    return { success: false, error: "Invalid verification code." };
+    return { success: false, error: LEAD_CONSENT_ERROR };
   }
 
   const phone = payload.phone?.replace(/\D/g, "") ?? "";
@@ -78,6 +98,17 @@ export async function verifyRankPredictorOtpAction(payload: {
     };
   }
 
+  const otpCheck = payload.trustedSession
+    ? await assertPhoneVerifiedSession({ phone, countryCode })
+    : await verifyPhoneLoginOtp({
+        phone,
+        countryCode,
+        otp: payload.otp,
+      });
+  if (!otpCheck.ok) {
+    return { success: false, error: otpCheck.error };
+  }
+
   const session: RankPredictorPhoneVerifiedSession = {
     verified: false,
     phoneVerified: true,
@@ -88,6 +119,23 @@ export async function verifyRankPredictorOtpAction(payload: {
   };
 
   await setRankPredictorSession(session);
+
+  const leadSaved = await createLead({
+    formType: LEAD_FORM_TYPES.rankPredictor,
+    pagePath: "/rank-predictor",
+    pageLabel: "Rank predictor",
+    variant: "phone_verified",
+    countryCode,
+    phone,
+    neetScore: validated.input.score,
+    neetCategory: validated.input.category,
+    domicileState: validated.input.stateSlug,
+    consent: payload.consent,
+    rawPayload: { input: validated.input },
+  });
+  if (!leadSaved.success) {
+    return { success: false, error: leadSaved.error };
+  }
 
   return { success: true, data: { phoneVerified: true } };
 }
@@ -134,6 +182,23 @@ export async function completeRankPredictorProfileAction(payload: {
     leadStateSlug,
     leadCity,
     ...validated.input,
+  });
+
+  await createLead({
+    formType: LEAD_FORM_TYPES.rankPredictor,
+    pagePath: "/rank-predictor",
+    pageLabel: "Rank predictor",
+    variant: "profile_complete",
+    name: leadName,
+    countryCode: pending.countryCode,
+    phone: pending.phone,
+    neetScore: validated.input.score,
+    neetCategory: validated.input.category,
+    domicileState: validated.input.stateSlug,
+    city: leadCity,
+    targetStates: leadStateSlug,
+    consent: true,
+    rawPayload: { input: validated.input },
   });
 
   try {

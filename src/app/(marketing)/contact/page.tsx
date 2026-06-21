@@ -3,9 +3,9 @@ import { ContactView } from "@/components/features/contact/ContactView";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Contact Us - NEET UG Counselling & Medical Admissions Support | MedSeat",
+  title: "Contact Us - NEET UG Counselling & Medical Admissions Support | Dravio",
   description:
-    "Have questions about NEET counselling, college selection, cutoff ranks, or MBBS admissions? Request a callback or send an inquiry to the MedSeat expert support desk.",
+    "Have questions about NEET counselling, college selection, cutoff ranks, or MBBS admissions? Request a callback or send an inquiry to the Dravio expert support desk.",
   path: "/contact",
 });
 

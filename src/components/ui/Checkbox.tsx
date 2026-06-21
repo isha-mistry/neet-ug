@@ -1,8 +1,8 @@
-import type { InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+  label: ReactNode;
 }
 
 export function Checkbox({ label, className, id, ...rest }: CheckboxProps) {
@@ -11,17 +11,18 @@ export function Checkbox({ label, className, id, ...rest }: CheckboxProps) {
     <label
       htmlFor={inputId}
       className={cn(
-        "flex cursor-pointer items-center gap-2 rounded-[var(--radius-md)] border border-border bg-background px-3 py-2 text-sm text-text transition-colors hover:border-brand-300",
-        className
+        "lead-consent-field lead-consent-field--embedded rounded-[14px] border border-border bg-background px-3 py-2.5",
+        className,
       )}
     >
       <input
         id={inputId}
         type="checkbox"
-        className="h-4 w-4 accent-brand-700"
+        className="lead-consent-field__input"
         {...rest}
       />
-      <span>{label}</span>
+      <span className="lead-consent-field__mark" aria-hidden="true" />
+      <span className="lead-consent-field__text">{label}</span>
     </label>
   );
 }

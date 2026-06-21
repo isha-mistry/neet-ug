@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { QuotaHeader, QuotaCta, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
 import { DocumentChecklistWidget } from "./MccContentBlocks";
-import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
+import { QuotaBookCounsellingCard } from "./QuotaBookCounsellingCard";
 
 import { quotaTheoryContent, resourceData, topPortals } from "./content";
 
@@ -31,13 +31,7 @@ export function CounsellingResourcesView() {
   const sidebar = (
     <aside className="space-y-6">
       {/* Live Counselling Lead Form */}
-      <FreeCounsellingLeadForm
-        pageLabel="Counselling Resources"
-        title="Book free counselling"
-        submitLabel="Book counselling"
-        fields="name-phone-only"
-        className="border border-outline-variant/60 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)] bg-surface"
-      />
+      <QuotaBookCounsellingCard source="Counselling Resources" />
 
       {/* Critical Notice */}
       <div className="space-y-4 rounded-2xl border border-error/20 bg-error-container/20 p-6 text-on-error-container shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.18)]">
@@ -184,7 +178,7 @@ export function CounsellingResourcesView() {
                       </div>
                     </div>
                   </div>
-                  <a className="mt-auto flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 font-bold text-on-primary transition-colors hover:bg-primary-hover" href={row.url} target="_blank" rel="noopener noreferrer">
+                  <a className="mt-auto flex w-full items-center justify-center gap-2 rounded-[14px] bg-primary py-3 font-bold text-on-primary transition-colors hover:bg-primary-hover" href={row.url} target="_blank" rel="noopener noreferrer">
                     Open Portal
                     <span className="material-symbols-outlined text-[16px]">open_in_new</span>
                   </a>
@@ -223,7 +217,7 @@ export function CounsellingResourcesView() {
           <div className="w-full">
             <Link
               href="/state-counselling"
-              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-on-primary transition hover:bg-primary-hover active:scale-95 shadow-sm text-center"
+              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-[14px] bg-primary px-5 py-3 text-sm font-bold text-on-primary transition hover:bg-primary-hover active:scale-95 shadow-sm text-center"
             >
               View All States
               <span className="material-symbols-outlined text-sm">arrow_forward</span>

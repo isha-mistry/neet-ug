@@ -51,7 +51,7 @@ export const TERMS_EXPLAINED_LEAD_MAGNET = {
     "Name and mobile — our team explains how quotas, documents or rounds apply to your rank and state.",
   submitLabel: "Get glossary help",
   whatsappIntro:
-    "Hi MedSeat, I have a question about NEET UG counselling terms and how they apply to my case.",
+    "Hi Dravio, I have a question about NEET UG counselling terms and how they apply to my case.",
 } as const;
 
 export const TERMS_EXPLAINED_JUMP_SECTIONS: readonly GuideJumpItem[] = [
@@ -668,7 +668,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
     eyebrow: "Section 10",
     title: "State-Specific Terms (GJ · RJ · MP · MH)",
     description:
-      "Gujarat entries are expanded where MedSeat has the most verified counselling data; confirm RJ, MP and MH rules on the official state portals each season.",
+      "Gujarat entries are expanded where Dravio has the most verified counselling data; confirm RJ, MP and MH rules on the official state portals each season.",
     kind: "groups",
     groups: [
       {

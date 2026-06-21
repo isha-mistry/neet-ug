@@ -6,7 +6,7 @@ export const NEET_UG_APPLICATION_HERO = {
   lede:
     "Step-by-step NEET UG 2026 application on the NTA portal, fee structure, correction window, city intimation vs admit card, and hall entry rules — aligned to the latest bulletin.",
   fine:
-    "Apply and download documents only on neet.nta.nic.in. MedSeat does not submit forms on your behalf.",
+    "Apply and download documents only on neet.nta.nic.in. Dravio does not submit forms on your behalf.",
   trio: [
     { key: "Application fee", value: "₹1,000 – ₹1,700" },
     { key: "Admit card", value: "26 Apr 2026" },
@@ -19,7 +19,7 @@ export const NEET_UG_APPLICATION_LEAD_MAGNET = {
   formSubtitle: "Name and mobile — we notify you when admit cards, city slips, or corrections open.",
   submitLabel: "Get application alerts",
   whatsappIntro:
-    "Hi MedSeat, I'd like NEET UG 2026 application and admit card alerts on WhatsApp.",
+    "Hi Dravio, I'd like NEET UG 2026 application and admit card alerts on WhatsApp.",
 } as const;
 
 export const NEET_UG_APPLICATION_JUMP_SECTIONS: readonly GuideJumpItem[] = [

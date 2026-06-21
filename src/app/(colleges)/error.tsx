@@ -28,13 +28,13 @@ export default function CollegesError({
         <button
           type="button"
           onClick={reset}
-          className="inline-flex h-11 items-center justify-center rounded-[var(--radius-md)] bg-brand-700 px-5 text-sm font-semibold tracking-wide text-text-on-brand transition-colors hover:bg-brand-800"
+          className="inline-flex h-11 items-center justify-center rounded-[14px] bg-brand-700 px-5 text-sm font-semibold tracking-wide text-text-on-brand transition-colors hover:bg-brand-800"
         >
           Try Again
         </button>
         <Link
           href="/colleges"
-          className="inline-flex h-11 items-center justify-center rounded-[var(--radius-md)] border border-border-strong bg-background px-5 text-sm font-semibold tracking-wide text-text transition-colors hover:bg-surface"
+          className="inline-flex h-11 items-center justify-center rounded-[14px] border border-border-strong bg-background px-5 text-sm font-semibold tracking-wide text-text transition-colors hover:bg-surface"
         >
           Go to Colleges
         </Link>

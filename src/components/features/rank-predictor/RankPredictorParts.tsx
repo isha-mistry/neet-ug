@@ -1,12 +1,10 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import {
-  RANK_PREDICTOR_FINAL_CTA,
   RANK_PREDICTOR_HERO,
   RANK_PREDICTOR_HOW_IT_WORKS,
   RANK_PREDICTOR_STRIP,
 } from "@/lib/rank-predictor/page-content";
-import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
 import { cn } from "@/lib/utils";
 import { formatINR, formatNumber } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
@@ -422,79 +420,57 @@ export function RankPredictorLockedCTA({ onUnlock }: { onUnlock: () => void }) {
 
 interface RankPredictorCollegePreviewProps {
   college: CollegeSummary;
-  verified: boolean;
+  index: number;
   cutoffCaption?: string;
-  onAddCompare?: (slug: string) => void;
-  compareDisabled?: boolean;
-  inCompare?: boolean;
 }
 
 export function RankPredictorCollegePreview({
   college,
-  verified,
+  index,
   cutoffCaption = "AIQ closing rank",
-  onAddCompare,
-  compareDisabled,
-  inCompare,
 }: RankPredictorCollegePreviewProps) {
+  const href = `/colleges/${college.slug}`;
+  const cutoffYear =
+    college.latestCutoffYear > 0 ? `${college.latestCutoffYear} · ` : "";
+
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[20px] border border-outline-variant bg-surface-container-lowest shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-      <div className="rp-ccard-top" />
-      <div className="flex flex-1 flex-col gap-4 p-5 md:p-6">
-        <div className="flex flex-wrap items-center gap-2">
+    <article className="rp-ballpark-card">
+      <div className="rp-ballpark-card-main">
+        <div className="rp-ballpark-card-head">
+          <span className="rp-ballpark-card-idx" aria-hidden>
+            {String(index + 1).padStart(2, "0")}
+          </span>
           <CollegeTypeBadge type={college.collegeType} />
-          <span className="rounded-full bg-surface-container px-2.5 py-0.5 text-xs font-semibold text-on-surface-variant">
-            Near your estimate
+        </div>
+        <h3 className="rp-ballpark-card-title">
+          <Link href={href}>{college.name}</Link>
+        </h3>
+        <p className="rp-ballpark-card-loc">
+          <FiMapPin className="shrink-0 text-base" aria-hidden />
+          {college.city}, {college.stateName}
+        </p>
+      </div>
+      <div className="rp-ballpark-card-stats">
+        <div className="rp-ballpark-stat">
+          <span className="rp-ballpark-stat-k">Closing rank</span>
+          <span className="rp-ballpark-stat-v">AIR {formatNumber(college.latestCutoffRank)}</span>
+          <span className="rp-ballpark-stat-h">
+            {cutoffYear}
+            {cutoffCaption}
           </span>
         </div>
-        <div>
-          <h3 className="text-lg font-semibold leading-snug text-on-surface group-hover:text-primary">
-            {college.name}
-          </h3>
-          <p className="mt-1.5 inline-flex items-center gap-1 text-sm text-on-surface-variant">
-            <FiMapPin className="text-base" aria-hidden />
-            {college.city}, {college.stateName}
-          </p>
-        </div>
-        <dl className="grid grid-cols-2 gap-4 rounded-xl bg-surface-container-low p-3.5 text-sm">
-          <div>
-            <dt className="text-xs font-semibold uppercase tracking-wider text-outline">
-              Closing rank
-            </dt>
-            <dd className="mt-1 font-semibold text-on-surface">
-              AIR {formatNumber(college.latestCutoffRank)}
-            </dd>
-            <dd className="text-xs text-on-surface-variant">
-              {college.latestCutoffYear > 0 ? `${college.latestCutoffYear} · ` : ""}
-              {cutoffCaption}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-xs font-semibold uppercase tracking-wider text-outline">
-              Course fees
-            </dt>
-            <dd className="mt-1 font-semibold text-on-surface">
-              {formatINR(college.totalCourseFee, { compact: true })}
-            </dd>
-          </div>
-        </dl>
-        <div className="mt-auto flex flex-wrap gap-2 pt-1">
-          <Button as="link" href={`/colleges/${college.slug}`} variant="outline" size="sm">
-            View college
-          </Button>
-          {verified && onAddCompare ? (
-            <Button
-              type="button"
-              variant={inCompare ? "secondary" : "primary"}
-              size="sm"
-              disabled={compareDisabled}
-              onClick={() => onAddCompare(college.slug)}
-            >
-              {inCompare ? "In compare" : "Add to compare"}
-            </Button>
-          ) : null}
+        <div className="rp-ballpark-stat-divider" aria-hidden />
+        <div className="rp-ballpark-stat">
+          <span className="rp-ballpark-stat-k">Course fees</span>
+          <span className="rp-ballpark-stat-v">
+            {formatINR(college.totalCourseFee, { compact: true })}
+          </span>
         </div>
       </div>
+      <Link href={href} className="rp-ballpark-card-cta">
+        View college
+        <FiArrowRight className="text-base" aria-hidden />
+      </Link>
     </article>
   );
 }
@@ -502,13 +478,13 @@ export function RankPredictorCollegePreview({
 export function CollegePredictorBanner() {
   return (
     <div className="rp-strip rp-bleed">
-      <div className="rp-strip-in ms-layout-page px-5!">
+      <div className="rp-strip-in ms-layout-page">
         <p className="">
           <b>{RANK_PREDICTOR_STRIP.bold}</b> {RANK_PREDICTOR_STRIP.text}
         </p>
         <Link
           href="/college-predictor"
-          className="inline-flex shrink-0 items-center justify-center rounded-xl border-[1.5px] border-outline-variant bg-surface-container-lowest px-5 py-2.5 text-[13.5px] font-bold text-primary transition hover:border-primary hover:bg-primary-fixed"
+          className="inline-flex shrink-0 items-center justify-center rounded-[14px] border-[1.5px] border-outline-variant bg-surface-container-lowest px-5 py-2.5 text-[13.5px] font-bold text-primary transition hover:border-primary hover:bg-primary-fixed"
         >
           {RANK_PREDICTOR_STRIP.cta}
         </Link>
@@ -624,7 +600,7 @@ export function RankPredictorTrustBlock() {
     <section className="pb-16 md:pb-24">
       <div className="rp-trust">
         <p>
-          <b>Data compiled &amp; verified by:</b> the MedSeat MBBS counseling team —
+          <b>Data compiled &amp; verified by:</b> the Dravio MBBS counseling team —
           specialists in NEET UG counseling for Gujarat, Rajasthan, Madhya Pradesh and
           Maharashtra.
         </p>
@@ -646,44 +622,18 @@ export function RankPredictorTrustBlock() {
   );
 }
 
-export function RankPredictorFinalCta({ onRunAgain }: { onRunAgain: () => void }) {
-  const c = RANK_PREDICTOR_FINAL_CTA;
-  return (
-    <section className="rp-final rp-bleed" id="cta">
-      <div className="ms-layout-page">
-        <h2>
-          {c.title}
-          <br />
-          <em>{c.titleBreak}</em>
-        </h2>
-        <p className="rp-hero-lede mx-auto mt-[18px] max-w-[500px]">{c.lede}</p>
-        <div className="relative mt-8 flex flex-wrap justify-center gap-3.5">
-          <Button
-            as="link"
-            variant="primary"
-            href={COUNSEL_WHATSAPP_URL}
-          >
-            {c.book}
-          </Button>
-          <Button
-            type="button"
-            onClick={onRunAgain}
-            variant="secondary"
-          >
-            {c.again}
-          </Button>
-        </div>
-        <p className="rp-final-meta">{c.meta}</p>
-      </div>
-    </section>
-  );
-}
-
 export function VerifyPanel({
   children,
+  title = "Unlock your refined rank result",
+  description = "Verify your mobile number to unlock the tighter rank band and college preview list.",
+  bullets = ["Refined band", "Full preview", "Compare access"] as const,
 }: {
   children: ReactNode;
+  title?: string;
+  description?: string;
+  bullets?: readonly [string, string, string];
 }) {
+  const [b0, b1, b2] = bullets;
   return (
     <div className="overflow-hidden rounded-3xl border border-outline-variant/40 bg-surface-container-lowest shadow-[0_28px_70px_-28px_color-mix(in_srgb,var(--color-primary-pressed)_45%,transparent)]">
       <div className="rp-brand-gradient relative overflow-hidden px-6 py-8 text-on-primary md:px-8">
@@ -708,24 +658,23 @@ export function VerifyPanel({
               One-time verification
             </span>
             <h2 className="mt-3 font-headline-md text-headline-md font-bold tracking-tight">
-              Unlock your refined rank result
+              {title}
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-on-primary/88">
-              Verify your mobile number to unlock the tighter rank band and
-              college preview list.
+              {description}
             </p>
             <div className="mt-5 grid gap-2 text-xs font-semibold text-on-primary/92 sm:grid-cols-3">
               <span className="inline-flex items-center gap-1.5">
                 <FiUnlock className="text-sm" aria-hidden />
-                Refined band
+                {b0}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <FiList className="text-sm" aria-hidden />
-                Full preview
+                {b1}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <FiRepeat className="text-sm" aria-hidden />
-                Compare access
+                {b2}
               </span>
             </div>
           </div>
@@ -803,3 +752,4 @@ export function ResultsPanel({ children }: { children: ReactNode }) {
   return <section className="rp-result-wrap">{children}</section>;
 }
 
+export { RankPredictorFinalCta } from "@/components/features/rank-predictor/RankPredictorFinalCta";

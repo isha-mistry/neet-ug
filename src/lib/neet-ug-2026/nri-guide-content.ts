@@ -19,7 +19,7 @@ export const NEET_UG_NRI_LEAD_MAGNET = {
   formSubtitle: "Name and mobile — our team reaches out for NRI quota, documents, and MCC registration.",
   submitLabel: "Request NRI guidance",
   whatsappIntro:
-    "Hi MedSeat, I'd like help with NEET UG 2026 NRI MBBS admission and counselling.",
+    "Hi Dravio, I'd like help with NEET UG 2026 NRI MBBS admission and counselling.",
 } as const;
 
 export const NEET_UG_NRI_JUMP_SECTIONS: readonly GuideJumpItem[] = [

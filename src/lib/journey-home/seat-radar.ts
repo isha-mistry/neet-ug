@@ -57,16 +57,40 @@ const catFactor: Record<string, number> = {
 };
 
 const stData = [
-  { nm: "GJ", tiers: [[6, 9000], [9, 26000], [10, 75000], [18, 320000]] as [number, number][] },
-  { nm: "RJ", tiers: [[8, 12000], [17, 35000], [18, 300000]] as [number, number][] },
-  { nm: "MP", tiers: [[6, 15000], [12, 40000], [13, 280000]] as [number, number][] },
-  { nm: "MH", tiers: [[10, 8000], [25, 30000], [45, 350000]] as [number, number][] },
+  {
+    code: "GJ",
+    label: "Gujarat",
+    tiers: [[6, 9000], [9, 26000], [10, 75000], [18, 320000]] as [number, number][],
+  },
+  {
+    code: "RJ",
+    label: "Rajasthan",
+    tiers: [[8, 12000], [17, 35000], [18, 300000]] as [number, number][],
+  },
+  {
+    code: "MP",
+    label: "Madhya Pradesh",
+    tiers: [[6, 15000], [12, 40000], [13, 280000]] as [number, number][],
+  },
+  {
+    code: "MH",
+    label: "Maharashtra",
+    tiers: [[10, 8000], [25, 30000], [45, 350000]] as [number, number][],
+  },
 ];
 
 export type SeatRadarResult =
   | { kind: "invalid" }
   | { kind: "below" }
-  | { kind: "ok"; rank: number; tS: number; tB: number; tR: number; rows: { nm: string; sa: number; bo: number; re: number }[]; verdict: string };
+  | {
+      kind: "ok";
+      rank: number;
+      tS: number;
+      tB: number;
+      tR: number;
+      rows: { code: string; label: string; sa: number; bo: number; re: number }[];
+      verdict: string;
+    };
 
 export function runSeatRadar(score: number, cat: string): SeatRadarResult {
   if (Number.isNaN(score) || score < 0 || score > 720) {
@@ -93,7 +117,7 @@ export function runSeatRadar(score: number, cat: string): SeatRadarResult {
     tS += sa;
     tB += bo;
     tR += re;
-    return { nm: st.nm, sa, bo, re };
+    return { code: st.code, label: st.label, sa, bo, re };
   });
   let verdict: string;
   if (tS >= 30) {

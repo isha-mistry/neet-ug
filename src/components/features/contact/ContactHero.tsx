@@ -72,7 +72,7 @@ export function ContactHero() {
                             <Button
                                 variant="secondary"
                                 onClick={() => scrollToSection("callback-section")}
-                            // className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-outline-variant bg-surface-container-lowest px-6 py-3.5 text-sm font-bold text-on-surface-variant transition-all hover:border-primary hover:text-primary active:scale-[0.98]"
+                            // className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-6 py-3.5 text-sm font-bold text-on-surface-variant transition-all hover:border-primary hover:text-primary active:scale-[0.98]"
                             >
                                 Request callback
                                 <span className="material-symbols-outlined text-sm font-bold">call</span>

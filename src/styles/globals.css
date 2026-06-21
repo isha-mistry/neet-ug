@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 /* ============================================================
-   MedSeat Tokens
-   Source of truth: src/design/medseat.theme.ts
+   Dravio Tokens
+   Source of truth: src/design/dravio.theme.ts
    Keep this file as a token bridge only (no hardcoded values
    inside components).
    ============================================================ */
 
 @theme inline {
-  /* Map MedSeat tokens to Tailwind utilities. */
+  /* Map Dravio tokens to Tailwind utilities. */
   --color-background: #f7f9fb;
   --color-on-background: #191c1e;
   --color-surface: #f7f9fb;
@@ -245,12 +245,14 @@
   --ms-container-xl: var(--max-width-page);
   --ms-container-2xl: var(--max-width-page);
 
-  /* Radius (Shape Language) */
-  --radius-sm: 0.25rem;
-  --radius: 0.5rem;
-  --radius-md: 0.5rem; /* Standard components like input fields & buttons use 8px */
-  --radius-lg: 1rem; /* Larger containers like college cards use 16px */
-  --radius-xl: 1.5rem;
+  /* Radius (Shape Language) — buttons & inputs use 16px (px, not rem) */
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-md: 16px;
+  --radius-lg: 16px;
+  --radius-button: 16px;
+  --radius-input: 16px;
+  --radius-xl: 24px;
   --radius-full: 9999px;
   --radius-pill: 9999px;
 }
@@ -263,10 +265,26 @@ html {
 body {
   background: var(--color-background);
   color: var(--color-on-surface);
-  font-family: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
+  font-family:
+    var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
   letter-spacing: 0em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(
+      [type="hidden"]
+    ):not([type="file"]),
+  select,
+  textarea {
+    border-radius: 12px;
+  }
+}
+
+/* Mobile nav drawer sits above page chrome */
+body[data-mobile-nav-open] .site-header {
+  z-index: 100;
 }
 
 ::selection {
@@ -589,6 +607,14 @@ body {
   }
 }
 
+/* Predictor heroes with long left copy — raise the form card on desktop. */
+@media (min-width: 1024px) {
+  .college-predictor-page .rp-hero-aside,
+  .ca-page .rp-hero-aside {
+    padding-top: 0.75rem;
+  }
+}
+
 .rp-crumb {
   display: flex;
   align-items: center;
@@ -801,7 +827,7 @@ body {
 }
 
 .rp-form-stack {
-  --rp-control-radius: 12px;
+  --rp-control-radius: 16px;
   --rp-control-border: 1.5px solid var(--color-outline-variant);
   --rp-control-bg: var(--color-surface-container-low);
   --rp-control-focus-ring: 0 0 0 3px
@@ -1009,6 +1035,7 @@ body {
   border-top: 1px solid var(--color-outline-variant);
   border-bottom: 1px solid var(--color-outline-variant);
   background: linear-gradient(90deg, var(--color-primary-fixed), #fff);
+  margin-bottom: 1.5rem;
 }
 
 .rp-strip-in {
@@ -1016,7 +1043,7 @@ body {
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 0;
+  padding-block: 1rem;
 }
 
 .rp-strip p {
@@ -1469,7 +1496,7 @@ body {
   margin-bottom: 0.875rem;
   overflow: hidden;
   border: 1px solid var(--color-outline-variant);
-  border-radius: 16px;
+  border-radius: 12px;
   background: #fff;
   box-shadow:
     0 1px 2px color-mix(in srgb, var(--color-on-surface) 5%, transparent),
@@ -1569,6 +1596,172 @@ body {
   color: var(--color-primary);
 }
 
+.rp-ballpark-grid {
+  display: grid;
+  gap: 0.625rem;
+}
+
+@media (min-width: 768px) {
+  .rp-ballpark-grid {
+    gap: 0.75rem;
+  }
+}
+
+.rp-ballpark-card {
+  display: grid;
+  gap: 0.875rem;
+  padding: 1rem 1.125rem;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: 16px;
+  background: var(--color-surface-container-lowest);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-on-surface) 4%, transparent);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+@media (min-width: 768px) {
+  .rp-ballpark-card {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 1.25rem 1.5rem;
+    padding: 1rem 1.25rem;
+  }
+}
+
+.rp-ballpark-card:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 28%, var(--color-outline-variant));
+  box-shadow: 0 8px 28px -18px color-mix(in srgb, var(--color-primary) 35%, transparent);
+}
+
+.rp-ballpark-card-main {
+  min-width: 0;
+}
+
+.rp-ballpark-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.375rem;
+}
+
+.rp-ballpark-card-idx {
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-outline);
+}
+
+.rp-ballpark-card-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.rp-ballpark-card-title a {
+  color: var(--color-on-surface);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.rp-ballpark-card-title a:hover {
+  color: var(--color-primary);
+}
+
+.rp-ballpark-card-loc {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0.375rem 0 0;
+  font-size: 12.5px;
+  color: var(--color-on-surface-variant);
+}
+
+.rp-ballpark-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0.75rem 1rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 12px;
+  background: var(--color-surface-container-low);
+}
+
+@media (min-width: 768px) {
+  .rp-ballpark-card-stats {
+    flex-wrap: nowrap;
+    padding: 0.5rem 0.875rem;
+  }
+}
+
+.rp-ballpark-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 6.5rem;
+}
+
+.rp-ballpark-stat-k {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-outline);
+}
+
+.rp-ballpark-stat-v {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-on-surface);
+}
+
+.rp-ballpark-stat-h {
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--color-on-surface-variant);
+}
+
+.rp-ballpark-stat-divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--color-outline-variant);
+}
+
+.rp-ballpark-card-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-outline-variant);
+  background: var(--color-surface-container-lowest);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.rp-ballpark-card-cta:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-fixed);
+}
+
+@media (min-width: 768px) {
+  .rp-ballpark-card-cta {
+    justify-self: end;
+  }
+}
+
 /* Predictor tools — cutoff analyser, college predictor (shared with rank predictor) */
 .rp-tool-section-head {
   display: flex;
@@ -1661,7 +1854,8 @@ body {
   padding: 1.25rem 1.375rem;
   box-shadow:
     0 1px 2px color-mix(in srgb, var(--color-on-surface) 5%, transparent),
-    0 6px 22px -10px color-mix(in srgb, var(--color-on-surface) 10%, transparent);
+    0 6px 22px -10px
+      color-mix(in srgb, var(--color-on-surface) 10%, transparent);
 }
 
 .rp-metric-card::after {
@@ -1735,7 +1929,11 @@ body {
 }
 
 .rp-filter-pill:hover {
-  border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-outline-variant));
+  border-color: color-mix(
+    in srgb,
+    var(--color-primary) 40%,
+    var(--color-outline-variant)
+  );
   color: var(--color-primary);
 }
 
@@ -1818,27 +2016,42 @@ body {
 }
 
 .rp-callout {
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 0.875rem 1rem;
   font-size: 13.5px;
   line-height: 1.55;
 }
 
 .rp-callout-info {
-  border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-outline-variant));
-  background: color-mix(in srgb, var(--color-primary-fixed) 55%, var(--color-surface-container-lowest));
+  border: 1px solid
+    color-mix(in srgb, var(--color-primary) 18%, var(--color-outline-variant));
+  background: color-mix(
+    in srgb,
+    var(--color-primary-fixed) 55%,
+    var(--color-surface-container-lowest)
+  );
   color: var(--color-on-surface-variant);
 }
 
 .rp-callout-warn {
-  border: 1px solid color-mix(in srgb, var(--color-secondary) 25%, var(--color-outline-variant));
-  background: color-mix(in srgb, var(--color-secondary-fixed) 45%, var(--color-surface-container-lowest));
+  border: 1px solid
+    color-mix(in srgb, var(--color-secondary) 25%, var(--color-outline-variant));
+  background: color-mix(
+    in srgb,
+    var(--color-secondary-fixed) 45%,
+    var(--color-surface-container-lowest)
+  );
   color: var(--color-on-surface-variant);
 }
 
 .rp-callout-safe {
-  border: 1px solid color-mix(in srgb, var(--color-tertiary) 22%, var(--color-outline-variant));
-  background: color-mix(in srgb, var(--color-tertiary-fixed) 50%, var(--color-surface-container-lowest));
+  border: 1px solid
+    color-mix(in srgb, var(--color-tertiary) 22%, var(--color-outline-variant));
+  background: color-mix(
+    in srgb,
+    var(--color-tertiary-fixed) 50%,
+    var(--color-surface-container-lowest)
+  );
   color: var(--color-on-tertiary-fixed-variant);
 }
 
@@ -1861,7 +2074,7 @@ body {
 
 .rp-glossary-item {
   border: 1px solid var(--color-outline-variant);
-  border-radius: 16px;
+  border-radius: 12px;
   background: var(--color-surface-container-lowest);
   padding: 1rem 1.125rem;
   box-shadow:
@@ -1916,7 +2129,8 @@ body {
   background: var(--color-surface-container-lowest);
   box-shadow:
     0 1px 2px color-mix(in srgb, var(--color-on-surface) 5%, transparent),
-    0 6px 22px -10px color-mix(in srgb, var(--color-on-surface) 10%, transparent);
+    0 6px 22px -10px
+      color-mix(in srgb, var(--color-on-surface) 10%, transparent);
   transition:
     transform 0.22s ease,
     box-shadow 0.22s ease,
@@ -1925,7 +2139,11 @@ body {
 
 .rp-tool-card:hover {
   transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-outline-variant));
+  border-color: color-mix(
+    in srgb,
+    var(--color-primary) 30%,
+    var(--color-outline-variant)
+  );
   box-shadow:
     0 1px 2px color-mix(in srgb, var(--color-on-surface) 5%, transparent),
     0 16px 40px -18px color-mix(in srgb, var(--color-primary) 28%, transparent);
@@ -2051,7 +2269,8 @@ body {
 .rp-teaser-unlock {
   position: relative;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--color-primary) 25%, var(--color-outline-variant));
+  border: 1px solid
+    color-mix(in srgb, var(--color-primary) 25%, var(--color-outline-variant));
   border-radius: 20px;
   background: linear-gradient(
     165deg,
@@ -2066,19 +2285,35 @@ body {
 
 .rp-bucket-tile {
   border: 1px solid var(--color-outline-variant);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 1rem;
   text-align: center;
 }
 
 .rp-bucket-tile-success {
-  border-color: color-mix(in srgb, var(--color-tertiary) 25%, var(--color-outline-variant));
-  background: color-mix(in srgb, var(--color-tertiary-fixed) 35%, var(--color-surface-container-lowest));
+  border-color: color-mix(
+    in srgb,
+    var(--color-tertiary) 25%,
+    var(--color-outline-variant)
+  );
+  background: color-mix(
+    in srgb,
+    var(--color-tertiary-fixed) 35%,
+    var(--color-surface-container-lowest)
+  );
 }
 
 .rp-bucket-tile-brand {
-  border-color: color-mix(in srgb, var(--color-primary) 20%, var(--color-outline-variant));
-  background: color-mix(in srgb, var(--color-primary-fixed) 40%, var(--color-surface-container-lowest));
+  border-color: color-mix(
+    in srgb,
+    var(--color-primary) 20%,
+    var(--color-outline-variant)
+  );
+  background: color-mix(
+    in srgb,
+    var(--color-primary-fixed) 40%,
+    var(--color-surface-container-lowest)
+  );
 }
 
 .rp-bucket-tile-muted {
@@ -2152,7 +2387,7 @@ body {
   width: 100%;
   overflow: hidden;
   border: 1px solid var(--color-outline-variant);
-  border-radius: 16px;
+  border-radius: 12px;
   background: var(--color-surface-container-lowest);
   padding: 1rem 0.75rem 0.5rem;
 }
@@ -2205,7 +2440,7 @@ body {
 
 .ca-map-shell {
   border: 1px solid var(--color-outline-variant);
-  border-radius: 16px;
+  border-radius: 12px;
   background: var(--color-surface-container-lowest);
 }
 
@@ -2216,16 +2451,25 @@ body {
 }
 
 .ca-timeline-row {
-  border-bottom: 1px solid color-mix(in srgb, var(--color-outline-variant) 65%, transparent);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-outline-variant) 65%, transparent);
   background: var(--color-surface-container-lowest);
 }
 
 .ca-timeline-row:hover {
-  background: color-mix(in srgb, var(--color-primary-fixed) 22%, var(--color-surface-container-lowest));
+  background: color-mix(
+    in srgb,
+    var(--color-primary-fixed) 22%,
+    var(--color-surface-container-lowest)
+  );
 }
 
 .ca-timeline-row-live {
-  background: color-mix(in srgb, var(--color-secondary-fixed) 28%, var(--color-surface-container-lowest));
+  background: color-mix(
+    in srgb,
+    var(--color-secondary-fixed) 28%,
+    var(--color-surface-container-lowest)
+  );
 }
 
 .ca-lead-band {
@@ -2252,6 +2496,60 @@ body {
   flex-direction: column;
   gap: 1.25rem;
   padding-top: 0.25rem;
+}
+
+/* Cutoff analyser — print preference list only (Export / Print) */
+.ca-pref-print-only {
+  display: none;
+}
+
+.ca-preference-list-print-portal {
+  display: none;
+}
+
+@media print {
+  body.ca-print-preference-list > *:not(#ca-preference-list-print-portal) {
+    display: none !important;
+  }
+
+  body.ca-print-preference-list #ca-preference-list-print-portal {
+    display: block !important;
+    width: 100%;
+    padding: 0.5rem 1rem 2rem;
+    background: white;
+  }
+
+  body.ca-print-preference-list .ca-pref-no-print {
+    display: none !important;
+  }
+
+  body.ca-print-preference-list .ca-pref-print-only {
+    display: inline-flex;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-on-surface);
+  }
+
+  body.ca-print-preference-list .ca-pref-print-only.rp-pref-rank {
+    display: flex;
+    flex-shrink: 0;
+    height: 2rem;
+    width: 2rem;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--color-primary-fixed);
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--color-primary);
+    text-transform: none;
+  }
+
+  body.ca-print-preference-list .ca-preference-list-print-root a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 @media (min-width: 768px) {
@@ -2924,17 +3222,21 @@ body {
 .card-standard {
   background: var(--color-surface-container-lowest);
   border: 1px solid var(--color-outline-variant);
-  border-radius: 16px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 26px -16px rgba(37, 70, 208, 0.2);
+  border-radius: 12px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 10px 26px -16px rgba(37, 70, 208, 0.2);
 }
 
 /* Quota module custom premium tables (matching design.md) */
 .quota-table-wrap {
   overflow-x: auto;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid var(--color-outline-variant);
   background: var(--color-surface-container-lowest);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 26px -16px rgba(37, 70, 208, 0.2);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 10px 26px -16px rgba(37, 70, 208, 0.2);
 }
 
 .quota-table {
@@ -2957,6 +3259,10 @@ body {
   text-align: left;
 }
 
+.quota-table th.text-right {
+  text-align: right;
+}
+
 .quota-table td {
   padding: 20px;
   border-bottom: 1px solid var(--color-outline-variant);
@@ -2972,7 +3278,11 @@ body {
 .quota-table td:first-child {
   font-weight: 700;
   color: var(--color-on-surface);
-  background: color-mix(in srgb, var(--color-surface-container-low) 40%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--color-surface-container-low) 40%,
+    transparent
+  );
 }
 
 /* Premium Gradient Border Panel Utility */
@@ -2980,7 +3290,9 @@ body {
   position: relative;
   background: var(--color-surface-container-lowest);
   border-radius: 24px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 26px -16px rgba(37, 70, 208, 0.2);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 10px 26px -16px rgba(37, 70, 208, 0.2);
 }
 
 .gradient-border-panel::before {
@@ -3001,4 +3313,28 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+}
+
+@keyframes lead-form-thanks-ring {
+  0% {
+    transform: scale(0.62);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.42);
+    opacity: 0;
+  }
+}
+
+.animate-lead-thanks-ring {
+  animation: lead-form-thanks-ring 2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-lead-thanks-ring {
+    animation: none;
+    opacity: 0.35;
+    transform: scale(1.05);
+  }
 }

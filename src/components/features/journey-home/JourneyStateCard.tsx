@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { IndiaMiniMap } from "@/components/features/home-05/IndiaMiniMap";
-import { StateDistrictMiniMap } from "@/components/features/home-05/StateDistrictMiniMap";
+import { IndiaMiniMap } from "@/components/features/journey-home/IndiaMiniMap";
+import { StateDistrictMiniMap } from "@/components/features/journey-home/StateDistrictMiniMap";
 import {
   JOURNEY_STATES_SECTION,
   type JourneyAiqCardItem,

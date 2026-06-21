@@ -149,7 +149,27 @@ export function CounselingTimelinePanel({
   return (
     <div className="flex flex-col">
       <div className="ca-timeline-head">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex flex-col gap-4">
+          <p className="max-w-none text-left text-xs leading-relaxed text-on-surface-variant">
+            {disclaimer}{" "}
+            <Link
+              href="https://neet.nta.nic.in/"
+              className="font-semibold text-primary underline-offset-2 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              NTA
+            </Link>
+            {" · "}
+            <Link
+              href="https://mcc.nic.in/ug-medical-counselling/"
+              className="font-semibold text-primary underline-offset-2 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              MCC UG
+            </Link>
+          </p>
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-bold text-on-primary">
               <span className="material-symbols-outlined text-sm">calendar_month</span>
@@ -171,26 +191,6 @@ export function CounselingTimelinePanel({
               </span>
             ) : null}
           </div>
-          <p className="max-w-xl text-xs leading-relaxed text-on-surface-variant lg:text-right">
-            {disclaimer}{" "}
-            <Link
-              href="https://neet.nta.nic.in/"
-              className="font-semibold text-primary underline-offset-2 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              NTA
-            </Link>
-            {" · "}
-            <Link
-              href="https://mcc.nic.in/ug-medical-counselling/"
-              className="font-semibold text-primary underline-offset-2 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              MCC UG
-            </Link>
-          </p>
         </div>
 
         {liveEvent ? (

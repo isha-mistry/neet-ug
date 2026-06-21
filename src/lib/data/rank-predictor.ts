@@ -1,4 +1,4 @@
-import { medseatData } from "./source";
+import { dravioData } from "./source";
 import { getAllColleges } from "./colleges";
 import { pickDisplayCutoff } from "@/lib/colleges/cutoff-context";
 import type { CollegeRecord } from "@/types/college";
@@ -8,7 +8,7 @@ import type { NeetCategory } from "@/lib/rank-predictor/types";
 import { RANK_PREDICTOR_PREVIEW_QUOTA } from "@/lib/rank-predictor/constants";
 
 export function getRankPredictorConfig(): RankPredictorConfig {
-  return medseatData.rankPredictor;
+  return dravioData.rankPredictor;
 }
 
 function clampScore(score: number): number {

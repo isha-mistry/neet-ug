@@ -122,11 +122,11 @@ function DirectoryHero({
             Gujarat, Maharashtra, Rajasthan and Madhya Pradesh.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href="#authority-table" className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-on-primary shadow-sm transition hover:bg-primary-hover">
+            <a href="#authority-table" className="inline-flex items-center justify-center gap-2 rounded-[14px] bg-primary px-5 py-3 text-sm font-bold text-on-primary shadow-sm transition hover:bg-primary-hover">
               View authority table
               <MaterialSymbol name="arrow_downward" className="text-lg" />
             </a>
-            <Link href="/rank-predictor" className="inline-flex items-center justify-center gap-2 rounded-xl border border-outline-variant bg-surface-container-lowest px-5 py-3 text-sm font-bold text-on-surface-variant transition hover:border-primary hover:text-primary">
+            <Link href="/rank-predictor" className="inline-flex items-center justify-center gap-2 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-5 py-3 text-sm font-bold text-on-surface-variant transition hover:border-primary hover:text-primary">
               Check rank fit
               <MaterialSymbol name="query_stats" className="text-lg" />
             </Link>
@@ -279,7 +279,7 @@ function FeaturedStateCards() {
           href={`/state-counselling/${state.key}`}
           className="group relative overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-clinical-soft transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-clinical-hover"
         >
-          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-fixed text-primary transition group-hover:bg-primary group-hover:text-on-primary">
+          <span className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-primary-fixed text-primary transition group-hover:bg-primary group-hover:text-on-primary">
             {state.shortName}
           </span>
           <h2 className="mt-4 text-lg font-black tracking-tight text-on-surface">
@@ -314,7 +314,7 @@ function DetailHero({ state }: { state: StateCounsellingDetail }) {
             multiple official notices.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href={state.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-on-primary shadow-sm transition hover:bg-primary-hover">
+            <a href={state.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-[14px] bg-primary px-5 py-3 text-sm font-bold text-on-primary shadow-sm transition hover:bg-primary-hover">
               Official portal
               <MaterialSymbol name="open_in_new" className="text-lg" />
             </a>
@@ -419,7 +419,7 @@ function CoursesAndSeats({ state }: { state: StateCounsellingDetail }) {
       <Panel icon="event_seat" title="Seat categories" subtitle="Govt, state, management and NRI quota signals.">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {state.seatCategories.map((category) => (
-            <div key={category.label} className="rounded-xl bg-primary-fixed/45 p-4">
+            <div key={category.label} className="rounded-[14px] bg-primary-fixed/45 p-4">
               <h3 className="text-sm font-black text-on-surface">{category.label}</h3>
               <p className="mt-1 text-sm leading-relaxed text-on-surface-variant">{category.detail}</p>
             </div>
@@ -537,7 +537,7 @@ function Panel({
   return (
     <section id={id} className="border-t border-outline-variant pt-7">
       <div className="mb-5 flex items-start gap-3.5">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] bg-primary text-on-primary">
           <MaterialSymbol name={icon} className="text-[22px]" />
         </span>
         <div>

@@ -65,7 +65,7 @@ function pickInsight(
     return "Strong government capacity — domicile quota is key";
   }
   if (FOCUS_STATE_SLUGS.includes(stat.slug as (typeof FOCUS_STATE_SLUGS)[number])) {
-    return "Detailed MedSeat guide — cutoffs, domicile & fees";
+    return "Detailed Dravio guide — cutoffs, domicile & fees";
   }
   return "85% state quota (domicile) · 15% AIQ via MCC";
 }

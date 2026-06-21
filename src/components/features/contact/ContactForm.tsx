@@ -1,9 +1,17 @@
 "use client";
 
-import React, { useState, type FormEvent } from "react";
+import React, { useRef, useState, useTransition, type FormEvent } from "react";
+import { usePathname } from "next/navigation";
+import { submitLeadAction } from "@/app/actions/submit-lead";
 import { Container } from "@/components/common/Container";
-import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
+import { LEAD_FORM_TYPES } from "@/lib/leads/types";
+import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
+import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
+import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
+import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { Button } from "@/components/ui/Button";
+import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
 
 const QUERY_TYPES = [
     "Counselling Guidance",
@@ -15,24 +23,33 @@ const QUERY_TYPES = [
     "Other"
 ];
 
-const PREFERRED_STATES = [
-    "Maharashtra",
-    "Gujarat",
-    "Rajasthan",
-    "Madhya Pradesh",
-    "Other"
-];
-
 export function ContactForm() {
+    const pathname = usePathname();
+    const [pending, startTransition] = useTransition();
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const [countryCode, setCountryCode] = useState(DEFAULT_COUNTRY_DIAL_CODE);
     const [score, setScore] = useState("");
     const [preferredState, setPreferredState] = useState("Maharashtra");
     const [queryType, setQueryType] = useState("Counselling Guidance");
     const [message, setMessage] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [submitted, setSubmitted] = useState(false);
+    const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
+    const formRef = useRef<HTMLFormElement>(null);
+    const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
+        active: !submitted,
+        validateExtras: () => {
+            const digits = phone.replace(/\D/g, "");
+            const mail = email.trim();
+            if (fullName.trim().length < 2 || digits.length < 10) return false;
+            if (message.trim().length < 5) return false;
+            if (mail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) return false;
+            return true;
+        },
+        deps: [submitted, canSubmit, fullName, phone, email, message],
+    });
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -58,25 +75,35 @@ export function ContactForm() {
             setError("Please write a query message (minimum 5 characters).");
             return;
         }
+        if (!submitReady) {
+            setError(LEAD_CONSENT_ERROR);
+            return;
+        }
 
-        // Prefilled WhatsApp message content for backup channel
-        const whatsappText = [
-            "Hi MedSeat, I have submitted an inquiry form.",
-            `Name: ${name}`,
-            `Email: ${mail || "N/A"}`,
-            `WhatsApp: +91 ${digits}`,
-            `Expected NEET Score: ${score || "N/A"}/720`,
-            `Preferred State: ${preferredState}`,
-            `Query Type: ${queryType}`,
-            `Message: ${message}`
-        ].join("\n");
+        startTransition(async () => {
+            const saved = await submitLeadAction({
+                formType: LEAD_FORM_TYPES.contactInquiry,
+                pagePath: pathname,
+                pageLabel: "Contact Us — detailed inquiry",
+                name,
+                countryCode,
+                phone: digits,
+                email: mail || undefined,
+                neetScore: score ? Number(score) : null,
+                domicileState: preferredState,
+                queryType,
+                message: message.trim(),
+                consent: canSubmit,
+                rawPayload: { source: "contact-us-detailed-inquiry" },
+            });
 
-        const base = COUNSEL_WHATSAPP_URL.split("?")[0];
-        const url = `${base}?text=${encodeURIComponent(whatsappText)}`;
+            if (!saved.success) {
+                setError(saved.error);
+                return;
+            }
 
-        // Store in WhatsApp redirect / trigger window
-        window.open(url, "_blank", "noopener,noreferrer");
-        setSubmitted(true);
+            setSubmitted(true);
+        });
     };
 
     if (submitted) {
@@ -89,7 +116,7 @@ export function ContactForm() {
                         </span>
                         <h3 className="text-xl font-black text-on-surface mb-2">Message Sent Successfully!</h3>
                         <p className="text-xs text-on-surface-variant leading-relaxed mb-6 max-w-md mx-auto">
-                            Thank you, <b>{fullName}</b>. Your inquiry regarding <b>{queryType}</b> has been received. Our counselling desk will contact you on +91 {phone} shortly.
+                            Thank you, <b>{fullName}</b>. Your inquiry regarding <b>{queryType}</b> has been received. Our counselling desk will contact you on {countryCode} {phone} shortly.
                         </p>
 
                         <div className="flex gap-3 justify-center">
@@ -102,7 +129,7 @@ export function ContactForm() {
                                     setMessage("");
                                     setSubmitted(false);
                                 }}
-                                className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-outline-variant bg-surface-container-lowest px-5 py-3 text-xs font-bold text-on-surface transition-all hover:bg-surface-container-low active:scale-[0.98]"
+                                className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-5 py-3 text-xs font-bold text-on-surface transition-all hover:bg-surface-container-low active:scale-[0.98]"
                             >
                                 Send Another Message
                             </button>
@@ -127,8 +154,8 @@ export function ContactForm() {
                             </h2>
                             <p className="mt-3 text-sm leading-relaxed text-on-surface-variant">
                                 Use this form when your question depends on rank, score, preferred state, quota,
-                                budget or documents. We will open WhatsApp with a structured message so the team has
-                                the right context.
+                                budget or documents. We save your profile here so our counselling desk can review
+                                and respond with the right context.
                             </p>
                             <div className="mt-6 space-y-3">
                                 {[
@@ -144,7 +171,7 @@ export function ContactForm() {
                             </div>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-5">
+                        <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
                             <div className="grid gap-5 sm:grid-cols-2">
                                 <div>
                                     <label className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
@@ -156,7 +183,7 @@ export function ContactForm() {
                                         placeholder="As on your NEET scorecard"
                                         value={fullName}
                                         onChange={(e) => setFullName(e.target.value)}
-                                        className="w-full rounded-2xl border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                        className="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                     />
                                 </div>
 
@@ -169,23 +196,24 @@ export function ContactForm() {
                                         placeholder="e.g. name@example.com"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full rounded-2xl border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                        className="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                     />
                                 </div>
                             </div>
 
                             <div className="grid gap-5 sm:grid-cols-2">
-                                <div>
+                                <div className="sm:col-span-2">
                                     <label className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
                                         Mobile Number *
                                     </label>
-                                    <input
-                                        type="tel"
-                                        required
-                                        placeholder="10-digit mobile number"
-                                        value={phone}
-                                        onChange={(e) => setPhone(e.target.value)}
-                                        className="w-full rounded-2xl border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    <PhoneNumberField
+                                        countryCode={countryCode}
+                                        onCountryCodeChange={setCountryCode}
+                                        phone={phone}
+                                        onPhoneChange={setPhone}
+                                        phonePlaceholder="10-digit mobile number"
+                                        selectClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                        inputClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                     />
                                 </div>
 
@@ -200,7 +228,7 @@ export function ContactForm() {
                                         placeholder="e.g. 590"
                                         value={score}
                                         onChange={(e) => setScore(e.target.value)}
-                                        className="w-full rounded-2xl border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                        className="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                     />
                                 </div>
                             </div>
@@ -213,7 +241,7 @@ export function ContactForm() {
                                     <select
                                         value={queryType}
                                         onChange={(e) => setQueryType(e.target.value)}
-                                        className="w-full rounded-2xl border border-outline-variant bg-surface-container-low px-3 py-3.5 text-sm text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                        className="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-3 py-3.5 text-sm text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                     >
                                         {QUERY_TYPES.map((q) => (
                                             <option key={q} value={q}>
@@ -227,17 +255,11 @@ export function ContactForm() {
                                     <label className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
                                         Preferred State
                                     </label>
-                                    <select
+                                    <LeadStateSelect
                                         value={preferredState}
                                         onChange={(e) => setPreferredState(e.target.value)}
-                                        className="w-full rounded-2xl border border-outline-variant bg-surface-container-low px-3 py-3.5 text-sm text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                                    >
-                                        {PREFERRED_STATES.map((s) => (
-                                            <option key={s} value={s}>
-                                                {s}
-                                            </option>
-                                        ))}
-                                    </select>
+                                        className="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-3 py-3.5 text-sm text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    />
                                 </div>
                             </div>
 
@@ -251,7 +273,7 @@ export function ContactForm() {
                                     placeholder="Briefly describe what help you need..."
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
-                                    className="w-full resize-none rounded-2xl border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    className="w-full w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-4 py-3 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                 />
                             </div>
 
@@ -261,13 +283,20 @@ export function ContactForm() {
                                 </p>
                             )}
 
+                            <LeadConsentField
+                                id="contact-inquiry-consent"
+                                disabled={pending}
+                                {...consentFieldProps}
+                            />
+
                             <Button
                                 type="submit"
                                 variant="primary"
-                                className="w-full"
+                                className="lead-form-submit w-full"
+                                disabled={pending || !submitReady}
                                 trailingIcon={<span className="material-symbols-outlined text-sm">send</span>}
                             >
-                                <span>Send Message</span>
+                                <span>{pending ? "Sending…" : "Send Message"}</span>
                             </Button>
                         </form>
                     </div>

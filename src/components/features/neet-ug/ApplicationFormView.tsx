@@ -10,6 +10,7 @@ import {
   MetricGrid,
 } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
+import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { NeetUgUpdatesSidebar } from "@/components/features/neet-ug/NeetUgUpdatesParts";
 import { NeetUgHubFinalCta, NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
 import { DataTable } from "@/components/features/neet-ug/shared/DataTable";
@@ -121,6 +122,9 @@ export function ApplicationFormView() {
         <NeetUgLeadMagnetPanel
           pageLabel="NEET UG 2026 Application"
           content={NEET_UG_APPLICATION_LEAD_MAGNET}
+          formType={LEAD_FORM_TYPES.neetUgLiveUpdates}
+          redirectToWhatsApp={false}
+          consentFieldId="lead-neet-ug-2026-application-form-consent"
         />
       </RpMarketingHero>
 
@@ -309,7 +313,7 @@ export function ApplicationFormView() {
               </GuideCard>
             </GuideSection>
 
-            <GuideSection embedded id="related" eyebrow="More on MedSeat" title="Related guides">
+            <GuideSection embedded id="related" eyebrow="More on Dravio" title="Related guides">
               <div className="grid gap-3 sm:grid-cols-2">
                 {NEET_UG_APPLICATION_RELATED_LINKS.map((item) => (
                   <Link

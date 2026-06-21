@@ -121,7 +121,16 @@ export const JOURNEY_CHALLENGE_BAND = {
   stat: "50%",
   body: "In Gujarat alone, roughly half of aspirants qualify NEET each year, competing for 7,500+ state quota seats across 43 colleges. Getting the right seat is not just about rank — it's about what you do with it.",
   cta: "Review my counselling plan →",
-  href: "",
+} as const;
+
+export const JOURNEY_CHALLENGE_COUNSELLING_CTA = {
+  modalIntroLine:
+    "Hi Dravio, I want to review my MBBS counselling plan from the home page challenge section.",
+  modalLede:
+    "Share your score, category, and domicile state — we'll save your details and open WhatsApp to connect with our team.",
+  pageLabel: "Journey home — challenge band — counselling plan review",
+  pageSection: "challenge-band",
+  leadVariant: "challenge_counselling",
 } as const;
 
 export const JOURNEY_COMPARISON_ROWS = [
@@ -165,11 +174,37 @@ export const JOURNEY_COMPARISON_ROWS = [
 export const JOURNEY_COMPARISON_CTA = {
   copy: "If you already have a score, category, and target states, we can review your options before choice filling starts.",
   buttonLabel: "Get my options reviewed",
-  redirectTo: "/counseling",
+  redirectTo: "/counselling",
   introLine:
-    "Hi MedSeat, I'd like my MBBS options reviewed before choice filling (from home page — Step 07).",
+    "Hi Dravio, I'd like my MBBS options reviewed before choice filling (from home page — Step 07).",
   modalLede:
     "Share your details and we'll follow up on WhatsApp to review your score, category, and target states.",
+} as const;
+
+export const JOURNEY_PLAYBOOK_AFTER_SUBMIT = {
+  heading: "The playbook is on its way to your WhatsApp.",
+  subheading: "Want us to review your score, category, and state options?",
+  ctaLabel: "Book free counselling call",
+  whatsappMessage:
+    "Hi Dravio, I downloaded the NEET 2026 Counselling Playbook and want help reviewing my MBBS admission options.",
+  modalIntroLine:
+    "Hi Dravio, I downloaded the NEET 2026 Counselling Playbook and want a free counselling review.",
+  modalLede:
+    "Share your score, category, and domicile state — we'll save your details and open WhatsApp to connect with our team.",
+  pageLabel: "Journey home — playbook section — free counselling call",
+  pageSection: "playbook",
+  leadVariant: "playbook_counselling",
+} as const;
+
+export const JOURNEY_FINAL_COUNSELLING_CTA = {
+  buttonLabel: "Book free counseling call",
+  modalIntroLine:
+    "Hi Dravio, I want a free MBBS counselling review from the home page final CTA.",
+  modalLede:
+    "Share your score, category, and domicile state — we'll save your details and open WhatsApp to connect with our team.",
+  pageLabel: "Journey home — final CTA section — free counselling call",
+  pageSection: "final-cta",
+  leadVariant: "final_cta_counselling",
 } as const;
 
 export const JOURNEY_COUNSELING_MISTAKES = {
@@ -190,27 +225,25 @@ export const JOURNEY_COUNSELING_MISTAKES = {
 } as const;
 
 export const JOURNEY_PACKAGE_CTAS = {
-  redirectTo: "/counseling",
+  redirectTo: "/counselling",
   essentials: {
     buttonLabel: "Get Essentials",
-    introLine: "Hi MedSeat, I'm interested in the Essentials plan (home page).",
+    introLine: "Hi Dravio, I'm interested in the Essentials plan (home page).",
     modalLede:
       "Share your details for tool access — we'll follow up on WhatsApp with next steps.",
   },
   expert: {
     buttonLabel: "Book Expert counselling",
-    introLine: "Hi MedSeat, I'd like to book Expert counselling (home page).",
+    introLine: "Hi Dravio, I'd like to book Expert counselling (home page).",
     modalLede:
       "Tell us about the student and target states — we'll confirm your Expert counselling slot on WhatsApp.",
   },
   premium: {
     buttonLabel: "Discuss Premium support",
-    introLine: "Hi MedSeat, I'd like to discuss Premium support (home page).",
+    introLine: "Hi Dravio, I'd like to discuss Premium support (home page).",
     modalLede:
       "Brief enquiry for complex cases — we'll follow up on WhatsApp about quota and target states.",
   },
-  planHelpWhatsAppIntro:
-    "Hi MedSeat, I'm not sure which counseling plan fits — can we talk free for 15 minutes?",
 } as const;
 
 export const JOURNEY_RESOURCES = [

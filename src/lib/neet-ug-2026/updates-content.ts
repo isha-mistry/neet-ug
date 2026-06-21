@@ -19,7 +19,7 @@ export const NEET_UG_UPDATES_LEAD_MAGNET = {
   formTitle: "NTA alert on WhatsApp",
   formSubtitle: "Name and mobile — we ping you when admit cards, keys, or results drop.",
   submitLabel: "Activate live alerts",
-  whatsappIntro: "Hi MedSeat, I'd like NEET UG 2026 live NTA alerts on WhatsApp.",
+  whatsappIntro: "Hi Dravio, I'd like NEET UG 2026 live NTA alerts on WhatsApp.",
 } as const;
 
 export const NEET_UG_UPDATES_JUMP_SECTIONS: readonly GuideJumpItem[] = [
@@ -241,7 +241,7 @@ export const NEET_UG_UPDATES_FAQ: { q: string; a: string }[] = [
     a: "Yes — most candidates register on mcc.nic.in for AIQ and separately on their domicile state portal for state quota. Fees, documents, and choice locking are separate; missing a state deadline cannot be fixed later.",
   },
   {
-    q: "How do I get WhatsApp alerts from MedSeat?",
+    q: "How do I get WhatsApp alerts from Dravio?",
     a: "Use the form at the top of this page or join our WhatsApp channel in the sidebar. We summarise official NTA/MCC milestones; always verify on government sites before travel or payment.",
   },
 ];

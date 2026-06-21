@@ -50,7 +50,7 @@ export function RecommendationPanel({
           {recommendation.reasons.map((reason, index) => (
             <li
               key={index}
-              className="flex items-start gap-2 rounded-[var(--radius-md)] border border-border bg-surface px-3 py-2 text-sm leading-relaxed text-text-secondary"
+              className="flex items-start gap-2 rounded-[14px] border border-border bg-surface px-3 py-2 text-sm leading-relaxed text-text-secondary"
             >
               <span
                 aria-hidden="true"

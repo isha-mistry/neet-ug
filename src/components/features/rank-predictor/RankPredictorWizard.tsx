@@ -1,12 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
-import { FiBarChart2, FiCheckCircle, FiGlobe, FiMessageSquare, FiRefreshCw } from "react-icons/fi";
+import { FiCheckCircle, FiGlobe, FiMessageSquare, FiRefreshCw } from "react-icons/fi";
 import { Container } from "@/components/common/Container";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
-import { Checkbox } from "@/components/ui/Checkbox";
+import { LeadConsentField } from "@/components/features/leads/LeadConsentField";
 import {
   CollegePredictorBanner,
   FormPanel,
@@ -23,17 +23,17 @@ import {
   VerifyModal,
   VerifyPanel,
 } from "@/components/features/rank-predictor/RankPredictorParts";
+import { sendPhoneLoginOtpAction } from "@/app/actions/send-phone-otp";
 import {
   completeRankPredictorProfileAction,
   getRankPredictorSessionAction,
   submitRankPredictorAction,
   verifyRankPredictorOtpAction,
 } from "@/app/(marketing)/rank-predictor/actions";
-import { useComparisonStore } from "@/store/comparison.store";
-import { COMPARISON_MAX_SELECTIONS } from "@/lib/constants";
 import {
   NEET_SCORE_MAX,
   NEET_SCORE_MIN,
+  RANK_PREDICTOR_MAX_PREVIEW_COLLEGES,
 } from "@/lib/rank-predictor/constants";
 import { RANK_PREDICTOR_FAQ, RANK_PREDICTOR_HERO } from "@/lib/rank-predictor/page-content";
 import type {
@@ -45,16 +45,11 @@ import type {
 } from "@/lib/rank-predictor/types";
 import { isPhoneVerifiedRankPredictorSession } from "@/lib/rank-predictor/types";
 import type { OptionItem } from "@/types/core";
+import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { applyPredictorPhoneVerification } from "@/components/features/predictors/predictor-phone-verify";
 
 type WizardStep = "form" | "teaser" | "verify" | "unlocked";
 type VerifyModalPhase = "phone" | "profile";
-
-const COUNTRY_CODE_OPTIONS: OptionItem<string>[] = [
-  { value: "+91", label: "India (+91)" },
-  { value: "+977", label: "Nepal (+977)" },
-  { value: "+971", label: "UAE (+971)" },
-  { value: "+1", label: "USA/Canada (+1)" },
-];
 
 interface RankPredictorWizardProps {
   stateOptions: OptionItem<string>[];
@@ -103,11 +98,16 @@ export function RankPredictorWizard({
   const [otp, setOtp] = useState("");
   const [consent, setConsent] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
+  const [otpSending, setOtpSending] = useState(false);
+  const [phoneSessionTrusted, setPhoneSessionTrusted] = useState(false);
   const [verifyPhase, setVerifyPhase] = useState<VerifyModalPhase>("phone");
   const [leadName, setLeadName] = useState(initialSession?.leadName ?? "");
   const [leadCity, setLeadCity] = useState(initialSession?.leadCity ?? "");
 
-  const { selectedSlugs, toggle } = useComparisonStore();
+  const ballparkColleges = useMemo(() => {
+    if (!unlocked?.previewColleges.length) return [];
+    return unlocked.previewColleges.slice(0, RANK_PREDICTOR_MAX_PREVIEW_COLLEGES);
+  }, [unlocked?.previewColleges]);
 
   const formInput = useMemo((): RankPredictorFormInput | null => {
     const scoreNum = Math.round(Number(score));
@@ -129,6 +129,7 @@ export function RankPredictorWizard({
 
   const goVerify = () => {
     setError(null);
+    setPhoneSessionTrusted(false);
     setStep("verify");
     setVerifyPhase("phone");
     startTransition(async () => {
@@ -146,6 +147,45 @@ export function RankPredictorWizard({
     });
   };
 
+  const completePhoneVerification = useCallback(
+    async (trustedSession: boolean) => {
+      const input = buildInput();
+      if (!input) {
+        setError("Session expired. Start a new prediction.");
+        return;
+      }
+      await applyPredictorPhoneVerification({
+        phone,
+        countryCode,
+        consent,
+        trustedSession,
+        otp,
+        setError,
+        setPhoneSessionTrusted,
+        setOtpSent,
+        verify: async (payload) => {
+          const currentInput = buildInput();
+          if (!currentInput) {
+            return { success: false, error: "Session expired. Start a new prediction." };
+          }
+          const result = await verifyRankPredictorOtpAction({
+            input: currentInput,
+            phone: payload.phone,
+            countryCode: payload.countryCode,
+            otp: payload.otp,
+            consent: payload.consent,
+            trustedSession: payload.trustedSession,
+          });
+          return result.success
+            ? { success: true }
+            : { success: false, error: result.error };
+        },
+        onVerified: () => setVerifyPhase("profile"),
+      });
+    },
+    [buildInput, phone, countryCode, consent, otp]
+  );
+
   const handleSendOtp = () => {
     const normalizedPhone = phone.replace(/\D/g, "");
     if (normalizedPhone.length !== 10) {
@@ -153,8 +193,28 @@ export function RankPredictorWizard({
       return;
     }
     setPhone(normalizedPhone);
-    setOtpSent(true);
     setError(null);
+    setOtpSending(true);
+    startTransition(async () => {
+      const result = await sendPhoneLoginOtpAction({
+        phone: normalizedPhone,
+        countryCode,
+      });
+      setOtpSending(false);
+      if (!result.success) {
+        setError(result.error);
+        setOtpSent(false);
+        setPhoneSessionTrusted(false);
+        return;
+      }
+      setOtpSent(true);
+      if (result.alreadyVerified) {
+        setPhoneSessionTrusted(true);
+        if (consent) {
+          await completePhoneVerification(true);
+        }
+      }
+    });
   };
 
   const handleSubmitScore = () => {
@@ -180,24 +240,13 @@ export function RankPredictorWizard({
   const handleVerifyOtp = () => {
     const input = buildInput();
     if (!input) return;
-    if (!consent) {
-      setError("Please accept the privacy policy to continue.");
+    if (!otpSent) {
+      setError("Send the OTP or continue with your verified number first.");
       return;
     }
     setError(null);
     startTransition(async () => {
-      const result = await verifyRankPredictorOtpAction({
-        input,
-        phone,
-        countryCode,
-        otp,
-        consent,
-      });
-      if (!result.success) {
-        setError(result.error);
-        return;
-      }
-      setVerifyPhase("profile");
+      await completePhoneVerification(phoneSessionTrusted);
     });
   };
 
@@ -236,6 +285,7 @@ export function RankPredictorWizard({
     setPhone("");
     setOtp("");
     setOtpSent(false);
+    setPhoneSessionTrusted(false);
     setConsent(false);
     setVerifyPhase("phone");
     setLeadName("");
@@ -243,8 +293,6 @@ export function RankPredictorWizard({
     setError(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  const compareAtCapacity = selectedSlugs.length >= COMPARISON_MAX_SELECTIONS;
 
   const showResults = (step === "teaser" || step === "verify" || step === "unlocked") && teaser;
 
@@ -270,66 +318,66 @@ export function RankPredictorWizard({
   return (
     <RankPredictorShell>
       {step === "form" ? (
-          <RankPredictorHero>
-            <FormPanel>
-              <div className="rp-form-stack flex flex-col gap-4">
-                <Input
-                  label="NEET 2026 score (out of 720)"
-                  name="score"
-                  type="number"
-                  min={NEET_SCORE_MIN}
-                  max={NEET_SCORE_MAX}
-                  inputMode="numeric"
-                  value={score}
-                  onChange={(e) => setScore(e.target.value)}
-                  hint="Whole marks between 0 and 720 — your expected or actual score."
+        <RankPredictorHero>
+          <FormPanel>
+            <div className="rp-form-stack flex flex-col gap-4">
+              <Input
+                label="NEET 2026 score (out of 720)"
+                name="score"
+                type="number"
+                min={NEET_SCORE_MIN}
+                max={NEET_SCORE_MAX}
+                inputMode="numeric"
+                value={score}
+                onChange={(e) => setScore(e.target.value)}
+                hint="Whole marks between 0 and 720 — your expected or actual score."
+                required
+              />
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Select
+                  label="Category"
+                  name="category"
+                  placeholder="Select category"
+                  options={categoryOptions}
+                  value={category}
+                  onValueChange={(v) => setCategory(v as NeetCategory | "")}
                   required
                 />
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Select
-                    label="Category"
-                    name="category"
-                    placeholder="Select category"
-                    options={categoryOptions}
-                    value={category}
-                    onValueChange={(v) => setCategory(v as NeetCategory | "")}
-                    required
-                  />
-                  <Select
-                    label="Domicile state"
-                    name="state"
-                    placeholder="Select state"
-                    options={stateOptions}
-                    value={stateSlug}
-                    onValueChange={setStateSlug}
-                    required
-                  />
-                </div>
-
-                {error ? (
-                  <p
-                    className="rounded-[10px] bg-error-container px-3.5 py-2.5 text-[12.5px] text-on-error-container"
-                    role="alert"
-                  >
-                    {error}
-                  </p>
-                ) : null}
-
-                <Button
-                  type="button"
-                  size="lg"
-                  fullWidth
-                  disabled={pending}
-                  onClick={handleSubmitScore}
-                  className="h-12 rounded-xl text-[15px] font-bold"
-                >
-                  {pending ? "Calculating..." : RANK_PREDICTOR_HERO.submitLabel}
-                </Button>
+                <Select
+                  label="Domicile state"
+                  name="state"
+                  placeholder="Select state"
+                  options={stateOptions}
+                  value={stateSlug}
+                  onValueChange={setStateSlug}
+                  required
+                />
               </div>
-            </FormPanel>
-          </RankPredictorHero>
-        ) : null}
+
+              {error ? (
+                <p
+                  className="rounded-[10px] bg-error-container px-3.5 py-2.5 text-[12.5px] text-on-error-container"
+                  role="alert"
+                >
+                  {error}
+                </p>
+              ) : null}
+
+              <Button
+                type="button"
+                size="lg"
+                fullWidth
+                disabled={pending}
+                onClick={handleSubmitScore}
+                className="h-12 rounded-xl text-[15px] font-bold"
+              >
+                {pending ? "Calculating..." : RANK_PREDICTOR_HERO.submitLabel}
+              </Button>
+            </div>
+          </FormPanel>
+        </RankPredictorHero>
+      ) : null}
 
       <CollegePredictorBanner />
 
@@ -348,7 +396,7 @@ export function RankPredictorWizard({
                 size="sm"
                 leadingIcon={<FiRefreshCw aria-hidden="true" />}
                 onClick={handleReset}
-                className="rounded-xl border-[1.5px] px-5 py-2.5 text-[13.5px] font-bold"
+                className="rounded-[14px] border-[1.5px] px-5 py-2.5 text-[13.5px] font-bold"
               >
                 New prediction
               </Button>
@@ -382,21 +430,16 @@ export function RankPredictorWizard({
                     </p>
                   </div>
                   <span className="rp-match-chip">
-                    {unlocked.previewColleges.length} matches
+                    {ballparkColleges.length} matches
                   </span>
                 </div>
 
-                <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {unlocked.previewColleges.map((college) => (
+                <div className="rp-ballpark-grid mt-5">
+                  {ballparkColleges.map((college, index) => (
                     <RankPredictorCollegePreview
                       key={college.slug}
                       college={college}
-                      verified
-                      inCompare={selectedSlugs.includes(college.slug)}
-                      compareDisabled={
-                        compareAtCapacity && !selectedSlugs.includes(college.slug)
-                      }
-                      onAddCompare={(slug) => toggle(slug)}
+                      index={index}
                     />
                   ))}
                 </div>
@@ -405,21 +448,9 @@ export function RankPredictorWizard({
                   <Button as="link" href="/colleges" variant="outline" className="rounded-xl">
                     Browse all colleges
                   </Button>
-                  {selectedSlugs.length > 0 ? (
-                    <Button
-                      as="link"
-                      href="/compare"
-                      variant="primary"
-                      leadingIcon={<FiBarChart2 aria-hidden="true" />}
-                      className="rounded-xl"
-                    >
-                      Open compare →
-                    </Button>
-                  ) : (
-                    <Button as="link" href="/compare" variant="primary" className="rounded-xl">
-                      Open compare →
-                    </Button>
-                  )}
+                  <Button as="link" href="/college-predictor" variant="primary" className="rounded-xl">
+                    Open College Predictor →
+                  </Button>
                 </div>
               </div>
             ) : null}
@@ -448,42 +479,26 @@ export function RankPredictorWizard({
               <>
                 <div>
                   <span className="rp-field-label">Mobile number</span>
-                  <div className="rp-verify-phone">
-                    <label className="rp-verify-phone-code">
+                  <PhoneNumberField
+                    layout="verify"
+                    countryCode={countryCode}
+                    phone={phone}
+                    onPhoneChange={(value) => {
+                      setPhone(value);
+                      if (otpSent) setOtpSent(false);
+                      setPhoneSessionTrusted(false);
+                    }}
+                    onCountryCodeChange={(code) => {
+                      setCountryCode(code);
+                      setOtpSent(false);
+                      setPhoneSessionTrusted(false);
+                    }}
+                    verifyLeadingIcon={
                       <FiGlobe className="text-lg text-on-surface-variant" aria-hidden />
-                      <select
-                        name="countryCode"
-                        value={countryCode}
-                        onChange={(event) => setCountryCode(event.target.value)}
-                        aria-label="Country code"
-                      >
-                        {COUNTRY_CODE_OPTIONS.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                    <label className="rp-verify-phone-number">
-                      <span className="font-semibold text-on-surface-variant">
-                        {countryCode}
-                      </span>
-                      <input
-                        name="phone"
-                        type="tel"
-                        inputMode="numeric"
-                        placeholder="10-digit mobile"
-                        value={phone}
-                        onChange={(event) => {
-                          setPhone(event.target.value);
-                          if (otpSent) setOtpSent(false);
-                        }}
-                        aria-label="Mobile number"
-                      />
-                    </label>
-                  </div>
+                    }
+                  />
                   <p className="rp-field-hint mt-2">
-                    Used only to verify this prediction session.
+                    We&apos;ll send a 6-digit OTP via SMS. Valid for 5 minutes.
                   </p>
                 </div>
                 <Button
@@ -499,11 +514,18 @@ export function RankPredictorWizard({
                     )
                   }
                   className="h-12 rounded-xl"
+                  disabled={pending || otpSending}
                   onClick={handleSendOtp}
                 >
-                  {otpSent ? "OTP sent to mobile" : "Send OTP to mobile"}
+                  {otpSending
+                    ? "Sending OTP…"
+                    : otpSent && phoneSessionTrusted
+                      ? "Verified"
+                      : otpSent
+                        ? "Resend OTP"
+                        : "Send OTP to mobile"}
                 </Button>
-                {otpSent ? (
+                {otpSent && !phoneSessionTrusted ? (
                   <Input
                     label="Enter OTP"
                     name="otp"
@@ -515,10 +537,13 @@ export function RankPredictorWizard({
                     hint="Enter the code sent to your mobile number."
                   />
                 ) : null}
-                <Checkbox
-                  label="I agree to the privacy policy and understand this is not official NTA data."
+                <LeadConsentField
+                  id="rank-predictor-consent"
+                  skin="embedded"
                   checked={consent}
                   onChange={(e) => setConsent(e.target.checked)}
+                  disabled={pending}
+                  disclaimer="I understand this is not official NTA data."
                 />
                 {error ? (
                   <p
@@ -531,12 +556,21 @@ export function RankPredictorWizard({
                 <div className="flex flex-col gap-2 sm:flex-row">
                   <Button
                     type="button"
-                    disabled={pending || !otpSent}
+                    disabled={
+                      pending ||
+                      !otpSent ||
+                      !consent ||
+                      (!phoneSessionTrusted && !otp.trim())
+                    }
                     onClick={handleVerifyOtp}
                     className="flex-1 rounded-xl"
                     size="lg"
                   >
-                    {pending ? "Verifying…" : "Verify OTP"}
+                    {pending
+                      ? "Verifying…"
+                      : phoneSessionTrusted
+                        ? "Continue"
+                        : "Verify OTP"}
                   </Button>
                   <Button
                     type="button"
@@ -563,7 +597,7 @@ export function RankPredictorWizard({
                   value={leadName}
                   onChange={(e) => setLeadName(e.target.value)}
                   placeholder="Enter Name"
-                  autoComplete="name"
+
                 />
                 <Input
                   label="City"

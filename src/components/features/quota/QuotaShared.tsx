@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { FiExternalLink, FiDownload, FiArrowRight } from "react-icons/fi";
 import { Container } from "@/components/common/Container";
-import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
+import { QuotaBookCounsellingCard } from "@/components/features/quota/QuotaBookCounsellingCard";
 import { RankPredictorShell } from "@/components/features/rank-predictor/RankPredictorParts";
 import { SectionHeading } from "@/components/features/neet-ug/shared/SectionHeading";
 import { Button } from "@/components/ui/Button";
@@ -249,13 +249,7 @@ function QuotaLeadBlock({ pageLabel }: { pageLabel: string }) {
               </div>
             </div>
 
-          <FreeCounsellingLeadForm
-            pageLabel={pageLabel}
-            title="Book free counselling"
-            submitLabel="Request call"
-            fields="name-phone-only"
-            className="border border-outline-variant/60 bg-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(37,70,208,0.18)]"
-          />
+          <QuotaBookCounsellingCard source={pageLabel} />
         </div>
       </div>
     </section>

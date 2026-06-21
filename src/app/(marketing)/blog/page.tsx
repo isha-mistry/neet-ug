@@ -26,7 +26,7 @@ export default function BlogHomePage() {
         ]}
       />
       <PageHeader
-        eyebrow="MedSeat Insights"
+        eyebrow="Dravio Insights"
         title={blog.title}
         description={blog.description}
       />

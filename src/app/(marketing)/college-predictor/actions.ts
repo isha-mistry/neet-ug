@@ -6,7 +6,11 @@ import {
   sessionsMatch,
   validateCollegePredictorInput,
 } from "@/lib/college-predictor/compute";
-import { COLLEGE_PREDICTOR_DEMO_OTP } from "@/lib/college-predictor/constants";
+import { createLead } from "@/lib/leads/create-lead";
+import { verifyPhoneLoginOtp } from "@/lib/otp/phone-otp-session";
+import { assertPhoneVerifiedSession } from "@/lib/otp/phone-verified-session";
+import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
+import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import {
   getCollegePredictorPhoneVerifiedSession,
   getCollegePredictorSession,
@@ -31,7 +35,30 @@ export async function submitCollegePredictorAction(
   if (!validated.ok) {
     return { success: false, error: validated.message };
   }
-  return { success: true, data: await computeTeaserResult(validated.input) };
+
+  const data = await computeTeaserResult(validated.input);
+
+  const leadSaved = await createLead({
+    formType: LEAD_FORM_TYPES.collegePredictor,
+    pagePath: "/college-predictor",
+    pageLabel: "College predictor — summary only",
+    variant: "estimate_only",
+    neetScore: validated.input.air,
+    neetCategory: validated.input.category,
+    domicileState: validated.input.stateSlug,
+    consent: false,
+    rawPayload: {
+      quota: validated.input.quota,
+      input: validated.input,
+      counts: data.counts,
+      referenceYear: data.referenceYear,
+    },
+  });
+  if (!leadSaved.success) {
+    console.error("[submitCollegePredictorAction] estimate_only lead", leadSaved.error);
+  }
+
+  return { success: true, data };
 }
 
 export async function verifyCollegePredictorOtpAction(payload: {
@@ -40,22 +67,30 @@ export async function verifyCollegePredictorOtpAction(payload: {
   phone?: string;
   consent: boolean;
   input: CollegePredictorFormInput;
+  trustedSession?: boolean;
 }): Promise<ActionResult<{ phoneVerified: true }>> {
   const validated = validateCollegePredictorInput(payload.input);
   if (!validated.ok) {
     return { success: false, error: validated.message };
   }
   if (!payload.consent) {
-    return { success: false, error: "Please accept the terms to continue." };
-  }
-  const otp = payload.otp.trim();
-  if (otp !== COLLEGE_PREDICTOR_DEMO_OTP) {
-    return { success: false, error: "Invalid verification code." };
+    return { success: false, error: LEAD_CONSENT_ERROR };
   }
   const phone = payload.phone?.replace(/\D/g, "") ?? "";
   const countryCode = payload.countryCode?.trim() || "+91";
   if (phone.length !== 10) {
     return { success: false, error: "Enter a valid 10-digit mobile number." };
+  }
+
+  const otpCheck = payload.trustedSession
+    ? await assertPhoneVerifiedSession({ phone, countryCode })
+    : await verifyPhoneLoginOtp({
+        phone,
+        countryCode,
+        otp: payload.otp,
+      });
+  if (!otpCheck.ok) {
+    return { success: false, error: otpCheck.error };
   }
 
   const session: CollegePredictorPhoneVerifiedSession = {
@@ -67,6 +102,24 @@ export async function verifyCollegePredictorOtpAction(payload: {
     ...validated.input,
   };
   await setCollegePredictorSession(session);
+
+  const leadSaved = await createLead({
+    formType: LEAD_FORM_TYPES.collegePredictor,
+    pagePath: "/college-predictor",
+    pageLabel: "College predictor",
+    variant: "phone_verified",
+    countryCode,
+    phone,
+    neetScore: validated.input.air,
+    neetCategory: validated.input.category,
+    domicileState: validated.input.stateSlug,
+    consent: payload.consent,
+    rawPayload: { input: validated.input },
+  });
+  if (!leadSaved.success) {
+    return { success: false, error: leadSaved.error };
+  }
+
   return { success: true, data: { phoneVerified: true } };
 }
 
@@ -109,6 +162,23 @@ export async function completeCollegePredictorProfileAction(payload: {
     leadStateSlug,
     leadCity,
     ...validated.input,
+  });
+
+  await createLead({
+    formType: LEAD_FORM_TYPES.collegePredictor,
+    pagePath: "/college-predictor",
+    pageLabel: "College predictor",
+    variant: "profile_complete",
+    name: leadName,
+    countryCode: pending.countryCode,
+    phone: pending.phone,
+    neetScore: validated.input.air,
+    neetCategory: validated.input.category,
+    domicileState: validated.input.stateSlug,
+    city: leadCity,
+    targetStates: leadStateSlug,
+    consent: true,
+    rawPayload: { input: validated.input },
   });
 
   return { success: true, data: await computeUnlockedResult(validated.input) };

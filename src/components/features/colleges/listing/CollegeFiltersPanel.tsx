@@ -59,19 +59,19 @@ export function CollegeFiltersPanel({
   const collegeTypeValue =
     filters.collegeType ??
     (filters.collegeTypes?.length === 1 &&
-    (filters.collegeTypes[0] === "government" ||
-      filters.collegeTypes[0] === "private" ||
-      filters.collegeTypes[0] === "deemed")
+      (filters.collegeTypes[0] === "government" ||
+        filters.collegeTypes[0] === "private" ||
+        filters.collegeTypes[0] === "deemed")
       ? filters.collegeTypes[0]
       : "");
 
   const resetHref =
     lockedFilters?.feeMax !== undefined || lockedTypes?.length
       ? buildListingHref(basePath, {
-          state: lockedState,
-          collegeTypes: lockedTypes,
-          feeMax: lockedFilters?.feeMax,
-        })
+        state: lockedState,
+        collegeTypes: lockedTypes,
+        feeMax: lockedFilters?.feeMax,
+      })
       : basePath;
 
   return (
@@ -83,7 +83,7 @@ export function CollegeFiltersPanel({
     >
       <header className="flex items-center justify-between gap-3 border-b border-border pb-4">
         <div className="inline-flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] bg-brand-50 text-brand-700">
+          <span className="flex h-9 w-9 items-center justify-center rounded-[14px] bg-brand-50 text-brand-700">
             <FiFilter aria-hidden="true" />
           </span>
           <div className="flex flex-col">
@@ -138,7 +138,7 @@ export function CollegeFiltersPanel({
           }
         />
         {hiddenFields.includes("collegeType") ||
-        hiddenFields.includes("collegeTypes") ? null : (
+          hiddenFields.includes("collegeTypes") ? null : (
           <Select
             label="College Type"
             options={collegeTypeOptions}

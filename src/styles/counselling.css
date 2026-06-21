@@ -133,7 +133,7 @@
   font-weight: 700;
   font-size: 15px;
   padding: 14px 28px;
-  border-radius: var(--radius-lg);
+  border-radius: 12px;
   border: 1.5px solid transparent;
   transition:
     transform 0.16s,
@@ -173,7 +173,7 @@
 .counselling-page .card {
   background: var(--color-surface-container-lowest);
   border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
+  border-radius: 12px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -529,7 +529,7 @@
 }
 .counselling-page .inc {
   padding: 22px;
-  border-radius: 16px;
+  border-radius: 12px;
   background: #fff;
   border: 1px solid var(--line);
   transition:
@@ -834,6 +834,10 @@
   border-color: var(--blue);
 }
 
+.counselling-page .plans-note + .pricing-pro-bono-note {
+  margin-top: 14px;
+}
+
 /* ============ FIT TABLE ============ */
 .counselling-page .fit {
   padding: 90px 0;
@@ -1001,7 +1005,7 @@
   padding: 24px;
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1263,9 +1267,6 @@
   }
   .counselling-page .plans-grid {
     grid-template-columns: 1fr;
-  }
-  .counselling-page .plan.pop {
-    order: -1;
   }
   .counselling-page .banner-card {
     grid-template-columns: 1fr;

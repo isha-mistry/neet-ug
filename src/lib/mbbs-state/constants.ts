@@ -1,3 +1,8 @@
+import {
+  getCounselWhatsAppUrl,
+  getCounselWhatsAppWaMeBase,
+} from "@/lib/leads/counsel-whatsapp-config";
+
 export const MBBS_STATE_LAST_UPDATED = "May 2026";
 
 export const FOCUS_STATE_SLUGS = [
@@ -7,8 +12,15 @@ export const FOCUS_STATE_SLUGS = [
   "maharashtra",
 ] as const;
 
-export const COUNSEL_WHATSAPP_URL =
-  "https://wa.me/919090909090?text=Hi%20MedSeat%2C%20I%20need%20help%20with%20MBBS%20admission";
+/** Prefill for direct WhatsApp links and free counselling CTAs. */
+export const FREE_MBBS_COUNSELLING_REVIEW_WHATSAPP_MESSAGE =
+  "Hi Dravio, I want a free MBBS counselling review. My score is ___, category is ___, and domicile state is ___.";
+
+export const COUNSEL_WHATSAPP_WA_ME_BASE = getCounselWhatsAppWaMeBase();
+
+export const COUNSEL_WHATSAPP_URL = getCounselWhatsAppUrl(
+  FREE_MBBS_COUNSELLING_REVIEW_WHATSAPP_MESSAGE,
+);
 
 export const COUNSEL_BOOK_CALL_URL = "/contact";
 

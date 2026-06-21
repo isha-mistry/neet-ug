@@ -24,7 +24,7 @@ export function StatesExplorer({
   return (
     <div
       ref={explorerRef}
-      className="grid w-full rounded-xl border border-border bg-surface shadow-[var(--shadow-sm)] lg:grid-cols-[minmax(0,3fr)_minmax(280px,2fr)] lg:items-start"
+      className="grid w-full rounded-[14px] border border-border bg-surface shadow-[var(--shadow-sm)] lg:grid-cols-[minmax(0,3fr)_minmax(280px,2fr)] lg:items-start"
       aria-label="State map and directory"
     >
       <div className="w-full min-w-0 overflow-hidden rounded-lg border border-border bg-[#f4f7f6] lg:sticky lg:top-20 lg:z-10 lg:max-h-[calc(100vh-5rem)] lg:self-start">

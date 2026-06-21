@@ -360,7 +360,7 @@ export function CollegeListingToolbar({
             value={searchDraft}
             onChange={(e) => setSearchDraft(e.target.value)}
             placeholder="Search by college name, city, state or university..."
-            className="h-12 w-full rounded-xl border border-outline-variant bg-surface py-2 pl-10 pr-4 text-body-sm text-on-surface placeholder:text-outline focus:border-primary focus:ring-2 focus:ring-primary/25 focus:outline-none"
+            className="h-12 w-full rounded-[14px] border border-outline-variant bg-surface py-2 pl-10 pr-4 text-body-sm text-on-surface placeholder:text-outline focus:border-primary focus:ring-2 focus:ring-primary/25 focus:outline-none"
             aria-label="Search colleges"
           />
         </div>

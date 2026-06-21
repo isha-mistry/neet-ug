@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CollegeTypeBadge } from "@/components/features/colleges/shared/CollegeTypeBadge";
 import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
 import type { NeetUgLeadMagnetContent } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
+import type { LeadFormType } from "@/lib/leads/types";
 import { Button } from "@/components/ui/Button";
 import {
   ToolFilterPill,
@@ -16,13 +17,16 @@ import {
 import {
   FormPanel,
   RankPredictorFaq,
+  RankPredictorLockedCTA,
   RankPredictorShell,
   ResultsPanel,
   RpMarketingHero,
+  VerifyModal,
+  VerifyPanel,
 } from "@/components/features/rank-predictor/RankPredictorParts";
 import { CUTOFF_ANALYSER_HERO, CUTOFF_ANALYSER_STRIP } from "@/lib/cutoff-analyser/page-content";
 import { cn, formatINR, formatNumber } from "@/lib/utils";
-import type { CutoffStatus } from "@/lib/cutoff-analyser/types";
+import type { CutoffStatus, CutoffAnalyserSummary } from "@/lib/cutoff-analyser/types";
 import type { AnalyserCollege } from "@/lib/cutoff-analyser/types";
 import { FOCUS_STATE_OPTIONS } from "@/lib/cutoff-analyser/constants";
 import { STATUS_LABEL, STATUS_BADGE_CLASS } from "./section-styles";
@@ -33,6 +37,8 @@ export {
   RankPredictorFaqSection,
   RankPredictorShell,
   ResultsPanel,
+  VerifyModal,
+  VerifyPanel,
 } from "@/components/features/rank-predictor/RankPredictorParts";
 export { CollegePredictorBanner } from "@/components/features/rank-predictor/RankPredictorParts";
 export { ToolQuotaField as CollegePredictorQuotaField } from "@/components/features/predictors/PredictorToolParts";
@@ -58,11 +64,11 @@ export function CutoffAnalyserHero({ children }: { children?: ReactNode }) {
       ]}
       title="See where your NEET score "
       titleEmphasis="stands across key states."
-      lede="Compare state and quota cutoffs for Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra. Build a preference list and track counseling dates — updated live as you change your score."
+      lede="Compare state and quota cutoffs for Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra. See a summary first, then unlock tables, college matches, and a preference list after verification."
       trio={[
-        { key: "Live", value: "Instant recalc" },
+        { key: "Step 1", value: "Score summary" },
         { key: "Focus", value: "GJ · RJ · MP · MH" },
-        { key: "Plan", value: "Choice list" },
+        { key: "Step 3", value: "Full analysis" },
       ]}
       fine={ANALYSER_DISCLAIMER_SHORT}
     >
@@ -80,13 +86,13 @@ export function CutoffAnalyserBanner() {
   const c = CUTOFF_ANALYSER_STRIP;
   return (
     <div className="rp-strip rp-bleed">
-      <div className="rp-strip-in ms-layout-page px-5!">
+      <div className="rp-strip-in ms-layout-page">
         <p>
           <b>{c.bold}</b> {c.text}
         </p>
         <Link
           href="/college-predictor"
-          className="inline-flex shrink-0 items-center justify-center rounded-xl border-[1.5px] border-outline-variant bg-surface-container-lowest px-5 py-2.5 text-[13.5px] font-bold text-primary transition hover:border-primary hover:bg-primary-fixed"
+          className="inline-flex shrink-0 items-center justify-center rounded-[14px] border-[1.5px] border-outline-variant bg-surface-container-lowest px-5 py-2.5 text-[13.5px] font-bold text-primary transition hover:border-primary hover:bg-primary-fixed"
         >
           {c.cta}
         </Link>
@@ -98,13 +104,25 @@ export function CutoffAnalyserBanner() {
 export function CutoffAnalyserLeadMagnet({
   content,
   className,
+  formType,
+  consentFieldId,
+  redirectToWhatsApp,
 }: {
   content: NeetUgLeadMagnetContent;
   className?: string;
+  formType?: LeadFormType;
+  consentFieldId?: string;
+  redirectToWhatsApp?: boolean;
 }) {
   return (
     <div className={className}>
-      <NeetUgLeadMagnetPanel pageLabel="Cutoff Analyser" content={content} />
+      <NeetUgLeadMagnetPanel
+        pageLabel="Cutoff Analyser"
+        content={content}
+        formType={formType}
+        consentFieldId={consentFieldId}
+        redirectToWhatsApp={redirectToWhatsApp}
+      />
     </div>
   );
 }
@@ -122,6 +140,112 @@ export function CutoffAnalyserResultHeader({
         titleEmphasis="snapshot"
         description={`Rank estimate and college matches use ${referenceYear} closing ranks in our catalog where available. Lower AIR is better.`}
       />
+    </div>
+  );
+}
+
+export function CutoffAnalyserTeaserShowcase({
+  score,
+  summary,
+  referenceYear,
+  onUnlock,
+}: {
+  score: number;
+  summary: CutoffAnalyserSummary;
+  referenceYear: number;
+  onUnlock: () => void;
+}) {
+  return (
+    <div className="flex flex-col gap-4">
+      <section className="rp-teaser-grid">
+        <div className="rp-teaser-panel">
+          <span className="rp-result-flag">Locked preview</span>
+          <h2 className="rp-tool-section-title mt-4">
+            {summary.collegeMatchCount > 0
+              ? `${formatNumber(summary.collegeMatchCount)} colleges with ${referenceYear} cutoffs`
+              : "No catalog cutoffs matched yet"}
+          </h2>
+          <p className="rp-tool-section-lede mt-2">
+            Based on NEET score{" "}
+            <span className="font-bold text-on-surface">{score}</span> (est. AIR{" "}
+            {formatNumber(summary.userRank)}, band {formatNumber(summary.rankRange.min)}–
+            {formatNumber(summary.rankRange.max)}) for your category and quota. Tables and
+            college names stay hidden until verification.
+          </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-2xl border border-outline-variant/80 bg-surface-container-lowest p-4">
+              <p className="text-xs font-bold uppercase tracking-wide text-outline">
+                Your chances
+              </p>
+              <p className="mt-1 text-2xl font-extrabold tabular-nums text-on-surface">
+                {summary.admissionProbabilityPercent}%
+              </p>
+              <p className="mt-1 text-xs text-on-surface-variant">{summary.probabilityLabel}</p>
+            </div>
+            <div className="rounded-2xl border border-outline-variant/80 bg-surface-container-lowest p-4">
+              <p className="text-xs font-bold uppercase tracking-wide text-outline">
+                Safe colleges
+              </p>
+              <p className="mt-1 text-2xl font-extrabold tabular-nums text-on-surface">
+                {summary.safeCollegeCount}
+              </p>
+              <p className="mt-1 text-xs text-on-surface-variant">Government filter</p>
+            </div>
+            <div className="rounded-2xl border border-outline-variant/80 bg-surface-container-lowest p-4">
+              <p className="text-xs font-bold uppercase tracking-wide text-outline">
+                States eligible
+              </p>
+              <p className="mt-1 text-2xl font-extrabold tabular-nums text-on-surface">
+                {summary.statesEligibleCount}/{summary.statesSelectedCount}
+              </p>
+              <p className="mt-1 text-xs text-on-surface-variant">
+                {summary.eligibleStateAbbrevs || "—"}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-outline-variant/80 bg-surface-container-lowest p-4">
+              <p className="text-xs font-bold uppercase tracking-wide text-outline">
+                Quota rows
+              </p>
+              <p className="mt-1 text-2xl font-extrabold tabular-nums text-on-surface">
+                {summary.comparisonRowCount}
+              </p>
+              <p className="mt-1 text-xs text-on-surface-variant">GJ · RJ · MP · MH</p>
+            </div>
+          </div>
+          <p className="rp-callout rp-callout-info mt-5">
+            Unlock to compare opening/closing ranks, build a preference list, and export your
+            shortlist.
+          </p>
+        </div>
+
+        <div className="rp-teaser-unlock flex flex-col">
+          <span className="rp-result-flag bg-primary text-on-primary">Full analysis locked</span>
+          <h2 className="rp-tool-section-title mt-4 text-primary">
+            Unlock state cutoffs and college matches
+          </h2>
+          <p className="rp-tool-section-lede mt-2">
+            Verification turns the summary into tables, cards, choice-list tools, and counseling
+            timelines tailored to your score.
+          </p>
+          <ul className="rp-lfeats mt-4">
+            <li>
+              State & quota comparison
+              <small>Opening, closing, gap, and status</small>
+            </li>
+            <li>
+              College match cards
+              <small>Likelihood and Safe / Target / Reach tags</small>
+            </li>
+            <li>
+              Preference list & export
+              <small>CSV, print, and JSON save</small>
+            </li>
+          </ul>
+          <div className="mt-auto pt-5">
+            <RankPredictorLockedCTA onUnlock={onUnlock} />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -99,7 +99,7 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
           </div>
 
           {filteredCutoffs.length > 0 ? (
-            <div className="overflow-x-auto rounded-xl border border-outline-variant bg-surface-container-lowest">
+            <div className="overflow-x-auto rounded-[14px] border border-outline-variant bg-surface-container-lowest">
               <table className="w-full min-w-[700px] border-collapse text-left text-sm">
                 <thead>
                   <tr className="border-b border-outline-variant bg-surface-container-low text-xs font-bold uppercase tracking-wider text-on-surface-variant">

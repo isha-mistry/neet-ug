@@ -68,7 +68,7 @@ export function StateCollegeTable({ rows }: StateCollegeTableProps) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="College name…"
-            className="rounded-xl border border-outline-variant bg-surface-container-low px-3 py-2 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20"
+            className="rounded-[14px] border border-outline-variant bg-surface-container-low px-3 py-2 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
@@ -76,7 +76,7 @@ export function StateCollegeTable({ rows }: StateCollegeTableProps) {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value as TypeFilter)}
-            className="rounded-xl border border-outline-variant bg-surface-container-low px-3 py-2 text-sm text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20"
+            className="rounded-[14px] border border-outline-variant bg-surface-container-low px-3 py-2 text-sm text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20"
           >
             <option value="all">All</option>
             <option value="Government">Government</option>
@@ -90,7 +90,7 @@ export function StateCollegeTable({ rows }: StateCollegeTableProps) {
           <select
             value={cityFilter}
             onChange={(e) => setCityFilter(e.target.value)}
-            className="max-w-[180px] rounded-xl border border-outline-variant bg-surface-container-low px-3 py-2 text-sm text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20"
+            className="max-w-[180px] rounded-[14px] border border-outline-variant bg-surface-container-low px-3 py-2 text-sm text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20"
           >
             <option value="all">All cities</option>
             {cities.map((c) => (

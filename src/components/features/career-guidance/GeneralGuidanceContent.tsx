@@ -98,7 +98,7 @@ export function GeneralGuidanceContent() {
 
             <div className="space-y-4.5">
               <div className="flex gap-4">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-on-primary font-bold text-xs">A</div>
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[14px] bg-primary text-on-primary font-bold text-xs">A</div>
                 <div>
                   <h4 className="text-xs font-black text-on-surface">Understand Quota Splits</h4>
                   <p className="text-[11px] text-on-surface-variant leading-relaxed mt-0.5">
@@ -107,7 +107,7 @@ export function GeneralGuidanceContent() {
                 </div>
               </div>
               <div className="flex gap-4">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-on-primary font-bold text-xs">B</div>
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[14px] bg-primary text-on-primary font-bold text-xs">B</div>
                 <div>
                   <h4 className="text-xs font-black text-on-surface">Analyze Seat Matrices Early</h4>
                   <p className="text-[11px] text-on-surface-variant leading-relaxed mt-0.5">

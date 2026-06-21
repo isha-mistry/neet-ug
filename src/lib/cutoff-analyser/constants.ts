@@ -35,5 +35,9 @@ export const NEET_SCORE_MAX = 720;
 
 export const DEFAULT_SCORE = 580;
 
+export const CUTOFF_ANALYSER_SESSION_COOKIE = "dravio_cutoff_analyser_session";
+
+export const CUTOFF_ANALYSER_SESSION_MAX_AGE_SEC = 60 * 60 * 24 * 90;
+
 export const ANALYSER_DISCLAIMER =
-  "Preview uses sample cutoff data from our design spec (score 580 · AIR ~12,420 · General). Live catalog integration for all states is coming soon. Lower AIR is better.";
+  "Estimates use your NEET score mapped to an AIR band via our prediction service, then compared to closing ranks in our catalog for Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra. Not official MCC/NTA allotment. Lower AIR is better.";

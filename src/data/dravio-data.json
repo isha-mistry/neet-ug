@@ -1,0 +1,2348 @@
+{
+  "site": {
+    "brandName": "Dravio",
+    "tagline": "Find the right MBBS college with clarity.",
+    "description": "Compare MBBS colleges across India with verified fees, cutoffs, bond rules, and infrastructure data.",
+    "primaryNav": [
+      {
+        "label": "Predictors",
+        "href": "/rank-predictor"
+      },
+      {
+        "label": "NEET UG 2026",
+        "href": "/neet-ug-2026"
+      },
+      {
+        "label": "Colleges",
+        "href": "/colleges"
+      },
+      {
+        "label": "Quota",
+        "href": "/quota/general"
+      },
+      {
+        "label": "Counselling",
+        "href": "/counselling"
+      },
+      {
+        "label": "About",
+        "href": "/about-us"
+      }
+    ],
+    "footer": {
+      "columns": [
+        {
+          "title": "Explore",
+          "links": [
+            {
+              "label": "All Colleges",
+              "href": "/colleges"
+            },
+            {
+              "label": "All Categories",
+              "href": "/colleges/category"
+            },
+            {
+              "label": "Government",
+              "href": "/colleges/category/government"
+            },
+            {
+              "label": "Private",
+              "href": "/colleges/category/private"
+            },
+            {
+              "label": "AIIMS",
+              "href": "/colleges/category/aiims"
+            },
+            {
+              "label": "Low Fee",
+              "href": "/colleges/category/low-fee"
+            }
+          ]
+        },
+        {
+          "title": "Medical Colleges in India",
+          "links": [
+            {
+              "label": "MBBS in India",
+              "href": "/mbbs-in-india"
+            },
+            {
+              "label": "MBBS in Gujarat",
+              "href": "/mbbs-in-india/gujarat"
+            },
+            {
+              "label": "MBBS in Rajasthan",
+              "href": "/mbbs-in-india/rajasthan"
+            },
+            {
+              "label": "MBBS in Maharashtra",
+              "href": "/mbbs-in-india/maharashtra"
+            },
+            {
+              "label": "MBBS in Madhya Pradesh",
+              "href": "/mbbs-in-india/madhya-pradesh"
+            }
+          ]
+        },
+        {
+          "title": "Decision Tools",
+          "links": [
+            {
+              "label": "Compare Colleges",
+              "href": "/compare"
+            },
+            {
+              "label": "Quota Guides",
+              "href": "/quota/general"
+            },
+            {
+              "label": "Counseling",
+              "href": "/counselling"
+            },
+            {
+              "label": "Career Guidance",
+              "href": "/career-guidance"
+            },
+            {
+              "label": "State Counselling",
+              "href": "/state-counselling"
+            }
+          ]
+        },
+        {
+          "title": "Dravio",
+          "links": [
+            {
+              "label": "About Us",
+              "href": "/about-us"
+            },
+            {
+              "label": "FAQ",
+              "href": "/counselling#faq"
+            },
+            {
+              "label": "How It Works",
+              "href": "/counselling#how-it-works"
+            },
+            {
+              "label": "Contact Us",
+              "href": "/contact"
+            },
+            {
+              "label": "Privacy",
+              "href": "/privacy"
+            }
+          ]
+        }
+      ],
+      "legal": "Dravio is an information platform for MBBS aspirants. All data is curated for guidance and should be verified with official sources."
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "MBBS Admissions Made Clear",
+      "title": "Make the right MBBS college decision with verified data and a clear plan.",
+      "subtitle": "Compare fees, cutoffs, bond rules, and infrastructure across government, private, deemed and AIIMS colleges in India.",
+      "primaryCta": {
+        "label": "Explore Colleges",
+        "href": "/colleges"
+      },
+      "secondaryCta": {
+        "label": "Compare Colleges",
+        "href": "/compare"
+      }
+    },
+    "exploreEntryPoints": [
+      {
+        "id": "all-colleges",
+        "title": "All MBBS Colleges",
+        "description": "Browse the full database with filters for rank, budget and state.",
+        "href": "/colleges",
+        "icon": "FiList"
+      },
+      {
+        "id": "by-state",
+        "title": "Search by State",
+        "description": "Focus on a state's counseling, seats and competition.",
+        "href": "/colleges/state",
+        "icon": "FiMapPin"
+      },
+      {
+        "id": "by-category",
+        "title": "Search by Category",
+        "description": "Government, private, AIIMS, low fee and more.",
+        "href": "/colleges/category",
+        "icon": "FiLayers"
+      },
+      {
+        "id": "compare",
+        "title": "Compare Colleges",
+        "description": "Pick a few colleges and see the best fit clearly.",
+        "href": "/compare",
+        "icon": "FiBarChart2"
+      }
+    ],
+    "trustHighlights": {
+      "title": "Built for confident MBBS decisions",
+      "description": "Dravio structures everything you need so you spend less time hunting data and more time deciding.",
+      "items": [
+        {
+          "id": "verified",
+          "label": "Verified Data",
+          "value": "500+",
+          "caption": "Colleges with structured details",
+          "icon": "FiShield"
+        },
+        {
+          "id": "cutoffs",
+          "label": "Cutoff Trends",
+          "value": "5 Years",
+          "caption": "Historical year-wise cutoffs",
+          "icon": "FiTrendingUp"
+        },
+        {
+          "id": "compare",
+          "label": "Decision Support",
+          "value": "Best Fit Score",
+          "caption": "Compare colleges with clarity",
+          "icon": "FiAward"
+        },
+        {
+          "id": "states",
+          "label": "Pan-India Coverage",
+          "value": "All States",
+          "caption": "State-wise discovery for MBBS",
+          "icon": "FiGlobe"
+        }
+      ]
+    }
+  },
+  "pages": {
+    "allColleges": {
+      "title": "MBBS Colleges in India — Fees, Cutoffs & Seats",
+      "description": "Search and filter MBBS colleges across India by quota, category, state, fees, and closing rank. Compare seats, bond rules, and counseling paths."
+    },
+    "comparison": {
+      "title": "Compare MBBS Colleges",
+      "description": "Stack colleges against the top critical metrics and see the best fit recommendation."
+    },
+    "blog": {
+      "title": "Dravio Blog",
+      "description": "Practical guidance on counseling strategy, quotas, documentation and MBBS decision-making."
+    },
+    "quota": {
+      "title": "MBBS Quota Guides",
+      "description": "Understand category, quota and admission pathways with concise eligibility and strategy notes."
+    },
+    "about": {
+      "title": "About Dravio",
+      "description": "Learn what Dravio does and why structured college intelligence matters."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "description": "Common questions about MBBS college discovery, quotas and Dravio workflows."
+    },
+    "contact": {
+      "title": "Contact Dravio",
+      "description": "Reach out for platform support, feedback and guidance."
+    },
+    "howItWorks": {
+      "title": "How Dravio Works",
+      "description": "Understand Dravio’s workflow from discovery to shortlist and final decision."
+    }
+  },
+  "quotaGuides": [
+    {
+      "slug": "all-india",
+      "title": "All India Quota (AIQ) MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
+    },
+    {
+      "slug": "state",
+      "title": "State Quota (SQ) MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
+    },
+    {
+      "slug": "management",
+      "title": "Management Quota (MQ) MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
+    },
+    {
+      "slug": "nri",
+      "title": "NRI Quota MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
+    },
+    {
+      "slug": "deemed",
+      "title": "Deemed University MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
+    },
+    {
+      "slug": "special",
+      "title": "Special / Institutional MBBS Quota Guide",
+      "summary": "",
+      "overview": "",
+      "keyPoints": [],
+      "sections": []
+    }
+  ],
+  "blog": {
+    "title": "Dravio Blog",
+    "description": "Practical MBBS admission guidance covering quotas, counseling strategy and college selection frameworks.",
+    "featuredSlug": "how-to-build-mbbs-college-shortlist",
+    "articles": [
+      {
+        "slug": "how-to-build-mbbs-college-shortlist",
+        "title": "How to Build a Practical MBBS College Shortlist",
+        "excerpt": "A structured framework to build dream, realistic and safe MBBS college lists using fees, cutoff history and seat trends.",
+        "author": "Dravio Editorial",
+        "publishedAt": "2026-05-20",
+        "readMinutes": 8,
+        "tags": [
+          "Shortlisting",
+          "Counseling"
+        ],
+        "sections": [
+          {
+            "heading": "Start with Constraints First",
+            "paragraphs": [
+              "Before comparing brand names, fix your non-negotiables: budget cap, preferred states and acceptable bond obligations.",
+              "This prevents overfocusing on unrealistic options and helps keep your counseling list executable."
+            ]
+          },
+          {
+            "heading": "Use 5-Year Cutoff Bands",
+            "paragraphs": [
+              "Single-year cutoffs can be noisy. Build a range from multiple years and classify colleges into aggressive, target and safe.",
+              "Re-balance your list after each round based on vacancy movement."
+            ]
+          },
+          {
+            "heading": "Evaluate Decision Quality, Not Just Availability",
+            "paragraphs": [
+              "A seat is only useful if training quality and long-term outcomes justify the commitment.",
+              "Review hospital load, infrastructure, bond penalties and total cost before final lock."
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "state-vs-aiq-counseling-strategy",
+        "title": "State vs AIQ Counseling: How to Balance Both",
+        "excerpt": "Understand where AIQ helps, where state quota dominates, and how to avoid list duplication mistakes.",
+        "author": "Counseling Team",
+        "publishedAt": "2026-05-16",
+        "readMinutes": 7,
+        "tags": [
+          "AIQ",
+          "State Quota"
+        ],
+        "sections": [
+          {
+            "heading": "What AIQ Does Best",
+            "paragraphs": [
+              "AIQ opens interstate choices and can improve option quality for strong ranks.",
+              "It is especially useful when your domicile state has intense local competition."
+            ]
+          },
+          {
+            "heading": "Where State Quota Still Wins",
+            "paragraphs": [
+              "State quota often offers higher seat access for domicile candidates and better familiarity with local procedures.",
+              "State rules, category interpretation and seat matrix can materially change outcomes."
+            ]
+          },
+          {
+            "heading": "A Balanced Execution Model",
+            "paragraphs": [
+              "Run parallel but distinct preference lists for AIQ and state to avoid accidental overlap and weak backups.",
+              "Treat each counseling channel as part of one integrated decision plan."
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "understanding-mbbs-bond-rules",
+        "title": "Understanding MBBS Bond Rules Before You Lock a Seat",
+        "excerpt": "Bond years and penalties can alter real college value. Learn what to check before final choice.",
+        "author": "Dravio Editorial",
+        "publishedAt": "2026-05-10",
+        "readMinutes": 6,
+        "tags": [
+          "Bond",
+          "Decision Making"
+        ],
+        "sections": [
+          {
+            "heading": "Bond Rules Impact ROI",
+            "paragraphs": [
+              "A low-fee college with a high penalty may not always be the best financial choice.",
+              "Estimate total commitment including service years and potential penalty scenarios."
+            ]
+          },
+          {
+            "heading": "Verify Official Sources",
+            "paragraphs": [
+              "Do not rely on forums alone for bond interpretation.",
+              "Always cross-check latest authority notifications and college prospectus updates."
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "infoPages": [
+    {
+      "slug": "about",
+      "title": "About Dravio",
+      "description": "Dravio helps MBBS aspirants make faster, better college decisions using structured data and practical guidance.",
+      "sections": [
+        {
+          "heading": "Our Mission",
+          "body": "We simplify high-stakes MBBS decisions by turning scattered admission data into a clear, comparable decision experience."
+        },
+        {
+          "heading": "What We Focus On",
+          "points": [
+            "Structured college details (fees, cutoffs, seats, bonds)",
+            "State/category/quota-aware discovery pathways",
+            "Decision support through comparison and fit-oriented insights"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "title": "Contact Dravio",
+      "description": "Connect with us for support, corrections, partnership requests or product feedback.",
+      "sections": [
+        {
+          "heading": "Support",
+          "points": [
+            "Email: support@dravio.example",
+            "Hours: Mon-Sat, 10:00 AM - 7:00 PM IST",
+            "Response SLA: within 24 business hours"
+          ]
+        },
+        {
+          "heading": "Feedback & Data Corrections",
+          "body": "If you spot inaccuracies in college information, share official references and we will prioritize verification."
+        }
+      ]
+    },
+    {
+      "slug": "how-it-works",
+      "title": "How Dravio Works",
+      "description": "From exploration to final choice, Dravio guides you through each decision stage.",
+      "sections": [
+        {
+          "heading": "Step 1 — Discover",
+          "body": "Use state, category and budget filters to identify an initial pool of relevant MBBS colleges."
+        },
+        {
+          "heading": "Step 2 — Compare",
+          "body": "Shortlist colleges and compare critical metrics like fees, cutoff trends, seats and bond obligations."
+        },
+        {
+          "heading": "Step 3 — Decide",
+          "body": "Finalize rank-calibrated preference lists and align them with quota/counseling channels."
+        }
+      ]
+    }
+  ],
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "description": "Answers to common MBBS counseling and Dravio platform questions.",
+    "items": [
+      {
+        "question": "How often is college data updated?",
+        "answer": "Data is periodically refreshed, and high-impact fields like cutoffs and fee structures are prioritized for update cycles."
+      },
+      {
+        "question": "Can I use Dravio for both AIQ and state counseling?",
+        "answer": "Yes. Dravio supports planning across both channels and helps keep your choices organized by route and feasibility."
+      },
+      {
+        "question": "Are bond rules uniform across all colleges?",
+        "answer": "No. Bond duration and penalties vary by state and institution, so always validate latest official notices."
+      },
+      {
+        "question": "How should I choose between two similar colleges?",
+        "answer": "Use a multi-factor comparison: fee burden, cutoff stability, hospital load, bond obligations and long-term ROI."
+      },
+      {
+        "question": "Does Dravio replace official counseling portals?",
+        "answer": "No. Dravio is a decision-support layer. Final registration, choice filling and seat acceptance happen on official counseling portals."
+      }
+    ]
+  },
+  "states": [
+    {
+      "slug": "maharashtra",
+      "name": "Maharashtra",
+      "intro": "Maharashtra counseling is handled by the State CET Cell, with state quota seats across government and private colleges.",
+      "totalSeats": 6850,
+      "competitionLevel": "High"
+    },
+    {
+      "slug": "karnataka",
+      "name": "Karnataka",
+      "intro": "Karnataka MBBS admissions are conducted by KEA across government, private and deemed colleges with multiple quotas.",
+      "totalSeats": 5320,
+      "competitionLevel": "High"
+    },
+    {
+      "slug": "delhi",
+      "name": "Delhi",
+      "intro": "Delhi has limited but highly competitive MBBS seats led by AIIMS Delhi, MAMC and other central institutions.",
+      "totalSeats": 1290,
+      "competitionLevel": "Very High"
+    },
+    {
+      "slug": "tamil-nadu",
+      "name": "Tamil Nadu",
+      "intro": "Tamil Nadu admits MBBS students primarily through state counseling with a strong network of government colleges.",
+      "totalSeats": 5680,
+      "competitionLevel": "High"
+    },
+    {
+      "slug": "madhya-pradesh",
+      "name": "Madhya Pradesh",
+      "intro": "Madhya Pradesh MBBS admissions are conducted through state counseling with government, private and central institutes including AIIMS Bhopal.",
+      "totalSeats": 4120,
+      "competitionLevel": "High"
+    }
+  ],
+  "categories": [
+    {
+      "slug": "government",
+      "title": "Government MBBS Colleges",
+      "description": "State-funded MBBS colleges with the lowest fees and strong clinical exposure.",
+      "preset": {
+        "collegeTypes": [
+          "government"
+        ]
+      }
+    },
+    {
+      "slug": "private",
+      "title": "Private MBBS Colleges",
+      "description": "Private MBBS colleges with broader seat availability and varied fee structures.",
+      "preset": {
+        "collegeTypes": [
+          "private",
+          "deemed"
+        ]
+      }
+    },
+    {
+      "slug": "aiims",
+      "title": "AIIMS Colleges",
+      "description": "All India Institutes of Medical Sciences across India with central admission process.",
+      "preset": {
+        "collegeTypes": [
+          "aiims"
+        ]
+      }
+    },
+    {
+      "slug": "low-fee",
+      "title": "Low Fee MBBS Colleges",
+      "description": "Curated MBBS colleges with the most affordable total fees across India.",
+      "preset": {
+        "maxTotalFee": 1500000
+      }
+    }
+  ],
+  "filterOptions": {
+    "collegeTypes": [
+      {
+        "value": "government",
+        "label": "Government"
+      },
+      {
+        "value": "private",
+        "label": "Private"
+      },
+      {
+        "value": "deemed",
+        "label": "Deemed"
+      },
+      {
+        "value": "aiims",
+        "label": "AIIMS"
+      }
+    ],
+    "feeRanges": [
+      {
+        "value": "0-500000",
+        "label": "Under 5 Lakh"
+      },
+      {
+        "value": "500000-1500000",
+        "label": "5 - 15 Lakh"
+      },
+      {
+        "value": "1500000-5000000",
+        "label": "15 - 50 Lakh"
+      },
+      {
+        "value": "5000000-99999999",
+        "label": "Above 50 Lakh"
+      }
+    ],
+    "cutoffRanges": [
+      {
+        "value": "0-100",
+        "label": "Top 100"
+      },
+      {
+        "value": "0-1000",
+        "label": "Top 1,000"
+      },
+      {
+        "value": "0-10000",
+        "label": "Top 10,000"
+      },
+      {
+        "value": "0-50000",
+        "label": "Top 50,000"
+      },
+      {
+        "value": "0-200000",
+        "label": "Top 2,00,000"
+      }
+    ]
+  },
+  "sortOptions": [
+    {
+      "value": "lowest_fees",
+      "label": "Lowest Fees"
+    },
+    {
+      "value": "highest_roi",
+      "label": "Highest ROI"
+    },
+    {
+      "value": "lowest_cutoff",
+      "label": "Lowest Cutoff"
+    }
+  ],
+  "comparisonMetrics": [
+    {
+      "id": "totalFee",
+      "label": "Total Fees",
+      "direction": "lower",
+      "weight": 0.3,
+      "format": "currency"
+    },
+    {
+      "id": "latestCutoff",
+      "label": "Latest Cutoff",
+      "direction": "lower",
+      "weight": 0.25,
+      "format": "number"
+    },
+    {
+      "id": "seatCount",
+      "label": "Seats",
+      "direction": "higher",
+      "weight": 0.15,
+      "format": "number"
+    },
+    {
+      "id": "bondYears",
+      "label": "Bond Years",
+      "direction": "lower",
+      "weight": 0.15,
+      "format": "years"
+    },
+    {
+      "id": "roiScore",
+      "label": "ROI Score",
+      "direction": "higher",
+      "weight": 0.15,
+      "format": "score"
+    }
+  ],
+  "colleges": [
+    {
+      "slug": "aiims-delhi",
+      "name": "AIIMS Delhi",
+      "stateSlug": "delhi",
+      "city": "New Delhi",
+      "collegeType": "aiims",
+      "seatCount": 132,
+      "quotaInfo": "All India 100%",
+      "fees": {
+        "tuition": 1628,
+        "hostel": 5400,
+        "misc": 2000,
+        "totalAnnual": 9028,
+        "totalCourse": 45140
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 39,
+          "closingRank": 56,
+          "stateOpeningRank": 512,
+          "stateClosingRank": 4460,
+          "categoryOpeningRank": "OP-39",
+          "categoryClosingRank": "OP-56"
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 50,
+          "closingRank": 67,
+          "stateOpeningRank": 5521,
+          "stateClosingRank": 6079,
+          "categoryOpeningRank": "OBC-291",
+          "categoryClosingRank": "OBC-341"
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 56,
+          "closingRank": 61,
+          "stateOpeningRank": 2976,
+          "stateClosingRank": 4758,
+          "categoryOpeningRank": "OP-56",
+          "categoryClosingRank": "OP-61"
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 43,
+          "closingRank": 62,
+          "stateOpeningRank": 4914,
+          "stateClosingRank": 5773,
+          "categoryOpeningRank": "OP-43",
+          "categoryClosingRank": "OP-62"
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 55,
+          "closingRank": 74,
+          "stateOpeningRank": 5432,
+          "stateClosingRank": 6385,
+          "categoryOpeningRank": "OBC-285",
+          "categoryClosingRank": "OBC-365"
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 62,
+          "closingRank": 68,
+          "stateOpeningRank": 5564,
+          "stateClosingRank": 7132,
+          "categoryOpeningRank": "OP-62",
+          "categoryClosingRank": "OP-68"
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 52,
+          "closingRank": 75
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 67,
+          "closingRank": 90
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 75,
+          "closingRank": 82
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 56,
+          "closingRank": 80
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 72,
+          "closingRank": 96
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 80,
+          "closingRank": 88
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 49,
+          "closingRank": 70
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 63,
+          "closingRank": 84
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 70,
+          "closingRank": 77
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "roiScore": 98,
+      "university": "Delhi University",
+      "seatMatrix": {
+        "aiq": 132,
+        "stateQuota": 0,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 53,
+          "OBC": 36,
+          "SC": 20,
+          "ST": 10,
+          "EWS": 13
+        }
+      },
+      "otherInfo": {
+        "officialWebsite": "https://www.aiims-delhi.edu.in",
+        "counsellingBrochureUrl": "https://www.aiims-delhi.edu.in/brochure.pdf"
+      }
+    },
+    {
+      "slug": "maulana-azad-medical-college",
+      "name": "Maulana Azad Medical College",
+      "stateSlug": "delhi",
+      "city": "New Delhi",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 25000,
+        "hostel": 1200,
+        "misc": 1325,
+        "totalAnnual": 27400,
+        "totalCourse": 123300,
+        "gqFees": 25000,
+        "mqFees": 0,
+        "nriFees": 0,
+        "nriCurrency": "Rs.",
+        "hostelFees": 1200,
+        "messFees": 0,
+        "universityFees": 125,
+        "transportFees": 0,
+        "examFees": 1200
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 117,
+          "closingRank": 168
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 151,
+          "closingRank": 201
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 168,
+          "closingRank": 184
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 125,
+          "closingRank": 180
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 162,
+          "closingRank": 216
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 180,
+          "closingRank": 198
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 136,
+          "closingRank": 195
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 175,
+          "closingRank": 234
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 195,
+          "closingRank": 214
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 147,
+          "closingRank": 210
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 189,
+          "closingRank": 252
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 210,
+          "closingRank": 231
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 139,
+          "closingRank": 199
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 179,
+          "closingRank": 238
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 199,
+          "closingRank": 218
+        }
+      ],
+      "bond": {
+        "years": 1,
+        "penalty": 500000,
+        "note": "Service bond for state quota seats."
+      },
+      "roiScore": 95,
+      "university": "Delhi University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
+      },
+      "otherInfo": {
+        "officialWebsite": "https://www.maulana-azad-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.maulana-azad-medical-college.edu.in/brochure.pdf"
+      }
+    },
+    {
+      "slug": "grant-medical-college",
+      "name": "Grant Medical College",
+      "stateSlug": "maharashtra",
+      "city": "Mumbai",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 25000,
+        "hostel": 10000,
+        "misc": 4525,
+        "totalAnnual": 39525,
+        "totalCourse": 177862,
+        "gqFees": 25000,
+        "mqFees": 0,
+        "nriFees": 0,
+        "nriCurrency": "Rs.",
+        "hostelFees": 10000,
+        "messFees": 0,
+        "universityFees": 4525,
+        "transportFees": 0,
+        "examFees": 0
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1014,
+          "closingRank": 1450
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1305,
+          "closingRank": 1740
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1450,
+          "closingRank": 1595
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1134,
+          "closingRank": 1620
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1458,
+          "closingRank": 1944
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1620,
+          "closingRank": 1782
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1036,
+          "closingRank": 1480
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1332,
+          "closingRank": 1776
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1480,
+          "closingRank": 1628
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1190,
+          "closingRank": 1700
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1530,
+          "closingRank": 2040
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1700,
+          "closingRank": 1870
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1106,
+          "closingRank": 1580
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1422,
+          "closingRank": 1896
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1580,
+          "closingRank": 1738
+        }
+      ],
+      "bond": {
+        "years": 1,
+        "penalty": 1000000,
+        "note": "Maharashtra government bond."
+      },
+      "roiScore": 89,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
+      },
+      "otherInfo": {
+        "officialWebsite": "https://www.grant-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.grant-medical-college.edu.in/brochure.pdf"
+      }
+    },
+    {
+      "slug": "bj-medical-college-pune",
+      "name": "B.J. Medical College, Pune",
+      "stateSlug": "maharashtra",
+      "city": "Pune",
+      "collegeType": "government",
+      "seatCount": 200,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 78000,
+        "hostel": 22000,
+        "misc": 7000,
+        "totalAnnual": 107000,
+        "totalCourse": 535000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1407,
+          "closingRank": 2010
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1809,
+          "closingRank": 2412
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2010,
+          "closingRank": 2211
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1505,
+          "closingRank": 2150
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1935,
+          "closingRank": 2580
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2150,
+          "closingRank": 2365
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1596,
+          "closingRank": 2280
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 2052,
+          "closingRank": 2736
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2280,
+          "closingRank": 2508
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1680,
+          "closingRank": 2400
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 2160,
+          "closingRank": 2880
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2400,
+          "closingRank": 2640
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1512,
+          "closingRank": 2160
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1944,
+          "closingRank": 2592
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2160,
+          "closingRank": 2376
+        }
+      ],
+      "bond": {
+        "years": 1,
+        "penalty": 1000000,
+        "note": "Maharashtra government bond."
+      },
+      "roiScore": 87,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 30,
+        "stateQuota": 170,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 80,
+          "OBC": 54,
+          "SC": 30,
+          "ST": 15
+        }
+      },
+      "otherInfo": {
+        "officialWebsite": "https://www.bj-medical-college-pune.edu.in",
+        "counsellingBrochureUrl": "https://www.bj-medical-college-pune.edu.in/brochure.pdf"
+      }
+    },
+    {
+      "slug": "kasturba-medical-college-manipal",
+      "name": "Kasturba Medical College, Manipal",
+      "stateSlug": "karnataka",
+      "city": "Manipal",
+      "collegeType": "deemed",
+      "seatCount": 250,
+      "quotaInfo": "Deemed Institutional 50% / AIQ 50%",
+      "fees": {
+        "tuition": 1450000,
+        "hostel": 180000,
+        "misc": 90000,
+        "totalAnnual": 1730000,
+        "totalCourse": 7785000,
+        "gqFees": 1450000,
+        "mqFees": 1780000,
+        "nriFees": 49000,
+        "nriCurrency": "USD",
+        "hostelFees": 180000,
+        "messFees": 60000,
+        "universityFees": 15000,
+        "transportFees": 10000,
+        "examFees": 5000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 13650,
+          "closingRank": 19500
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 17550,
+          "closingRank": 23400
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 19500,
+          "closingRank": 21450
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 14699,
+          "closingRank": 21000
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 18900,
+          "closingRank": 25200
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 21000,
+          "closingRank": 23100
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 15749,
+          "closingRank": 22500
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 20250,
+          "closingRank": 27000
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 22500,
+          "closingRank": 24750
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 16800,
+          "closingRank": 24000
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 21600,
+          "closingRank": 28800
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 24000,
+          "closingRank": 26400
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 16099,
+          "closingRank": 23000
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 20700,
+          "closingRank": 27600
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 23000,
+          "closingRank": 25300
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "roiScore": 78,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
+      },
+      "otherInfo": {
+        "officialWebsite": "https://www.kasturba-medical-college-manipal.edu.in",
+        "counsellingBrochureUrl": "https://www.kasturba-medical-college-manipal.edu.in/brochure.pdf"
+      }
+    },
+    {
+      "slug": "bangalore-medical-college",
+      "name": "Bangalore Medical College and Research Institute",
+      "stateSlug": "karnataka",
+      "city": "Bengaluru",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 70000,
+        "hostel": 28000,
+        "misc": 8000,
+        "totalAnnual": 106000,
+        "totalCourse": 530000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1386,
+          "closingRank": 1980
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1782,
+          "closingRank": 2376
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1980,
+          "closingRank": 2178
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1470,
+          "closingRank": 2100
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1890,
+          "closingRank": 2520
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2100,
+          "closingRank": 2310
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1554,
+          "closingRank": 2220
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1998,
+          "closingRank": 2664
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2220,
+          "closingRank": 2442
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1645,
+          "closingRank": 2350
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 2115,
+          "closingRank": 2820
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2350,
+          "closingRank": 2585
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1456,
+          "closingRank": 2080
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1872,
+          "closingRank": 2496
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 2080,
+          "closingRank": 2288
+        }
+      ],
+      "bond": {
+        "years": 1,
+        "penalty": 1500000,
+        "note": "Karnataka rural service bond."
+      },
+      "roiScore": 88,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
+      },
+      "otherInfo": {
+        "officialWebsite": "https://www.bangalore-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.bangalore-medical-college.edu.in/brochure.pdf"
+      }
+    },
+    {
+      "slug": "madras-medical-college",
+      "name": "Madras Medical College",
+      "stateSlug": "tamil-nadu",
+      "city": "Chennai",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 13750,
+        "hostel": 18000,
+        "misc": 5000,
+        "totalAnnual": 36750,
+        "totalCourse": 183750
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 644,
+          "closingRank": 920
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 828,
+          "closingRank": 1104
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 920,
+          "closingRank": 1012
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 686,
+          "closingRank": 980
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 882,
+          "closingRank": 1176
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 980,
+          "closingRank": 1078
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 770,
+          "closingRank": 1100
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 990,
+          "closingRank": 1320
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1100,
+          "closingRank": 1210
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 840,
+          "closingRank": 1200
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1080,
+          "closingRank": 1440
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1200,
+          "closingRank": 1320
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 735,
+          "closingRank": 1050
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 945,
+          "closingRank": 1260
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1050,
+          "closingRank": 1155
+        }
+      ],
+      "bond": {
+        "years": 2,
+        "penalty": 1000000,
+        "note": "Tamil Nadu service bond."
+      },
+      "roiScore": 92,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
+      },
+      "otherInfo": {
+        "officialWebsite": "https://www.madras-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.madras-medical-college.edu.in/brochure.pdf"
+      }
+    },
+    {
+      "slug": "stanley-medical-college",
+      "name": "Stanley Medical College",
+      "stateSlug": "tamil-nadu",
+      "city": "Chennai",
+      "collegeType": "government",
+      "seatCount": 250,
+      "quotaInfo": "AIQ 15% / State 85%",
+      "fees": {
+        "tuition": 13750,
+        "hostel": 18000,
+        "misc": 5000,
+        "totalAnnual": 36750,
+        "totalCourse": 183750
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 923,
+          "closingRank": 1320
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1188,
+          "closingRank": 1584
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1320,
+          "closingRank": 1452
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1014,
+          "closingRank": 1450
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1305,
+          "closingRank": 1740
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1450,
+          "closingRank": 1595
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1050,
+          "closingRank": 1500
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1350,
+          "closingRank": 1800
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1500,
+          "closingRank": 1650
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1134,
+          "closingRank": 1620
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1458,
+          "closingRank": 1944
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1620,
+          "closingRank": 1782
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 965,
+          "closingRank": 1380
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1242,
+          "closingRank": 1656
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1380,
+          "closingRank": 1518
+        }
+      ],
+      "bond": {
+        "years": 2,
+        "penalty": 1000000,
+        "note": "Tamil Nadu service bond."
+      },
+      "roiScore": 86,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
+      },
+      "otherInfo": {
+        "officialWebsite": "https://www.stanley-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.stanley-medical-college.edu.in/brochure.pdf"
+      }
+    },
+    {
+      "slug": "dy-patil-medical-college",
+      "name": "D.Y. Patil Medical College, Pune",
+      "stateSlug": "maharashtra",
+      "city": "Pune",
+      "collegeType": "deemed",
+      "seatCount": 250,
+      "quotaInfo": "Deemed Institutional 50% / AIQ 50%",
+      "fees": {
+        "tuition": 2750000,
+        "hostel": 220000,
+        "misc": 80000,
+        "totalAnnual": 3050000,
+        "totalCourse": 15250000
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 39200,
+          "closingRank": 56000
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 50400,
+          "closingRank": 67200
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 56000,
+          "closingRank": 61600
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 42000,
+          "closingRank": 60000
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 54000,
+          "closingRank": 72000
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 60000,
+          "closingRank": 66000
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 43400,
+          "closingRank": 62000
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 55800,
+          "closingRank": 74400
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 62000,
+          "closingRank": 68200
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 45500,
+          "closingRank": 65000
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 58500,
+          "closingRank": 78000
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 65000,
+          "closingRank": 71500
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 44100,
+          "closingRank": 63000
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 56700,
+          "closingRank": 75600
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 63000,
+          "closingRank": 69300
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "roiScore": 62,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 37,
+        "stateQuota": 212,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 100,
+          "OBC": 67,
+          "SC": 37,
+          "ST": 18
+        }
+      },
+      "otherInfo": {
+        "officialWebsite": "https://www.dy-patil-medical-college.edu.in",
+        "counsellingBrochureUrl": "https://www.dy-patil-medical-college.edu.in/brochure.pdf"
+      }
+    },
+    {
+      "slug": "aiims-bhopal",
+      "name": "AIIMS Bhopal",
+      "stateSlug": "madhya-pradesh",
+      "city": "Bhopal",
+      "collegeType": "aiims",
+      "seatCount": 125,
+      "quotaInfo": "All India 100%",
+      "fees": {
+        "tuition": 1628,
+        "hostel": 5400,
+        "misc": 2000,
+        "totalAnnual": 9028,
+        "totalCourse": 45140
+      },
+      "cutoffs": [
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 826,
+          "closingRank": 1180
+        },
+        {
+          "year": 2025,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1062,
+          "closingRank": 1416
+        },
+        {
+          "year": 2025,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1180,
+          "closingRank": 1298
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 896,
+          "closingRank": 1280
+        },
+        {
+          "year": 2024,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1152,
+          "closingRank": 1536
+        },
+        {
+          "year": 2024,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1280,
+          "closingRank": 1408
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 916,
+          "closingRank": 1310
+        },
+        {
+          "year": 2023,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1179,
+          "closingRank": 1572
+        },
+        {
+          "year": 2023,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1310,
+          "closingRank": 1441
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 965,
+          "closingRank": 1380
+        },
+        {
+          "year": 2022,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1242,
+          "closingRank": 1656
+        },
+        {
+          "year": 2022,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1380,
+          "closingRank": 1518
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 854,
+          "closingRank": 1220
+        },
+        {
+          "year": 2021,
+          "round": "Round 1",
+          "category": "OBC",
+          "quota": "AIQ",
+          "openingRank": 1098,
+          "closingRank": 1464
+        },
+        {
+          "year": 2021,
+          "round": "Round 2",
+          "category": "General",
+          "quota": "AIQ",
+          "openingRank": 1220,
+          "closingRank": 1342
+        }
+      ],
+      "bond": {
+        "years": 0,
+        "penalty": 0,
+        "note": "No mandatory bond."
+      },
+      "roiScore": 93,
+      "university": "State Health University",
+      "seatMatrix": {
+        "aiq": 18,
+        "stateQuota": 106,
+        "management": 0,
+        "nri": 0,
+        "categoryDistribution": {
+          "General": 50,
+          "OBC": 33,
+          "SC": 18,
+          "ST": 9
+        }
+      },
+      "otherInfo": {
+        "officialWebsite": "https://www.aiims-bhopal.edu.in",
+        "counsellingBrochureUrl": "https://www.aiims-bhopal.edu.in/brochure.pdf"
+      }
+    }
+  ]
+}

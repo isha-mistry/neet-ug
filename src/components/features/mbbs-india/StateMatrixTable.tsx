@@ -87,7 +87,7 @@ export function StateMatrixTable({ rows, totals }: StateMatrixTableProps) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="e.g. Gujarat, Karnataka…"
-          className="rounded-xl border border-outline-variant bg-surface-container-low px-4 py-2.5 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20"
+          className="rounded-[14px] border border-outline-variant bg-surface-container-low px-4 py-2.5 text-sm text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20"
         />
       </label>
       <div className={guideTableWrapClass}>

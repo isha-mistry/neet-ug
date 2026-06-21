@@ -5,6 +5,13 @@ export const COLLEGE_PREDICTOR_HERO = {
   submitHint: "College names unlock after verification. No spam, just your prediction session and shortlist.",
 } as const;
 
+export const COLLEGE_PREDICTOR_VERIFY_PANEL = {
+  title: "Unlock your college lists",
+  description:
+    "Verify your mobile number to unlock Likely, Possible, and Reach lists with closing ranks and fees.",
+  bullets: ["Likely matches", "Possible & Reach", "Fees + ranks"] as const,
+} as const;
+
 export const COLLEGE_PREDICTOR_HOW_IT_WORKS = {
   eyebrow: "How it works",
   title: "Three steps. ",

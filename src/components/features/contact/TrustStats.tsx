@@ -44,7 +44,7 @@ export function TrustStats() {
                         {/* Left intro panel */}
                         <div className="bg-linear-to-br from-primary-fixed via-surface-container-lowest to-surface-container-low p-6 md:p-8 flex flex-col justify-center">
                             <span className="mb-1 block text-label-md font-label-md uppercase tracking-wider text-primary">
-                                Why use MedSeat
+                                Why use Dravio
                             </span>
                             <h2 className="mt-2 text-2xl font-black tracking-tight text-on-surface md:text-3xl">
                                 Data-led counselling, not guesswork

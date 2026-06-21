@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { COUNSELLING_PLANS } from "@/lib/counselling/content";
-import { COUNSEL_BOOK_CALL_URL } from "@/lib/mbbs-state/constants";
 import { JOURNEY_PACKAGE_CTAS } from "@/lib/journey-home/content";
+import { CounsellingPlansPostPricingNotes } from "@/components/features/counselling/CounsellingPlansPostPricingNotes";
 import { cn } from "@/lib/utils";
 import {
   JourneyLeadModal,
@@ -70,11 +69,7 @@ export function JourneyPackagePacks() {
           </article>
         ))}
       </div>
-      <p className="pfoot">
-        Not sure which fits?{" "}
-        <Link href={COUNSEL_BOOK_CALL_URL}>Book a free 30-minute review</Link> — we&apos;ll
-        suggest the right plan for your case.
-      </p>
+      <CounsellingPlansPostPricingNotes noteClassName="pfoot" />
 
       {openPlan && modalConfig ? (
         <JourneyLeadModal

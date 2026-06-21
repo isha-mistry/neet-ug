@@ -17,36 +17,20 @@ export const SEAT_RADAR_CATEGORY_LABELS: Record<string, string> = {
   st: "ST",
 };
 
-export const SEAT_RADAR_DOMICILE_STATES = [
-  "Gujarat",
-  "Maharashtra",
-  "Rajasthan",
-  "Madhya Pradesh",
-  "Andhra Pradesh",
-  "Bihar",
-  "Delhi",
-  "Karnataka",
-  "Kerala",
-  "Punjab",
-  "Tamil Nadu",
-  "Telangana",
-  "Uttar Pradesh",
-  "West Bengal",
-  "Other",
-] as const;
+export { INDIAN_STATES_FOR_LEADS as SEAT_RADAR_DOMICILE_STATES } from "@/lib/leads/indian-states";
 
 const CTA_BY_TIER: Record<SeatRadarCtaTier, SeatRadarCtaContent> = {
   strong: {
     heading: "Your next step",
     copy: "You have options. The main decision now is how to order your choices correctly before counselling starts.",
     buttonLabel: "Get my choice list reviewed",
-    redirectTo: "/counseling",
+    redirectTo: "/counselling",
   },
   tight: {
     heading: "Your next step",
     copy: "Your result may depend on the right quota, state, and round strategy. Review your options before choice filling begins.",
     buttonLabel: "Plan my counselling strategy",
-    redirectTo: "/counseling",
+    redirectTo: "/counselling",
   },
   below: {
     heading: "Your next step",

@@ -27,7 +27,7 @@ export function Input({
       ) : null}
       <span
         className={cn(
-          "flex items-center gap-2 rounded-[var(--radius-md)] border border-border bg-background px-3.5 py-2 text-sm text-text transition-colors focus-within:border-brand-500",
+          "flex items-center gap-2 rounded-[14px] border border-border bg-background px-3.5 py-2 text-sm text-text transition-colors focus-within:border-brand-500",
           className
         )}
       >
@@ -39,7 +39,7 @@ export function Input({
           className={cn(
             "w-full bg-transparent text-sm leading-normal placeholder:text-text-muted focus:outline-none focus:ring-0",
             rest.type === "number" &&
-              "[appearance:textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+            "[appearance:textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
           )}
           {...rest}
         />

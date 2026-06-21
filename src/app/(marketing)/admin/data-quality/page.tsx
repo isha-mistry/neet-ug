@@ -5,7 +5,6 @@ import { dataSourceLabel } from "@/lib/data/source";
 import { Container } from "@/components/common/Container";
 
 export const metadata: Metadata = {
-  title: "Data quality · Admin",
   robots: { index: false, follow: false },
 };
 

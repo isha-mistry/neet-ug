@@ -59,7 +59,7 @@ export function CollegeDetailAtAGlance({
           icon="insights"
           label="Value score"
           value={`${roiScore}/100`}
-          hint="MedSeat ROI index"
+          hint="Dravio ROI index"
         />
       </div>
       <div className="flex flex-wrap gap-2">

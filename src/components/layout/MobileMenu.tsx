@@ -3,35 +3,31 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FiCalendar, FiChevronDown, FiMenu, FiX } from "react-icons/fi";
+import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
 import type { LinkItem } from "@/types/core";
 import { isNavLinkActive } from "@/lib/navigation/is-nav-link-active";
-import { COUNSEL_BOOK_CALL_URL } from "@/lib/mbbs-state/constants";
+import { BookCounsellingTrigger } from "@/components/features/leads/BookCounsellingTrigger";
 import { NEET_UG_2026_NAV_LINKS } from "@/lib/navigation/neet-ug-2026-nav";
 import {
   navDropdownLinkClassName,
-  navItemBorderClass,
-  navItemClassName,
+  navItemMobileRowClassName,
+  navItemMobileUnderlineClass,
 } from "@/components/layout/nav-styles";
-import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 const NAVBAR_HEIGHT_PX = 64;
 
 interface MobileMenuProps {
   links: LinkItem[];
-  homeLinks?: LinkItem[];
   quotaLinks?: LinkItem[];
   predictorLinks?: LinkItem[];
 }
 
 function getDropdownLinks(
   label: string,
-  homeLinks: LinkItem[],
   quotaLinks: LinkItem[],
   predictorLinks: LinkItem[],
 ): LinkItem[] | null {
-  if (label === "Home") return homeLinks;
   if (label === "Quota") return quotaLinks;
   if (label === "Predictors" || label === "Predictor") return predictorLinks;
   if (label === "NEET UG 2026") return NEET_UG_2026_NAV_LINKS;
@@ -52,22 +48,22 @@ function MobileNavGroup({
   const groupActive = items.some((item) => isNavLinkActive(item.href, pathname));
 
   return (
-    <details className="group border-b border-outline-variant" open={groupActive}>
+    <details className="group" open={groupActive}>
       <summary
         className={cn(
-          navItemClassName(groupActive, navItemBorderClass),
-          "w-full cursor-pointer list-none justify-between py-3.5 [&::-webkit-details-marker]:hidden",
+          navItemMobileRowClassName(groupActive),
+          "cursor-pointer list-none [&::-webkit-details-marker]:hidden",
         )}
       >
-        <span className="inline-flex items-center gap-1">
-          <span>{label}</span>
+        <span className="flex w-full items-center justify-between gap-2">
+          <span className={navItemMobileUnderlineClass(groupActive)}>{label}</span>
           <FiChevronDown
             aria-hidden
             className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180"
           />
         </span>
       </summary>
-      <div className="flex flex-col gap-0.5 pb-3 pl-1">
+      <div className="mb-2 mt-1 overflow-hidden rounded-[14px] border border-outline-variant bg-surface-container-lowest p-2 shadow-sm ring-1 ring-black/[0.04]">
         {items.map((item) => (
           <Link
             key={item.href}
@@ -86,22 +82,30 @@ function MobileNavGroup({
 
 export function MobileMenu({
   links,
-  homeLinks = [],
   quotaLinks = [],
   predictorLinks = [],
 }: MobileMenuProps) {
-  const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const [pathnameSnapshot, setPathnameSnapshot] = useState(pathname);
+
+  // Close when the route changes (e.g. browser back) without an effect + setState.
+  if (pathnameSnapshot !== pathname) {
+    setPathnameSnapshot(pathname);
+    if (open) {
+      setOpen(false);
+    }
+  }
 
   const close = useCallback(() => setOpen(false), []);
 
   useEffect(() => {
-    close();
-  }, [pathname, close]);
+    if (!open) {
+      document.body.removeAttribute("data-mobile-nav-open");
+      return;
+    }
 
-  useEffect(() => {
-    if (!open) return;
-
+    document.body.setAttribute("data-mobile-nav-open", "");
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
@@ -111,13 +115,14 @@ export function MobileMenu({
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
+      document.body.removeAttribute("data-mobile-nav-open");
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [open, close]);
 
   return (
-    <div className="lg:hidden">
+    <div className="flex h-16 items-center lg:hidden">
       <button
         type="button"
         aria-label={open ? "Close navigation" : "Open navigation"}
@@ -135,10 +140,9 @@ export function MobileMenu({
         tabIndex={open ? 0 : -1}
         onClick={close}
         className={cn(
-          "fixed inset-0 z-40 bg-on-surface/40 transition-opacity duration-200",
+          "fixed inset-0 z-[90] bg-on-surface/55 transition-opacity duration-200 lg:hidden",
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
         )}
-        style={{ top: NAVBAR_HEIGHT_PX }}
       />
 
       <div
@@ -147,24 +151,23 @@ export function MobileMenu({
         aria-modal="true"
         aria-hidden={!open}
         className={cn(
-          "fixed inset-x-0 z-40 flex flex-col border-t border-outline-variant bg-surface shadow-level-1 transition-[opacity,transform] duration-200 ease-out",
+          "fixed inset-x-0 z-[95] flex flex-col bg-surface shadow-level-2 transition-[opacity,transform] duration-200 ease-out lg:hidden",
           open
             ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-2 opacity-0",
+            : "pointer-events-none -translate-y-1 opacity-0",
         )}
         style={{
           top: NAVBAR_HEIGHT_PX,
-          maxHeight: `calc(100dvh - ${NAVBAR_HEIGHT_PX}px)`,
+          height: `calc(100dvh - ${NAVBAR_HEIGHT_PX}px)`,
         }}
       >
         <nav
           aria-label="Mobile"
-          className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 pt-1"
+          className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 pt-3"
         >
           {links.map((link) => {
             const dropdownLinks = getDropdownLinks(
               link.label,
-              homeLinks,
               quotaLinks,
               predictorLinks,
             );
@@ -187,30 +190,22 @@ export function MobileMenu({
                 key={link.href}
                 href={link.href}
                 onClick={close}
-                className={cn(
-                  navItemClassName(active, navItemBorderClass),
-                  "border-b border-outline-variant py-3.5",
-                )}
+                className={navItemMobileRowClassName(active)}
                 aria-current={active ? "page" : undefined}
               >
-                {link.label}
+                <span className={navItemMobileUnderlineClass(active)}>{link.label}</span>
               </Link>
             );
           })}
         </nav>
 
-        <div className="shrink-0 border-t border-outline-variant bg-surface px-4 py-4">
-          <Button
-            as="link"
-            href={COUNSEL_BOOK_CALL_URL}
-            variant="primary"
-            size="sm"
+        <div className="shrink-0 border-t border-outline-variant bg-surface px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+          <BookCounsellingTrigger
+            source="mobile_menu"
             fullWidth
-            leadingIcon={<FiCalendar aria-hidden />}
-            onClick={close}
-          >
-            Book a Counselling
-          </Button>
+            className="h-11 text-[15px] font-semibold"
+            onAfterClick={close}
+          />
         </div>
       </div>
     </div>

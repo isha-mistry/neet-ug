@@ -48,7 +48,7 @@ export const ABOUT_LETTER = {
   pullQuote:
     "Students with similar NEET scores were ending up with very different outcomes.",
   pullQuoteEmphasis: "The score wasn't the difference. The information was.",
-  signature: "The MedSeat Team",
+  signature: "The Dravio Team",
   paragraphs: [
     "Every year, lakhs of students prepare for NEET with a single goal: securing an MBBS seat. What many families discover, only after the exam, is that getting a good score is just one part of the journey.",
     "Choice filling. Quota eligibility. State counseling rules. Domicile requirements. Management quota, NRI quota, All India Quota. Round upgrades, mop-up rounds, inter-state opportunities. Each of these can significantly influence the final admission outcome — and most families encounter all of them for the first time during the counseling process itself.",
@@ -58,12 +58,12 @@ export const ABOUT_LETTER = {
     "What we found was surprising.",
     "Students with similar NEET scores were often securing very different outcomes. Some obtained government or government-quota seats with significantly lower fees. Others accepted more expensive options — simply because they were unaware of the alternative routes available to them.",
     "We also found that many students who believed an MBBS seat was out of reach still had viable pathways. Through management quota, NRI quota, or admissions in other states, options existed that they had never been told about. With the right information and planning, many of these students could pursue medical education in India — instead of looking abroad.",
-    "MedSeat was created to bridge that information gap.",
+    "Dravio was created to bridge that information gap.",
   ],
   mission:
     "help students and parents make informed MBBS admission decisions using verified data, historical trends, and clear guidance.",
   closingParagraphs: [
-    "Today, MedSeat provides information on medical colleges, cutoffs, quotas, fees, counseling processes, and admission pathways across India. We offer guidance and mentorship for All India Quota counseling, and for students participating in state counseling across Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra.",
+    "Today, Dravio provides information on medical colleges, cutoffs, quotas, fees, counseling processes, and admission pathways across India. We offer guidance and mentorship for All India Quota counseling, and for students participating in state counseling across Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra.",
   ],
   closingEmphasis:
     "Understanding the opportunities available after the exam matters just as much.",
@@ -125,7 +125,7 @@ export type AboutTeamMember = {
 };
 
 export const ABOUT_TEAM = {
-  lede: "Educationists, technologists and counselors who've worked with NEET students before MedSeat existed. Real names, real faces — not an anonymous \"expert team.\"",
+  lede: "Educationists, technologists and counselors who've worked with NEET students before Dravio existed. Real names, real faces — not an anonymous \"expert team.\"",
   footnote:
     "We're a deliberately small team. Every student who books a counseling package works directly with one of the counselors on this page — not a junior, not an outsourced agent.",
   members: [
@@ -145,7 +145,7 @@ export const ABOUT_TEAM = {
       name: "[Counselor Name]",
       role: "MBBS Counselor & Data Lead",
       credentials: "[DEGREE, UNIVERSITY] · [YEARS] IN MEDICAL ADMISSIONS",
-      bio: "[Brief bio — area of focus, AIQ/MCC expertise, what they've built or led at MedSeat, one specific credibility signal. Replace before launch.]",
+      bio: "[Brief bio — area of focus, AIQ/MCC expertise, what they've built or led at Dravio, one specific credibility signal. Replace before launch.]",
     },
   ] as AboutTeamMember[],
 } as const;
@@ -184,7 +184,7 @@ export const ABOUT_POSITION = [
   },
   {
     label: "On college affiliations",
-    body: "MedSeat is not affiliated with any private medical college. We do not receive payment from colleges for sending students their way. Our recommendations are based on what's right for the student — and if you ever feel pushed toward a specific college without a clear reason, ask us. We'll explain or correct it.",
+    body: "Dravio is not affiliated with any private medical college. We do not receive payment from colleges for sending students their way. Our recommendations are based on what's right for the student — and if you ever feel pushed toward a specific college without a clear reason, ask us. We'll explain or correct it.",
   },
   {
     label: "On data freshness",
@@ -204,17 +204,22 @@ export const ABOUT_POSITION = [
 /*  Contact                                                            */
 /* ------------------------------------------------------------------ */
 
+import {
+  getCounselWhatsAppTelHref,
+  getCounselWhatsAppWaMeBase,
+} from "@/lib/leads/counsel-whatsapp-config";
+
 export const ABOUT_CONTACT = {
-  officeName: "MedSeat Counseling Services",
+  officeName: "Dravio Counseling Services",
   addressLines: ["[Address line 1]", "[Address line 2]", "[City, PIN code]"],
   availabilityWeekdays: "Monday to Saturday · 9 AM – 8 PM IST",
   availabilitySunday: "Sundays — Counseling-season support only",
   channels: {
     phone: "+91 90909 09090",
-    phoneHref: "tel:+919090909090",
+    phoneHref: getCounselWhatsAppTelHref(),
     whatsapp: "+91 90909 09090",
-    whatsappHref: "https://wa.me/919090909090",
-    email: "hello@medseat.in",
+    whatsappHref: getCounselWhatsAppWaMeBase(),
+    email: "hello@dravio.in",
   },
 } as const;
 
@@ -227,19 +232,19 @@ export const ABOUT_COMPLIANCE = {
     {
       label: "Business entity",
       value:
-        "[Legal name — e.g., MedSeat Counseling Services Pvt. Ltd. / LLP / Proprietorship]",
+        "[Legal name — e.g., Dravio Counseling Services Pvt. Ltd. / LLP / Proprietorship]",
     },
     { label: "GSTIN", value: "[Number, if applicable]" },
     { label: "Founded", value: "2024" },
     {
       label: "Data verification",
       value:
-        "Information on MedSeat is compiled and cross-verified against official publications from the National Medical Commission (NMC), Medical Counselling Committee (MCC), National Testing Agency (NTA), and the official portals of ACPUGMEC (Gujarat), RUHS (Rajasthan), DMAT (Madhya Pradesh) and CET Cell (Maharashtra).",
+        "Information on Dravio is compiled and cross-verified against official publications from the National Medical Commission (NMC), Medical Counselling Committee (MCC), National Testing Agency (NTA), and the official portals of ACPUGMEC (Gujarat), RUHS (Rajasthan), DMAT (Madhya Pradesh) and CET Cell (Maharashtra).",
     },
     {
       label: "Disclaimer",
       value:
-        "MedSeat is an independent counseling and information service. We are not affiliated with NMC, MCC, NTA or any state counseling authority. We do not guarantee admission to any medical college.",
+        "Dravio is an independent counseling and information service. We are not affiliated with NMC, MCC, NTA or any state counseling authority. We do not guarantee admission to any medical college.",
     },
   ],
   policyLinks: [

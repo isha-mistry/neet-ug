@@ -55,7 +55,7 @@ function KeyCard({
 }) {
   return (
     <Card padded bordered className="flex items-center gap-4 bg-surface-container-lowest">
-      <span className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] bg-brand-50 text-brand-700">
+      <span className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-brand-50 text-brand-700">
         {icon}
       </span>
       <div className="flex flex-col gap-1">

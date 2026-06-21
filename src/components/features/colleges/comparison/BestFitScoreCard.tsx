@@ -36,7 +36,7 @@ export function BestFitScoreCard({
   return (
     <Card padded bordered elevated className="ms-gradient-soft">
       <header className="flex items-center gap-3">
-        <span className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] ms-gradient-strong text-text-on-brand">
+        <span className="flex h-12 w-12 items-center justify-center rounded-[14px] ms-gradient-strong text-text-on-brand">
           <FiAward aria-hidden="true" />
         </span>
         <div className="flex flex-col gap-1">

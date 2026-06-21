@@ -27,7 +27,7 @@ export function RankPredictorStepper({ current, className }: RankPredictorSteppe
     <nav
       aria-label="Rank predictor progress"
       className={cn(
-        "w-full rounded-2xl border border-outline-variant/45 bg-surface-container-lowest/80 p-3 shadow-sm backdrop-blur",
+        "w-full rounded-[14px] border border-outline-variant/45 bg-surface-container-lowest/80 p-3 shadow-sm backdrop-blur",
         className
       )}
     >

@@ -157,3 +157,36 @@ model Cutoff {
   @@map("cutoffs")
   @@schema("app")
 }
+
+model Lead {
+  id            String    @id @default(cuid())
+  createdAt     DateTime  @default(now()) @map("created_at")
+  formType      String    @map("form_type")
+  status        String    @default("new")
+  pagePath      String?   @map("page_path")
+  pageLabel     String?   @map("page_label")
+  variant       String?
+  name          String?
+  countryCode   String?   @default("+91") @map("country_code")
+  phone         String?
+  email         String?
+  neetScore     Int?      @map("neet_score")
+  neetCategory  String?   @map("neet_category")
+  domicileState String?   @map("domicile_state")
+  targetStates  String?   @map("target_states")
+  city          String?
+  queryType     String?   @map("query_type")
+  message       String?
+  preferredSlot String?   @map("preferred_slot")
+  topics        Json?
+  consent       Boolean   @default(false)
+  consentAt     DateTime? @map("consent_at")
+  rawPayload    Json?     @map("raw_payload")
+
+  @@index([createdAt(sort: Desc)])
+  @@index([formType])
+  @@index([status])
+  @@index([phone])
+  @@map("leads")
+  @@schema("app")
+}

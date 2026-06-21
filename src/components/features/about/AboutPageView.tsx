@@ -13,11 +13,7 @@ import {
   ABOUT_POSITION,
   ABOUT_PRINCIPLES,
 } from "@/lib/about/content";
-import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
-
-const BOOK_CALL_HREF = `${COUNSEL_WHATSAPP_URL.split("?")[0]}?text=${encodeURIComponent(
-  "Hi MedSeat, I'd like to book a free 15-minute counseling call about NEET UG MBBS admissions."
-)}`;
+import { OpenBookCounsellingButton } from "@/components/features/leads/OpenBookCounsellingButton";
 
 export function AboutPageView() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -76,7 +72,7 @@ export function AboutPageView() {
               <nav className="rp-crumb justify-center" aria-label="Breadcrumb">
                 <Link href="/">Home</Link>
                 <span className="rp-crumb-sep">/</span>
-                <span style={{ color: "var(--color-primary)" }}>About MedSeat</span>
+                <span style={{ color: "var(--color-primary)" }}>About Dravio</span>
               </nav>
 
               <h1 className="t">
@@ -86,7 +82,7 @@ export function AboutPageView() {
               </h1>
               <p className="lede">{ABOUT_HERO.lede}</p>
             </div>
-            <div className="au-hero-glance reveal in" aria-label="MedSeat coverage">
+            <div className="au-hero-glance reveal in" aria-label="Dravio coverage">
               <div className="au-glance-card">
                 {ABOUT_GLANCE_STATS.map((stat) => (
                   <div key={stat.key} className="au-gcell">
@@ -255,15 +251,10 @@ export function AboutPageView() {
             </h2>
             <p>{ABOUT_FINAL_CTA.body}</p>
             <div className="au-final-ctas">
-              <a
-                className="btn btn-blue"
-                href={BOOK_CALL_HREF}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <OpenBookCounsellingButton modalSource="about:final" className="btn btn-blue">
                 Book a free call →
-              </a>
-              <Link className="btn btn-line" href="/rank-predictor">
+              </OpenBookCounsellingButton>
+              <Link className="btn btn-line" href="/#tools">
                 Browse our predictors first →
               </Link>
             </div>

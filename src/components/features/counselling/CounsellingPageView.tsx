@@ -24,7 +24,8 @@ import {
   COUNSELLING_STEPS,
   COUNSELLING_WHY,
 } from "@/lib/counselling/content";
-import { COUNSEL_BOOK_CALL_URL } from "@/lib/mbbs-state/constants";
+import { CounsellingBookCounsellingButton } from "@/components/features/counselling/CounsellingBookCounsellingButton";
+import { CounsellingPlansPostPricingNotes } from "@/components/features/counselling/CounsellingPlansPostPricingNotes";
 
 const CONTACT_SECTION_ID = "contact";
 
@@ -95,9 +96,9 @@ export function CounsellingPageView() {
               <p className="lede">{COUNSELLING_HERO.lede}</p>
               <p className="lede-sub">{COUNSELLING_HERO.ledeSub}</p>
               <div className="csl-hero-ctas">
-                <Link className="btn btn-blue" href={COUNSEL_BOOK_CALL_URL}>
+                <CounsellingBookCounsellingButton source="hero">
                   Book free counselling call →
-                </Link>
+                </CounsellingBookCounsellingButton>
                 <a className="btn btn-line" href="#plans">
                   Compare plans
                 </a>
@@ -119,9 +120,9 @@ export function CounsellingPageView() {
                 <p key={para.slice(0, 40)}>{para}</p>
               ))}
               <div className="intro-cta">
-                <Link className="btn btn-blue" href={COUNSEL_BOOK_CALL_URL}>
+                <CounsellingBookCounsellingButton source="intro">
                   Review my options
-                </Link>
+                </CounsellingBookCounsellingButton>
               </div>
             </div>
             <div className="intro-list">
@@ -159,9 +160,9 @@ export function CounsellingPageView() {
               ))}
             </div>
             <div className="dec-foot">
-              <Link className="btn btn-blue" href={COUNSEL_BOOK_CALL_URL}>
+              <CounsellingBookCounsellingButton source="decisions">
                 Plan my counselling route →
-              </Link>
+              </CounsellingBookCounsellingButton>
             </div>
           </div>
         </section>
@@ -175,9 +176,9 @@ export function CounsellingPageView() {
                 <em>{COUNSELLING_MISTAKES.titleEmphasis}</em>
               </h2>
               <p>{COUNSELLING_MISTAKES.body}</p>
-              <Link className="btn btn-blue" href={COUNSEL_BOOK_CALL_URL}>
+              <CounsellingBookCounsellingButton source="mistakes">
                 Avoid these mistakes →
-              </Link>
+              </CounsellingBookCounsellingButton>
             </div>
             <div className="mst-card">
               <div className="mst-label">
@@ -224,7 +225,7 @@ export function CounsellingPageView() {
           </div>
         </section>
 
-        <section className="how" aria-labelledby="counselling-how-heading">
+        <section className="how" id="how-it-works" aria-labelledby="counselling-how-heading">
           <div className="wrap">
             <div className="how-head">
               <span className="eyebrow c">{COUNSELLING_STEPS.eyebrow}</span>
@@ -250,9 +251,9 @@ export function CounsellingPageView() {
               ))}
             </div>
             <div className="how-foot">
-              <Link className="btn btn-blue" href={COUNSEL_BOOK_CALL_URL}>
+              <CounsellingBookCounsellingButton source="how-it-works">
                 Start with a free review →
-              </Link>
+              </CounsellingBookCounsellingButton>
             </div>
           </div>
         </section>
@@ -294,20 +295,16 @@ export function CounsellingPageView() {
                       )
                     )}
                   </ul>
-                  <Link
+                  <CounsellingBookCounsellingButton
+                    source={`plan-${plan.id}`}
                     className={`btn btn-${plan.ctaVariant}`}
-                    href={COUNSEL_BOOK_CALL_URL}
                   >
                     {plan.cta}
-                  </Link>
+                  </CounsellingBookCounsellingButton>
                 </article>
               ))}
             </div>
-            <p className="plans-note">
-              Not sure which fits?{" "}
-              <Link href={COUNSEL_BOOK_CALL_URL}>Book a free 30-minute review</Link> — we&apos;ll
-              suggest the right plan for your case.
-            </p>
+            <CounsellingPlansPostPricingNotes noteClassName="plans-note" />
           </div>
         </section>
 
@@ -343,9 +340,9 @@ export function CounsellingPageView() {
               ))}
             </div>
             <div className="fit-foot">
-              <Link className="btn btn-blue" href={COUNSEL_BOOK_CALL_URL}>
+              <CounsellingBookCounsellingButton source="fit">
                 Help me choose →
-              </Link>
+              </CounsellingBookCounsellingButton>
             </div>
           </div>
         </section>
@@ -364,9 +361,9 @@ export function CounsellingPageView() {
                 ))}
               </div>
               <div className="cta">
-                <Link className="btn" href={COUNSEL_BOOK_CALL_URL}>
+                <CounsellingBookCounsellingButton source="banner" className="btn">
                   Book free counselling call →
-                </Link>
+                </CounsellingBookCounsellingButton>
               </div>
             </div>
           </div>
@@ -396,9 +393,9 @@ export function CounsellingPageView() {
               ))}
             </div>
             <div className="why-foot">
-              <Link className="btn btn-blue" href={COUNSEL_BOOK_CALL_URL}>
+              <CounsellingBookCounsellingButton source="why">
                 Talk to a counsellor →
-              </Link>
+              </CounsellingBookCounsellingButton>
             </div>
           </div>
         </section>
@@ -412,9 +409,9 @@ export function CounsellingPageView() {
                 <em>{COUNSELLING_CHECKLIST.titleEmphasis}</em>
               </h2>
               <p>{COUNSELLING_CHECKLIST.body}</p>
-              <Link className="btn btn-blue" href={COUNSEL_BOOK_CALL_URL}>
+              <CounsellingBookCounsellingButton source="checklist">
                 Book free counselling call →
-              </Link>
+              </CounsellingBookCounsellingButton>
             </div>
             <div className="chk-card">
               <div className="chk-label">Quick checklist</div>
@@ -427,7 +424,7 @@ export function CounsellingPageView() {
           </div>
         </section>
 
-        <section className="faq-section" aria-labelledby="counselling-faq-heading">
+        <section className="faq-section" id="faq" aria-labelledby="counselling-faq-heading">
           <div className="wrap">
             <div className="faq-head">
               <span className="eyebrow c">Common questions</span>
@@ -450,9 +447,9 @@ export function CounsellingPageView() {
               ))}
             </div>
             <div className="faq-foot">
-              <Link className="btn btn-blue" href={COUNSEL_BOOK_CALL_URL}>
+              <CounsellingBookCounsellingButton source="faq">
                 Book free counselling call →
-              </Link>
+              </CounsellingBookCounsellingButton>
             </div>
           </div>
         </section>
@@ -465,9 +462,9 @@ export function CounsellingPageView() {
             </h2>
             <p>{COUNSELLING_FINAL.body}</p>
             <div className="final-ctas">
-              <Link className="btn btn-blue" href={COUNSEL_BOOK_CALL_URL}>
+              <CounsellingBookCounsellingButton source="final">
                 Book free counselling call →
-              </Link>
+              </CounsellingBookCounsellingButton>
               <a className="btn btn-line" href="#plans">
                 Compare plans
               </a>

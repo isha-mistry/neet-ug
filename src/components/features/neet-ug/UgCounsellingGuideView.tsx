@@ -14,6 +14,7 @@ import { CounsellingFeeTable } from "@/components/features/neet-ug/counselling/C
 import { CounsellingRounds } from "@/components/features/neet-ug/counselling/CounsellingRounds";
 import { DocumentChecklist } from "@/components/features/neet-ug/counselling/DocumentChecklist";
 import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
+import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { NeetUgUpdatesSidebar } from "@/components/features/neet-ug/NeetUgUpdatesParts";
 import { NeetUgHubFinalCta, NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
 import { DataTable } from "@/components/features/neet-ug/shared/DataTable";
@@ -94,6 +95,9 @@ export function UgCounsellingGuideView() {
         <NeetUgLeadMagnetPanel
           pageLabel="NEET UG 2026 Counselling"
           content={NEET_UG_COUNSELLING_LEAD_MAGNET}
+          formType={LEAD_FORM_TYPES.neetUgLiveUpdates}
+          redirectToWhatsApp={false}
+          consentFieldId="lead-neet-ug-2026-counselling-guide-consent"
         />
       </RpMarketingHero>
 
@@ -148,7 +152,7 @@ export function UgCounsellingGuideView() {
                       </p>
                     ))}
                   </div>
-                  <div className="w-full rounded-xl bg-surface-container-low p-4 md:p-5">
+                  <div className="w-full rounded-[14px] bg-surface-container-low p-4 md:p-5">
                     <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                       Counselling streams
                     </p>
@@ -394,7 +398,7 @@ export function UgCounsellingGuideView() {
               </div>
             </GuideSection>
 
-            <GuideSection embedded id="related" eyebrow="More on MedSeat" title="Related guides">
+            <GuideSection embedded id="related" eyebrow="More on Dravio" title="Related guides">
               <div className="grid gap-3 sm:grid-cols-2">
                 {NEET_UG_COUNSELLING_RELATED_LINKS.map((item) => (
                   <Link

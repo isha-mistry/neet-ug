@@ -1,5 +1,37 @@
 import type { FaqItem } from "@/types/content";
-import { MILESTONES } from "@/lib/home-05/content";
+
+const COUNSELING_MILESTONES = [
+  {
+    period: "MAY - JUNE",
+    title: "NEET Exam",
+    body: "Result declaration & AIR rankings release.",
+    active: true,
+  },
+  {
+    period: "JULY WK 1",
+    title: "AIQ Round 1",
+    body: "MCC registration & central choice filling.",
+    active: true,
+  },
+  {
+    period: "JULY WK 3",
+    title: "State Merit",
+    body: "GJ, MH, RJ, MP release state-specific lists.",
+    active: false,
+  },
+  {
+    period: "AUGUST",
+    title: "Round 2 & 3",
+    badge: "UPGRADE WINDOW",
+    active: false,
+  },
+  {
+    period: "SEPTEMBER",
+    title: "Mop-up / Stray",
+    body: "Final vacant seat filling across India.",
+    active: false,
+  },
+] as const;
 
 export const SUMMARY_STATS: { label: string; value: string }[] = [
   { label: "Total medical colleges in India", value: "823" },
@@ -234,7 +266,7 @@ export interface CounselingTimelineEvent {
 }
 
 function counselingTimelineTrack(
-  title: (typeof MILESTONES)[number]["title"]
+  title: (typeof COUNSELING_MILESTONES)[number]["title"]
 ): CounselingTimelineEvent["track"] {
   switch (title) {
   case "NEET Exam":
@@ -256,7 +288,7 @@ function formatMilestonePeriod(period: string): string {
   return `${normalized} 2026`;
 }
 
-function milestoneTimelineLabel(m: (typeof MILESTONES)[number]): string {
+function milestoneTimelineLabel(m: (typeof COUNSELING_MILESTONES)[number]): string {
   if ("body" in m && m.body) {
     return `${m.title} — ${m.body}`;
   }
@@ -268,8 +300,8 @@ function milestoneTimelineLabel(m: (typeof MILESTONES)[number]): string {
   return m.title;
 }
 
-/** Estimated 2026–27 counseling milestones (same schedule as /home/5). */
-export const COUNSELING_TIMELINE: CounselingTimelineEvent[] = MILESTONES.map((m) => ({
+/** Estimated 2026–27 counseling milestones (typical national + state cycle). */
+export const COUNSELING_TIMELINE: CounselingTimelineEvent[] = COUNSELING_MILESTONES.map((m) => ({
   date: formatMilestonePeriod(m.period),
   label: milestoneTimelineLabel(m),
   track: counselingTimelineTrack(m.title),

@@ -24,7 +24,7 @@ export function StepCard({
   return (
     <div className={cn(neetCardClass, neetInteractiveCardClass, "flex flex-col items-start gap-4 md:flex-row")}>
       <div className="flex items-center gap-3">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-xs font-extrabold text-on-primary shadow-primary-button">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[14px] bg-primary text-xs font-extrabold text-on-primary shadow-primary-button">
           {step}
         </div>
       </div>

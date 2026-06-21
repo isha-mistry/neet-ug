@@ -2,8 +2,7 @@ export const MBBS_INDIA_LAST_UPDATED = "May 2026";
 
 export const MBBS_INDIA_PAGE_PATH = "/mbbs-in-india";
 
-export const COUNSEL_WHATSAPP_URL =
-  "https://wa.me/919090909090?text=Hi%20MedSeat%2C%20I%20need%20help%20with%20MBBS%20admission%20in%20India";
+export { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
 
 export const COUNSEL_BOOK_CALL_URL = "/contact";
 

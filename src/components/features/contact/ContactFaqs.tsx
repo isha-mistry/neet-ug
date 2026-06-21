@@ -5,12 +5,12 @@ import { Container } from "@/components/common/Container";
 
 const FAQS = [
   {
-    q: "How do I get counselling support from MedSeat?",
+    q: "How do I get counselling support from Dravio?",
     a: "You can submit an inquiry through our Contact Form or schedule a callback. Our counsellor team will reach out on your mobile number to understand your NEET score, preferred budget, and state choices, then help you get started."
   },
   {
     q: "Do you support state quota counselling or only All India Quota (AIQ)?",
-    a: "We support both! MedSeat provides comprehensive data, cutoff analysis, and choice-filling updates for MCC All India Quota (AIQ) counselling as well as individual state DME/CET counselling processes for all major states."
+    a: "We support both! Dravio provides comprehensive data, cutoff analysis, and choice-filling updates for MCC All India Quota (AIQ) counselling as well as individual state DME/CET counselling processes for all major states."
   },
   {
     q: "Can parents join the counselling consultation?",
@@ -45,7 +45,7 @@ export function ContactFaqs() {
               Before you contact us
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-on-surface-variant">
-              Quick answers to common questions from NEET UG aspirants and parents about MedSeat
+              Quick answers to common questions from NEET UG aspirants and parents about Dravio
               counselling support.
             </p>
           </div>

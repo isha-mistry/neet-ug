@@ -19,7 +19,7 @@ export const NEET_UG_COUNSELLING_LEAD_MAGNET = {
   formSubtitle: "Name and mobile — we notify you when MCC registration, seat matrix, or round dates go live.",
   submitLabel: "Get counselling alerts",
   whatsappIntro:
-    "Hi MedSeat, I'd like NEET UG 2026 MCC and counselling alerts on WhatsApp.",
+    "Hi Dravio, I'd like NEET UG 2026 MCC and counselling alerts on WhatsApp.",
 } as const;
 
 export const NEET_UG_COUNSELLING_JUMP_SECTIONS: readonly GuideJumpItem[] = [

@@ -1,4 +1,4 @@
--- MedSeat full database schema (Prisma-managed). Staging tables include `id` for ORM;
+-- Dravio full database schema (Prisma-managed). Staging tables include `id` for ORM;
 -- gujarat_data.sql COPY lists only the original columns (id auto-fills).
 
 CREATE SCHEMA IF NOT EXISTS "staging";

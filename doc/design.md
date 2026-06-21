@@ -665,7 +665,7 @@ These are strong references for conversion sections. Use a gradient CTA band for
 
 ### Promote Shared Tokens
 
-Add or formalize these in `globals.css` or `src/design/medseat.theme.ts`:
+Add or formalize these in `globals.css` or `src/design/dravio.theme.ts`:
 
 - `--text-page-hero`, `--text-section-title`, `--text-card-title`, `--text-lede`.
 - `--space-section`, `--space-section-mobile`, `--space-grid`, `--space-header-to-grid`.

@@ -19,7 +19,7 @@ export const NEET_UG_HUB_LEAD_MAGNET = {
   formTitle: "NEET 2026 information",
   formSubtitle: "Get exam dates, counselling alerts, and checklist updates from our team.",
   submitLabel: "Send me updates →",
-  whatsappIntro: "Hi MedSeat, I'd like NEET UG 2026 information and counselling updates.",
+  whatsappIntro: "Hi Dravio, I'd like NEET UG 2026 information and counselling updates.",
 } as const;
 
 export const NEET_UG_HUB_SIDEBAR_TOOLS = [

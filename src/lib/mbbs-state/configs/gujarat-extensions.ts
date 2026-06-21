@@ -3,7 +3,7 @@ import type { MbbsStateContentExtensions } from "../types";
 /**
  * Supplementary Gujarat guide sections (seat matrix, GMERS fees, eligibility).
  * Seat splits follow published ACPUGMEC / NMC matrices; totals align with common 2026 guides.
- * Live college counts on the page come from the MedSeat catalog merge.
+ * Live college counts on the page come from the Dravio catalog merge.
  */
 export const GUJARAT_CONTENT_EXTENSIONS: MbbsStateContentExtensions = {
   whyChoose: [
@@ -52,7 +52,8 @@ export const GUJARAT_CONTENT_EXTENSIONS: MbbsStateContentExtensions = {
     },
     {
       label: "Major affiliating universities",
-      value: "Gujarat University, B.K. Mody University, Veer Narmad South Gujarat University, Saurashtra University, Parul University (college-wise)",
+      value:
+        "Gujarat University, B.K. Mody University, Veer Narmad South Gujarat University, Saurashtra University, Parul University (college-wise)",
     },
   ],
   feeScheduleTables: [
@@ -63,7 +64,12 @@ export const GUJARAT_CONTENT_EXTENSIONS: MbbsStateContentExtensions = {
     },
     {
       title: "GMERS medical colleges — annual tuition",
-      headers: ["Institute type", "Govt quota (₹ lakh)", "Mgmt (₹ lakh)", "NRI (USD)"],
+      headers: [
+        "Institute type",
+        "Govt quota (₹ lakh)",
+        "Mgmt (₹ lakh)",
+        "NRI (USD)",
+      ],
       rows: [["GMERS medical colleges", "3.75", "12", "25,000"]],
     },
   ],
@@ -82,7 +88,13 @@ export const GUJARAT_CONTENT_EXTENSIONS: MbbsStateContentExtensions = {
   govtSeatMatrix: [
     {
       title: "Autonomous & central institutes (indicative NEET 2026 matrix)",
-      headers: ["Medical college", "Total seats", "AIQ", "State quota", "Other"],
+      headers: [
+        "Medical college",
+        "Total seats",
+        "AIQ",
+        "State quota",
+        "Other",
+      ],
       rows: [
         {
           college: "AIIMS Rajkot",
@@ -139,7 +151,7 @@ export const GUJARAT_CONTENT_EXTENSIONS: MbbsStateContentExtensions = {
           cells: ["100", "15", "85", "15"],
         },
         {
-          college: "GMERS Medical College Morbi",
+          college: "GMERS Medical College, Morbi",
           slug: "gmers-medical-college-morbi",
           cells: ["100", "15", "85", "15"],
         },

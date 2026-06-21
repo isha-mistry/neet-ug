@@ -6,6 +6,7 @@ import { Container } from "@/components/common/Container";
 import { GuidePageJumpNav } from "@/components/features/mbbs-india/GuidePageJumpNav";
 import { GuideCard, GuideSection } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
+import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { NeetUgUpdatesSidebar } from "@/components/features/neet-ug/NeetUgUpdatesParts";
 import { NeetUgHubFinalCta, NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
 import { RpMarketingHero } from "@/components/features/rank-predictor/RankPredictorParts";
@@ -135,6 +136,9 @@ export function TermsExplainedView() {
         <NeetUgLeadMagnetPanel
           pageLabel="NEET UG 2026 Glossary"
           content={TERMS_EXPLAINED_LEAD_MAGNET}
+          formType={LEAD_FORM_TYPES.getCounsellingGlossaryHelp}
+          redirectToWhatsApp={false}
+          consentFieldId="lead-neet-ug-2026-terms-explained-consent"
         />
       </RpMarketingHero>
 
@@ -178,7 +182,7 @@ export function TermsExplainedView() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="e.g. AIQ, GMERS, mop-up, NCL certificate…"
-                    className="w-full rounded-xl border border-outline-variant bg-surface-container-lowest py-2.5 pl-11 pr-3 text-sm outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 transition-all duration-150"
+                    className="w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest py-2.5 pl-11 pr-3 text-sm outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 transition-all duration-150"
                     aria-describedby="glossary-search-hint"
                   />
                 </div>
@@ -246,7 +250,7 @@ export function TermsExplainedView() {
               </GuideCard>
             </GuideSection>
 
-            <GuideSection embedded id="related" eyebrow="More on MedSeat" title="Related guides">
+            <GuideSection embedded id="related" eyebrow="More on Dravio" title="Related guides">
               <div className="grid gap-3 sm:grid-cols-2">
                 {TERMS_EXPLAINED_RELATED_LINKS.map((item) => (
                   <Link

@@ -2,6 +2,7 @@
 
 import { FreeCounsellingLeadForm } from "@/components/features/leads/FreeCounsellingLeadForm";
 import { GuideCard } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
+import { LEAD_FORM_TYPES, type LeadFormType } from "@/lib/leads/types";
 
 export type NeetUgLeadMagnetContent = {
   formTitle: string;
@@ -13,9 +14,15 @@ export type NeetUgLeadMagnetContent = {
 export function NeetUgLeadMagnetPanel({
   pageLabel,
   content,
+  formType = LEAD_FORM_TYPES.freeCounselling,
+  consentFieldId,
+  redirectToWhatsApp,
 }: {
   pageLabel: string;
   content: NeetUgLeadMagnetContent;
+  formType?: LeadFormType;
+  consentFieldId?: string;
+  redirectToWhatsApp?: boolean;
 }) {
   return (
     <GuideCard className="gradient-border-panel relative overflow-hidden">
@@ -41,6 +48,9 @@ export function NeetUgLeadMagnetPanel({
           fields="name-phone-only"
           submitLabel={content.submitLabel}
           whatsappIntro={content.whatsappIntro}
+          formType={formType}
+          consentFieldId={consentFieldId}
+          redirectToWhatsApp={redirectToWhatsApp}
         />
       </div>
     </GuideCard>

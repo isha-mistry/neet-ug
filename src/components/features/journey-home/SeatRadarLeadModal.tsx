@@ -13,7 +13,7 @@ type SeatRadarLeadModalProps = {
 };
 
 const DEFAULT_INTRO =
-  "Hi MedSeat, I completed the Seat Radar on the home page.";
+  "Hi Dravio, I completed the Seat Radar on the home page.";
 const DEFAULT_LEDE =
   "We'll follow up on WhatsApp with the next step for your Seat Radar result.";
 

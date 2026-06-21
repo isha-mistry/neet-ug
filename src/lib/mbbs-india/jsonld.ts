@@ -27,7 +27,7 @@ export function buildMbbsIndiaArticleJsonLd() {
     url: MBBS_INDIA_PAGE_PATH,
     author: {
       "@type": "Organization",
-      name: "MedSeat",
+      name: "Dravio",
     },
   };
 }

@@ -11,9 +11,11 @@
   --bg: var(--color-surface-container-lowest);
   --alt: var(--color-surface);
   --line: var(--color-outline-variant);
-  --line-2: color-mix(in srgb,
-      var(--color-outline-variant) 75%,
-      var(--color-outline));
+  --line-2: color-mix(
+    in srgb,
+    var(--color-outline-variant) 75%,
+    var(--color-outline)
+  );
   --safe: var(--color-tertiary);
   --safe-bg: var(--color-tertiary-fixed);
   --warn: var(--color-secondary);
@@ -138,7 +140,7 @@
   font-weight: 700;
   font-size: 15px;
   padding: 14px 28px;
-  border-radius: var(--radius-lg);
+  border-radius: 12px;
   transition:
     transform 0.16s,
     box-shadow 0.16s,
@@ -216,7 +218,7 @@
 .journey-home .card {
   background: var(--color-surface-container-lowest);
   border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
+  border-radius: 12px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -242,9 +244,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(480px circle at var(--mx, 50%) var(--my, 50%),
-      rgba(37, 70, 208, 0.06),
-      transparent 42%);
+  background: radial-gradient(
+    480px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(37, 70, 208, 0.06),
+    transparent 42%
+  );
   opacity: 0;
   transition: opacity 0.25s;
   pointer-events: none;
@@ -425,12 +429,16 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(800px 460px at 92% -10%,
+    radial-gradient(
+      800px 460px at 92% -10%,
       rgba(37, 70, 208, 0.08),
-      transparent 60%),
-    radial-gradient(560px 380px at -8% 110%,
+      transparent 60%
+    ),
+    radial-gradient(
+      560px 380px at -8% 110%,
       rgba(37, 70, 208, 0.05),
-      transparent 60%);
+      transparent 60%
+    );
   pointer-events: none;
 }
 
@@ -645,7 +653,7 @@
   color: var(--blue);
 }
 
-.journey-home .tick>span {
+.journey-home .tick > span {
   font-size: 12.5px;
   color: var(--muted);
   font-weight: 500;
@@ -823,10 +831,12 @@
   inset: 0;
   border-radius: 24px;
   padding: 1.5px;
-  background: linear-gradient(140deg,
-      var(--blue),
-      rgba(37, 70, 208, 0.08) 45%,
-      rgba(21, 164, 95, 0.35));
+  background: linear-gradient(
+    140deg,
+    var(--blue),
+    rgba(37, 70, 208, 0.08) 45%,
+    rgba(21, 164, 95, 0.35)
+  );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -869,7 +879,6 @@
 }
 
 @keyframes pulse {
-
   0%,
   100% {
     box-shadow: 0 0 0 0 rgba(21, 164, 95, 0.45);
@@ -1027,10 +1036,19 @@
 }
 
 .journey-home .rstate .nm {
-  font-family: var(--mono);
   font-size: 13px;
   font-weight: 700;
   color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.journey-home .rstate .nm-full {
+  font-family: var(--font);
+}
+
+.journey-home .rstate .nm-abbr {
+  display: none;
+  font-family: var(--mono);
   letter-spacing: 0.02em;
 }
 
@@ -1111,29 +1129,36 @@
   background: #fff;
   border: 1px solid var(--line);
   box-shadow: var(--shadow-lg);
+  color: var(--ink);
+  text-align: left;
 }
 
-.journey-home .radar-modal-close {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  width: 30px;
-  height: 30px;
-  border: none;
-  border-radius: 8px;
-  background: var(--alt);
+.journey-home .radar-modal-panel .radar-modal-title {
+  color: var(--ink);
+}
+
+.journey-home .radar-modal-panel .radar-modal-lede {
+  margin: 0 0 14px;
+  font-size: 12.5px;
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    background 0.15s,
-    color 0.15s;
+  line-height: 1.45;
 }
 
-.journey-home .radar-modal-close:hover {
-  background: var(--blue-soft);
-  color: var(--blue);
+.journey-home .radar-modal-panel .radar-modal-lede--ink {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.journey-home .radar-modal-panel .lead-modal-thanks-sub {
+  color: var(--muted);
+}
+
+.journey-home .radar-modal-panel .lead-modal-thanks-redirect {
+  color: var(--ink);
+}
+
+.journey-home .radar-modal-panel .lead-modal-thanks-title {
+  color: var(--ink);
 }
 
 .journey-home .radar-modal-title {
@@ -1151,6 +1176,11 @@
   line-height: 1.45;
 }
 
+.journey-home .radar-modal-lede--ink {
+  color: var(--ink);
+  font-size: 13px;
+}
+
 .journey-home .radar-modal-form {
   display: flex;
   flex-direction: column;
@@ -1163,11 +1193,36 @@
   letter-spacing: 0.12em;
 }
 
-.journey-home .radar-modal-form .field input,
-.journey-home .radar-modal-form .field select {
-  padding: 10px 12px;
+/* Field control sizing: lead-form-controls.css */
+
+.journey-home .lead-focus-states-trigger--journey {
   font-size: 13px;
-  border-radius: 10px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--alt);
+  cursor: pointer;
+}
+
+.journey-home .lead-focus-states-trigger--journey:focus-visible {
+  outline: none;
+  border-color: var(--blue);
+  background: #fff;
+}
+
+.journey-home .lead-focus-states-list--journey {
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  box-shadow: var(--shadow-lg);
+}
+
+.journey-home .lead-focus-states-option--journey:hover {
+  background: var(--blue-soft);
+}
+
+.journey-home
+  .lead-focus-states-option--journey.lead-focus-states-option--selected {
+  background: color-mix(in srgb, var(--blue) 6%, #fff);
 }
 
 .journey-home .radar-modal-form .field input.mono {
@@ -1180,38 +1235,43 @@
 }
 
 .journey-home .radar-modal-form .wa-row {
-  display: grid;
-  grid-template-columns: 102px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
   gap: 8px;
   align-items: stretch;
 }
 
-.journey-home .radar-modal-form .wa-row select,
-.journey-home .radar-modal-form .wa-row input {
+.journey-home .radar-modal-form .wa-row.lead-phone-row > .country-code-select,
+.journey-home .radar-modal-form .wa-row.lead-phone-row > input[type="tel"] {
   width: 100%;
-  padding: 10px 10px;
+  margin: 0;
   background: var(--alt);
   border: 1.5px solid var(--line);
-  border-radius: 10px;
-  font-size: 13px;
+  border-radius: 12px;
+  color: var(--ink);
+}
+
+.journey-home .radar-modal-form .wa-row.lead-phone-row > .country-code-select {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.journey-home .radar-modal-form .wa-row.lead-phone-row > .country-code-select .country-code-select__iso {
   font-weight: 500;
 }
 
-.journey-home .radar-modal-form .wa-row select {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 600;
-  padding-inline: 8px;
+.journey-home .radar-modal-form .wa-row.lead-phone-row > .country-code-select .country-code-select__dial {
+  font-weight: 700;
 }
 
-.journey-home .radar-modal-form .wa-row input {
+.journey-home .radar-modal-form .wa-row.lead-phone-row > input[type="tel"] {
   font-family: var(--mono);
   font-size: 14px;
   font-weight: 600;
 }
 
-.journey-home .radar-modal-form .wa-row select:focus,
-.journey-home .radar-modal-form .wa-row input:focus {
+.journey-home .radar-modal-form .wa-row.lead-phone-row > .country-code-select:focus-within,
+.journey-home .radar-modal-form .wa-row.lead-phone-row > input[type="tel"]:focus {
   border-color: var(--blue);
   background: #fff;
   outline: none;
@@ -1222,6 +1282,20 @@
   margin-top: 2px;
   padding: 11px 18px;
   font-size: 14px;
+}
+
+.journey-home .radar-modal-panel .btn.btn-blue {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  box-shadow: 0 10px 28px -10px rgba(37, 70, 208, 0.55);
+}
+
+.journey-home .radar-modal-panel .btn.btn-blue:hover {
+  background: var(--blue-deep);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 36px -10px rgba(37, 70, 208, 0.6);
 }
 
 .journey-home .sgrid {
@@ -1266,9 +1340,11 @@
   padding: 0;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--blue) 22%, var(--line));
-  background: linear-gradient(105deg,
-      color-mix(in srgb, var(--blue) 6%, #fff) 0%,
-      #fff 42%);
+  background: linear-gradient(
+    105deg,
+    color-mix(in srgb, var(--blue) 6%, #fff) 0%,
+    #fff 42%
+  );
   transition:
     transform 0.22s,
     box-shadow 0.22s,
@@ -1285,9 +1361,11 @@
   position: relative;
   min-height: 220px;
   border-right: 1px solid var(--line);
-  background: linear-gradient(180deg,
-      color-mix(in srgb, var(--blue) 10%, #fff) 0%,
-      var(--alt) 100%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--blue) 10%, #fff) 0%,
+    var(--alt) 100%
+  );
   padding: 16px 12px 12px;
 }
 
@@ -1415,9 +1493,11 @@
   overflow: hidden;
   border-radius: 12px;
   border: 1px solid color-mix(in srgb, var(--blue) 18%, var(--line));
-  background: linear-gradient(180deg,
-      color-mix(in srgb, var(--blue) 8%, #fff) 0%,
-      var(--alt) 100%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--blue) 8%, #fff) 0%,
+    var(--alt) 100%
+  );
   padding: 6px 8px 4px;
 }
 
@@ -2170,19 +2250,27 @@
   border-bottom: 2px solid var(--blue-tint);
 }
 
+.journey-home .pfoot + .pricing-pro-bono-note {
+  margin-top: 14px;
+}
+
 .journey-home .mq {
   overflow: hidden;
   margin-top: 46px;
-  -webkit-mask-image: linear-gradient(90deg,
-      transparent,
-      #000 8%,
-      #000 92%,
-      transparent);
-  mask-image: linear-gradient(90deg,
-      transparent,
-      #000 8%,
-      #000 92%,
-      transparent);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
 }
 
 .journey-home .mtrack {
@@ -2273,14 +2361,6 @@
   display: block;
 }
 
-.journey-home .mq-note {
-  text-align: center;
-  font-size: 11.5px;
-  color: var(--dim);
-  margin-top: 20px;
-  font-style: italic;
-}
-
 .journey-home .pb {
   border-radius: 28px;
   padding: 50px 54px;
@@ -2327,7 +2407,7 @@
   letter-spacing: -0.015em;
 }
 
-.journey-home .pb p {
+.journey-home .pb .tx p {
   color: #c9d8ff;
   font-size: 15px;
   max-width: 520px;
@@ -2340,35 +2420,117 @@
   min-width: 300px;
   flex: 1;
   position: relative;
+  align-content: flex-start;
 }
 
-.journey-home .pb-form input {
-  flex: 1;
-  min-width: 200px;
-  padding: 14px 18px;
+.journey-home .pb-form-field {
+  box-sizing: border-box;
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
+  height: 2.625rem;
+  min-height: 2.625rem;
+  max-height: 2.625rem;
+  padding: 0 18px;
   background: rgba(255, 255, 255, 0.12);
   border: 1.5px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
   font-size: 14.5px;
+  line-height: 1.25;
   color: #fff;
 }
 
-.journey-home .pb-form input::placeholder {
+.journey-home .pb-form > input[type="text"].pb-form-field {
+  flex: 1 1 100%;
+}
+
+.journey-home .pb-form .phone-field-grid {
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
+}
+
+.journey-home .pb-form .phone-field-grid.lead-phone-row > .country-code-select,
+.journey-home .pb-form .phone-field-grid.lead-phone-row > input[type="tel"] {
+  box-sizing: border-box;
+  height: 2.625rem !important;
+  min-height: 2.625rem !important;
+  max-height: 2.625rem !important;
+  padding-block: 0 !important;
+  padding-inline: 14px 18px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  font-size: 14.5px;
+  line-height: 1.25;
+  color: #fff;
+}
+
+.journey-home .pb-form .phone-field-grid.lead-phone-row > .country-code-select {
+  padding-inline: 12px 2rem;
+  font-size: 14.5px;
+}
+
+.journey-home .pb-form .phone-field-grid.lead-phone-row > input[type="tel"]::placeholder,
+.journey-home .pb-form-field::placeholder {
   color: #a9c0f5;
 }
 
-.journey-home .pb-form input:focus {
+.journey-home .pb-form .phone-field-grid.lead-phone-row > .country-code-select:focus-within,
+.journey-home .pb-form .phone-field-grid.lead-phone-row > input[type="tel"]:focus,
+.journey-home .pb-form-field:focus {
   border-color: #fff;
   outline: none;
 }
 
 .journey-home .pb-form .btn {
+  flex: 1 1 100%;
+  width: 100%;
+  min-height: 2.625rem;
+  padding: 0 18px;
   background: #fff;
   color: var(--blue);
 }
 
 .journey-home .pb-form .btn:hover {
   background: var(--blue-tint);
+}
+
+.journey-home .pb-form-success {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 520px;
+}
+
+.journey-home .pb-form-success p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  max-width: none;
+}
+
+.journey-home .pb-form-success-sub {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: #c9d8ff !important;
+  line-height: 1.45;
+}
+
+.journey-home .pb-form-success .btn {
+  align-self: flex-start;
+  margin-top: 6px;
+  text-decoration: none;
+}
+
+.journey-home .pb-form-error {
+  flex: 1 1 100%;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fecaca;
 }
 
 .journey-home .pb-fine {
@@ -2390,7 +2552,7 @@
   break-inside: avoid;
   margin-bottom: 14px;
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 12px;
   background: #fff;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
@@ -2553,32 +2715,6 @@
   max-width: 900px;
 }
 
-.journey-home .fab {
-  position: fixed;
-  right: 22px;
-  bottom: 22px;
-  z-index: 80;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--blue);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 14px 36px -8px rgba(37, 70, 208, 0.6);
-  transition: transform 0.18s;
-}
-
-.journey-home .fab:hover {
-  transform: scale(1.07);
-}
-
-.journey-home .fab svg {
-  width: 25px;
-  height: 25px;
-}
-
 /* ============ CHALLENGE (problems grid + stat band) ============ */
 .journey-home .chgrid {
   display: grid;
@@ -2657,13 +2793,14 @@
   color: #fff;
 }
 
-.journey-home .chband .btn {
+/* Direct CTA only — modal .btn lives inside .chband too and must keep .btn-blue */
+.journey-home .chband > .btn {
   background: #fff;
   color: var(--blue);
   flex-shrink: 0;
 }
 
-.journey-home .chband .btn:hover {
+.journey-home .chband > .btn:hover {
   background: var(--blue-tint);
 }
 
@@ -2897,7 +3034,6 @@
 }
 
 @media (max-width: 1040px) {
-
   .journey-home .nav-links,
   .journey-home .nav-cta .ph,
   .journey-home .nav-cta .btn {
@@ -3112,5 +3248,13 @@
     width: 14px;
     height: 14px;
     border-width: 2.5px;
+  }
+
+  .journey-home .rstate .nm-full {
+    display: none;
+  }
+
+  .journey-home .rstate .nm-abbr {
+    display: inline;
   }
 }

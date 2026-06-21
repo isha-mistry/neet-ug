@@ -27,7 +27,7 @@ export function Select<T extends string = string>({
   const isControlled = value !== undefined;
   const handleChange = onValueChange
     ? (event: ChangeEvent<HTMLSelectElement>) =>
-        onValueChange(event.target.value as T | "")
+      onValueChange(event.target.value as T | "")
     : undefined;
 
   return (
@@ -42,7 +42,7 @@ export function Select<T extends string = string>({
         {...(isControlled ? { value } : { defaultValue })}
         onChange={handleChange}
         className={cn(
-          "h-11 w-full rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm text-text transition-colors focus:border-brand-500 focus:outline-none",
+          "h-11 w-full rounded-[14px] border border-border bg-background px-3 text-sm text-text transition-colors focus:border-brand-500 focus:outline-none",
           className
         )}
         {...rest}

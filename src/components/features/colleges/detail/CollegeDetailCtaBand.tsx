@@ -7,12 +7,6 @@ interface CollegeDetailCtaBandProps {
 }
 
 export function CollegeDetailCtaBand({ collegeName }: CollegeDetailCtaBandProps) {
-  const shortName = collegeName.length > 48 ? `${collegeName.slice(0, 45)}…` : collegeName;
-  const waBase = COUNSEL_WHATSAPP_URL.split("?")[0];
-  const whatsappHref = `${waBase}?text=${encodeURIComponent(
-    `Hi MedSeat, I'd like help comparing options including ${shortName}.`
-  )}`;
-
   return (
     <div className="relative overflow-hidden rounded-2xl border border-outline-variant bg-gradient-to-br from-primary via-primary to-primary-hover px-6 py-8 text-on-primary md:px-10">
       <div
@@ -32,16 +26,16 @@ export function CollegeDetailCtaBand({ collegeName }: CollegeDetailCtaBandProps)
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link
             href="/compare"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-on-primary/30 bg-on-primary px-5 py-3 text-sm font-bold text-primary shadow-sm transition hover:bg-on-primary/95"
+            className="inline-flex items-center justify-center gap-2 rounded-[14px] border border-on-primary/30 bg-on-primary px-5 py-3 text-sm font-bold text-primary shadow-sm transition hover:bg-on-primary/95"
           >
             <MaterialSymbol name="compare_arrows" className="text-lg" />
             Compare colleges
           </Link>
           <a
-            href={whatsappHref}
+            href={COUNSEL_WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-on-primary/40 bg-transparent px-5 py-3 text-sm font-bold text-on-primary transition hover:bg-on-primary/10"
+            className="inline-flex items-center justify-center gap-2 rounded-[14px] border border-on-primary/40 bg-transparent px-5 py-3 text-sm font-bold text-on-primary transition hover:bg-on-primary/10"
           >
             <MaterialSymbol name="chat" className="text-lg" />
             Free counselling

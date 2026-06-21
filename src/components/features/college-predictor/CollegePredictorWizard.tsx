@@ -1,14 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
-import { FiBarChart2, FiGlobe, FiRefreshCw } from "react-icons/fi";
+import { FiBarChart2, FiCheckCircle, FiGlobe, FiMessageSquare, FiRefreshCw } from "react-icons/fi";
 import Link from "next/link";
 import { Container } from "@/components/common/Container";
 import { DataSourceNotice } from "@/components/common/DataSourceNotice";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
-import { Checkbox } from "@/components/ui/Checkbox";
+import { LeadConsentField } from "@/components/features/leads/LeadConsentField";
 import { ToolCallout } from "@/components/features/predictors/PredictorToolParts";
 import {
   CollegePredictorAirChip,
@@ -24,7 +24,7 @@ import {
   VerifyModal,
   VerifyPanel,
 } from "@/components/features/college-predictor/CollegePredictorParts";
-import { CollegePredictorBanner } from "@/components/features/rank-predictor/RankPredictorParts";
+import { sendPhoneLoginOtpAction } from "@/app/actions/send-phone-otp";
 import {
   completeCollegePredictorProfileAction,
   getCollegePredictorSessionAction,
@@ -34,7 +34,7 @@ import {
 } from "@/app/(marketing)/college-predictor/actions";
 import { useComparisonStore } from "@/store/comparison.store";
 import { AIR_MAX, AIR_MIN } from "@/lib/college-predictor/constants";
-import { COLLEGE_PREDICTOR_HERO } from "@/lib/college-predictor/page-content";
+import { COLLEGE_PREDICTOR_HERO, COLLEGE_PREDICTOR_VERIFY_PANEL } from "@/lib/college-predictor/page-content";
 import type {
   CollegePredictorFormInput,
   CollegePredictorSession,
@@ -50,16 +50,11 @@ import {
 import type { NeetCategory } from "@/lib/rank-predictor/types";
 import type { ListingQuota } from "@/types/filters";
 import type { OptionItem } from "@/types/core";
+import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { applyPredictorPhoneVerification } from "@/components/features/predictors/predictor-phone-verify";
 
 type WizardStep = "form" | "teaser" | "verify" | "unlocked";
 type VerifyModalPhase = "phone" | "profile";
-
-const COUNTRY_CODE_OPTIONS: OptionItem<string>[] = [
-  { value: "+91", label: "India (+91)" },
-  { value: "+977", label: "Nepal (+977)" },
-  { value: "+971", label: "UAE (+971)" },
-  { value: "+1", label: "USA/Canada (+1)" },
-];
 
 interface CollegePredictorWizardProps {
   stateOptions: OptionItem<string>[];
@@ -99,6 +94,8 @@ export function CollegePredictorWizard({
   const [otp, setOtp] = useState("");
   const [consent, setConsent] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
+  const [otpSending, setOtpSending] = useState(false);
+  const [phoneSessionTrusted, setPhoneSessionTrusted] = useState(false);
   const [verifyPhase, setVerifyPhase] = useState<VerifyModalPhase>("phone");
   const [leadName, setLeadName] = useState(initialSession?.leadName ?? "");
   const [leadStateSlug, setLeadStateSlug] = useState(
@@ -128,6 +125,7 @@ export function CollegePredictorWizard({
 
   const goVerify = () => {
     setError(null);
+    setPhoneSessionTrusted(false);
     setStep("verify");
     setVerifyPhase("phone");
     startTransition(async () => {
@@ -145,6 +143,45 @@ export function CollegePredictorWizard({
     });
   };
 
+  const completePhoneVerification = useCallback(
+    async (trustedSession: boolean) => {
+      const input = buildInput();
+      if (!input) {
+        setError("Session expired. Start again from your rank.");
+        return;
+      }
+      await applyPredictorPhoneVerification({
+        phone,
+        countryCode,
+        consent,
+        trustedSession,
+        otp,
+        setError,
+        setPhoneSessionTrusted,
+        setOtpSent,
+        verify: async (payload) => {
+          const currentInput = buildInput();
+          if (!currentInput) {
+            return { success: false, error: "Session expired. Start again from your rank." };
+          }
+          const result = await verifyCollegePredictorOtpAction({
+            input: currentInput,
+            phone: payload.phone,
+            countryCode: payload.countryCode,
+            otp: payload.otp,
+            consent: payload.consent,
+            trustedSession: payload.trustedSession,
+          });
+          return result.success
+            ? { success: true }
+            : { success: false, error: result.error };
+        },
+        onVerified: () => setVerifyPhase("profile"),
+      });
+    },
+    [buildInput, phone, countryCode, consent, otp]
+  );
+
   const handleSendOtp = () => {
     const normalizedPhone = phone.replace(/\D/g, "");
     if (normalizedPhone.length !== 10) {
@@ -152,8 +189,28 @@ export function CollegePredictorWizard({
       return;
     }
     setPhone(normalizedPhone);
-    setOtpSent(true);
     setError(null);
+    setOtpSending(true);
+    startTransition(async () => {
+      const result = await sendPhoneLoginOtpAction({
+        phone: normalizedPhone,
+        countryCode,
+      });
+      setOtpSending(false);
+      if (!result.success) {
+        setError(result.error);
+        setOtpSent(false);
+        setPhoneSessionTrusted(false);
+        return;
+      }
+      setOtpSent(true);
+      if (result.alreadyVerified) {
+        setPhoneSessionTrusted(true);
+        if (consent) {
+          await completePhoneVerification(true);
+        }
+      }
+    });
   };
 
   const handleSubmitAir = () => {
@@ -188,23 +245,12 @@ export function CollegePredictorWizard({
       return;
     }
     if (!otpSent) {
-      setError("Send the OTP before continuing.");
+      setError("Send the OTP or continue with your verified number first.");
       return;
     }
     setError(null);
     startTransition(async () => {
-      const result = await verifyCollegePredictorOtpAction({
-        otp,
-        phone,
-        countryCode,
-        consent,
-        input,
-      });
-      if (!result.success) {
-        setError(result.error);
-        return;
-      }
-      setVerifyPhase("profile");
+      await completePhoneVerification(phoneSessionTrusted);
     });
   };
 
@@ -237,6 +283,8 @@ export function CollegePredictorWizard({
     setUnlocked(null);
     setOtp("");
     setOtpSent(false);
+    setPhoneSessionTrusted(false);
+    setConsent(false);
     setVerifyPhase("phone");
     setLeadName("");
     setLeadStateSlug("");
@@ -282,7 +330,7 @@ export function CollegePredictorWizard({
             : "";
 
   return (
-    <RankPredictorShell>
+    <RankPredictorShell className="college-predictor-page">
       {step === "form" ? (
         <CollegePredictorHero>
           <div className="rp-form-stack flex flex-col gap-4">
@@ -348,16 +396,17 @@ export function CollegePredictorWizard({
         </CollegePredictorHero>
       ) : null}
 
-      <CollegePredictorBanner />
-
-      <Container size="page">
+      <Container
+        size="page"
+        className={step !== "form" ? "ms-content-below-nav" : undefined}
+      >
         {step !== "form" ? (
           <CollegePredictorResultHeader referenceYear={teaser?.referenceYear} />
         ) : null}
 
         {showResults ? (
           <ResultsPanel>
-            <div className="rp-rsum">
+            <div className="rp-rsum ">
               <CollegePredictorAirChip
                 air={teaser.input.air}
                 categoryLabel={categoryLabel}
@@ -370,7 +419,7 @@ export function CollegePredictorWizard({
                 size="sm"
                 leadingIcon={<FiRefreshCw aria-hidden="true" />}
                 onClick={handleReset}
-                className="rounded-xl border-[1.5px] px-5 py-2.5 text-[13.5px] font-bold"
+                className="rounded-[14px] border-[1.5px] px-5 py-2.5 text-[13.5px] font-bold"
               >
                 New prediction
               </Button>
@@ -392,8 +441,8 @@ export function CollegePredictorWizard({
                 </ToolCallout>
 
                 {unlocked.likely.length > 0 ||
-                unlocked.possible.length > 0 ||
-                unlocked.reach.length > 0 ? (
+                  unlocked.possible.length > 0 ||
+                  unlocked.reach.length > 0 ? (
                   <div className="mt-8">
                     <CollegePredictorBucketTabs
                       likely={unlocked.likely}
@@ -421,8 +470,8 @@ export function CollegePredictorWizard({
                 ) : null}
 
                 {unlocked.likely.length === 0 &&
-                unlocked.possible.length === 0 &&
-                unlocked.reach.length === 0 ? (
+                  unlocked.possible.length === 0 &&
+                  unlocked.reach.length === 0 ? (
                   <ToolCallout variant="info" className="mt-4">
                     No colleges with cutoff data matched your inputs. Try State quota for
                     Gujarat, or browse the{" "}
@@ -472,60 +521,63 @@ export function CollegePredictorWizard({
           if (!pending) setStep("teaser");
         }}
       >
-        <VerifyPanel>
-          <div className="mx-auto flex max-w-md flex-col gap-5">
+        <VerifyPanel
+          title={COLLEGE_PREDICTOR_VERIFY_PANEL.title}
+          description={COLLEGE_PREDICTOR_VERIFY_PANEL.description}
+          bullets={COLLEGE_PREDICTOR_VERIFY_PANEL.bullets}
+        >
+          <div className="rp-form-stack mx-auto flex max-w-md flex-col gap-5">
             {verifyPhase === "phone" ? (
               <>
                 <div>
                   <span className="rp-field-label">Mobile number</span>
-                  <div className="rp-verify-phone mt-1.5">
-                    <label className="rp-verify-phone-code">
-                      <FiGlobe className="text-on-surface-variant" aria-hidden />
-                      <select
-                        name="countryCode"
-                        value={countryCode}
-                        onChange={(event) => setCountryCode(event.target.value)}
-                        aria-label="Country code"
-                      >
-                        {COUNTRY_CODE_OPTIONS.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                    <label className="rp-verify-phone-number">
-                      <span className="text-sm font-semibold text-on-surface-variant">
-                        {countryCode}
-                      </span>
-                      <input
-                        name="phone"
-                        type="tel"
-                        inputMode="numeric"
-                        placeholder="10-digit mobile"
-                        value={phone}
-                        onChange={(event) => {
-                          setPhone(event.target.value);
-                          if (otpSent) setOtpSent(false);
-                        }}
-                        aria-label="Mobile number"
-                      />
-                    </label>
-                  </div>
+                  <PhoneNumberField
+                    layout="verify"
+                    countryCode={countryCode}
+                    phone={phone}
+                    onPhoneChange={(value) => {
+                      setPhone(value);
+                      if (otpSent) setOtpSent(false);
+                      setPhoneSessionTrusted(false);
+                    }}
+                    onCountryCodeChange={(code) => {
+                      setCountryCode(code);
+                      setOtpSent(false);
+                      setPhoneSessionTrusted(false);
+                    }}
+                    verifyLeadingIcon={
+                      <FiGlobe className="text-lg text-on-surface-variant" aria-hidden />
+                    }
+                  />
                   <p className="rp-field-hint mt-2">
-                    Demo OTP: <span className="font-mono font-bold">121212</span>
+                    We&apos;ll send a 6-digit OTP via SMS. Valid for 5 minutes.
                   </p>
                 </div>
                 <Button
                   type="button"
                   variant={otpSent ? "secondary" : "primary"}
                   size="lg"
-                  className="h-12 w-full rounded-xl"
+                  fullWidth
+                  leadingIcon={
+                    otpSent ? (
+                      <FiCheckCircle className="size-5 shrink-0" aria-hidden />
+                    ) : (
+                      <FiMessageSquare className="size-5 shrink-0" aria-hidden />
+                    )
+                  }
+                  className="h-12 rounded-xl"
+                  disabled={pending || otpSending}
                   onClick={handleSendOtp}
                 >
-                  {otpSent ? "OTP sent to mobile" : "Send OTP to mobile"}
+                  {otpSending
+                    ? "Sending OTP…"
+                    : otpSent && phoneSessionTrusted
+                      ? "Verified"
+                      : otpSent
+                        ? "Resend OTP"
+                        : "Send OTP to mobile"}
                 </Button>
-                {otpSent ? (
+                {otpSent && !phoneSessionTrusted ? (
                   <Input
                     label="Enter OTP"
                     name="otp"
@@ -537,14 +589,17 @@ export function CollegePredictorWizard({
                     hint="Enter the code sent to your mobile number."
                   />
                 ) : null}
-                <Checkbox
-                  label="I agree to the privacy policy and understand this is not official MCC/NTA allotment data."
+                <LeadConsentField
+                  id="college-predictor-consent"
+                  skin="embedded"
                   checked={consent}
                   onChange={(e) => setConsent(e.target.checked)}
+                  disabled={pending}
+                  disclaimer="I understand this is not official MCC/NTA allotment data."
                 />
                 {error ? (
                   <p
-                    className="rounded-[10px] bg-error-container px-3.5 py-2.5 text-[12.5px] text-on-error-container"
+                    className="rounded-xl bg-error-container px-4 py-3 text-sm text-on-error-container"
                     role="alert"
                   >
                     {error}
@@ -553,12 +608,21 @@ export function CollegePredictorWizard({
                 <div className="flex flex-col gap-2 sm:flex-row">
                   <Button
                     type="button"
-                    disabled={pending || !otpSent}
+                    disabled={
+                      pending ||
+                      !otpSent ||
+                      !consent ||
+                      (!phoneSessionTrusted && !otp.trim())
+                    }
                     onClick={handleVerifyOtp}
                     className="flex-1 rounded-xl"
                     size="lg"
                   >
-                    {pending ? "Verifying..." : "Verify OTP"}
+                    {pending
+                      ? "Verifying…"
+                      : phoneSessionTrusted
+                        ? "Continue"
+                        : "Verify OTP"}
                   </Button>
                   <Button
                     type="button"
@@ -572,16 +636,19 @@ export function CollegePredictorWizard({
               </>
             ) : (
               <>
-                <ToolCallout variant="info">
+                <div className="rounded-xl bg-surface-container-low px-4 py-3 text-sm text-on-surface-variant">
+                  <FiCheckCircle
+                    className="mr-1 inline align-middle text-base text-primary"
+                    aria-hidden
+                  />
                   Mobile verified ({countryCode} {phone})
-                </ToolCallout>
+                </div>
                 <Input
                   label="Full name"
                   name="leadName"
                   value={leadName}
                   onChange={(e) => setLeadName(e.target.value)}
                   placeholder="Enter name"
-                  autoComplete="name"
                 />
                 <Select
                   label="State"
@@ -601,7 +668,7 @@ export function CollegePredictorWizard({
                 />
                 {error ? (
                   <p
-                    className="rounded-[10px] bg-error-container px-3.5 py-2.5 text-[12.5px] text-on-error-container"
+                    className="rounded-xl bg-error-container px-4 py-3 text-sm text-on-error-container"
                     role="alert"
                   >
                     {error}
@@ -615,7 +682,7 @@ export function CollegePredictorWizard({
                     className="flex-1 rounded-xl"
                     size="lg"
                   >
-                    {pending ? "Unlocking..." : "Unlock college lists"}
+                    {pending ? "Unlocking…" : "Unlock college lists"}
                   </Button>
                   <Button
                     type="button"

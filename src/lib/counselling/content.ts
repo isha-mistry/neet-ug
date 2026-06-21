@@ -279,6 +279,8 @@ export const COUNSELLING_PLANS = {
   ],
 };
 
+export const COUNSELLING_PRO_BONO_EMAIL = "info@lampros.tech" as const;
+
 export const COUNSELLING_FIT_ROWS = [
   {
     situation: "I want tools and data to plan myself",
@@ -309,7 +311,7 @@ export const COUNSELLING_FIT_ROWS = [
   },
   {
     situation: "I'm unsure where I stand",
-    badges: [{ label: "Free 30-min call", free: true }],
+    badges: [{ label: "Free 15-min call", free: true }],
   },
 ] as const;
 
@@ -321,7 +323,7 @@ export type CounsellingWhyIcon =
   | "honest";
 
 export const COUNSELLING_WHY = {
-  eyebrow: "Why MedSeat",
+  eyebrow: "Why Dravio",
   title: "Why families ",
   titleEmphasis: "choose us.",
   lede: "Built for MBBS counselling specifically — not a general edtech platform with a counselling tab bolted on.",
@@ -441,7 +443,7 @@ export const COUNSELLING_FAQ = [
 export const COUNSELLING_BANNER = {
   eyebrow: "Free first step",
   title: "Start with a free ",
-  titleEmphasis: "30-minute call.",
+  titleEmphasis: "15-minute call.",
   bodyParagraphs: [
     "Still unsure?",
     "Book a free review first.",
@@ -453,6 +455,6 @@ export const COUNSELLING_BANNER = {
 export const COUNSELLING_FINAL = {
   title: "Ready to review your ",
   titleEmphasis: "MBBS options?",
-  body: "Start with a free 30-minute call. We'll review your score, category, domicile and target states — and tell you honestly what's possible.",
+  body: "Start with a free 15-minute call. We'll review your score, category, domicile and target states — and tell you honestly what's possible.",
   meta: "RESPONDS IN 2 HOURS · MON–SAT 9 AM – 8 PM IST",
 };

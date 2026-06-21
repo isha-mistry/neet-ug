@@ -1,10 +1,7 @@
-import { FiCalendar } from "react-icons/fi";
 import { getSiteIdentity } from "@/lib/data/site";
-import { COUNSEL_BOOK_CALL_URL } from "@/lib/mbbs-state/constants";
-import { HOME_NAV_LINKS } from "@/lib/navigation/home-nav";
 import { PREDICTOR_NAV_LINKS } from "@/lib/navigation/predictor-nav";
 import { QUOTA_NAV_LINKS } from "@/lib/navigation/quota-nav";
-import { Button } from "@/components/ui/Button";
+import { BookCounsellingTrigger } from "@/components/features/leads/BookCounsellingTrigger";
 import { Container } from "@/components/common/Container";
 import { BrandMark } from "./BrandMark";
 import { MobileMenu } from "./MobileMenu";
@@ -15,35 +12,24 @@ export function Navbar() {
   const quotaLinks = QUOTA_NAV_LINKS;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-outline-variant bg-surface">
+    <header className="site-header sticky top-0 z-50 border-b border-outline-variant bg-surface">
       <Container
         size="page"
-        className="flex h-16 items-center justify-between gap-3 py-0 md:gap-4"
+        className="flex h-16 min-h-16 items-center justify-between gap-3 py-0 md:gap-4"
       >
-        <BrandMark
-          brandName={site.brandName}
-          className="min-w-0 shrink text-primary [&_span:last-child]:truncate [&_span:last-child]:font-headline-md [&_span:last-child]:text-headline-md [&_span:last-child]:font-bold max-sm:[&_span:last-child]:text-base"
-        />
+        <BrandMark brandName={site.brandName} inHeaderBar />
         <PrimaryNav
           links={site.primaryNav}
-          homeLinks={HOME_NAV_LINKS}
           quotaLinks={quotaLinks}
           predictorLinks={PREDICTOR_NAV_LINKS}
         />
-        <div className="flex shrink-0 items-center gap-2 self-center">
-          <Button
-            as="link"
-            href={COUNSEL_BOOK_CALL_URL}
-            variant="primary"
-            size="sm"
-            leadingIcon={<FiCalendar aria-hidden="true" />}
-            className="hidden lg:inline-flex"
-          >
-            Book a Counselling
-          </Button>
+        <div className="flex h-16 min-h-16 shrink-0 items-center gap-1.5 sm:gap-2">
+          <BookCounsellingTrigger
+            source="navbar"
+            className="h-7 min-h-0 gap-0.5 px-2 text-[11px] font-semibold lg:h-9 lg:gap-2 lg:px-3.5 lg:text-[13px]"
+          />
           <MobileMenu
             links={site.primaryNav}
-            homeLinks={HOME_NAV_LINKS}
             quotaLinks={quotaLinks}
             predictorLinks={PREDICTOR_NAV_LINKS}
           />

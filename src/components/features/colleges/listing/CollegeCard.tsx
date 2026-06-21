@@ -83,7 +83,7 @@ export function CollegeCard({
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest cursor-pointer",
+        "group relative flex h-full flex-col overflow-hidden rounded-[14px] border border-outline-variant bg-surface-container-lowest cursor-pointer",
         "transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_12px_24px_-8px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]",
         "focus-within:ring-2 focus-within:ring-primary/40 focus-within:ring-offset-2"
       )}

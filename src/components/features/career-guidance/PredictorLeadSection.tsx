@@ -1,32 +1,48 @@
 "use client";
 
-import React, { useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import React, { useRef, useState, useTransition, type FormEvent } from "react";
+import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
+import { usePathname, useRouter } from "next/navigation";
+import { submitLeadAction } from "@/app/actions/submit-lead";
 import { Container } from "@/components/common/Container";
-import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
+import { LEAD_FORM_TYPES } from "@/lib/leads/types";
+import { openCounselWhatsApp } from "@/lib/leads/whatsapp";
+import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
+import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
+import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
+import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
 import { FormPanel } from "@/components/features/rank-predictor/RankPredictorParts";
 
 const CATEGORY_OPTIONS = ["General", "OBC", "SC", "ST", "EWS"];
-const STATE_OPTIONS = [
-  "Maharashtra",
-  "Gujarat",
-  "Rajasthan",
-  "Madhya Pradesh",
-  "Delhi",
-  "Karnataka",
-  "Tamil Nadu",
-  "Uttar Pradesh",
-  "Other"
-];
 
 export function PredictorLeadSection() {
   const router = useRouter();
+  const pathname = usePathname();
+  const [pending, startTransition] = useTransition();
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState(DEFAULT_COUNTRY_DIAL_CODE);
   const [score, setScore] = useState("");
   const [category, setCategory] = useState("General");
   const [domicile, setDomicile] = useState("Maharashtra");
   const [error, setError] = useState<string | null>(null);
+  const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
+  const formRef = useRef<HTMLFormElement>(null);
+  const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
+    validateExtras: () => {
+      const digits = phone.replace(/\D/g, "");
+      const scoreNum = Number(score);
+      return (
+        fullName.trim().length >= 2 &&
+        digits.length >= 10 &&
+        score !== "" &&
+        scoreNum >= 0 &&
+        scoreNum <= 720
+      );
+    },
+    deps: [canSubmit, fullName, phone, score, category, domicile],
+  });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -47,26 +63,42 @@ export function PredictorLeadSection() {
       setError("Please enter a valid NEET score between 0 and 720.");
       return;
     }
+    if (!submitReady) {
+      setError(LEAD_CONSENT_ERROR);
+      return;
+    }
 
-    // Prefilled WhatsApp message content
-    const whatsappText = [
-      "Hi MedSeat, I want to check my matching medical colleges.",
-      `Name: ${name}`,
-      `WhatsApp: +91 ${digits}`,
-      `Expected NEET Score: ${score}/720`,
-      `Category: ${category}`,
-      `Domicile State: ${domicile}`,
-      "Please guide me on safe, borderline, and reach colleges."
-    ].join("\n");
+    startTransition(async () => {
+      const saved = await submitLeadAction({
+        formType: LEAD_FORM_TYPES.predictorGate,
+        pagePath: pathname,
+        pageLabel: "Career guidance — college matcher",
+        name,
+        countryCode,
+        phone: digits,
+        neetScore: Number(score),
+        neetCategory: category,
+        domicileState: domicile,
+        consent: canSubmit,
+      });
 
-    const base = COUNSEL_WHATSAPP_URL.split("?")[0];
-    const url = `${base}?text=${encodeURIComponent(whatsappText)}`;
+      if (!saved.success) {
+        setError(saved.error);
+        return;
+      }
 
-    // Open WhatsApp in a new tab
-    window.open(url, "_blank", "noopener,noreferrer");
+      openCounselWhatsApp([
+        "Hi Dravio, I want to check my matching medical colleges.",
+        `Name: ${name}`,
+        `WhatsApp: ${countryCode} ${digits}`,
+        `Expected NEET Score: ${score}/720`,
+        `Category: ${category}`,
+        `Domicile State: ${domicile}`,
+        "Please guide me on safe, borderline, and reach colleges.",
+      ]);
 
-    // Redirect the current tab to the interactive college predictor
-    router.push("/college-predictor");
+      router.push("/college-predictor");
+    });
   };
 
   return (
@@ -116,7 +148,7 @@ export function PredictorLeadSection() {
               title="Check Matching Colleges"
               subtitle="Enter details to generate your score mapping and proceed to the predictor."
             >
-              <form onSubmit={handleSubmit} className="space-y-4.5">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4.5">
                 <div>
                   <label className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
                     Full Name
@@ -127,7 +159,7 @@ export function PredictorLeadSection() {
                     placeholder="e.g. Rahul Sharma"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-[14px] border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
@@ -135,13 +167,14 @@ export function PredictorLeadSection() {
                   <label className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
                     WhatsApp Number (For Alerts)
                   </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="e.g. 9876543210"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  <PhoneNumberField
+                    countryCode={countryCode}
+                    onCountryCodeChange={setCountryCode}
+                    phone={phone}
+                    onPhoneChange={setPhone}
+                    phonePlaceholder="e.g. 9876543210"
+                    selectClassName="w-full rounded-[14px] border border-outline-variant/40 bg-surface-container-lowest px-3 py-3 text-xs text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    inputClassName="w-full rounded-[14px] border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
@@ -158,7 +191,7 @@ export function PredictorLeadSection() {
                       placeholder="e.g. 580"
                       value={score}
                       onChange={(e) => setScore(e.target.value)}
-                      className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      className="w-full rounded-[14px] border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                   </div>
 
@@ -169,7 +202,7 @@ export function PredictorLeadSection() {
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
-                      className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-3 py-3 text-xs text-on-surface focus:border-primary focus:outline-none"
+                      className="w-full rounded-[14px] border border-outline-variant/40 bg-surface-container-lowest px-3 py-3 text-xs text-on-surface focus:border-primary focus:outline-none"
                     >
                       {CATEGORY_OPTIONS.map((cat) => (
                         <option key={cat} value={cat}>
@@ -183,17 +216,11 @@ export function PredictorLeadSection() {
                     <label className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
                       Domicile State
                     </label>
-                    <select
+                    <LeadStateSelect
                       value={domicile}
                       onChange={(e) => setDomicile(e.target.value)}
-                      className="w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-3 py-3 text-xs text-on-surface focus:border-primary focus:outline-none"
-                    >
-                      {STATE_OPTIONS.map((st) => (
-                        <option key={st} value={st}>
-                          {st}
-                        </option>
-                      ))}
-                    </select>
+                      className="w-full rounded-[14px] border border-outline-variant/40 bg-surface-container-lowest px-3 py-3 text-xs text-on-surface focus:border-primary focus:outline-none"
+                    />
                   </div>
                 </div>
 
@@ -203,11 +230,19 @@ export function PredictorLeadSection() {
                   </p>
                 )}
 
+                <LeadConsentField
+                  id="predictor-gate-consent"
+                  skin="embedded"
+                  disabled={pending}
+                  {...consentFieldProps}
+                />
+
                 <button
                   type="submit"
-                  className="w-full rounded-xl bg-primary py-4 font-bold text-xs text-on-primary hover:bg-primary-hover active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center gap-2"
+                  disabled={pending || !submitReady}
+                  className="lead-form-submit w-full rounded-[14px] bg-primary py-4 font-bold text-xs text-on-primary hover:bg-primary-hover active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-primary disabled:active:scale-100"
                 >
-                  <span>Verify and Run Predictor</span>
+                  <span>{pending ? "Saving…" : "Verify and Run Predictor"}</span>
                   <span className="material-symbols-outlined text-sm">arrow_forward</span>
                 </button>
               </form>

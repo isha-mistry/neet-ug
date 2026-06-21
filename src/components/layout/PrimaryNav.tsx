@@ -8,25 +8,21 @@ import { isNavLinkActive } from "@/lib/navigation/is-nav-link-active";
 import { NEET_UG_2026_NAV_LINKS } from "@/lib/navigation/neet-ug-2026-nav";
 import {
   navDropdownLinkClassName,
-  navItemBorderClass,
-  navItemClassName,
+  navItemDesktopClassName,
 } from "@/components/layout/nav-styles";
 import { cn } from "@/lib/utils";
 
 interface PrimaryNavProps {
   links: LinkItem[];
-  homeLinks: LinkItem[];
   quotaLinks: LinkItem[];
   predictorLinks: LinkItem[];
 }
 
 function getDropdownLinks(
   label: string,
-  homeLinks: LinkItem[],
   quotaLinks: LinkItem[],
   predictorLinks: LinkItem[],
 ): LinkItem[] | null {
-  if (label === "Home") return homeLinks;
   if (label === "Quota") return quotaLinks;
   if (label === "Predictors" || label === "Predictor") return predictorLinks;
   if (label === "NEET UG 2026") return NEET_UG_2026_NAV_LINKS;
@@ -45,13 +41,10 @@ function NavDropdown({
   const dropdownActive = links.some((item) => isNavLinkActive(item.href, pathname));
 
   return (
-    <div className="group relative flex h-full items-center">
+    <div className="group relative flex h-16 shrink-0 items-center">
       <button
         type="button"
-        className={navItemClassName(
-          dropdownActive,
-          cn(navItemBorderClass, "text-[13px] xl:text-label-md"),
-        )}
+        className={navItemDesktopClassName(dropdownActive)}
         aria-haspopup="true"
         aria-expanded="false"
       >
@@ -70,7 +63,7 @@ function NavDropdown({
           "group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100",
         )}
       >
-        <div className="overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest p-2 shadow-lg ring-1 ring-black/[0.04]">
+        <div className="overflow-hidden rounded-[14px] border border-outline-variant bg-surface-container-lowest p-2 shadow-lg ring-1 ring-black/[0.04]">
           {links.map((item) => {
             const active = isNavLinkActive(item.href, pathname);
             return (
@@ -91,7 +84,6 @@ function NavDropdown({
 
 export function PrimaryNav({
   links,
-  homeLinks,
   quotaLinks,
   predictorLinks,
 }: PrimaryNavProps) {
@@ -100,12 +92,11 @@ export function PrimaryNav({
   return (
     <nav
       aria-label="Primary"
-      className="hidden h-16 min-w-0 flex-1 items-center justify-center gap-3 lg:flex xl:gap-6 2xl:gap-8"
+      className="hidden min-h-16 min-w-0 flex-1 items-center justify-center gap-3 lg:flex xl:gap-6 2xl:gap-8"
     >
       {links.map((link) => {
         const dropdownLinks = getDropdownLinks(
           link.label,
-          homeLinks,
           quotaLinks,
           predictorLinks,
         );
@@ -126,10 +117,7 @@ export function PrimaryNav({
           <Link
             key={link.href}
             href={link.href}
-            className={navItemClassName(
-              active,
-              cn(navItemBorderClass, "text-[13px] xl:text-label-md"),
-            )}
+            className={navItemDesktopClassName(active)}
             aria-current={active ? "page" : undefined}
           >
             {link.label}

@@ -1,17 +1,20 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { usePathname } from "next/navigation";
+import { useId, useRef, useState, useTransition, type FormEvent } from "react";
 import { FiArrowRight } from "react-icons/fi";
+import { submitLeadAction } from "@/app/actions/submit-lead";
 import { Button } from "@/components/ui/Button";
-import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
+import { LEAD_FORM_TYPES, type LeadFormType } from "@/lib/leads/types";
+import {
+  FREE_MBBS_COUNSELLING_REVIEW_WHATSAPP_MESSAGE,
+  openCounselWhatsApp,
+} from "@/lib/leads/whatsapp";
+import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
+import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
+import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { cn } from "@/lib/utils";
-
-const COUNTRY_CODES = [
-  { label: "IND (+91)", value: "+91" },
-  { label: "NPL (+977)", value: "+977" },
-  { label: "UAE (+971)", value: "+971" },
-  { label: "USA (+1)", value: "+1" },
-] as const;
 
 interface FreeCounsellingLeadFormProps {
   /** Shown in the WhatsApp message for attribution (e.g. "MBBS in Gujarat"). */
@@ -28,32 +31,59 @@ interface FreeCounsellingLeadFormProps {
   variant?: "card" | "embedded";
   /** When true, parent supplies `rp-form-stack` wrapper (rank predictor FormPanel). */
   embeddedInPanel?: boolean;
+  /** Stored as `form_type` on the lead row. */
+  formType?: LeadFormType;
+  /** Unique `id` for consent checkbox (required when multiple forms appear on one page). */
+  consentFieldId?: string;
+  /** When false, only persist the lead — no WhatsApp redirect after submit. */
+  redirectToWhatsApp?: boolean;
   className?: string;
 }
 
 const inputClass =
-  "w-full rounded-2xl border border-outline-variant bg-surface-container-lowest px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20";
+  "w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20";
 
 export function FreeCounsellingLeadForm({
   pageLabel,
   title = "Get free counselling",
   submitLabel = "Submit",
-  whatsappIntro = "Hi MedSeat, I'd like free MBBS counselling.",
+  whatsappIntro = FREE_MBBS_COUNSELLING_REVIEW_WHATSAPP_MESSAGE,
   fields = "default",
   variant = "card",
   embeddedInPanel = false,
+  formType = LEAD_FORM_TYPES.freeCounselling,
+  consentFieldId: consentFieldIdProp,
+  redirectToWhatsApp = true,
   className,
 }: FreeCounsellingLeadFormProps) {
+  const pathname = usePathname();
+  const consentFieldIdFallback = useId();
+  const consentFieldId =
+    consentFieldIdProp ??
+    `lead-consent-${formType.replace(/[^a-z0-9-]+/gi, "-")}-${consentFieldIdFallback.replace(/:/g, "")}`;
+  const [pending, startTransition] = useTransition();
   const [fullName, setFullName] = useState("");
   const [countryCode, setCountryCode] = useState("+91");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
-
+  const { consent, canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
   const showEmail = fields === "default";
   const stackedPhone = fields === "name-phone-only";
   const useRankPredictorFields = variant === "embedded" && stackedPhone;
+  const formRef = useRef<HTMLFormElement>(null);
+  const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
+    active: !submitted,
+    validateExtras: () => {
+      const digits = phone.replace(/\D/g, "");
+      const mail = email.trim();
+      if (fullName.trim().length < 2 || digits.length < 10) return false;
+      if (showEmail && mail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) return false;
+      return true;
+    },
+    deps: [submitted, canSubmit, fullName, phone, email, showEmail],
+  });
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -75,32 +105,51 @@ export function FreeCounsellingLeadForm({
       setError("Enter a valid email address.");
       return;
     }
+    if (!submitReady) {
+      setError(LEAD_CONSENT_ERROR);
+      return;
+    }
 
-    const lines = [
-      whatsappIntro,
-      `Page: ${pageLabel}`,
-      `Name: ${name}`,
-      `Phone: ${countryCode} ${digits}`,
-    ];
-    if (showEmail && mail) lines.push(`Email: ${mail}`);
+    startTransition(async () => {
+      const saved = await submitLeadAction({
+        formType,
+        pagePath: pathname,
+        pageLabel,
+        name,
+        countryCode,
+        phone: digits,
+        email: mail || undefined,
+        consent: canSubmit,
+        rawPayload: { whatsappIntro },
+      });
 
-    const base = COUNSEL_WHATSAPP_URL.split("?")[0];
-    const url = `${base}?text=${encodeURIComponent(lines.join("\n"))}`;
-    window.open(url, "_blank", "noopener,noreferrer");
-    setSubmitted(true);
+      if (!saved.success) {
+        setError(saved.error);
+        return;
+      }
+
+      if (redirectToWhatsApp) {
+        openCounselWhatsApp([whatsappIntro]);
+      }
+      setSubmitted(true);
+    });
   }
 
   const thankYou = (
     <>
       <p className="text-lg font-bold text-on-surface">Thank you</p>
       <p className="mt-2 text-sm leading-relaxed text-on-surface-variant">
-        Continue in WhatsApp to connect with our counsellor team. You can close this tab after
-        sending your message.
+        {redirectToWhatsApp
+          ? "Continue in WhatsApp to connect with our counsellor team. You can close this tab after sending your message."
+          : "We've saved your details. Our team will share NEET UG 2026 exam and counselling updates with you soon."}
       </p>
       <button
         type="button"
         className="mt-4 text-sm font-semibold text-primary hover:underline"
-        onClick={() => setSubmitted(false)}
+        onClick={() => {
+          setSubmitted(false);
+          resetConsent();
+        }}
       >
         Submit another request
       </button>
@@ -125,6 +174,7 @@ export function FreeCounsellingLeadForm({
 
   const form = (
     <form
+      ref={formRef}
       className={cn(
         variant === "embedded"
           ? embeddedInPanel
@@ -146,50 +196,28 @@ export function FreeCounsellingLeadForm({
               name="fullName"
               type="text"
               required
-              autoComplete="name"
+              minLength={2}
+
               placeholder="Enter Your Name"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="h-10 w-full rounded-2xl border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="h-10 w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
           </label>
-          <div className="grid grid-cols-1 gap-4">
-            <label htmlFor="lead-rp-country" className="flex flex-col gap-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-outline">
-                Country code
-              </span>
-              <select
-                id="lead-rp-country"
-                name="countryCode"
-                value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
-                required
-                className="h-10 w-full rounded-md border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              >
-                {COUNTRY_CODES.map((c) => (
-                  <option key={c.value} value={c.value}>
-                    {c.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label htmlFor="lead-rp-phone" className="flex flex-col gap-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-outline">
-                Mobile number
-              </span>
-              <input
-                id="lead-rp-phone"
-                name="phone"
-                type="tel"
-                required
-                autoComplete="tel-national"
-                inputMode="numeric"
-                placeholder="10-digit number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="h-10 w-full rounded-md border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
-            </label>
+          <div className="flex flex-col gap-1.5">
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-outline">
+              Mobile number
+            </span>
+            <PhoneNumberField
+              countrySelectId="lead-rp-country"
+              phoneInputId="lead-rp-phone"
+              countryCode={countryCode}
+              onCountryCodeChange={setCountryCode}
+              phone={phone}
+              onPhoneChange={setPhone}
+              selectClassName="h-10 w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              inputClassName="h-10 w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
           </div>
         </>
       ) : (
@@ -203,7 +231,8 @@ export function FreeCounsellingLeadForm({
               name="fullName"
               type="text"
               required
-              autoComplete="name"
+              minLength={2}
+
               placeholder="Full Name*"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
@@ -212,79 +241,31 @@ export function FreeCounsellingLeadForm({
           </div>
 
           {stackedPhone ? (
-            <>
-              <div>
-                <label htmlFor="lead-country" className="sr-only">
-                  Country code
-                </label>
-                <select
-                  id="lead-country"
-                  name="countryCode"
-                  value={countryCode}
-                  onChange={(e) => setCountryCode(e.target.value)}
-                  className={inputClass}
-                  aria-label="Country code"
-                >
-                  {COUNTRY_CODES.map((c) => (
-                    <option key={c.value} value={c.value}>
-                      {c.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="lead-phone" className="sr-only">
-                  Mobile number
-                </label>
-                <input
-                  id="lead-phone"
-                  name="phone"
-                  type="tel"
-                  required
-                  autoComplete="tel-national"
-                  inputMode="numeric"
-                  placeholder="Mobile number*"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className={inputClass}
-                />
-              </div>
-            </>
+            <PhoneNumberField
+              layout="stacked"
+              countrySelectId="lead-country"
+              phoneInputId="lead-phone"
+              countryCode={countryCode}
+              onCountryCodeChange={setCountryCode}
+              phone={phone}
+              onPhoneChange={setPhone}
+              phonePlaceholder="Mobile number*"
+              selectClassName={inputClass}
+              inputClassName={inputClass}
+            />
           ) : (
-            <div className="flex gap-2">
-              <label htmlFor="lead-country" className="sr-only">
-                Country code
-              </label>
-              <select
-                id="lead-country"
-                name="countryCode"
-                value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
-                className="w-[7.25rem] shrink-0 rounded-2xl border border-outline-variant bg-surface-container-lowest px-3 py-3 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                aria-label="Country code"
-              >
-                {COUNTRY_CODES.map((c) => (
-                  <option key={c.value} value={c.value}>
-                    {c.label}
-                  </option>
-                ))}
-              </select>
-              <label htmlFor="lead-phone" className="sr-only">
-                Mobile number
-              </label>
-              <input
-                id="lead-phone"
-                name="phone"
-                type="tel"
-                required
-                autoComplete="tel-national"
-                inputMode="numeric"
-                placeholder="Enter contact number*"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="min-w-0 flex-1 rounded-2xl border border-outline-variant bg-surface-container-lowest px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
-            </div>
+            <PhoneNumberField
+              layout="inline-flex"
+              countrySelectId="lead-country"
+              phoneInputId="lead-phone"
+              countryCode={countryCode}
+              onCountryCodeChange={setCountryCode}
+              phone={phone}
+              onPhoneChange={setPhone}
+              phonePlaceholder="Enter contact number*"
+              selectClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 py-3 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              inputClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
           )}
 
           {showEmail ? (
@@ -321,14 +302,23 @@ export function FreeCounsellingLeadForm({
         </p>
       ) : null}
 
+      <LeadConsentField
+        id={consentFieldId}
+        skin={variant === "embedded" ? "embedded" : "surface"}
+        disabled={pending}
+        {...consentFieldProps}
+      />
+
       <Button
         type="submit"
         variant="primary"
         size="lg"
         fullWidth
+        disabled={pending || !submitReady}
+        className="lead-form-submit"
         trailingIcon={variant === "card" ? <FiArrowRight className="text-lg" aria-hidden /> : undefined}
       >
-        {submitLabel}
+        {pending ? "Saving…" : submitLabel}
       </Button>
     </form>
   );

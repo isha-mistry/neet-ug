@@ -1,13 +1,15 @@
 import Link from "next/link";
-import { FiCalendar, FiMessageCircle } from "react-icons/fi";
+import { FiMessageCircle } from "react-icons/fi";
 import { Container } from "@/components/common/Container";
 import { Button } from "@/components/ui/Button";
+import { BookCounsellingTrigger } from "@/components/features/leads/BookCounsellingTrigger";
 import { getSiteIdentity } from "@/lib/data/site";
 import { FOOTER_QUOTA_LINKS } from "@/lib/navigation/footer-nav";
 import { NEET_UG_2026_NAV_LINKS } from "@/lib/navigation/neet-ug-2026-nav";
 import { PREDICTOR_NAV_LINKS } from "@/lib/navigation/predictor-nav";
 import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
 import type { NavSection } from "@/types/core";
+import { LEGAL_POLICY_LINKS } from "@/lib/legal/policy-links";
 import { cn } from "@/lib/utils";
 import { BrandMark } from "./BrandMark";
 
@@ -45,7 +47,7 @@ function buildLinkColumns(site: ReturnType<typeof getSiteIdentity>): NavSection[
     (column) => column.title === "Medical Colleges in India"
   );
   const decisionTools = site.footer.columns.find((column) => column.title === "Decision Tools");
-  const medseat = site.footer.columns.find((column) => column.title === "MedSeat");
+  const dravio = site.footer.columns.find((column) => column.title === "Dravio");
 
   const exploreLinks = [
     ...(explore?.links ?? []),
@@ -70,8 +72,8 @@ function buildLinkColumns(site: ReturnType<typeof getSiteIdentity>): NavSection[
     columns.push({ title: "MBBS by state", links: states.links });
   }
 
-  if (medseat) {
-    columns.push({ title: "MedSeat", links: medseat.links });
+  if (dravio) {
+    columns.push({ title: "Dravio", links: dravio.links });
   }
 
   return columns;
@@ -81,10 +83,6 @@ export function Footer() {
   const site = getSiteIdentity();
   const year = new Date().getFullYear();
   const linkColumns = buildLinkColumns(site);
-
-  const whatsappHref = `${COUNSEL_WHATSAPP_URL.split("?")[0]}?text=${encodeURIComponent(
-    "Hi MedSeat, I'd like to book a counselling session for NEET UG MBBS admissions."
-  )}`;
 
   return (
     <footer className="border-t border-outline-variant/50 bg-surface-container-low">
@@ -97,20 +95,14 @@ export function Footer() {
               {site.description}
             </p>
             <div className="flex flex-wrap gap-3 pt-1">
+              <BookCounsellingTrigger
+                source="footer"
+                label="Book a Counselling"
+                shortLabel="Book a Counselling"
+              />
               <Button
                 as="link"
-                href={whatsappHref}
-                variant="primary"
-                size="sm"
-                leadingIcon={<FiCalendar aria-hidden="true" />}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Book counselling
-              </Button>
-              <Button
-                as="link"
-                href={whatsappHref}
+                href={COUNSEL_WHATSAPP_URL}
                 variant="outline"
                 size="sm"
                 leadingIcon={<FiMessageCircle aria-hidden="true" />}
@@ -133,10 +125,19 @@ export function Footer() {
           <p className="max-w-3xl text-xs leading-relaxed text-on-surface-variant">
             {site.footer.legal}
           </p>
-          <div className="flex shrink-0 flex-col gap-2 text-xs text-on-surface-variant sm:flex-row sm:items-center sm:gap-4">
-            <Link href="/privacy" className="font-medium transition-colors hover:text-primary">
-              Privacy policy
-            </Link>
+          <div className="flex shrink-0 flex-col gap-2 text-xs text-on-surface-variant sm:flex-row sm:items-center sm:flex-wrap sm:gap-x-3 sm:gap-y-1">
+            {LEGAL_POLICY_LINKS.map((link, index) => (
+              <span key={link.href} className="inline-flex items-center gap-3">
+                {index > 0 ? (
+                  <span className="hidden text-outline-variant sm:inline" aria-hidden>
+                    ·
+                  </span>
+                ) : null}
+                <Link href={link.href} className="font-medium transition-colors hover:text-primary">
+                  {link.label}
+                </Link>
+              </span>
+            ))}
             <span className="hidden text-outline-variant sm:inline" aria-hidden>
               ·
             </span>

@@ -40,11 +40,11 @@ export function MbbsIndiaHero({ catalog }: { catalog: CatalogSeatBreakdown }) {
               Updated {MBBS_INDIA_LAST_UPDATED}
             </span>
           </div>
-          
+
           <h1 className="rp-hero-title max-w-2xl text-balance">
             MBBS in India {MBBS_ACADEMIC_SESSION}: <em>Colleges, Seats & Admission</em>
           </h1>
-          
+
           <p className="rp-hero-lede max-w-xl">
             Complete details on {formatNumber(catalog.totalColleges)} medical colleges and{" "}
             {formatNumber(catalog.totalSeats)} MBBS seats — fee structures, domicile rules, and counseling procedures in one place.
@@ -73,7 +73,7 @@ export function MbbsIndiaHero({ catalog }: { catalog: CatalogSeatBreakdown }) {
               View overview
             </Button>
           </div>
-          <p className="rp-hero-fine">Data: MedSeat live college database ({MBBS_ACADEMIC_SESSION} session)</p>
+          <p className="rp-hero-fine">Data: Dravio live college database ({MBBS_ACADEMIC_SESSION} session)</p>
         </div>
         <FreeCounsellingLeadForm pageLabel="MBBS in India" className="mx-auto w-full max-w-md lg:max-w-none" />
       </div>
@@ -203,7 +203,7 @@ export function RelatedLinksGrid({
         <li key={link.href}>
           <Link
             href={link.href}
-            className="group flex h-full items-center gap-3 rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-4 text-sm font-semibold text-on-surface transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+            className="group flex h-full items-center gap-3 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-4 py-4 text-sm font-semibold text-on-surface transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
           >
             <span className="material-symbols-outlined rounded-lg bg-surface-container-high p-2 text-lg text-primary group-hover:bg-primary group-hover:text-on-primary">
               arrow_forward

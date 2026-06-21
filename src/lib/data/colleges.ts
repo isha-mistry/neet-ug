@@ -22,7 +22,7 @@ import {
 } from "@/lib/colleges/listing-options";
 import { loadCatalogStates } from "./catalog-loader";
 import { setStateNameCache } from "@/lib/data/state-name-cache";
-import { medseatData } from "./source";
+import { dravioData } from "./source";
 
 export const getAllColleges = cache(async (): Promise<CollegeRecord[]> => {
   return loadCatalogColleges();
@@ -114,7 +114,7 @@ export async function getFilterOptions(): Promise<FilterOptionGroups> {
     quotas: LISTING_QUOTA_OPTIONS,
     categories: LISTING_CATEGORY_OPTIONS,
     collegeTypes: LISTING_COLLEGE_TYPE_OPTIONS,
-    feeRanges: medseatData.filterOptions.feeRanges,
-    cutoffRanges: medseatData.filterOptions.cutoffRanges,
+    feeRanges: dravioData.filterOptions.feeRanges,
+    cutoffRanges: dravioData.filterOptions.cutoffRanges,
   };
 }

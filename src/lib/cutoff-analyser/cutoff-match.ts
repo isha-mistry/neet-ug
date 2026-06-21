@@ -40,11 +40,19 @@ function cutoffMatchesCategory(
 export function pickAnalyserCutoffFromCutoffs(
   cutoffs: CollegeCutoff[],
   quota: ListingQuota,
-  category: NeetCategory
+  category: NeetCategory,
+  minYear?: number,
 ): CollegeCutoff | null {
   if (!cutoffs.length) return null;
-  const latestYear = Math.max(...cutoffs.map((c) => c.year));
-  let pool = cutoffs.filter((c) => c.year === latestYear);
+
+  let pool = cutoffs;
+  if (minYear != null) {
+    pool = pool.filter((c) => c.year >= minYear);
+  }
+  if (!pool.length) return null;
+
+  const latestYear = Math.max(...pool.map((c) => c.year));
+  pool = pool.filter((c) => c.year === latestYear);
   if (!pool.length) return null;
 
   const byQuota = pool.filter((c) =>

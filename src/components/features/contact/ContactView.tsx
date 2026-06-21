@@ -10,11 +10,13 @@ import { TrustStats } from "./TrustStats";
 import { ContactFaqs } from "./ContactFaqs";
 import { AdditionalResources } from "./AdditionalResources";
 import { Container } from "@/components/common/Container";
-import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
+import { useBookCounsellingModal } from "@/components/features/leads/BookCounsellingModalProvider";
 import { NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
 import { Button } from "@/components/ui/Button";
 
 export function ContactView() {
+    const { openBookCounsellingModal } = useBookCounsellingModal();
+
     return (
         <NeetUg2026Shell>
             <ContactHero />
@@ -35,18 +37,22 @@ export function ContactView() {
                         Still need help choosing the right next step?
                     </h2>
                     <p className="mt-4 text-sm text-on-surface-variant leading-relaxed max-w-2xl mx-auto font-medium">
-                        Send your rank, preferred state, category, budget and concern. The counselling team
-                        can help you decide whether to start with a callback, WhatsApp chat or detailed inquiry.
+                        Share your rank, preferred state, category, budget and concern. Our counselling team
+                        will review your details and help you choose the right next step — callback, detailed
+                        inquiry, or a counselling call.
                     </p>
                     <div className="mt-8 flex justify-center">
                         <Button
-                            href={COUNSEL_WHATSAPP_URL}
-                            as="link"
+                            type="button"
                             variant="primary"
-                            rel="noopener noreferrer"
                             trailingIcon={<span className="material-symbols-outlined text-sm font-bold">arrow_forward</span>}
+                            onClick={() =>
+                                openBookCounsellingModal("contact:next-step", {
+                                    redirectToWhatsApp: false,
+                                })
+                            }
                         >
-                            <span>Chat with counsellor</span>
+                            <span>Talk to a counsellor</span>
                         </Button>
                     </div>
                 </Container>

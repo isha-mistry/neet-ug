@@ -19,7 +19,7 @@ export const NEET_UG_ANSWER_KEY_LEAD_MAGNET = {
   formSubtitle: "Name and mobile — we ping you when the provisional key, final key, or scorecard is out.",
   submitLabel: "Get result alerts",
   whatsappIntro:
-    "Hi MedSeat, I'd like NEET UG 2026 answer key and result alerts on WhatsApp.",
+    "Hi Dravio, I'd like NEET UG 2026 answer key and result alerts on WhatsApp.",
 } as const;
 
 export const NEET_UG_ANSWER_KEY_JUMP_SECTIONS: readonly GuideJumpItem[] = [

@@ -24,6 +24,7 @@
   },
   "include": [
     "next-env.d.ts",
+    "public/countrycode.json",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",

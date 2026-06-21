@@ -28,7 +28,7 @@ import {
   buildStateCentroidAnchors,
 } from "@/lib/maps/india-state-centroids";
 
-/** MedSeat primary scale (see globals.css --color-primary-*) */
+/** Dravio primary scale (see globals.css --color-primary-*) */
 const NO_DATA_FILL = "#e1e2e4";
 const ACTIVE_FILL = "#2546d0";
 const ACTIVE_PRESSED_FILL = "#0f2c9c";

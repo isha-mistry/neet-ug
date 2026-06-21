@@ -1,14 +1,14 @@
-import { medseatData } from "./source";
+import { dravioData } from "./source";
 import type { HomeContent, PageMetaContent, SiteIdentity } from "@/types/site";
 
 export function getSiteIdentity(): SiteIdentity {
-  return medseatData.site;
+  return dravioData.site;
 }
 
 export function getHomeContent(): HomeContent {
-  return medseatData.home;
+  return dravioData.home;
 }
 
-export function getPageMeta(key: keyof typeof medseatData.pages): PageMetaContent {
-  return medseatData.pages[key];
+export function getPageMeta(key: keyof typeof dravioData.pages): PageMetaContent {
+  return dravioData.pages[key];
 }

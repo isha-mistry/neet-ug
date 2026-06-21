@@ -29,7 +29,7 @@ export function CategoryDirectoryGrid({
             elevated
             className="flex w-full flex-col gap-4 transition-shadow group-hover:shadow-[var(--shadow-md)]"
           >
-            <span className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-md)] ms-gradient-soft text-brand-700">
+            <span className="flex h-11 w-11 items-center justify-center rounded-[14px] ms-gradient-soft text-brand-700">
               <FiLayers aria-hidden="true" className="h-5 w-5" />
             </span>
             <div className="flex flex-col gap-2">

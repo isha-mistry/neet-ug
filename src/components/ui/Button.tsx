@@ -31,7 +31,7 @@ type ButtonAsLink = BaseProps & {
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const baseClasses =
-  "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl font-bold tracking-wide transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-60";
+  "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[12px] font-bold tracking-wide transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-60";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:

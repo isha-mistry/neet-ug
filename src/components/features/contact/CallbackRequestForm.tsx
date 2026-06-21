@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useState, type FormEvent } from "react";
+import React, { useRef, useState, useTransition, type FormEvent } from "react";
+import { usePathname } from "next/navigation";
+import { submitLeadAction } from "@/app/actions/submit-lead";
 import { Container } from "@/components/common/Container";
-import { COUNSEL_WHATSAPP_URL } from "@/lib/mbbs-state/constants";
+import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { guideCardClass } from "@/lib/neet-ug-2026/section-styles";
 import { cn } from "@/lib/utils";
+import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
+import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
+import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { Button } from "@/components/ui/Button";
+import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
 
 const TIME_SLOTS = [
     "Morning (10:00 AM - 12:00 PM)",
@@ -14,11 +21,22 @@ const TIME_SLOTS = [
 ];
 
 export function CallbackRequestForm() {
+    const pathname = usePathname();
+    const [pending, startTransition] = useTransition();
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
+    const [countryCode, setCountryCode] = useState(DEFAULT_COUNTRY_DIAL_CODE);
     const [preferredSlot, setPreferredSlot] = useState(TIME_SLOTS[0]);
     const [error, setError] = useState<string | null>(null);
     const [submitted, setSubmitted] = useState(false);
+    const { canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
+    const formRef = useRef<HTMLFormElement>(null);
+    const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
+        active: !submitted,
+        validateExtras: () =>
+            name.trim().length >= 2 && phone.replace(/\D/g, "").length >= 10,
+        deps: [submitted, canSubmit, name, phone],
+    });
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -35,20 +53,30 @@ export function CallbackRequestForm() {
             setError("Please enter a valid 10-digit mobile number.");
             return;
         }
+        if (!submitReady) {
+            setError(LEAD_CONSENT_ERROR);
+            return;
+        }
 
-        // Prefilled WhatsApp message content for scheduling the callback
-        const whatsappText = [
-            "Hi MedSeat, I would like to request a callback.",
-            `Name: ${trimmedName}`,
-            `Phone: +91 ${digits}`,
-            `Preferred Slot: ${preferredSlot}`
-        ].join("\n");
+        startTransition(async () => {
+            const saved = await submitLeadAction({
+                formType: LEAD_FORM_TYPES.callbackRequest,
+                pagePath: pathname,
+                pageLabel: "Contact callback",
+                name: trimmedName,
+                countryCode,
+                phone: digits,
+                preferredSlot,
+                consent: canSubmit,
+            });
 
-        const base = COUNSEL_WHATSAPP_URL.split("?")[0];
-        const url = `${base}?text=${encodeURIComponent(whatsappText)}`;
+            if (!saved.success) {
+                setError(saved.error);
+                return;
+            }
 
-        window.open(url, "_blank", "noopener,noreferrer");
-        setSubmitted(true);
+            setSubmitted(true);
+        });
     };
 
     return (
@@ -81,21 +109,22 @@ export function CallbackRequestForm() {
                                         </span>
                                         <h3 className="text-base font-black text-on-surface mb-1">Callback Requested!</h3>
                                         <p className="text-xs text-on-surface-variant leading-relaxed mb-4">
-                                            Thank you, {name}. We will call you on <b>+91 {phone}</b> during the <b>{preferredSlot}</b> window.
+                                            Thank you, {name}. We will call you on <b>{countryCode} {phone}</b> during the <b>{preferredSlot}</b> window.
                                         </p>
                                         <button
                                             onClick={() => {
                                                 setName("");
                                                 setPhone("");
                                                 setSubmitted(false);
+                                                resetConsent();
                                             }}
-                                            className="inline-flex items-center justify-center gap-1 rounded-xl border border-outline-variant bg-surface px-5 py-2.5 text-xs font-bold text-on-surface hover:bg-surface-container-low transition-all cursor-pointer"
+                                            className="inline-flex items-center justify-center gap-1 rounded-[14px] border border-outline-variant bg-surface px-5 py-2.5 text-xs font-bold text-on-surface hover:bg-surface-container-low transition-all cursor-pointer"
                                         >
                                             Schedule Another
                                         </button>
                                     </div>
                                 ) : (
-                                    <form onSubmit={handleSubmit} className="space-y-6">
+                                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                                         <div className="grid gap-4 sm:grid-cols-3">
                                             <div>
                                                 <label className="mb-2 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
@@ -104,10 +133,11 @@ export function CallbackRequestForm() {
                                                 <input
                                                     type="text"
                                                     required
+                                                    minLength={2}
                                                     placeholder="Enter your full name"
                                                     value={name}
                                                     onChange={(e) => setName(e.target.value)}
-                                                    className="w-full rounded-2xl border border-outline-variant bg-surface-container-low px-4 py-4 text-xs text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                                    className="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-4 py-4 text-xs text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                                 />
                                             </div>
 
@@ -115,13 +145,13 @@ export function CallbackRequestForm() {
                                                 <label className="mb-2 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
                                                     Mobile Number *
                                                 </label>
-                                                <input
-                                                    type="tel"
-                                                    required
-                                                    placeholder="10-digit number"
-                                                    value={phone}
-                                                    onChange={(e) => setPhone(e.target.value)}
-                                                    className="w-full rounded-2xl border border-outline-variant bg-surface-container-low px-4 py-4 text-xs text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                                <PhoneNumberField
+                                                    countryCode={countryCode}
+                                                    onCountryCodeChange={setCountryCode}
+                                                    phone={phone}
+                                                    onPhoneChange={setPhone}
+                                                    selectClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-2 py-4 text-[11px] text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                                    inputClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-3 py-4 text-xs text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                                 />
                                             </div>
 
@@ -132,7 +162,7 @@ export function CallbackRequestForm() {
                                                 <select
                                                     value={preferredSlot}
                                                     onChange={(e) => setPreferredSlot(e.target.value)}
-                                                    className="w-full rounded-2xl border border-outline-variant bg-surface-container-low px-3 py-3.5 text-xs text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none"
+                                                    className="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-3 py-3.5 text-xs text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none"
                                                 >
                                                     {TIME_SLOTS.map((slot) => (
                                                         <option key={slot} value={slot}>
@@ -149,13 +179,20 @@ export function CallbackRequestForm() {
                                             </p>
                                         )}
 
+                                        <LeadConsentField
+                                            id="callback-consent"
+                                            disabled={pending}
+                                            {...consentFieldProps}
+                                        />
+
                                         <Button
                                             type="submit"
                                             variant="primary"
-                                            className="w-full"
+                                            className="lead-form-submit w-full"
+                                            disabled={pending || !submitReady}
                                             trailingIcon={<span className="material-symbols-outlined text-sm">phone_callback</span>}
                                         >
-                                            <span>Request Callback</span>
+                                            <span>{pending ? "Saving…" : "Request Callback"}</span>
 
                                         </Button>
                                     </form>

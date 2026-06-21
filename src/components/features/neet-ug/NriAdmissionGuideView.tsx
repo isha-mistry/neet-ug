@@ -10,6 +10,7 @@ import {
   MetricGrid,
 } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NeetUgLeadMagnetPanel } from "@/components/features/neet-ug/NeetUgLeadMagnetPanel";
+import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { NeetUgUpdatesSidebar } from "@/components/features/neet-ug/NeetUgUpdatesParts";
 import { NeetUgHubFinalCta, NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
 import { DataTable } from "@/components/features/neet-ug/shared/DataTable";
@@ -51,7 +52,13 @@ export function NriAdmissionGuideView() {
         trio={NEET_UG_NRI_HERO.trio}
         fine={NEET_UG_NRI_HERO.fine}
       >
-        <NeetUgLeadMagnetPanel pageLabel="NEET UG 2026 NRI Guide" content={NEET_UG_NRI_LEAD_MAGNET} />
+        <NeetUgLeadMagnetPanel
+          pageLabel="NEET UG 2026 NRI Guide"
+          content={NEET_UG_NRI_LEAD_MAGNET}
+          formType={LEAD_FORM_TYPES.getNriCounsellingSupport}
+          redirectToWhatsApp={false}
+          consentFieldId="lead-neet-ug-2026-nri-guide-consent"
+        />
       </RpMarketingHero>
 
       <nav
@@ -143,7 +150,7 @@ export function NriAdmissionGuideView() {
                   <GuideCard key={cert.title} className="flex flex-col">
                     <div className="flex items-center gap-3">
                       <span
-                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary"
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] bg-primary-fixed text-primary"
                         aria-hidden
                       >
                         <span className="material-symbols-outlined text-[22px] leading-none">
@@ -196,7 +203,7 @@ export function NriAdmissionGuideView() {
                   <GuideCard key={block.title}>
                     <div className="flex items-center gap-3">
                       <span
-                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-primary"
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] bg-primary-fixed text-primary"
                         aria-hidden
                       >
                         <span className="material-symbols-outlined text-[22px] leading-none">
@@ -224,7 +231,7 @@ export function NriAdmissionGuideView() {
                 {NEET_UG_NRI_DOCUMENTS.map((doc) => (
                   <GuideCard key={doc.label} className="flex items-center gap-3 py-4">
                     <span
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-fixed text-primary"
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[14px] bg-primary-fixed text-primary"
                       aria-hidden
                     >
                       <span className="material-symbols-outlined text-lg leading-none">
@@ -237,7 +244,7 @@ export function NriAdmissionGuideView() {
               </div>
             </GuideSection>
 
-            <GuideSection embedded id="related" eyebrow="More on MedSeat" title="Related guides">
+            <GuideSection embedded id="related" eyebrow="More on Dravio" title="Related guides">
               <div className="grid gap-3 sm:grid-cols-2">
                 {NEET_UG_NRI_RELATED_LINKS.map((item) => (
                   <Link

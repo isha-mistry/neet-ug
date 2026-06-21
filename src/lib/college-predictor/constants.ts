@@ -1,6 +1,7 @@
+/** @deprecated Demo OTP removed — use Fast2SMS via sendPhoneLoginOtpAction. */
 export const COLLEGE_PREDICTOR_DEMO_OTP = "121212";
 
-export const COLLEGE_PREDICTOR_SESSION_COOKIE = "medseat_college_predictor_session";
+export const COLLEGE_PREDICTOR_SESSION_COOKIE = "dravio_college_predictor_session";
 
 export const COLLEGE_PREDICTOR_SESSION_MAX_AGE_SEC = 60 * 60 * 24 * 90;
 

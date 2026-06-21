@@ -68,7 +68,7 @@ export function AbbreviationsGlossary() {
       item.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.full.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.desc.toLowerCase().includes(searchQuery.toLowerCase());
-    
+
     if (activeTab === "All") return matchesSearch;
     return matchesSearch && item.category === categoryMap[activeTab];
   });
@@ -129,7 +129,7 @@ export function AbbreviationsGlossary() {
               placeholder="Search abbreviation or full form (e.g. VJA, Earmarked, Hilly)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-outline-variant bg-surface-container-low py-3 pl-10 pr-4 text-sm font-medium text-on-surface placeholder:text-on-surface-variant focus:border-primary/50 focus:bg-surface focus:outline-none focus:ring-1 focus:ring-primary/20"
+              className="w-full rounded-[14px] border border-outline-variant bg-surface-container-low py-3 pl-10 pr-4 text-sm font-medium text-on-surface placeholder:text-on-surface-variant focus:border-primary/50 focus:bg-surface focus:outline-none focus:ring-1 focus:ring-primary/20"
             />
             <MaterialSymbol
               name="search"
@@ -150,11 +150,10 @@ export function AbbreviationsGlossary() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                  activeTab === tab
+                className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${activeTab === tab
                     ? "bg-primary text-on-primary shadow-xs"
                     : "text-on-surface-variant hover:text-primary"
-                }`}
+                  }`}
               >
                 {tab === "Special" ? "Horizontal / Special" : tab}
               </button>
@@ -171,15 +170,14 @@ export function AbbreviationsGlossary() {
                 className="flex flex-col gap-1.5 rounded-xl border border-outline-variant/50 bg-surface-container-low/40 p-4 transition-all duration-200 hover:border-primary/25 hover:bg-surface-container-low"
               >
                 <div className="flex items-center gap-2">
-                  <span className={`inline-flex rounded-md px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${
-                    item.category === "Core"
+                  <span className={`inline-flex rounded-md px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${item.category === "Core"
                       ? "bg-primary-fixed text-primary"
                       : item.category === "Quotas"
-                      ? "bg-secondary-container text-on-secondary-container"
-                      : item.category === "Special & Horizontal"
-                      ? "bg-tertiary-fixed text-tertiary"
-                      : "bg-surface-container-highest text-on-surface-variant"
-                  }`}>
+                        ? "bg-secondary-container text-on-secondary-container"
+                        : item.category === "Special & Horizontal"
+                          ? "bg-tertiary-fixed text-tertiary"
+                          : "bg-surface-container-highest text-on-surface-variant"
+                    }`}>
                     {item.code}
                   </span>
                   <span className="text-xs font-bold text-on-surface">

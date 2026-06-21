@@ -53,7 +53,7 @@ export function ComparisonCTAGroup({
         ) : null}
         <Button
           as="link"
-          href="/counseling"
+          href="/counselling"
           variant="outline"
           leadingIcon={<FiPhoneCall aria-hidden="true" />}
         >

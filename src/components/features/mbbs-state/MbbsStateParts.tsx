@@ -35,11 +35,11 @@ export function MbbsStateHero({ config }: { config: MbbsStateConfig }) {
               Updated {MBBS_STATE_LAST_UPDATED}
             </span>
           </div>
-          
+
           <h1 className="rp-hero-title max-w-2xl text-balance">
             MBBS in {config.name} {MBBS_ACADEMIC_SESSION}: <em>Colleges, Seats & Admission</em>
           </h1>
-          
+
           <p className="rp-hero-lede max-w-xl">
             Complete details on {formatNumber(stats.totalColleges)} medical colleges and{" "}
             {formatNumber(stats.totalSeats)} MBBS seats — counseling procedures, domicile rules, and fee structures in {config.name}.
@@ -108,7 +108,7 @@ export function StateCollegesExploreCta({ config }: { config: MbbsStateConfig })
   return (
     <div
       className={cn(
-        "mt-6 flex flex-col gap-4 rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 md:px-5 md:py-5",
+        "mt-6 flex flex-col gap-4 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 md:px-5 md:py-5",
         "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-8px_rgba(0,61,155,0.08)]"
       )}
     >

@@ -82,3 +82,76 @@ export interface PreferenceListItem {
   gapToUser: number;
   tag: "safe" | "target" | "reach";
 }
+
+export interface CutoffAnalyserFormInput {
+  score: number;
+  category: NeetCategory;
+  domicileState: FocusStateSlug;
+  quota: ListingQuota;
+}
+
+export interface CutoffAnalyserSummary {
+  userRank: number;
+  rankRange: { min: number; max: number };
+  admissionProbabilityPercent: number;
+  probabilityLabel: string;
+  safeCollegeCount: number;
+  statesEligibleCount: number;
+  statesSelectedCount: number;
+  eligibleStateAbbrevs: string;
+  comparisonRowCount: number;
+  collegeMatchCount: number;
+}
+
+export interface CutoffAnalyserTeaserResult {
+  referenceYear: number;
+  disclaimer: string;
+  input: CutoffAnalyserFormInput;
+  summary: CutoffAnalyserSummary;
+}
+
+export interface CutoffAnalyserUnlockedResult extends CutoffAnalyserTeaserResult {
+  result: CutoffAnalyserResult;
+  feeCollegesByState: Partial<Record<FocusStateSlug, AnalyserCollege[]>>;
+}
+
+export interface CutoffAnalyserRankContext {
+  userRank: number;
+  rankRange: { min: number; max: number };
+  referenceYear: number;
+  minCutoffYear: number;
+}
+
+export interface CutoffAnalyserPhoneVerifiedSession extends CutoffAnalyserFormInput {
+  verified: false;
+  phoneVerified: true;
+  phoneVerifiedAt: number;
+  countryCode: string;
+  phone: string;
+}
+
+export interface CutoffAnalyserSession extends CutoffAnalyserFormInput {
+  verified: true;
+  verifiedAt: number;
+  countryCode: string;
+  phone: string;
+  leadName: string;
+  leadStateSlug: string;
+  leadCity: string;
+}
+
+export type CutoffAnalyserStoredSession =
+  | CutoffAnalyserSession
+  | CutoffAnalyserPhoneVerifiedSession;
+
+export function isFullCutoffAnalyserSession(
+  session: CutoffAnalyserStoredSession,
+): session is CutoffAnalyserSession {
+  return session.verified === true;
+}
+
+export function isPhoneVerifiedCutoffAnalyserSession(
+  session: CutoffAnalyserStoredSession,
+): session is CutoffAnalyserPhoneVerifiedSession {
+  return session.verified === false && session.phoneVerified === true;
+}

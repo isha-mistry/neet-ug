@@ -1,13 +1,13 @@
-import { medseatData } from "./source";
+import { dravioData } from "./source";
 import type { CategoryRecord } from "@/types/college";
 import type { CollegeFilters } from "@/types/filters";
 
 export function getAllCategories(): CategoryRecord[] {
-  return medseatData.categories;
+  return dravioData.categories;
 }
 
 export function findCategoryBySlug(slug: string): CategoryRecord | undefined {
-  return medseatData.categories.find((c) => c.slug === slug);
+  return dravioData.categories.find((c) => c.slug === slug);
 }
 
 export function presetToFilters(category: CategoryRecord): CollegeFilters {

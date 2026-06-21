@@ -41,8 +41,8 @@ function SortHeader({
         onClick={onClick}
         className={cn(
           "inline-flex items-center gap-1 transition-colors hover:text-white/80",
-          align === "right" && "ml-auto",
-          active ? "text-white" : "text-white/70"
+          align === "right" && "w-full justify-end",
+          active ? "text-white" : "text-white/70",
         )}
       >
         {label}
@@ -85,20 +85,20 @@ export function CutoffComparisonTable({
   const sorted = [...rows].sort((a, b) => {
     let cmp = 0;
     switch (sortKey) {
-      case "state":
-        cmp = a.stateName.localeCompare(b.stateName);
-        break;
-      case "closing":
-        cmp = (a.closingRank ?? 0) - (b.closingRank ?? 0);
-        break;
-      case "gap":
-        cmp = (a.gapToUser ?? 0) - (b.gapToUser ?? 0);
-        break;
-      case "status":
-        cmp = compareCutoffStatus(a.status, b.status);
-        if (cmp === 0) cmp = a.stateName.localeCompare(b.stateName);
-        if (cmp === 0) cmp = a.quotaLabel.localeCompare(b.quotaLabel);
-        break;
+    case "state":
+      cmp = a.stateName.localeCompare(b.stateName);
+      break;
+    case "closing":
+      cmp = (a.closingRank ?? 0) - (b.closingRank ?? 0);
+      break;
+    case "gap":
+      cmp = (a.gapToUser ?? 0) - (b.gapToUser ?? 0);
+      break;
+    case "status":
+      cmp = compareCutoffStatus(a.status, b.status);
+      if (cmp === 0) cmp = a.stateName.localeCompare(b.stateName);
+      if (cmp === 0) cmp = a.quotaLabel.localeCompare(b.quotaLabel);
+      break;
     }
     return sortDir === "asc" ? cmp : -cmp;
   });
@@ -161,7 +161,7 @@ export function CutoffComparisonTable({
               >
                 <td className="px-5 py-4">
                   <div className="flex items-center gap-2">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary-fixed text-xs font-bold text-primary">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[14px] bg-primary-fixed text-xs font-bold text-primary">
                       {row.stateAbbrev}
                     </span>
                     <span className="font-semibold text-on-surface">
@@ -201,7 +201,7 @@ export function CutoffComparisonTable({
           >
             <div className="flex items-start justify-between gap-2">
               <div className="flex items-center gap-2">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-fixed text-xs font-bold text-primary">
+                <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-primary-fixed text-xs font-bold text-primary">
                   {row.stateAbbrev}
                 </span>
                 <div>

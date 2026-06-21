@@ -101,7 +101,7 @@ export function CollegeSelector({ catalog }: CollegeSelectorProps) {
           onChange={(event) => setQuery(event.target.value)}
           leadingIcon={<FiSearch aria-hidden="true" />}
         />
-        <ul className="flex flex-col divide-y divide-border rounded-[var(--radius-md)] border border-border bg-surface">
+        <ul className="flex flex-col divide-y divide-border rounded-[14px] border border-border bg-surface">
           {filtered.length === 0 ? (
             <li className="px-3 py-3 text-sm tracking-wide text-text-muted">
               No colleges match your search.
@@ -132,12 +132,12 @@ export function CollegeSelector({ catalog }: CollegeSelectorProps) {
                     }
                     disabled={disabled}
                     className={cn(
-                      "inline-flex items-center gap-1 rounded-[var(--radius-md)] border px-3 py-1.5 text-xs font-semibold uppercase tracking-widest transition-colors",
+                      "inline-flex items-center gap-1 rounded-[14px] border px-3 py-1.5 text-xs font-semibold uppercase tracking-widest transition-colors",
                       isSelected
                         ? "border-brand-700 bg-brand-700 text-text-on-brand"
                         : disabled
-                        ? "cursor-not-allowed border-border bg-surface text-text-muted opacity-60"
-                        : "border-border bg-background text-text hover:border-brand-300 hover:text-brand-700"
+                          ? "cursor-not-allowed border-border bg-surface text-text-muted opacity-60"
+                          : "border-border bg-background text-text hover:border-brand-300 hover:text-brand-700"
                     )}
                   >
                     {isSelected ? "Selected" : <><FiPlus aria-hidden="true" /> Add</>}

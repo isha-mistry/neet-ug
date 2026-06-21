@@ -1,4 +1,3 @@
-import { estimateRankFromScoreClient } from "./estimate-rank";
 import { pickAnalyserCutoffFromCutoffs } from "./cutoff-match";
 import type { CollegeCutoff } from "@/types/college";
 import type { ListingQuota } from "@/types/filters";
@@ -17,6 +16,7 @@ import type {
   AnalyserCollege,
   CollegeMatch,
   CutoffAnalyserInput,
+  CutoffAnalyserRankContext,
   CutoffAnalyserResult,
   FocusStateSlug,
   StateEligibility,
@@ -26,9 +26,15 @@ import type {
 function pickAnalyserCutoff(
   college: AnalyserCollege,
   quota: ListingQuota,
-  category: NeetCategory
+  category: NeetCategory,
+  minCutoffYear?: number,
 ): CollegeCutoff | null {
-  return pickAnalyserCutoffFromCutoffs(college.cutoffs, quota, category);
+  return pickAnalyserCutoffFromCutoffs(
+    college.cutoffs,
+    quota,
+    category,
+    minCutoffYear,
+  );
 }
 
 function quotaLabel(quota: ListingQuota): string {
@@ -56,12 +62,10 @@ function matchesCollegeType(
 
 export function computeCutoffAnalysis(
   input: CutoffAnalyserInput,
-  colleges: AnalyserCollege[]
+  colleges: AnalyserCollege[],
+  rankContext: CutoffAnalyserRankContext,
 ): CutoffAnalyserResult {
-  const estimate = estimateRankFromScoreClient(input.score);
-  const userRank = Math.round(
-    (estimate.tight.min + estimate.tight.max) / 2
-  );
+  const { userRank, rankRange, referenceYear, minCutoffYear } = rankContext;
 
   const selected = new Set(input.stateSlugs);
   const pool = colleges.filter(
@@ -75,7 +79,8 @@ export function computeCutoffAnalysis(
     const cutoff = pickAnalyserCutoff(
       college,
       input.quota,
-      input.category
+      input.category,
+      minCutoffYear,
     );
     if (!cutoff?.rank) continue;
     const gap = gapRanksBetter(userRank, cutoff.rank);
@@ -144,7 +149,8 @@ export function computeCutoffAnalysis(
         const cutoff = pickAnalyserCutoff(
           college,
           quota,
-          input.category
+          input.category,
+          minCutoffYear,
         );
         if (cutoff?.rank) ranks.push(cutoff.rank);
       }
@@ -181,8 +187,8 @@ export function computeCutoffAnalysis(
 
   return {
     userRank,
-    rankRange: estimate.tight,
-    referenceYear: estimate.referenceYear,
+    rankRange,
+    referenceYear,
     admissionProbabilityPercent,
     probabilityLabel: probabilityLabel(admissionProbabilityPercent),
     safeCollegeCount,

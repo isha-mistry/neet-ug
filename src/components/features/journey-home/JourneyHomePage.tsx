@@ -2,10 +2,8 @@ import Link from "next/link";
 import type { HomeHeroContent } from "@/types/site";
 import type { FaqContent } from "@/types/content";
 import {
-  COUNSEL_WHATSAPP_URL,
-} from "@/lib/mbbs-state/constants";
-import {
   JOURNEY_CHALLENGE_BAND,
+  JOURNEY_CHALLENGE_COUNSELLING_CTA,
   JOURNEY_COMPARISON_ROWS,
   JOURNEY_COUNSELING_MISTAKES,
   JOURNEY_PROBLEM_CARDS,
@@ -16,12 +14,15 @@ import {
   JOURNEY_TESTIMONIALS,
 } from "@/lib/journey-home/content";
 import { HeroVisualPanel } from "./HeroVisualPanel";
+import { HeroCounselorCta } from "./HeroCounselorCta";
 import { ScrollJourney } from "./ScrollJourney";
 import { JourneyHomeEffects } from "./JourneyHomeEffects";
 import { SeatRadarCard, PlaybookForm } from "./SeatRadarCard";
 import { RoundsPanel } from "./RoundsPanel";
 import { JourneyStateHub } from "./JourneyStateCard";
 import { JourneyComparisonCta } from "./JourneyComparisonCta";
+import { JourneyCounsellingLeadTrigger } from "./JourneyCounsellingLeadTrigger";
+import { JourneyFinalCounsellingCta } from "./JourneyFinalCounsellingCta";
 import { JourneyPackagePacks } from "./JourneyPackagePacks";
 import Image from "next/image";
 
@@ -33,51 +34,51 @@ type JourneyHomePageProps = {
 
 function ProblemIcon({ name }: { name: string }) {
   switch (name) {
-    case "portals":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect x="3" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-          <rect x="13" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-          <rect x="3" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-          <rect x="13" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-        </svg>
-      );
-    case "order":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          />
-        </svg>
-      );
-    case "upgrade":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
-          <path
-            d="M12 16V8M8.5 11.5L12 8l3.5 3.5"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-    default:
-      return (
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
+  case "portals":
+    return (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="13" y="3" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="3" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="13" y="13" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
+      </svg>
+    );
+  case "order":
+    return (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  case "upgrade":
+    return (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+        <path
+          d="M12 16V8M8.5 11.5L12 8l3.5 3.5"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  default:
+    return (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
   }
 }
 
@@ -129,9 +130,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                   />
                 </svg>
               </a>
-              <a href="#cta" className="btn btn-line">
-                Talk to a counselor
-              </a>
+              <HeroCounselorCta />
             </div>
             <div className="hero-mini">
               <div>
@@ -336,12 +335,15 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
               <span className="big">{JOURNEY_CHALLENGE_BAND.stat}</span>
               <p>
                 In Gujarat alone, <b>roughly half of aspirants qualify NEET</b> each year,
-                competing for <b>7,500+ state quota seats</b> across 43 colleges. Getting the
+                competing for <b>7,500+ state quota seats </b> across 43 colleges. Getting the
                 right seat is not just about rank — it&apos;s about what you do with it.
               </p>
-              <a className="btn btn-line" href={COUNSEL_WHATSAPP_URL}>
-                {JOURNEY_CHALLENGE_BAND.cta}
-              </a>
+              <JourneyCounsellingLeadTrigger
+                label={JOURNEY_CHALLENGE_BAND.cta}
+                className="btn btn-line"
+                pageHash="challenge"
+                config={JOURNEY_CHALLENGE_COUNSELLING_CTA}
+              />
             </div>
           </div>
         </section>
@@ -552,7 +554,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 A good choice list for Round 1 may not be the right strategy for Round 2, mop-up, or stray vacancy. Plan your rounds before the counselling window opens.
               </p>
               <div className="final-ctas">
-                <Link href="/counseling" className="btn btn-blue">
+                <Link href="/counselling" className="btn btn-blue">
                   Plan my rounds
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path
@@ -678,9 +680,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
               Start with a free 15-minute review of your score, category, domicile, and target states.
             </p>
             <div className="final-ctas">
-              <a className="btn btn-blue" href={COUNSEL_WHATSAPP_URL}>
-                Book free counseling call
-              </a>
+              <JourneyFinalCounsellingCta />
               <a className="btn btn-line" href="#radar">
                 Run the Seat Radar first →
               </a>
@@ -721,9 +721,6 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             ))}
           </div>
         </div>
-        <p className="mq-note wrap">
-          Sample stories for layout — replace with verified, consented testimonials before launch.
-        </p>
       </section>
 
       <section className="section" id="playbook" style={{ paddingTop: 20 }}>
@@ -791,12 +788,6 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
           </div>
         </div>
       </section>
-
-      <Link target="_blank" className="fab" href={COUNSEL_WHATSAPP_URL} aria-label="Chat on WhatsApp">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3a8.2 8.2 0 117 3.8zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4 0-.6.2-.8l.4-.5c.1-.2.2-.3.1-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.2 2.2-.4 3.7a12 12 0 004.6 4.4c1.7.8 2.4.9 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.1z" />
-        </svg>
-      </Link>
     </div>
   );
 }
