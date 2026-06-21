@@ -1,4 +1,15 @@
-import { mbbsStatePath } from "@/lib/mbbs-state/constants";
+import { JOURNEY_STATE_CARDS } from "@/lib/journey-home/content";
+
+/** Short counselling authority labels on About state cards (home uses full `auth` strings). */
+const ABOUT_STATE_AUTH_LABEL: Record<
+  (typeof JOURNEY_STATE_CARDS)[number]["code"],
+  string
+> = {
+  GJ: "ACPUGMEC",
+  RJ: "RUHS",
+  MP: "DMAT MP",
+  MH: "CET Cell",
+};
 
 /* ------------------------------------------------------------------ */
 /*  Hero                                                               */
@@ -91,40 +102,14 @@ export const ABOUT_PRINCIPLES = [
 
 export const ABOUT_GEOGRAPHY = {
   body: "We work in depth across four states — covering roughly 33,000 MBBS seats between them, about a quarter of all the seats in India. We also handle All India Quota counseling, which lets students from any state in India target seats in our four through the AIQ 15% route. We chose four instead of fourteen because there's no honest way to know fourteen counseling systems deeply.",
-  stateCards: [
-    {
-      code: "GJ",
-      name: "Gujarat",
-      auth: "ACPUGMEC",
-      seats: "7,500+",
-      colleges: "43",
-      href: mbbsStatePath("gujarat"),
-    },
-    {
-      code: "RJ",
-      name: "Rajasthan",
-      auth: "RUHS",
-      seats: "7,300+",
-      colleges: "43",
-      href: mbbsStatePath("rajasthan"),
-    },
-    {
-      code: "MP",
-      name: "Madhya Pradesh",
-      auth: "DMAT MP",
-      seats: "5,700+",
-      colleges: "31",
-      href: mbbsStatePath("madhya-pradesh"),
-    },
-    {
-      code: "MH",
-      name: "Maharashtra",
-      auth: "CET Cell",
-      seats: "12,800+",
-      colleges: "80+",
-      href: mbbsStatePath("maharashtra"),
-    },
-  ],
+  stateCards: JOURNEY_STATE_CARDS.map((state) => ({
+    code: state.code,
+    name: state.name,
+    auth: ABOUT_STATE_AUTH_LABEL[state.code],
+    seats: state.seats,
+    colleges: state.colleges,
+    href: state.href,
+  })),
 } as const;
 
 /* ------------------------------------------------------------------ */
