@@ -253,21 +253,28 @@ export function CutoffAnalyserTeaserShowcase({
 export function AnalyserInputChip({
   score,
   categoryLabel,
-  statesLabel,
+  domicileLabel,
+  compareLabel = "Comparing GJ, RJ, MP, MH",
 }: {
   score: number;
   categoryLabel: string;
-  statesLabel: string;
+  domicileLabel: string;
+  compareLabel?: string;
 }) {
   return (
-    <ToolInputChip>
-      <span className="rp-rpill-score">{score}</span>
-      <span className="text-on-surface-variant">/ 720</span>
-      <i className="rp-rpill-sep">·</i>
-      <span>{categoryLabel}</span>
-      <i className="rp-rpill-sep">·</i>
-      <span>{statesLabel}</span>
-    </ToolInputChip>
+    <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
+      <ToolInputChip>
+        <span className="rp-rpill-score">{score}</span>
+        <span className="text-on-surface-variant">/ 720</span>
+      </ToolInputChip>
+      <span className="rp-rpill shrink-0">{categoryLabel}</span>
+      <span className="rp-rpill max-w-full text-left text-[13px] leading-snug sm:text-sm">
+        {domicileLabel}
+      </span>
+      <span className="rp-rpill max-w-full text-left text-[13px] leading-snug sm:text-sm">
+        {compareLabel}
+      </span>
+    </div>
   );
 }
 

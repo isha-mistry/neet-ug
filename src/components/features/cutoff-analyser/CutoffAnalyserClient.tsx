@@ -673,11 +673,11 @@ export function CutoffAnalyserClient({
             <div id="result" className="ca-results-head">
               <CutoffAnalyserResultHeader referenceYear={teaser.referenceYear} />
 
-              <div className="rp-rsum mt-6">
+              <div className="rp-rsum ca-input-summary mt-6">
                 <AnalyserInputChip
                   score={teaser.input.score}
                   categoryLabel={getListingCategoryShortLabel(teaser.input.category)}
-                  statesLabel={`Domicile ${domicileLabel} · Comparing GJ, RJ, MP, MH`}
+                  domicileLabel={`Domicile ${domicileLabel}`}
                 />
                 <Button
                   type="button"
@@ -685,7 +685,7 @@ export function CutoffAnalyserClient({
                   size="sm"
                   leadingIcon={<FiRefreshCw aria-hidden="true" />}
                   onClick={handleReset}
-                  className="rounded-[14px] border-[1.5px] px-5 py-2.5 text-[13.5px] font-bold"
+                  className="ca-input-summary-reset rounded-[14px] border-[1.5px] px-5 py-2.5 text-[13.5px] font-bold"
                 >
                   New analysis
                 </Button>

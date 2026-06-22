@@ -2370,6 +2370,35 @@ body[data-mobile-nav-open] .site-header {
   gap: 1rem;
 }
 
+.ca-input-summary {
+  align-items: stretch;
+}
+
+@media (max-width: 639px) {
+  .ca-input-summary {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .ca-input-summary .ca-input-summary-reset {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ca-page .rp-rpill {
+    padding: 0.5rem 0.875rem;
+    font-size: 13px;
+    gap: 0.5rem;
+    line-height: 1.35;
+  }
+}
+
+@media (min-width: 640px) {
+  .ca-input-summary {
+    align-items: center;
+  }
+}
+
 .ca-chart-panel {
   display: grid;
   gap: 1.25rem;

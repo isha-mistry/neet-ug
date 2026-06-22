@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiChevronDown } from "react-icons/fi";
@@ -39,28 +40,40 @@ function NavDropdown({
   pathname: string;
 }) {
   const dropdownActive = links.some((item) => isNavLinkActive(item.href, pathname));
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
-    <div className="group relative flex h-16 shrink-0 items-center">
+    <div
+      className="relative flex h-16 shrink-0 items-center"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <button
         type="button"
         className={navItemDesktopClassName(dropdownActive)}
         aria-haspopup="true"
-        aria-expanded="false"
+        aria-expanded={open}
       >
         <span>{label}</span>
         <FiChevronDown
           aria-hidden="true"
-          className="h-4 w-4 shrink-0 transition-transform duration-200 ease-out group-hover:rotate-180 group-focus-within:rotate-180"
+          className={cn(
+            "h-4 w-4 shrink-0 transition-transform duration-200 ease-out",
+            open && "rotate-180",
+          )}
         />
       </button>
       <div
         className={cn(
           "absolute left-0 top-full z-40 w-64 pt-2",
-          "pointer-events-none translate-y-1 opacity-0",
           "transition-[opacity,transform] duration-200 ease-out",
-          "group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100",
-          "group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100",
+          open
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none translate-y-1 opacity-0",
         )}
       >
         <div className="overflow-hidden rounded-[14px] border border-outline-variant bg-surface-container-lowest p-2 shadow-lg ring-1 ring-black/[0.04]">
@@ -70,6 +83,7 @@ function NavDropdown({
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => setOpen(false)}
                 className={navDropdownLinkClassName(active)}
               >
                 {item.label}

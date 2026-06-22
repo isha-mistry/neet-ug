@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 import { GuideCard } from "@/components/features/neet-ug/shared/NeetUgSharedParts";
 import { NEET_UG_NTA_HELPDESK } from "@/lib/neet-ug-2026/hub-content";
 import { cn } from "@/lib/utils";
@@ -84,15 +85,21 @@ export function NtaHelpdeskCard({ className }: { className?: string }) {
           {portalLinks.map((portal) => (
             <Button
               key={portal.href}
+              as="link"
               href={portal.href}
               variant="secondary"
+              size="md"
+              fullWidth
               target="_blank"
               rel="noopener noreferrer"
+              trailingIcon={
+                <MaterialSymbol
+                  name="open_in_new"
+                  className="text-[14px] text-outline"
+                />
+              }
             >
               {portal.label}
-              <span className="material-symbols-outlined text-base text-outline" aria-hidden>
-                open_in_new
-              </span>
             </Button>
           ))}
         </div>

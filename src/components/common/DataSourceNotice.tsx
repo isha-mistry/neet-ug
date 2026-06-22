@@ -16,7 +16,7 @@ export function DataSourceNotice() {
       <div className="flex flex-col gap-3 border-b border-border px-4 py-4 text-sm leading-relaxed text-text-muted md:px-6">
         <p>
           <strong className="font-semibold text-text">Data Compiled &amp; Verified By:</strong>{" "}
-          Dravio NEET Counsellor Team, senior education consultants with 23+ years
+          Dravio NEET Counsellor Team, senior education consultants with 10+ years
           of experience in All India NEET UG counselling, including AIIMS
           admissions.
         </p>

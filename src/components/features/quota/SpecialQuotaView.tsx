@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { QuotaHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
 import { quotaTheoryContent } from "./content";
 import { QuotaBookCounsellingCard } from "./QuotaBookCounsellingCard";
+import { NeetUgHubSidebarPromos } from "@/components/features/neet-ug/shared/NeetUgHubSidebarPromos";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -43,40 +43,7 @@ export function SpecialQuotaView() {
         </div>
       </Card>
 
-      {/* Featured Image Card */}
-      <Card padded={false} className="group relative h-64 cursor-pointer overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Seat Matrix" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNxCUIVz64YIs-V2XKvctakH_HtiwuYXw5TSHfn7yKQxT_ArXg3GuETefqpU4W81XHaKXWK5s2PiheukoI_JUXQX2jAH0NP6GocotyLqAXudJ4fhok2Wk-t-2o7OMXOugaO3LfsiuM0ZmdGcJfjmvOIhiBl4JOYisClGY9RWSnK4B_FZlpfPFKh8bQQTDu1NSZE3mQNTVP5Vg0U3bcpPYq3j1-5u_9I2bMVmfWNI0LUzK8u01_JLQINHOOy2IXx55kt86l_lH0Sw0" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-          <span className="text-white font-title-lg text-title-lg font-bold">Seat Matrix Analysis 2024</span>
-          <p className="text-white/80 font-body-sm text-body-sm leading-relaxed">Deep dive into category-wise distributions.</p>
-        </div>
-      </Card>
-
-      {/* Quick Links */}
-      <Card padded={true}>
-        <h4 className="font-label-md text-label-md text-outline uppercase tracking-widest mb-4 font-bold">Related Tools</h4>
-        <ul className="space-y-4">
-          <li>
-            <Link className="flex items-center gap-3 text-body-md hover:text-primary group transition-colors text-on-surface" href="/rank-predictor">
-              <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">analytics</span>
-              <span className="font-medium">AIQ Rank Predictor</span>
-            </Link>
-          </li>
-          <li>
-            <Link className="flex items-center gap-3 text-body-md hover:text-primary group transition-colors text-on-surface" href="#">
-              <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">account_balance_wallet</span>
-              <span className="font-medium">Fee Structure Analyser</span>
-            </Link>
-          </li>
-          <li>
-            <Link className="flex items-center gap-3 text-body-md hover:text-primary group transition-colors text-on-surface" href="#">
-              <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">description</span>
-              <span className="font-medium">Reservation Policy PDF</span>
-            </Link>
-          </li>
-        </ul>
-      </Card>
+      <NeetUgHubSidebarPromos />
     </aside>
   );
 

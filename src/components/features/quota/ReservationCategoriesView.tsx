@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { QuotaHeader, QuotaPageShell, QuotaInfoGrid, QuotaProcessList, QuotaTheoryPanel } from "./QuotaShared";
+import { QuotaBookCounsellingCard } from "./QuotaBookCounsellingCard";
+import { NeetUgHubSidebarPromos } from "@/components/features/neet-ug/shared/NeetUgHubSidebarPromos";
 import { Card } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
 
@@ -35,58 +36,8 @@ export function ReservationCategoriesView() {
 
   const sidebar = (
     <aside className="space-y-6">
-      {/* Quick Actions Card */}
-      <Card padded={false} bordered={false} className="group relative flex flex-col justify-between overflow-hidden bg-linear-to-br from-primary to-primary-pressed p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]">
-        <h3 className="font-headline-sm text-headline-sm mb-4 font-bold text-white">Book a Counselling Session</h3>
-        <p className="font-body-sm text-body-sm mb-6 text-white/90 leading-relaxed">Talk to our medical admission experts for personalized category-based strategy.</p>
-        <Button
-          variant="inverse"
-          fullWidth
-        >
-          Start Registration
-        </Button>
-        <div className="flex items-center justify-center gap-2 mt-4 text-label-sm text-white/80 font-bold uppercase tracking-wider">
-          <span className="material-symbols-outlined text-sm">check_circle</span>
-          <span>Expert Verification of Documents</span>
-        </div>
-      </Card>
-
-      {/* Predictor Ad Card */}
-      <Card className="flex flex-col items-center text-center border-2 border-dashed border-outline-variant/60">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img alt="Medical College Prediction" className="w-full h-32 object-cover rounded-xl mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD29W2rgl-CUbBSlW1Vxee0GmpiIAyskz3w5-gM3N4zYPrmTFIC4tNdkOQsPVpUUYM1crgczeBrwmkzwtNr46KB5iLgK0wKTzwjo5A93jyjSo4d-fWucVF108mn6WAYm5waCudSYxWaJIv5gLqhKIILzdf2UbQSG-SEllrUOHQRLRJ-3lhO_WQX_LJSFhNCPE8lhb0GTkeMKeyDvyLHdkJTTs8Qbpi2H1JdPETEiHvaCLyQYsVHN0KTh2rv246qXnkeBzYo1Yrnsp0" />
-        <h4 className="font-headline-sm text-headline-sm mb-2 font-bold text-on-surface">College Predictor</h4>
-        <p className="font-body-sm text-body-sm text-on-surface-variant mb-4 leading-relaxed">Use your rank and category to find out which college you can get into.</p>
-        <Button
-          as="link"
-          href="/rank-predictor"
-          variant="secondary"
-          size="sm"
-        >
-          Launch Tool
-        </Button>
-      </Card>
-
-      {/* Related Topics */}
-      <Card>
-        <h3 className="font-label-md text-label-md text-outline uppercase mb-4 font-bold tracking-widest">Related Topics</h3>
-        <ul className="space-y-4">
-          <li className="flex items-start gap-3 p-2 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer group">
-            <span className="material-symbols-outlined text-primary mt-1 group-hover:scale-110 transition-transform">description</span>
-            <div>
-              <div className="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors font-bold">State Certificate Formats</div>
-              <div className="text-label-sm text-on-surface-variant">Download official templates</div>
-            </div>
-          </li>
-          <li className="flex items-start gap-3 p-2 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer group">
-            <span className="material-symbols-outlined text-primary mt-1 group-hover:scale-110 transition-transform">account_balance</span>
-            <div>
-              <div className="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors font-bold">Deemed Universities Quota</div>
-              <div className="text-label-sm text-on-surface-variant">NRI &amp; Management seats</div>
-            </div>
-          </li>
-        </ul>
-      </Card>
+      <QuotaBookCounsellingCard source="Reservation Categories" />
+      <NeetUgHubSidebarPromos />
     </aside>
   );
 
