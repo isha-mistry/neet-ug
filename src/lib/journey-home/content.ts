@@ -301,6 +301,13 @@ export const JOURNEY_TESTIMONIALS: readonly JourneyTestimonial[] = [
     video: "/testimonials/Dr. Parth Shah.mp4",
   },
   {
+    kind: "video",
+    score: "Video",
+    who: "Dr. Abhishek Malaviya",
+    meta: "NEET UG COUNSELLING · VIDEO TESTIMONIAL",
+    video: "/testimonials/Dr. Abhishek Malaviya.mp4",
+  },
+  {
     kind: "text",
     score: "Score 540",
     quote:
@@ -326,14 +333,5 @@ export const JOURNEY_TESTIMONIALS: readonly JourneyTestimonial[] = [
     who: "Sneha K. · Nagpur",
     meta: "GMC VIA MCC AIQ · EWS",
     avatar: "/testimonials/sneha.png",
-  },
-  {
-    kind: "text",
-    score: "Score 575",
-    quote:
-      '"My parents wanted Maharashtra only. The counselor showed us the CET Cell data honestly — and the MP backup that actually got me a govt seat. No false promises at any point."',
-    who: "Rohan D. · Pune",
-    meta: "GMC · MCC AIQ · GENERAL",
-    avatar: "/testimonials/rohan.png",
   },
 ];

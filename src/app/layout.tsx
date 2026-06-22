@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
-import "@/styles/material-symbols-font.css";
 import { hankenGrotesk } from "@/lib/fonts/hanken-grotesk";
 import "@/styles/country-code-select.css";
 import "@/styles/lead-form-controls.css";
@@ -30,6 +29,11 @@ export default function RootLayout({
     >
       <head>
         <GoogleTagManagerHead />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font -- icon font; not available via next/font */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body className="min-h-full bg-background text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
         <GoogleTagManagerNoScript />
