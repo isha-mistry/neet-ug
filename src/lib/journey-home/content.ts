@@ -297,14 +297,14 @@ export const JOURNEY_TESTIMONIALS: readonly JourneyTestimonial[] = [
     kind: "video",
     score: "Video",
     who: "Dr. Parth Shah",
-    meta: "NEET UG COUNSELLING · VIDEO TESTIMONIAL",
+    meta: "Government Medical College, Bhavnagar",
     video: "/testimonials/Dr. Parth Shah.mp4",
   },
   {
     kind: "video",
     score: "Video",
     who: "Dr. Abhishek Malaviya",
-    meta: "NEET UG COUNSELLING · VIDEO TESTIMONIAL",
+    meta: "Narendra Modi Medical College, Ahmedabad",
     video: "/testimonials/Dr. Abhishek Malaviya.mp4",
   },
   {
