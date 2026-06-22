@@ -107,7 +107,6 @@ export default async function CollegeDetailPage({ params }: PageProps) {
             latestCutoffRank={college.latestCutoffRank}
             latestCutoffYear={college.latestCutoffYear}
             seatCount={college.seatCount}
-            roiScore={college.roiScore}
             nirfMedicalRank={college.nirfMedicalRank}
             nirfRankingYear={college.nirfRankingYear}
             bondYears={college.bond.years}

@@ -61,6 +61,8 @@ export function FreeCounsellingLeadForm({
   const consentFieldId =
     consentFieldIdProp ??
     `lead-consent-${formType.replace(/[^a-z0-9-]+/gi, "-")}-${consentFieldIdFallback.replace(/:/g, "")}`;
+  const formFieldId = useId().replace(/:/g, "");
+  const fid = (part: string) => `lead-${part}-${formFieldId}`;
   const [pending, startTransition] = useTransition();
   const [fullName, setFullName] = useState("");
   const [countryCode, setCountryCode] = useState("+91");
@@ -184,20 +186,20 @@ export function FreeCounsellingLeadForm({
       )}
       onSubmit={handleSubmit}
       noValidate
+      autoComplete="off"
     >
       {useRankPredictorFields ? (
         <>
-          <label htmlFor="lead-rp-full-name" className="flex flex-col gap-1.5">
+          <label htmlFor={fid("full-name")} className="flex flex-col gap-1.5">
             <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-outline">
               Full name
             </span>
             <input
-              id="lead-rp-full-name"
-              name="fullName"
+              id={fid("full-name")}
+              name={fid("fullName")}
               type="text"
               required
-              minLength={2}
-
+              autoComplete="off"
               placeholder="Enter Your Name"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
@@ -209,12 +211,16 @@ export function FreeCounsellingLeadForm({
               Mobile number
             </span>
             <PhoneNumberField
-              countrySelectId="lead-rp-country"
-              phoneInputId="lead-rp-phone"
+              countrySelectId={fid("country")}
+              phoneInputId={fid("phone")}
+              countryCodeName={fid("countryCode")}
+              phoneName={fid("phone")}
               countryCode={countryCode}
               onCountryCodeChange={setCountryCode}
               phone={phone}
               onPhoneChange={setPhone}
+              phoneMinLength={0}
+              autoComplete="off"
               selectClassName="h-10 w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
               inputClassName="h-10 w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
@@ -223,16 +229,15 @@ export function FreeCounsellingLeadForm({
       ) : (
         <>
           <div>
-            <label htmlFor="lead-full-name" className="sr-only">
+            <label htmlFor={fid("full-name")} className="sr-only">
               Full name
             </label>
             <input
-              id="lead-full-name"
-              name="fullName"
+              id={fid("full-name")}
+              name={fid("fullName")}
               type="text"
               required
-              minLength={2}
-
+              autoComplete="off"
               placeholder="Full Name*"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
@@ -243,26 +248,34 @@ export function FreeCounsellingLeadForm({
           {stackedPhone ? (
             <PhoneNumberField
               layout="stacked"
-              countrySelectId="lead-country"
-              phoneInputId="lead-phone"
+              countrySelectId={fid("country")}
+              phoneInputId={fid("phone")}
+              countryCodeName={fid("countryCode")}
+              phoneName={fid("phone")}
               countryCode={countryCode}
               onCountryCodeChange={setCountryCode}
               phone={phone}
               onPhoneChange={setPhone}
               phonePlaceholder="Mobile number*"
+              phoneMinLength={0}
+              autoComplete="off"
               selectClassName={inputClass}
               inputClassName={inputClass}
             />
           ) : (
             <PhoneNumberField
               layout="inline-flex"
-              countrySelectId="lead-country"
-              phoneInputId="lead-phone"
+              countrySelectId={fid("country")}
+              phoneInputId={fid("phone")}
+              countryCodeName={fid("countryCode")}
+              phoneName={fid("phone")}
               countryCode={countryCode}
               onCountryCodeChange={setCountryCode}
               phone={phone}
               onPhoneChange={setPhone}
               phonePlaceholder="Enter contact number*"
+              phoneMinLength={0}
+              autoComplete="off"
               selectClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 py-3 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
               inputClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
@@ -270,14 +283,14 @@ export function FreeCounsellingLeadForm({
 
           {showEmail ? (
             <div>
-              <label htmlFor="lead-email" className="sr-only">
+              <label htmlFor={fid("email")} className="sr-only">
                 Email
               </label>
               <input
-                id="lead-email"
-                name="email"
+                id={fid("email")}
+                name={fid("email")}
                 type="email"
-                autoComplete="email"
+                autoComplete="off"
                 placeholder="Enter Email ID"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

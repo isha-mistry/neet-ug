@@ -44,7 +44,7 @@ export function collegeMatchToSummary(
     seatCount: college.seatCount,
     quotaInfo: "",
     bondLabel: "—",
-    roiScore: 0,
+    roiScore: null,
     safetyTag: statusToSafetyTag(status),
     bond: { years: 0, penalty: 0 },
   };

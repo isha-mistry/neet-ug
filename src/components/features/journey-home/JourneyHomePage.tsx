@@ -11,8 +11,8 @@ import {
   JOURNEY_AIQ_CARD,
   JOURNEY_STATE_CARDS,
   JOURNEY_STATES_SECTION,
-  JOURNEY_TESTIMONIALS,
 } from "@/lib/journey-home/content";
+import { JourneyTestimonialMarquee } from "./JourneyTestimonialMarquee";
 import { HeroVisualPanel } from "./HeroVisualPanel";
 import { HeroCounselorCta } from "./HeroCounselorCta";
 import { ScrollJourney } from "./ScrollJourney";
@@ -692,36 +692,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
         </section>
       </ScrollJourney>
 
-      <section className="section" style={{ paddingBottom: 70 }}>
-        <div className="wrap">
-          <span className="eyebrow">Proof</span>
-          <h2 className="t">
-            Students who got the <em>right seat.</em>
-          </h2>
-        </div>
-        <div className="mq">
-          <div className="mtrack" id="mtrack">
-            {JOURNEY_TESTIMONIALS.map((t) => (
-              <article key={t.who} className="card tst">
-                <div className="tst-top">
-                  <span className="sc">{t.score}</span>
-                  <span className="st">★★★★★</span>
-                </div>
-                <p>{t.quote}</p>
-                <div className="who">
-                  {t.avatar && (
-                    <img src={t.avatar} alt={t.who} className="who-img" />
-                  )}
-                  <div className="who-info">
-                    <b>{t.who}</b>
-                    <span>{t.meta}</span>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <JourneyTestimonialMarquee />
 
       <section className="section" id="playbook" style={{ paddingTop: 20 }}>
         <div className="wrap">

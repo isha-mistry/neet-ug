@@ -1,15 +1,12 @@
-import type { ReactNode } from "react";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 import { Card } from "@/components/ui/Card";
 import { formatINR, formatNumber } from "@/lib/utils";
-import { cn } from "@/lib/utils";
 
 interface CollegeDetailAtAGlanceProps {
   totalAnnualFee: number;
   latestCutoffRank: number;
   latestCutoffYear: number;
   seatCount: number;
-  roiScore: number;
   nirfMedicalRank?: number;
   nirfRankingYear?: number;
   bondYears: number;
@@ -20,61 +17,62 @@ export function CollegeDetailAtAGlance({
   latestCutoffRank,
   latestCutoffYear,
   seatCount,
-  roiScore,
   nirfMedicalRank,
   nirfRankingYear,
   bondYears,
 }: CollegeDetailAtAGlanceProps) {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <MetricCard
-          icon="payments"
-          label="Annual fees"
-          value={
-            totalAnnualFee > 0
-              ? formatINR(totalAnnualFee, { compact: true })
-              : "See breakdown"
-          }
-        />
-        <MetricCard
-          icon="trending_down"
-          label={
-            latestCutoffRank > 0 && latestCutoffYear > 0
-              ? `Cutoff ${latestCutoffYear}`
-              : "Closing rank"
-          }
-          value={
-            latestCutoffRank > 0
-              ? `AIR ${formatNumber(latestCutoffRank)}`
-              : "Not in dataset"
-          }
-        />
-        <MetricCard
-          icon="groups"
-          label="MBBS seats"
-          value={formatNumber(seatCount)}
-        />
-        <MetricCard
-          icon="insights"
-          label="Value score"
-          value={`${roiScore}/100`}
-          hint="Dravio ROI index"
-        />
-      </div>
-      <div className="flex flex-wrap gap-2">
-        {nirfMedicalRank != null ? (
-          <Chip icon="military_tech">
-            NIRF Medical #{nirfMedicalRank}
-            {nirfRankingYear ? ` · ${nirfRankingYear}` : ""}
-          </Chip>
-        ) : null}
-        <Chip icon={bondYears > 0 ? "gavel" : "verified"}>
-          {bondYears > 0
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <MetricCard
+        icon="payments"
+        label="Annual fees"
+        value={
+          totalAnnualFee > 0
+            ? formatINR(totalAnnualFee, { compact: true })
+            : "See breakdown"
+        }
+      />
+      <MetricCard
+        icon="trending_down"
+        label={
+          latestCutoffRank > 0 && latestCutoffYear > 0
+            ? `Cutoff ${latestCutoffYear}`
+            : "Closing rank"
+        }
+        value={
+          latestCutoffRank > 0
+            ? `AIR ${formatNumber(latestCutoffRank)}`
+            : "Not in dataset"
+        }
+      />
+      <MetricCard
+        icon="groups"
+        label="MBBS seats"
+        value={formatNumber(seatCount)}
+      />
+      <MetricCard
+        icon="military_tech"
+        label="NIRF Medical"
+        value={
+          nirfMedicalRank != null
+            ? `#${formatNumber(nirfMedicalRank)}`
+            : "Not in dataset"
+        }
+        hint={
+          nirfMedicalRank != null && nirfRankingYear
+            ? `India rank · ${nirfRankingYear}`
+            : undefined
+        }
+      />
+      <MetricCard
+        icon={bondYears > 0 ? "gavel" : "verified"}
+        label="Bond"
+        value={
+          bondYears > 0
             ? `${bondYears} yr rural bond`
-            : "No bond on record"}
-        </Chip>
-      </div>
+            : "No bond on record"
+        }
+      />
     </div>
   );
 }
@@ -111,25 +109,5 @@ function MetricCard({
         ) : null}
       </div>
     </Card>
-  );
-}
-
-function Chip({
-  icon,
-  children,
-}: {
-  icon: string;
-  children: ReactNode;
-}) {
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border border-outline-variant",
-        "bg-surface-container-low px-3 py-1.5 text-xs font-semibold text-on-surface"
-      )}
-    >
-      <MaterialSymbol name={icon} className="text-base text-primary" />
-      {children}
-    </span>
   );
 }

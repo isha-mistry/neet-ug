@@ -1,6 +1,6 @@
 import "server-only";
 import { cache } from "react";
-import { loadCatalogColleges, loadCollegeBySlugFromDb } from "./catalog-loader";
+import { loadCatalogColleges, loadCatalogStates } from "./catalog-loader";
 import type { CollegeRecord } from "@/types/college";
 import type {
   CollegeFilters,
@@ -20,7 +20,6 @@ import {
   LISTING_COLLEGE_TYPE_OPTIONS,
   LISTING_QUOTA_OPTIONS,
 } from "@/lib/colleges/listing-options";
-import { loadCatalogStates } from "./catalog-loader";
 import { setStateNameCache } from "@/lib/data/state-name-cache";
 import { dravioData } from "./source";
 
@@ -31,8 +30,8 @@ export const getAllColleges = cache(async (): Promise<CollegeRecord[]> => {
 export async function findCollegeBySlug(
   slug: string
 ): Promise<CollegeRecord | undefined> {
-  const record = await loadCollegeBySlugFromDb(slug);
-  return record ?? undefined;
+  const colleges = await getAllColleges();
+  return colleges.find((c) => c.slug === slug);
 }
 
 export async function getCollegeDetailBySlug(

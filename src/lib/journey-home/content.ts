@@ -273,8 +273,35 @@ export const JOURNEY_RESOURCES = [
   },
 ] as const;
 
-export const JOURNEY_TESTIMONIALS = [
+export type JourneyTestimonial =
+  | {
+      kind: "text";
+      score: string;
+      quote: string;
+      who: string;
+      meta: string;
+      avatar: string;
+    }
+  | {
+      kind: "video";
+      score: string;
+      quote?: string;
+      who: string;
+      meta: string;
+      video: string;
+      avatar?: string;
+    };
+
+export const JOURNEY_TESTIMONIALS: readonly JourneyTestimonial[] = [
   {
+    kind: "video",
+    score: "Video",
+    who: "Dr. Parth Shah",
+    meta: "NEET UG COUNSELLING · VIDEO TESTIMONIAL",
+    video: "/testimonials/Dr. Parth Shah.mp4",
+  },
+  {
+    kind: "text",
     score: "Score 540",
     quote:
       '"I wasn\'t sure GMERS was even possible. They looked at my state rank, not just AIR, and told me exactly which 8 colleges to fill in which order. Got GMERS Gandhinagar in Round 1 — exactly as predicted."',
@@ -283,6 +310,7 @@ export const JOURNEY_TESTIMONIALS = [
     avatar: "/testimonials/priya.png",
   },
   {
+    kind: "text",
     score: "Score 612",
     quote:
       '"After Round 1 I wanted to lock my seat out of fear. They showed me the Round 2 data and convinced me to opt for upgrade. I moved from a private GQ seat to GMC — one call saved my family ₹40 lakh."',
@@ -291,6 +319,7 @@ export const JOURNEY_TESTIMONIALS = [
     avatar: "/testimonials/arjun.png",
   },
   {
+    kind: "text",
     score: "Score 488",
     quote:
       '"As a non-domicile student I had no idea MP was my best AIQ option. They built a parallel strategy across three states. The document checklist alone saved me — my EWS certificate would have been invalid."',
@@ -299,6 +328,7 @@ export const JOURNEY_TESTIMONIALS = [
     avatar: "/testimonials/sneha.png",
   },
   {
+    kind: "text",
     score: "Score 575",
     quote:
       '"My parents wanted Maharashtra only. The counselor showed us the CET Cell data honestly — and the MP backup that actually got me a govt seat. No false promises at any point."',
@@ -306,4 +336,4 @@ export const JOURNEY_TESTIMONIALS = [
     meta: "GMC · MCC AIQ · GENERAL",
     avatar: "/testimonials/rohan.png",
   },
-] as const;
+];

@@ -100,7 +100,12 @@ export function JourneyHomeEffects() {
 
     const mtrack = root.querySelector<HTMLElement>("#mtrack");
     if (mtrack && mtrack.children.length) {
-      mtrack.innerHTML += mtrack.innerHTML;
+      const sourceCount = Number(mtrack.dataset.marqueeItems ?? "0");
+      const alreadyDuplicated =
+        sourceCount > 0 && mtrack.children.length >= sourceCount * 2;
+      if (!alreadyDuplicated) {
+        mtrack.innerHTML += mtrack.innerHTML;
+      }
       if (reduceMotion) mtrack.style.animation = "none";
     }
 

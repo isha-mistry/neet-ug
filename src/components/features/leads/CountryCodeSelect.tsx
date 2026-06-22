@@ -18,6 +18,7 @@ type CountryCodeSelectProps = {
   defaultValue?: string;
   onChange?: (dialCode: string) => void;
   required?: boolean;
+  autoComplete?: string;
   className?: string;
   "aria-label"?: string;
 };
@@ -38,6 +39,7 @@ export function CountryCodeSelect({
   defaultValue,
   onChange,
   required,
+  autoComplete = "off",
   className,
   "aria-label": ariaLabel = "Country code",
 }: CountryCodeSelectProps) {
@@ -68,6 +70,7 @@ export function CountryCodeSelect({
         name={name}
         {...(isControlled ? { value } : { defaultValue: initial })}
         required={required}
+        autoComplete={autoComplete}
         aria-label={ariaLabel}
         onChange={(event) => handleChange(event.target.value)}
         className="country-code-select__native"

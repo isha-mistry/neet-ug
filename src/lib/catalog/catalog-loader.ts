@@ -6,6 +6,7 @@ import {
   type CollegeCatalogRow,
 } from "@/lib/catalog/assemble-college-record";
 import { collegeCatalogInclude } from "@/lib/catalog/college-include";
+import { applyDravioRoiScores } from "@/lib/colleges/dravio-roi-score";
 import { setStateNameCache } from "@/lib/data/state-name-cache";
 import type { CollegeRecord, StateRecord } from "@/types/college";
 
@@ -23,7 +24,7 @@ async function fetchCollegesFromPostgres(): Promise<CollegeRecord[]> {
     );
   }
 
-  return rows.map(assembleCollegeRecord);
+  return applyDravioRoiScores(rows.map(assembleCollegeRecord));
 }
 
 async function fetchStatesFromPostgres(): Promise<StateRecord[]> {

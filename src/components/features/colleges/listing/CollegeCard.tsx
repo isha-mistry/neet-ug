@@ -4,6 +4,7 @@ import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 import { CollegeCoverPhoto } from "@/components/features/colleges/shared/CollegeCoverPhoto";
 import { AiGeneratedCoverBadge } from "@/components/features/colleges/shared/AiGeneratedCoverBadge";
 import { getCollegeCoverImageUrl, hasUploadedCollegePhoto } from "@/lib/colleges/cover-images";
+import { formatDravioRoiScore } from "@/lib/colleges/dravio-roi-score";
 import { cn, formatINR, formatNumber } from "@/lib/utils";
 import {
   parseSeatDistributionChips,
@@ -364,7 +365,7 @@ function CollegeInsightRow({
   compact: boolean;
 }) {
   const insights = [
-    { label: "ROI", value: `${college.roiScore}/100`, className: "text-primary" },
+    { label: "ROI", value: formatDravioRoiScore(college.roiScore), className: "text-primary" },
     {
       label: "Safety",
       value: safetyLabel(college.safetyTag),

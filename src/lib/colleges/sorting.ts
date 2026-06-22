@@ -18,7 +18,9 @@ export function sortColleges(
       );
       break;
     case "highest_roi":
-      list.sort((a, b) => b.roiScore - a.roiScore);
+      list.sort(
+        (a, b) => (b.roiScore ?? -1) - (a.roiScore ?? -1),
+      );
       break;
     case "lowest_cutoff":
       list.sort(

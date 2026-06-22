@@ -20,7 +20,7 @@ function metricValue(record: CollegeRecord, metricId: string): number {
     case "bondYears":
       return record.bond.years;
     case "roiScore":
-      return record.roiScore;
+      return record.roiScore ?? 0;
     default:
       return 0;
   }

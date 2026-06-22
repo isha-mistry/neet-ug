@@ -118,7 +118,7 @@ export interface CollegeRecord {
   bond: CollegeBond;
   infrastructure: CollegeInfrastructure;
   reviews: CollegeReviews;
-  roiScore: number;
+  roiScore: number | null;
   otherInfo?: CollegeOtherInfo;
   seatMatrix?: CollegeSeatMatrix;
   /** NIRF India Rankings — Medical category (when present in catalog DB). */

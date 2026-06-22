@@ -60,16 +60,16 @@
   --color-surface-variant: #e0e3e5;
 
   /* Typography Families */
-  --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-display-lg: var(--font-inter), system-ui, sans-serif;
-  --font-headline-md: var(--font-inter), system-ui, sans-serif;
-  --font-headline-sm: var(--font-inter), system-ui, sans-serif;
-  --font-title-lg: var(--font-inter), system-ui, sans-serif;
-  --font-body-md: var(--font-inter), system-ui, sans-serif;
-  --font-body-sm: var(--font-inter), system-ui, sans-serif;
-  --font-label-md: var(--font-inter), system-ui, sans-serif;
-  --font-label-sm: var(--font-inter), system-ui, sans-serif;
-  --font-headline-md-mobile: var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
+  --font-display-lg: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
+  --font-headline-md: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
+  --font-headline-sm: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
+  --font-title-lg: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
+  --font-body-md: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
+  --font-body-sm: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
+  --font-label-md: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
+  --font-label-sm: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
+  --font-headline-md-mobile: var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
 
   /* Typography Sizes & Settings */
   --text-display-lg: 36px;

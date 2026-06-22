@@ -143,8 +143,8 @@ export const dravioTheme = {
 
   typography: {
     fontFamily: {
-      sans: "var(--font-inter), system-ui, sans-serif",
-      headline: "var(--font-hanken-grotesk), system-ui, sans-serif",
+      sans: "var(--font-hanken-grotesk), \"Hanken Grotesk\", system-ui, sans-serif",
+      headline: "var(--font-hanken-grotesk), \"Hanken Grotesk\", system-ui, sans-serif",
       mono: "var(--font-geist-mono), ui-monospace, monospace",
     },
     fontSize: {

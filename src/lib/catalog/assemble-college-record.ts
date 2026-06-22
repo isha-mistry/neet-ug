@@ -489,7 +489,7 @@ export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
       pros: [...DEFAULT_REVIEWS.pros],
       cons: [...DEFAULT_REVIEWS.cons],
     },
-    roiScore: row.roiScore,
+    roiScore: null,
     ...(row.nirfMedicalRank != null
       ? {
           nirfMedicalRank: row.nirfMedicalRank,

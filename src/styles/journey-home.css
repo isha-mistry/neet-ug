@@ -2296,6 +2296,143 @@
   flex-shrink: 0;
 }
 
+.journey-home .tst--video {
+  width: 300px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--blue) 18%, var(--line));
+  box-shadow:
+    var(--shadow-sm),
+    0 0 0 1px color-mix(in srgb, var(--blue) 6%, transparent);
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.6, 0.2, 1),
+    box-shadow 0.35s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.journey-home .mq:hover .tst--video {
+  transform: translateY(-2px);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 1px color-mix(in srgb, var(--blue) 12%, transparent);
+}
+
+.journey-home .tst-video-shell {
+  position: relative;
+  background: linear-gradient(165deg, #0c1222 0%, #151d33 100%);
+}
+
+.journey-home .tst-video-player {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  max-height: 400px;
+  margin: 0 auto;
+  background: #0a0f1a;
+}
+
+.journey-home .tst-video-player video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+.journey-home .tst-video-shade {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 24, 0.08) 0%,
+    transparent 28%,
+    transparent 55%,
+    rgba(8, 12, 24, 0.82) 100%
+  );
+  transition: opacity 0.25s ease;
+}
+
+.journey-home .tst-video-player.is-active .tst-video-shade {
+  opacity: 0.35;
+}
+
+.journey-home .tst-video-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: color-mix(in srgb, var(--blue) 88%, #000);
+  box-shadow:
+    0 8px 28px -6px rgba(37, 70, 208, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.journey-home .tst-video-play-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  opacity: 0.9;
+}
+
+.journey-home .tst-video-play:hover {
+  transform: translate(-50%, -50%) scale(1.06);
+  background: var(--blue);
+  box-shadow:
+    0 12px 32px -8px rgba(37, 70, 208, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.16) inset;
+}
+
+.journey-home .tst-video-play:active {
+  transform: translate(-50%, -50%) scale(0.98);
+}
+
+.journey-home .tst-video-meta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 16px 16px;
+  pointer-events: none;
+}
+
+.journey-home .tst-video-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  padding: 5px 10px;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.journey-home .tst-video-meta .st {
+  color: var(--gold);
+  letter-spacing: 2px;
+  font-size: 11px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+}
+
 .journey-home .tst-top {
   display: flex;
   justify-content: space-between;
@@ -3163,6 +3300,56 @@
   .journey-home .packs,
   .journey-home .mistgrid {
     grid-template-columns: 1fr;
+  }
+
+  .journey-home .ticker-in {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-home .tick {
+    border-right: none;
+    padding: 18px 20px;
+    text-align: center;
+  }
+
+  .journey-home .tick:last-child {
+    border-bottom: none;
+  }
+
+  .journey-home .tick b {
+    font-size: clamp(20px, 6vw, 24px);
+  }
+
+  .journey-home .ticker-note {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .journey-home .radar-card {
+    padding: 24px 20px;
+  }
+
+  .journey-home .radar-head {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    margin-bottom: 20px;
+  }
+
+  .journey-home .radar-card .rrow {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .journey-home .radar-card .field :is(input:not([type="hidden"]), select) {
+    height: 3rem;
+    min-height: 3rem;
+    max-height: 3rem;
+    font-size: 16px;
+  }
+
+  .journey-home .radar-card .field input.mono {
+    font-size: 16px;
   }
 
   .journey-home .rounds-experience {

@@ -24,8 +24,9 @@ type PhoneNumberFieldProps = {
   selectClassName?: string;
   inputClassName?: string;
   verifyLeadingIcon?: ReactNode;
-  /** Minimum digit length for required phone fields (HTML `minLength`). */
+  /** Minimum digit length for required phone fields (HTML `minLength`). Pass `0` to skip native min length. */
   phoneMinLength?: number;
+  autoComplete?: string;
 };
 
 const defaultPhonePlaceholder = "10-digit number";
@@ -51,11 +52,14 @@ export function PhoneNumberField({
   required = true,
   phonePlaceholder = defaultPhonePlaceholder,
   phoneMinLength = 10,
+  autoComplete = "tel-national",
   className,
   selectClassName,
   inputClassName,
   verifyLeadingIcon,
 }: PhoneNumberFieldProps) {
+  const nativePhoneMinLength =
+    required && phoneMinLength > 0 ? phoneMinLength : undefined;
   const countryControlled = countryCode !== undefined;
   const phoneControlled = phone !== undefined;
 
@@ -67,6 +71,7 @@ export function PhoneNumberField({
         ? { value: countryCode, onChange: onCountryCodeChange }
         : { defaultValue: defaultCountryCode, onChange: onCountryCodeChange })}
       required={required}
+      autoComplete="off"
       className={selectClassName}
     />
   );
@@ -77,14 +82,14 @@ export function PhoneNumberField({
       name={phoneName}
       type="tel"
       required={required}
-      autoComplete="tel-national"
+      autoComplete={autoComplete}
       inputMode="numeric"
       placeholder={phonePlaceholder}
       {...(phoneControlled
         ? { value: phone, onChange: (e) => onPhoneChange?.(e.target.value) }
         : {})}
       aria-label="Mobile number"
-      minLength={required ? phoneMinLength : undefined}
+      minLength={nativePhoneMinLength}
       maxLength={15}
       className={inputClassName}
     />
