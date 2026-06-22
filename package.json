@@ -19,7 +19,8 @@
     "db:seed:rajasthan": "tsx scripts/catalog/seed-rajasthan.ts",
     "db:seed:nirf": "tsx scripts/catalog/seed-nirf-ranks.ts",
     "db:dump:local": "bash scripts/db/dump-local-catalog.sh",
-    "db:restore:catalog": "bash scripts/db/restore-catalog-dump.sh"
+    "db:restore:catalog": "bash scripts/db/restore-catalog-dump.sh",
+    "college-covers:sync": "tsx scripts/colleges/sync-college-cover-cache.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.9.0",

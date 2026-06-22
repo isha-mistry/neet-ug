@@ -16,10 +16,13 @@ type CoverManifest = {
 
 const data = manifest as CoverManifest;
 
-const CARD_TRANSFORM = "c_fill,w_520,h_360,f_auto,q_auto";
-const DETAIL_TRANSFORM = "c_fill,w_900,h_560,f_auto,q_auto";
+/** Used only by `npm run college-covers:sync` — not at runtime. */
+export const COLLEGE_COVER_SYNC_TRANSFORM = "c_fill,w_520,h_360,f_auto,q_auto";
 
-/** Local AI illustrations — used when no Cloudinary photo exists for a college. */
+const LOCAL_COVER_DIR = "/college-covers";
+const LOCAL_COVER_EXT = "webp";
+
+/** Local AI illustrations — used when no uploaded photo exists for a college. */
 export const AI_GENERATED_COLLEGE_COVERS = [
   "/ai_gen_college_images/AI_generated_college_img_01.png",
   "/ai_gen_college_images/AI_generated_college_img_02.png",
@@ -31,10 +34,18 @@ export const AI_GENERATED_COLLEGE_COVERS = [
   "/ai_gen_college_images/AI_generated_college_img_08.png",
 ] as const;
 
-function buildTransformedUrl(publicId: string, transform: string): string {
+/** One-time sync helper — not used when serving pages. */
+export function buildCollegeCoverCloudinaryUrl(
+  publicId: string,
+  transform: string = COLLEGE_COVER_SYNC_TRANSFORM
+): string {
   const cloud = data.cloudName || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   if (!cloud) return "";
   return `https://res.cloudinary.com/${cloud}/image/upload/${transform}/${publicId}`;
+}
+
+function getLocalCoverPath(slug: string): string {
+  return `${LOCAL_COVER_DIR}/${slug}.${LOCAL_COVER_EXT}`;
 }
 
 /** Stable pick from the AI pool so the same college always gets the same illustration. */
@@ -51,17 +62,13 @@ export function hasUploadedCollegePhoto(slug: string): boolean {
   return Boolean(data.bySlug[slug]?.publicId);
 }
 
-/** Cloudinary photo when available; otherwise a deterministic local AI illustration. */
+/** Cached static cover when available; otherwise a deterministic local AI illustration. */
 export function getCollegeCoverImageUrl(
   slug: string,
-  variant: "card" | "detail" = "card"
+  _variant: "card" | "detail" = "card"
 ): string {
-  const entry = data.bySlug[slug];
-  if (entry?.publicId) {
-    const transform = variant === "detail" ? DETAIL_TRANSFORM : CARD_TRANSFORM;
-    const url = buildTransformedUrl(entry.publicId, transform);
-    if (url) return url;
-    if (entry.secureUrl) return entry.secureUrl;
+  if (data.bySlug[slug]?.publicId) {
+    return getLocalCoverPath(slug);
   }
   return getAiGeneratedCollegeCoverPath(slug);
 }
