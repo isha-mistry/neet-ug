@@ -15,7 +15,7 @@ const sizeClass = {
 } as const;
 
 /**
- * Renders a Google Material Symbols Outlined icon (loaded in root layout).
+ * Renders a Google Material Symbols Outlined icon (self-hosted via root layout `next/font`).
  * @see https://fonts.google.com/icons
  */
 export function MaterialSymbol({

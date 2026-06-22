@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { HomeHeroContent } from "@/types/site";
 import type { FaqContent } from "@/types/content";
@@ -12,19 +13,35 @@ import {
   JOURNEY_STATE_CARDS,
   JOURNEY_STATES_SECTION,
 } from "@/lib/journey-home/content";
-import { JourneyTestimonialMarquee } from "./JourneyTestimonialMarquee";
 import { HeroVisualPanel } from "./HeroVisualPanel";
 import { HeroCounselorCta } from "./HeroCounselorCta";
 import { ScrollJourney } from "./ScrollJourney";
 import { JourneyHomeEffects } from "./JourneyHomeEffects";
 import { SeatRadarCard, PlaybookForm } from "./SeatRadarCard";
-import { RoundsPanel } from "./RoundsPanel";
 import { JourneyStateHub } from "./JourneyStateCard";
 import { JourneyComparisonCta } from "./JourneyComparisonCta";
 import { JourneyCounsellingLeadTrigger } from "./JourneyCounsellingLeadTrigger";
 import { JourneyFinalCounsellingCta } from "./JourneyFinalCounsellingCta";
-import { JourneyPackagePacks } from "./JourneyPackagePacks";
-import Image from "next/image";
+const JourneyTestimonialMarquee = dynamic(
+  () =>
+    import("./JourneyTestimonialMarquee").then((mod) => ({
+      default: mod.JourneyTestimonialMarquee,
+    })),
+);
+
+const RoundsPanel = dynamic(
+  () =>
+    import("./RoundsPanel").then((mod) => ({
+      default: mod.RoundsPanel,
+    })),
+);
+
+const JourneyPackagePacks = dynamic(
+  () =>
+    import("./JourneyPackagePacks").then((mod) => ({
+      default: mod.JourneyPackagePacks,
+    })),
+);
 
 type JourneyHomePageProps = {
   hero: HomeHeroContent;
