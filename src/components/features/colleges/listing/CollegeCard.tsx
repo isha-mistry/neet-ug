@@ -24,6 +24,7 @@ interface CollegeCardProps {
 function collegeTypeLabel(type: CollegeType): string {
   if (type === "aiims") return "AIIMS";
   if (type === "government") return "Government";
+  if (type === "semi-government") return "Semi Government";
   if (type === "private") return "Private";
   if (type === "deemed") return "Deemed";
   return type;
@@ -33,6 +34,7 @@ function accentClass(type: CollegeType): string {
   switch (type) {
   case "government":
   case "aiims":
+  case "semi-government":
     return "bg-college-accent-government";
   case "deemed":
     return "bg-college-accent-deemed";
@@ -47,6 +49,7 @@ function typePillClass(type: CollegeType): string {
   switch (type) {
   case "government":
   case "aiims":
+  case "semi-government":
     return "bg-college-type-government-bg text-college-type-government-fg";
   case "deemed":
     return "bg-college-type-deemed-bg text-college-type-deemed-fg";

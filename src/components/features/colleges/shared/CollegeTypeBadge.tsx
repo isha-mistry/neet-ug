@@ -8,6 +8,7 @@ interface CollegeTypeBadgeProps {
 
 const typeClasses = {
   government: "bg-college-type-government-bg text-college-type-government-fg",
+  "semi-government": "bg-college-type-government-bg text-college-type-government-fg",
   aiims: "bg-college-type-government-bg text-college-type-government-fg",
   deemed: "bg-college-type-deemed-bg text-college-type-deemed-fg",
   private: "bg-college-type-private-bg text-college-type-private-fg",
@@ -23,7 +24,7 @@ export function CollegeTypeBadge({ type }: CollegeTypeBadgeProps) {
         classes
       )}
     >
-      {toTitleCase(type === "aiims" ? "AIIMS" : type)}
+      {type === "aiims" ? "AIIMS" : type === "semi-government" ? "Semi Government" : toTitleCase(type)}
     </span>
   );
 }

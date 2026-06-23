@@ -1,7 +1,7 @@
 import type { Slug } from "./core";
 import type { NeetCategory } from "@/lib/rank-predictor/types";
 
-export type CollegeType = "government" | "private" | "deemed" | "aiims";
+export type CollegeType = "government" | "private" | "deemed" | "aiims" | "semi-government";
 
 export type FeeCurrency = "INR" | "USD";
 

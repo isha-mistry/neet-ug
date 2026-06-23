@@ -12,6 +12,8 @@ function collegeTypeLabel(type: CollegeRecord["collegeType"]): string {
   switch (type) {
     case "government":
       return "Government";
+    case "semi-government":
+      return "Semi Government";
     case "private":
       return "Private";
     case "deemed":

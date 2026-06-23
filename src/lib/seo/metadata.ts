@@ -16,7 +16,7 @@ interface BuildMetadataInput {
 
 export function buildMetadata(input: BuildMetadataInput): Metadata {
   const title = input.title;
-  const metaTitle = input.metaTitle || input.title;
+  const metaTitle = input.metaTitle;
   const description = input.description;
   const url = input.path ? `${SITE_URL}${input.path}` : undefined;
   const imageUrl = `${SITE_URL}${OG_IMAGE_PATH}`;

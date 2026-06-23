@@ -130,7 +130,8 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
               {hero.eyebrow}
             </span>
             <h1>
-              NEET UG <em>Counselling Guidance</em>
+              {hero.title.replace(/\s*and a clear plan\.\s*$/, "")}{" "}
+              <em>and a clear plan.</em>
             </h1>
             <p className="lede">{hero.subtitle}</p>
             <div className="hero-ctas">

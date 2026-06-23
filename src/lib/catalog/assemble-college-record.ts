@@ -43,8 +43,9 @@ function decimalToNumber(value: Prisma.Decimal | null | undefined): number {
   return Number(value);
 }
 
-function parseCollegeType(raw: string): CollegeType {
+function parseCollegeType(raw: string, name: string): CollegeType {
   const t = raw.trim().toLowerCase();
+  if (name.toLowerCase().includes("gmers")) return "semi-government";
   if (t === "government" || t === "gov") return "government";
   if (t === "aiims") return "aiims";
   if (t === "deemed") return "deemed";
@@ -469,7 +470,7 @@ export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
     stateSlug: row.stateSlug,
     city: row.city ?? "",
     ...(row.universityName ? { universityName: row.universityName } : {}),
-    collegeType: parseCollegeType(row.collegeType),
+    collegeType: parseCollegeType(row.collegeType, row.name),
     seatCount,
     quotaInfo,
     ...(seatMatrix ? { seatMatrix } : {}),

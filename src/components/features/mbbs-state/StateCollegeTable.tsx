@@ -10,7 +10,7 @@ import {
 } from "@/lib/mbbs-india/section-styles";
 import { cn, formatNumber } from "@/lib/utils";
 
-type TypeFilter = "all" | "Government" | "Private" | "Central (AIIMS)" | "Deemed University";
+type TypeFilter = "all" | "Government" | "Semi Government" | "Private" | "Central (AIIMS)" | "Deemed University";
 type SortKey = "name" | "seats";
 
 interface StateCollegeTableProps {
@@ -97,7 +97,14 @@ export function StateCollegeTable({ rows, stateName }: StateCollegeTableProps) {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     let list = rows.filter((r) => {
-      if (typeFilter !== "all" && r.type !== typeFilter) return false;
+      if (typeFilter !== "all") {
+        if (typeFilter === "Government") {
+          // Display both fully government and semi-government under Government
+          if (r.type !== "Government" && r.type !== "Semi Government") return false;
+        } else if (r.type !== typeFilter) {
+          return false;
+        }
+      }
       if (cityFilter !== "all" && getDisplayCity(r) !== cityFilter) return false;
       if (q && !r.name.toLowerCase().includes(q)) return false;
       return true;
@@ -145,6 +152,7 @@ export function StateCollegeTable({ rows, stateName }: StateCollegeTableProps) {
           >
             <option value="all">All</option>
             <option value="Government">Government</option>
+            <option value="Semi Government">Semi Government</option>
             <option value="Private">Private</option>
             <option value="Central (AIIMS)">Central</option>
             <option value="Deemed University">Deemed</option>
