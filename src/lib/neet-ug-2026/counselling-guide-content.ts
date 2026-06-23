@@ -1,8 +1,8 @@
 import type { GuideJumpItem } from "@/components/features/mbbs-india/GuidePageJumpNav";
 
 export const NEET_UG_COUNSELLING_HERO = {
-  title: "MCC & state ",
-  titleEmphasis: "counselling guide.",
+  title: "NEET UG ",
+  titleEmphasis: "Counselling Process",
   lede:
     "AIQ and Deemed University admissions decoded — registration, choice filling, round-wise exit rules, security deposits, and reporting — so you stay ahead of forfeitures and disqualification.",
   fine:
@@ -173,7 +173,7 @@ export const NEET_UG_COUNSELLING_OFFICIAL_LINKS = [
     icon: "map",
     title: "State counselling directory",
     desc: "DME / CET Cell portals for MBBS, BDS, and private college admissions.",
-    href: "/neet-ug-2026/counselling-websites",
+    href: "/state-counselling",
     label: "View state portals",
     external: false,
   },

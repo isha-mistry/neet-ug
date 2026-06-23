@@ -158,7 +158,7 @@ export function NeetUg2026View() {
               <DataTable theme="guide" columns={tableColumns} rows={tableRows} />
             </GuideSection>
 
-            <GuideSection embedded id="next-steps" eyebrow="After the exam" title="Plan your counseling">
+            <GuideSection embedded id="next-steps" eyebrow="After the exam" title="Plan your counselling">
               <NeetUgHubFinalCta />
               <p className="text-center text-xs text-outline">
                 Also see{" "}

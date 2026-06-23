@@ -20,7 +20,7 @@ export function NriQuotaView() {
     <QuotaHeader
       eyebrow="Global Aspirants"
       title="NRI Quota"
-      highlightedText="Admission Portal"
+      highlightedText="MBBS Admissions"
       description="A comprehensive guide for Non-Resident Indians (NRI), Overseas Citizens of India (OCI), and Persons of Indian Origin (PIO) seeking medical admissions in India. Understand eligibility, documentation, and state-wise allocations."
       eyebrowIcon="public"
       watermarkIcon="public"
@@ -181,13 +181,13 @@ export function NriQuotaView() {
             <h2 className="font-headline-md text-headline-md text-on-surface mb-2 font-bold">Mandatory Documentation</h2>
             <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Ensure all sponsor documents are attested by the Indian Embassy or Consulate.</p>
           </div>
-          <Button
+          {/* <Button
             variant="secondary"
             size="sm"
             leadingIcon={<span className="material-symbols-outlined text-[18px]">download</span>}
           >
             Download PDF Checklist
-          </Button>
+          </Button> */}
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {documentationCards.map((card, idx) => (
@@ -226,7 +226,7 @@ export function NriQuotaView() {
               <th>Seats &amp; Rank</th>
               <th>Financials / Authority</th>
               <th>Key Characteristic</th>
-              <th className="pr-6 text-right">Action</th>
+              {/* <th className="pr-6 text-right">Action</th> */}
             </tr>
           </thead>
               <tbody className="divide-y divide-outline-variant/40">
@@ -239,9 +239,9 @@ export function NriQuotaView() {
                     </td>
                     <td className="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant leading-relaxed">{row.financials}</td>
                     <td className="px-6 py-4 italic font-body-sm text-body-sm text-secondary">{row.characteristic}</td>
-                    <td className="px-6 py-4 text-right">
+                    {/* <td className="px-6 py-4 text-right">
                       <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>

@@ -141,14 +141,14 @@ export function MbbsStateClient({
         title={`Medical colleges in ${config.name}`}
         description={config.universityNote}
       >
-        <StateCollegeTable rows={colleges} />
+        <StateCollegeTable rows={colleges} stateName={config.name} />
         <StateCollegesExploreCta config={config} />
       </GuideSection>
 
       <GuideSection embedded id="top-govt" title={`Top government medical colleges in ${config.name}`}>
         <div className="grid gap-4 md:grid-cols-2">
           {config.topGovtColleges.map((c) => (
-            <GuideCard key={c.name} className="h-full">
+            <GuideCard key={c.slug || `${c.name}-${c.city}`} className="h-full">
               <SubsectionTitle>
                 {c.slug ? (
                   <Link href={`/colleges/${c.slug}`} className="hover:underline">
@@ -286,7 +286,7 @@ export function MbbsStateClient({
         </GuideCard>
       </GuideSection>
 
-      <GuideSection embedded id="counseling" title={`State counseling — ${config.counselingAuthorityShort}`}>
+      <GuideSection embedded id="counseling" title={`State counselling — ${config.counselingAuthorityShort}`}>
         <GuideCard>
           <GuideSteps steps={config.counselingSteps} />
         </GuideCard>
@@ -468,7 +468,7 @@ export function MbbsStateClient({
         <GuideHelpLink />
       </GuideSection>
 
-      <GuideSection embedded title="Documents for counseling" id="documents">
+      <GuideSection embedded title="Documents for counselling" id="documents">
         <div className="grid gap-4 md:grid-cols-2">
           {(
             [

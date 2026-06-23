@@ -6,7 +6,7 @@ const BASE_JUMP = [
   { id: "top-govt", label: "Top govt colleges" },
   { id: "cutoffs", label: "Cutoffs" },
   { id: "domicile", label: "Domicile rules" },
-  { id: "counseling", label: "Counseling" },
+  { id: "counselling", label: "Counselling" },
   { id: "fees", label: "Fees" },
   { id: "seats-data", label: "Seat data" },
   { id: "your-chances", label: "Your chances" },

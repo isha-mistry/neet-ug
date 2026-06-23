@@ -257,7 +257,7 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
             Seat Allocation Data Not Available
           </h3>
           <p className="max-w-md text-xs leading-relaxed text-text-muted">
-            Detailed seat allocation statistics, category distributions, and quota divisions are currently not available in our records for this college. Please refer to official counseling brochures for current intake details.
+            Detailed seat allocation statistics, category distributions, and quota divisions are currently not available in our records for this college. Please refer to official counselling brochures for current intake details.
           </p>
         </DetailPanel>
       ) : (

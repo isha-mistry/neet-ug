@@ -40,9 +40,9 @@ export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
     domicileRequired: "Yes — 85% state quota seats require Gujarat domicile",
   },
   overview: [
-    "For the 2026–27 admission cycle, MBBS admissions in Gujarat are coordinated by ACPUGMEC (Admission Committee for Professional Undergraduate Medical Educational Courses) on medadmgujarat.org, under the Gujarat Professional Educational Medical Colleges (Regulation of Admission and Fixation of Fees) Act, 2007. The state combines long-standing teaching hospitals in Ahmedabad, Rajkot, and Surat with GMERS district medical colleges and NMC-recognized private institutes. Dravio’s catalog currently lists 48 medical colleges and 7,975 MBBS seats for Gujarat—enough capacity to make the state a practical option for western India domicile students who plan counseling carefully.",
+    "For the 2026–27 admission cycle, MBBS admissions in Gujarat are coordinated by ACPUGMEC (Admission Committee for Professional Undergraduate Medical Educational Courses) on medadmgujarat.org, under the Gujarat Professional Educational Medical Colleges (Regulation of Admission and Fixation of Fees) Act, 2007. The state combines long-standing teaching hospitals in Ahmedabad, Rajkot, and Surat with GMERS district medical colleges and NMC-recognized private institutes. Dravio’s catalog currently lists 48 medical colleges and 7,975 MBBS seats for Gujarat—enough capacity to make the state a practical option for western India domicile students who plan counselling carefully.",
     "Roughly 4,425 seats sit in government and GMERS colleges and about 3,550 in private institutions, so the public sector still carries most in-state capacity. Annual tuition on government and GMERS routes typically stays in the ₹25,000–₹35,000 range—among the lowest in India for domicile students—while private government-quota, management, and NRI tracks are regulated but substantially costlier. Most government allotments continue to carry a service bond (commonly ₹10 lakh surety with rural or district service); treat the current ACPUGMEC information brochure as the final word for the 2026–27 batch.",
-    "Competition is uneven by city and college tier. Ahmedabad, Gandhinagar, and legacy campuses such as B.J. Medical College historically see the tightest state-quota General closing ranks; many newer GMERS colleges offer a similar low-fee path at softer cutoffs with the same bond framework. Private colleges remain the main fallback when government merit lists are out of reach, with separate merit lists for government-quota, management, and NRI seats published after each counseling round.",
+    "Competition is uneven by city and college tier. Ahmedabad, Gandhinagar, and legacy campuses such as B.J. Medical College historically see the tightest state-quota General closing ranks; many newer GMERS colleges offer a similar low-fee path at softer cutoffs with the same bond framework. Private colleges remain the main fallback when government merit lists are out of reach, with separate merit lists for government-quota, management, and NRI seats published after each counselling round.",
     "NEET-UG 2026 (conducted by NTA) is mandatory for every seat type. Gujarat’s 85% state quota—including government seats and regulated private government-quota seats—requires Gujarat domicile and state-valid category certificates where reservation applies (SC, ST, SEBC/OBC, EWS, and PwD per the active roster). The 15% All India Quota in Gujarat colleges is counseled separately by MCC on mcc.nic.in. Candidates without Gujarat domicile cannot enter state quota but may still target AIQ seats or eligible private management/NRI quotas subject to college prospectus rules and fees.",
     "Practical planning for 2026–27 means tracking notifications on medadmgujarat.org and MCC after the NEET result, registering and locking choices on time, and using upgradation rounds without missing fee or reporting deadlines. Compare Gujarat with neighbouring states on three levers: whether your NEET rank can reach government cutoffs in your category, total five-year cost including hostel and bond risk, and domicile eligibility. Use our college list and cutoff tools on this page for catalog-backed numbers; always verify allotments and fees on the official portals before admission.",
   ],
@@ -65,7 +65,7 @@ export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
       "Birth certificate (if domicile claimed through birth in Gujarat)",
     ],
     nonDomicile:
-      "Non-domicile candidates cannot participate in Gujarat’s 85% state quota counseling. They may compete for 15% AIQ seats via MCC in Gujarat colleges and for management quota or NRI quota seats in private medical colleges where college prospectus permits all-India candidates, paying applicable fees and meeting NRI documentation if applicable.",
+      "Non-domicile candidates cannot participate in Gujarat’s 85% state quota counselling. They may compete for 15% AIQ seats via MCC in Gujarat colleges and for management quota or NRI quota seats in private medical colleges where college prospectus permits all-India candidates, paying applicable fees and meeting NRI documentation if applicable.",
     reservation:
       "Horizontal reservations apply for SC (7%), ST (15%), SEBC/OBC (27%), EWS (10%), and PwD as per state roster. Physically handicapped and female candidate provisions follow current ACPUGMEC notification. Category certificates must be issued by Gujarat authorities for state quota.",
     bond:
@@ -74,14 +74,14 @@ export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
   counselingSteps: [
     "Register on NEET-UG and obtain a valid scorecard from NTA.",
     "Complete MCC registration if targeting All India Quota (15%) in Gujarat colleges.",
-    "Register on medadmgujarat.org for state quota counseling within the published window.",
+    "Register on medadmgujarat.org for state quota counselling within the published window.",
     "Pay ACPUGMEC registration fee and upload scanned documents (domicile, marksheets, category certificate).",
     "Fill online choice form: select government, private government-quota, management, or NRI options as eligible.",
     "Lock choices before the deadline; unlocked forms are not considered for the round.",
     "Participate in seat allotment round; download provisional allotment letter if allotted.",
     "Report to allotted college with originals for document verification and fee payment.",
     "Complete admission at college; obtain admission letter and trigger MCC/state seat matrix update.",
-    "If not satisfied, opt for upgradation in subsequent rounds per counseling policy (freeze/float rules apply).",
+    "If not satisfied, opt for upgradation in subsequent rounds per counselling policy (freeze/float rules apply).",
   ],
   counselingRules: [
     "Choice locking is mandatory each round; editing after lock time is not permitted.",
@@ -349,9 +349,9 @@ export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
   ],
   faq: [
     {
-      question: "Who conducts MBBS counseling in Gujarat?",
+      question: "Who conducts MBBS counselling in Gujarat?",
       answer:
-        "ACPUGMEC conducts state quota counseling through medadmgujarat.org. All India Quota is handled separately by MCC on mcc.nic.in.",
+        "ACPUGMEC conducts state quota counselling through medadmgujarat.org. All India Quota is handled separately by MCC on mcc.nic.in.",
     },
     {
       question: "Is Gujarat domicile mandatory for government seats?",
@@ -394,7 +394,7 @@ export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
         "Yes. Participating private colleges offer NRI quota with distinct fee schedules and document requirements.",
     },
     {
-      question: "Can I participate in both MCC and Gujarat counseling?",
+      question: "Can I participate in both MCC and Gujarat counselling?",
       answer:
         "Yes, but you must follow seat retention rules; accepting a seat in one system may restrict participation in the other per current policy.",
     },
@@ -404,7 +404,7 @@ export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
         "State roster includes SC, ST, SEBC/OBC, EWS, and PwD horizontal reservations as per the active ACPUGMEC prospectus.",
     },
     {
-      question: "When does Gujarat MBBS counseling usually start?",
+      question: "When does Gujarat MBBS counselling usually start?",
       answer:
         "Typically mid-August after NEET results, with multiple rounds through September and mop-up in early October.",
     },
@@ -443,7 +443,7 @@ export const RAJASTHAN_MBBS_CONFIG: MbbsStateConfig = {
     domicileRequired: "Yes — state quota requires Rajasthan domicile",
   },
   overview: [
-    "Rajasthan centralizes undergraduate medical admissions under RUHS, counseling more than 7,330 MBBS seats across 43 colleges through ruhsraj.org. The state blends heritage institutions like SMS Medical College in Jaipur with a ring of 2000s-era government medical colleges in Kota, Udaipur, Jodhpur, and Bikaner.",
+    "Rajasthan centralizes undergraduate medical admissions under RUHS, counselling more than 7,330 MBBS seats across 43 colleges through ruhsraj.org. The state blends heritage institutions like SMS Medical College in Jaipur with a ring of 2000s-era government medical colleges in Kota, Udaipur, Jodhpur, and Bikaner.",
     "Government capacity is comparatively strong: 26 government colleges contribute about 4,425 seats, giving domicile students more government options than many states of similar NEET applicant volume. Fees remain moderate, though slightly higher than Gujarat’s GMERS tariff.",
     "Cutoffs tighten sharply for Jaipur SMS and JLN Ajmer, while newer district colleges offer softer ranks for reserved categories and General merit alike. Private colleges cluster around Jaipur and Kota, absorbing students who miss government lists but still want in-state campuses.",
     "Domicile is required for the 85% state pool, with certificates issued by Rajasthan revenue authorities. Out-of-state students rely on AIQ (~1,100 seats) or management quotas in private institutes, where fees climb steeply but NEET eligibility alone does not guarantee a seat without financial readiness.",
@@ -456,7 +456,7 @@ export const RAJASTHAN_MBBS_CONFIG: MbbsStateConfig = {
       "Parent domicile certificate from Rajasthan may qualify dependent candidates who studied outside due to transferable jobs.",
       "Candidates who are bonafide residents by birth in Rajasthan may claim domicile with birth and parental residence proof.",
       "State government employees’ children may receive concessions when the employee is on Rajasthan cadre, subject to notification.",
-      "Domicile is not required for AIQ counseling through MCC or for management seats where all-India candidates are explicitly allowed.",
+      "Domicile is not required for AIQ counselling through MCC or for management seats where all-India candidates are explicitly allowed.",
     ],
     documents: [
       "Rajasthan domicile certificate from Tehsildar / competent authority",
@@ -475,8 +475,8 @@ export const RAJASTHAN_MBBS_CONFIG: MbbsStateConfig = {
   },
   counselingSteps: [
     "Qualify NEET-UG and download scorecard from NTA.",
-    "Register on ruhsraj.org within the RUHS counseling schedule.",
-    "Pay counseling registration fee and complete profile with academic details.",
+    "Register on ruhsraj.org within the RUHS counselling schedule.",
+    "Pay counselling registration fee and complete profile with academic details.",
     "Upload domicile, category, and identity documents in prescribed formats.",
     "Fill choice preferences for government and private colleges by round.",
     "Lock choices before cutoff time; provisional lists are not honored if unlocked.",
@@ -746,8 +746,8 @@ export const RAJASTHAN_MBBS_CONFIG: MbbsStateConfig = {
   ],
   faq: [
     {
-      question: "Which body conducts Rajasthan MBBS counseling?",
-      answer: "RUHS conducts state quota counseling via ruhsraj.org; AIQ is through MCC.",
+      question: "Which body conducts Rajasthan MBBS counselling?",
+      answer: "RUHS conducts state quota counselling via ruhsraj.org; AIQ is through MCC.",
     },
     {
       question: "How many MBBS seats does Rajasthan have?",
@@ -807,12 +807,12 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
   code: "MP",
   capital: "Bhopal",
   counselingAuthority:
-    "Department of Medical Education (DME), Madhya Pradesh — DMAT counseling cell",
+    "Department of Medical Education (DME), Madhya Pradesh — DMAT counselling cell",
   counselingAuthorityShort: "DME MP / DMAT",
   counselingPortal: "dme.mponline.gov.in",
   counselingPortalUrl: "https://dme.mponline.gov.in",
   universityNote:
-    "Colleges are affiliated to Madhya Pradesh Medical Science University (MPMSU) or legacy universities; government and private institutes follow DME counseling schedules.",
+    "Colleges are affiliated to Madhya Pradesh Medical Science University (MPMSU) or legacy universities; government and private institutes follow DME counselling schedules.",
   stats: {
     totalColleges: 31,
     totalSeats: MP_TOTAL,
@@ -828,7 +828,7 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
     domicileRequired: "Yes — MP domicile for 85% state quota",
   },
   overview: [
-    "Madhya Pradesh routes NEET-UG admissions through the Department of Medical Education with online counseling on dme.mponline.gov.in, historically branded as DMAT. About 5,725 MBBS seats across 31 colleges split nearly evenly between government and private sectors, giving domicile students a broad private safety net when government cutoffs slip.",
+    "Madhya Pradesh routes NEET-UG admissions through the Department of Medical Education with online counselling on dme.mponline.gov.in, historically branded as DMAT. About 5,725 MBBS seats across 31 colleges split nearly evenly between government and private sectors, giving domicile students a broad private safety net when government cutoffs slip.",
     "Flagship government colleges in Bhopal, Indore, Gwalior, and Jabalpur anchor clinical training with large attached hospitals. Newer government colleges in Chhindwara, Shivpuri, and Datia expanded capacity after 2015, moderating cutoffs outside the four metros.",
     "State-quota General ranks for MGM Indore and Gandhi Medical College Bhopal sit in a competitive but reachable band compared with Maharashtra’s grant colleges. Private colleges in Indore and Bhopal charge management fees that are mid-market nationally, often below Mumbai private tariffs.",
     "MP domicile rules require certificates from state revenue authorities and bonafide schooling proofs for state quota. Non-domicile students compete via AIQ (~859 seats) or management quotas; NRI seats exist in select private campuses with dollar-linked fee tables.",
@@ -836,10 +836,10 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
   ],
   domicile: {
     rules: [
-      "MP domicile is mandatory for participation in 85% state quota counseling conducted by DME.",
+      "MP domicile is mandatory for participation in 85% state quota counselling conducted by DME.",
       "Candidates who have studied Class 10 and 12 from recognized schools in MP for the qualifying period may claim domicile.",
       "Domicile through parent is permitted when at least one parent holds a valid MP domicile certificate.",
-      "Children of MP state government employees may qualify under special provisions in the annual counseling handbook.",
+      "Children of MP state government employees may qualify under special provisions in the annual counselling handbook.",
       "Candidates must not hold simultaneous domicile claims in another state for state quota purposes.",
       "AIQ and permitted management seats follow all-India eligibility unless college prospectus states otherwise.",
     ],
@@ -860,8 +860,8 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
   },
   counselingSteps: [
     "Appear in NEET-UG and retain a valid All India Rank.",
-    "Create profile on dme.mponline.gov.in during the counseling registration period.",
-    "Pay DMAT counseling fee and enter academic and personal details.",
+    "Create profile on dme.mponline.gov.in during the counselling registration period.",
+    "Pay DMAT counselling fee and enter academic and personal details.",
     "Upload domicile, category, and photograph/signature scans.",
     "Select college and course preferences for the active round.",
     "Lock preferences before the published deadline.",
@@ -871,7 +871,7 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
     "Opt for upgradation in subsequent rounds or exit seat as per DME policy.",
   ],
   counselingRules: [
-    "Failure to report within the window forfeits the allotment and may attract penalties for repeat counseling.",
+    "Failure to report within the window forfeits the allotment and may attract penalties for repeat counselling.",
     "Government seat candidates must complete bond paperwork at admission.",
     "Seat retention across MCC and DME is governed by latest MoHFW exit rules—read the circular before accepting.",
   ],
@@ -917,7 +917,7 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
     "Balanced govt/private split unlike Rajasthan’s govt-heavy profile.",
     "Fees lower than Maharashtra private colleges; government fees slightly above Gujarat.",
     "Indore cutoffs competitive with Jaipur but below Mumbai grant colleges for General merit.",
-    "Counseling portal (mponline) is centralized—fewer parallel university streams than Maharashtra.",
+    "Counselling portal (mponline) is centralized—fewer parallel university streams than Maharashtra.",
   ],
   vsRecommendation:
     "MP fits domicile students wanting both government shots and affordable private fallbacks; high AIR non-domicile candidates should prioritize AIQ or compare Rajasthan government depth.",
@@ -1126,7 +1126,7 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
     { date: "2025-09-08", label: "College reporting (round 1)", track: "state" },
     { date: "2025-09-14", label: "Round 2 choice filling", track: "state" },
     { date: "2025-09-21", label: "MCC round 2 allotment", track: "mcc" },
-    { date: "2025-09-27", label: "Stray vacancy counseling", track: "state" },
+    { date: "2025-09-27", label: "Stray vacancy counselling", track: "state" },
     { date: "2025-10-04", label: "Admission freeze on DME portal", track: "state" },
     { date: "2025-10-10", label: "Academic session begins", track: "state" },
   ],
@@ -1134,7 +1134,7 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
     {
       question: "What is DMAT in Madhya Pradesh?",
       answer:
-        "DMAT refers to the online medical admission counseling process run by DME on dme.mponline.gov.in for NEET-qualified candidates.",
+        "DMAT refers to the online medical admission counselling process run by DME on dme.mponline.gov.in for NEET-qualified candidates.",
     },
     {
       question: "How many MBBS seats are in MP?",
@@ -1178,7 +1178,7 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
     },
     {
       question: "When are cutoffs released?",
-      answer: "After each counseling round on the DME portal and official notices.",
+      answer: "After each counselling round on the DME portal and official notices.",
     },
   ],
   notableColleges: [
@@ -1247,7 +1247,7 @@ export const MAHARASHTRA_MBBS_CONFIG: MbbsStateConfig = {
   },
   counselingSteps: [
     "Qualify NEET-UG and note your All India Rank and percentile.",
-    "Register on cetcell.mahacet.org for Maharashtra NEET-UG counseling.",
+    "Register on cetcell.mahacet.org for Maharashtra NEET-UG counselling.",
     "Pay registration fee and complete application with academic history.",
     "Upload domicile, category validity, and identity proofs.",
     "Fill and arrange preferences for grant, private, and institutional quotas.",
@@ -1304,7 +1304,7 @@ export const MAHARASHTRA_MBBS_CONFIG: MbbsStateConfig = {
     "Largest private seat inventory among focus states—more fallback options at higher cost.",
     "Grant college cutoffs are tougher than Gujarat or MP for equivalent prestige.",
     "Government tuition higher than Gujarat GMERS but still below top private management fees.",
-    "Counseling is CAP-based with multiple rounds—more complex than Rajasthan’s single-portal flow.",
+    "Counselling is CAP-based with multiple rounds—more complex than Rajasthan’s single-portal flow.",
   ],
   vsRecommendation:
     "Maharashtra rewards domicile students with scale—use CAP strategically; non-domicile high-rankers should target AIQ in Mumbai/Pune colleges before paying premium private fees elsewhere.",
@@ -1517,7 +1517,7 @@ export const MAHARASHTRA_MBBS_CONFIG: MbbsStateConfig = {
   ],
   faq: [
     {
-      question: "Who conducts Maharashtra MBBS counseling?",
+      question: "Who conducts Maharashtra MBBS counselling?",
       answer: "The State CET Cell runs CAP on cetcell.mahacet.org; AIQ is via MCC.",
     },
     {

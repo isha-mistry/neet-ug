@@ -67,8 +67,8 @@ export function StateQuotaView() {
     <QuotaHeader
       eyebrow="Medical Counselling Guide"
       title="State Quota"
-      highlightedText="(SQ) Overview"
-      description="The State Quota is the most critical pathway for medical aspirants, reserving the vast majority of seats for local residents. It is governed by state-specific medical counseling bodies and offers a significant advantage to domicile candidates."
+      highlightedText="Admissions"
+      description="The State Quota is the most critical pathway for medical aspirants, reserving the vast majority of seats for local residents. It is governed by state-specific medical counselling bodies and offers a significant advantage to domicile candidates."
       eyebrowIcon="verified"
       watermarkIcon="location_on"
     />
@@ -193,7 +193,7 @@ export function StateQuotaView() {
             </div>
             <div>
               <h3 className="text-title-lg font-title-lg text-on-surface font-bold">State Body</h3>
-              <p className="text-label-sm font-label-sm text-on-surface-variant leading-tight">Independent state counseling</p>
+              <p className="text-label-sm font-label-sm text-on-surface-variant leading-tight">Independent state counselling</p>
             </div>
           </div>
         </Card>
@@ -361,7 +361,7 @@ export function StateQuotaView() {
             <ul className="text-body-sm space-y-2 text-on-surface-variant">
               <li className="flex gap-2"><span className="text-tertiary font-bold">✓</span> Higher cutoff scores required</li>
               <li className="flex gap-2"><span className="text-tertiary font-bold">✓</span> Any Indian citizen can apply</li>
-              <li className="flex gap-2"><span className="text-tertiary font-bold">✓</span> Centralized MCC Counseling</li>
+              <li className="flex gap-2"><span className="text-tertiary font-bold">✓</span> Centralized MCC Counselling</li>
             </ul>
           </Card>
           <Card hover={true} className="bg-primary-fixed/30">

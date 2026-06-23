@@ -97,7 +97,7 @@
               "href": "/quota/general"
             },
             {
-              "label": "Counseling",
+              "label": "Counselling",
               "href": "/counselling"
             },
             {
@@ -164,7 +164,7 @@
       {
         "id": "by-state",
         "title": "Search by State",
-        "description": "Focus on a state's counseling, seats and competition.",
+        "description": "Focus on a state's counselling, seats and competition.",
         "href": "/colleges/state",
         "icon": "FiMapPin"
       },
@@ -221,7 +221,7 @@
   "pages": {
     "allColleges": {
       "title": "MBBS Colleges in India — Fees, Cutoffs & Seats",
-      "description": "Search and filter MBBS colleges across India by quota, category, state, fees, and closing rank. Compare seats, bond rules, and counseling paths."
+      "description": "Search and filter MBBS colleges across India by quota, category, state, fees, and closing rank. Compare seats, bond rules, and counselling paths."
     },
     "comparison": {
       "title": "Compare MBBS Colleges",
@@ -229,7 +229,7 @@
     },
     "blog": {
       "title": "Dravio Blog",
-      "description": "Practical guidance on counseling strategy, quotas, documentation and MBBS decision-making."
+      "description": "Practical guidance on counselling strategy, quotas, documentation and MBBS decision-making."
     },
     "quota": {
       "title": "MBBS Quota Guides",
@@ -304,7 +304,7 @@
   ],
   "blog": {
     "title": "Dravio Blog",
-    "description": "Practical MBBS admission guidance covering quotas, counseling strategy and college selection frameworks.",
+    "description": "Practical MBBS admission guidance covering quotas, counselling strategy and college selection frameworks.",
     "featuredSlug": "how-to-build-mbbs-college-shortlist",
     "articles": [
       {
@@ -316,14 +316,14 @@
         "readMinutes": 8,
         "tags": [
           "Shortlisting",
-          "Counseling"
+          "Counselling"
         ],
         "sections": [
           {
             "heading": "Start with Constraints First",
             "paragraphs": [
               "Before comparing brand names, fix your non-negotiables: budget cap, preferred states and acceptable bond obligations.",
-              "This prevents overfocusing on unrealistic options and helps keep your counseling list executable."
+              "This prevents overfocusing on unrealistic options and helps keep your counselling list executable."
             ]
           },
           {
@@ -343,10 +343,10 @@
         ]
       },
       {
-        "slug": "state-vs-aiq-counseling-strategy",
-        "title": "State vs AIQ Counseling: How to Balance Both",
+        "slug": "state-vs-aiq-counselling-strategy",
+        "title": "State vs AIQ Counselling: How to Balance Both",
         "excerpt": "Understand where AIQ helps, where state quota dominates, and how to avoid list duplication mistakes.",
-        "author": "Counseling Team",
+        "author": "Counselling Team",
         "publishedAt": "2026-05-16",
         "readMinutes": 7,
         "tags": [
@@ -372,7 +372,7 @@
             "heading": "A Balanced Execution Model",
             "paragraphs": [
               "Run parallel but distinct preference lists for AIQ and state to avoid accidental overlap and weak backups.",
-              "Treat each counseling channel as part of one integrated decision plan."
+              "Treat each counselling channel as part of one integrated decision plan."
             ]
           }
         ]
@@ -461,21 +461,21 @@
         },
         {
           "heading": "Step 3 — Decide",
-          "body": "Finalize rank-calibrated preference lists and align them with quota/counseling channels."
+          "body": "Finalize rank-calibrated preference lists and align them with quota/counselling channels."
         }
       ]
     }
   ],
   "faq": {
     "title": "Frequently Asked Questions",
-    "description": "Answers to common MBBS counseling and Dravio platform questions.",
+    "description": "Answers to common MBBS counselling and Dravio platform questions.",
     "items": [
       {
         "question": "How often is college data updated?",
         "answer": "Data is periodically refreshed, and high-impact fields like cutoffs and fee structures are prioritized for update cycles."
       },
       {
-        "question": "Can I use Dravio for both AIQ and state counseling?",
+        "question": "Can I use Dravio for both AIQ and state counselling?",
         "answer": "Yes. Dravio supports planning across both channels and helps keep your choices organized by route and feasibility."
       },
       {
@@ -487,8 +487,8 @@
         "answer": "Use a multi-factor comparison: fee burden, cutoff stability, hospital load, bond obligations and long-term ROI."
       },
       {
-        "question": "Does Dravio replace official counseling portals?",
-        "answer": "No. Dravio is a decision-support layer. Final registration, choice filling and seat acceptance happen on official counseling portals."
+        "question": "Does Dravio replace official counselling portals?",
+        "answer": "No. Dravio is a decision-support layer. Final registration, choice filling and seat acceptance happen on official counselling portals."
       }
     ]
   },
@@ -496,7 +496,7 @@
     {
       "slug": "maharashtra",
       "name": "Maharashtra",
-      "intro": "Maharashtra counseling is handled by the State CET Cell, with state quota seats across government and private colleges.",
+      "intro": "Maharashtra counselling is handled by the State CET Cell, with state quota seats across government and private colleges.",
       "totalSeats": 6850,
       "competitionLevel": "High"
     },
@@ -517,14 +517,14 @@
     {
       "slug": "tamil-nadu",
       "name": "Tamil Nadu",
-      "intro": "Tamil Nadu admits MBBS students primarily through state counseling with a strong network of government colleges.",
+      "intro": "Tamil Nadu admits MBBS students primarily through state counselling with a strong network of government colleges.",
       "totalSeats": 5680,
       "competitionLevel": "High"
     },
     {
       "slug": "madhya-pradesh",
       "name": "Madhya Pradesh",
-      "intro": "Madhya Pradesh MBBS admissions are conducted through state counseling with government, private and central institutes including AIIMS Bhopal.",
+      "intro": "Madhya Pradesh MBBS admissions are conducted through state counselling with government, private and central institutes including AIIMS Bhopal.",
       "totalSeats": 4120,
       "competitionLevel": "High"
     }

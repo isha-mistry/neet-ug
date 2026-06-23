@@ -23,7 +23,7 @@ export function buildMbbsIndiaArticleJsonLd() {
     "@type": "Article",
     headline: mbbsIndiaPageTitle(),
     description:
-      "National guide to MBBS colleges, seats, cutoffs, fees, counseling, and career paths in India.",
+      "National guide to MBBS colleges, seats, cutoffs, fees, counselling, and career paths in India.",
     url: MBBS_INDIA_PAGE_PATH,
     author: {
       "@type": "Organization",

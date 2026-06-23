@@ -3,9 +3,10 @@ import { StateCounsellingView } from "@/components/features/state-counselling/St
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "NEET UG State Counselling Guide",
+  title: "State Wise NEET UG Counselling",
+  metaTitle: "State Wise NEET UG Counselling 2026 | Admission Process & Cutoffs",
   description:
-    "Compare NEET UG state counselling authorities, eligibility, reservation, documents, rounds, seat categories and admission rules for Gujarat, Maharashtra, Rajasthan and Madhya Pradesh.",
+    "Explore state-specific counselling processes, eligibility criteria, quotas, and cutoff trends across India.",
   path: "/state-counselling",
 });
 

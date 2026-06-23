@@ -231,7 +231,7 @@ export const COUNSELLING_PLANS = {
     {
       id: "expert",
       name: "Expert",
-      tag: "End-to-end support through every round, with a counselor who knows your case.",
+      tag: "End-to-end support through every round, with a counsellor who knows your case.",
       price: "49,999",
       per: null,
       popular: true,
@@ -264,7 +264,7 @@ export const COUNSELLING_PLANS = {
       ctaVariant: "line" as const,
       features: [
         { type: "head", text: "Everything in Expert +" },
-        { type: "item", text: "Unlimited counselor calls across all rounds" },
+        { type: "item", text: "Unlimited counsellor calls across all rounds" },
         { type: "item", text: "Separate parent briefing and strategy" },
         { type: "item", text: "Management Quota eligibility & documentation" },
         { type: "item", text: "NRI quota eligibility and documentation" },

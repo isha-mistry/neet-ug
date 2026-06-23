@@ -32,7 +32,7 @@ const DOCUMENTS_CHECKLIST = [
   { doc: "NEET UG Scorecard / Rank Letter", detail: "Specifying your All India Rank (AIR), category, and qualifying status." },
   { doc: "Class 10 & 12 Marksheets & Certificates", detail: "Proof of date of birth and physics, chemistry, biology marks eligibility." },
   { doc: "Category Certificate (SC/ST/OBC-NCL/EWS)", detail: "If applicable, issued by competent authorities in the official format." },
-  { doc: "Domicile & Nationality Certificate", detail: "Required for state quota (85% seats) counseling rounds." },
+  { doc: "Domicile & Nationality Certificate", detail: "Required for state quota (85% seats) counselling rounds." },
   { doc: "Identity Proof (Aadhaar/PAN/Passport)", detail: "Used for verification at reporting centers." }
 ];
 
@@ -50,7 +50,7 @@ export function GeneralGuidanceContent() {
               A Scientific Framework for Career Planning
             </h2>
             <p className="mt-3 text-sm text-on-surface-variant leading-relaxed">
-              Choosing a career path in medicine should not follow simple guesswork or peer influence. Modern admissions counseling recommends a multi-step assessment model.
+              Choosing a career path in medicine should not follow simple guesswork or peer influence. Modern admissions counselling recommends a multi-step assessment model.
             </p>
           </div>
 
@@ -71,7 +71,7 @@ export function GeneralGuidanceContent() {
               <span className="text-[10px] font-black text-primary bg-primary/10 px-2.5 py-1 rounded-md uppercase tracking-wider font-semibold">Assessment Parameters</span>
               <h3 className="text-xl font-black text-on-surface">Core Aptitudes Verified for Healthcare Careers</h3>
               <p className="text-xs text-on-surface-variant leading-relaxed">
-                Before locking in a course or counseling preference, it is highly advisable to evaluate your strengths against the primary cognitive demands of medical professionals:
+                Before locking in a course or counselling preference, it is highly advisable to evaluate your strengths against the primary cognitive demands of medical professionals:
               </p>
             </div>
             <div className="lg:col-span-7 grid gap-4 sm:grid-cols-2">

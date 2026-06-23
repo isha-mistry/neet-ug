@@ -92,10 +92,10 @@ select.lead-native-select {
 }
 
 .journey-home .pb-form .btn.lead-form-submit:disabled {
-  opacity: 0.5;
+  opacity: 1;
   cursor: not-allowed;
-  pointer-events: none;
+  pointer-events: auto;
   filter: none;
   background: rgba(255, 255, 255, 0.55);
-  color: color-mix(in srgb, var(--blue) 65%, #fff);
+  color: var(--blue);
 }

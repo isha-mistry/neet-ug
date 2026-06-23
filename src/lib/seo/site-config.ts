@@ -3,21 +3,21 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://dravio.in";
 
 export const SITE_TITLE =
-  "Dravio — MBBS counseling for NEET 2026 students";
+  "Dravio — MBBS counselling for NEET 2026 students";
 
 export const SITE_DESCRIPTION =
-  "Plan your MBBS admission with verified cutoff data, round-by-round counseling strategy, and expert guidance across Gujarat, Rajasthan, MP, Maharashtra and MCC All India Quota.";
+  "Plan your MBBS admission with verified cutoff data, round-by-round counselling strategy, and expert guidance across Gujarat, Rajasthan, MP, Maharashtra and MCC All India Quota.";
 
 export const SITE_KEYWORDS = [
-  "MBBS counseling",
+  "MBBS counselling",
   "NEET 2026",
   "NEET MBBS admission",
   "MBBS in Gujarat",
   "MBBS in Rajasthan",
   "MBBS in MP",
   "MBBS in Maharashtra",
-  "AIQ counseling",
-  "MCC counseling",
+  "AIQ counselling",
+  "MCC counselling",
   "ACPUGMEC",
   "RUHS",
   "DMAT",
@@ -29,7 +29,7 @@ export const THEME_COLOR = "#004AC6";
 
 export const OG_IMAGE_PATH = "/dravio_meta.webp";
 export const OG_IMAGE_ALT =
-  "Dravio — MBBS counseling for NEET 2026 students. Verified data, round-by-round guidance, expert counselors. Covering Gujarat, Rajasthan, MP, Maharashtra and AIQ.";
+  "Dravio — MBBS counselling for NEET 2026 students. Verified data, round-by-round guidance, expert counsellors. Covering Gujarat, Rajasthan, MP, Maharashtra and AIQ.";
 
 /** Measured from public/dravio_meta.webp */
 export const OG_IMAGE_WIDTH = 7500;

@@ -52,7 +52,7 @@ export function FeesAndBondInfo({ fees, bond, stateSlug }: FeesAndBondInfoProps)
     if (fees.totalAnnual < 20000) {
       return "AIIMS institutions generally do not have a rural service bond for MBBS graduates as per central government regulations.";
     }
-    return "Service bond obligations, rural postings, and penalties depend strictly on state counseling guidelines.";
+    return "Service bond obligations, rural postings, and penalties depend strictly on state counselling guidelines.";
   };
 
   return (

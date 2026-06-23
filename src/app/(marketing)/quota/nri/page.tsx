@@ -3,9 +3,10 @@ import { NriQuotaView } from "@/components/features/quota/NriQuotaView";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "NRI Quota Admission Guide - NEET UG",
+  title: "NRI Quota MBBS Admissions",
+  metaTitle: "NRI Quota MBBS Admission 2026 | Fees, Eligibility & Counselling",
   description:
-    "Check NRI, OCI, and PIO eligibility, mandatory document checklist (embassy certificate, sponsorship affidavit), and state-wise seats distribution.",
+    "Learn about NRI quota admissions, documentation requirements, fees, and admission procedures.",
   path: "/quota/nri",
 });
 

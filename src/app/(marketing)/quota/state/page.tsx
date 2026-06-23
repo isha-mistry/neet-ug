@@ -3,9 +3,10 @@ import { StateQuotaView } from "@/components/features/quota/StateQuotaView";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "State Quota (SQ) Guide - NEET UG",
+  title: "State Quota Admissions",
+  metaTitle: "State Quota MBBS Admission 2026 | State Counselling Guide",
   description:
-    "The State Quota is the most critical pathway for medical aspirants, reserving the vast majority of seats for local residents.",
+    "Understand domicile eligibility, state counselling processes, and admission opportunities under state quotas.",
   path: "/quota/state",
 });
 

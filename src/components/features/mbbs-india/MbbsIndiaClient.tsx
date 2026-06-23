@@ -308,7 +308,7 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
                     ))}
                   </ul>
                   <p className="mt-4 text-xs text-outline">
-                    Qualifying NEET is not the same as getting a seat — ranks must match counseling cutoffs.
+                    Qualifying NEET is not the same as getting a seat — ranks must match counselling cutoffs.
                   </p>
                 </GuideCard>
               </div>
@@ -457,7 +457,7 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
                 </table>
               </div>
               <p className="text-sm text-on-surface-variant">
-                AIIMS institutions (23 nationwide) follow dedicated AIQ counseling rules alongside MCC.{" "}
+                AIIMS institutions (23 nationwide) follow dedicated AIQ counselling rules alongside MCC.{" "}
                 <Link href="/colleges" className="font-semibold text-primary hover:underline">
                   View all colleges
                 </Link>
@@ -485,7 +485,7 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
               </div>
             </GuideSection>
 
-            <GuideSection embedded title={`NEET UG counseling ${MBBS_ACADEMIC_SESSION} — timeline`}>
+            <GuideSection embedded title={`NEET UG counselling ${MBBS_ACADEMIC_SESSION} — timeline`}>
               <GuideCard>
                 <ul className="space-y-4 border-l-2 border-primary/40 pl-5">
                   {COUNSELING_TIMELINE.map((ev) => (
@@ -501,7 +501,7 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
                   <Link href="/counselling" className="font-semibold text-primary hover:underline">
                     counselling hub
                   </Link>
-                  ). You may participate in AIQ and state counseling together. Reporting is mandatory to
+                  ). You may participate in AIQ and state counselling together. Reporting is mandatory to
                   retain a seat. Verify dates on{" "}
                   <a
                     href="https://mcc.nic.in"
@@ -539,7 +539,7 @@ export function MbbsIndiaClient({ mapStats, catalog }: MbbsIndiaClientProps) {
                 <span className="material-symbols-outlined text-4xl text-outline">forum</span>
                 <h3 className="mt-3 text-lg font-bold text-on-surface">Coming soon — our students speak</h3>
                 <p className="mx-auto mt-2 max-w-md text-sm text-on-surface-variant">
-                  Verified counseling success stories with NEET scores, quotas, and colleges allotted.
+                  Verified counselling success stories with NEET scores, quotas, and colleges allotted.
                 </p>
               </GuideCard>
             </GuideSection>

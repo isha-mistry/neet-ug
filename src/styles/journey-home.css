@@ -2720,6 +2720,10 @@
 .journey-home .pb-form .phone-field-grid.lead-phone-row > .country-code-select {
   padding-inline: 12px 2rem;
   font-size: 14.5px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 7.5 10 12.5 15 7.5' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.625rem center;
+  background-size: 0.75rem;
 }
 
 .journey-home .pb-form .phone-field-grid.lead-phone-row > input[type="tel"]::placeholder,
@@ -2732,6 +2736,11 @@
 .journey-home .pb-form-field:focus {
   border-color: #fff;
   outline: none;
+}
+
+.journey-home .pb-form-field.is-empty,
+.journey-home .pb-form .phone-field-grid.lead-phone-row > input[type="tel"].is-empty {
+  border-color: rgba(254, 202, 202, 0.6);
 }
 
 .journey-home .pb-form .btn {

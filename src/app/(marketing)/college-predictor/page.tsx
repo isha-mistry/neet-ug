@@ -9,9 +9,10 @@ import {
 } from "@/lib/college-predictor/compute";
 
 export const metadata: Metadata = buildMetadata({
-  title: "NEET College Predictor from AIR",
+  title: "NEET College Predictor",
+  metaTitle: "NEET College Predictor 2026 | Medical College Admission Chances",
   description:
-    "Enter your official All India Rank to see likely, possible, and reach college counts, then unlock full lists after mobile verification.",
+    "Discover medical colleges where you may be eligible based on your NEET score, category, and state.",
   path: "/college-predictor",
 });
 

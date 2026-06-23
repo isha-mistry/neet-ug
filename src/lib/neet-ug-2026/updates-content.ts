@@ -2,8 +2,8 @@ import type { GuideJumpItem } from "@/components/features/mbbs-india/GuidePageJu
 import type { TimelineEvent } from "@/components/features/neet-ug/NeetTimeline";
 
 export const NEET_UG_UPDATES_HERO = {
-  title: "NEET UG 2026 live ",
-  titleEmphasis: "updates & alerts.",
+  title: "NEET UG 2026 ",
+  titleEmphasis: "Updates",
   lede:
     "Official NTA milestones — ReNEET, answer key, results, and counselling windows — in one place. Verified against public notices; we refresh as NTA publishes.",
   fine:

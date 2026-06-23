@@ -6,9 +6,10 @@ import { getRankPredictorSession } from "@/lib/rank-predictor/session";
 import { computeUnlockedResult } from "@/lib/rank-predictor/compute";
 import type { NeetCategory } from "@/lib/rank-predictor/types";
 export const metadata: Metadata = buildMetadata({
-  title: "NEET 2026 Rank Predictor — See Where Your Score Lands",
+  title: "NEET Rank Predictor",
+  metaTitle: "NEET Rank Predictor 2026 | Estimate Your Admission Chances",
   description:
-    "Enter your NEET 2026 score and get an instant estimated AIR band built from the last two years of official score–rank data. Verify to unlock a refined band, your state merit rank and matched colleges.",
+    "Predict your expected NEET rank and explore likely admission opportunities based on your score.",
   path: "/rank-predictor",
 });
 

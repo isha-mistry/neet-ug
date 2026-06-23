@@ -43,8 +43,8 @@ export const SUMMARY_STATS: { label: string; value: string }[] = [
   { label: "Duration of MBBS course", value: "4.5 years + 1 year compulsory internship" },
   { label: "Total subjects in MBBS", value: "19" },
   { label: "Entrance exam", value: "NEET-UG (conducted by NTA)" },
-  { label: "All India counseling body", value: "MCC (Medical Counseling Committee)" },
-  { label: "State counseling body", value: "DME or Medical University of respective state" },
+  { label: "All India counselling body", value: "MCC (Medical Counselling Committee)" },
+  { label: "State counselling body", value: "DME or Medical University of respective state" },
   { label: "Government seat annual fee", value: "₹50,000 – ₹1,00,000 per year" },
   { label: "Management quota annual fee", value: "₹10,00,000 – ₹30,00,000 per year" },
   { label: "NRI quota annual fee", value: "₹35,00,000 – ₹45,00,000 per year" },
@@ -156,7 +156,7 @@ export const COUNSELING_AIQ_STEPS = [
 ];
 
 export const COUNSELING_STATE_STEPS = [
-  "Register separately on the state counseling portal (domicile rules apply for 85% quota).",
+  "Register separately on the state counselling portal (domicile rules apply for 85% quota).",
   "Pay state registration fee and upload state-specific documents.",
   "Choice filling for state quota, management, and NRI seats as applicable.",
   "Participate in multiple rounds mirroring MCC (Round 1, 2, mop-up, stray).",
@@ -366,15 +366,15 @@ export const MBBS_INDIA_FAQ: FaqItem[] = [
   {
     question: "What is the role of MCC in MBBS admissions?",
     answer:
-      "The Medical Counseling Committee conducts online counseling for AIQ, deemed universities, central institutions, and ESIC seats on mcc.nic.in. It publishes registration windows, processes choices, and allots seats based on NEET rank.",
+      "The Medical Counselling Committee conducts online counselling for AIQ, deemed universities, central institutions, and ESIC seats on mcc.nic.in. It publishes registration windows, processes choices, and allots seats based on NEET rank.",
   },
   {
-    question: "How many rounds of NEET UG counseling are held?",
+    question: "How many rounds of NEET UG counselling are held?",
     answer:
       "MCC typically conducts Round 1, Round 2, mop-up, and sometimes stray vacancy rounds. Each state runs its own multi-round schedule for the 85% quota.",
   },
   {
-    question: "What documents are required for MBBS counseling?",
+    question: "What documents are required for MBBS counselling?",
     answer:
       "NEET scorecard, identity proof, Class 10 and 12 certificates, category and domicile certificates (if applicable), photos, and migration certificate when required. Always carry originals and attested copies as per portal instructions.",
   },
@@ -391,7 +391,7 @@ export const MBBS_INDIA_FAQ: FaqItem[] = [
   {
     question: "What are the options if I cannot get a government MBBS seat in India?",
     answer:
-      "Consider private MBBS in India, AIQ/state-hopping, NMC-recognized MBBS abroad, or a planned drop year. Our counselors can help compare total cost, recognition, and licensing pathways.",
+      "Consider private MBBS in India, AIQ/state-hopping, NMC-recognized MBBS abroad, or a planned drop year. Our counsellors can help compare total cost, recognition, and licensing pathways.",
   },
 ];
 

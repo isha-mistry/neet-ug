@@ -3,9 +3,10 @@ import { ContactView } from "@/components/features/contact/ContactView";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Contact Us - NEET UG Counselling & Medical Admissions Support | Dravio",
+  title: "Book a Counselling Call",
+  metaTitle: "Book a Free NEET UG Counselling Call | Dravio",
   description:
-    "Have questions about NEET counselling, college selection, cutoff ranks, or MBBS admissions? Request a callback or send an inquiry to the Dravio expert support desk.",
+    "Speak with our experts and understand your medical college admission opportunities based on your NEET profile.",
   path: "/contact",
 });
 

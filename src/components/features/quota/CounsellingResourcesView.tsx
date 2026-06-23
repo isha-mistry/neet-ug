@@ -247,7 +247,7 @@ export function CounsellingResourcesView() {
       {/* Help Banner */}
       <QuotaCta
         title="Need professional guidance?"
-        description="Our expert counselors help you navigate these portals with choice filling strategies and merit list analysis."
+        description="Our expert counsellors help you navigate these portals with choice filling strategies and merit list analysis."
         actions={[
           {
             label: "Free Counselling",

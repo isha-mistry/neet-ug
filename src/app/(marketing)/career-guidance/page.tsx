@@ -3,9 +3,10 @@ import { CareerGuidanceView } from "@/components/features/career-guidance/Career
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Career Options & Guidance After NEET UG 2026 | Dravio",
+  title: "Medical Career Guidance After NEET",
+  metaTitle: "Medical Career Guidance After NEET | MBBS, BDS & Allied Courses",
   description:
-    "Explore diverse career pathways after NEET UG in India. Compare MBBS, BDS, AYUSH, Nursing, Veterinary, and Allied Health sciences courses with tuition fees, duration, and average salaries.",
+    "Explore medical and healthcare career options available after NEET, including MBBS, BDS, AYUSH, and allied fields.",
   path: "/career-guidance",
 });
 

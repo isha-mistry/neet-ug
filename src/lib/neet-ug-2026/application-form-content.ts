@@ -1,8 +1,8 @@
 import type { GuideJumpItem } from "@/components/features/mbbs-india/GuidePageJumpNav";
 
 export const NEET_UG_APPLICATION_HERO = {
-  title: "Application, admit card & ",
-  titleEmphasis: "exam-day guide.",
+  title: "NEET UG ",
+  titleEmphasis: "Registration Guide",
   lede:
     "Step-by-step NEET UG 2026 application on the NTA portal, fee structure, correction window, city intimation vs admit card, and hall entry rules — aligned to the latest bulletin.",
   fine:

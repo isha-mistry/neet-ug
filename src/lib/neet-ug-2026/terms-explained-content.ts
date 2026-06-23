@@ -32,8 +32,8 @@ export type TermsExplainedSection =
 export const TERMS_EXPLAINED_LAST_VERIFIED = "17 June 2026";
 
 export const TERMS_EXPLAINED_HERO = {
-  title: "Terms explained — ",
-  titleEmphasis: "NEET MBBS counselling glossary.",
+  title: "NEET Counselling ",
+  titleEmphasis: "Terms Explained",
   lede:
     "A complete reference for every acronym, body, quota, document and process you will encounter on the path from NEET score to MBBS seat. Use the section navigation to jump to a category, or search for a specific term.",
   fine:
@@ -115,7 +115,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Qualifying Marks / Cut-off Percentile",
         definition:
-          "The minimum percentile required to be eligible for medical college admission. 50th percentile for General and EWS, 40th percentile for SC, ST, OBC/SEBC, and 45th percentile for General-PwD. Qualifying does not mean you'll get a seat — it only earns you eligibility to compete in counseling.",
+          "The minimum percentile required to be eligible for medical college admission. 50th percentile for General and EWS, 40th percentile for SC, ST, OBC/SEBC, and 45th percentile for General-PwD. Qualifying does not mean you'll get a seat — it only earns you eligibility to compete in counselling.",
       },
       {
         term: "Tie-breaking Rule",
@@ -132,61 +132,61 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
   {
     id: "bodies",
     eyebrow: "Section 2",
-    title: "Counseling Bodies & Authorities",
+    title: "Counselling Bodies & Authorities",
     kind: "terms",
     terms: [
       {
         term: "MCC (Medical Counselling Committee)",
         definition:
-          "The central authority under the Ministry of Health & Family Welfare, Government of India, that conducts counseling for the All India Quota 15% seats, central universities, deemed universities, ESIC, AFMC, AIIMS and JIPMER seats. Their portal is mcc.nic.in. MCC is the single body for any non-state-quota MBBS seat allocation.",
+          "The central authority under the Ministry of Health & Family Welfare, Government of India, that conducts counselling for the All India Quota 15% seats, central universities, deemed universities, ESIC, AFMC, AIIMS and JIPMER seats. Their portal is mcc.nic.in. MCC is the single body for any non-state-quota MBBS seat allocation.",
       },
       {
         term: "ACPUGMEC (Admission Committee for Professional Undergraduate Medical Educational Courses)",
         definition:
-          "The state counseling authority for Gujarat. Conducts counseling for the 85% state quota seats in government, GMERS and private colleges of Gujarat, plus management quota and NRI quota seats in private colleges. Their portal is medadmgujarat.org.",
+          "The state counselling authority for Gujarat. Conducts counselling for the 85% state quota seats in government, GMERS and private colleges of Gujarat, plus management quota and NRI quota seats in private colleges. Their portal is medadmgujarat.org.",
       },
       {
         term: "RUHS (Rajasthan University of Health Sciences)",
         definition:
-          "The state counseling authority for Rajasthan. Conducts UG and PG medical counseling for state quota seats in all government and private medical colleges of Rajasthan. Their portal is ruhsraj.org.",
+          "The state counselling authority for Rajasthan. Conducts UG and PG medical counselling for state quota seats in all government and private medical colleges of Rajasthan. Their portal is ruhsraj.org.",
       },
       {
         term: "DMAT MP (Directorate of Medical Education, Madhya Pradesh)",
         definition:
-          "The state counseling authority for Madhya Pradesh. Conducts MP NEET UG counseling for state quota seats. Different from the older DMAT entrance exam — the directorate now handles NEET-based counseling.",
+          "The state counselling authority for Madhya Pradesh. Conducts MP NEET UG counselling for state quota seats. Different from the older DMAT entrance exam — the directorate now handles NEET-based counselling.",
       },
       {
         term: "CET Cell Maharashtra (State Common Entrance Test Cell)",
         definition:
-          "The state counseling authority for Maharashtra. Conducts UG medical counseling for state quota seats in government and private medical colleges across Maharashtra.",
+          "The state counselling authority for Maharashtra. Conducts UG medical counselling for state quota seats in government and private medical colleges across Maharashtra.",
       },
       {
-        term: "State Counseling Authority",
+        term: "State Counselling Authority",
         definition:
-          "A general term for the body in any state that conducts the 85% state quota counseling. Each state has a different one — for example, KEA in Karnataka, SAAT/OJEE in Odisha, NTRUHS in Andhra Pradesh, TNMGRMU/Selection Committee in Tamil Nadu.",
+          "A general term for the body in any state that conducts the 85% state quota counselling. Each state has a different one — for example, KEA in Karnataka, SAAT/OJEE in Odisha, NTRUHS in Andhra Pradesh, TNMGRMU/Selection Committee in Tamil Nadu.",
       },
       {
         term: "Help Centre / Facilitation Centre",
         definition:
-          "Designated physical locations set up by counseling authorities (especially ACPUGMEC and state bodies) where candidates appear in person for original document verification before they can participate in choice filling. Candidates select their preferred help centre and date during registration.",
+          "Designated physical locations set up by counselling authorities (especially ACPUGMEC and state bodies) where candidates appear in person for original document verification before they can participate in choice filling. Candidates select their preferred help centre and date during registration.",
       },
     ],
   },
   {
     id: "process",
     eyebrow: "Section 3",
-    title: "Counseling Process & Rounds",
+    title: "Counselling Process & Rounds",
     kind: "terms",
     terms: [
       {
-        term: "Counseling",
+        term: "Counselling",
         definition:
-          "The structured, multi-round process by which candidates who qualified NEET are allocated MBBS seats in colleges based on their All India Rank, category, quota, choices filled and seat availability. Two parallel tracks run simultaneously every year: MCC's AIQ counseling at the national level, and each state's separate counseling for state quota seats.",
-      },
+    "The structured, multi-round process by which candidates who qualified NEET are allocated MBBS seats in colleges based on their All India Rank, category, quota, choices filled and seat availability. Two parallel tracks run simultaneously every year: MCC's AIQ counselling at the national level, and each state's separate counselling for state quota seats.",
+      }, 
       {
         term: "Registration",
         definition:
-          "The first step of any counseling — creating an account on the counseling portal, paying the registration fee (and refundable security deposit, in some states), and submitting basic details. Required separately for MCC AIQ and each state counseling you want to participate in.",
+          "The first step of any counselling — creating an account on the counselling portal, paying the registration fee (and refundable security deposit, in some states), and submitting basic details. Required separately for MCC AIQ and each state counselling you want to participate in.",
       },
       {
         term: "Choice Filling / Choice Locking",
@@ -196,12 +196,12 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Seat Matrix",
         definition:
-          "The official list of every available seat at the time of counseling, broken down by college, course (MBBS / BDS), category, quota, sub-quota and any reserved sub-allocations (PwD, defence, sports, etc.). Released by the counseling authority before choice filling begins.",
+          "The official list of every available seat at the time of counselling, broken down by college, course (MBBS / BDS), category, quota, sub-quota and any reserved sub-allocations (PwD, defence, sports, etc.). Released by the counselling authority before choice filling begins.",
       },
       {
         term: "Allotment / Seat Allotment Result",
         definition:
-          "The published result of each counseling round, showing which seat each candidate has been allotted based on their rank, category, choices and seat availability. Each round produces an allotment list and a non-allotment list.",
+          "The published result of each counselling round, showing which seat each candidate has been allotted based on their rank, category, choices and seat availability. Each round produces an allotment list and a non-allotment list.",
       },
       {
         term: "Reporting / Joining",
@@ -211,7 +211,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Round 1",
         definition:
-          'The first round of counseling. Considered the most important round because it has the most seats available and sets your baseline allotment. Allotment is based on rank within choices filled. Once reported, you can opt for "freeze" (accept), "float/upgrade" (accept now but try for better in Round 2), or "exit" (decline and try Round 2 with a new allotment).',
+          'The first round of counselling. Considered the most important round because it has the most seats available and sets your baseline allotment. Allotment is based on rank within choices filled. Once reported, you can opt for "freeze" (accept), "float/upgrade" (accept now but try for better in Round 2), or "exit" (decline and try Round 2 with a new allotment).',
       },
       {
         term: "Round 2",
@@ -221,17 +221,17 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Mop-up Round",
         definition:
-          "A counseling round held after Round 2 to fill seats that are still vacant. Eligibility rules sometimes get relaxed (some states allow non-domicile or unallotted candidates), windows are short, and rules can change yearly. Many serious seats are filled in mop-up that students miss because they assumed counseling ended at Round 2.",
+          "A counselling round held after Round 2 to fill seats that are still vacant. Eligibility rules sometimes get relaxed (some states allow non-domicile or unallotted candidates), windows are short, and rules can change yearly. Many serious seats are filled in mop-up that students miss because they assumed counselling ended at Round 2.",
       },
       {
         term: "Stray Vacancy Round",
         definition:
-          "The final counseling round for any seats still vacant after mop-up. Often conducted at the college level rather than the counseling authority level, and frequently requires physical presence at the college. Sometimes results in surprisingly good colleges being available.",
+          "The final counselling round for any seats still vacant after mop-up. Often conducted at the college level rather than the counselling authority level, and frequently requires physical presence at the college. Sometimes results in surprisingly good colleges being available.",
       },
       {
         term: "Online Reporting",
         definition:
-          "A step in some counseling processes where the candidate accepts the allotment online and pays a partial fee before physical reporting at the college. Common in MCC AIQ counseling.",
+          "A step in some counselling processes where the candidate accepts the allotment online and pays a partial fee before physical reporting at the college. Common in MCC AIQ counselling.",
       },
       {
         term: "Physical Reporting",
@@ -251,7 +251,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Surrender / Withdraw",
         definition:
-          "The act of giving up an allotted seat after reporting. In most counseling systems, surrendering after Round 1 reporting has financial consequences (fee forfeiture, security deposit loss). In some, repeated surrendering can lead to debarment from subsequent counseling.",
+          "The act of giving up an allotted seat after reporting. In most counselling systems, surrendering after Round 1 reporting has financial consequences (fee forfeiture, security deposit loss). In some, repeated surrendering can lead to debarment from subsequent counselling.",
       },
       {
         term: "Forfeiture of Seat",
@@ -284,7 +284,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Management Quota",
         definition:
-          "Seats in private medical colleges (and in some states, in trust or deemed institutions) reserved for institutional management to allocate. Higher fees than government quota seats. In most states, management quota is now mandatorily filled through state counseling using NEET merit — no direct admission allowed.",
+          "Seats in private medical colleges (and in some states, in trust or deemed institutions) reserved for institutional management to allocate. Higher fees than government quota seats. In most states, management quota is now mandatorily filled through state counselling using NEET merit — no direct admission allowed.",
       },
       {
         term: "NRI Quota (Non-Resident Indian Quota)",
@@ -299,7 +299,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Central / Institutional Quota",
         definition:
-          "Seats in central government institutions (AIIMS, AFMC, ESIC, BHU, AMU, JIPMER) — generally filled through MCC counseling under specific institutional sub-quotas.",
+          "Seats in central government institutions (AIIMS, AFMC, ESIC, BHU, AMU, JIPMER) — generally filled through MCC counselling under specific institutional sub-quotas.",
       },
       {
         term: "State Specific Sub-Quotas",
@@ -327,7 +327,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "SEBC (Socially and Educationally Backward Classes)",
         definition:
-          'Gujarat\'s state-specific term for OBC. Gujarat does not use "OBC" terminology in state counseling — candidates from these communities apply under SEBC, which has the same 27% reservation. Requires a Gujarat SEBC NCL certificate issued in the current financial year (i.e., after April 1).',
+          'Gujarat\'s state-specific term for OBC. Gujarat does not use "OBC" terminology in state counselling — candidates from these communities apply under SEBC, which has the same 27% reservation. Requires a Gujarat SEBC NCL certificate issued in the current financial year (i.e., after April 1).',
       },
       {
         term: "SC (Scheduled Caste)",
@@ -347,7 +347,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "PwD / PH (Persons with Disability / Physically Handicapped)",
         definition:
-          "A horizontal reservation of 5% (within each category) for candidates with disabilities of 40% or more, as certified by a designated medical board. PwD candidates have a lower qualifying NEET percentile (45th instead of 50th for General-PwD). Disability certificate must be from a board notified by the counseling authority.",
+          "A horizontal reservation of 5% (within each category) for candidates with disabilities of 40% or more, as certified by a designated medical board. PwD candidates have a lower qualifying NEET percentile (45th instead of 50th for General-PwD). Disability certificate must be from a board notified by the counselling authority.",
       },
       {
         term: "Creamy Layer / Non-Creamy Layer (NCL)",
@@ -370,27 +370,27 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "AIR (All India Rank)",
         definition:
-          "The candidate's position in the overall NEET merit list across India, computed by NTA based on NEET score and tie-breaking rules. The primary number used in MCC AIQ counseling.",
+          "The candidate's position in the overall NEET merit list across India, computed by NTA based on NEET score and tie-breaking rules. The primary number used in MCC AIQ counselling.",
       },
       {
         term: "State Rank / State Merit Rank",
         definition:
-          "The candidate's rank within their domicile state, computed by the state counseling authority from the NEET scores of all candidates eligible for that state's quota. The primary number used in state quota counseling. State rank is always better (lower in number) than AIR because the candidate pool is smaller.",
+          "The candidate's rank within their domicile state, computed by the state counselling authority from the NEET scores of all candidates eligible for that state's quota. The primary number used in state quota counselling. State rank is always better (lower in number) than AIR because the candidate pool is smaller.",
       },
       {
         term: "Category Rank",
         definition:
-          "The candidate's rank within their reservation category — for example, SC Category Rank, OBC Category Rank, EWS Category Rank. Used in reservation-specific allotment within counseling.",
+          "The candidate's rank within their reservation category — for example, SC Category Rank, OBC Category Rank, EWS Category Rank. Used in reservation-specific allotment within counselling.",
       },
       {
         term: "Opening Rank",
         definition:
-          "The rank of the first candidate admitted in a particular college, course, category, quota and round combination during the previous year's counseling. Indicates the top of the cutoff range.",
+          "The rank of the first candidate admitted in a particular college, course, category, quota and round combination during the previous year's counselling. Indicates the top of the cutoff range.",
       },
       {
         term: "Closing Rank",
         definition:
-          "The rank of the last candidate admitted in a particular college, course, category, quota and round combination during the previous year's counseling. Indicates the bottom of the cutoff range — and the practical threshold a candidate must beat to get that seat.",
+          "The rank of the last candidate admitted in a particular college, course, category, quota and round combination during the previous year's counselling. Indicates the bottom of the cutoff range — and the practical threshold a candidate must beat to get that seat.",
       },
       {
         term: "Cutoff",
@@ -433,12 +433,12 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Central Government Medical College",
         definition:
-          "Government colleges run by the central government rather than the state — AIIMS network, AFMC Pune, JIPMER Puducherry, ESIC colleges, BHU IMS, AMU JN Medical, PGIMER Chandigarh. Admission is entirely through MCC AIQ counseling.",
+          "Government colleges run by the central government rather than the state — AIIMS network, AFMC Pune, JIPMER Puducherry, ESIC colleges, BHU IMS, AMU JN Medical, PGIMER Chandigarh. Admission is entirely through MCC AIQ counselling.",
       },
       {
         term: "AIIMS (All India Institute of Medical Sciences)",
         definition:
-          "A network of premier central government medical colleges. Started with AIIMS New Delhi in 1956, expanded to multiple AIIMS across India. Considered the apex tier of MBBS education in the country. Counseling for AIIMS seats is conducted by MCC under a separate sub-quota.",
+          "A network of premier central government medical colleges. Started with AIIMS New Delhi in 1956, expanded to multiple AIIMS across India. Considered the apex tier of MBBS education in the country. Counselling for AIIMS seats is conducted by MCC under a separate sub-quota.",
       },
       {
         term: "GMERS (Government Medical Education and Research Society)",
@@ -453,7 +453,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Deemed University",
         definition:
-          "A category of higher education institution granted \"deemed-to-be-university\" status by UGC, allowing them to operate as universities. Medical colleges under deemed universities have their own fee structure and counseling through MCC. Examples include Manipal, Kasturba Medical College, Saveetha, DY Patil.",
+          "A category of higher education institution granted \"deemed-to-be-university\" status by UGC, allowing them to operate as universities. Medical colleges under deemed universities have their own fee structure and counselling through MCC. Examples include Manipal, Kasturba Medical College, Saveetha, DY Patil.",
       },
       {
         term: "Self-Financing Institution (SFI)",
@@ -506,7 +506,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Domicile Certificate",
         definition:
-          "The official document proving the candidate's residency in a specific state. Required for state quota counseling. Issued by the District Collector, Mamlatdar, Tehsildar or equivalent revenue authority. Each state has different domicile rules — Gujarat accepts schooling-based domicile, others require resident-based proof.",
+          "The official document proving the candidate's residency in a specific state. Required for state quota counselling. Issued by the District Collector, Mamlatdar, Tehsildar or equivalent revenue authority. Each state has different domicile rules — Gujarat accepts schooling-based domicile, others require resident-based proof.",
       },
       {
         term: "Category Certificate (SC / ST / OBC / SEBC)",
@@ -516,7 +516,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "EWS Certificate",
         definition:
-          "Issued by competent authority showing family income below ₹8 lakh and asset criteria. Must be issued in the current financial year — counseling authorities reject EWS certificates issued before April 1 of the admission year.",
+          "Issued by competent authority showing family income below ₹8 lakh and asset criteria. Must be issued in the current financial year — counselling authorities reject EWS certificates issued before April 1 of the admission year.",
       },
       {
         term: "Non-Creamy Layer (NCL) Certificate",
@@ -526,12 +526,12 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Disability Certificate / PwD Certificate",
         definition:
-          "Issued by a designated medical board (specified by the counseling authority). Must show disability of 40% or more. PwD candidates also undergo a verification examination at the time of counseling at a notified centre.",
+          "Issued by a designated medical board (specified by the counselling authority). Must show disability of 40% or more. PwD candidates also undergo a verification examination at the time of counselling at a notified centre.",
       },
       {
         term: "Aadhaar Card",
         definition:
-          "Used for identity verification. Required for OTP-based registration on most counseling portals. Aadhaar-linked mobile number is mandatory in many state counselings.",
+          "Used for identity verification. Required for OTP-based registration on most counselling portals. Aadhaar-linked mobile number is mandatory in many state counsellings.",
       },
       {
         term: "Passport-size Photographs",
@@ -561,7 +561,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Affidavits",
         definition:
-          "In some counseling processes, candidates need to submit notarized affidavits — for example, an Anti-Ragging Affidavit at the time of joining, or a Gap Year Affidavit if there has been a break in education.",
+          "In some counselling processes, candidates need to submit notarized affidavits — for example, an Anti-Ragging Affidavit at the time of joining, or a Gap Year Affidavit if there has been a break in education.",
       },
       {
         term: "Income Certificate",
@@ -609,12 +609,12 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
       {
         term: "Registration Fee",
         definition:
-          "A non-refundable fee paid during counseling registration. Different from college fees.",
+          "A non-refundable fee paid during counselling registration. Different from college fees.",
       },
       {
-        term: "Counseling PIN (Personal Identification Number)",
+        term: "Counselling PIN (Personal Identification Number)",
         definition:
-          "Used in some state counseling systems (notably ACPUGMEC Gujarat) — a unique number purchased from the counseling authority that enables registration and choice filling. Includes a registration fee component and a refundable security deposit.",
+          "Used in some state counselling systems (notably ACPUGMEC Gujarat) — a unique number purchased from the counselling authority that enables registration and choice filling. Includes a registration fee component and a refundable security deposit.",
       },
       {
         term: "Bond / Service Bond",
@@ -677,12 +677,12 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
           {
             term: "SEBC (Gujarat)",
             definition:
-              "Gujarat's term for OBC — see Reservation Categories. State counseling uses SEBC, not central OBC labels, with the same 27% vertical reservation when eligible.",
+              "Gujarat's term for OBC — see Reservation Categories. State counselling uses SEBC, not central OBC labels, with the same 27% vertical reservation when eligible.",
           },
           {
             term: "ACPUGMEC (Gujarat)",
             definition:
-              "State counseling authority for Gujarat — see Counseling Bodies & Authorities. Portal: medadmgujarat.org.",
+              "State counselling authority for Gujarat — see Counselling Bodies & Authorities. Portal: medadmgujarat.org.",
           },
           {
             term: "GMERS (Gujarat)",
@@ -712,7 +712,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
           {
             term: "RUHS (Rajasthan)",
             definition:
-              "State counseling authority — see Counseling Bodies & Authorities. Portal: ruhsraj.org.",
+              "State counselling authority — see Counselling Bodies & Authorities. Portal: ruhsraj.org.",
           },
           {
             term: "Rajasthan Bonafide Resident",
@@ -725,9 +725,9 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
         label: "Madhya Pradesh",
         terms: [
           {
-            term: "DMAT MP (counseling)",
+            term: "DMAT MP (counselling)",
             definition:
-              "State counseling authority — see Counseling Bodies & Authorities. Note that \"DMAT\" can also refer to the older entrance exam discontinued after NEET became mandatory.",
+              "State counselling authority — see Counselling Bodies & Authorities. Note that \"DMAT\" can also refer to the older entrance exam discontinued after NEET became mandatory.",
           },
           {
             term: "MP Bonafide",
@@ -742,7 +742,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
           {
             term: "CET Cell Maharashtra",
             definition:
-              "State counseling authority — see Counseling Bodies & Authorities.",
+              "State counselling authority — see Counselling Bodies & Authorities.",
           },
           {
             term: "MUHS (Maharashtra University of Health Sciences)",

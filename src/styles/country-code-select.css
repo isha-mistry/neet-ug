@@ -8,6 +8,7 @@
   min-width: 0;
   overflow: hidden;
   isolation: isolate;
+  cursor: pointer;
 }
 
 .country-code-select.lead-select-chevron {
@@ -57,6 +58,11 @@
   appearance: none;
   border: none;
   background: transparent;
+}
+
+.country-code-select__native option {
+  color: #111827;
+  background-color: #ffffff;
 }
 
 /* Paired with tel input in PhoneNumberField (site + journey modals). */

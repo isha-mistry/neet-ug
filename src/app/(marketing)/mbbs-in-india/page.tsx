@@ -18,8 +18,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const colleges = await getAllColleges();
   const catalog = aggregateCatalogSeatBreakdown(colleges);
   return buildMetadata({
-    title: `MBBS in India ${MBBS_ACADEMIC_SESSION}: Colleges, Seats, Cutoffs & NEET Counseling Guide`,
-    description: `Complete national guide to MBBS in India — ${catalog.totalColleges} colleges, ${catalog.totalSeats.toLocaleString("en-IN")} seats, AIQ & state counseling, fees, cutoffs, eligibility, and career paths after MBBS.`,
+    title: `MBBS Admission in India`,
+    metaTitle: `MBBS Admission 2026 in India | Medical Colleges, Fees & Counselling`,
+    description: `Explore medical colleges, counselling process, quotas, fees, seat matrix, and cutoff trends for MBBS admissions in India`,
     path: MBBS_INDIA_PAGE_PATH,
   });
 }

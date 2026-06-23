@@ -41,7 +41,7 @@ export function AllIndiaQuotaView() {
     <QuotaHeader
       eyebrow="Information Bulletin"
       title="All India Quota"
-      highlightedText="(AIQ) Explained"
+      highlightedText="Admissions"
       description="Four rounds of online AIQ counselling for NEET-UG qualified candidates. Domicile-free access to 15% seats in state government colleges and listed open pools nationwide."
       eyebrowIcon="info"
       watermarkIcon="public"

@@ -34,8 +34,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const allColleges = await getAllColleges();
   const config = mergeMbbsStateConfigWithCatalog(baseConfig, allColleges);
   return buildMetadata({
-    title: `MBBS in ${config.name} ${MBBS_ACADEMIC_SESSION} — Colleges, Cutoffs & Counseling`,
-    description: `${config.name} has ${config.stats.totalColleges} medical colleges and ${config.stats.totalSeats.toLocaleString("en-IN")} MBBS seats. ${config.counselingAuthorityShort} counseling, fees, domicile rules, and cutoffs.`,
+    title: `MBBS in ${config.name}`,
+    metaTitle: `${config.name} MBBS Admission 2026 | Medical Colleges, Fees & Counselling`,
+    description: `Explore medical colleges, counselling process, quotas, fees, seat matrix, and cutoff trends for MBBS admissions in ${config.name}`,
     path: mbbsStatePath(stateSlug),
   });
 }

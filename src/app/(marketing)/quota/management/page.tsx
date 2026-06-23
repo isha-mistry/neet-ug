@@ -3,9 +3,10 @@ import { ManagementQuotaView } from "@/components/features/quota/ManagementQuota
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Management Quota (MQ) Guide - Private Medical Colleges",
+  title: "Management Quota MBBS Admissions",
+  metaTitle: "Management Quota MBBS Admission 2026 | Fees, Eligibility & Colleges",
   description:
-    "Explore Management Quota (MQ) seats, state-wise fees range (₹8L - ₹25L/yr), rank ranges, and counselling process for private medical colleges in India.",
+    "Explore management quota admission opportunities, fee structures, and medical college options across India.",
   path: "/quota/management",
 });
 

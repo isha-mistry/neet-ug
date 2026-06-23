@@ -22,8 +22,8 @@ export function ManagementQuotaView() {
       <div className="lg:col-span-8 space-y-6">
         <QuotaHeader
           eyebrow="Admission Guide 2026"
-          title="Understanding"
-          highlightedText="Management Quota (MQ)"
+          title="Management Quota"
+          highlightedText="MBBS Admissions"
           description="A strategic pathway for medical aspirants seeking admission into private institutions across India, offering flexibility without domicile restrictions. We break down the complexities of MQ seats for the 2026 session."
           eyebrowIcon="verified"
           watermarkIcon="payments"
@@ -58,14 +58,14 @@ export function ManagementQuotaView() {
             Open states allow candidates from any state to apply for their private college management quota seats, presenting excellent options for students with moderate NEET scores.
           </p>
         </div>
-        <Button
+        {/* <Button
           as="link"
           href="#open-states"
           variant="inverse"
           fullWidth
         >
           View Open States List
-        </Button>
+        </Button> */}
       </Card>
     </div>
   );

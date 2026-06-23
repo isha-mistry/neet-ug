@@ -47,7 +47,8 @@ export async function generateMetadata({
   }
   return buildMetadata({
     title: college.name,
-    description: `${college.name} in ${college.city}, ${college.stateName}. Fees, cutoff, bond and admission details.`,
+    metaTitle: `${college.name} MBBS Admission 2026 | Fees, Cutoff & Seats`,
+    description: `Explore MBBS admission details for ${college.name}, including fees, seat matrix, cutoff trends, counselling quotas, and eligibility information.`,
     path: `/colleges/${collegeSlug}`,
   });
 }

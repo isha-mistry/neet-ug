@@ -1,6 +1,6 @@
 export const RANK_PREDICTOR_HERO = {
-  title: "Your score already knows ",
-  titleEmphasis: "your rank.",
+  title: "NEET ",
+  titleEmphasis: "Rank Predictor",
   lede:
     "Enter your NEET 2026 score and get an instant estimated All-India Rank band — built from the last two years of official NTA score–rank data. The real rank comes from NTA on results day. This tells you what to expect, and what to do about it.",
   fine:
@@ -17,7 +17,7 @@ export const RANK_PREDICTOR_HERO = {
 
 export const RANK_PREDICTOR_STRIP = {
   bold: "Official rank already published?",
-  text: "Skip the estimate — take your NTA rank straight to the College Predictor for counseling-style lists.",
+  text: "Skip the estimate — take your NTA rank straight to the College Predictor for counselling-style lists.",
   cta: "College Predictor →",
 } as const;
 
@@ -32,19 +32,19 @@ export const RANK_PREDICTOR_FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Why do I need to verify my mobile number?",
-    a: "Two reasons. It saves your result so you can return to it (and receive it on WhatsApp), and it keeps the refined data — which costs us to compile and maintain — for genuinely interested students. No spam: counseling-relevant updates only, unsubscribe any time.",
+    a: "Two reasons. It saves your result so you can return to it (and receive it on WhatsApp), and it keeps the refined data — which costs us to compile and maintain — for genuinely interested students. No spam: counselling-relevant updates only, unsubscribe any time.",
   },
   {
     q: "What about category and state quota?",
-    a: "The instant estimate is AIR-based. After verification you also get a state merit band for your domicile state — the number your state counseling (ACPUGMEC, RUHS, DMAT, CET Cell) actually runs on. Official category-wise ranks come from NTA; category-wise cutoffs apply in the College Predictor once your real rank is out.",
+    a: "The instant estimate is AIR-based. After verification you also get a state merit band for your domicile state — the number your state counselling (ACPUGMEC, RUHS, DMAT, CET Cell) actually runs on. Official category-wise ranks come from NTA; category-wise cutoffs apply in the College Predictor once your real rank is out.",
   },
   {
     q: "What happens after the official rank is published?",
-    a: "Move to the College Predictor with your NTA rank for counseling-style lists, and start building your choice order. That's also the moment a 15-minute call with our counselors is most valuable — the choice-filling window is short.",
+    a: "Move to the College Predictor with your NTA rank for counselling-style lists, and start building your choice order. That's also the moment a 15-minute call with our counsellors is most valuable — the choice-filling window is short.",
   },
   {
     q: "Does a good rank guarantee a college?",
-    a: "No — and this is the part most students learn too late. Rank is the entry ticket; the final seat depends on choice order, quota, category, domicile and round strategy. Two students with the same rank routinely end up in very different colleges. That gap is exactly what our counseling closes.",
+    a: "No — and this is the part most students learn too late. Rank is the entry ticket; the final seat depends on choice order, quota, category, domicile and round strategy. Two students with the same rank routinely end up in very different colleges. That gap is exactly what our counselling closes.",
   },
 ];
 
@@ -75,7 +75,7 @@ export const RANK_PREDICTOR_FINAL_CTA = {
   title: "The rank is the ticket.",
   titleBreak: "Strategy buys the seat.",
   lede: "Once you know your band, the real questions begin — which states, which quota, which choice order. That's a free 15-minute call.",
-  book: "Book free counseling call",
+  book: "Book free counselling call",
   again: "Run another prediction ↑",
   meta: "RESPONDS IN 2 HOURS · MON–SAT 9AM–8PM · GJ · RJ · MP · MH · MCC AIQ",
 } as const;

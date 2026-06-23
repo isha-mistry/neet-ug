@@ -32,7 +32,7 @@ const defaultLinks: WebsiteLink[] = [
   },
   {
     id: "2",
-    name: "AYUSH Admissions Central Counseling Committee (AACCC)",
+    name: "AYUSH Admissions Central Counselling Committee (AACCC)",
     state: "All India (BAMS/BHMS)",
     authority: "Ministry of AYUSH",
     url: "https://aaccc.gov.in",

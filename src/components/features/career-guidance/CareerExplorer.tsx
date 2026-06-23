@@ -96,7 +96,7 @@ const COURSES: Course[] = [
     name: "BVSc & AH",
     fullName: "Bachelor of Veterinary Science & Animal Husbandry",
     duration: "5.5 Years (Incl. 1 Year Internship)",
-    eligibility: "10+2 with PCB (min 50%) & NEET Qualified (VCI conducts counseling)",
+    eligibility: "10+2 with PCB (min 50%) & NEET Qualified (VCI conducts counselling)",
     scope: "Veterinary Surgeon, Livestock Development Officer, Zoo/Wildlife Veterinarian",
     higherEd: "MVSc (Master of Veterinary Science), PhD, Post-grad Diploma",
     demand: "High",

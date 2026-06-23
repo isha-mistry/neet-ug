@@ -87,7 +87,7 @@ export function validateCollegePredictorInput(
   }
   const quotas: ListingQuota[] = ["aiq", "state", "management", "nri"];
   if (!raw.quota || !quotas.includes(raw.quota)) {
-    return { ok: false, message: "Select a counseling quota." };
+    return { ok: false, message: "Select a counselling quota." };
   }
   return {
     ok: true,

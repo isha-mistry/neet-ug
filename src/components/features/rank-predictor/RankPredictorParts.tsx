@@ -342,7 +342,7 @@ export function RankResultShowcase({
           </li>
           <li>
             Your <b>state merit rank</b> estimate
-            <small>The number your state counseling actually runs on</small>
+            <small>The number your state counselling actually runs on</small>
           </li>
           <li>
             Up to <b>15 colleges near your range</b>
@@ -354,7 +354,7 @@ export function RankResultShowcase({
           </li>
         </ul>
         <RankPredictorLockedCTA onUnlock={onUnlock} />
-        <p className="rp-lfine">Free · OTP on WhatsApp · No spam, counseling updates only</p>
+        <p className="rp-lfine">Free · OTP on WhatsApp · No spam, counselling updates only</p>
       </div>
     </div>
   );
@@ -540,7 +540,7 @@ export function HowItWorksGrid() {
           <div className="rp-s2s-node">
             <div className="rp-s2s-dot">R1</div>
             <div className="rp-s2s-copy">
-              <b>Counseling rounds</b>
+              <b>Counselling rounds</b>
               <span>Where strategy decides</span>
             </div>
           </div>
@@ -600,14 +600,14 @@ export function RankPredictorTrustBlock() {
     <section className="pb-16 md:pb-24">
       <div className="rp-trust">
         <p>
-          <b>Data compiled &amp; verified by:</b> the Dravio MBBS counseling team —
-          specialists in NEET UG counseling for Gujarat, Rajasthan, Madhya Pradesh and
+          <b>Data compiled &amp; verified by:</b> the Dravio MBBS counselling team —
+          specialists in NEET UG counselling for Gujarat, Rajasthan, Madhya Pradesh and
           Maharashtra.
         </p>
         <p className="mt-2">
           <b>Data sources:</b> estimates and college data are compiled and cross-verified
           against official publications and portals including NTA, the National Medical
-          Commission (NMC), the Medical Counselling Committee (MCC), and state counseling
+          Commission (NMC), the Medical Counselling Committee (MCC), and state counselling
           authorities ACPUGMEC, RUHS, DMAT and CET Cell.
         </p>
         <p className="rp-trust-links mt-2.5">

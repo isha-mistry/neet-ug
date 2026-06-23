@@ -114,7 +114,7 @@ function DirectoryHero({
             NEET UG 2026 authority directory
           </span>
           <h1 className="mt-4 text-4xl font-black leading-tight tracking-tight text-on-surface md:text-6xl">
-            Find the right <span className="text-primary">state counselling authority</span> before registration opens
+            State Wise <span className="text-primary">NEET UG Counselling</span>
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-relaxed text-on-surface-variant md:text-lg">
             Use this directory to identify the counselling body for every state and UT, check
@@ -305,7 +305,7 @@ function DetailHero({ state }: { state: StateCounsellingDetail }) {
         <div>
           <span className="rp-eyebrow">{state.shortName} state counselling</span>
           <h1 className="mt-3 text-3xl font-black leading-tight tracking-tight text-on-surface md:text-4xl">
-            {state.name} NEET UG counselling guide
+            MBBS Admission in {state.name}
           </h1>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-on-surface-variant md:text-base">
             {state.introduction} This guide brings together the authority, eligible courses,

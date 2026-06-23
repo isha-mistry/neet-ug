@@ -130,8 +130,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
               {hero.eyebrow}
             </span>
             <h1>
-              {hero.title.replace(/\s*and a clear plan\.\s*$/, "")}{" "}
-              <em>and a clear plan.</em>
+              NEET UG <em>Counselling Guidance</em>
             </h1>
             <p className="lede">{hero.subtitle}</p>
             <div className="hero-ctas">
@@ -213,7 +212,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
               </p>
               <p className="lede" style={{ fontSize: 15 }}>
                 It runs on three years of ACPUGMEC, RUHS, DMAT and CET Cell allotment trends —
-                the same data our counselors use.
+                the same data our counsellors use.
               </p>
             </div>
             <SeatRadarCard />
@@ -375,7 +374,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
               Five tools. <em>Zero guesswork.</em>
             </h2>
             <p className="lede">
-              Built for one job: NEET 2026 MBBS counseling in our four states. All free on{" "}
+              Built for one job: NEET 2026 MBBS counselling in our four states. All free on{" "}
               {brandName}.
             </p>
             <div className="tools-grid">
@@ -494,7 +493,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                   </svg>
                 </div>
                 <h3>Round Tracker</h3>
-                <p className="pb-5">Counseling deadlines across ACPUGMEC, RUHS, DMAT, CET Cell and MCC.</p>
+                <p className="pb-5">Counselling deadlines across ACPUGMEC, RUHS, DMAT, CET Cell and MCC.</p>
                 <Link className="btn btn-blue" href="/neet-ug-2026/updates">
                   Track my rounds
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -606,7 +605,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                   <tr>
                     <th>Situation</th>
                     <th className="alone">Going alone</th>
-                    <th className="withus">With our counseling</th>
+                    <th className="withus">With our counselling</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -665,7 +664,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
           <div className="wrap">
             <span className="eyebrow">Step 09 · Your expert</span>
             <h2 className="t">
-              Counseling that <em>pays for itself.</em>
+              Counselling that <em>pays for itself.</em>
             </h2>
             <p className="lede">
               A government seat instead of management quota saves over ₹60 lakh across the course.
@@ -719,7 +718,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
               <h2>Get the NEET 2026 Counselling Playbook</h2>
               <p>
                 Seat matrices, cutoff tables, document checklists, round timelines and the 10 most
-                common counseling mistakes — all four states, one PDF, sent to your WhatsApp.
+                common counselling mistakes — all four states, one PDF, sent to your WhatsApp.
               </p>
             </div>
             <PlaybookForm />

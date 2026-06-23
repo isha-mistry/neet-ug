@@ -25,7 +25,7 @@ export const GUJARAT_CONTENT_EXTENSIONS: MbbsStateContentExtensions = {
     {
       title: "Post-graduate (MD/MS) pipeline",
       detail:
-        "Gujarat also lists about 2,624 MD/MS speciality seats statewide—relevant if you are planning MBBS with an eye on in-state PG counseling later.",
+        "Gujarat also lists about 2,624 MD/MS speciality seats statewide—relevant if you are planning MBBS with an eye on in-state PG counselling later.",
     },
   ],
   pgMdMsSeats: 2624,

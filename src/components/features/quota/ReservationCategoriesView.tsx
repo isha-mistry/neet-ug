@@ -26,8 +26,8 @@ export function ReservationCategoriesView() {
   const header = (
     <QuotaHeader
       eyebrow="Reservation Policy"
-      title="Medical Reservation"
-      highlightedText="Guide"
+      title="NEET Reservation"
+      highlightedText="Categories"
       description="Understanding the complex landscape of seat reservations in Indian medical admissions. Precision data on vertical and horizontal quotas for AIQ and State rounds."
       eyebrowIcon="gavel"
       watermarkIcon="gavel"

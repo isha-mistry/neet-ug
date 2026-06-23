@@ -42,7 +42,7 @@ export function MbbsStateHero({ config }: { config: MbbsStateConfig }) {
 
           <p className="rp-hero-lede max-w-xl">
             Complete details on {formatNumber(stats.totalColleges)} medical colleges and{" "}
-            {formatNumber(stats.totalSeats)} MBBS seats — counseling procedures, domicile rules, and fee structures in {config.name}.
+            {formatNumber(stats.totalSeats)} MBBS seats — counselling procedures, domicile rules, and fee structures in {config.name}.
           </p>
 
           <div className="rp-trio max-w-xl">
@@ -68,7 +68,7 @@ export function MbbsStateHero({ config }: { config: MbbsStateConfig }) {
               View colleges
             </Button>
           </div>
-          <p className="rp-hero-fine">Data updated for {MBBS_ACADEMIC_SESSION} counseling cycle</p>
+          <p className="rp-hero-fine">Data updated for {MBBS_ACADEMIC_SESSION} counselling cycle</p>
         </div>
         <FreeCounsellingLeadForm
           pageLabel={`MBBS in ${config.name}`}
@@ -150,9 +150,9 @@ export function buildStateSummaryRows(config: MbbsStateConfig) {
     },
     { label: "All India Quota (15%) seats", value: s.aiqSeats.toLocaleString("en-IN") },
     { label: "State quota (85%) seats", value: s.stateQuotaSeats.toLocaleString("en-IN") },
-    { label: "State counseling authority", value: config.counselingAuthorityShort },
+    { label: "State counselling authority", value: config.counselingAuthorityShort },
     {
-      label: "State counseling portal",
+      label: "State counselling portal",
       value: config.counselingPortal,
     },
     { label: "Government seat annual fee", value: s.govtFeeAnnual },

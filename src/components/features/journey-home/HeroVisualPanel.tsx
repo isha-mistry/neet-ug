@@ -17,7 +17,7 @@ export function HeroVisualPanel() {
       <HeroParticleStage onMorphPhaseChange={setMorphPhase} />
       <div className="hp-chip a">
         <b id="chipnum">22,79,743</b>
-        <span>wrote NEET 2026</span>
+        <span>registered for NEET 2026</span>
       </div>
       <div className="hp-chip b">
         <b>1,29,753</b>

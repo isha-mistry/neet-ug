@@ -319,7 +319,7 @@ export function IndiaStatesMap({
       >
         {!isAside && !isPanel ? (
           <p className="mb-1 text-[11px] text-text-secondary">
-            Hover for counseling & seat breakdown · click to open colleges
+            Hover for counselling & seat breakdown · click to open colleges
           </p>
         ) : null}
         {legend}
@@ -378,7 +378,7 @@ function HoverTooltipCard({ tooltip }: { tooltip: HoverTooltip }) {
           ) : null}
           {s.counselingAuthority ? (
             <div>
-              <dt className="text-outline">Counseling</dt>
+              <dt className="text-outline">Counselling</dt>
               <dd className="mt-0.5 font-medium text-on-surface">{s.counselingAuthority}</dd>
               {s.counselingPortal ? (
                 <dd className="text-primary">{s.counselingPortal}</dd>

@@ -18,7 +18,7 @@ export function getSiteJsonLdGraph() {
         "@type": "Organization",
         "@id": organizationId,
         name: "Dravio",
-        alternateName: "Dravio MBBS Counseling",
+        alternateName: "Dravio MBBS Counselling",
         url: `${SITE_URL}/`,
         logo: {
           "@type": "ImageObject",
@@ -27,7 +27,7 @@ export function getSiteJsonLdGraph() {
           height: 512,
         },
         description:
-          "MBBS counseling platform helping NEET students secure admissions in Gujarat, Rajasthan, Madhya Pradesh, Maharashtra and through MCC All India Quota.",
+          "MBBS counselling platform helping NEET students secure admissions in Gujarat, Rajasthan, Madhya Pradesh, Maharashtra and through MCC All India Quota.",
         sameAs: [...ORGANIZATION_SAME_AS],
         contactPoint: {
           "@type": "ContactPoint",
@@ -46,7 +46,7 @@ export function getSiteJsonLdGraph() {
         "@id": websiteId,
         url: `${SITE_URL}/`,
         name: "Dravio",
-        description: "MBBS counseling for NEET 2026",
+        description: "MBBS counselling for NEET 2026",
         publisher: { "@id": organizationId },
         inLanguage: "en-IN",
         potentialAction: {
@@ -57,7 +57,7 @@ export function getSiteJsonLdGraph() {
       },
       {
         "@type": "Service",
-        name: "MBBS Counseling",
+        name: "MBBS Counselling",
         provider: { "@id": organizationId },
         areaServed: [
           { "@type": "State", name: "Gujarat" },
@@ -65,7 +65,7 @@ export function getSiteJsonLdGraph() {
           { "@type": "State", name: "Madhya Pradesh" },
           { "@type": "State", name: "Maharashtra" },
         ],
-        serviceType: "Medical college admission counseling",
+        serviceType: "Medical college admission counselling",
         audience: {
           "@type": "EducationalAudience",
           educationalRole: "student",

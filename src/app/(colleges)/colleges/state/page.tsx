@@ -10,7 +10,7 @@ export function generateMetadata(): Metadata {
   return buildMetadata({
     title: "MBBS Colleges by State",
     description:
-      "Browse MBBS colleges state by state with counseling context, seat counts, and competition levels.",
+      "Browse MBBS colleges state by state with counselling context, seat counts, and competition levels.",
     path: "/colleges/state",
   });
 }

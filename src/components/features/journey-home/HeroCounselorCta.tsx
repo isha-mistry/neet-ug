@@ -11,7 +11,7 @@ export function HeroCounselorCta() {
       className="btn btn-line"
       onClick={() => openBookCounsellingModal("home_hero")}
     >
-      Talk to a counselor
+      Talk to a counsellor
     </button>
   );
 }

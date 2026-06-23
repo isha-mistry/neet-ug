@@ -6,9 +6,10 @@ import { getAllStates } from "@/lib/data/states";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "MBBS Cutoff Analyser — NEET score to colleges",
+  title: "NEET Cutoff Analyser",
+  metaTitle: "NEET Cutoff Analyser 2026 | College & Quota Trends",
   description:
-    "Enter your NEET score to compare state and quota cutoffs across Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra. Build and export your college preference list.",
+    "Analyze previous year's cutoffs and understand your chances across different colleges and quotas.",
   path: "/cutoff-analyser",
 });
 

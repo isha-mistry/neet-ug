@@ -32,7 +32,7 @@ export function DeemedQuotaView() {
       <QuotaHeader
         eyebrow="Information Bulletin"
         title="Deemed University"
-        highlightedText="Quota"
+        highlightedText="MBBS Admissions"
         description="MCC conducts four online rounds for 100% Deemed University seats per Supreme Court directions (Dar-Us-Slam, 12.12.2022). Access detailed matrix, fee structures, and round-wise progression rules."
         eyebrowIcon="info"
         watermarkIcon="account_balance"

@@ -116,7 +116,7 @@ export function NeetCounselingEligibilityBlock({ config }: { config: MbbsStateCo
   const rules = useExt(config)?.neetCounselingEligibility;
   if (!rules?.length) return null;
   return (
-    <GuideSectionShell id="eligibility" title={`NEET-UG eligibility — ${config.name} counseling`}>
+    <GuideSectionShell id="eligibility" title={`NEET-UG eligibility — ${config.name} counselling`}>
       <GuideCard>
         <p className="text-sm text-on-surface-variant">
           In addition to domicile rules below, {config.counselingAuthorityShort} expects candidates to

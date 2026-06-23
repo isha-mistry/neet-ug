@@ -12,7 +12,7 @@ export const MBBS_INDIA_JUMP_SECTIONS = [
   { id: "seat-trends", label: "Seat trends" },
   { id: "cutoff-ranks", label: "Cutoffs" },
   { id: "fee-structure", label: "Fees" },
-  { id: "counseling-process", label: "Counseling" },
+  { id: "counseling-process", label: "Counselling" },
   { id: "your-chances", label: "Your chances" },
   { id: "neet-exam", label: "NEET exam" },
   { id: "pg-after-mbbs", label: "PG after MBBS" },

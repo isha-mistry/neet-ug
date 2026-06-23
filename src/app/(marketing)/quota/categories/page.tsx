@@ -3,9 +3,10 @@ import { ReservationCategoriesView } from "@/components/features/quota/Reservati
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Reservation Categories & Eligibility - NEET UG",
+  title: "NEET Reservation Categories",
+  metaTitle: "NEET Reservation Categories Explained 2026",
   description:
-    "Navigating the complex landscape of medical reservations. We simplify quotas, state-specific rules, and document requirements for your dream college.",
+    "Understand reservation categories, eligibility requirements, and their impact on medical college admissions.",
   path: "/quota/categories",
 });
 

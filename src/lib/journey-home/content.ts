@@ -87,7 +87,7 @@ export const JOURNEY_STATES_SECTION = {
   eyebrow: "Step 02 · State & national routes",
   title: "Four States. All India Quota — ",
   titleEmphasis: "One Platform.",
-  lede: "MBBS only — every cutoff, quota rule and counseling authority across Gujarat, Rajasthan, Madhya Pradesh and Maharashtra, plus MCC All India Quota (AIQ) counseling.",
+  lede: "MBBS only — every cutoff, quota rule and counselling authority across Gujarat, Rajasthan, Madhya Pradesh and Maharashtra, plus MCC All India Quota (AIQ) counselling.",
   quotaOverviewHref: "/quota",
   quotaOverviewLead:
     "Not sure whether AIQ, state quota, management quota, or NRI quota applies to you?",
@@ -197,7 +197,7 @@ export const JOURNEY_PLAYBOOK_AFTER_SUBMIT = {
 } as const;
 
 export const JOURNEY_FINAL_COUNSELLING_CTA = {
-  buttonLabel: "Book free counseling call",
+  buttonLabel: "Book free counselling call",
   modalIntroLine:
     "Hi Dravio, I want a free MBBS counselling review from the home page final CTA.",
   modalLede:
@@ -210,7 +210,7 @@ export const JOURNEY_FINAL_COUNSELLING_CTA = {
 export const JOURNEY_COUNSELING_MISTAKES = {
   eyebrow: "Step 08 · What happens if you do nothing",
   title: "Common ",
-  titleEmphasis: "counseling mistakes",
+  titleEmphasis: "counselling mistakes",
   lede: "Small oversights in round timing, quota choice, and paperwork compound — and strong ranks still lose seats.",
   items: [
     "Miss Round 2",

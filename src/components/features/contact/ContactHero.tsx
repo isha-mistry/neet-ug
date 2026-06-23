@@ -50,7 +50,7 @@ export function ContactHero() {
                         </span>
 
                         <h1 className="rp-hero-title">
-                            Get clear answers for <em>NEET counselling</em>
+                            Book a <em>Counselling Call</em>
                         </h1>
 
                         <p className="rp-hero-lede">

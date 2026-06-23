@@ -90,8 +90,7 @@ export function CounsellingPageView() {
               </nav>
 
               <h1 className="t">
-                {COUNSELLING_HERO.title}
-                <em>{COUNSELLING_HERO.titleEmphasis}</em>
+                Medical College <em>Admission Guidance</em>
               </h1>
               <p className="lede">{COUNSELLING_HERO.lede}</p>
               <p className="lede-sub">{COUNSELLING_HERO.ledeSub}</p>

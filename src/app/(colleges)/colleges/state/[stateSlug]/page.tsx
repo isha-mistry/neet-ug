@@ -70,7 +70,7 @@ export default async function StateCollegesPage({
         ]}
       />
       <PageHeader
-        eyebrow={`${state.name} Counseling`}
+        eyebrow={`${state.name} Counselling`}
         title={`MBBS Colleges in ${state.name}`}
         description={state.intro}
       />

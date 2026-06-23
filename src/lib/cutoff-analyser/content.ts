@@ -73,11 +73,11 @@ export const CUTOFF_FAQ: FaqItem[] = [
     id: "aiq-vs-state",
     question: "What's the difference between AIQ 15% and State 85% quotas?",
     answer:
-      "AIQ (All India Quota) seats are filled by MCC through centralized counseling open to candidates from any state. State quota seats are filled by the respective state authority and usually require domicile or meet state eligibility rules. Cutoffs differ because seat pools and applicant mixes differ.",
+      "AIQ (All India Quota) seats are filled by MCC through centralized counselling open to candidates from any state. State quota seats are filled by the respective state authority and usually require domicile or meet state eligibility rules. Cutoffs differ because seat pools and applicant mixes differ.",
   },
   {
     id: "other-state",
-    question: "Am I eligible for state counseling if I'm from another state?",
+    question: "Am I eligible for state counselling if I'm from another state?",
     answer:
       "For state quota seats you generally need domicile or qualifying residency in that state. AIQ and management/NRI routes may still be open depending on institute rules. Always verify the latest state prospectus before locking choices.",
   },
@@ -85,7 +85,7 @@ export const CUTOFF_FAQ: FaqItem[] = [
     id: "closing-rank",
     question: "How is the closing rank determined?",
     answer:
-      "Closing rank is the All India Rank of the last candidate admitted in a given college, category, and quota in a counseling round (usually the final round of that year). Opening rank is the best (lowest) rank admitted in that pool.",
+      "Closing rank is the All India Rank of the last candidate admitted in a given college, category, and quota in a counselling round (usually the final round of that year). Opening rank is the best (lowest) rank admitted in that pool.",
   },
   {
     id: "round2",
@@ -101,7 +101,7 @@ export const CUTOFF_FAQ: FaqItem[] = [
   },
   {
     id: "documents",
-    question: "What documents do I need for counseling?",
+    question: "What documents do I need for counselling?",
     answer:
       "Typically: NEET scorecard, admit card, class 10 & 12 marksheets and certificates, category certificate (if applicable), domicile certificate, ID proof, passport photos, and allotment letter after each round. States may add specific affidavits or income certificates.",
   },

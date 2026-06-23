@@ -51,10 +51,10 @@ export const ABOUT_LETTER = {
   signature: "The Dravio Team",
   paragraphs: [
     "Every year, lakhs of students prepare for NEET with a single goal: securing an MBBS seat. What many families discover, only after the exam, is that getting a good score is just one part of the journey.",
-    "Choice filling. Quota eligibility. State counseling rules. Domicile requirements. Management quota, NRI quota, All India Quota. Round upgrades, mop-up rounds, inter-state opportunities. Each of these can significantly influence the final admission outcome — and most families encounter all of them for the first time during the counseling process itself.",
+    "Choice filling. Quota eligibility. State counselling rules. Domicile requirements. Management quota, NRI quota, All India Quota. Round upgrades, mop-up rounds, inter-state opportunities. Each of these can significantly influence the final admission outcome — and most families encounter all of them for the first time during the counselling process itself.",
     "As educationists and technologists, we kept noticing the same recurring pattern.",
-    "Parents spend years helping their children excel academically. Then, when counseling season arrives, they're suddenly expected to make high-impact decisions based on fragmented information — scattered across multiple websites, notifications, and counseling authorities.",
-    "When we began studying the admission landscape, we analyzed years of counseling data, seat matrices, cutoff trends, quota rules, and admission outcomes across states.",
+    "Parents spend years helping their children excel academically. Then, when counselling season arrives, they're suddenly expected to make high-impact decisions based on fragmented information — scattered across multiple websites, notifications, and counselling authorities.",
+    "When we began studying the admission landscape, we analyzed years of counselling data, seat matrices, cutoff trends, quota rules, and admission outcomes across states.",
     "What we found was surprising.",
     "Students with similar NEET scores were often securing very different outcomes. Some obtained government or government-quota seats with significantly lower fees. Others accepted more expensive options — simply because they were unaware of the alternative routes available to them.",
     "We also found that many students who believed an MBBS seat was out of reach still had viable pathways. Through management quota, NRI quota, or admissions in other states, options existed that they had never been told about. With the right information and planning, many of these students could pursue medical education in India — instead of looking abroad.",
@@ -63,7 +63,7 @@ export const ABOUT_LETTER = {
   mission:
     "help students and parents make informed MBBS admission decisions using verified data, historical trends, and clear guidance.",
   closingParagraphs: [
-    "Today, Dravio provides information on medical colleges, cutoffs, quotas, fees, counseling processes, and admission pathways across India. We offer guidance and mentorship for All India Quota counseling, and for students participating in state counseling across Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra.",
+    "Today, Dravio provides information on medical colleges, cutoffs, quotas, fees, counselling processes, and admission pathways across India. We offer guidance and mentorship for All India Quota counselling, and for students participating in state counselling across Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra.",
   ],
   closingEmphasis:
     "Understanding the opportunities available after the exam matters just as much.",
@@ -77,7 +77,7 @@ export const ABOUT_PRINCIPLES = [
   {
     num: "01",
     title: "Verified data, not assumptions",
-    body: "Every cutoff, every closing rank, every fee figure on our platform is sourced from official counseling authority publications. When data is missing or contested, we say so — rather than fill in a guess.",
+    body: "Every cutoff, every closing rank, every fee figure on our platform is sourced from official counselling authority publications. When data is missing or contested, we say so — rather than fill in a guess.",
   },
   {
     num: "02",
@@ -92,7 +92,7 @@ export const ABOUT_PRINCIPLES = [
   {
     num: "04",
     title: "Honest about what we don't know",
-    body: "Counseling rules change. State authorities revise procedures between seasons. When something is uncertain, we'll tell you it's uncertain — not invent confidence to close a conversation.",
+    body: "Counselling rules change. State authorities revise procedures between seasons. When something is uncertain, we'll tell you it's uncertain — not invent confidence to close a conversation.",
   },
 ] as const;
 
@@ -101,7 +101,7 @@ export const ABOUT_PRINCIPLES = [
 /* ------------------------------------------------------------------ */
 
 export const ABOUT_GEOGRAPHY = {
-  body: "We work in depth across four states — covering roughly 33,000 MBBS seats between them, about a quarter of all the seats in India. We also handle All India Quota counseling, which lets students from any state in India target seats in our four through the AIQ 15% route. We chose four instead of fourteen because there's no honest way to know fourteen counseling systems deeply.",
+  body: "We work in depth across four states — covering roughly 33,000 MBBS seats between them, about a quarter of all the seats in India. We also handle All India Quota counselling, which lets students from any state in India target seats in our four through the AIQ 15% route. We chose four instead of fourteen because there's no honest way to know fourteen counselling systems deeply.",
   stateCards: JOURNEY_STATE_CARDS.map((state) => ({
     code: state.code,
     name: state.name,
@@ -125,15 +125,15 @@ export type AboutTeamMember = {
 };
 
 export const ABOUT_TEAM = {
-  lede: "Educationists, technologists and counselors who've worked with NEET students before Dravio existed. Real names, real faces — not an anonymous \"expert team.\"",
+  lede: "Educationists, technologists and counsellors who've worked with NEET students before Dravio existed. Real names, real faces — not an anonymous \"expert team.\"",
   footnote:
-    "We're a deliberately small team. Every student who books a counseling package works directly with one of the counselors on this page — not a junior, not an outsourced agent.",
+    "We're a deliberately small team. Every student who books a counselling package works directly with one of the counsellors on this page — not a junior, not an outsourced agent.",
   members: [
     {
       name: "[Founder Name]",
       role: "Founder & Lead Counselor",
       credentials: "[DEGREE, UNIVERSITY] · [YEARS] WITH NEET STUDENTS",
-      bio: "[Brief bio — what they've worked on across counseling seasons, what state they specialize in, one signal of credibility, and one personal note that humanizes them. Replace before launch.]",
+      bio: "[Brief bio — what they've worked on across counselling seasons, what state they specialize in, one signal of credibility, and one personal note that humanizes them. Replace before launch.]",
     },
     {
       name: "[Senior Counselor Name]",
@@ -160,16 +160,16 @@ export const ABOUT_FIT_CHECK = {
   goodFit: [
     "You scored between 350 and 680 in NEET 2026 and want help maximizing what your rank can secure",
     "You're targeting MBBS in Gujarat, Rajasthan, Madhya Pradesh or Maharashtra — through state quota or AIQ",
-    "You want guidance through every counseling round, not just Round 1",
+    "You want guidance through every counselling round, not just Round 1",
     "You're open to honest trade-off analysis — govt vs private, in-state vs cross-state, India vs abroad",
     "Your family wants to be part of the decision-making process",
   ],
   notFit: [
     "You're looking for guidance on BDS, BAMS, BHMS or PG admissions — we focus exclusively on MBBS",
     "You want a guaranteed seat promise — we don't make those, and we'd be skeptical of anyone who does",
-    "You're specifically targeting AIIMS or AFMC — those have separate counseling tracks we don't specialize in",
+    "You're specifically targeting AIIMS or AFMC — those have separate counselling tracks we don't specialize in",
     "You're looking exclusively for MBBS abroad guidance — we provide context, but don't counsel for abroad admissions",
-    "Your home state is outside our four AND you're not interested in AIQ counseling",
+    "Your home state is outside our four AND you're not interested in AIQ counselling",
   ],
 } as const;
 
@@ -188,15 +188,15 @@ export const ABOUT_POSITION = [
   },
   {
     label: "On data freshness",
-    body: 'Counseling rules change. State authorities revise procedures between seasons. Our cutoff database is rebuilt every year, and every data page on this site carries a "Last verified" date. When data is missing or contested, we say so. If you spot stale information, write to us — we update within 24 hours.',
+    body: 'Counselling rules change. State authorities revise procedures between seasons. Our cutoff database is rebuilt every year, and every data page on this site carries a "Last verified" date. When data is missing or contested, we say so. If you spot stale information, write to us — we update within 24 hours.',
   },
   {
     label: "On AI and automation",
-    body: 'Our tools use data and statistical methods. They\'re not "AI counseling." A computer cannot tell you whether to upgrade or lock after Round 1 — that\'s a judgment call requiring a human who knows your specific case. Our tools assist counselors; they don\'t replace them.',
+    body: 'Our tools use data and statistical methods. They\'re not "AI counselling." A computer cannot tell you whether to upgrade or lock after Round 1 — that\'s a judgment call requiring a human who knows your specific case. Our tools assist counsellors; they don\'t replace them.',
   },
   {
     label: "On your personal data",
-    body: "We collect your phone number to send counseling reminders and answer your questions. We don't sell it, share it with coaching brands, or use it for unrelated marketing. Full details are in our Privacy Policy.",
+    body: "We collect your phone number to send counselling reminders and answer your questions. We don't sell it, share it with coaching brands, or use it for unrelated marketing. Full details are in our Privacy Policy.",
   },
 ] as const;
 
@@ -210,10 +210,10 @@ import {
 } from "@/lib/leads/counsel-whatsapp-config";
 
 export const ABOUT_CONTACT = {
-  officeName: "Dravio Counseling Services",
+  officeName: "Dravio Counselling Services",
   addressLines: ["[Address line 1]", "[Address line 2]", "[City, PIN code]"],
   availabilityWeekdays: "Monday to Saturday · 9 AM – 8 PM IST",
-  availabilitySunday: "Sundays — Counseling-season support only",
+  availabilitySunday: "Sundays — Counselling-season support only",
   channels: {
     phone: "+91 90909 09090",
     phoneHref: getCounselWhatsAppTelHref(),
@@ -232,7 +232,7 @@ export const ABOUT_COMPLIANCE = {
     {
       label: "Business entity",
       value:
-        "[Legal name — e.g., Dravio Counseling Services Pvt. Ltd. / LLP / Proprietorship]",
+        "[Legal name — e.g., Dravio Counselling Services Pvt. Ltd. / LLP / Proprietorship]",
     },
     { label: "GSTIN", value: "[Number, if applicable]" },
     { label: "Founded", value: "2024" },
@@ -244,7 +244,7 @@ export const ABOUT_COMPLIANCE = {
     {
       label: "Disclaimer",
       value:
-        "Dravio is an independent counseling and information service. We are not affiliated with NMC, MCC, NTA or any state counseling authority. We do not guarantee admission to any medical college.",
+        "Dravio is an independent counselling and information service. We are not affiliated with NMC, MCC, NTA or any state counselling authority. We do not guarantee admission to any medical college.",
     },
   ],
   policyLinks: [

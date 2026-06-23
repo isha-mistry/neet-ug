@@ -37,7 +37,7 @@ export function ComparisonCTAGroup({
           Take the next step
         </h3>
         <p className="text-sm tracking-wide text-text-muted">
-          View detailed pages or schedule guided counseling for your selections.
+          View detailed pages or schedule guided counselling for your selections.
         </p>
       </div>
       <div className="flex flex-wrap gap-2">
@@ -57,7 +57,7 @@ export function ComparisonCTAGroup({
           variant="outline"
           leadingIcon={<FiPhoneCall aria-hidden="true" />}
         >
-          Get Counseling
+          Get Counselling
         </Button>
       </div>
     </div>

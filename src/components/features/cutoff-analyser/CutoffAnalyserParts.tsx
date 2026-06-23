@@ -62,8 +62,8 @@ export function CutoffAnalyserHero({ children }: { children?: ReactNode }) {
         { label: "Predictors", href: "/rank-predictor" },
         { label: "Cutoff Analyser" },
       ]}
-      title="See where your NEET score "
-      titleEmphasis="stands across key states."
+      title="NEET Cutoff "
+      titleEmphasis="Analyser"
       lede="Compare state and quota cutoffs for Gujarat, Rajasthan, Madhya Pradesh, and Maharashtra. See a summary first, then unlock tables, college matches, and a preference list after verification."
       trio={[
         { key: "Step 1", value: "Score summary" },
@@ -224,7 +224,7 @@ export function CutoffAnalyserTeaserShowcase({
             Unlock state cutoffs and college matches
           </h2>
           <p className="rp-tool-section-lede mt-2">
-            Verification turns the summary into tables, cards, choice-list tools, and counseling
+            Verification turns the summary into tables, cards, choice-list tools, and counselling
             timelines tailored to your score.
           </p>
           <ul className="rp-lfeats mt-4">

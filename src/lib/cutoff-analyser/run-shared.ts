@@ -32,7 +32,7 @@ export function validateCutoffAnalyserInput(
   }
   const quota = raw.quota as ListingQuota;
   if (!quota) {
-    return { ok: false, message: "Select a counseling quota." };
+    return { ok: false, message: "Select a counselling quota." };
   }
   return {
     ok: true,

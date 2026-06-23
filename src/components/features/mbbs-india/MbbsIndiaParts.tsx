@@ -47,7 +47,7 @@ export function MbbsIndiaHero({ catalog }: { catalog: CatalogSeatBreakdown }) {
 
           <p className="rp-hero-lede max-w-xl">
             Complete details on {formatNumber(catalog.totalColleges)} medical colleges and{" "}
-            {formatNumber(catalog.totalSeats)} MBBS seats — fee structures, domicile rules, and counseling procedures in one place.
+            {formatNumber(catalog.totalSeats)} MBBS seats — fee structures, domicile rules, and counselling procedures in one place.
           </p>
 
           <div className="rp-trio max-w-xl">
@@ -99,7 +99,7 @@ export function GuideHelpLink({ className }: { className?: string }) {
         size="md"
         className="shrink-0 sm:ml-auto"
       >
-        Book a free counseling call
+        Book a free counselling call
       </Button>
     </div>
   );

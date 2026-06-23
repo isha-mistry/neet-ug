@@ -76,9 +76,7 @@ export function AboutPageView() {
               </nav>
 
               <h1 className="t">
-                {ABOUT_HERO.title}
-                <em>{ABOUT_HERO.titleEmphasis}</em>
-                {ABOUT_HERO.titleSuffix}
+                About <em>Dravio</em>
               </h1>
               <p className="lede">{ABOUT_HERO.lede}</p>
             </div>
@@ -207,7 +205,7 @@ export function AboutPageView() {
               ))}
             </div>
             <p className="au-aiq">
-              Plus full guidance for <b>MCC All India Quota</b> counseling — the route into our
+              Plus full guidance for <b>MCC All India Quota</b> counselling — the route into our
               four states from anywhere in India.
             </p>
           </div>
@@ -228,7 +226,7 @@ export function AboutPageView() {
                   <div className="body">
                     {item.label === "On your personal data" ? (
                       <>
-                        We collect your phone number to send counseling reminders and answer your
+                        We collect your phone number to send counselling reminders and answer your
                         questions. We don&apos;t sell it, share it with coaching brands, or use it
                         for unrelated marketing. Full details are in our{" "}
                         <Link href="/privacy">Privacy Policy</Link>.

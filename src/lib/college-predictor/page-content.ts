@@ -20,7 +20,7 @@ export const COLLEGE_PREDICTOR_HOW_IT_WORKS = {
     {
       icon: "tag" as const,
       title: "Enter your official rank",
-      body: "AIR, category, domicile state, and counseling quota (AIQ, State, Management, or NRI).",
+      body: "AIR, category, domicile state, and counselling quota (AIQ, State, Management, or NRI).",
     },
     {
       icon: "pie_chart" as const,

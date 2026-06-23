@@ -13,7 +13,7 @@ export function NeetUgHubSidebarPromos() {
             Free PDF
           </span>
           <h3 className="font-headline-md text-lg font-bold leading-snug text-on-surface">
-            NEET 2026 counseling playbook
+            NEET 2026 counselling playbook
           </h3>
           <p className="text-sm leading-relaxed text-on-surface-variant">
             Seat matrices, state quota rules, and choice-filling strategy for GJ · RJ · MP · MH + MCC

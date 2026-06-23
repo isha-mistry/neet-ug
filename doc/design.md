@@ -22,7 +22,7 @@ The reusable recommendations below should be treated as standards for new fronte
 
 ## 2. Global Reusable Design Standards
 
-These patterns are reusable across marketing, predictor, counseling, college, quota, and content pages. They are based on Journey Home, but they should be promoted into shared utilities/components rather than remaining tied to `.journey-home` selectors.
+These patterns are reusable across marketing, predictor, counselling, college, quota, and content pages. They are based on Journey Home, but they should be promoted into shared utilities/components rather than remaining tied to `.journey-home` selectors.
 
 ### 2.1 Global Color System
 
@@ -232,7 +232,7 @@ Create a shared `Button` API:
 
 ```tsx
 <Button variant="primary" size="md">Check my chances</Button>
-<Button variant="secondary" size="md">Talk to counselor</Button>
+<Button variant="secondary" size="md">Talk to counsellor</Button>
 <Button variant="inverse" size="md">Send me the playbook</Button>
 <Button variant="text" trailingIcon>View details</Button>
 ```
@@ -579,7 +579,7 @@ The panel surface can inspire future feature previews, but the particle animatio
 
 ### Rounds Sticky Interaction
 
-Specific to counseling-round storytelling.
+Specific to counselling-round storytelling.
 
 - Sticky Step 06 section.
 - Wheel/touch interception.

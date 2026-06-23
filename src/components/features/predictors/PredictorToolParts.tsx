@@ -198,9 +198,9 @@ export function ToolQuotaField({
 }) {
   return (
     <fieldset className="rp-quota-field">
-      <legend>Counseling quota</legend>
+      <legend>Counselling quota</legend>
       <p className="rp-quota-field-hint">
-        Choose the counseling route you want to evaluate. State quota works best where
+        Choose the counselling route you want to evaluate. State quota works best where
         state cutoff rows are available.
       </p>
       <div className="rp-quota-pills">

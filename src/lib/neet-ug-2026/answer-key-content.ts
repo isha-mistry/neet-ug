@@ -1,8 +1,8 @@
 import type { GuideJumpItem } from "@/components/features/mbbs-india/GuidePageJumpNav";
 
 export const NEET_UG_ANSWER_KEY_HERO = {
-  title: "Answer key, OMR & ",
-  titleEmphasis: "results guide.",
+  title: "NEET UG ",
+  titleEmphasis: "Answer Key",
   lede:
     "How NTA releases the provisional answer key, view your OMR response sheet, challenge answers, read your scorecard, and interpret category-wise qualifying cut-offs for NEET UG 2026.",
   fine:

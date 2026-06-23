@@ -3,14 +3,14 @@
     {
       "slug": "uttar-pradesh",
       "name": "Uttar Pradesh",
-      "intro": "UP MBBS admissions run through DMET state counseling with a large mix of government and private colleges.",
+      "intro": "UP MBBS admissions run through DMET state counselling with a large mix of government and private colleges.",
       "totalSeats": 9120,
       "competitionLevel": "High"
     },
     {
       "slug": "rajasthan",
       "name": "Rajasthan",
-      "intro": "Rajasthan conducts MBBS counseling through REAP with competitive government colleges and growing private capacity.",
+      "intro": "Rajasthan conducts MBBS counselling through REAP with competitive government colleges and growing private capacity.",
       "totalSeats": 4780,
       "competitionLevel": "High"
     },
@@ -24,7 +24,7 @@
     {
       "slug": "andhra-pradesh",
       "name": "Andhra Pradesh",
-      "intro": "Andhra Pradesh MBBS counseling includes government and private colleges under state quota and AIQ.",
+      "intro": "Andhra Pradesh MBBS counselling includes government and private colleges under state quota and AIQ.",
       "totalSeats": 5420,
       "competitionLevel": "High"
     },
@@ -1147,7 +1147,7 @@
       "bond": {
         "years": 0,
         "penalty": 0,
-        "note": "MP private counseling."
+        "note": "MP private counselling."
       },
       "infrastructure": {
         "beds": 700,
@@ -1278,7 +1278,7 @@
       "bond": {
         "years": 0,
         "penalty": 0,
-        "note": "UP private counseling."
+        "note": "UP private counselling."
       },
       "infrastructure": {
         "beds": 500,
@@ -1344,7 +1344,7 @@
       "bond": {
         "years": 0,
         "penalty": 0,
-        "note": "UP private counseling."
+        "note": "UP private counselling."
       },
       "infrastructure": {
         "beds": 480,
@@ -1410,7 +1410,7 @@
       "bond": {
         "years": 0,
         "penalty": 0,
-        "note": "Maharashtra private counseling."
+        "note": "Maharashtra private counselling."
       },
       "infrastructure": {
         "beds": 520,
@@ -1605,7 +1605,7 @@
       "bond": {
         "years": 0,
         "penalty": 0,
-        "note": "UP private counseling."
+        "note": "UP private counselling."
       },
       "infrastructure": {
         "beds": 450,
@@ -1669,7 +1669,7 @@
       "bond": {
         "years": 0,
         "penalty": 0,
-        "note": "MP private counseling."
+        "note": "MP private counselling."
       },
       "infrastructure": {
         "beds": 420,
@@ -1733,7 +1733,7 @@
       "bond": {
         "years": 0,
         "penalty": 0,
-        "note": "Punjab private counseling."
+        "note": "Punjab private counselling."
       },
       "infrastructure": {
         "beds": 430,
@@ -1798,7 +1798,7 @@
       "bond": {
         "years": 0,
         "penalty": 0,
-        "note": "UP private counseling."
+        "note": "UP private counselling."
       },
       "infrastructure": {
         "beds": 410,
@@ -1862,7 +1862,7 @@
       "bond": {
         "years": 0,
         "penalty": 0,
-        "note": "MP private counseling."
+        "note": "MP private counselling."
       },
       "infrastructure": {
         "beds": 400,
@@ -1992,7 +1992,7 @@
       "bond": {
         "years": 0,
         "penalty": 0,
-        "note": "UP private counseling."
+        "note": "UP private counselling."
       },
       "infrastructure": {
         "beds": 350,
@@ -2058,7 +2058,7 @@
       "bond": {
         "years": 0,
         "penalty": 0,
-        "note": "Uttarakhand/UP counseling per seat matrix."
+        "note": "Uttarakhand/UP counselling per seat matrix."
       },
       "infrastructure": {
         "beds": 380,

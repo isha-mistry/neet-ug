@@ -3,9 +3,10 @@ import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "MBBS Counselling for NEET 2026 — Dravio",
+  title: "Medical College Admission Guidance",
+  metaTitle: "Medical College Admission Guidance | NEET UG Counselling Services",
   description:
-    "Plan your college list, quota route, documents and counselling rounds with clear MBBS counselling support across Gujarat, Rajasthan, MP, Maharashtra and All India Quota MCC.",
+    "Get personalized guidance for medical college admissions through NEET UG counselling. Explore colleges, quotas, fees, and admission strategies.",
   path: "/counselling",
 });
 

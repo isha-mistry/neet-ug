@@ -17,7 +17,7 @@ export const COUNSELING_SESSION_YEAR = 2026;
  * (notice dated 23 Oct 2025), shifted by one calendar year.
  */
 export const COUNSELING_TIMELINE_DISCLAIMER =
-  "NEET (UG)-2026 is scheduled on 21 June 2026 (NTA). MCC has not published a 2026 UG counseling schedule yet; AIQ Round 1 and stray dates below use the official MCC 2025 timetable spacing applied after an indicative August 2026 result. State Round 1 windows follow the same 2025-cycle pattern—always confirm on MCC and your state admission portal.";
+  "NEET (UG)-2026 is scheduled on 21 June 2026 (NTA). MCC has not published a 2026 UG counselling schedule yet; AIQ Round 1 and stray dates below use the official MCC 2025 timetable spacing applied after an indicative August 2026 result. State Round 1 windows follow the same 2025-cycle pattern—always confirm on MCC and your state admission portal.";
 
 const MCC_2025_SCHEDULE_PDF =
   "https://cdnbbsr.s3waas.gov.in/s3e0f7a4d0ef9b84b83b693bbf3feb8e6e/uploads/2025/10/20251028122896423.pdf";
@@ -146,7 +146,7 @@ const TIMELINE_SEEDS: TimelineSeed[] = [
     roundName: "Madhya Pradesh state quota — Round 1",
     start: "2026-09-15",
     end: "2026-09-25",
-    action: "Choice filling on MP DME / MPOnline counseling portal",
+    action: "Choice filling on MP DME / MPOnline counselling portal",
     stateTag: "MP",
     details:
       "Indicative from 2025 cycle timing. Confirm on dme.mponline.gov.in.",

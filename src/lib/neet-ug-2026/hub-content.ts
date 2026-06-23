@@ -2,10 +2,10 @@ import type { GuideJumpItem } from "@/components/features/mbbs-india/GuidePageJu
 import type { TimelineEvent } from "@/components/features/neet-ug/NeetTimeline";
 
 export const NEET_UG_HUB_HERO = {
-  title: "NEET UG 2026 — your ",
-  titleEmphasis: "exam & counseling hub.",
+  title: "NEET UG 2026 ",
+  titleEmphasis: "Guidance",
   lede:
-    "Official timeline, eligibility, exam pattern, expected cutoffs, and deep links to MCC AIQ and state counseling — kept current for the 2026–27 admission season.",
+    "Official timeline, eligibility, exam pattern, expected cutoffs, and deep links to MCC AIQ and state counselling — kept current for the 2026–27 admission season.",
   fine:
     "Indicative dates and cutoffs follow NTA and historical trends. Always confirm on nta.ac.in and mcc.nic.in before registering or reporting.",
   trio: [
@@ -37,7 +37,7 @@ export const NEET_UG_HUB_SIDEBAR_TOOLS = [
     icon: "school",
     title: "Shortlist MBBS colleges for your rank",
     description:
-      "Use your official AIR to unlock Likely, Possible, and Reach college lists with historical closing ranks and fees — the same logic counselors use for choice filling.",
+      "Use your official AIR to unlock Likely, Possible, and Reach college lists with historical closing ranks and fees — the same logic counsellors use for choice filling.",
     cta: "Find colleges for my rank",
     href: "/college-predictor",
   },
@@ -85,7 +85,7 @@ export const NEET_UG_HUB_RESOURCE_LINKS = [
     label: "Live updates & NTA alerts",
     href: "/neet-ug-2026/updates",
     icon: "notifications_active",
-    desc: "ReNEET notices, result alerts, and counseling windows.",
+    desc: "ReNEET notices, result alerts, and counselling windows.",
   },
   {
     label: "Application & admit card",
@@ -147,7 +147,7 @@ export const NEET_UG_HUB_TIMELINE: TimelineEvent[] = [
   {
     event: "ReNEET exam date",
     date: "June 21, 2026",
-    status: "Upcoming",
+    status: "Completed",
     description: "Rescheduled pen-and-paper exam announced by NTA.",
   },
   {

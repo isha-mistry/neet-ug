@@ -15,9 +15,61 @@ type SortKey = "name" | "seats";
 
 interface StateCollegeTableProps {
   rows: StateCollegeTableRow[];
+  stateName?: string;
 }
 
-export function StateCollegeTable({ rows }: StateCollegeTableProps) {
+function normalizeCity(city: string | null | undefined): string {
+  if (!city) return "";
+  const trimmed = city.trim();
+  const lower = trimmed.toLowerCase();
+
+  // Exclude values that look like college names or non-city text
+  if (
+    lower.includes("university") ||
+    lower.includes("college") ||
+    lower.includes("school") ||
+    lower.includes("hospital") ||
+    lower.includes("institute") ||
+    lower.includes("medicine") ||
+    lower.includes("technology") ||
+    lower.includes("sciences") ||
+    lower.includes("medical") ||
+    trimmed.length > 30
+  ) {
+    return "";
+  }
+
+  if (lower === "vadodra" || lower === "vadodara" || lower === "baroda") {
+    return "Vadodara";
+  }
+  if (lower.startsWith("mumbai") || lower === "bombay") {
+    return "Mumbai";
+  }
+  if (lower === "poona" || lower === "pune") {
+    return "Pune";
+  }
+  return trimmed
+    .split(/\s+/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
+function getDisplayCity(row: StateCollegeTableRow): string {
+  const norm = normalizeCity(row.city);
+  if (norm) return norm;
+
+  // Fallback to extracting from name if the name has a comma
+  const parts = row.name.split(",");
+  if (parts.length > 1) {
+    const lastPart = parts[parts.length - 1].trim();
+    const normExtracted = normalizeCity(lastPart);
+    if (normExtracted) return normExtracted;
+  }
+
+  return "—";
+}
+
+export function StateCollegeTable({ rows, stateName }: StateCollegeTableProps) {
   const [query, setQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
   const [cityFilter, setCityFilter] = useState("all");
@@ -25,15 +77,28 @@ export function StateCollegeTable({ rows }: StateCollegeTableProps) {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
   const cities = useMemo(() => {
-    const set = new Set(rows.map((r) => r.city).filter(Boolean));
-    return [...set].sort();
-  }, [rows]);
+    const stateExcludes = new Set(
+      [
+        stateName?.toLowerCase().trim(),
+        "gujarat",
+        "rajasthan",
+        "madhya pradesh",
+        "maharashtra",
+      ].filter(Boolean)
+    );
+    const set = new Set(
+      rows
+        .map((r) => getDisplayCity(r))
+        .filter((c) => c && c !== "—" && !stateExcludes.has(c.toLowerCase().trim()))
+    );
+    return Array.from(set).sort((a, b) => a.localeCompare(b));
+  }, [rows, stateName]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     let list = rows.filter((r) => {
       if (typeFilter !== "all" && r.type !== typeFilter) return false;
-      if (cityFilter !== "all" && r.city !== cityFilter) return false;
+      if (cityFilter !== "all" && getDisplayCity(r) !== cityFilter) return false;
       if (q && !r.name.toLowerCase().includes(q)) return false;
       return true;
     });
@@ -44,8 +109,8 @@ export function StateCollegeTable({ rows }: StateCollegeTableProps) {
           : b.name.localeCompare(a.name);
       }
       return sortDir === "asc"
-        ? a.totalSeats - b.totalSeats
-        : b.totalSeats - a.totalSeats;
+          ? a.totalSeats - b.totalSeats
+          : b.totalSeats - a.totalSeats;
     });
     return list;
   }, [rows, query, typeFilter, cityFilter, sortKey, sortDir]);
@@ -159,7 +224,7 @@ export function StateCollegeTable({ rows }: StateCollegeTableProps) {
                   </Link>
                 </td>
                 <td>{row.type}</td>
-                <td>{row.city}</td>
+                <td>{getDisplayCity(row)}</td>
                 <td className="max-w-[160px] text-on-surface-variant">{row.university}</td>
                 <td className="tabular-nums font-semibold">{formatNumber(row.totalSeats)}</td>
                 <td className="tabular-nums">{formatNumber(row.aiqSeats)}</td>

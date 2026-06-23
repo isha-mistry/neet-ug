@@ -1,7 +1,7 @@
 {
-  "name": "Dravio — MBBS Counseling",
+  "name": "Dravio — MBBS Counselling",
   "short_name": "Dravio",
-  "description": "MBBS counseling for NEET 2026 students.",
+  "description": "MBBS counselling for NEET 2026 students.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

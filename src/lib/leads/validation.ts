@@ -97,7 +97,7 @@ export function validateSubmitLeadInput(raw: SubmitLeadInput): { ok: true; data:
         }
         const quota = raw.rawPayload?.quota;
         if (typeof quota !== "string" || !quota.trim()) {
-          return { ok: false, error: "Select a counseling quota." };
+          return { ok: false, error: "Select a counselling quota." };
         }
         break;
       }
@@ -116,7 +116,7 @@ export function validateSubmitLeadInput(raw: SubmitLeadInput): { ok: true; data:
         }
         const quota = raw.rawPayload?.quota;
         if (typeof quota !== "string" || !quota.trim()) {
-          return { ok: false, error: "Select a counseling quota." };
+          return { ok: false, error: "Select a counselling quota." };
         }
         break;
       }

@@ -29,8 +29,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return buildMetadata({
-    title: `${state.name} NEET UG State Counselling Guide`,
-    description: `${state.name} NEET UG counselling authority, eligibility, reservation, documents, rounds, seat categories and admission rules.`,
+    title: `MBBS Admission in ${state.name}`,
+    metaTitle: `${state.name} MBBS Admission 2026 | Medical Colleges, Fees & Counselling`,
+    description: `Explore medical colleges, counselling process, quotas, fees, seat matrix, and cutoff trends for MBBS admissions in ${state.name}.`,
     path: `/state-counselling/${state.key}`,
   });
 }

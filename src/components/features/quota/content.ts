@@ -242,7 +242,7 @@ export interface ReservationRow {
 
 export const reservationCategoriesData: Record<CategoryTab, ReservationRow[]> = {
   national: [
-    { category: "OPEN / Unreserved", percentage: "15% AIQ Seats", rankRange: "1 - 25,000", certificate: "Not Required" },
+    { category: "OPEN / Unreserved", percentage: "~40.5%", rankRange: "1 - 25,000", certificate: "Not Required" },
     { category: "OBC-NCL", percentage: "27%", rankRange: "25,000 - 35,000", certificate: "Central List NCL (Dated after April 1)" },
     { category: "EWS", percentage: "10%", rankRange: "25,000 - 40,000", certificate: "Income & Asset Certificate (Central)" },
     { category: "SC", percentage: "15%", rankRange: "80,000 - 1,50,000", certificate: "SC Certificate (Format as per MCC)" },
@@ -387,7 +387,7 @@ export const resourceData: Record<ResourceKey, ResourceRow[]> = {
     },
     {
       body: "Dir. General of Health Services",
-      url: "https://dghs.gov.in",
+      url: "https://dghs.mohfw.gov.in/",
       usage: "Policy updates, historical seat data, and high-level counselling guidelines for medical seats.",
     },
   ],
@@ -455,7 +455,7 @@ export const quotaOverviewHeroRules = [
   {
     icon: "rule",
     title: "Application Rules",
-    desc: "Candidates can apply for multiple quotas simultaneously across different counseling rounds.",
+    desc: "Candidates can apply for multiple quotas simultaneously across different counselling rounds.",
   },
   {
     icon: "domain",
@@ -489,7 +489,7 @@ export const stateQuotaHighlights = [
   {
     icon: "corporate_fare",
     title: "State Body",
-    desc: "Independent Counseling for Each State.",
+    desc: "Independent Counselling for Each State.",
   },
 ];
 

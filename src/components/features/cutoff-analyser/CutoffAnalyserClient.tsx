@@ -635,7 +635,7 @@ export function CutoffAnalyserClient({
               />
             </div>
             <p className="rp-field-hint">
-              Home state for counseling. Analysis still shows cutoffs for GJ, RJ, MP & MH.
+              Home state for counselling. Analysis still shows cutoffs for GJ, RJ, MP & MH.
             </p>
             <CollegePredictorQuotaField
               value={quota || "state"}
@@ -851,7 +851,7 @@ export function CutoffAnalyserClient({
                       >
                         <AnalyserSectionBody className="space-y-4">
                           <p className="rp-field-hint italic">
-                            MCC limits AIQ choices to 20 colleges. State counseling may differ.
+                            MCC limits AIQ choices to 20 colleges. State counselling may differ.
                           </p>
                           {listWarnings.map((w) => (
                             <ToolCallout key={w} variant="safe">
@@ -998,7 +998,7 @@ export function CutoffAnalyserClient({
                       <AnalyserSectionBlock
                         className="min-w-0 order-2 lg:order-1"
                         title="Don't miss your round"
-                        description="Key counseling milestones for your focus states and MCC AIQ—dates update as portals publish notices."
+                        description="Key counselling milestones for your focus states and MCC AIQ—dates update as portals publish notices."
                       >
                         <AnalyserSectionBody flush className="p-0">
                           <CounselingTimelinePanel

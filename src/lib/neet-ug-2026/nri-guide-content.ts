@@ -1,8 +1,8 @@
 import type { GuideJumpItem } from "@/components/features/mbbs-india/GuidePageJumpNav";
 
 export const NEET_UG_NRI_HERO = {
-  title: "Reservation, certificates & ",
-  titleEmphasis: "NRI admission.",
+  title: "NRI MBBS ",
+  titleEmphasis: "Admission Guide",
   lede:
     "NEET UG 2026 reservation rules, category certificate formats, AIQ vs state quota differences, and the NRI / NRI-sponsored pathway for Deemed and private MBBS seats.",
   fine:

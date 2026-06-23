@@ -284,7 +284,7 @@ export function PlaybookForm() {
         <>
           <input
             type="text"
-            className="pb-form-field"
+            className={`pb-form-field ${name.trim() === "" ? "is-empty" : ""}`}
             placeholder="Your name"
             required
             minLength={2}
@@ -302,6 +302,7 @@ export function PlaybookForm() {
             phone={phone}
             onPhoneChange={setPhone}
             phoneName="whatsapp"
+            inputClassName={phone.trim() === "" ? "is-empty" : ""}
           />
           {error ? (
             <p className="pb-form-error" role="alert">
@@ -322,7 +323,7 @@ export function PlaybookForm() {
             {pending ? "Sending…" : "Send me the playbook →"}
           </button>
           <p className="pb-fine">
-            FREE · SENT INSTANTLY · COUNSELING UPDATES ONLY · UNSUBSCRIBE ANY TIME
+            FREE · SENT INSTANTLY · COUNSELLING UPDATES ONLY · UNSUBSCRIBE ANY TIME
           </p>
         </>
       )}

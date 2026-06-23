@@ -3,9 +3,10 @@ import { QuotaOverview } from "@/components/features/quota/QuotaOverview";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Understanding the Seat Quota System",
+  title: "Medical Admission Quotas in India",
+  metaTitle: "Medical Admission Quotas in India | AIQ, State, NRI & Management",
   description:
-    "A guide to medical admission quotas in India, covering All India Quota (AIQ), State Quota (SQ), Management Quota (MQ), NRI Quota, Deemed Universities, and Special Quotas.",
+    "Understand all major admission quotas in India and how they affect counselling, eligibility, and fees.",
   path: "/quota",
 });
 

@@ -73,8 +73,8 @@ export function CollegePredictorHero({ children }: { children?: ReactNode }) {
         { label: "Predictors", href: "/rank-predictor" },
         { label: "College Predictor" },
       ]}
-      title="Find colleges matched to "
-      titleEmphasis="your NEET rank."
+      title="NEET College "
+      titleEmphasis="Predictor"
       lede="Enter your official AIR to get a private chance summary. Verify once to unlock the full Likely, Possible, and Reach college lists with closing ranks and fees."
       trio={[
         { key: "Preview", value: "Counts only" },

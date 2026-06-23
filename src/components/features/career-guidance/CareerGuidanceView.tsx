@@ -28,7 +28,7 @@ export function CareerGuidanceView() {
               </div>
 
               <h1 className="rp-hero-title">
-                Career Guidance <em>After NEET UG</em>
+                Medical Career Guidance <em>After NEET</em>
               </h1>
 
               <p className="rp-hero-lede">

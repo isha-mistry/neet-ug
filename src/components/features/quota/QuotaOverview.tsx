@@ -114,7 +114,7 @@ export function QuotaOverview() {
             Medical admission guide
           </Badge>
           <h1 className="rp-hero-title max-w-3xl">
-            Understand every <em>medical seat quota</em> before you register
+            Medical Admission <em>Quotas in India</em>
           </h1>
           <p className="rp-hero-lede max-w-3xl">
             Quotas decide the counselling authority, the seat pool you can access, document proof,
