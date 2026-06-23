@@ -365,7 +365,6 @@ function CollegeInsightRow({
   compact: boolean;
 }) {
   const insights = [
-    { label: "ROI", value: formatDravioRoiScore(college.roiScore), className: "text-primary" },
     {
       label: "Safety",
       value: safetyLabel(college.safetyTag),
@@ -386,7 +385,7 @@ function CollegeInsightRow({
     <div
       className={cn(
         "grid gap-1.5",
-        compact ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-2 md:grid-cols-4"
+        compact ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2 md:grid-cols-3"
       )}
     >
       {insights.map((insight) => (
