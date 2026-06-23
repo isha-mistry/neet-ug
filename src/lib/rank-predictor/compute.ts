@@ -103,7 +103,7 @@ export async function computeUnlockedResult(
   return {
     ...teaser,
     tight,
-    stateMeritRange,
+    ...(stateMeritRange ? { stateMeritRange } : {}),
     previewColleges: preview.colleges.map((c) =>
       toCollegeSummary(c, summaryContext)
     ),
