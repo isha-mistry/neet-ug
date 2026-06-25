@@ -237,7 +237,7 @@ export function NeetAnswerKeyView() {
                   <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-wider text-on-primary/80">
-                        Rank predictor
+                        ReNEET Rank Predictor 2026
                       </p>
                       <h3 className="mt-1 font-headline-md text-lg font-bold">
                         Know your rank from your score
@@ -248,7 +248,7 @@ export function NeetAnswerKeyView() {
                       </p>
                     </div>
                     <Link
-                      href="/rank-predictor"
+                      href="/reneet-rank-predictor-2026"
                       className="inline-flex shrink-0 items-center justify-center rounded-xl bg-on-primary px-5 py-3 text-sm font-bold text-primary no-underline transition hover:bg-on-primary/90"
                     >
                       Predict your rank

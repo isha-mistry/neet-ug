@@ -26,7 +26,7 @@ export function NeetUg2026Hero() {
       id="top"
       breadcrumbs={[
         { label: "Home", href: "/" },
-        { label: "Predictors", href: "/rank-predictor" },
+        { label: "Predictors", href: "/reneet-rank-predictor-2026" },
         { label: "NEET UG 2026" },
       ]}
       title={NEET_UG_HUB_HERO.title}
@@ -99,11 +99,11 @@ export function NeetUgHubFinalCta() {
           Results turn rank into <em className="not-italic text-secondary-fixed">choices.</em>
         </h2>
         <p className="text-sm leading-relaxed text-on-primary/85 md:text-base">
-          Use the Rank Predictor for an AIR band today, then the College Predictor when your
+          Use the ReNEET Rank Predictor 2026 for an AIR band today, then the College Predictor when your
           scorecard is out.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
-          <Button as="link" href="/rank-predictor" variant="secondary" size="md">
+          <Button as="link" href="/reneet-rank-predictor-2026" variant="secondary" size="md">
             Predict my rank
           </Button>
           <Button

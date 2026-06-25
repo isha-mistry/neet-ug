@@ -711,8 +711,8 @@ export function LiveDecisionTools({ excludeIds = [], highlightId }: LiveDecision
     },
     {
       id: "rank",
-      name: "Rank Predictor",
-      href: "/rank-predictor",
+      name: "ReNEET Rank Predictor 2026",
+      href: "/reneet-rank-predictor-2026",
       icon: "batch_prediction",
       desc: "Calculate rank matching score inputs",
       badge: "Real-time Engine",

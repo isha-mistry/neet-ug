@@ -5,12 +5,14 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { getRankPredictorSession } from "@/lib/rank-predictor/session";
 import { computeUnlockedResult } from "@/lib/rank-predictor/compute";
 import type { NeetCategory } from "@/lib/rank-predictor/types";
+import { RANK_PREDICTOR_PAGE_PATH } from "@/lib/rank-predictor/constants";
+
 export const metadata: Metadata = buildMetadata({
-  title: "NEET Rank Predictor",
-  metaTitle: "NEET Rank Predictor 2026 | Estimate Your Admission Chances",
+  title: "ReNEET Rank Predictor 2026",
+  metaTitle: "ReNEET Rank Predictor 2026 | Estimate Your All-India Rank",
   description:
-    "Predict your expected NEET rank and explore likely admission opportunities based on your score.",
-  path: "/rank-predictor",
+    "Enter your ReNEET 2026 score to get an estimated All-India Rank band and explore likely admission opportunities before official results.",
+  path: RANK_PREDICTOR_PAGE_PATH,
 });
 
 const CATEGORY_OPTIONS: { value: NeetCategory; label: string }[] = [
@@ -22,7 +24,7 @@ const CATEGORY_OPTIONS: { value: NeetCategory; label: string }[] = [
   { value: "pwbd", label: "PwBD" },
 ];
 
-export default async function RankPredictorPage() {
+export default async function ReNeetRankPredictor2026Page() {
   const session = await getRankPredictorSession();
   let initialUnlocked = null;
   let initialTeaser = null;

@@ -25,9 +25,9 @@ const links = (stateName: string, stateSlug: string) =>
       label: `All colleges in ${stateName}`,
     },
     {
-      href: "/rank-predictor",
+      href: "/reneet-rank-predictor-2026",
       icon: "trending_up",
-      label: "Rank predictor",
+      label: "ReNEET Rank Predictor 2026",
     },
   ] as const;
 

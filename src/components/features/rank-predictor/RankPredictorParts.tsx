@@ -5,6 +5,7 @@ import {
   RANK_PREDICTOR_HOW_IT_WORKS,
   RANK_PREDICTOR_STRIP,
 } from "@/lib/rank-predictor/page-content";
+import { RANK_PREDICTOR_PAGE_PATH } from "@/lib/rank-predictor/constants";
 import { cn } from "@/lib/utils";
 import { formatINR, formatNumber } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
@@ -104,8 +105,8 @@ export function RankPredictorHero({ children }: RankPredictorHeroProps) {
       id="predict"
       breadcrumbs={[
         { label: "Home", href: "/" },
-        { label: "Predictors", href: "/rank-predictor" },
-        { label: "Rank Predictor" },
+        { label: "Predictors", href: RANK_PREDICTOR_PAGE_PATH },
+        { label: "ReNEET Rank Predictor 2026" },
       ]}
       title={RANK_PREDICTOR_HERO.title}
       titleEmphasis={RANK_PREDICTOR_HERO.titleEmphasis}

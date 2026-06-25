@@ -21,7 +21,7 @@ export const SITE_KEYWORDS = [
   "ACPUGMEC",
   "RUHS",
   "DMAT",
-  "NEET rank predictor",
+  "ReNEET Rank Predictor 2026",
   "MBBS college predictor",
 ];
 

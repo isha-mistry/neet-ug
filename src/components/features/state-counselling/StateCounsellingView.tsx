@@ -126,7 +126,7 @@ function DirectoryHero({
               View authority table
               <MaterialSymbol name="arrow_downward" className="text-lg" />
             </a>
-            <Link href="/rank-predictor" className="inline-flex items-center justify-center gap-2 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-5 py-3 text-sm font-bold text-on-surface-variant transition hover:border-primary hover:text-primary">
+            <Link href="/reneet-rank-predictor-2026" className="inline-flex items-center justify-center gap-2 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-5 py-3 text-sm font-bold text-on-surface-variant transition hover:border-primary hover:text-primary">
               Check rank fit
               <MaterialSymbol name="query_stats" className="text-lg" />
             </Link>
@@ -609,7 +609,7 @@ function DetailNav({ currentState }: { currentState: StateCounsellingDetail }) {
 
 function ConnectedTools({ state }: { state: StateCounsellingDetail }) {
   const tools = [
-    { icon: "query_stats", title: "Rank Predictor", body: "Estimate AIR and state fit before counselling starts.", href: "/rank-predictor" },
+    { icon: "query_stats", title: "ReNEET Rank Predictor 2026", body: "Estimate AIR and state fit before counselling starts.", href: "/reneet-rank-predictor-2026" },
     { icon: "analytics", title: "College Predictor", body: `Shortlist ${state.name} colleges by rank and quota.`, href: "/college-predictor" },
     { icon: "table", title: "All authorities", body: "Return to the national counselling authority table.", href: "/state-counselling" },
   ];

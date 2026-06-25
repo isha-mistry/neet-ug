@@ -25,7 +25,7 @@ export function RankPredictorStepper({ current, className }: RankPredictorSteppe
 
   return (
     <nav
-      aria-label="Rank predictor progress"
+      aria-label="ReNEET Rank Predictor 2026 progress"
       className={cn(
         "w-full rounded-[14px] border border-outline-variant/45 bg-surface-container-lowest/80 p-3 shadow-sm backdrop-blur",
         className

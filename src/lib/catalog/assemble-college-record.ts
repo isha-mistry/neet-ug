@@ -58,12 +58,18 @@ function lineAmount(
   seatType = "",
   category = "",
 ): { amount: number; currency: string } {
-  const row = items.find(
-    (i) =>
-      i.component === component &&
-      i.seatType === seatType &&
-      i.category === category,
-  );
+  const match = (st: string, cat: string) =>
+    items.find(
+      (i) =>
+        i.component === component &&
+        i.seatType === st &&
+        i.category === cat,
+    );
+  const row =
+    match(seatType, category) ??
+    (seatType === "GQ" && category === ""
+      ? match("", category)
+      : undefined);
   if (!row) return { amount: 0, currency: "INR" };
   return {
     amount: decimalToNumber(row.amount),
@@ -271,9 +277,14 @@ function buildMhFees(
 }
 
 function buildFees(row: CollegeCatalogRow): CollegeFees {
-  const latestSchedule = [...row.feeSchedules].sort(
-    (a, b) => b.academicYear - a.academicYear,
-  )[0];
+  const latestSchedule = [...row.feeSchedules].sort((a, b) => {
+    if (b.academicYear !== a.academicYear) {
+      return b.academicYear - a.academicYear;
+    }
+    const rank = (source: string) =>
+      source === "mcc_fee_csv" ? 2 : source === "mcc_dump" ? 1 : 0;
+    return rank(b.source) - rank(a.source);
+  })[0];
   if (!latestSchedule) {
     return {
       tuition: 0,
@@ -293,9 +304,18 @@ function buildFees(row: CollegeCatalogRow): CollegeFees {
   }
 
   const items = latestSchedule.lineItems;
-  const gq = lineAmount(items, "tuition", "GQ");
+  const gqTuition = lineAmount(items, "tuition", "GQ");
+  const gqTotal = lineAmount(items, "total", "GQ");
   const mq = lineAmount(items, "tuition", "MQ");
-  const nri = lineAmount(items, "tuition", "NRI");
+  const nriTuition = lineAmount(items, "tuition", "NRI");
+  const nriComponent =
+    items.find(
+      (i) =>
+        i.seatType === "NRI" &&
+        (i.component === "nri_tuition" ||
+          i.component === "nri_tuition_annual" ||
+          i.component === "foreign_tuition"),
+    ) ?? null;
   const hostel = lineAmount(items, "hostel");
   const mess = lineAmount(items, "mess");
   const university = lineAmount(items, "university");
@@ -305,22 +325,28 @@ function buildFees(row: CollegeCatalogRow): CollegeFees {
   const misc = mess.amount + university.amount + transport.amount + exam.amount;
   const hostelTotal = hostel.amount;
 
+  const govtHeadline = gqTuition.amount > 0 ? gqTuition.amount : gqTotal.amount;
+  const nriAmount = nriTuition.amount > 0 ? nriTuition.amount : nriComponent ? decimalToNumber(nriComponent.amount) : 0;
+  const nriCurrency = nriTuition.amount > 0 ? nriTuition.currency : nriComponent?.currency ?? "INR";
+
   let quotaBreakdown: QuotaFeeBreakdown | undefined;
-  if (gq.amount > 0 || mq.amount > 0 || nri.amount > 0) {
+  if (govtHeadline > 0 || mq.amount > 0 || nriAmount > 0) {
     quotaBreakdown = {
-      govtQuotaAnnualInr: gq.amount,
+      govtQuotaAnnualInr: govtHeadline,
       managementQuotaAnnualInr: mq.amount,
     };
-    if (nri.amount > 0) {
+    if (nriAmount > 0) {
       quotaBreakdown.nri = {
-        amount: nri.amount,
-        currency: (nri.currency === "USD" ? "USD" : "INR") as FeeCurrency,
+        amount: nriAmount,
+        currency: (nriCurrency === "USD" ? "USD" : "INR") as FeeCurrency,
       };
     }
   }
 
-  const tuition = mq.amount > 0 ? mq.amount : gq.amount > 0 ? gq.amount : 0;
-  const totalAnnual = tuition + hostelTotal + misc;
+  const tuition = mq.amount > 0 ? mq.amount : govtHeadline;
+  const sheetTotal = gqTotal.amount > 0 ? gqTotal.amount : 0;
+  const totalAnnual =
+    sheetTotal > 0 ? sheetTotal : tuition + hostelTotal + misc;
   const totalCourse = totalAnnual * 5;
 
   return {

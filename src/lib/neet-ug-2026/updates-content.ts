@@ -104,8 +104,8 @@ export const NEET_UG_UPDATES_AFTER_RESULT_LINKS = [
     desc: "Likely, Possible & Reach lists from your AIR.",
   },
   {
-    label: "Rank predictor",
-    href: "/rank-predictor",
+    label: "ReNEET Rank Predictor 2026",
+    href: "/reneet-rank-predictor-2026",
     desc: "Estimate AIR from practice scores before results.",
   },
 ] as const;

@@ -401,7 +401,7 @@ export const RELATED_PAGES = [
   { label: "MBBS in Madhya Pradesh", href: "/mbbs-in-india/madhya-pradesh" },
   { label: "MBBS in Maharashtra", href: "/mbbs-in-india/maharashtra" },
   { label: "MBBS Cutoff Analyser", href: "/cutoff-analyser" },
-  { label: "Rank Predictor", href: "/rank-predictor" },
+  { label: "ReNEET Rank Predictor 2026", href: "/reneet-rank-predictor-2026" },
   { label: "College Predictor", href: "/college-predictor" },
   { label: "MCC / AIQ Quota Guide", href: "/quota/general" },
   { label: "All MBBS Colleges", href: "/colleges" },

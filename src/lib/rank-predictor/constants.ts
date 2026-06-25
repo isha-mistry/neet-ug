@@ -1,3 +1,5 @@
+export const RANK_PREDICTOR_PAGE_PATH = "/reneet-rank-predictor-2026";
+
 /** @deprecated Demo OTP removed — use Fast2SMS via sendPhoneLoginOtpAction. */
 export const RANK_PREDICTOR_DEMO_OTP = "121212";
 

@@ -15,6 +15,16 @@ const nextConfig: NextConfig = {
         destination: "/counselling",
         permanent: true,
       },
+      {
+        source: "/rank-predictor",
+        destination: "/reneet-rank-predictor-2026",
+        permanent: true,
+      },
+      {
+        source: "/rank-predictor/:path*",
+        destination: "/reneet-rank-predictor-2026/:path*",
+        permanent: true,
+      },
     ];
   },
   images: {
