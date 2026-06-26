@@ -11,6 +11,7 @@ import { verifyPhoneLoginOtp } from "@/lib/otp/phone-otp-session";
 import { assertPhoneVerifiedSession } from "@/lib/otp/phone-verified-session";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { LEAD_FORM_TYPES } from "@/lib/leads/types";
+import { RANK_PREDICTOR_PAGE_PATH } from "@/lib/rank-predictor/constants";
 import {
   getRankPredictorPhoneVerifiedSession,
   getRankPredictorSession,
@@ -23,7 +24,7 @@ import type {
   RankPredictorTeaserResult,
   RankPredictorUnlockedResult,
 } from "@/lib/rank-predictor/types";
-import { isFullRankPredictorSession } from "@/lib/rank-predictor/types";
+const RANK_PREDICTOR_PAGE_LABEL = "ReNEET Rank Predictor 2026";
 
 export type ActionResult<T> =
   | { success: true; data: T }
@@ -48,8 +49,8 @@ export async function submitRankPredictorAction(
 
     const leadSaved = await createLead({
       formType: LEAD_FORM_TYPES.rankPredictor,
-      pagePath: "/rank-predictor",
-      pageLabel: "Rank predictor — estimate only",
+      pagePath: RANK_PREDICTOR_PAGE_PATH,
+      pageLabel: `${RANK_PREDICTOR_PAGE_LABEL} — estimate only`,
       variant: "estimate_only",
       neetScore: validated.input.score,
       neetCategory: validated.input.category,
@@ -122,8 +123,8 @@ export async function verifyRankPredictorOtpAction(payload: {
 
   const leadSaved = await createLead({
     formType: LEAD_FORM_TYPES.rankPredictor,
-    pagePath: "/rank-predictor",
-    pageLabel: "Rank predictor",
+    pagePath: RANK_PREDICTOR_PAGE_PATH,
+    pageLabel: RANK_PREDICTOR_PAGE_LABEL,
     variant: "phone_verified",
     countryCode,
     phone,
@@ -186,8 +187,8 @@ export async function completeRankPredictorProfileAction(payload: {
 
   await createLead({
     formType: LEAD_FORM_TYPES.rankPredictor,
-    pagePath: "/rank-predictor",
-    pageLabel: "Rank predictor",
+    pagePath: RANK_PREDICTOR_PAGE_PATH,
+    pageLabel: RANK_PREDICTOR_PAGE_LABEL,
     variant: "profile_complete",
     name: leadName,
     countryCode: pending.countryCode,

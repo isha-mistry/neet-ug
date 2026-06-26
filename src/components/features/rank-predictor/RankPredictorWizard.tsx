@@ -29,7 +29,7 @@ import {
   getRankPredictorSessionAction,
   submitRankPredictorAction,
   verifyRankPredictorOtpAction,
-} from "@/app/(marketing)/rank-predictor/actions";
+} from "@/app/(marketing)/reneet-rank-predictor-2026/actions";
 import {
   NEET_SCORE_MAX,
   NEET_SCORE_MIN,

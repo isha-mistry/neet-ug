@@ -27,7 +27,8 @@ export interface RankPredictorTeaserResult {
 
 export interface RankPredictorUnlockedResult extends RankPredictorTeaserResult {
   tight: RankRangeDto;
-  stateMeritRange: RankRangeDto;
+  /** Present when domicile state is supported by the prediction API (GJ, MP, RJ). */
+  stateMeritRange?: RankRangeDto;
   previewColleges: CollegeSummary[];
 }
 

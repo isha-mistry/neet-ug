@@ -288,7 +288,7 @@ export function QuotaOverview() {
           />
           <Button
             as="link"
-            href="/rank-predictor"
+            href="/reneet-rank-predictor-2026"
             variant="secondary"
             size="sm"
             trailingIcon={<span className="material-symbols-outlined text-base">query_stats</span>}

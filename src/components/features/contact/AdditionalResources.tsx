@@ -8,10 +8,10 @@ import { cn } from "@/lib/utils";
 
 const RESOURCES = [
     {
-        title: "NEET UG Rank Predictor",
+        title: "ReNEET Rank Predictor 2026",
         desc: "Calculate your expected All India Rank (AIR) and see your eligibility for state and deemed quotas.",
         icon: "query_stats",
-        href: "/rank-predictor",
+        href: "/reneet-rank-predictor-2026",
         cta: "Predict Rank Now"
     },
     {

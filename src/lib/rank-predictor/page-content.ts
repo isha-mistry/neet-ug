@@ -1,6 +1,6 @@
 export const RANK_PREDICTOR_HERO = {
-  title: "NEET ",
-  titleEmphasis: "Rank Predictor",
+  title: "ReNEET ",
+  titleEmphasis: "Rank Predictor 2026",
   lede:
     "Enter your NEET 2026 score and get an instant estimated All-India Rank band — built from the last two years of official NTA score–rank data. The real rank comes from NTA on results day. This tells you what to expect, and what to do about it.",
   fine:

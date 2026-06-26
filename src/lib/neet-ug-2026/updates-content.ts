@@ -58,7 +58,7 @@ export const NEET_UG_UPDATES_DATE_ROWS = [
   {
     event: "ReNEET UG 2026 exam day",
     date: "21 June 2026 · 2:00 PM – 5:00 PM",
-    status: "Upcoming",
+    status: "Done",
   },
   { event: "Provisional answer key", date: "First week of July 2026 (tentative)", status: "Tentative" },
   { event: "Result declaration", date: "By 15 July 2026 (tentative)", status: "Tentative" },
@@ -73,9 +73,10 @@ export const NEET_UG_UPDATES_TIMELINE: TimelineEvent[] = NEET_UG_UPDATES_DATE_RO
     status:
       row.status === "Done"
         ? "Completed"
-        : row.status === "Upcoming"
-          ? "Upcoming"
-          : "Tentative",
+        : 
+        // row.status === "Upcoming"
+        //   ? "Upcoming"
+          "Upcoming",
   })
 );
 
@@ -104,8 +105,8 @@ export const NEET_UG_UPDATES_AFTER_RESULT_LINKS = [
     desc: "Likely, Possible & Reach lists from your AIR.",
   },
   {
-    label: "Rank predictor",
-    href: "/rank-predictor",
+    label: "ReNEET Rank Predictor 2026",
+    href: "/reneet-rank-predictor-2026",
     desc: "Estimate AIR from practice scores before results.",
   },
 ] as const;

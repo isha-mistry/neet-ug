@@ -70,7 +70,7 @@ export function CollegePredictorHero({ children }: { children?: ReactNode }) {
       id="predict"
       breadcrumbs={[
         { label: "Home", href: "/" },
-        { label: "Predictors", href: "/rank-predictor" },
+        { label: "Predictors", href: "/reneet-rank-predictor-2026" },
         { label: "College Predictor" },
       ]}
       title="NEET College "
@@ -85,7 +85,7 @@ export function CollegePredictorHero({ children }: { children?: ReactNode }) {
         <>
           College names stay locked until verification. Indicative only, based on available
           closing-rank data. No official rank yet?{" "}
-          <Link href="/rank-predictor" className="font-bold text-primary hover:underline">
+          <Link href="/reneet-rank-predictor-2026" className="font-bold text-primary hover:underline">
             Estimate rank from your score
           </Link>
           .

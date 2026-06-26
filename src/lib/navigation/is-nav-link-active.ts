@@ -1,3 +1,5 @@
+import { RANK_PREDICTOR_PAGE_PATH } from "@/lib/rank-predictor/constants";
+
 /** Whether a primary nav item should show the active underline (current section). */
 export function isNavLinkActive(href: string, pathname: string): boolean {
   const path = pathname.split("?")[0] ?? pathname;
@@ -13,8 +15,13 @@ export function isNavLinkActive(href: string, pathname: string): boolean {
     return path === "/quota" || path.startsWith("/quota/");
   }
 
-  if (href === "/rank-predictor") {
-    return path === "/rank-predictor" || path.startsWith("/rank-predictor/");
+  if (href === RANK_PREDICTOR_PAGE_PATH) {
+    return (
+      path === RANK_PREDICTOR_PAGE_PATH ||
+      path.startsWith(`${RANK_PREDICTOR_PAGE_PATH}/`) ||
+      path === "/rank-predictor" ||
+      path.startsWith("/rank-predictor/")
+    );
   }
 
   if (href === "/college-predictor") {

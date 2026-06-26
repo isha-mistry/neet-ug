@@ -176,8 +176,8 @@ export function leadRedirectPageLabel(redirectTo: string): string {
   if (path.includes("college-predictor")) {
     return "college predictor page";
   }
-  if (path.includes("rank-predictor")) {
-    return "rank predictor page";
+  if (path.includes("reneet-rank-predictor-2026") || path.includes("rank-predictor")) {
+    return "ReNEET rank predictor page";
   }
   if (path.includes("contact")) {
     return "contact page";

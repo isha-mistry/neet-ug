@@ -24,13 +24,13 @@ export const NEET_UG_HUB_LEAD_MAGNET = {
 
 export const NEET_UG_HUB_SIDEBAR_TOOLS = [
   {
-    eyebrow: "Rank predictor",
+    eyebrow: "ReNEET Rank Predictor 2026",
     icon: "insights",
     title: "Know your estimated All India Rank",
     description:
       "Enter your NEET score and get an indicative AIR band in seconds — built from official 2024 and 2025 score–rank data, so you can plan before NTA declares results.",
     cta: "Get my rank estimate",
-    href: "/rank-predictor",
+    href: "/reneet-rank-predictor-2026",
   },
   {
     eyebrow: "College predictor",
@@ -76,8 +76,8 @@ export const NEET_UG_HUB_JUMP_SECTIONS: readonly GuideJumpItem[] = [
 
 export const NEET_UG_HUB_RESOURCE_LINKS = [
   {
-    label: "Rank predictor",
-    href: "/rank-predictor",
+    label: "ReNEET Rank Predictor 2026",
+    href: "/reneet-rank-predictor-2026",
     icon: "insights",
     desc: "Score → estimated AIR and state merit band.",
   },

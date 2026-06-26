@@ -397,7 +397,7 @@ export function StateQuotaView() {
         actions={[
           {
             label: "Start Predictor",
-            href: "/rank-predictor",
+            href: "/reneet-rank-predictor-2026",
             variant: "primary",
           },
           {

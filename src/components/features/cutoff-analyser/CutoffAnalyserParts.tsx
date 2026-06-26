@@ -59,7 +59,7 @@ export function CutoffAnalyserHero({ children }: { children?: ReactNode }) {
       id="analyse"
       breadcrumbs={[
         { label: "Home", href: "/" },
-        { label: "Predictors", href: "/rank-predictor" },
+        { label: "Predictors", href: "/reneet-rank-predictor-2026" },
         { label: "Cutoff Analyser" },
       ]}
       title="NEET Cutoff "
