@@ -3,10 +3,15 @@
 import { createLead } from "@/lib/leads/create-lead";
 import type { SubmitLeadInput, SubmitLeadResult } from "@/lib/leads/types";
 import { reportAppError } from "@/lib/sentry/error-reporter";
+import { verifyTurnstileToken } from "@/lib/captcha/verify";
 
 /** Single entry point for all marketing / counselling lead forms. */
 export async function submitLeadAction(input: SubmitLeadInput): Promise<SubmitLeadResult> {
   try {
+    const captchaCheck = await verifyTurnstileToken(input.captchaToken);
+    if (!captchaCheck.ok) {
+      return { success: false, error: captchaCheck.error };
+    }
     return await createLead(input);
   } catch (error) {
     reportAppError(error, {

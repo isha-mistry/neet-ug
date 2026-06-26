@@ -7,6 +7,7 @@ export interface CollegePredictorFormInput {
   category: NeetCategory;
   stateSlug: string;
   quota: ListingQuota;
+  captchaToken?: string;
 }
 
 export interface CollegePredictorBucketCounts {

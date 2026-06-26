@@ -24,6 +24,7 @@
     "college-covers:sync": "tsx scripts/colleges/sync-college-cover-cache.ts"
   },
   "dependencies": {
+    "@marsidev/react-turnstile": "^1.5.3",
     "@prisma/client": "^6.9.0",
     "@sentry/nextjs": "10",
     "@types/three": "^0.184.1",

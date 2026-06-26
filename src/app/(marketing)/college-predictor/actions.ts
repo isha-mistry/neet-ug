@@ -23,6 +23,7 @@ import type {
   CollegePredictorTeaserResult,
   CollegePredictorUnlockedResult,
 } from "@/lib/college-predictor/types";
+import { verifyTurnstileToken } from "@/lib/captcha/verify";
 
 export type ActionResult<T> =
   | { success: true; data: T }
@@ -31,6 +32,11 @@ export type ActionResult<T> =
 export async function submitCollegePredictorAction(
   raw: CollegePredictorFormInput
 ): Promise<ActionResult<CollegePredictorTeaserResult>> {
+  const captchaCheck = await verifyTurnstileToken(raw.captchaToken);
+  if (!captchaCheck.ok) {
+    return { success: false, error: captchaCheck.error };
+  }
+
   const validated = validateCollegePredictorInput(raw);
   if (!validated.ok) {
     return { success: false, error: validated.message };
@@ -69,6 +75,11 @@ export async function verifyCollegePredictorOtpAction(payload: {
   input: CollegePredictorFormInput;
   trustedSession?: boolean;
 }): Promise<ActionResult<{ phoneVerified: true }>> {
+  const captchaCheck = await verifyTurnstileToken(payload.input.captchaToken);
+  if (!captchaCheck.ok) {
+    return { success: false, error: captchaCheck.error };
+  }
+
   const validated = validateCollegePredictorInput(payload.input);
   if (!validated.ok) {
     return { success: false, error: validated.message };

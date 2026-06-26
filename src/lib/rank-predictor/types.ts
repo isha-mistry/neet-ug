@@ -9,6 +9,7 @@ export interface RankPredictorFormInput {
   stateSlug: string;
   collegeTypes?: CollegeType[];
   maxTotalCourseFee?: number;
+  captchaToken?: string;
 }
 
 export interface RankRangeDto {

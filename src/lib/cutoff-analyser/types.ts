@@ -88,6 +88,7 @@ export interface CutoffAnalyserFormInput {
   category: NeetCategory;
   domicileState: FocusStateSlug;
   quota: ListingQuota;
+  captchaToken?: string;
 }
 
 export interface CutoffAnalyserSummary {

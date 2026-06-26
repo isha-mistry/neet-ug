@@ -24,6 +24,7 @@ import type {
   RankPredictorTeaserResult,
   RankPredictorUnlockedResult,
 } from "@/lib/rank-predictor/types";
+import { verifyTurnstileToken } from "@/lib/captcha/verify";
 const RANK_PREDICTOR_PAGE_LABEL = "ReNEET Rank Predictor 2026";
 
 export type ActionResult<T> =
@@ -40,6 +41,11 @@ function predictionErrorMessage(error: unknown): string {
 export async function submitRankPredictorAction(
   raw: RankPredictorFormInput
 ): Promise<ActionResult<RankPredictorTeaserResult>> {
+  const captchaCheck = await verifyTurnstileToken(raw.captchaToken);
+  if (!captchaCheck.ok) {
+    return { success: false, error: captchaCheck.error };
+  }
+
   const validated = validateRankPredictorInput(raw);
   if (!validated.ok) {
     return { success: false, error: validated.message };
@@ -50,17 +56,13 @@ export async function submitRankPredictorAction(
     const leadSaved = await createLead({
       formType: LEAD_FORM_TYPES.rankPredictor,
       pagePath: RANK_PREDICTOR_PAGE_PATH,
-      pageLabel: `${RANK_PREDICTOR_PAGE_LABEL} — estimate only`,
+      pageLabel: `${RANK_PREDICTOR_PAGE_LABEL} — summary only`,
       variant: "estimate_only",
       neetScore: validated.input.score,
       neetCategory: validated.input.category,
       domicileState: validated.input.stateSlug,
       consent: false,
-      rawPayload: {
-        input: validated.input,
-        coarse: data.coarse,
-        referenceYear: data.referenceYear,
-      },
+      rawPayload: { input: validated.input, coarse: data.coarse },
     });
     if (!leadSaved.success) {
       console.error("[submitRankPredictorAction] estimate_only lead", leadSaved.error);
@@ -81,6 +83,11 @@ export async function verifyRankPredictorOtpAction(payload: {
   /** Skip OTP when the number is in the 30-minute verified session. */
   trustedSession?: boolean;
 }): Promise<ActionResult<{ phoneVerified: true }>> {
+  const captchaCheck = await verifyTurnstileToken(payload.input.captchaToken);
+  if (!captchaCheck.ok) {
+    return { success: false, error: captchaCheck.error };
+  }
+
   const validated = validateRankPredictorInput(payload.input);
   if (!validated.ok) {
     return { success: false, error: validated.message };

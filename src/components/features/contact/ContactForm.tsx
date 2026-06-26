@@ -12,6 +12,7 @@ import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSu
 import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { Button } from "@/components/ui/Button";
 import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
+import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
 
 const QUERY_TYPES = [
     "Counselling Guidance",
@@ -36,6 +37,7 @@ export function ContactForm() {
     const [message, setMessage] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [submitted, setSubmitted] = useState(false);
+    const [captchaToken, setCaptchaToken] = useState<string | undefined>();
     const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
     const formRef = useRef<HTMLFormElement>(null);
     const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
@@ -64,15 +66,15 @@ export function ContactForm() {
             return;
         }
         if (digits.length < 10) {
-            setError("Please enter a valid 10-digit mobile number.");
+            setError("Please enter a valid 10-digit phone number.");
+            return;
+        }
+        if (message.trim().length < 5) {
+            setError("Please enter a query message.");
             return;
         }
         if (mail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) {
             setError("Please enter a valid email address.");
-            return;
-        }
-        if (message.trim().length < 5) {
-            setError("Please write a query message (minimum 5 characters).");
             return;
         }
         if (!submitReady) {
@@ -94,6 +96,7 @@ export function ContactForm() {
                 queryType,
                 message: message.trim(),
                 consent: canSubmit,
+                captchaToken,
                 rawPayload: { source: "contact-us-detailed-inquiry" },
             });
 
@@ -282,6 +285,8 @@ export function ContactForm() {
                                     {error}
                                 </p>
                             )}
+
+                            <TurnstileCaptcha onVerify={setCaptchaToken} />
 
                             <LeadConsentField
                                 id="contact-inquiry-consent"

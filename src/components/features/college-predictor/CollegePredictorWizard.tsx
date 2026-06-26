@@ -52,6 +52,7 @@ import type { ListingQuota } from "@/types/filters";
 import type { OptionItem } from "@/types/core";
 import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
 import { applyPredictorPhoneVerification } from "@/components/features/predictors/predictor-phone-verify";
+import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
 
 type WizardStep = "form" | "teaser" | "verify" | "unlocked";
 type VerifyModalPhase = "phone" | "profile";
@@ -102,6 +103,7 @@ export function CollegePredictorWizard({
     initialSession?.leadStateSlug ?? "",
   );
   const [leadCity, setLeadCity] = useState(initialSession?.leadCity ?? "");
+  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
 
   const { selectedSlugs } = useComparisonStore();
 
@@ -113,8 +115,9 @@ export function CollegePredictorWizard({
       category,
       stateSlug,
       quota,
+      captchaToken,
     };
-  }, [air, category, stateSlug, quota]);
+  }, [air, category, stateSlug, quota, captchaToken]);
 
   const buildInput = useCallback((): CollegePredictorFormInput | null => formInput, [formInput]);
 
@@ -195,6 +198,7 @@ export function CollegePredictorWizard({
       const result = await sendPhoneLoginOtpAction({
         phone: normalizedPhone,
         countryCode,
+        captchaToken,
       });
       setOtpSending(false);
       if (!result.success) {
@@ -331,6 +335,7 @@ export function CollegePredictorWizard({
 
   return (
     <RankPredictorShell className="college-predictor-page">
+      <TurnstileCaptcha key={`${step}-${verifyPhase}-${otpSent}`} onVerify={setCaptchaToken} />
       {step === "form" ? (
         <CollegePredictorHero>
           <div className="rp-form-stack flex flex-col gap-4">

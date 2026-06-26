@@ -2,6 +2,7 @@
 
 import { sendPhoneLoginOtp } from "@/lib/otp/phone-otp-session";
 import { reportAppError } from "@/lib/sentry/error-reporter";
+import { verifyTurnstileToken } from "@/lib/captcha/verify";
 
 export type SendPhoneOtpResult =
   | { success: true; alreadyVerified: boolean }
@@ -10,8 +11,14 @@ export type SendPhoneOtpResult =
 export async function sendPhoneLoginOtpAction(payload: {
   phone: string;
   countryCode?: string;
+  captchaToken?: string;
 }): Promise<SendPhoneOtpResult> {
   try {
+    const captchaCheck = await verifyTurnstileToken(payload.captchaToken);
+    if (!captchaCheck.ok) {
+      return { success: false, error: captchaCheck.error };
+    }
+
     const result = await sendPhoneLoginOtp(payload);
     if (!result.ok) {
       return { success: false, error: result.error };

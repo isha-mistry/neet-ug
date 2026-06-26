@@ -43,6 +43,7 @@ export type SubmitLeadInput = {
   preferredSlot?: string;
   topics?: string[];
   consent?: boolean;
+  captchaToken?: string;
   rawPayload?: Record<string, unknown>;
 };
 

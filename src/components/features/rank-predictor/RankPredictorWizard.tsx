@@ -47,6 +47,7 @@ import { isPhoneVerifiedRankPredictorSession } from "@/lib/rank-predictor/types"
 import type { OptionItem } from "@/types/core";
 import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
 import { applyPredictorPhoneVerification } from "@/components/features/predictors/predictor-phone-verify";
+import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
 
 type WizardStep = "form" | "teaser" | "verify" | "unlocked";
 type VerifyModalPhase = "phone" | "profile";
@@ -103,11 +104,12 @@ export function RankPredictorWizard({
   const [verifyPhase, setVerifyPhase] = useState<VerifyModalPhase>("phone");
   const [leadName, setLeadName] = useState(initialSession?.leadName ?? "");
   const [leadCity, setLeadCity] = useState(initialSession?.leadCity ?? "");
+  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
 
   const ballparkColleges = useMemo(() => {
-    if (!unlocked?.previewColleges.length) return [];
+    if (!unlocked?.previewColleges?.length) return [];
     return unlocked.previewColleges.slice(0, RANK_PREDICTOR_MAX_PREVIEW_COLLEGES);
-  }, [unlocked?.previewColleges]);
+  }, [unlocked]);
 
   const formInput = useMemo((): RankPredictorFormInput | null => {
     const scoreNum = Math.round(Number(score));
@@ -116,8 +118,9 @@ export function RankPredictorWizard({
       score: scoreNum,
       category,
       stateSlug,
+      captchaToken,
     };
-  }, [score, category, stateSlug]);
+  }, [score, category, stateSlug, captchaToken]);
 
   const buildInput = useCallback((): RankPredictorFormInput | null => formInput, [formInput]);
 
@@ -199,6 +202,7 @@ export function RankPredictorWizard({
       const result = await sendPhoneLoginOtpAction({
         phone: normalizedPhone,
         countryCode,
+        captchaToken,
       });
       setOtpSending(false);
       if (!result.success) {
@@ -317,6 +321,7 @@ export function RankPredictorWizard({
 
   return (
     <RankPredictorShell>
+      <TurnstileCaptcha key={`${step}-${verifyPhase}-${otpSent}`} onVerify={setCaptchaToken} />
       {step === "form" ? (
         <RankPredictorHero>
           <FormPanel>

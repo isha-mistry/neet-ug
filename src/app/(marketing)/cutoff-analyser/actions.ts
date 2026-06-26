@@ -23,6 +23,7 @@ import type {
   CutoffAnalyserTeaserResult,
   CutoffAnalyserUnlockedResult,
 } from "@/lib/cutoff-analyser/types";
+import { verifyTurnstileToken } from "@/lib/captcha/verify";
 
 export type ActionResult<T> =
   | { success: true; data: T }
@@ -38,6 +39,11 @@ function predictionErrorMessage(error: unknown): string {
 export async function submitCutoffAnalyserAction(
   raw: CutoffAnalyserFormInput,
 ): Promise<ActionResult<CutoffAnalyserTeaserResult>> {
+  const captchaCheck = await verifyTurnstileToken(raw.captchaToken);
+  if (!captchaCheck.ok) {
+    return { success: false, error: captchaCheck.error };
+  }
+
   const validated = validateCutoffAnalyserInput(raw);
   if (!validated.ok) {
     return { success: false, error: validated.message };
@@ -80,6 +86,11 @@ export async function verifyCutoffAnalyserOtpAction(payload: {
   input: CutoffAnalyserFormInput;
   trustedSession?: boolean;
 }): Promise<ActionResult<{ phoneVerified: true }>> {
+  const captchaCheck = await verifyTurnstileToken(payload.input.captchaToken);
+  if (!captchaCheck.ok) {
+    return { success: false, error: captchaCheck.error };
+  }
+
   const validated = validateCutoffAnalyserInput(payload.input);
   if (!validated.ok) {
     return { success: false, error: validated.message };

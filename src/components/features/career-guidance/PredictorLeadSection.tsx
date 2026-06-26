@@ -13,6 +13,7 @@ import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
 import { FormPanel } from "@/components/features/rank-predictor/RankPredictorParts";
+import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
 
 const CATEGORY_OPTIONS = ["General", "OBC", "SC", "ST", "EWS"];
 
@@ -27,6 +28,7 @@ export function PredictorLeadSection() {
   const [category, setCategory] = useState("General");
   const [domicile, setDomicile] = useState("Maharashtra");
   const [error, setError] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
   const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
   const formRef = useRef<HTMLFormElement>(null);
   const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
@@ -80,6 +82,7 @@ export function PredictorLeadSection() {
         neetCategory: category,
         domicileState: domicile,
         consent: canSubmit,
+        captchaToken,
       });
 
       if (!saved.success) {
@@ -229,6 +232,8 @@ export function PredictorLeadSection() {
                     {error}
                   </p>
                 )}
+
+                <TurnstileCaptcha onVerify={setCaptchaToken} />
 
                 <LeadConsentField
                   id="predictor-gate-consent"

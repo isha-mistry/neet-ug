@@ -12,6 +12,7 @@ import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
 import { cn } from "@/lib/utils";
+import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
 
 interface NeetLeadFormProps {
   type: "email-guide" | "phone-whatsapp" | "whatsapp-alerts";
@@ -40,6 +41,7 @@ export function NeetLeadForm({
   const [topics, setTopics] = useState<string[]>(["all-india"]);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
   const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
   const formRef = useRef<HTMLFormElement>(null);
   const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
@@ -51,12 +53,27 @@ export function NeetLeadForm({
       }
       return phone.replace(/\D/g, "").length >= 10;
     },
-    deps: [submitted, canSubmit, name, email, phone, type, targetState, topics],
+    deps: [submitted, canSubmit, name, email, phone, type],
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    if (name.trim().length < 2) {
+      setError("Please enter your name");
+      return;
+    }
+
+    if (type === "email-guide" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    if (type !== "email-guide" && phone.replace(/\D/g, "").length < 10) {
+      setError("Please enter a valid 10-digit mobile number");
+      return;
+    }
 
     if (!submitReady) {
       setError(LEAD_CONSENT_ERROR);
@@ -77,6 +94,7 @@ export function NeetLeadForm({
         targetStates: type === "whatsapp-alerts" ? targetState.trim() || undefined : undefined,
         topics: type === "whatsapp-alerts" ? topics : undefined,
         consent: canSubmit,
+        captchaToken,
       });
 
       if (!saved.success) {
@@ -249,6 +267,8 @@ export function NeetLeadForm({
           {error}
         </p>
       ) : null}
+
+      <TurnstileCaptcha onVerify={setCaptchaToken} />
 
       <LeadConsentField
         id={`neet-lead-consent-${type}`}

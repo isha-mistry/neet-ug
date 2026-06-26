@@ -14,6 +14,7 @@ import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
+import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
 import { JourneyLeadModal } from "./JourneyLeadModal";
 import { SeatRadarLeadModal } from "./SeatRadarLeadModal";
 import { SeatRadarResultCta } from "./SeatRadarResultCta";
@@ -210,6 +211,7 @@ export function PlaybookForm() {
   const [name, setName] = useState("");
   const [countryCode, setCountryCode] = useState("+91");
   const [phone, setPhone] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
   const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
   const formRef = useRef<HTMLFormElement>(null);
   const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
@@ -250,6 +252,7 @@ export function PlaybookForm() {
         countryCode,
         phone: digits,
         consent: canSubmit,
+        captchaToken,
         rawPayload: {
           pageSection: JOURNEY_PLAYBOOK_AFTER_SUBMIT.pageSection,
           funnel: "playbook_download",
@@ -309,6 +312,7 @@ export function PlaybookForm() {
               {error}
             </p>
           ) : null}
+          <TurnstileCaptcha onVerify={setCaptchaToken} />
           <LeadConsentField
             id="playbook-consent"
             skin="dark"

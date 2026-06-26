@@ -27,6 +27,7 @@ import { ToolCallout } from "@/components/features/predictors/PredictorToolParts
 import { LeadConsentField } from "@/components/features/leads/LeadConsentField";
 import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
 import { applyPredictorPhoneVerification } from "@/components/features/predictors/predictor-phone-verify";
+import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
 import { sendPhoneLoginOtpAction } from "@/app/actions/send-phone-otp";
 import {
   completeCutoffAnalyserProfileAction,
@@ -187,6 +188,7 @@ export function CutoffAnalyserClient({
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [feeState, setFeeState] = useState<FocusStateSlug>("gujarat");
   const [preferenceList, setPreferenceList] = useState<PreferenceListItem[]>([]);
+  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
 
   const formInput = useMemo((): CutoffAnalyserFormInput | null => {
     const scoreNum = Math.round(Number(score));
@@ -198,8 +200,9 @@ export function CutoffAnalyserClient({
       category,
       domicileState,
       quota,
+      captchaToken,
     };
-  }, [score, category, domicileState, quota]);
+  }, [score, category, domicileState, quota, captchaToken]);
 
   const buildInput = useCallback(
     (): CutoffAnalyserFormInput | null => formInput,
@@ -371,6 +374,7 @@ export function CutoffAnalyserClient({
       const sendResult = await sendPhoneLoginOtpAction({
         phone: normalizedPhone,
         countryCode,
+        captchaToken,
       });
       setOtpSending(false);
       if (!sendResult.success) {
@@ -598,6 +602,7 @@ export function CutoffAnalyserClient({
 
   return (
     <RankPredictorShell className="ca-page">
+      <TurnstileCaptcha key={`${step}-${verifyPhase}-${otpSent}`} onVerify={setCaptchaToken} />
       {step === "form" ? (
         <CutoffAnalyserHero>
           <div className="rp-form-stack flex flex-col gap-4">

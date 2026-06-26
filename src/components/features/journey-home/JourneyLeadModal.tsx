@@ -23,6 +23,7 @@ import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { useLeadRedirectCountdown } from "@/components/features/leads/useLeadRedirectCountdown";
 import { openCounselWhatsApp } from "@/lib/leads/whatsapp";
+import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
 
 export type JourneyLeadModalVariant = "radar" | "essentials" | "expert" | "premium";
 
@@ -114,6 +115,7 @@ export function JourneyLeadModal({
   const [modalCountryCode, setModalCountryCode] = useState(initialCountryCode ?? "+91");
   const [modalPhone, setModalPhone] = useState(initialPhone);
   const [formError, setFormError] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
   const { consent, canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
 
   const isThanks = phase === "thanks-redirect";
@@ -219,6 +221,7 @@ export function JourneyLeadModal({
         domicileState: showDomicile ? domicile : undefined,
         targetStates: showTargetStates ? targetStates : undefined,
         consent,
+        captchaToken,
         rawPayload: {
           parentName: showParent ? parentName : undefined,
           quotaInterest: showQuotaInterest ? quotaInterest : undefined,
@@ -395,6 +398,7 @@ export function JourneyLeadModal({
                   />
                 </div>
               ) : null}
+              <TurnstileCaptcha onVerify={setCaptchaToken} />
               <LeadConsentField
                 id={fid("consent")}
                 skin="journey"

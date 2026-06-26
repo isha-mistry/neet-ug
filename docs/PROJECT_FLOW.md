@@ -15,8 +15,9 @@ Welcome to the comprehensive technical documentation for **Med-Seat (Dravio)** â
 7. [Authentication & SMS OTP Security Layer](#7-authentication--sms-otp-security-layer)
 8. [Server Actions vs. API Routes Layer](#8-server-actions-vs-api-routes-layer)
 9. [Background Jobs, Seeding & Data Pipelines](#9-background-jobs-seeding--data-pipelines)
-10. [Third-Party Integrations & CDN Infrastructure](#10-third-party-integrations--cdn-infrastructure)
-11. [Developer Onboarding & Environment Setup](#11-developer-onboarding--environment-setup)
+10. [Production Observability & Error Monitoring (Sentry)](#10-production-observability--error-monitoring-sentry)
+11. [Third-Party Integrations & CDN Infrastructure](#11-third-party-integrations--cdn-infrastructure)
+12. [Developer Onboarding & Environment Setup](#12-developer-onboarding--environment-setup)
 
 ---
 
@@ -59,6 +60,8 @@ graph TD
         Fast2SMS[Fast2SMS SMS Gateway]
         WA[WhatsApp wa.me API]
         CDN[Cloudinary CDN]
+        Sentry[Sentry Error Telemetry]
+        Turnstile[Cloudflare Turnstile CAPTCHA]
     end
 
     Browser <--> Pages
@@ -66,11 +69,16 @@ graph TD
     Actions --> Prisma --> PG
     Actions --> Fast2SMS
     Actions --> WA
+    Actions --> Sentry
+    Actions --> Turnstile
     Pages --> CDN
+    Pages --> Sentry
+    Pages --> Turnstile
 ```
 
 ### Core Technology Stack:
 * **Core Framework**: Next.js 16.2.6 powered by React 19.2.4 and TypeScript.
+* **Security & Bot Protection**: `@marsidev/react-turnstile` integrating Cloudflare Turnstile invisible CAPTCHA across all form components and server actions.
 * **Styling & Design System**: Tailwind CSS v4 coupled with CSS modules (`globals.css`, `journey-home.css`, `lead-form-controls.css`). Standardized semantic visual tokens (`--color-primary`, `--color-tertiary` for safe chances, `--color-secondary` for borderline, `--color-error` for high risk).
 * **State Management**: Zustand v5 (`src/store/`), supplemented by persistent browser session utilities (`src/lib/rank-predictor/session.ts`, `cutoff-analyser/session.ts`).
 * **Database & ORM**: PostgreSQL managed via Prisma ORM v6.9.0 (`@prisma/client` targeting custom schema `app`).
@@ -183,13 +191,19 @@ sequenceDiagram
     autonumber
     actor Student
     participant UI as React Lead Form UI
+    participant Captcha as Cloudflare Turnstile
     participant Action as submitLeadAction()
+    participant Verify as verifyTurnstileToken()
     participant Create as createLead()
     participant DB as PostgreSQL (app.leads)
     participant WA as WhatsApp Engagement
 
     Student->>UI: Enters Name, Mobile (+91), NEET Score, Domicile State
-    UI->>Action: Invokes Server Action (SubmitLeadInput)
+    UI->>Captcha: Invisible challenge execution
+    Captcha-->>UI: Returns captchaToken
+    UI->>Action: Invokes Server Action (SubmitLeadInput + captchaToken)
+    Action->>Verify: verifyTurnstileToken(captchaToken)
+    Verify-->>Action: { ok: true }
     Action->>Create: Delegates execution
     Create->>Create: validateSubmitLeadInput(raw)
     Create->>Create: Verify DPDP Act Consent Flag
@@ -203,11 +217,13 @@ sequenceDiagram
 
 ### Technical Workflow Steps:
 1. **Form Invocation**: Triggered via modal overlays (`BookCounsellingTrigger.tsx`) or inline banners (`RankPredictorFinalCta.tsx`).
-2. **Server Action Dispatch**: The client component delegates form state to `persistLeadThenWhatsApp()` (`src/lib/leads/client.ts`), invoking server action `submitLeadAction(input)` (`src/app/actions/submit-lead.ts`).
-3. **Payload Validation**: `createLead()` (`src/lib/leads/create-lead.ts`) enforces strict validation (`src/lib/leads/validation.ts`), ensuring valid mobile digits and required fields.
-4. **Consent Logging**: Evaluates Digital Personal Data Protection (DPDP) Act compliance via `isLeadConsentGranted()`. If granted, stamps `consentAt: new Date()`.
-5. **Database Insertion**: Persists record inside `app.leads` via Prisma RPC. PII fields (phone, email) are indexed for quick administrative lookup.
-6. **Handover to WhatsApp**: Upon success confirmation, client-side execution triggers instant WhatsApp redirection.
+2. **Invisible CAPTCHA Challenge**: `<TurnstileCaptcha />` completes background challenge and attaches `captchaToken` to the submission payload.
+3. **Server Action Dispatch**: The client component invokes server action `submitLeadAction(input)` (`src/app/actions/submit-lead.ts`).
+4. **Bot Verification**: The server action immediately verifies the token via `verifyTurnstileToken()` (`src/lib/captcha/verify.ts`) against Cloudflare's API before proceeding.
+5. **Payload Validation**: `createLead()` (`src/lib/leads/create-lead.ts`) enforces strict validation (`src/lib/leads/validation.ts`), ensuring valid mobile digits and required fields.
+6. **Consent Logging**: Evaluates Digital Personal Data Protection (DPDP) Act compliance via `isLeadConsentGranted()`. If granted, stamps `consentAt: new Date()`.
+7. **Database Insertion**: Persists record inside `app.leads` via Prisma RPC. PII fields (phone, email) are indexed for quick administrative lookup.
+8. **Handover to WhatsApp**: Upon success confirmation, client-side execution triggers instant WhatsApp redirection.
 
 ---
 
@@ -238,12 +254,18 @@ Student login and mobile number verification utilize a robust OTP pipeline power
 ```mermaid
 sequenceDiagram
     actor User
+    participant Captcha as Cloudflare Turnstile
     participant Action as sendPhoneLoginOtpAction()
+    participant Verify as verifyTurnstileToken()
     participant Session as phone-otp-session.ts
     participant SMS as Fast2SMS Gateway
     participant Cookie as HttpOnly Cookie
 
-    User->>Action: Requests OTP (+91 9876543210)
+    User->>Captcha: Background challenge execution
+    Captcha-->>User: Returns captchaToken
+    User->>Action: Requests OTP (+91 9876543210 + captchaToken)
+    Action->>Verify: verifyTurnstileToken(captchaToken)
+    Verify-->>Action: { ok: true }
     Action->>Session: sendPhoneLoginOtp({ phone })
     Session->>Session: normalizeIndianMobile()
     Session->>Cookie: Check existing rate-limit cooldown
@@ -254,9 +276,10 @@ sequenceDiagram
     Session->>Cookie: Set PHONE_OTP_COOKIE (hash, exp, lastSentAt)
 ```
 
-### Security Mechanisms (`src/lib/otp/phone-otp-session.ts`):
-1. **Normalization**: Enforces strict 10-digit Indian mobile number validation (`normalizeIndianMobile`).
-2. **Rate Limiting**: Enforces a strict cooldown window (`PHONE_OTP_RESEND_COOLDOWN_SEC`) between consecutive generation requests to prevent SMS pumping attacks.
+### Security Mechanisms (`src/lib/otp/phone-otp-session.ts` & `src/lib/captcha/verify.ts`):
+1. **Bot & Spam Prevention**: Enforces mandatory Cloudflare Turnstile invisible CAPTCHA verification before dispatching any SMS request to mitigate automated toll fraud.
+2. **Normalization**: Enforces strict 10-digit Indian mobile number validation (`normalizeIndianMobile`).
+3. **Rate Limiting**: Enforces a strict cooldown window (`PHONE_OTP_RESEND_COOLDOWN_SEC`) between consecutive generation requests to prevent SMS pumping attacks.
 3. **Cryptographic Storage**:
    * OTP codes are generated using Node's cryptographically secure `randomInt(100_000, 1_000_000)`.
    * Raw OTPs are **never** stored in the database or cookies. They are hashed using `crypto.createHash("sha256")` keyed with a server-side pepper (`PHONE_OTP_SECRET`).
@@ -297,16 +320,51 @@ To ensure lightning-fast page loads without hammering Cloudinary transformation 
 
 ---
 
-## 10. Third-Party Integrations & CDN Infrastructure
+## 10. Production Observability & Error Monitoring (Sentry)
+
+Med-Seat integrates comprehensive full-stack application observability and real-time exception tracking via **Sentry (@sentry/nextjs)**.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User
+    participant Action as Server Action / Route
+    participant Reporter as reportAppError()
+    participant Scrub as Sanitizer (sanitizer.ts)
+    participant Sentry as Sentry Ingestion
+    participant React as Global Error Boundary
+
+    User->>Action: Executes action (e.g. submitLeadAction)
+    Action--xAction: Throws unexpected Database / Network Error
+    Action->>Reporter: catch (err) -> reportAppError(err, tags)
+    Reporter->>Scrub: sanitizePii(tags, metadata)
+    Scrub-->>Reporter: Returns scrubbed safe telemetry
+    Reporter->>Sentry: Sentry.captureException(err, { extra, tags })
+    Action-->>User: Graceful fallback error message
+    Note over React: If unhandled React rendering crash occurs
+    React->>Reporter: global-error.tsx traps crash & logs to Sentry
+```
+
+### Architectural Highlights (`src/lib/sentry/`):
+1. **Multi-Runtime Initialization**: Standardized SDK bootstrap across Node.js/Edge server runtimes (`src/instrumentation.ts`, `sentry.server.config.ts`, `sentry.edge.config.ts`) and client browser runtimes (`src/instrumentation-client.ts`).
+2. **Automated Telemetry Enrichment**: All server action boundaries wrap failures in `reportAppError()`, automatically tagging issues with business dimensions (`module: lead | auth`, `feature`, `server_action`).
+3. **Strict Data Privacy & PII Scrubbing**: `sanitizer.ts` automatically strips sensitive candidate data (phone numbers, full addresses) before dispatching payloads over the wire to maintain DPDP Act compliance.
+4. **Resilient DSN Fallbacks**: Built-in fallback constants ensure telemetry remains functional in isolated container builds or environments lacking build-time `.env` injections.
+
+---
+
+## 11. Third-Party Integrations & CDN Infrastructure
 
 * **Cloudinary CDN**: Handles dynamic image resizing, format negotiation (AVIF/WebP), and optimization for college cover thumbnails and campus photography.
+* **Cloudflare Turnstile**: Enterprise invisible CAPTCHA service verifying human interaction across all lead submission forms and OTP authentication endpoints.
 * **Fast2SMS Gateway**: Enterprise DLT SMS provider handling transactional authentication OTPs.
 * **WhatsApp wa.me**: Meta's direct click-to-chat API interface driving student-counselor conversion.
+* **Sentry Ingestion**: Real-time error trapping and Next.js Session Replay telemetry.
 * **React Simple Maps / TopoJSON**: GIS rendering pipeline utilizing lightweight TopoJSON models (`src/data/maps/`) to visualize state counseling competition density without external tile servers.
 
 ---
 
-## 11. Developer Onboarding & Environment Setup
+## 12. Developer Onboarding & Environment Setup
 
 ### Prerequisites:
 * **Node.js**: v20.x or higher.
@@ -335,6 +393,10 @@ To ensure lightning-fast page loads without hammering Cloudinary transformation 
    # Fast2SMS OTP Gateway
    FAST2SMS_API_KEY="your_fast2sms_api_key"
    PHONE_OTP_SECRET="local_development_secret_pepper"
+
+   # Cloudflare Turnstile CAPTCHA (Development Test Keys)
+   NEXT_PUBLIC_TURNSTILE_SITE_KEY="1x00000000000000000000AA"
+   TURNSTILE_SECRET_KEY="1x0000000000000000000000000000000AA"
    ```
 
 3. **Database Prisma Initialization**:

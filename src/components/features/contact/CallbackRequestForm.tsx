@@ -13,6 +13,7 @@ import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { Button } from "@/components/ui/Button";
 import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
+import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
 
 const TIME_SLOTS = [
     "Morning (10:00 AM - 12:00 PM)",
@@ -29,6 +30,7 @@ export function CallbackRequestForm() {
     const [preferredSlot, setPreferredSlot] = useState(TIME_SLOTS[0]);
     const [error, setError] = useState<string | null>(null);
     const [submitted, setSubmitted] = useState(false);
+    const [captchaToken, setCaptchaToken] = useState<string | undefined>();
     const { canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
     const formRef = useRef<HTMLFormElement>(null);
     const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
@@ -68,6 +70,7 @@ export function CallbackRequestForm() {
                 phone: digits,
                 preferredSlot,
                 consent: canSubmit,
+                captchaToken,
             });
 
             if (!saved.success) {
@@ -178,6 +181,8 @@ export function CallbackRequestForm() {
                                                 {error}
                                             </p>
                                         )}
+
+                                        <TurnstileCaptcha onVerify={setCaptchaToken} />
 
                                         <LeadConsentField
                                             id="callback-consent"

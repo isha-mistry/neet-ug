@@ -16,6 +16,7 @@ import { LeadConsentField, useLeadConsent } from "@/components/features/leads/Le
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { cn } from "@/lib/utils";
+import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
 
 interface FreeCounsellingLeadFormProps {
   /** Shown in the WhatsApp message for attribution (e.g. "MBBS in Gujarat"). */
@@ -71,6 +72,7 @@ export function FreeCounsellingLeadForm({
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
   const { consent, canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
   const showEmail = fields === "default";
   const stackedPhone = fields === "name-phone-only";
@@ -124,6 +126,7 @@ export function FreeCounsellingLeadForm({
           phone: digits,
           email: mail || undefined,
           consent: canSubmit,
+          captchaToken,
           rawPayload: { whatsappIntro },
         });
 
@@ -326,6 +329,8 @@ export function FreeCounsellingLeadForm({
           {error}
         </p>
       ) : null}
+
+      <TurnstileCaptcha onVerify={setCaptchaToken} />
 
       <LeadConsentField
         id={consentFieldId}

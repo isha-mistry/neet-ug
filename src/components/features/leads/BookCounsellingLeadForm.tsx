@@ -26,6 +26,7 @@ import {
 } from "@/lib/leads/whatsapp";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
 
 export const BOOK_COUNSELLING_FORM_INPUT_CLASS =
   "w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 py-2.5 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20";
@@ -88,6 +89,7 @@ export function BookCounsellingLeadForm({
   const [pending, startTransition] = useTransition();
   const [phase, setPhase] = useState<"form" | "thanks" | "thanks-whatsapp">("form");
   const [error, setError] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
   const whatsAppLinesRef = useRef<string[] | null>(null);
   const generatedTitleId = useId();
   const titleId = titleIdProp ?? generatedTitleId;
@@ -160,6 +162,7 @@ export function BookCounsellingLeadForm({
           phone,
           domicileState: domicile,
           consent: canSubmit,
+          captchaToken,
           rawPayload: {
             trigger: source,
             redirectToWhatsApp: redirectToWhatsApp === true,
@@ -285,6 +288,7 @@ export function BookCounsellingLeadForm({
             {error}
           </p>
         ) : null}
+        <TurnstileCaptcha onVerify={setCaptchaToken} />
         <LeadConsentField id={fid("consent")} disabled={pending} {...consentFieldProps} />
         <Button
           type="submit"
