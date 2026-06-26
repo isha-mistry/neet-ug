@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db/prisma";
 import { isLeadConsentGranted } from "@/lib/leads/consent";
 import { validateSubmitLeadInput } from "./validation";
 import type { SubmitLeadInput, SubmitLeadResult } from "./types";
+import { reportAppError } from "@/lib/sentry/error-reporter";
 
 export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult> {
   const validated = validateSubmitLeadInput(raw);
@@ -47,6 +48,13 @@ export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult
 
     return { success: true, leadId: lead.id };
   } catch (error) {
+    reportAppError(error, {
+      module: "lead",
+      feature: "lead_persistence",
+      action: "create_lead",
+      route: input.pagePath?.trim() || "/api/leads/create",
+      metadata: { formType: input.formType, variant: input.variant },
+    });
     console.error("[createLead]", error);
     return { success: false, error: "Could not save your request. Please try again." };
   }

@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useId, useRef, useState, useTransition, type FormEvent } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { submitLeadAction } from "@/app/actions/submit-lead";
+import { reportAppError } from "@/lib/sentry/error-reporter";
 import { Button } from "@/components/ui/Button";
 import { LEAD_FORM_TYPES, type LeadFormType } from "@/lib/leads/types";
 import {
@@ -113,27 +114,38 @@ export function FreeCounsellingLeadForm({
     }
 
     startTransition(async () => {
-      const saved = await submitLeadAction({
-        formType,
-        pagePath: pathname,
-        pageLabel,
-        name,
-        countryCode,
-        phone: digits,
-        email: mail || undefined,
-        consent: canSubmit,
-        rawPayload: { whatsappIntro },
-      });
+      try {
+        const saved = await submitLeadAction({
+          formType,
+          pagePath: pathname,
+          pageLabel,
+          name,
+          countryCode,
+          phone: digits,
+          email: mail || undefined,
+          consent: canSubmit,
+          rawPayload: { whatsappIntro },
+        });
 
-      if (!saved.success) {
-        setError(saved.error);
-        return;
-      }
+        if (!saved.success) {
+          setError(saved.error);
+          return;
+        }
 
-      if (redirectToWhatsApp) {
-        openCounselWhatsApp([whatsappIntro]);
+        if (redirectToWhatsApp) {
+          openCounselWhatsApp([whatsappIntro]);
+        }
+        setSubmitted(true);
+      } catch (transitionError) {
+        reportAppError(transitionError, {
+          module: "lead",
+          feature: "free_counselling_form",
+          action: "handleSubmit",
+          route: pathname,
+          metadata: { formType },
+        });
+        setError("Could not submit your request. Please try again.");
       }
-      setSubmitted(true);
     });
   }
 

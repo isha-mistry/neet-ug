@@ -459,7 +459,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                   </svg>
                 </div>
                 <h3>Rank Predictor</h3>
-                <p className="pb-5">Marks → estimated AIR plus state rank trends from 2022–2025 NTA data.</p>
+                <p className="pb-5">Marks → estimated AIR plus state rank trends from 2025 NTA data.</p>
                 <Link className="btn btn-blue" href="/rank-predictor">
                   Predict my rank
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

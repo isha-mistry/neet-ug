@@ -18,8 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const colleges = await getAllColleges();
   const catalog = aggregateCatalogSeatBreakdown(colleges);
   return buildMetadata({
-    title: `MBBS Admission in India`,
-    metaTitle: `MBBS Admission 2026 in India | Medical Colleges, Fees & Counselling`,
+    title: `MBBS in India 2026: Colleges, Seats & Admission`,
+    metaTitle: `MBBS in India 2026: Colleges, Seats & Admission`,
     description: `Explore medical colleges, counselling process, quotas, fees, seat matrix, and cutoff trends for MBBS admissions in India`,
     path: MBBS_INDIA_PAGE_PATH,
   });

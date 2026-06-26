@@ -319,7 +319,7 @@ function buildFees(row: CollegeCatalogRow): CollegeFees {
     }
   }
 
-  const tuition = mq.amount > 0 ? mq.amount : gq.amount > 0 ? gq.amount : 0;
+  const tuition = gq.amount > 0 ? gq.amount : mq.amount > 0 ? mq.amount : 0;
   const totalAnnual = tuition + hostelTotal + misc;
   const totalCourse = totalAnnual * 5;
 

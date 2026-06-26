@@ -178,7 +178,7 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
       const nriAmount = nriTuitionItem ? Number(nriTuitionItem.amount) : undefined;
       const nriCurrency = nriTuitionItem?.currency ?? "INR";
 
-      const tuition = gqTuition;
+      const tuition = gqTuition > 0 ? gqTuition : mqTuition > 0 ? mqTuition : 0;
 
       const hostelItem = latestSchedule.fee_line_items.find((item: any) => item.component === "hostel");
       const hostel = hostelItem ? Number(hostelItem.amount) : 0;

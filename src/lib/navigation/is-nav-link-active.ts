@@ -18,10 +18,12 @@ export function isNavLinkActive(href: string, pathname: string): boolean {
   }
 
   if (href === "/college-predictor") {
-    return path === "/college-predictor" || path.startsWith("/college-predictor/");
+    return (
+      path === "/college-predictor" || path.startsWith("/college-predictor/")
+    );
   }
 
-  const exactMatchOnlyRoutes = ["/neet-ug-2026"];
+  const exactMatchOnlyRoutes = ["/neet-ug-2026", "/mbbs-in-india"];
   if (exactMatchOnlyRoutes.includes(href)) {
     return path === href;
   }

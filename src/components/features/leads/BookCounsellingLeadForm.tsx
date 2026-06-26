@@ -11,6 +11,7 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { submitLeadAction } from "@/app/actions/submit-lead";
+import { reportAppError } from "@/lib/sentry/error-reporter";
 import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { LeadFormThankYouPanel } from "@/components/features/leads/LeadFormThankYouPanel";
 import { useLeadRedirectCountdown } from "@/components/features/leads/useLeadRedirectCountdown";
@@ -149,38 +150,49 @@ export function BookCounsellingLeadForm({
     }
 
     startTransition(async () => {
-      const saved = await submitLeadAction({
-        formType,
-        pagePath: pathname,
-        pageLabel: `Book counselling — ${source}`,
-        name,
-        countryCode,
-        phone,
-        domicileState: domicile,
-        consent: canSubmit,
-        rawPayload: {
-          trigger: source,
-          redirectToWhatsApp: redirectToWhatsApp === true,
-        },
-      });
-
-      if (!saved.success) {
-        setError(saved.error);
-        return;
-      }
-
-      if (redirectToWhatsApp) {
-        whatsAppLinesRef.current = buildFreeCounsellingWhatsAppMessage({
+      try {
+        const saved = await submitLeadAction({
+          formType,
+          pagePath: pathname,
+          pageLabel: `Book counselling — ${source}`,
           name,
           countryCode,
           phone,
           domicileState: domicile,
+          consent: canSubmit,
+          rawPayload: {
+            trigger: source,
+            redirectToWhatsApp: redirectToWhatsApp === true,
+          },
         });
-        setPhase("thanks-whatsapp");
-        return;
-      }
 
-      setPhase("thanks");
+        if (!saved.success) {
+          setError(saved.error);
+          return;
+        }
+
+        if (redirectToWhatsApp) {
+          whatsAppLinesRef.current = buildFreeCounsellingWhatsAppMessage({
+            name,
+            countryCode,
+            phone,
+            domicileState: domicile,
+          });
+          setPhase("thanks-whatsapp");
+          return;
+        }
+
+        setPhase("thanks");
+      } catch (transitionError) {
+        reportAppError(transitionError, {
+          module: "lead",
+          feature: "book_counselling_form",
+          action: "handleSubmit",
+          route: pathname,
+          metadata: { formType, source },
+        });
+        setError("Could not submit your request. Please try again.");
+      }
     });
   }
 

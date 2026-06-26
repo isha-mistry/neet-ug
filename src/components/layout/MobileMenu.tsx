@@ -8,6 +8,7 @@ import type { LinkItem } from "@/types/core";
 import { isNavLinkActive } from "@/lib/navigation/is-nav-link-active";
 import { BookCounsellingTrigger } from "@/components/features/leads/BookCounsellingTrigger";
 import { NEET_UG_2026_NAV_LINKS } from "@/lib/navigation/neet-ug-2026-nav";
+import { MBBS_IN_INDIA_NAV_LINKS } from "@/lib/navigation/mbbs-in-india-nav";
 import {
   navDropdownLinkClassName,
   navItemMobileRowClassName,
@@ -31,6 +32,7 @@ function getDropdownLinks(
   if (label === "Quota") return quotaLinks;
   if (label === "Predictors" || label === "Predictor") return predictorLinks;
   if (label === "NEET UG 2026") return NEET_UG_2026_NAV_LINKS;
+  if (label === "MBBS in India") return MBBS_IN_INDIA_NAV_LINKS;
   return null;
 }
 

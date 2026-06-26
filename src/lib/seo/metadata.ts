@@ -23,6 +23,11 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
 
   return {
     metadataBase: new URL(SITE_URL),
+    alternates: input.path
+      ? {
+          canonical: input.path === "/" ? "/" : input.path,
+        }
+      : undefined,
     title,
     description,
     openGraph: {
@@ -46,5 +51,3 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
     },
   };
 }
-
-

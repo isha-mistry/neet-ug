@@ -39,9 +39,18 @@ export function aggregateCatalogSeatBreakdown(
   }
 
   const totalColleges = rows.length;
-  const totalSeats = govtSeats + pvtSeats;
-  const aiqSeats = Math.round(totalSeats * 0.15);
-  const stateQuotaSeats = totalSeats - aiqSeats;
+  let totalSeats = govtSeats + pvtSeats;
+  let aiqSeats = Math.round(totalSeats * 0.15);
+  let stateQuotaSeats = totalSeats - aiqSeats;
+
+  // Override for all-India using actual NMC data if no specific state
+  if (!stateSlug) {
+    totalSeats = 129753;
+    govtSeats = 63860;
+    pvtSeats = 65093;
+    aiqSeats = Math.round(totalSeats * 0.15);
+    stateQuotaSeats = totalSeats - aiqSeats;
+  }
 
   return {
     totalColleges,

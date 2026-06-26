@@ -4,7 +4,7 @@ export const RANK_PREDICTOR_HERO = {
   lede:
     "Enter your NEET 2026 score and get an instant estimated All-India Rank band — built from the last two years of official NTA score–rank data. The real rank comes from NTA on results day. This tells you what to expect, and what to do about it.",
   fine:
-    "Indicative only — not affiliated with NTA or MCC. Estimates use NEET 2024 & 2025 score–rank trends. College previews use historical closing ranks where available.",
+    "Indicative only — not affiliated with NTA or MCC. Estimates use NEET 2025 score–rank trends. College previews use historical closing ranks where available.",
   trio: [
     { key: "Instant", value: "AIR band in 2 sec" },
     { key: "On verify", value: "State rank + 15 colleges" },
@@ -24,7 +24,7 @@ export const RANK_PREDICTOR_STRIP = {
 export const RANK_PREDICTOR_FAQ: { q: string; a: string }[] = [
   {
     q: "Is this my official NEET rank?",
-    a: "No — only NTA issues your official rank, on your scorecard. This is a statistical estimate built from how scores mapped to ranks in NEET 2024 and 2025. Treat it as a planning tool: it tells you which colleges to start researching weeks before results day.",
+    a: "No — only NTA issues your official rank, on your scorecard. This is a statistical estimate built from how scores mapped to ranks in NEET 2025. Treat it as a planning tool: it tells you which colleges to start researching weeks before results day.",
   },
   {
     q: "How accurate is the estimate?",
