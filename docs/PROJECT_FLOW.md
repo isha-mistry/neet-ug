@@ -155,7 +155,8 @@ erDiagram
 4. **`FeeSchedule` & `FeeLineItem` (`app.fee_schedules`, `app.fee_line_items`)**: Multi-dimensional fee tables keyed by academic year, fee component (`tuition`, `hostel`, `mess`, `university`, `exam`), counseling quota seat type (`GQ`, `MQ`, `NRI`), and student category.
 5. **`SeatSnapshot` & `SeatBucket` (`app.seat_snapshots`, `app.seat_buckets`)**: Matrix capturing seat matrix distribution across quota buckets (`aiq`, `state_quota`, `open`, `sc`, `st`, `obc`, `ews`, etc.).
 6. **`Cutoff` (`app.cutoffs`)**: Granular historical admission thresholds. Contains opening and closing All India Ranks (AIR), State Merit Ranks, NEET raw scores, and percentiles across specific admission rounds (Round 1, Round 2, Mop-up, Stray).
-7. **`Lead` (`app.leads`)**: Centralized table capturing student counseling requests, predictor tool submissions, and consent timestamps.
+8. **`Lead` (`app.leads`)**: Centralized table capturing student counseling requests, predictor tool submissions, and consent timestamps.
+9. **`NeetAnswerKey` (`app.neet_answer_keys`)**: Stores official NTA answer keys across Paper Sets (50, 60, 70, 80) categorized by subject blocks (Physics, Chemistry, Botany, Zoology) to power interactive score estimation and challenge verification.
 
 ---
 
@@ -308,6 +309,7 @@ Executed via `tsx` or shell automation during CI/CD or local development:
 * **Catalog Seeding**: `seed-catalog.ts`, `seed-mp.ts`, `seed-mh.ts`, `seed-mcc.ts`, `seed-rajasthan.ts`. Parses official authority PDFs/CSVs and populates `app.colleges` and `app.cutoffs`.
 * **Manual AIQ Cutoffs**: `seed-aiq-manual-cutoffs.ts --apply`. Ingests manual editorial corrections for ambiguous All India Quota rounds.
 * **NIRF Integration**: `seed-nirf-ranks.ts`. Updates institutional research metrics and scores.
+* **NEET UG Answer Keys**: `seed-neet-answer-key.ts`. Ingests provisional answer keys across Paper Sets 50, 60, 70, and 80 into `app.neet_answer_keys`.
 * **Registry Reconciliation**: `reconcile-catalog-to-medical-list.ts`. Audits local database records against National Medical Commission (NMC) master college directories to flag unmapped institutions or seat count discrepancies.
 * **Dump & Restore Utilities**: `dump-local-catalog.sh` & `restore-catalog-dump.sh`. Facilitates rapid database mirroring between staging and local environments.
 

@@ -190,3 +190,29 @@ model Lead {
   @@map("leads")
   @@schema("app")
 }
+
+model NeetAnswerKey {
+  id         Int     @id @default(autoincrement())
+  year       Int     @default(2026)
+  paperCode  String  @map("paper_code")
+  questionNo Int     @map("question_no")
+  answer     String
+  subject    String
+
+  @@unique([year, paperCode, questionNo])
+  @@index([paperCode])
+  @@map("neet_answer_keys")
+  @@schema("app")
+}
+
+model NeetAnswerKeyPaper {
+  id        Int     @id @default(autoincrement())
+  year      Int     @default(2026)
+  paperCode String  @map("paper_code")
+  pdfUrl    String? @map("pdf_url")
+
+  @@unique([year, paperCode])
+  @@map("neet_answer_key_papers")
+  @@schema("app")
+}
+

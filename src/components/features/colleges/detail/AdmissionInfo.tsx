@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { createPortal } from "react-dom";
+import Link from "next/link";
 import type { CollegeCutoff } from "@/types/college";
 import { formatNumber } from "@/lib/utils";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
@@ -16,6 +18,81 @@ import { cn } from "@/lib/utils";
 interface AdmissionInfoProps {
   seatCount: number;
   cutoffs: CollegeCutoff[];
+}
+
+interface ColumnTooltipProps {
+  title: string;
+  description: string;
+  linkHref?: string;
+  linkText?: string;
+}
+
+function ColumnInfoTooltip({ title, description, linkHref, linkText }: ColumnTooltipProps) {
+  const [open, setOpen] = useState(false);
+  const [coords, setCoords] = useState<{ x: number; y: number } | null>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const calculatePosition = () => {
+    if (!buttonRef.current) return;
+    const rect = buttonRef.current.getBoundingClientRect();
+    const x = Math.min(Math.max(10, rect.left - 20), typeof window !== "undefined" ? window.innerWidth - 270 : 200);
+    const y = rect.bottom + 6;
+    setCoords({ x, y });
+  };
+
+  const handlePointerEnter = () => {
+    calculatePosition();
+    setOpen(true);
+  };
+
+  return (
+    <div className="relative inline-flex items-center ml-1.5 align-middle">
+      <button
+        ref={buttonRef}
+        type="button"
+        onMouseEnter={handlePointerEnter}
+        onMouseLeave={() => setOpen(false)}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (!open) handlePointerEnter();
+          else setOpen(false);
+        }}
+        className="inline-flex items-center justify-center rounded-full text-on-surface-variant/80 hover:text-primary hover:bg-primary/10 p-0.5 transition-colors cursor-help"
+        aria-label={`Info about ${title}`}
+      >
+        <MaterialSymbol name="info" className="text-[15px]" />
+      </button>
+
+      {open && coords && typeof document !== "undefined" &&
+        createPortal(
+          <div
+            style={{ position: "fixed", left: coords.x, top: coords.y, zIndex: 99999 }}
+            className="w-64 rounded-xl border border-outline-variant bg-surface-container-highest p-3.5 shadow-xl text-left font-normal animate-in fade-in-0 zoom-in-95 duration-150"
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
+          >
+            <div className="flex items-center gap-1.5 text-xs font-bold text-on-surface">
+              <MaterialSymbol name="help" className="text-[16px] text-primary" />
+              <span>{title}</span>
+            </div>
+            <p className="mt-1.5 text-[11px] leading-relaxed text-on-surface-variant normal-case tracking-normal">
+              {description}
+            </p>
+            {linkHref && (
+              <Link
+                href={linkHref}
+                onClick={() => setOpen(false)}
+                className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:underline normal-case tracking-normal"
+              >
+                <span>{linkText || "Learn more in Terms Explained →"}</span>
+                <MaterialSymbol name="arrow_forward" className="text-[13px]" />
+              </Link>
+            )}
+          </div>,
+          document.body
+        )}
+    </div>
+  );
 }
 
 export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
@@ -98,35 +175,87 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
             </div>
           </div>
 
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-primary/20 bg-primary/5 p-3.5 text-xs text-on-surface">
+            <div className="flex items-center gap-2">
+              <MaterialSymbol name="lightbulb" className="text-primary text-[18px] shrink-0" />
+              <span>Unsure about a reservation category code or seat quota? Hover over column info icons or open our complete glossary.</span>
+            </div>
+            <Link
+              href="/neet-ug-2026/terms-explained#abbreviations"
+              className="inline-flex items-center gap-1 shrink-0 font-bold text-primary hover:underline"
+            >
+              <span>View Terms Explained</span>
+              <MaterialSymbol name="arrow_forward" className="text-[14px] hover:no-underline!" />
+            </Link>
+          </div>
+
           {filteredCutoffs.length > 0 ? (
             <div className="overflow-x-auto rounded-[14px] border border-outline-variant bg-surface-container-lowest">
               <table className="w-full min-w-[700px] border-collapse text-left text-sm">
                 <thead>
                   <tr className="border-b border-outline-variant bg-surface-container-low text-xs font-bold uppercase tracking-wider text-on-surface-variant">
-                    <th className="px-4 py-3 font-semibold">Round</th>
-                    <th className="px-4 py-3 font-semibold">Seat Type</th>
-                    <th className="px-4 py-3 font-semibold text-right">
-                      Closing Rank<br />
-                      <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
-                        (air)
-                      </span>
+                    <th className="px-4 py-3 font-semibold whitespace-nowrap">
+                      <div className="inline-flex items-center">
+                        <span>Round</span>
+                        <ColumnInfoTooltip
+                          title="Counselling Round"
+                          description="The specific allotment phase (e.g., Round 1, Round 2, Mop-Up, Stray Vacancy) in which the closing rank was recorded."
+                        />
+                      </div>
+                    </th>
+                    <th className="px-4 py-3 font-semibold whitespace-nowrap">
+                      <div className="inline-flex items-center">
+                        <span>Category</span>
+                        <ColumnInfoTooltip
+                          title="Reservation Category Code"
+                          description="Social or vertical reservation category (e.g., OPEN, OBC, SC, ST, EWS, SEBC) under which the seat was allotted."
+                          linkHref="/neet-ug-2026/terms-explained#abbreviations"
+                          linkText="Decode Category Codes in Terms Explained"
+                        />
+                      </div>
+                    </th>
+                    <th className="px-4 py-3 font-semibold whitespace-nowrap">
+                      <div className="inline-flex items-center">
+                        <span>Seat Type</span>
+                        <ColumnInfoTooltip
+                          title="Seat Type & Quota Pool"
+                          description="Admission quota or horizontal reservation code (e.g., AIQ, State Quota, Management Quota, NRI, Earmarked)."
+                          linkHref="/neet-ug-2026/terms-explained#abbreviations"
+                          linkText="Decode Seat Types in Terms Explained"
+                        />
+                      </div>
+                    </th>
+                    <th className="px-4 py-3 font-semibold text-right whitespace-nowrap">
+                      <div className="inline-flex items-center justify-end">
+                        <span>Closing Rank (AIR)</span>
+                        <ColumnInfoTooltip
+                          title="All India Rank (AIR)"
+                          description="The overall All India NEET merit rank of the last candidate admitted to this course under this category and quota pool."
+                        />
+                      </div>
                     </th>
 
                     {/* Optional Columns rendered only if data exists in the filtered rows */}
                     {hasStateRank && (
-                      <th className="px-4 py-3 font-semibold text-right">
-                        Closing Rank<br />
-                        <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
-                          (state)
-                        </span>
+                      <th className="px-4 py-3 font-semibold text-right whitespace-nowrap">
+                        <div className="inline-flex items-center justify-end">
+                          <span>Closing Rank (State)</span>
+                          <ColumnInfoTooltip
+                            title="State Merit Rank"
+                            description="The state-level merit rank assigned by state counselling authorities of the last admitted candidate."
+                          />
+                        </div>
                       </th>
                     )}
                     {hasCategoryRank && (
-                      <th className="px-4 py-3 font-semibold text-right">
-                        Closing Rank<br />
-                        <span className="text-[10px] font-medium lowercase tracking-normal md:uppercase text-text-muted">
-                          (category)
-                        </span>
+                      <th className="px-4 py-3 font-semibold text-right whitespace-nowrap">
+                        <div className="inline-flex items-center justify-end">
+                          <span>Closing Rank (Category)</span>
+                          <ColumnInfoTooltip
+                            title="Category Merit Rank"
+                            description="The specific category-wise merit rank of the last admitted candidate within their reservation group."
+                          />
+                        </div>
                       </th>
                     )}
                   </tr>
@@ -154,9 +283,16 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
                           </div>
                         </td>
 
+                        {/* Category */}
+                        <td className="px-4 py-3.5 font-semibold text-on-surface whitespace-nowrap">
+                          <span className="inline-flex items-center rounded-md bg-surface-container-high px-2 py-0.5 text-xs font-bold text-on-surface border border-outline-variant/60">
+                            {cutoff.dbCategory || cutoff.category || "—"}
+                          </span>
+                        </td>
+
                         {/* Seat Type (Quota) */}
-                        <td className="px-4 py-3.5 font-semibold text-text-secondary">
-                          {cutoff.dbCategory || cutoff.category} / {cutoff.dbSeatType || cutoff.quota}
+                        <td className="px-4 py-3.5 font-semibold text-text-secondary whitespace-nowrap">
+                          {cutoff.dbSeatType || cutoff.quota || "—"}
                         </td>
 
                         {/* Closing Rank (AIR) */}

@@ -24,6 +24,8 @@ export const NEET_UG_ANSWER_KEY_LEAD_MAGNET = {
 
 export const NEET_UG_ANSWER_KEY_JUMP_SECTIONS: readonly GuideJumpItem[] = [
   { id: "at-a-glance", label: "At a glance" },
+  { id: "live-answer-key", label: "Answer Key" },
+  { id: "download-key", label: "Download Key" },
   { id: "omr-answer-key", label: "OMR & key" },
   { id: "results", label: "Results" },
   { id: "cutoffs", label: "Cut-offs" },

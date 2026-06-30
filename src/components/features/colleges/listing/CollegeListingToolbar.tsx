@@ -213,6 +213,7 @@ export function CollegeListingToolbar({
     filters.collegeType ??
     (filters.collegeTypes?.length === 1 &&
       (filters.collegeTypes[0] === "government" ||
+        filters.collegeTypes[0] === "semi-government" ||
         filters.collegeTypes[0] === "private" ||
         filters.collegeTypes[0] === "deemed")
       ? filters.collegeTypes[0]

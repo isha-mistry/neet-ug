@@ -20,6 +20,7 @@ export const LISTING_CATEGORY_OPTIONS: OptionItem<NeetCategory>[] = [
 
 export const LISTING_COLLEGE_TYPE_OPTIONS: OptionItem<ListingCollegeType>[] = [
   { value: "government", label: "Government" },
+  { value: "semi-government", label: "Semi-Govt" },
   { value: "private", label: "Private" },
   { value: "deemed", label: "Deemed" },
 ];

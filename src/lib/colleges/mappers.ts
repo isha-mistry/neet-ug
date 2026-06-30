@@ -293,9 +293,7 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
     ...(dbCollege.universityName
       ? { universityName: String(dbCollege.universityName) }
       : {}),
-    collegeType: dbCollege.name.toLowerCase().includes("gmers")
-      ? "semi-government"
-      : (dbCollege.collegeType as any),
+    collegeType: dbCollege.collegeType as any,
     seatCount: dbCollege.seatCount,
     quotaInfo: dbCollege.quotaInfo,
     fees,

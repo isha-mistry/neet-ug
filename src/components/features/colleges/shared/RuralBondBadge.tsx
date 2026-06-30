@@ -10,8 +10,18 @@ interface RuralBondBadgeProps {
 export function RuralBondBadge({ bond, showPenalty = true }: RuralBondBadgeProps) {
   const hasBond = bond && bond.years > 0;
 
+  const getPenaltyText = () => {
+    if (bond.note?.includes("(Male)")) {
+      return "Penalty: ₹25.77L (M) / ₹23.19L (F)";
+    }
+    if (bond.note?.includes("UR/OBC/EWS")) {
+      return "Penalty: ₹10L (UR/OBC) / Lower (SC/ST)";
+    }
+    return `Penalty: ${formatINR(bond.penalty)}`;
+  };
+
   return (
-    <div className="flex items-center gap-2">
+    <span className="space-x-2">
       <span
         className={cn(
           "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold shadow-sm border",
@@ -26,9 +36,9 @@ export function RuralBondBadge({ bond, showPenalty = true }: RuralBondBadgeProps
         <span
           className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border border-tertiary-container/30 bg-tertiary-fixed text-on-tertiary-fixed-variant shadow-sm"
         >
-          Penalty: {formatINR(bond.penalty)}
+          {getPenaltyText()}
         </span>
       )}
-    </div>
+    </span>
   );
 }

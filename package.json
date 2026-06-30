@@ -21,6 +21,7 @@
     "db:seed:nirf": "tsx scripts/catalog/seed-nirf-ranks.ts",
     "db:dump:local": "bash scripts/db/dump-local-catalog.sh",
     "db:restore:catalog": "bash scripts/db/restore-catalog-dump.sh",
+    "db:seed:answer-key": "tsx scripts/seed-neet-answer-key.ts",
     "college-covers:sync": "tsx scripts/colleges/sync-college-cover-cache.ts"
   },
   "dependencies": {
@@ -40,6 +41,7 @@
     "server-only": "^0.0.1",
     "three": "^0.128.0",
     "topojson-client": "^3.1.0",
+    "xlsx": "^0.18.5",
     "zustand": "^5.0.13"
   },
   "devDependencies": {

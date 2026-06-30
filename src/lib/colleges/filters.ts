@@ -105,18 +105,13 @@ function matchesCollegeTypeFilter(
   filters: CollegeFilters
 ): boolean {
   if (filters.collegeTypes && filters.collegeTypes.length > 0) {
-    const types = [...filters.collegeTypes];
-    if (types.includes("government") && !types.includes("semi-government")) {
-      types.push("semi-government");
-    }
-    return types.includes(record.collegeType);
+    return filters.collegeTypes.includes(record.collegeType);
   }
   if (!filters.collegeType) return true;
   if (filters.collegeType === "government") {
     return (
       record.collegeType === "government" ||
-      record.collegeType === "aiims" ||
-      record.collegeType === "semi-government"
+      record.collegeType === "aiims"
     );
   }
   return record.collegeType === filters.collegeType;
@@ -172,7 +167,7 @@ function parseListingCollegeType(
   value: string | undefined
 ): ListingCollegeType | undefined {
   if (!value || value === "any") return undefined;
-  const allowed: ListingCollegeType[] = ["government", "private", "deemed"];
+  const allowed: ListingCollegeType[] = ["government", "semi-government", "private", "deemed"];
   return allowed.includes(value as ListingCollegeType)
     ? (value as ListingCollegeType)
     : undefined;

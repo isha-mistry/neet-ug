@@ -6,8 +6,7 @@ export type SortValue = "lowest_fees" | "highest_roi" | "lowest_cutoff";
 
 export type ListingQuota = "aiq" | "state" | "management" | "nri";
 
-/** College type choices on the listing filter (AIIMS included when browsing govt). */
-export type ListingCollegeType = "government" | "private" | "deemed";
+export type ListingCollegeType = "government" | "semi-government" | "private" | "deemed";
 
 export interface CollegeFilters {
   /** Free-text search across name, city, and state. */

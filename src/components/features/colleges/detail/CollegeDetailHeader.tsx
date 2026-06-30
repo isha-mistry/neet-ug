@@ -29,6 +29,7 @@ function accentClass(type: CollegeType): string {
   switch (type) {
   case "government":
   case "aiims":
+  case "semi-government":
     return "bg-college-accent-government";
   case "deemed":
     return "bg-college-accent-deemed";
@@ -133,16 +134,16 @@ export function CollegeDetailHeader({
             {city}, {stateName}
           </p>
 
-          <p className="text-xs font-semibold text-on-surface-variant md:text-sm">
+          <div className="text-xs font-semibold text-on-surface-variant md:text-sm">
             <span className="text-on-surface-variant/80">Quota seats · </span>
             <span className="text-primary">{quotaLine}</span>
             {bond.years > 0 ? (
-              <span className="mt-2 flex items-center gap-2 border-t border-outline-variant/60 pt-2 md:mt-0 md:inline md:border-0 md:pt-0 md:pl-4">
+              <div className="mt-2 flex items-center gap-2 border-t border-outline-variant/60 pt-2 md:mt-0 md:inline md:border-0 md:pt-0 md:pl-4">
                 <span className="text-on-surface-variant/80">Bond · </span>
                 <RuralBondBadge bond={bond} />
-              </span>
+              </div>  
             ) : null}
-          </p>
+          </div>
         </div>
 
         <div className="flex flex-col gap-5 border-t border-outline-variant/80 pt-5 sm:flex-row sm:items-end sm:justify-between">

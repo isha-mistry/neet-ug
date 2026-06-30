@@ -170,7 +170,7 @@ export default async function CollegeDetailPage({ params }: PageProps) {
                 seatMatrix={college.seatMatrix}
               />
 
-              <AbbreviationsGlossary />
+              {/* <AbbreviationsGlossary /> */}
 
               <CollegeDetailCtaBand collegeName={college.name} />
             </div>

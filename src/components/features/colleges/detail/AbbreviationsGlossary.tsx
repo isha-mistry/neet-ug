@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { DetailSectionHeader } from "@/components/features/colleges/shared/DetailSectionHeader";
 import { DetailPanel } from "@/components/features/colleges/shared/DetailPanel";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
@@ -87,6 +88,20 @@ export function AbbreviationsGlossary() {
       />
 
       <DetailPanel className="flex flex-col gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4 text-xs text-on-surface">
+          <div className="flex items-center gap-2.5">
+            <MaterialSymbol name="menu_book" className="text-primary text-[20px] shrink-0" />
+            <span>Looking for full definitions and rules behind each code? Explore our comprehensive 13-section counselling dictionary.</span>
+          </div>
+          <Link
+            href="/neet-ug-2026/terms-explained#abbreviations"
+            className="inline-flex items-center gap-1 shrink-0 font-bold text-primary hover:underline"
+          >
+            <span>Open Terms Explained</span>
+            <MaterialSymbol name="arrow_forward" className="text-[15px]" />
+          </Link>
+        </div>
+
         {/* Quick decoder guide */}
         <div className="rounded-xl border flex border-primary/10 bg-linear-to-br from-primary-fixed-dim/5 to-surface-container-lowest p-4 md:p-5 shadow-xs">
           <div className="flex gap-3">

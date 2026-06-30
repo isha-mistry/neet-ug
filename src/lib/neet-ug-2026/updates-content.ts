@@ -127,6 +127,22 @@ export type UpdatesNoticeItem = {
 
 export const NEET_UG_UPDATES_NOTICE_FEED: UpdatesNoticeItem[] = [
   {
+    date: "25 June 2026",
+    title: "Provisional Answer Key Released by NTA",
+    summary:
+      "National Testing Agency (NTA) has officially released the provisional answer key, OMR scanned images, and recorded responses for NEET UG 2026 (Paper Sets 50, 60, 70, and 80). Download the official document for verification.",
+    href: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/06/20260625208933797.pdf",
+    tag: "NTA",
+  },
+  {
+    date: "27 May 2026",
+    title: "Information for NRI Quota Candidates (UG/PG Counselling 2026-27)",
+    summary:
+      "Official notice issuing guidelines and essential documentation instructions for candidates intending to apply under the NRI quota during the upcoming NEET UG/PG counselling for academic year 2026-2027.",
+    href: "https://cdnbbsr.s3waas.gov.in/s3e0f7a4d0ef9b84b83b693bbf3feb8e6e/uploads/2026/05/2026052710250622.pdf",
+    tag: "MCC",
+  },
+  {
     date: "May 2026",
     title: "ReNEET UG 2026 scheduled for 21 June",
     summary:

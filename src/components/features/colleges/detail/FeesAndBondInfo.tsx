@@ -55,6 +55,42 @@ export function FeesAndBondInfo({ fees, bond, stateSlug }: FeesAndBondInfoProps)
     return "Service bond obligations, rural postings, and penalties depend strictly on state counselling guidelines.";
   };
 
+  const renderPenaltyDisplay = () => {
+    if (!hasBond) return <span className="text-xl font-black text-text">Rs. 0</span>;
+
+    if (stateSlug === "haryana" || bond.note?.includes("(Male)")) {
+      return (
+        <div className="flex flex-col gap-1 mt-0.5 pr-2">
+          <div className="flex items-center justify-between text-xs font-extrabold text-text bg-surface-container-low/90 px-2 py-1 rounded border border-border/60 shadow-2xs">
+            <span className="text-[11px] text-text-muted">Male:</span>
+            <span>₹25.77 Lakhs</span>
+          </div>
+          <div className="flex items-center justify-between text-xs font-extrabold text-text bg-surface-container-low/90 px-2 py-1 rounded border border-border/60 shadow-2xs">
+            <span className="text-[11px] text-text-muted">Female:</span>
+            <span>₹23.19 Lakhs</span>
+          </div>
+        </div>
+      );
+    }
+
+    if (stateSlug === "madhya-pradesh" || bond.note?.includes("UR/OBC/EWS")) {
+      return (
+        <div className="flex flex-col gap-1 mt-0.5 pr-2">
+          <div className="flex items-center justify-between text-xs font-extrabold text-text bg-surface-container-low/90 px-2 py-1 rounded border border-border/60 shadow-2xs">
+            <span className="text-[11px] text-text-muted">UR/OBC:</span>
+            <span>₹10 Lakhs</span>
+          </div>
+          <div className="flex items-center justify-between text-xs font-extrabold text-text bg-surface-container-low/90 px-2 py-1 rounded border border-border/60 shadow-2xs">
+            <span className="text-[11px] text-text-muted">SC/ST:</span>
+            <span className="text-primary font-bold">Lower (Brochure)</span>
+          </div>
+        </div>
+      );
+    }
+
+    return <span className="text-xl font-black text-text">{formatCurrency(bond.penalty)}</span>;
+  };
+
   return (
     <section className="flex flex-col gap-6 animate-fadeIn">
       <DetailSectionHeader
@@ -202,21 +238,19 @@ export function FeesAndBondInfo({ fees, bond, stateSlug }: FeesAndBondInfoProps)
             </div>
 
             {/* Penalty and Duration */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-1">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="flex flex-col col-span-2 gap-1">
                 <span className="text-[10px] font-bold tracking-wider uppercase text-text-muted">
                   Penalty
                 </span>
-                <span className="text-2xl font-black text-text">
-                  {hasBond ? formatCurrency(bond.penalty) : "Rs. 0"}
-                </span>
+                {renderPenaltyDisplay()}
               </div>
 
               <div className="flex flex-col gap-1">
                 <span className="text-[10px] font-bold tracking-wider uppercase text-text-muted">
                   Duration
                 </span>
-                <span className="text-2xl font-black text-text">
+                <span className="text-xl font-black text-text">
                   {hasBond ? `${bond.years} ${bond.years === 1 ? "Year" : "Years"}` : "N/A"}
                 </span>
               </div>

@@ -39,7 +39,7 @@ export const TERMS_EXPLAINED_HERO = {
   fine:
     "Bond amounts, fee caps and income limits change with annual notifications — confirm on MCC, NTA and your state counselling portal before registering.",
   trio: [
-    { key: "Categories", value: "12 sections" },
+    { key: "Categories", value: "13 sections" },
     { key: "Coverage", value: "Exam → seat → PG" },
     { key: "States", value: "GJ · RJ · MP · MH" },
   ],
@@ -60,6 +60,7 @@ export const TERMS_EXPLAINED_JUMP_SECTIONS: readonly GuideJumpItem[] = [
   { id: "process", label: "Process & rounds" },
   { id: "quotas", label: "Quota types" },
   { id: "reservation", label: "Reservation" },
+  { id: "abbreviations", label: "Seat codes & abbreviations" },
   { id: "rank-cutoff", label: "Rank & cutoff" },
   { id: "colleges", label: "College types" },
   { id: "documents", label: "Documents" },
@@ -362,8 +363,183 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
     ],
   },
   {
-    id: "rank-cutoff",
+    id: "abbreviations",
     eyebrow: "Section 6",
+    title: "Seat Codes & Cutoff Abbreviations",
+    description:
+      "Comprehensive reference decode guide for seat categories, admission quotas, horizontal reservations, and prefixes encountered on official state and MCC counselling cutoff sheets.",
+    kind: "groups",
+    groups: [
+      {
+        label: "Core Reservation Categories",
+        terms: [
+          {
+            term: "OPEN / UR / GEN (Open / Unreserved / General)",
+            definition:
+              "Seats open to all candidates based purely on merit rank without social reservation.",
+          },
+          {
+            term: "OBC / OBC-NCL (Other Backward Classes - Non-Creamy Layer)",
+            definition:
+              "Backward class candidates eligible for central or state-level reservation benefits. Must hold an NCL certificate.",
+          },
+          {
+            term: "SC (Scheduled Caste)",
+            definition:
+              "Scheduled Caste category seats as per constitutional reservation guidelines.",
+          },
+          {
+            term: "ST (Scheduled Tribe)",
+            definition:
+              "Scheduled Tribe category seats as per constitutional reservation guidelines.",
+          },
+          {
+            term: "EW / EWS (Economically Weaker Section)",
+            definition:
+              "10% reservation for General category candidates from economically weaker backgrounds whose family income is below ₹8 lakh.",
+          },
+          {
+            term: "SE / SEBC (Socially & Educationally Backward Class)",
+            definition:
+              "State-level reservation for socially and educationally backward classes (e.g. SEBC in Gujarat or Maratha reservation in Maharashtra).",
+          },
+          {
+            term: "VJA / VJ-A (Vimukta Jati A)",
+            definition:
+              "Denotified Tribes (A) reservation category, commonly used in Maharashtra state counselling.",
+          },
+          {
+            term: "NTB / NT-B (Nomadic Tribes B)",
+            definition:
+              "Nomadic Tribes category B seats under Maharashtra state counselling.",
+          },
+          {
+            term: "NTC / NT-C (Nomadic Tribes C)",
+            definition:
+              "Nomadic Tribes category C seats (typically representing Dhangar community in Maharashtra).",
+          },
+          {
+            term: "NTD / NT-D (Nomadic Tribes D)",
+            definition:
+              "Nomadic Tribes category D seats (typically representing Vanjari community in Maharashtra).",
+          },
+          {
+            term: "SOBC (Special Other Backward Class)",
+            definition:
+              "State-specific sub-quota for Special Other Backward Classes in certain states like Rajasthan.",
+          },
+        ],
+      },
+      {
+        label: "Quotas & Seat Allocation Types",
+        terms: [
+          {
+            term: "GQ / SQ (Government Quota / State Quota)",
+            definition:
+              "State quota seats in government and private colleges allotted by state counselling bodies.",
+          },
+          {
+            term: "MQ (Management Quota)",
+            definition:
+              "Private college seats open to candidates from all states, typically with higher tuition fees.",
+          },
+          {
+            term: "NRI / NQ (Non-Resident Indian Quota)",
+            definition:
+              "Seats reserved for NRI candidates or sponsored wards, paid in USD or equivalent INR.",
+          },
+          {
+            term: "AIQ (All India Quota)",
+            definition:
+              "15% of MBBS seats in all government colleges nationwide, filled centrally by MCC.",
+          },
+          {
+            term: "ESIC / IP (Insured Persons Quota)",
+            definition:
+              "Special reservation in ESIC medical colleges for wards of individuals covered under the ESI scheme.",
+          },
+          {
+            term: "IQ (Institutional Quota)",
+            definition:
+              "Seats reserved for candidates who completed schooling or qualifying exams from the same institution.",
+          },
+          {
+            term: "GOI (Government of India Nominee Pool)",
+            definition:
+              "Central government nominated seats for students from states/UTs without medical colleges.",
+          },
+        ],
+      },
+      {
+        label: "Special & Horizontal Reservations",
+        terms: [
+          {
+            term: "PH / PwD / PwBD (Persons with Disability)",
+            definition:
+              "5% horizontal reservation within vertical categories for physically disabled candidates.",
+          },
+          {
+            term: "(W) / W Suffix (Women / Female Quota)",
+            definition:
+              "Female-only seat allocation (e.g. OPEN (W), SC (W), ST (W), OBC (W), SEBC(W), HSCW) as per state gender reservation rules.",
+          },
+          {
+            term: "(HA) Suffix (Hilly Area Quota)",
+            definition:
+              "Candidates originating from notified Hilly Areas (e.g. OBC (HA), EWS HA, NTD HA, SEBCHA) in Maharashtra.",
+          },
+          {
+            term: "DEF / DEF1 (Defence Quota)",
+            definition:
+              "Horizontal reservation for children of active-duty defence personnel, ex-servicemen, or disabled veterans (Def-1, Def-2, Def-3).",
+          },
+          {
+            term: "SN / Sainik (Sainik School / Wards of Ex-Servicemen)",
+            definition:
+              "State-specific quota reserved for students from Sainik schools or wards of defence personnel.",
+          },
+          {
+            term: "GS / Govt Servant (Government Servant / School)",
+            definition:
+              "Special reservation for children of Government Servants or students who completed schooling from Government Schools.",
+          },
+          {
+            term: "OrphanC / ORP-C / ORPHANC (Orphan Candidates)",
+            definition:
+              "Horizontal reservation for orphan children meeting the criteria set by state governments.",
+          },
+          {
+            term: "Inter-se Orphan (Inter-se Orphan Merit Allocation)",
+            definition:
+              "Merit-based selection priority applied specifically within orphan candidates.",
+          },
+        ],
+      },
+      {
+        label: "Prefixes & Priority Status Codes",
+        terms: [
+          {
+            term: "EM- Prefix (Earmarked Seats)",
+            definition:
+              "Prefix (e.g. EMOBC, EMNTD, EMSEBC, EMVJA) meaning seat allocated to a category candidate who qualified on general merit but preferred their category seat.",
+          },
+          {
+            term: "H- Prefix (Hilly Area Regional Category)",
+            definition:
+              "Prefix (e.g. HOPEN, HEWS, HOBC, HSC, HST) designating candidates claiming Hilly Area benefits within their category.",
+          },
+          {
+            term: "D1 / D2 / D3 (Defence Priority Levels)",
+            definition:
+              "Sub-priority lists inside defence quota based on status (e.g. deceased in service vs. ex-servicemen vs. active).",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "rank-cutoff",
+    eyebrow: "Section 7",
     title: "Rank, Score & Cutoff Terms",
     kind: "terms",
     terms: [
@@ -421,7 +597,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
   },
   {
     id: "colleges",
-    eyebrow: "Section 7",
+    eyebrow: "Section 8",
     title: "College Types & Classifications",
     kind: "terms",
     terms: [
@@ -484,7 +660,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
   },
   {
     id: "documents",
-    eyebrow: "Section 8",
+    eyebrow: "Section 9",
     title: "Documents Required",
     kind: "terms",
     terms: [
@@ -582,7 +758,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
   },
   {
     id: "fees",
-    eyebrow: "Section 9",
+    eyebrow: "Section 10",
     title: "Fees, Bonds & Financial Terms",
     kind: "terms",
     terms: [
@@ -665,7 +841,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
   },
   {
     id: "state-terms",
-    eyebrow: "Section 10",
+    eyebrow: "Section 11",
     title: "State-Specific Terms (GJ · RJ · MP · MH)",
     description:
       "Gujarat entries are expanded where Dravio has the most verified counselling data; confirm RJ, MP and MH rules on the official state portals each season.",
@@ -760,7 +936,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
   },
   {
     id: "regulatory",
-    eyebrow: "Section 11",
+    eyebrow: "Section 12",
     title: "Regulatory & Recognition Bodies",
     kind: "terms",
     terms: [
@@ -813,7 +989,7 @@ export const TERMS_EXPLAINED_SECTIONS: readonly TermsExplainedSection[] = [
   },
   {
     id: "post-mbbs",
-    eyebrow: "Section 12",
+    eyebrow: "Section 13",
     title: "Post-MBBS Terms",
     kind: "terms",
     terms: [
