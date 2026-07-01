@@ -46,7 +46,6 @@ import {
   CutoffAnalyserLeadMagnet,
   CutoffAnalyserResultHeader,
   CutoffAnalyserTeaserShowcase,
-  CollegePredictorQuotaField,
   FilterPill,
   gapDisplay,
   GlossaryGrid,
@@ -283,19 +282,17 @@ export function CutoffAnalyserClient({
     return {
       referenceYear: teaser.referenceYear,
       quota: listQuota,
+      domicileState: activeDomicile,
       quotaLabel:
         QUOTA_OPTIONS.find((q) => q.value === listQuota)?.label ?? listQuota,
       categoryLabel: getListingCategoryShortLabel(teaser.input.category),
       stateQuotaRows: result.stateQuotaRows,
       collegeMatches: result.collegeMatches,
     };
-  }, [result, teaser]);
+  }, [result, teaser, activeDomicile]);
 
   const mutedStateSlugs = useMemo(() => {
-    if (activeDomicile === "maharashtra") {
-      return ["gujarat"] as FocusStateSlug[];
-    }
-    return ["maharashtra"] as FocusStateSlug[];
+    return FOCUS_STATE_OPTIONS.map((s) => s.slug).filter((s) => s !== activeDomicile);
   }, [activeDomicile]);
 
   const domicileLabel =
@@ -397,7 +394,7 @@ export function CutoffAnalyserClient({
     const input = buildInput();
     if (!input) {
       setError(
-        `Enter a valid NEET score between ${NEET_SCORE_MIN} and ${NEET_SCORE_MAX}, plus category, domicile, and quota.`,
+        `Enter a valid NEET score between ${NEET_SCORE_MIN} and ${NEET_SCORE_MAX}, plus category and domicile state.`,
       );
       return;
     }
@@ -640,12 +637,8 @@ export function CutoffAnalyserClient({
               />
             </div>
             <p className="rp-field-hint">
-              Home state for counselling. Analysis still shows cutoffs for GJ, RJ, MP & MH.
+              Home state for counselling. Analysis automatically evaluates State Quota (85%) for home state and AIQ (15%) for other states.
             </p>
-            <CollegePredictorQuotaField
-              value={quota || "state"}
-              onChange={(q) => setQuota(q)}
-            />
 
             {error ? (
               <p
@@ -785,7 +778,7 @@ export function CutoffAnalyserClient({
 
                     <AnalyserSectionBlock
                       title="Which colleges can you get?"
-                      description="Ranked by likelihood at your score. Filter by institution type — quota follows your selection above."
+                      description="Ranked by likelihood at your score. Filter by institution type — quotas automatically apply based on your domicile state."
                       actions={
                         <div className="flex flex-wrap gap-2">
                           {(["government", "private", "all"] as const).map((t) => (
@@ -836,8 +829,7 @@ export function CutoffAnalyserClient({
                           </div>
                         ) : (
                           <ToolCallout variant="info">
-                            No colleges in our catalog matched your score, category, and quota
-                            for these states. Try another quota (for example State 85%) or browse{" "}
+                            No colleges in our catalog matched your score and category for these states. Try adjusting your score or browse{" "}
                             <Link href="/colleges" className="font-bold text-primary hover:underline">
                               all colleges
                             </Link>

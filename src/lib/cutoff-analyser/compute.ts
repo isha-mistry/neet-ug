@@ -60,6 +60,30 @@ function matchesCollegeType(
   return college.collegeType === "private" || college.collegeType === "deemed";
 }
 
+function pickDomicileAwareCutoff(
+  college: AnalyserCollege,
+  input: CutoffAnalyserInput,
+  minCutoffYear?: number,
+): CollegeCutoff | null {
+  const isHomeState = college.stateSlug === input.domicileState;
+  if (isHomeState) {
+    const stateCutoff = pickAnalyserCutoff(college, "state", input.category, minCutoffYear);
+    if (stateCutoff?.rank) return stateCutoff;
+    const aiqCutoff = pickAnalyserCutoff(college, "aiq", input.category, minCutoffYear);
+    if (aiqCutoff?.rank) return aiqCutoff;
+    if (input.quota) {
+      return pickAnalyserCutoff(college, input.quota, input.category, minCutoffYear);
+    }
+    return null;
+  }
+  if (college.collegeType === "government" || college.collegeType === "aiims") {
+    return pickAnalyserCutoff(college, "aiq", input.category, minCutoffYear);
+  }
+  const mgmtCutoff = pickAnalyserCutoff(college, "management", input.category, minCutoffYear);
+  if (mgmtCutoff?.rank) return mgmtCutoff;
+  return pickAnalyserCutoff(college, "aiq", input.category, minCutoffYear);
+}
+
 export function computeCutoffAnalysis(
   input: CutoffAnalyserInput,
   colleges: AnalyserCollege[],
@@ -76,20 +100,26 @@ export function computeCutoffAnalysis(
 
   const collegeMatches: CollegeMatch[] = [];
   for (const college of pool) {
-    const cutoff = pickAnalyserCutoff(
-      college,
-      input.quota,
-      input.category,
-      minCutoffYear,
-    );
+    const cutoff = input.domicileState
+      ? pickDomicileAwareCutoff(college, input, minCutoffYear)
+      : pickAnalyserCutoff(
+          college,
+          input.quota || "state",
+          input.category,
+          minCutoffYear,
+        );
     if (!cutoff?.rank) continue;
-    const gap = gapRanksBetter(userRank, cutoff.rank);
-    const status = rankVsClosingStatus(userRank, cutoff.rank);
+    const effectiveUserRank =
+      cutoff.quota === "state" && rankContext.stateMeritRank && cutoff.rank < 10000
+        ? rankContext.stateMeritRank
+        : userRank;
+    const gap = gapRanksBetter(effectiveUserRank, cutoff.rank);
+    const status = rankVsClosingStatus(effectiveUserRank, cutoff.rank);
     collegeMatches.push({
       college,
       closingRank: cutoff.rank,
       gapToUser: gap,
-      likelihoodPercent: likelihoodPercent(userRank, cutoff.rank),
+      likelihoodPercent: likelihoodPercent(effectiveUserRank, cutoff.rank),
       status,
     });
   }
@@ -144,6 +174,9 @@ export function computeCutoffAnalysis(
     const { stateName, stateAbbrev } = stateMeta(stateSlug);
 
     for (const quota of quotas) {
+      if (input.domicileState && stateSlug !== input.domicileState && quota === "state") {
+        continue;
+      }
       const ranks: number[] = [];
       for (const college of stateColleges) {
         const cutoff = pickAnalyserCutoff(
@@ -157,7 +190,11 @@ export function computeCutoffAnalysis(
       if (!ranks.length) continue;
       const openingRank = Math.min(...ranks);
       const closingRank = Math.max(...ranks);
-      const status = rankVsClosingStatus(userRank, closingRank);
+      const effectiveUserRank =
+        quota === "state" && rankContext.stateMeritRank && closingRank < 10000
+          ? rankContext.stateMeritRank
+          : userRank;
+      const status = rankVsClosingStatus(effectiveUserRank, closingRank);
       stateQuotaRows.push({
         stateSlug,
         stateName,
@@ -166,7 +203,7 @@ export function computeCutoffAnalysis(
         quotaLabel: quotaLabel(quota),
         openingRank,
         closingRank,
-        gapToUser: gapRanksBetter(userRank, closingRank),
+        gapToUser: gapRanksBetter(effectiveUserRank, closingRank),
         status,
       });
     }

@@ -21,8 +21,9 @@ export interface AnalyserCollege {
 export interface CutoffAnalyserInput {
   score: number;
   category: NeetCategory;
+  domicileState: FocusStateSlug;
   stateSlugs: FocusStateSlug[];
-  quota: ListingQuota;
+  quota?: ListingQuota;
   collegeTypeFilter: "government" | "private" | "all";
 }
 
@@ -119,6 +120,7 @@ export interface CutoffAnalyserUnlockedResult extends CutoffAnalyserTeaserResult
 export interface CutoffAnalyserRankContext {
   userRank: number;
   rankRange: { min: number; max: number };
+  stateMeritRank?: number;
   referenceYear: number;
   minCutoffYear: number;
 }

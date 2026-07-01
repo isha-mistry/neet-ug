@@ -1,12 +1,10 @@
 import type { NeetCategory } from "@/lib/rank-predictor/types";
 import type { CollegeSummary } from "@/types/listing";
-import type { ListingQuota } from "@/types/filters";
 
 export interface CollegePredictorFormInput {
   air: number;
   category: NeetCategory;
   stateSlug: string;
-  quota: ListingQuota;
   captchaToken?: string;
 }
 

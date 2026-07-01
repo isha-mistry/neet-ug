@@ -20,6 +20,8 @@ import {
   LISTING_COLLEGE_TYPE_OPTIONS,
   LISTING_QUOTA_OPTIONS,
 } from "@/lib/colleges/listing-options";
+import type { OptionItem } from "@/types/core";
+import type { NeetCategory } from "@/lib/rank-predictor/types";
 import { setStateNameCache } from "@/lib/data/state-name-cache";
 import { dravioData } from "./source";
 
@@ -116,4 +118,28 @@ export async function getFilterOptions(): Promise<FilterOptionGroups> {
     feeRanges: dravioData.filterOptions.feeRanges,
     cutoffRanges: dravioData.filterOptions.cutoffRanges,
   };
+}
+
+export async function getCategoriesByState(): Promise<Record<string, OptionItem<NeetCategory>[]>> {
+  const colleges = await getAllColleges();
+  const stateCatMap = new Map<string, Set<NeetCategory>>();
+
+  for (const college of colleges) {
+    if (!stateCatMap.has(college.stateSlug)) {
+      stateCatMap.set(college.stateSlug, new Set());
+    }
+    const catSet = stateCatMap.get(college.stateSlug)!;
+    for (const cutoff of college.cutoffs) {
+      if (cutoff.category) {
+        catSet.add(cutoff.category);
+      }
+    }
+  }
+
+  const result: Record<string, OptionItem<NeetCategory>[]> = {};
+  for (const [stateSlug, catSet] of stateCatMap.entries()) {
+    const matched = LISTING_CATEGORY_OPTIONS.filter((opt) => catSet.has(opt.value));
+    result[stateSlug] = matched.length > 0 ? matched : LISTING_CATEGORY_OPTIONS;
+  }
+  return result;
 }

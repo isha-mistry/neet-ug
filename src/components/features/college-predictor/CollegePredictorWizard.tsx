@@ -16,7 +16,6 @@ import {
   CollegePredictorFaq,
   CollegePredictorHero,
   CollegePredictorHowItWorks,
-  CollegePredictorQuotaField,
   CollegePredictorResultHeader,
   CollegePredictorTeaserShowcase,
   RankPredictorShell,
@@ -44,11 +43,9 @@ import type {
 import { isPhoneVerifiedCollegePredictorSession } from "@/lib/college-predictor/types";
 import {
   getListingCategoryShortLabel,
-  getListingFeeQuotaShort,
   LISTING_CATEGORY_OPTIONS,
 } from "@/lib/colleges/listing-options";
 import type { NeetCategory } from "@/lib/rank-predictor/types";
-import type { ListingQuota } from "@/types/filters";
 import type { OptionItem } from "@/types/core";
 import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
 import { applyPredictorPhoneVerification } from "@/components/features/predictors/predictor-phone-verify";
@@ -59,6 +56,7 @@ type VerifyModalPhase = "phone" | "profile";
 
 interface CollegePredictorWizardProps {
   stateOptions: OptionItem<string>[];
+  categoriesByState?: Record<string, OptionItem<NeetCategory>[]>;
   initialSession: CollegePredictorSession | null;
   initialTeaser: CollegePredictorTeaserResult | null;
   initialUnlocked: CollegePredictorUnlockedResult | null;
@@ -66,6 +64,7 @@ interface CollegePredictorWizardProps {
 
 export function CollegePredictorWizard({
   stateOptions,
+  categoriesByState,
   initialSession,
   initialTeaser: initialTeaserProp,
   initialUnlocked: initialUnlockedProp,
@@ -77,11 +76,26 @@ export function CollegePredictorWizard({
   const [pending, startTransition] = useTransition();
 
   const [air, setAir] = useState(initialSession ? String(initialSession.air) : "");
+  const [stateSlug, setStateSlug] = useState(initialSession?.stateSlug ?? "");
   const [category, setCategory] = useState<NeetCategory | "">(
     initialSession?.category ?? "",
   );
-  const [stateSlug, setStateSlug] = useState(initialSession?.stateSlug ?? "");
-  const [quota, setQuota] = useState<ListingQuota | "">(initialSession?.quota ?? "state");
+
+  const availableCategories = useMemo(() => {
+    if (!stateSlug || !categoriesByState?.[stateSlug]) {
+      return LISTING_CATEGORY_OPTIONS;
+    }
+    return categoriesByState[stateSlug];
+  }, [stateSlug, categoriesByState]);
+
+  useEffect(() => {
+    if (category && availableCategories.length > 0) {
+      const exists = availableCategories.some((c) => c.value === category);
+      if (!exists) {
+        setCategory(availableCategories[0]?.value ?? "");
+      }
+    }
+  }, [availableCategories, category]);
 
   const [teaser, setTeaser] = useState<CollegePredictorTeaserResult | null>(
     initialTeaserProp,
@@ -109,22 +123,20 @@ export function CollegePredictorWizard({
 
   const formInput = useMemo((): CollegePredictorFormInput | null => {
     const airNum = Math.round(Number(air));
-    if (!category || !stateSlug || !quota || !Number.isFinite(airNum)) return null;
+    if (!category || !stateSlug || !Number.isFinite(airNum)) return null;
     return {
       air: airNum,
       category,
       stateSlug,
-      quota,
       captchaToken,
     };
-  }, [air, category, stateSlug, quota, captchaToken]);
+  }, [air, category, stateSlug, captchaToken]);
 
   const buildInput = useCallback((): CollegePredictorFormInput | null => formInput, [formInput]);
 
   const rankCategoryShort = getListingCategoryShortLabel(
     teaser?.input.category ?? formInput?.category,
   );
-  const feeQuotaShort = getListingFeeQuotaShort(teaser?.input.quota ?? formInput?.quota);
 
   const goVerify = () => {
     setError(null);
@@ -220,7 +232,7 @@ export function CollegePredictorWizard({
   const handleSubmitAir = () => {
     const input = buildInput();
     if (!input) {
-      setError("Fill in rank, category, domicile state, and quota.");
+      setError("Fill in rank, domicile state, and category.");
       return;
     }
     setError(null);
@@ -322,16 +334,6 @@ export function CollegePredictorWizard({
     LISTING_CATEGORY_OPTIONS.find((c) => c.value === teaser?.input.category)?.label ?? "";
   const stateLabel =
     stateOptions.find((s) => s.value === teaser?.input.stateSlug)?.label ?? "";
-  const quotaLabel =
-    teaser?.input.quota === "aiq"
-      ? "AIQ"
-      : teaser?.input.quota === "state"
-        ? "State"
-        : teaser?.input.quota === "management"
-          ? "Management"
-          : teaser?.input.quota === "nri"
-            ? "NRI"
-            : "";
 
   return (
     <RankPredictorShell className="college-predictor-page">
@@ -354,15 +356,6 @@ export function CollegePredictorWizard({
 
             <div className="grid gap-4 sm:grid-cols-2">
               <Select
-                label="Category"
-                name="category"
-                placeholder="Select category"
-                options={LISTING_CATEGORY_OPTIONS}
-                value={category}
-                onValueChange={(v) => setCategory(v as NeetCategory | "")}
-                required
-              />
-              <Select
                 label="Domicile state"
                 name="state"
                 placeholder="Select state"
@@ -371,9 +364,16 @@ export function CollegePredictorWizard({
                 onValueChange={setStateSlug}
                 required
               />
+              <Select
+                label="Category"
+                name="category"
+                placeholder="Select category"
+                options={availableCategories}
+                value={category}
+                onValueChange={(v) => setCategory(v as NeetCategory | "")}
+                required
+              />
             </div>
-
-            <CollegePredictorQuotaField value={quota} onChange={(q) => setQuota(q)} />
 
             {error ? (
               <p
@@ -416,7 +416,6 @@ export function CollegePredictorWizard({
                 air={teaser.input.air}
                 categoryLabel={categoryLabel}
                 stateLabel={stateLabel}
-                quotaLabel={quotaLabel}
               />
               <Button
                 type="button"
@@ -455,7 +454,8 @@ export function CollegePredictorWizard({
                       reach={unlocked.reach}
                       referenceYear={teaser.referenceYear}
                       rankCategoryShort={rankCategoryShort}
-                      feeQuotaShort={feeQuotaShort}
+                      feeQuotaShort=""
+                      domicileStateSlug={teaser.input.stateSlug}
                       headerActions={
                         selectedSlugs.length > 0 ? (
                           <Button

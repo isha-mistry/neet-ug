@@ -54,7 +54,6 @@ export async function submitCollegePredictorAction(
     domicileState: validated.input.stateSlug,
     consent: false,
     rawPayload: {
-      quota: validated.input.quota,
       input: validated.input,
       counts: data.counts,
       referenceYear: data.referenceYear,

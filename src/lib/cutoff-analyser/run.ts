@@ -1,7 +1,7 @@
 import "server-only";
 
 import { getRankPredictorConfig } from "@/lib/data/rank-predictor";
-import { fetchAirRange } from "@/lib/rank-predictor/predict-api";
+import { fetchAirRange, fetchStateMeritRange } from "@/lib/rank-predictor/predict-api";
 import { computeCutoffAnalysis } from "./compute";
 import { ANALYSER_DISCLAIMER, FOCUS_STATE_SLUGS } from "./constants";
 import { buildFeeCollegesByState, loadAnalyserColleges } from "./load-colleges";
@@ -44,20 +44,31 @@ async function buildUnlocked(
   const config = getRankPredictorConfig();
   const rankRange = await fetchAirRange(input.score);
   const userRank = Math.round((rankRange.min + rankRange.max) / 2);
+  let stateMeritRank: number | undefined;
+  try {
+    const smrRange = await fetchStateMeritRange(input.score, input.domicileState);
+    if (smrRange) {
+      stateMeritRank = Math.round((smrRange.min + smrRange.max) / 2);
+    }
+  } catch (err) {
+    console.warn("[buildUnlocked] fetchStateMeritRange failed:", err);
+  }
   const minCutoffYear = config.referenceYear - 1;
 
   const colleges = await loadAnalyserColleges();
   const analyserInput: CutoffAnalyserInput = {
     score: input.score,
     category: input.category,
+    domicileState: input.domicileState,
     stateSlugs: [...FOCUS_STATE_SLUGS],
-    quota: input.quota,
+    quota: input.quota || "state",
     collegeTypeFilter: "all",
   };
 
   const result = computeCutoffAnalysis(analyserInput, colleges, {
     userRank,
     rankRange,
+    stateMeritRank,
     referenceYear: config.referenceYear,
     minCutoffYear,
   });

@@ -32,6 +32,7 @@ export interface CollegeSummary {
   nirfRankingYear?: number;
   beds?: number;
   patientFlowPerDay?: number;
+  predictorPool?: "state" | "aiq";
 }
 
 export interface ListingPagination {

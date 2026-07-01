@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CollegePredictorWizard } from "@/components/features/college-predictor/CollegePredictorWizard";
 import { getAllStates } from "@/lib/data/states";
+import { getCategoriesByState } from "@/lib/data/colleges";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getCollegePredictorSession } from "@/lib/college-predictor/session";
 import {
@@ -28,13 +29,16 @@ export default async function CollegePredictorPage() {
     value: state.slug,
     label: state.name,
   }));
+  const categoriesByState = await getCategoriesByState();
 
   return (
     <CollegePredictorWizard
       stateOptions={stateOptions}
+      categoriesByState={categoriesByState}
       initialSession={session}
       initialTeaser={initialTeaser}
       initialUnlocked={initialUnlocked}
     />
   );
 }
+

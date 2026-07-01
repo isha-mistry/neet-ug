@@ -19,8 +19,7 @@ function parseStoredSession(raw: string): CollegePredictorStoredSession | null {
     if (
       !Number.isFinite(parsed.air) ||
       !parsed.stateSlug ||
-      !parsed.category ||
-      !parsed.quota
+      !parsed.category
     ) {
       return null;
     }

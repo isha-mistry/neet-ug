@@ -12,6 +12,7 @@ interface BuildMetadataInput {
   metaTitle?: string;
   description: string;
   path?: string;
+  image?: string;
 }
 
 export function buildMetadata(input: BuildMetadataInput): Metadata {
@@ -19,7 +20,9 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
   const metaTitle = input.metaTitle;
   const description = input.description;
   const url = input.path ? `${SITE_URL}${input.path}` : undefined;
-  const imageUrl = `${SITE_URL}${OG_IMAGE_PATH}`;
+  const imageUrl = input.image
+    ? (input.image.startsWith("http") ? input.image : `${SITE_URL}${input.image}`)
+    : `${SITE_URL}${OG_IMAGE_PATH}`;
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -31,7 +34,7 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
     title,
     description,
     openGraph: {
-      title: metaTitle,
+      title: metaTitle || title,
       description,
       url,
       images: [
@@ -39,13 +42,13 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
           url: imageUrl,
           width: OG_IMAGE_WIDTH,
           height: OG_IMAGE_HEIGHT,
-          alt: OG_IMAGE_ALT,
+          alt: input.image ? title : OG_IMAGE_ALT,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: metaTitle,
+      title: metaTitle || title,
       description,
       images: [imageUrl],
     },

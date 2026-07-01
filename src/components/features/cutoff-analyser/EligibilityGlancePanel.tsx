@@ -27,6 +27,7 @@ import { CutoffStatusBadge } from "./CutoffAnalyserParts";
 interface EligibilityGlanceContext {
   referenceYear: number;
   quota: ListingQuota;
+  domicileState?: FocusStateSlug;
   quotaLabel: string;
   categoryLabel: string;
   stateQuotaRows: StateQuotaRow[];
@@ -60,12 +61,16 @@ function buildStateTooltipExtra(
         )
       : null;
 
+  const targetQuota = ctx.domicileState && stateSlug !== ctx.domicileState && ctx.quota === "state"
+    ? "aiq"
+    : ctx.quota;
+
   return {
     quotaRow: ctx.stateQuotaRows.find(
-      (r) => r.stateSlug === stateSlug && r.quota === ctx.quota,
+      (r) => r.stateSlug === stateSlug && r.quota === targetQuota,
     ),
     otherQuotas: ctx.stateQuotaRows.filter(
-      (r) => r.stateSlug === stateSlug && r.quota !== ctx.quota,
+      (r) => r.stateSlug === stateSlug && r.quota !== targetQuota,
     ),
     matchCount: inState.length,
     safeCount: inState.filter((m) => m.status === "safe").length,

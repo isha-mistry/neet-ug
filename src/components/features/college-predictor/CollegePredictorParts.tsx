@@ -251,6 +251,7 @@ export function CollegePredictorBucketTabs({
   rankCategoryShort,
   feeQuotaShort,
   headerActions,
+  domicileStateSlug,
 }: {
   likely: CollegeSummary[];
   possible: CollegeSummary[];
@@ -259,6 +260,7 @@ export function CollegePredictorBucketTabs({
   rankCategoryShort: string;
   feeQuotaShort: string;
   headerActions?: ReactNode;
+  domicileStateSlug?: string;
 }) {
   const lists = useMemo(
     () => ({ likely, possible, reach }),
@@ -273,6 +275,7 @@ export function CollegePredictorBucketTabs({
   }, [lists]);
 
   const [active, setActive] = useState<BucketKey>(defaultTab);
+  const [poolFilter, setPoolFilter] = useState<"all" | "state" | "aiq">("all");
 
   useEffect(() => {
     setActive(defaultTab);
@@ -281,6 +284,19 @@ export function CollegePredictorBucketTabs({
   const activeMeta =
     BUCKET_TAB_COPY.find((t) => t.key === active) ?? BUCKET_TAB_COPY[0];
   const activeColleges = lists[active];
+
+  const filteredColleges = useMemo(() => {
+    return activeColleges.filter((item) => {
+      if (poolFilter === "all") return true;
+      if (poolFilter === "state") {
+        return item.predictorPool === "state" || (domicileStateSlug && item.stateSlug === domicileStateSlug);
+      }
+      if (poolFilter === "aiq") {
+        return item.predictorPool === "aiq" || (domicileStateSlug && item.stateSlug !== domicileStateSlug);
+      }
+      return true;
+    });
+  }, [activeColleges, poolFilter, domicileStateSlug]);
 
   return (
     <section className="flex flex-col gap-0">
@@ -322,8 +338,48 @@ export function CollegePredictorBucketTabs({
           {headerActions ? <div className="shrink-0 md:pt-1">{headerActions}</div> : null}
         </div>
 
+        <div className="mb-6 flex flex-wrap items-center gap-2">
+          <span className="text-xs font-semibold text-on-surface-variant">Filter by pool:</span>
+          <button
+            type="button"
+            onClick={() => setPoolFilter("all")}
+            className={cn(
+              "rounded-full px-3.5 py-1.5 text-xs font-semibold transition",
+              poolFilter === "all"
+                ? "bg-primary text-on-primary"
+                : "bg-surface-container-low text-on-surface hover:bg-surface-container"
+            )}
+          >
+            All Matches ({activeColleges.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setPoolFilter("state")}
+            className={cn(
+              "rounded-full px-3.5 py-1.5 text-xs font-semibold transition",
+              poolFilter === "state"
+                ? "bg-primary text-on-primary"
+                : "bg-surface-container-low text-on-surface hover:bg-surface-container"
+            )}
+          >
+            Home State ({activeColleges.filter((item) => item.predictorPool === "state" || (domicileStateSlug && item.stateSlug === domicileStateSlug)).length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setPoolFilter("aiq")}
+            className={cn(
+              "rounded-full px-3.5 py-1.5 text-xs font-semibold transition",
+              poolFilter === "aiq"
+                ? "bg-primary text-on-primary"
+                : "bg-surface-container-low text-on-surface hover:bg-surface-container"
+            )}
+          >
+            All India Quota (MCC) ({activeColleges.filter((item) => item.predictorPool === "aiq" || (domicileStateSlug && item.stateSlug !== domicileStateSlug)).length})
+          </button>
+        </div>
+
         <CollegeResultsGrid
-          colleges={activeColleges}
+          colleges={filteredColleges}
           resetHref="/college-predictor"
           rankCategoryShort={rankCategoryShort}
           feeQuotaShort={feeQuotaShort}
@@ -389,7 +445,7 @@ export function CollegePredictorAirChip({
   air: number;
   categoryLabel: string;
   stateLabel: string;
-  quotaLabel: string;
+  quotaLabel?: string;
 }) {
   return (
     <div className="flex flex-wrap gap-2">
@@ -398,7 +454,7 @@ export function CollegePredictorAirChip({
       </ToolInputChip>
       <span className="rp-rpill">{categoryLabel}</span>
       <span className="rp-rpill">{stateLabel}</span>
-      <span className="rp-rpill">{quotaLabel}</span>
+      {quotaLabel ? <span className="rp-rpill">{quotaLabel}</span> : null}
     </div>
   );
 }
