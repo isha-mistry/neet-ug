@@ -3,7 +3,7 @@ import { COLLEGES_LISTING_HERO } from "@/lib/colleges/listing-hero-content";
 
 export function CollegesListingHero() {
   return (
-    <header className="rp-hero rp-hero-compact rp-bleed" id="colleges">
+    <header className="rp-hero rp-hero-compact rp-bleed " id="colleges">
       <div className="rp-hero-inner">
         <nav className="rp-crumb" aria-label="Breadcrumb">
           <Link href="/">Home</Link>

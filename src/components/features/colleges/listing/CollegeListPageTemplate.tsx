@@ -86,7 +86,7 @@ export function CollegeListPageTemplate({
         lockedFilters={lockedFilters}
       />
 
-      <section className="flex flex-col gap-6">
+      <section className="flex flex-col gap-6 ">
         <div className="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-18px_rgba(37,70,208,0.2)] md:p-5">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div className="flex flex-col gap-1.5">

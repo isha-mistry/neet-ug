@@ -2,7 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { FiArrowRight, FiClock, FiUser, FiCalendar } from "react-icons/fi";
 import { Card } from "@/components/ui/Card";
-import { urlFor } from "@/sanity/lib/image";
+import { Button } from "@/components/ui/Button";
+import { AiGeneratedCoverBadge } from "@/components/features/colleges/shared/AiGeneratedCoverBadge";
+import { getBlogCoverImage } from "@/lib/blog/fallback-images";
 import type { SanityBlogPost } from "@/types/blog";
 
 interface BlogPostCardProps {
@@ -10,9 +12,7 @@ interface BlogPostCardProps {
 }
 
 export function BlogPostCard({ post }: BlogPostCardProps) {
-  const imageUrl = post.mainImage
-    ? urlFor(post.mainImage).width(600).height(380).url()
-    : null;
+  const { url: imageUrl, isAiGenerated } = getBlogCoverImage(post, 600, 380);
 
   const formattedDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString("en-IN", {
@@ -35,23 +35,16 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
       as="article"
       className="group flex h-full flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-primary/40"
     >
-      {imageUrl ? (
-        <div className="relative h-48 w-full overflow-hidden bg-surface-container-low">
-          <Image
-            src={imageUrl}
-            alt={post.mainImage?.alt || post.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-      ) : (
-        <div className="flex h-40 w-full items-center justify-center bg-gradient-to-br from-primary-fixed to-surface-container-low p-6">
-          <span className="text-center font-mono text-xs font-bold uppercase tracking-widest text-primary">
-            Dravio Medical Counseling
-          </span>
-        </div>
-      )}
+      <div className="relative h-48 w-full overflow-hidden bg-surface-container-low">
+        <Image
+          src={imageUrl}
+          alt={post.mainImage?.alt || post.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+        {isAiGenerated ? <AiGeneratedCoverBadge compact /> : null}
+      </div>
 
       <div className="flex flex-1 flex-col p-6">
         <div className="flex flex-wrap items-center gap-2">
@@ -91,13 +84,16 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
           </span>
         </div>
 
-        <Link
-          href={`/blog/${post.slug}`}
-          className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold tracking-wide text-primary transition-all group-hover:gap-2.5"
-        >
-          Read Article
-          <FiArrowRight aria-hidden="true" />
-        </Link>
+        <div className="mt-4">
+          <Button
+            as="link"
+            href={`/blog/${post.slug}`}
+            variant="text"
+            trailingIcon={<FiArrowRight aria-hidden="true" />}
+          >
+            Read Article
+          </Button>
+        </div>
       </div>
     </Card>
   );

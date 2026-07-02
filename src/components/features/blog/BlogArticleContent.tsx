@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText, type PortableTextReactComponents } from "@portabletext/react";
 import { FiMessageCircle, FiAward, FiArrowRight } from "react-icons/fi";
+import { Button } from "@/components/ui/Button";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityBlogPost } from "@/types/blog";
 import { openCounselWhatsApp } from "@/lib/leads/whatsapp";
@@ -144,21 +145,25 @@ export function BlogArticleContent({ post }: BlogArticleContentProps) {
           </div>
 
           <div className="flex flex-col gap-3 sm:shrink-0 sm:flex-row sm:items-center">
-            <Link
-              href="/rank-predictor"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-sm font-bold text-on-primary shadow-brand-action transition-transform hover:-translate-y-[1px]"
+            <Button
+              as="link"
+              href="/reneet-rank-predictor-2026"
+              variant="primary"
+              size="md"
+              leadingIcon={<FiAward className="text-base" />}
             >
-              <FiAward className="text-base" />
               Check Chances
-            </Link>
-            <button
+            </Button>
+            <Button
+              as="button"
               type="button"
               onClick={handleWhatsAppConsult}
-              className="inline-flex items-center justify-center gap-2 rounded-lg border-[1.5px] border-outline-variant bg-surface-container-lowest px-6 py-3.5 text-sm font-bold text-primary transition-colors hover:border-primary hover:bg-surface-container-low"
+              variant="secondary"
+              size="md"
+              leadingIcon={<FiMessageCircle className="text-base text-[#25D366]" />}
             >
-              <FiMessageCircle className="text-base text-[#25D366]" />
               Talk on WhatsApp
-            </button>
+            </Button>
           </div>
         </div>
       </div>

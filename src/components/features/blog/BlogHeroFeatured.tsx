@@ -1,7 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FiArrowRight, FiClock, FiUser, FiCalendar } from "react-icons/fi";
-import { urlFor } from "@/sanity/lib/image";
+import { Button } from "@/components/ui/Button";
+import { AiGeneratedCoverBadge } from "@/components/features/colleges/shared/AiGeneratedCoverBadge";
+import { getBlogCoverImage } from "@/lib/blog/fallback-images";
 import type { SanityBlogPost } from "@/types/blog";
 
 interface BlogHeroFeaturedProps {
@@ -9,9 +11,7 @@ interface BlogHeroFeaturedProps {
 }
 
 export function BlogHeroFeatured({ post }: BlogHeroFeaturedProps) {
-  const imageUrl = post.mainImage
-    ? urlFor(post.mainImage).width(900).height(560).url()
-    : null;
+  const { url: imageUrl, isAiGenerated } = getBlogCoverImage(post, 900, 560);
 
   const formattedDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString("en-IN", {
@@ -31,26 +31,16 @@ export function BlogHeroFeatured({ post }: BlogHeroFeaturedProps) {
     <div className="relative mb-12 overflow-hidden rounded-[24px] border border-outline-variant bg-surface-container-lowest shadow-md transition-all duration-300 hover:shadow-lg">
       <div className="grid grid-cols-1 lg:grid-cols-12">
         {/* Image Column */}
-        <div className="relative min-h-[260px] sm:min-h-[340px] lg:col-span-7 lg:min-h-[420px]">
-          {imageUrl ? (
-            <Image
-              src={imageUrl}
-              alt={post.mainImage?.alt || post.title}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 60vw"
-              className="object-cover"
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary to-primary-pressed p-8 text-on-primary">
-              <div className="max-w-md text-center">
-                <span className="font-mono text-xs font-bold uppercase tracking-widest text-brand-inverse-muted">
-                  Featured Insight
-                </span>
-                <h3 className="mt-2 text-2xl font-bold">{post.title}</h3>
-              </div>
-            </div>
-          )}
+        <div className="relative min-h-[260px] sm:min-h-[340px] lg:col-span-7 lg:min-h-[420px] bg-surface-container-low">
+          <Image
+            src={imageUrl}
+            alt={post.mainImage?.alt || post.title}
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 60vw"
+            className="object-cover"
+          />
+          {isAiGenerated ? <AiGeneratedCoverBadge /> : null}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden" />
         </div>
 
@@ -104,13 +94,17 @@ export function BlogHeroFeatured({ post }: BlogHeroFeaturedProps) {
               </span>
             </div>
 
-            <Link
-              href={`/blog/${post.slug}`}
-              className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-primary px-7 py-3.5 text-sm font-bold text-on-primary shadow-brand-action transition-all duration-200 hover:-translate-y-[1px] hover:bg-primary-hover active:translate-y-0"
-            >
-              Read Full Insight
-              <FiArrowRight aria-hidden="true" className="text-base" />
-            </Link>
+            <div>
+              <Button
+                as="link"
+                href={`/blog/${post.slug}`}
+                variant="primary"
+                size="md"
+                trailingIcon={<FiArrowRight aria-hidden="true" className="text-base" />}
+              >
+                Read Full Insight
+              </Button>
+            </div>
           </div>
         </div>
       </div>
