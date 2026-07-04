@@ -62,6 +62,8 @@ graph TD
         CDN[Cloudinary CDN]
         Sentry[Sentry Error Telemetry]
         Turnstile[Cloudflare Turnstile CAPTCHA]
+        Sanity[Sanity Headless CMS Cloud]
+        FastAPI[FastAPI v3 Prediction Engine]
     end
 
     Browser <--> Pages
@@ -71,13 +73,16 @@ graph TD
     Actions --> WA
     Actions --> Sentry
     Actions --> Turnstile
+    Actions --> FastAPI
     Pages --> CDN
     Pages --> Sentry
     Pages --> Turnstile
+    Pages <--> Sanity
 ```
 
 ### Core Technology Stack:
 * **Core Framework**: Next.js 16.2.6 powered by React 19.2.4 and TypeScript.
+* **Headless CMS & Content Engine**: Sanity Headless CMS v3 (`next-sanity`, `@sanity/client`, `@sanity/image-url`) powering dynamic blog articles, author profiles, category taxonomies, and rich PortableText block rendering (`src/sanity/`). Embedded administrative interface hosted at `/studio`.
 * **Security & Bot Protection**: `@marsidev/react-turnstile` integrating Cloudflare Turnstile invisible CAPTCHA across all form components and server actions.
 * **Styling & Design System**: Tailwind CSS v4 coupled with CSS modules (`globals.css`, `journey-home.css`, `lead-form-controls.css`). Standardized semantic visual tokens (`--color-primary`, `--color-tertiary` for safe chances, `--color-secondary` for borderline, `--color-error` for high risk).
 * **State Management**: Zustand v5 (`src/store/`), supplemented by persistent browser session utilities (`src/lib/rank-predictor/session.ts`, `cutoff-analyser/session.ts`).
@@ -168,14 +173,17 @@ The application route hierarchy under `src/app` is partitioned into distinct stu
 * **Journey Home (`/`)**: Main entry portal introducing NEET UG counseling mechanics, counseling authority breakdowns, and interactive CTA triggers.
 * **NEET UG Hub (`/neet-ug-2026`)**: Central educational hub housing terms explained, NRI counseling guides, application checklists, and answer key updates.
 * **MBBS in India (`/mbbs-in-india` & `/state-counselling`)**: State-by-state counseling directories detailing domicile eligibility, registration rules, and local reservation matrices (e.g., Gujarat SEBC/EWS extensions).
+* **Blog & Insights Module (`/blog` & `/blog/[articleSlug]`)**: Sanity CMS-backed educational portal featuring medical counseling articles, cutoff shift breakdowns, and expert advice. Displays featured posts (`BlogHeroFeatured`), categorized grid listings (`BlogPostCard`), and rich Portable Text content (`BlogArticleContent`).
+* **Sanity Studio Portal (`/studio/[[...tool]]`)**: Embedded real-time content management workspace where counseling editors curate posts, categories, and author profiles.
 
 ### 4.2 Analytical Predictor Engines
-* **Rank Predictor (`/rank-predictor`)**: Accepts estimated marks and calculates projected All India Rank brackets using statistical interpolation models (`src/lib/rank-predictor/`).
+* **ReNEET Rank Predictor 2026 (`/reneet-rank-predictor-2026`)**: Canonical score-to-rank prediction interface (note: legacy `/rank-predictor` redirects here). Sends expected NEET raw scores to an external **FastAPI v3 Prediction Engine (`src/lib/rank-predictor/predict-api.ts`)** to retrieve high-accuracy All India Rank (AIR) and State Merit Rank brackets (`lower_rank`, `upper_rank`).
+* **NEET UG Answer Key & Score Estimator (`/neet-ug-2026/answer-key`)**: Interactive provisional answer key verification tool covering NTA Paper Sets (50, 60, 70, 80) across Physics, Chemistry, Botany, and Zoology. Features a live calculator (+4 / -1) backed by `app.neet_answer_keys`.
 * **College Predictor (`/college-predictor`)**: Cross-references candidate AIR, category, and domicile against historical `Cutoff` records to generate categorized college chances:
   * **Safe Chance** (`--color-tertiary`): Historical closing rank comfortably exceeds student rank.
   * **Borderline** (`--color-secondary`): Student rank sits near historical cutoffs.
   * **High Risk / Tough** (`--color-error`): Historical cutoffs demand significantly higher rank.
-* **Cutoff Analyser (`/cutoff-analyser`)**: Interactive multi-year comparison tool enabling students to filter opening/closing ranks by college type, state, and quota.
+* **Cutoff Analyser (`/cutoff-analyser`)**: Interactive multi-year comparison tool enabling students to filter opening/closing ranks by college type, state, and quota, equipped with an eligibility glance panel.
 
 ### 4.3 College Explorer Registry (`src/app/(colleges)`)
 * **College Profiles (`/colleges/[slug]`)**: Deep-dive institutional pages displaying verified fee schedules, hospital bed counts, bond penalties, and NIRF medical scores.
@@ -296,7 +304,9 @@ Med-Seat implements Next.js App Router architectural best practices by clearly d
 
 | Execution Layer | Location | Primary Purpose | Architectural Benefit |
 | :--- | :--- | :--- | :--- |
-| **Server Actions** | `src/app/actions/*.ts` | Internal UI form submissions (`submitLeadAction`, `sendPhoneLoginOtpAction`). | Zero API client scaffolding, automatic progressive enhancement, type-safe RPC signatures. |
+| **Server Actions** | `src/app/actions/*.ts` | Internal UI form submissions (`submitLeadAction`, `sendPhoneLoginOtpAction`, `fetchNeetAnswerKeyAction`). | Zero API client scaffolding, automatic progressive enhancement, type-safe RPC signatures. |
+| **External Service RPCs** | `src/lib/rank-predictor/predict-api.ts` | Server-to-server POST communication with FastAPI v3 microservices for rank band prediction. | Offloads heavy statistical prediction models outside serverless runtimes. |
+| **CMS Live Queries** | `src/sanity/lib/live.ts`, `queries.ts` | Type-safe GROQ queries (`ALL_POSTS_QUERY`, `POST_QUERY`) fetching article contents from Sanity Cloud. | ISR & CDN-cached structured article delivery with automatic visual editing support. |
 
 ---
 
@@ -358,6 +368,8 @@ sequenceDiagram
 ## 11. Third-Party Integrations & CDN Infrastructure
 
 * **Cloudinary CDN**: Handles dynamic image resizing, format negotiation (AVIF/WebP), and optimization for college cover thumbnails and campus photography.
+* **Sanity Headless CMS Cloud**: Enterprise content repository managing GROQ queries, structured PortableText blocks, and author/category schemas.
+* **FastAPI v3 Rank Prediction Service**: Microservice providing AI/statistical rank band calculation models (`lower_rank`, `upper_rank`, `predicted_air_rank`).
 * **Cloudflare Turnstile**: Enterprise invisible CAPTCHA service verifying human interaction across all lead submission forms and OTP authentication endpoints.
 * **Fast2SMS Gateway**: Enterprise DLT SMS provider handling transactional authentication OTPs.
 * **WhatsApp wa.me**: Meta's direct click-to-chat API interface driving student-counselor conversion.

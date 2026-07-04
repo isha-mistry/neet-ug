@@ -4,9 +4,8 @@ import { Container } from "@/components/common/Container";
 import { BlogPostCard } from "@/components/features/blog/BlogPostCard";
 import { BlogHeroFeatured } from "@/components/features/blog/BlogHeroFeatured";
 import { BlogEmptyState } from "@/components/features/blog/BlogEmptyState";
+import Link from "next/link";
 import { NeetUg2026Shell } from "@/components/features/neet-ug/NeetUg2026Parts";
-import { RpMarketingHero } from "@/components/features/rank-predictor/RankPredictorParts";
-import { NeetUgHeroLeadMagnet } from "@/components/features/neet-ug/NeetUgHeroLeadMagnet";
 import { Button } from "@/components/ui/Button";
 import { sanityFetch } from "@/sanity/lib/live";
 import { ALL_POSTS_QUERY } from "@/sanity/lib/queries";
@@ -41,26 +40,27 @@ export default async function BlogHomePage() {
 
   return (
     <NeetUg2026Shell>
-      <RpMarketingHero
-        id="top"
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Insights & Blog" },
-        ]}
-        title="Master Your Medical Career "
-        titleEmphasis="Journey"
-        lede="Data-driven counseling analysis, historical cutoff shifts, fee structure transparency, and strategic admission guides curated by Dravio medical experts."
-        trio={[
-          { key: "Research", value: "Data-Driven" },
-          { key: "Admission Guides", value: "AIQ & State" },
-          { key: "Curated by", value: "Medical Experts" },
-        ]}
-        fine="Stay updated with official NEET UG 2026 counselling rounds, seat matrix shifts, and cutoff trends."
-      >
-        <NeetUgHeroLeadMagnet />
-      </RpMarketingHero>
-
       <Container size="2xl" className="pb-16 pt-8 md:pt-12 flex flex-col gap-8">
+        <nav className="rp-crumb" aria-label="Breadcrumb">
+          {[
+            { label: "Home", href: "/" },
+            { label: "Insights & Blog" },
+          ].map((crumb, index, arr) => {
+            const isLast = index === arr.length - 1;
+            return (
+              <span key={`${crumb.label}-${index}`} className="contents">
+                {index > 0 ? <span className="rp-crumb-sep">/</span> : null}
+                {isLast || !crumb.href ? (
+                  <span style={isLast ? { color: "var(--color-primary)" } : undefined}>
+                    {crumb.label}
+                  </span>
+                ) : (
+                  <Link href={crumb.href}>{crumb.label}</Link>
+                )}
+              </span>
+            );
+          })}
+        </nav>
         {posts.length === 0 ? (
           <BlogEmptyState />
         ) : (

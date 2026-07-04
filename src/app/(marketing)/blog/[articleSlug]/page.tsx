@@ -20,6 +20,8 @@ interface PageProps {
   params: Promise<{ articleSlug: string }>;
 }
 
+export const revalidate = 60; // revalidate every minute if ISR
+
 export async function generateStaticParams() {
   try {
     const slugs = await client.fetch<{ slug: string }[]>(POST_SLUGS_QUERY);

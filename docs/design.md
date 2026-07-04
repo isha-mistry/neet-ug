@@ -432,6 +432,40 @@ For all structured data directories, guidelines, and tool interfaces:
 - **Radius**: `24px` (`var(--radius-feature)`).
 - **Implementation**: Outer wrapper or pseudo-element with `1.5px` border padding and a gradient from `rgb(37, 70, 208)` (vibrant royal blue) through `rgba(37, 70, 208, 0.08)` (45% midpoint) to `rgba(21, 164, 95, 0.35)` (emerald green) using mask-composite matching the Seat Radar card styling.
 
+### 2.11 Blog & Content Layout Standards
+
+For content-driven pages, educational articles, and counseling blogs (`/blog`, `/blog/[articleSlug]`):
+
+#### 1. Featured Article Hero (`BlogHeroFeatured`)
+- **Wrapper & Grid**: Use a prominent two-column or asymmetric grid card (`card-feature`) separating the hero article image from its title, author attribution, and excerpt.
+- **Metadata Badges**: Display category names inside primary soft chips (`--color-primary-fixed`) alongside reading time estimation and published date in muted mono typography (`12px`).
+- **Author Attribution**: Display circular avatar (`--radius-circle`) alongside author name and role credentials to establish medical counseling authority.
+
+#### 2. Grid Article Cards (`BlogPostCard`)
+- **Interactive Affordance**: Apply standard card hover lift (`card-hover` pattern with `translateY(-4px)` and larger shadow) to communicate clickability.
+- **Image Fallback Strategy**: Always provide reliable medical/counseling default cover images via fallback utilities (`src/lib/blog/fallback-images.ts`) when CMS image assets are omitted or loading.
+- **Card Hierarchy**: Arrange top-to-bottom: Category/Date eyebrow -> Bold card title (`20px`) -> 2-line truncated muted excerpt -> Author footer bar.
+
+#### 3. Rich Text & Article Typography (`BlogArticleContent`)
+- **PortableText Formatting**: Standardize CMS block content rendering. Main body text uses `16px` to `17px` with `1.65` line height.
+- **Headings & Emphasis**: Article H2/H3 headers must include generous top margin (`36px`) and compact bottom spacing (`12px`) with brand blue emphasis on key terminology.
+- **Callout & Quote Blocks**: Blockquotes and note callouts utilize a left accent border (`border-l-4 border-l-primary`) with a soft background fill (`--color-surface-container-low`) for visual distinction.
+
+#### 4. Empty State (`BlogEmptyState`)
+- Present a centered, clean card container (`card-default`) with an informative icon, helpful message, and reset action button when category filters or search queries return no articles.
+
+### 2.12 Interactive Tool & Calculator UI Standards
+
+For prediction engines, answer key tools, and multi-step counseling calculators:
+
+#### 1. Multi-Step Wizards (`CollegePredictorWizard`, `RankPredictorStepper`)
+- **Progress Header**: Utilize segmented progress bars or numbered step badges (`StatusChip`) indicating current step and completion trajectory.
+- **Form Card Grouping**: Encapsulate selection controls (radio buttons, state selectors, category filters) inside clean rounded cards with active selection ring highlights (`2px solid var(--color-primary)`).
+
+#### 2. Answer Key & Live Score Estimator (`NeetAnswerKeyView`)
+- **Paper Set Navigation**: Use pill-shaped tab buttons to switch seamlessly between NTA Paper Sets (50, 60, 70, 80).
+- **Interactive Score Sticky Bar**: Anchor a real-time score calculator displaying estimated marks (+4 for correct, -1 for incorrect) as students verify answers against provisional keys.
+
 ## 3. Global Reusable Patterns to Extract
 
 ### Section Header
@@ -686,6 +720,8 @@ Highest-value extraction order:
 6. `IconTile` and `MetricPair`.
 7. `GradientCtaBand` and `LeadModal`.
 8. `FaqList`, `WarningList`, and `ComparisonTable` wrappers.
+9. `BlogHeroFeatured`, `BlogPostCard`, and `BlogArticleContent` for content hubs.
+10. `NeetAnswerKeyView` and `EligibilityGlancePanel` for interactive tools.
 
 ### Organize CSS for Scalability
 
@@ -745,3 +781,5 @@ Reusable patterns came from these Journey Home selectors:
 - CTA bands: `.chband`, `.pb`, `.final`.
 - Motion: `.reveal`, `.spot`, `.rpanel-swap`, `ring`, `pulse`, `blink`, `mq`.
 - Journey-only interactions: `#journey`, `#jsvg`, `#jdot`, `.jnode`, `.rounds-pinned`, `.rnode2`.
+- Blog & Content UI: `BlogHeroFeatured.tsx`, `BlogPostCard.tsx`, `BlogArticleContent.tsx`, `BlogEmptyState.tsx`.
+- Interactive Predictors & Tools: `RpMarketingHero.tsx`, `NeetAnswerKeyView.tsx`, `EligibilityGlancePanel.tsx`.

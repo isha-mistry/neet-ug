@@ -29,8 +29,8 @@
         "href": "/counselling"
       },
       {
-        "label": "About",
-        "href": "/about-us"
+        "label": "Blog",
+        "href": "/blog"
       }
     ],
     "footer": {
@@ -120,6 +120,10 @@
             {
               "label": "About Us",
               "href": "/about-us"
+            },
+            {
+              "label": "Blog",
+              "href": "/blog"
             },
             {
               "label": "FAQ",
