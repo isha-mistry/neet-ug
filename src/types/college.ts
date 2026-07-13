@@ -1,7 +1,9 @@
-import type { Slug } from "./core";
+import type { CounsellingPool } from "@/lib/colleges/counselling-pool";
 import type { NeetCategory } from "@/lib/rank-predictor/types";
+import type { Slug } from "@/types/core";
 
-export type CollegeType = "government" | "private" | "deemed" | "aiims" | "semi-government";
+export type CollegeType =
+  "government" | "private" | "deemed" | "aiims" | "semi-government";
 
 export type FeeCurrency = "INR" | "USD";
 
@@ -29,6 +31,10 @@ export interface StateFeeScheduleRow {
   /** Maharashtra CET: Male / Female fee rows. */
   gender?: string;
   totalAnnual: number;
+  /** KEA vs MCC — drives grouped fee panels. */
+  counsellingPool?: CounsellingPool;
+  /** Parent `FeeSchedule.source` (e.g. `karnataka_dump`, `up_dump`, `mcc_fee_csv`). */
+  source?: string;
 }
 
 export interface CollegeFees {
@@ -41,11 +47,24 @@ export interface CollegeFees {
   quotaBreakdown?: QuotaFeeBreakdown;
   /** MP DMAT / MH CET fee rows; does not affect GJ/RJ display. */
   stateFeeSchedule?: StateFeeScheduleRow[];
+  /** Primary state schedule `FeeSchedule.source` (latest academic year). */
+  scheduleSource?: string;
+  /** Headline amounts from a separate `mcc_fee_csv` schedule when coexisting with state fees. */
+  mccFeeSummary?: Pick<
+    CollegeFees,
+    "tuition" | "hostel" | "misc" | "totalAnnual" | "totalCourse"
+  >;
   gqFees?: number;
   mqFees?: number;
   nriFees?: number;
   nriCurrency?: string;
   hostelFees?: number;
+  /** UP DGME: annual hostel (AC) from fee sheet. */
+  hostelAcFees?: number;
+  /** UP DGME: annual hostel (non-AC) from fee sheet. */
+  hostelNonAcFees?: number;
+  /** One-time security deposit (UP and similar). */
+  securityDeposit?: number;
   messFees?: number;
   universityFees?: number;
   transportFees?: number;
@@ -66,6 +85,10 @@ export interface CollegeCutoff {
   categoryClosingRank?: string;
   dbCategory?: string;
   dbSeatType?: string;
+  /** Raw counselling quota from DB (e.g. "All India") — used for category filter matching. */
+  dbQuota?: string;
+  /** KEA state vs MCC AIQ — drives grouped cutoff UI. */
+  counsellingPool?: CounsellingPool;
 }
 
 export interface CollegeBond {
@@ -101,6 +124,11 @@ export interface CollegeSeatMatrix {
   nri: number;
   /** Institutional / IQ seats (Maharashtra private CAP). */
   iqQuota: number;
+  /** Reservation breakdown within the state quota pool. */
+  stateCategoryDistribution?: Record<string, number>;
+  /** Reservation breakdown within the AIQ pool (MCC sub-buckets). */
+  aiqCategoryDistribution?: Record<string, number>;
+  /** @deprecated Merged view — prefer split distributions above. */
   categoryDistribution: Record<string, number>;
 }
 
@@ -121,6 +149,8 @@ export interface CollegeRecord {
   roiScore: number | null;
   otherInfo?: CollegeOtherInfo;
   seatMatrix?: CollegeSeatMatrix;
+  /** MCC/AIQ seat matrix when split from state counselling at DB layer. */
+  mccSeatMatrix?: CollegeSeatMatrix;
   /** NIRF India Rankings — Medical category (when present in catalog DB). */
   nirfMedicalRank?: number;
   nirfMedicalScore?: number;

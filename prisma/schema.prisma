@@ -77,7 +77,7 @@ model FeeSchedule {
   lineItems    FeeLineItem[]
   college      College       @relation(fields: [collegeId], references: [collegeId], onDelete: Cascade)
 
-  @@unique([collegeId, academicYear])
+  @@unique([collegeId, academicYear, source])
   @@map("fee_schedules")
   @@schema("app")
 }
@@ -108,10 +108,12 @@ model SeatSnapshot {
   academicYear  Int          @map("academic_year")
   instituteType String       @map("institute_type")
   totalSeats    Int          @map("total_seats")
+  /// production | mcc_csv | karnataka_dump | gujarat_production | …
+  source        String       @default("")
   buckets       SeatBucket[]
   college       College      @relation(fields: [collegeId], references: [collegeId], onDelete: Cascade)
 
-  @@unique([collegeId, academicYear])
+  @@unique([collegeId, academicYear, source], map: "seat_snapshots_source_uq")
   @@map("seat_snapshots")
   @@schema("app")
 }
@@ -149,9 +151,11 @@ model Cutoff {
   totalSeatsFilled          Int?     @map("total_seats_filled")
   openingCategoryRank       String?  @map("opening_category_rank")
   closingCategoryRank       String?  @map("closing_category_rank")
+  /// mcc_csv | karnataka_dump | gujarat_production | …
+  source                    String   @default("")
   college                   College  @relation(fields: [collegeId], references: [collegeId], onDelete: Cascade)
 
-  @@unique([collegeId, year, category, seatType, admissionRound, quota])
+  @@unique([collegeId, year, category, seatType, admissionRound, quota, source], map: "cutoffs_source_uq")
   @@index([year, category, closingRankAir])
   @@index([collegeId, year])
   @@map("cutoffs")

@@ -78,9 +78,10 @@ export function CollegeCard({
   feeQuotaShort,
   layout = "list",
 }: CollegeCardProps) {
-  const seatChips = college.seatMatrix
-    ? seatQuotaChipsFromMatrix(college.seatMatrix)
-    : parseSeatDistributionChips(college.quotaInfo);
+  const seatChips =
+    college.seatMatrix || college.mccSeatMatrix
+      ? seatQuotaChipsFromMatrix(college.seatMatrix, college.mccSeatMatrix)
+      : parseSeatDistributionChips(college.quotaInfo);
   const detailHref = `/colleges/${college.slug}`;
   const isGrid = layout === "grid";
 

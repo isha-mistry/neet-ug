@@ -1,16 +1,19 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import type { CollegeCutoff } from "@/types/college";
 import { formatNumber } from "@/lib/utils";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
+import { getStateConfig, matchesCutoffGroup, type CutoffCategoryOption } from "@/lib/colleges/state-config";
 import {
-  type CategoryFilter,
-  CATEGORIES,
-  matchesSelectedCategory,
-} from "@/lib/colleges/categories";
+  filterCategoriesByAuthority,
+} from "@/lib/colleges/counselling-pool";
+import {
+  cutoffMatchesAuthority,
+  useCounsellingScope,
+} from "@/components/features/colleges/detail/CounsellingScopeContext";
 import { DetailSectionHeader } from "@/components/features/colleges/shared/DetailSectionHeader";
 import { DetailPanel } from "@/components/features/colleges/shared/DetailPanel";
 import { cn } from "@/lib/utils";
@@ -18,6 +21,8 @@ import { cn } from "@/lib/utils";
 interface AdmissionInfoProps {
   seatCount: number;
   cutoffs: CollegeCutoff[];
+  /** State slug (e.g. "karnataka") — drives the category dropdown options. */
+  stateSlug?: string;
 }
 
 interface ColumnTooltipProps {
@@ -95,16 +100,95 @@ function ColumnInfoTooltip({ title, description, linkHref, linkText }: ColumnToo
   );
 }
 
-export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
-  const [category, setCategory] = useState<CategoryFilter>("general");
+function pickDefaultCategory(
+  categories: CutoffCategoryOption[],
+  cutoffs: CollegeCutoff[],
+): string {
+  const preferredValues =
+    categories[0]?.value.startsWith("kar-") || categories[0]?.value.startsWith("up-")
+      ? ["kar-gmp", "kar-opn", "up-regular"]
+      : ["mcc-aiq-open"];
+
+  for (const value of preferredValues) {
+    const preferred = categories.find((c) => c.value === value);
+    if (
+      preferred &&
+      cutoffs.some((cutoff) =>
+        matchesCutoffGroup(
+          {
+            category: cutoff.dbCategory ?? cutoff.category,
+            quota: cutoff.dbQuota ?? cutoff.quota,
+            seatType: cutoff.dbSeatType,
+          },
+          preferred,
+        ),
+      )
+    ) {
+      return preferred.value;
+    }
+  }
+
+  for (const cat of categories) {
+    const hasRows = cutoffs.some((cutoff) =>
+      matchesCutoffGroup(
+        {
+          category: cutoff.dbCategory ?? cutoff.category,
+          quota: cutoff.dbQuota ?? cutoff.quota,
+          seatType: cutoff.dbSeatType,
+        },
+        cat,
+      ),
+    );
+    if (hasRows) return cat.value;
+  }
+  return categories[0]?.value ?? "";
+}
+
+export function AdmissionInfo({ seatCount, cutoffs, stateSlug }: AdmissionInfoProps) {
+  const scope = useCounsellingScope();
+  const stateConfig = getStateConfig(stateSlug);
+  const categories = stateConfig.cutoffCategories;
+
+  const scopedCutoffs = useMemo(() => {
+    if (!scope?.showToggle) return cutoffs;
+    return cutoffs.filter((cutoff) =>
+      cutoffMatchesAuthority(cutoff, scope.authority),
+    );
+  }, [cutoffs, scope]);
+
+  const scopedCategories = useMemo(() => {
+    if (!scope?.showToggle) return categories;
+    return filterCategoriesByAuthority(categories, scope.authority);
+  }, [categories, scope]);
+
+  const [selectedValue, setSelectedValue] = useState<string>(() =>
+    pickDefaultCategory(scopedCategories, scopedCutoffs),
+  );
+
+  useEffect(() => {
+    setSelectedValue(pickDefaultCategory(scopedCategories, scopedCutoffs));
+  }, [scope?.authority, scopedCategories, scopedCutoffs]);
+
+  const selectedOption: CutoffCategoryOption | undefined = scopedCategories.find(
+    (c) => c.value === selectedValue,
+  );
 
   // Filter and sort cutoffs: Latest year first, then Round 1, 2...
-  const filteredCutoffs = cutoffs
-    .filter((cutoff) => matchesSelectedCategory(cutoff, category))
+  const filteredCutoffs = scopedCutoffs
+    .filter((cutoff) =>
+      selectedOption
+        ? matchesCutoffGroup(
+            {
+              category: cutoff.dbCategory ?? cutoff.category,
+              quota: cutoff.dbQuota ?? cutoff.quota,
+              seatType: cutoff.dbSeatType,
+            },
+            selectedOption,
+          )
+        : true,
+    )
     .sort((a, b) => {
-      if (b.year !== a.year) {
-        return b.year - a.year;
-      }
+      if (b.year !== a.year) return b.year - a.year;
       return (a.round || "").localeCompare(b.round || "");
     });
 
@@ -143,7 +227,7 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
               Cutoff trends
             </h3>
 
-            <div className="relative self-start sm:self-auto">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
               <label
                 htmlFor={categorySelectId}
                 className="relative flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 transition hover:border-primary/50"
@@ -153,11 +237,11 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
                 </span>
                 <select
                   id={categorySelectId}
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value as CategoryFilter)}
+                  value={selectedValue}
+                  onChange={(e) => setSelectedValue(e.target.value)}
                   className="cursor-pointer appearance-none border-none bg-transparent pr-7 text-sm font-bold text-primary focus:outline-none"
                 >
-                  {CATEGORIES.map((cat) => (
+                  {scopedCategories.map((cat) => (
                     <option
                       key={cat.value}
                       value={cat.value}
@@ -330,7 +414,7 @@ export function AdmissionInfo({ seatCount, cutoffs }: AdmissionInfoProps) {
               <p className="max-w-md text-xs text-on-surface-variant">
                 There are no cutoff trends recorded for{" "}
                 <span className="font-semibold text-on-surface">
-                  {CATEGORIES.find((c) => c.value === category)?.label}
+                  {selectedOption?.label}
                 </span>
                 . Try another category from the menu above.
               </p>

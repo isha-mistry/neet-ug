@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 import type { CollegeSeatMatrix } from "@/types/college";
 import { formatNumber } from "@/lib/utils";
 import {
@@ -13,9 +14,19 @@ import {
 import type { TooltipContentProps } from "recharts";
 import { DetailSectionHeader } from "@/components/features/colleges/shared/DetailSectionHeader";
 import { DetailPanel } from "@/components/features/colleges/shared/DetailPanel";
+import { getStateConfig } from "@/lib/colleges/state-config";
+import {
+  applyNetStateQuotaDisplay,
+  hasSplitSeatCounselling,
+  isMccOnlySeatMatrix,
+} from "@/lib/catalog/seat-matrix-from-snapshot";
+import { useCounsellingScope } from "@/components/features/colleges/detail/CounsellingScopeContext";
 
 interface SeatMatrixInfoProps {
   seatMatrix: CollegeSeatMatrix;
+  mccSeatMatrix?: CollegeSeatMatrix;
+  /** State slug — drives how quota groups are labelled and composed in the donut chart. */
+  stateSlug?: string;
 }
 
 type QuotaChartPoint = {
@@ -32,15 +43,106 @@ type CategoryChartPoint = {
   color: string;
 };
 
-/** Distinct quota slice colors — primary / secondary scale only */
-const QUOTA_SLICE_COLORS = [
-  "var(--color-primary)",
-  "var(--color-secondary)",
-  "var(--color-primary-hover)",
-  "var(--color-on-secondary-container)",
-  "var(--color-secondary-fixed-dim)",
-  "var(--color-primary-fixed-dim)",
-] as const;
+type CategorySection = {
+  id: string;
+  title: string;
+  scopeLabel: string;
+  poolSeats: number;
+  rows: CategoryChartPoint[];
+};
+
+function stripAiqPrefix(label: string): string {
+  return label.replace(/^AIQ\s+/i, "").trim();
+}
+
+/** Prefer split distributions; fall back to partitioning merged legacy data. */
+function resolveCategorySections(
+  seatMatrix: CollegeSeatMatrix,
+): CategorySection[] {
+  let aiqDist = seatMatrix.aiqCategoryDistribution ?? {};
+  let stateDist = seatMatrix.stateCategoryDistribution ?? {};
+  const mccOnly = isMccOnlySeatMatrix(seatMatrix);
+  const split = hasSplitSeatCounselling(seatMatrix);
+
+  if (
+    Object.keys(aiqDist).length === 0 &&
+    Object.keys(stateDist).length === 0 &&
+    Object.keys(seatMatrix.categoryDistribution).length > 0
+  ) {
+    aiqDist = {};
+    stateDist = {};
+    for (const [label, count] of Object.entries(seatMatrix.categoryDistribution)) {
+      if (count <= 0) continue;
+      const upper = label.toUpperCase();
+      if (upper === "AIQ") continue;
+      if (mccOnly || upper.startsWith("AIQ ")) {
+        aiqDist[stripAiqPrefix(label)] = count;
+      } else {
+        stateDist[label] = count;
+      }
+    }
+  } else {
+    aiqDist = Object.fromEntries(
+      Object.entries(aiqDist).map(([label, count]) => [
+        stripAiqPrefix(label),
+        count,
+      ]),
+    );
+  }
+
+  const toRows = (
+    distribution: Record<string, number>,
+    poolSeats: number,
+  ): CategoryChartPoint[] =>
+    Object.entries(distribution)
+      .filter(([, count]) => count > 0)
+      .map(([category, count]) => {
+        const percentage =
+          poolSeats > 0 ? (count / poolSeats) * 100 : 0;
+        return {
+          name: category,
+          seats: count,
+          percentage,
+          color: getCategoryBarColor(category),
+        };
+      })
+      .sort((a, b) => b.seats - a.seats || a.name.localeCompare(b.name));
+
+  const sections: CategorySection[] = [];
+
+  const aiqPool =
+    seatMatrix.aiq > 0
+      ? seatMatrix.aiq
+      : Object.values(aiqDist).reduce((s, n) => s + n, 0);
+  const aiqRows = toRows(aiqDist, aiqPool);
+  if (aiqRows.length > 0) {
+    sections.push({
+      id: "aiq",
+      title: "AIQ reservation split",
+      scopeLabel: `Within AIQ · ${formatNumber(aiqPool)} seats`,
+      poolSeats: aiqPool,
+      rows: aiqRows,
+    });
+  }
+
+  const statePool =
+    seatMatrix.stateQuota > 0
+      ? seatMatrix.stateQuota
+      : Object.values(stateDist).reduce((s, n) => s + n, 0);
+  const stateRows = toRows(stateDist, statePool);
+  if (stateRows.length > 0 && (split || !mccOnly)) {
+    sections.push({
+      id: "state",
+      title: "State quota reservation split",
+      scopeLabel: `Within state quota · ${formatNumber(statePool)} seats`,
+      poolSeats: statePool,
+      rows: stateRows,
+    });
+  }
+
+  return sections;
+}
+
 
 function formatCategoryLabel(raw: string): string {
   return raw.toUpperCase();
@@ -78,9 +180,20 @@ function getCategoryBarColor(catName: string): string {
   return "var(--color-outline)";
 }
 
-function CategorySeatRows({ rows }: { rows: CategoryChartPoint[] }) {
+function CategorySeatRows({
+  rows,
+  dense = false,
+}: {
+  rows: CategoryChartPoint[];
+  dense?: boolean;
+}) {
   return (
-    <ul className="grid grid-cols-[4rem_minmax(0,1fr)_5.25rem] items-center gap-x-4 gap-y-5 sm:grid-cols-[6.5rem_minmax(0,1fr)_8.75rem] sm:gap-x-5">
+    <ul
+      className={cn(
+        "grid grid-cols-[4rem_minmax(0,1fr)_5.25rem] items-center gap-x-4 sm:grid-cols-[6.5rem_minmax(0,1fr)_8.75rem] sm:gap-x-5",
+        dense ? "gap-y-2.5" : "gap-y-4",
+      )}
+    >
       {rows.map((row) => (
         <li key={row.name} className="contents">
           <span className="text-right text-[11px] font-bold uppercase leading-snug tracking-wide text-on-surface-variant sm:text-xs [text-wrap:balance]">
@@ -147,8 +260,25 @@ function CustomQuotaTooltip({
   return null;
 }
 
-export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
+export function SeatMatrixInfo({
+  seatMatrix,
+  mccSeatMatrix,
+  stateSlug,
+}: SeatMatrixInfoProps) {
+  const scope = useCounsellingScope();
+  const activeMatrix = useMemo(() => {
+    if (scope?.authority === "mcc" && mccSeatMatrix) return mccSeatMatrix;
+    const matrix = seatMatrix ?? mccSeatMatrix!;
+    return scope?.authority === "state" || !mccSeatMatrix
+      ? applyNetStateQuotaDisplay(matrix)
+      : matrix;
+  }, [scope?.authority, seatMatrix, mccSeatMatrix]);
   const [mounted, setMounted] = useState(false);
+  const [quotaPanelHeight, setQuotaPanelHeight] = useState<number | undefined>(
+    undefined,
+  );
+  const quotaPanelRef = useRef<HTMLDivElement>(null);
+  const stateConfig = getStateConfig(stateSlug);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -159,51 +289,53 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
     };
   }, []);
 
-  // Setup quota colors from theme scale (one distinct color per slice)
-  const quotaDefs = [
-    { label: "All India Quota (AIQ)", value: seatMatrix.aiq },
-    { label: "GOI Quota", value: seatMatrix.goiQuota },
-    { label: "State Quota", value: seatMatrix.stateQuota },
-    { label: "ESIC Quota", value: seatMatrix.esic },
-    { label: "Management", value: seatMatrix.management },
-    { label: "NRI Quota", value: seatMatrix.nri },
-    { label: "Institutional (IQ)", value: seatMatrix.iqQuota },
-  ].filter((q) => q.value > 0);
+  const quotaGroups = useMemo(() => {
+    const groups = stateConfig.seatQuotaGroups;
+    if (!scope?.showToggle) return groups;
+    if (scope.authority === "mcc") {
+      return groups.filter((group) =>
+        group.fields.some((field) => field === "aiq"),
+      );
+    }
+    return groups.filter((group) =>
+      group.fields.some((field) => field !== "aiq"),
+    );
+  }, [scope, stateConfig.seatQuotaGroups]);
 
-  const quotas = quotaDefs.map((q, index) => ({
-    ...q,
-    color: QUOTA_SLICE_COLORS[index % QUOTA_SLICE_COLORS.length],
-  }));
+  // Build quota slices from state config groups
+  const quotaDefs = quotaGroups
+    .map((group) => {
+      const total = group.fields.reduce((sum, field) => {
+        const val = (activeMatrix as unknown as Record<string, number>)[field];
+        return sum + (typeof val === "number" ? val : 0);
+      }, 0);
+      return { label: group.label, value: total, color: group.color };
+    })
+    .filter((q) => q.value > 0);
+
+  const quotas = quotaDefs.map((q) => ({ ...q, name: q.label }));
 
   const activeQuotas = quotas.filter((q) => q.value > 0);
 
   const totalQuotaSeats = activeQuotas.reduce((sum, q) => sum + q.value, 0);
-  const totalCategorySeats = Object.values(
-    seatMatrix.categoryDistribution,
-  ).reduce((sum, val) => sum + val, 0);
-
-  /** Categories (Open, SC, …) subdivide state or AIQ pools — not the full institute intake. */
-  const categoryShareBase =
-    seatMatrix.stateQuota > 0
-      ? seatMatrix.stateQuota
-      : seatMatrix.aiq > 0
-        ? seatMatrix.aiq
-        : totalCategorySeats;
+  const categorySections = useMemo(() => {
+    const sections = resolveCategorySections(activeMatrix);
+    const authority =
+      scope?.authority ?? (isMccOnlySeatMatrix(activeMatrix) ? "mcc" : "state");
+    if (!scope?.showToggle) {
+      return sections.filter((section) =>
+        authority === "mcc" ? section.id === "aiq" : section.id === "state",
+      );
+    }
+    if (authority === "mcc") {
+      return sections.filter((section) => section.id === "aiq");
+    }
+    return sections.filter((section) => section.id === "state");
+  }, [activeMatrix, scope]);
 
   const hasQuotaData = totalQuotaSeats > 0;
-  const hasCategoryData = totalCategorySeats > 0;
+  const hasCategoryData = categorySections.length > 0;
   const hasAnyData = hasQuotaData || hasCategoryData;
-
-  // Check if AIQ represents 100% of the quota seats
-  const isAiq100 =
-    seatMatrix.aiq > 0 &&
-    (seatMatrix.aiq === totalQuotaSeats ||
-      (seatMatrix.stateQuota === 0 &&
-        seatMatrix.goiQuota === 0 &&
-        seatMatrix.iqQuota === 0 &&
-        seatMatrix.esic === 0 &&
-        seatMatrix.management === 0 &&
-        seatMatrix.nri === 0));
 
   // Prepare chart data for Quota Distribution Donut Chart
   const quotaChartData = activeQuotas.map((q) => {
@@ -216,25 +348,37 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
     };
   });
 
-  // Prepare chart data for Category-wise seats horizontal bar chart
-  const categoryChartData = Object.entries(
-    seatMatrix.categoryDistribution,
-  ).map(([category, count]) => {
-    const percentage =
-      categoryShareBase > 0 ? (count / categoryShareBase) * 100 : 0;
-    return {
-      name: category.toUpperCase(),
-      seats: count,
-      percentage,
-      color: getCategoryBarColor(category),
-    };
-  });
+  const denseCategoryRows =
+    categorySections.reduce((sum, section) => sum + section.rows.length, 0) > 10;
 
-  const categoryScopeLabel = isAiq100
-    ? "Within AIQ"
-    : seatMatrix.stateQuota > 0
-      ? "Within state quota"
-      : "Categories";
+  useEffect(() => {
+    if (!hasQuotaData) {
+      setQuotaPanelHeight(undefined);
+      return;
+    }
+
+    const syncQuotaHeight = () => {
+      const quotaEl = quotaPanelRef.current;
+      if (!quotaEl) return;
+      setQuotaPanelHeight(Math.round(quotaEl.getBoundingClientRect().height));
+    };
+
+    syncQuotaHeight();
+
+    const quotaEl = quotaPanelRef.current;
+    if (!quotaEl) return;
+
+    const observer = new ResizeObserver(syncQuotaHeight);
+    observer.observe(quotaEl);
+    window.addEventListener("resize", syncQuotaHeight);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", syncQuotaHeight);
+    };
+  }, [hasQuotaData, mounted, quotaChartData.length]);
+
+  const showSplitCategoryHeader = categorySections.length > 1;
 
   return (
     <section className="flex flex-col gap-6 animate-fadeIn">
@@ -242,7 +386,7 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
       <DetailSectionHeader
         eyebrow="Intake"
         title="Seat matrix"
-        description="Quota split (AIQ, state, management, NRI) and category reservation within the state pool"
+        description="Quota split (AIQ, state, management, NRI) and reservation breakdown within each quota pool"
         icon="pie_chart"
       />
 
@@ -261,115 +405,159 @@ export function SeatMatrixInfo({ seatMatrix }: SeatMatrixInfoProps) {
           </p>
         </DetailPanel>
       ) : (
-        <div className="grid gap-8 lg:grid-cols-2">
-          <DetailPanel bodyClassName="flex flex-col gap-4">
-            <h3 className="font-extrabold text-lg text-text">Quota Distribution</h3>
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
+          <div ref={quotaPanelRef} className="w-full self-start">
+            <DetailPanel bodyClassName="flex flex-col gap-4">
+              <h3 className="font-extrabold text-lg text-text">Quota Distribution</h3>
 
-            {hasQuotaData ? (
-              <div className="flex flex-col items-center gap-6 py-2">
-                {/* Interactive Donut Chart (Top Side) */}
-                <div className="relative w-44 h-44 shrink-0 flex items-center justify-center">
-                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
-                    <span className="text-3xl font-black tracking-tight text-text">
-                      {formatNumber(totalQuotaSeats)}
-                    </span>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-text-muted mt-0.5">
-                      Total
-                    </span>
+              {hasQuotaData ? (
+                <div className="flex flex-col items-center gap-6 py-2">
+                  {/* Interactive Donut Chart (Top Side) */}
+                  <div className="relative w-44 h-44 shrink-0 flex items-center justify-center">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
+                      <span className="text-3xl font-black tracking-tight text-text">
+                        {formatNumber(totalQuotaSeats)}
+                      </span>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-text-muted mt-0.5">
+                        Total
+                      </span>
+                    </div>
+
+                    {mounted ? (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={quotaChartData}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={55}
+                            outerRadius={75}
+                            paddingAngle={2}
+                            stroke="var(--color-surface-container-lowest)"
+                            strokeWidth={2}
+                            dataKey="value"
+                          >
+                            {quotaChartData.map((entry, index) => (
+                              <Cell
+                                key={`cell-${index}`}
+                                fill={entry.color}
+                                className="focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer"
+                              />
+                            ))}
+                          </Pie>
+                          <RechartsTooltip
+                            content={CustomQuotaTooltip}
+                            cursor={false}
+                            wrapperStyle={{ zIndex: 1000, outline: "none" }}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    ) : (
+                      <div className="h-full w-full flex items-center justify-center text-xs font-semibold text-text-muted animate-pulse">
+                        Loading...
+                      </div>
+                    )}
                   </div>
 
-                  {mounted ? (
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={quotaChartData}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={55}
-                          outerRadius={75}
-                          paddingAngle={2}
-                          stroke="var(--color-surface-container-lowest)"
-                          strokeWidth={2}
-                          dataKey="value"
+                  {/* Legend List (Bottom Side - Stacked chips) */}
+                  <div className="flex flex-col gap-4 w-full border-t border-border/60 pt-5">
+                    {quotaChartData.map((quota, idx) => {
+                      return (
+                        <div
+                          key={idx}
+                          className="flex items-center justify-between gap-4 p-4 rounded-2xl bg-surface-container-low/20 border border-border/40 hover:border-brand-300 hover:bg-surface-container-low/40 transition-all duration-300 shadow-xs"
                         >
-                          {quotaChartData.map((entry, index) => (
-                            <Cell
-                              key={`cell-${index}`}
-                              fill={entry.color}
-                              className="focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer"
+                          <div className="flex items-center gap-2.5 text-on-surface-variant font-bold text-xs md:text-sm">
+                            <span
+                              className="h-3.5 w-3.5 rounded-full flex-shrink-0 ring-2 ring-surface-container-lowest"
+                              style={{ backgroundColor: quota.color }}
                             />
-                          ))}
-                        </Pie>
-                        <RechartsTooltip
-                          content={CustomQuotaTooltip}
-                          cursor={false}
-                          wrapperStyle={{ zIndex: 1000, outline: "none" }}
-                        />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  ) : (
-                    <div className="h-full w-full flex items-center justify-center text-xs font-semibold text-text-muted animate-pulse">
-                      Loading...
-                    </div>
-                  )}
-                </div>
-
-                {/* Legend List (Bottom Side - Stacked chips) */}
-                <div className="flex flex-col gap-4 w-full border-t border-border/60 pt-5">
-                  {quotaChartData.map((quota, idx) => {
-                    return (
-                      <div
-                        key={idx}
-                        className="flex items-center justify-between gap-4 p-4 rounded-2xl bg-surface-container-low/20 border border-border/40 hover:border-brand-300 hover:bg-surface-container-low/40 transition-all duration-300 shadow-xs"
-                      >
-                        <div className="flex items-center gap-2.5 text-on-surface-variant font-bold text-xs md:text-sm">
-                          <span
-                            className="h-3.5 w-3.5 rounded-full flex-shrink-0 ring-2 ring-surface-container-lowest"
-                            style={{ backgroundColor: quota.color }}
-                          />
-                          <span>{quota.name}</span>
+                            <span>{quota.name}</span>
+                          </div>
+                          <div className="shrink-0 text-right tabular-nums">
+                            <span className="font-extrabold text-on-surface text-sm md:text-base">
+                              {formatNumber(quota.value)}
+                            </span>
+                            <span className="ml-1.5 text-xs font-semibold text-primary">
+                              {quota.percentage.toFixed(1)}%
+                            </span>
+                          </div>
                         </div>
-                        <div className="shrink-0 text-right tabular-nums">
-                          <span className="font-extrabold text-on-surface text-sm md:text-base">
-                            {formatNumber(quota.value)}
-                          </span>
-                          <span className="ml-1.5 text-xs font-semibold text-primary">
-                            {quota.percentage.toFixed(1)}%
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center py-10 text-center gap-2">
-                <span className="text-xs font-bold text-text-secondary">
-                  Quota Allocation Not Available
-                </span>
-                <p className="text-[11px] max-w-xs text-text-muted">
-                  Specific quota division data is not recorded for this institution.
-                </p>
-              </div>
-            )}
-          </DetailPanel>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-10 text-center gap-2">
+                  <span className="text-xs font-bold text-text-secondary">
+                    Quota Allocation Not Available
+                  </span>
+                  <p className="text-[11px] max-w-xs text-text-muted">
+                    Specific quota division data is not recorded for this institution.
+                  </p>
+                </div>
+              )}
+            </DetailPanel>
+          </div>
 
-          <DetailPanel bodyClassName="flex flex-col gap-4">
-            <div className="flex items-center justify-between border-b border-border pb-3">
+          <DetailPanel
+            className="flex w-full flex-col self-start"
+            style={
+              quotaPanelHeight != null && hasCategoryData
+                ? { maxHeight: quotaPanelHeight }
+                : undefined
+            }
+            bodyClassName="flex min-h-0 flex-col gap-4 overflow-hidden"
+          >
+            <div className="flex shrink-0 items-center justify-between border-b border-border pb-3">
               <h3 className="font-extrabold text-lg text-text">Category-wise Seats</h3>
-              {hasCategoryData && (
+              {!showSplitCategoryHeader && categorySections[0] && (
                 <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md border shadow-xs bg-surface-container-low text-text-muted border-border">
-                  {categoryScopeLabel}
+                  {categorySections[0].scopeLabel}
                 </span>
               )}
             </div>
 
             {hasCategoryData ? (
-              <div className="pt-2">
+              <div
+                className={cn(
+                  "min-h-0 flex-1 overflow-y-auto overscroll-contain pt-2 pr-1",
+                  quotaPanelHeight != null &&
+                  "scrollbar-thin [scrollbar-color:var(--color-outline-variant)_transparent]",
+                )}
+              >
                 {mounted ? (
-                  <CategorySeatRows rows={categoryChartData} />
+                  <div
+                    className={cn(
+                      "flex flex-col",
+                      showSplitCategoryHeader ? "gap-6" : "gap-2",
+                    )}
+                  >
+                    {categorySections.map((section, sectionIndex) => (
+                      <div key={section.id} className="flex flex-col gap-3">
+                        {showSplitCategoryHeader && (
+                          <div className="flex items-center justify-between gap-3">
+                            <h4 className="text-sm font-bold text-on-surface">
+                              {section.title}
+                            </h4>
+                            <span className="shrink-0 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md border shadow-xs bg-surface-container-low text-text-muted border-border">
+                              {section.scopeLabel}
+                            </span>
+                          </div>
+                        )}
+                        <CategorySeatRows
+                          rows={section.rows}
+                          dense={denseCategoryRows}
+                        />
+                        {showSplitCategoryHeader &&
+                          sectionIndex < categorySections.length - 1 && (
+                            <div className="border-b border-border/60" />
+                          )}
+                      </div>
+                    ))}
+                  </div>
                 ) : (
-                  <div className="flex min-h-[12rem] w-full items-center justify-center text-xs font-semibold text-text-muted animate-pulse">
+                  <div className="flex min-h-24 w-full items-center justify-center text-xs font-semibold text-text-muted animate-pulse">
                     Loading category breakdown...
                   </div>
                 )}

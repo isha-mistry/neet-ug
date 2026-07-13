@@ -19,12 +19,25 @@ export function normalizeCategory(categoryStr?: string | null, quotaStr: string 
   const catLower = (categoryStr || "").toLowerCase();
   const quotaLower = quotaStr.toLowerCase();
 
+  // NRI / management quotas are not Open / General social categories.
+  if (
+    catLower === "nri" ||
+    catLower === "nq" ||
+    quotaLower.includes("nri") ||
+    quotaLower.includes("non-resident")
+  ) {
+    return null;
+  }
+
   if (
     catLower === "general" ||
     catLower === "open" ||
     catLower === "ur" ||
     catLower === "op" ||
-    catLower === "opph"
+    catLower === "opn" ||
+    catLower === "gm" ||
+    catLower === "gmp" ||
+    catLower === "gmph"
   ) {
     return "general";
   }

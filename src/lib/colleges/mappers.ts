@@ -23,7 +23,9 @@ function getLatestCutoff(record: CollegeRecord) {
   return pickDisplayCutoff(record, {});
 }
 
-export function parseQuotaInfoToSeatMatrix(quotaInfo: string): CollegeSeatMatrix {
+export function parseQuotaInfoToSeatMatrix(
+  quotaInfo: string,
+): CollegeSeatMatrix {
   const matrix: CollegeSeatMatrix = {
     aiq: 0,
     stateQuota: 0,
@@ -57,7 +59,11 @@ export function parseQuotaInfoToSeatMatrix(quotaInfo: string): CollegeSeatMatrix
         lowerLabel.startsWith("esic")
       ) {
         matrix.esic = val;
-      } else if (lowerLabel === "management" || lowerLabel === "mq" || lowerLabel === "management quota") {
+      } else if (
+        lowerLabel === "management" ||
+        lowerLabel === "mq" ||
+        lowerLabel === "management quota"
+      ) {
         matrix.management = val;
       } else if (lowerLabel === "nri" || lowerLabel === "nri quota") {
         matrix.nri = val;
@@ -73,7 +79,7 @@ export function parseQuotaInfoToSeatMatrix(quotaInfo: string): CollegeSeatMatrix
 
 export function toCollegeSummary(
   record: CollegeRecord,
-  context?: Pick<CollegeFilters, "quota" | "category">
+  context?: Pick<CollegeFilters, "quota" | "category">,
 ): CollegeSummary {
   const latest = context
     ? pickDisplayCutoff(record, context)
@@ -95,16 +101,23 @@ export function toCollegeSummary(
     seatCount: record.seatCount,
     quotaInfo: record.quotaInfo,
     ...(record.seatMatrix ? { seatMatrix: record.seatMatrix } : {}),
+    ...(record.mccSeatMatrix ? { mccSeatMatrix: record.mccSeatMatrix } : {}),
     bondLabel:
       record.bond.years === 0
-         ? "No Bond"
-         : `${record.bond.years} Year${record.bond.years === 1 ? "" : "s"}`,
+        ? "No Bond"
+        : `${record.bond.years} Year${record.bond.years === 1 ? "" : "s"}`,
     roiScore: record.roiScore,
     safetyTag: deriveSafetyTag(latest?.rank ?? 0),
     bond: record.bond,
-    ...(record.nirfMedicalRank ? { nirfMedicalRank: record.nirfMedicalRank } : {}),
-    ...(record.nirfRankingYear ? { nirfRankingYear: record.nirfRankingYear } : {}),
-    ...(record.infrastructure?.beds ? { beds: record.infrastructure.beds } : {}),
+    ...(record.nirfMedicalRank
+      ? { nirfMedicalRank: record.nirfMedicalRank }
+      : {}),
+    ...(record.nirfRankingYear
+      ? { nirfRankingYear: record.nirfRankingYear }
+      : {}),
+    ...(record.infrastructure?.beds
+      ? { beds: record.infrastructure.beds }
+      : {}),
     ...(record.infrastructure?.patientFlowPerDay
       ? { patientFlowPerDay: record.infrastructure.patientFlowPerDay }
       : {}),
@@ -113,7 +126,11 @@ export function toCollegeSummary(
 
 export function toCollegeDetail(record: CollegeRecord): CollegeDetailViewModel {
   const latest = getLatestCutoff(record);
-  const seatMatrix = record.seatMatrix ?? (record.quotaInfo ? parseQuotaInfoToSeatMatrix(record.quotaInfo) : undefined);
+  const seatMatrix =
+    record.seatMatrix ??
+    (!record.mccSeatMatrix && record.quotaInfo
+      ? parseQuotaInfoToSeatMatrix(record.quotaInfo)
+      : undefined);
   return {
     ...record,
     seatMatrix,
@@ -127,7 +144,7 @@ export function toCollegeDetail(record: CollegeRecord): CollegeDetailViewModel {
 
 function mapCategory(dbCategory: string): NeetCategory {
   const cat = dbCategory.toUpperCase();
-  if (cat === "OP") return "general";
+  if (cat === "OP" || cat === "OPEN") return "general";
   if (cat === "EW") return "ews";
   if (cat === "SE" || cat === "OBC") return "obc";
   if (cat === "SC") return "sc";
@@ -141,13 +158,24 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
   const cutoffs: CollegeCutoff[] = (dbCollege.cutoffs || []).map((c: any) => ({
     year: c.year,
     rank: c.closing_rank_air ?? 0,
-    quota: c.seat_type === "GQ" ? "State Quota" : c.seat_type === "MQ" ? "Management Quota" : c.seat_type === "NQ" ? "NRI Quota" : c.seat_type,
+    quota:
+      c.seat_type === "GQ"
+        ? "State Quota"
+        : c.seat_type === "MQ"
+          ? "Management Quota"
+          : c.seat_type === "NQ"
+            ? "NRI Quota"
+            : c.seat_type,
     category: mapCategory(c.category),
     round: c.admission_round ?? undefined,
     openingRank: c.opening_rank_air ?? undefined,
     closingRank: c.closing_rank_air ?? undefined,
-    stateOpeningRank: c.opening_state_merit_rank ? Number(c.opening_state_merit_rank) : undefined,
-    stateClosingRank: c.closing_state_merit_rank ? Number(c.closing_state_merit_rank) : undefined,
+    stateOpeningRank: c.opening_state_merit_rank
+      ? Number(c.opening_state_merit_rank)
+      : undefined,
+    stateClosingRank: c.closing_state_merit_rank
+      ? Number(c.closing_state_merit_rank)
+      : undefined,
     categoryOpeningRank: c.opening_category_rank ?? undefined,
     categoryClosingRank: c.closing_category_rank ?? undefined,
     dbCategory: c.category,
@@ -164,27 +192,45 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
   };
 
   if (dbCollege.fee_schedules && dbCollege.fee_schedules.length > 0) {
-    const latestSchedule = dbCollege.fee_schedules.reduce((latest: any, current: any) => {
-      return (!latest || current.academic_year > latest.academic_year) ? current : latest;
-    }, null);
+    const latestSchedule = dbCollege.fee_schedules.reduce(
+      (latest: any, current: any) => {
+        return !latest || current.academic_year > latest.academic_year
+          ? current
+          : latest;
+      },
+      null,
+    );
 
     if (latestSchedule && latestSchedule.fee_line_items) {
-      const gqTuitionItem = latestSchedule.fee_line_items.find((item: any) => item.component === "tuition" && item.seat_type === "GQ");
-      const mqTuitionItem = latestSchedule.fee_line_items.find((item: any) => item.component === "tuition" && item.seat_type === "MQ");
-      const nriTuitionItem = latestSchedule.fee_line_items.find((item: any) => item.component === "tuition" && item.seat_type === "NRI");
+      const gqTuitionItem = latestSchedule.fee_line_items.find(
+        (item: any) => item.component === "tuition" && item.seat_type === "GQ",
+      );
+      const mqTuitionItem = latestSchedule.fee_line_items.find(
+        (item: any) => item.component === "tuition" && item.seat_type === "MQ",
+      );
+      const nriTuitionItem = latestSchedule.fee_line_items.find(
+        (item: any) => item.component === "tuition" && item.seat_type === "NRI",
+      );
 
       const gqTuition = gqTuitionItem ? Number(gqTuitionItem.amount) : 0;
       const mqTuition = mqTuitionItem ? Number(mqTuitionItem.amount) : 0;
-      const nriAmount = nriTuitionItem ? Number(nriTuitionItem.amount) : undefined;
+      const nriAmount = nriTuitionItem
+        ? Number(nriTuitionItem.amount)
+        : undefined;
       const nriCurrency = nriTuitionItem?.currency ?? "INR";
 
       const tuition = gqTuition > 0 ? gqTuition : mqTuition > 0 ? mqTuition : 0;
 
-      const hostelItem = latestSchedule.fee_line_items.find((item: any) => item.component === "hostel");
+      const hostelItem = latestSchedule.fee_line_items.find(
+        (item: any) => item.component === "hostel",
+      );
       const hostel = hostelItem ? Number(hostelItem.amount) : 0;
 
       const misc = latestSchedule.fee_line_items
-        .filter((item: any) => item.component !== "tuition" && item.component !== "hostel")
+        .filter(
+          (item: any) =>
+            item.component !== "tuition" && item.component !== "hostel",
+        )
         .reduce((sum: number, item: any) => sum + Number(item.amount), 0);
 
       const totalAnnual = tuition + hostel + misc;
@@ -193,7 +239,10 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
       const quotaBreakdown: QuotaFeeBreakdown = {
         govtQuotaAnnualInr: gqTuition,
         managementQuotaAnnualInr: mqTuition,
-        nri: nriAmount !== undefined ? { amount: nriAmount, currency: nriCurrency as FeeCurrency } : undefined,
+        nri:
+          nriAmount !== undefined
+            ? { amount: nriAmount, currency: nriCurrency as FeeCurrency }
+            : undefined,
       };
 
       fees = {
@@ -215,24 +264,38 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
   // 3. Map seat matrix
   let seatMatrix: CollegeSeatMatrix | undefined = undefined;
   if (dbCollege.seat_snapshots && dbCollege.seat_snapshots.length > 0) {
-    const latestSnapshot = dbCollege.seat_snapshots.reduce((latest: any, current: any) => {
-      return (!latest || current.academic_year > latest.academic_year) ? current : latest;
-    }, null);
+    const latestSnapshot = dbCollege.seat_snapshots.reduce(
+      (latest: any, current: any) => {
+        return !latest || current.academic_year > latest.academic_year
+          ? current
+          : latest;
+      },
+      null,
+    );
 
     if (latestSnapshot && latestSnapshot.seat_buckets) {
       const buckets = latestSnapshot.seat_buckets;
-      const aiq = buckets.find((b: any) => b.bucket_code === "aiq")?.seat_count ?? 0;
-      const stateQuota = buckets.find((b: any) => b.bucket_code === "state_quota")?.seat_count ?? 0;
+      const aiq =
+        buckets.find((b: any) => b.bucket_code === "aiq")?.seat_count ?? 0;
+      const stateQuota =
+        buckets.find((b: any) => b.bucket_code === "state_quota")?.seat_count ??
+        0;
       const esic =
         buckets.find((b: any) => b.bucket_code === "esic_ip")?.seat_count ?? 0;
-      const management = buckets.find((b: any) => b.bucket_code === "mqt_quota")?.seat_count ?? 0;
-      const nri = buckets.find((b: any) => b.bucket_code === "nri_quota")?.seat_count ?? 0;
+      const management =
+        buckets.find((b: any) => b.bucket_code === "mqt_quota")?.seat_count ??
+        0;
+      const nri =
+        buckets.find((b: any) => b.bucket_code === "nri_quota")?.seat_count ??
+        0;
 
       const goiQuota =
-        buckets.find((b: any) => b.bucket_code === "goi_quota")?.seat_count ?? 0;
+        buckets.find((b: any) => b.bucket_code === "goi_quota")?.seat_count ??
+        0;
       const iqQuota =
         buckets.find((b: any) => b.bucket_code === "iq_quota")?.seat_count ?? 0;
       const categoryDistribution: Record<string, number> = {};
+      const aiqCategoryDistribution: Record<string, number> = {};
       const standardCodes = [
         "aiq",
         "goi_quota",
@@ -264,7 +327,11 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
           const label =
             categoryLabels[bucket.bucket_code] ??
             bucket.bucket_code.toUpperCase();
-          categoryDistribution[label] = bucket.seat_count;
+          if (aiq > 0 && stateQuota <= 0) {
+            aiqCategoryDistribution[label] = bucket.seat_count;
+          } else {
+            categoryDistribution[label] = bucket.seat_count;
+          }
         }
       }
 
@@ -276,6 +343,9 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
         iqQuota,
         management,
         nri,
+        ...(Object.keys(aiqCategoryDistribution).length > 0
+          ? { aiqCategoryDistribution }
+          : {}),
         categoryDistribution,
       };
     }

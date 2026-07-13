@@ -24,6 +24,7 @@ export interface CollegeSummary {
   seatCount: number;
   quotaInfo: string;
   seatMatrix?: CollegeSeatMatrix;
+  mccSeatMatrix?: CollegeSeatMatrix;
   bondLabel: string;
   roiScore: number | null;
   safetyTag: SafeRiskTag;

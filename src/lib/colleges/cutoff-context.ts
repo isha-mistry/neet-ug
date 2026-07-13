@@ -1,7 +1,8 @@
 import type { CollegeCutoff, CollegeRecord } from "@/types/college";
 import type { CollegeFilters, ListingQuota } from "@/types/filters";
 import type { NeetCategory } from "@/lib/rank-predictor/types";
-import { matchesSelectedCategory } from "@/lib/colleges/categories";
+import { counsellingCategoryToNeet } from "@/lib/catalog/map-category";
+import { normalizeCategory } from "@/lib/colleges/categories";
 
 function normalizeQuotaToken(quota: string): string {
   return quota.trim().toLowerCase().replace(/\s+/g, " ");
@@ -58,14 +59,41 @@ export function recordSupportsListingQuota(
   }
 }
 
+function isNriCutoff(cutoff: CollegeCutoff): boolean {
+  const quota = (cutoff.quota ?? "").toLowerCase();
+  const dbCat = (cutoff.dbCategory ?? "").toLowerCase();
+  const seatType = (cutoff.dbSeatType ?? "").toUpperCase();
+  return (
+    seatType === "NRI" ||
+    seatType === "NQ" ||
+    dbCat === "nri" ||
+    quota.includes("nri") ||
+    quota.includes("non-resident")
+  );
+}
+
+function resolveCutoffNeetCategory(
+  cutoff: CollegeCutoff,
+): NeetCategory | undefined {
+  if (cutoff.category) return cutoff.category;
+
+  const fromDb = counsellingCategoryToNeet(cutoff.dbCategory ?? "");
+  if (fromDb) return fromDb;
+
+  const normalized = normalizeCategory(cutoff.dbCategory, cutoff.quota);
+  if (!normalized || normalized === "management") return undefined;
+  return normalized;
+}
+
 function cutoffMatchesCategory(
   cutoff: CollegeCutoff,
   category: NeetCategory
 ): boolean {
-  if (category === "pwbd") {
-    return cutoff.category === "pwbd";
+  // Default listing category is Open — never surface NRI AIRs under that badge.
+  if (category === "general" && isNriCutoff(cutoff)) {
+    return false;
   }
-  return matchesSelectedCategory(cutoff, category);
+  return resolveCutoffNeetCategory(cutoff) === category;
 }
 
 /** Counselling round order for listing cards (Round 1 closing rank). */

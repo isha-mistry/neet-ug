@@ -1,10 +1,11 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface DetailPanelProps {
   children: ReactNode;
   className?: string;
   bodyClassName?: string;
+  style?: CSSProperties;
   /** Applies standard rank-predictor panel padding (`rp-fbody`) */
   padded?: boolean;
 }
@@ -14,10 +15,11 @@ export function DetailPanel({
   children,
   className,
   bodyClassName,
+  style,
   padded = true,
 }: DetailPanelProps) {
   return (
-    <div className={cn("rp-fcard", className)}>
+    <div className={cn("rp-fcard", className)} style={style}>
       <div className={cn(padded && "rp-fbody", bodyClassName)}>{children}</div>
     </div>
   );

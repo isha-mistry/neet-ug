@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import type { CollegeBond, CollegeSeatMatrix, CollegeType } from "@/types/college";
 import { cn, formatNumber } from "@/lib/utils";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
+import { formatCollegeQuotaLine } from "@/lib/colleges/quota-display";
 
 interface CollegeDetailHeaderProps {
   slug: string;
@@ -16,6 +17,7 @@ interface CollegeDetailHeaderProps {
   collegeType: CollegeType;
   quotaInfo: string;
   seatMatrix?: CollegeSeatMatrix;
+  mccSeatMatrix?: CollegeSeatMatrix;
   officialWebsite?: string;
   counsellingBrochureUrl?: string;
   bond: CollegeBond;
@@ -58,6 +60,7 @@ export function CollegeDetailHeader({
   collegeType,
   quotaInfo,
   seatMatrix,
+  mccSeatMatrix,
   officialWebsite,
   counsellingBrochureUrl,
   bond,
@@ -71,17 +74,8 @@ export function CollegeDetailHeader({
   const coverSrc = getCollegeCoverImageUrl(slug, "detail");
   const isUploadedPhoto = hasUploadedCollegePhoto(slug);
 
-  const quotaLine = seatMatrix
-    ? [
-      seatMatrix.aiq > 0 ? `AIQ ${seatMatrix.aiq}` : "",
-      seatMatrix.stateQuota > 0 ? `State ${seatMatrix.stateQuota}` : "",
-      seatMatrix.esic > 0 ? `ESIC ${seatMatrix.esic}` : "",
-      seatMatrix.management > 0 ? `MQ ${seatMatrix.management}` : "",
-      seatMatrix.nri > 0 ? `NRI ${seatMatrix.nri}` : "",
-    ]
-      .filter(Boolean)
-      .join(" · ") || quotaInfo
-    : quotaInfo;
+  const quotaLine =
+    formatCollegeQuotaLine(seatMatrix, mccSeatMatrix, quotaInfo) || quotaInfo;
 
   return (
     <header className="relative flex flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-[0_12px_40px_-16px_color-mix(in_srgb,var(--color-primary)_18%,transparent)] md:flex-row">

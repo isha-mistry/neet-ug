@@ -12,6 +12,125 @@ Postgres (`app` schema) is the **only** source of truth. The app assembles `Coll
 
 Runtime assembly lives in `src/lib/catalog/assemble-college-record.ts` and `src/lib/catalog/catalog-loader.ts`.
 
+## Go-live: 4 states + MCC from backup (GJ, RJ, MP, MH)
+
+**Authoritative source:** [`supabase-backup.sql`](../supabase-backup.sql) — not MCC CSV files.
+
+| Layer | Source tag | Origin |
+|-------|------------|--------|
+| Headline seat total | `colleges.seat_count` | Backup spine |
+| State seats / cutoffs | `{state}_dump` (`gujarat_dump`, `rajasthan_dump`, `mp_dump`, `mh_dump`) | Backfill split from backup |
+| MCC seats / cutoffs / matrix | `mcc_csv` | Backfill split from backup |
+| MCC fees | `mcc_fee_csv` | Backup `fee_schedules` (unchanged) |
+
+```powershell
+$env:FORCE_RESTORE = "1"
+npm run db:restore:prod-seed-4-states
+```
+
+Steps: restore → migrate → backfill → prune (`mcc_production` removed where `mcc_csv` exists) → verify seat counts + dual counselling.
+
+**Do not run** `db:seed:mcc`, `db:seed:mcc-fees-csv`, or `db:seed:karnataka-up` for this path.
+
+## Restore production backup + add Karnataka / UP only
+
+When local GJ/RJ/MP/MH data was overwritten, restore from `supabase-backup.sql` first, then add KA/UP incrementally. **MCC cutoffs/fees come from the backup** — do not run `db:seed:mcc-fees-csv` unless you have `mcc_fees.csv` locally.
+
+State fees are written to **separate** `fee_schedules` rows (`source = karnataka_dump` or `up_dump`). Existing production MCC schedules (`mcc_fee_csv`) are left untouched.
+
+### Windows (PowerShell) — recommended
+
+```powershell
+cd D:\Project\Dravio\dravio-app
+
+# One command: restore prod backup → migrate → seed KA/UP
+$env:FORCE_RESTORE = "1"
+npm run db:restore:prod-seed-ka-up
+```
+
+**Or step by step:**
+
+```powershell
+# 1. Restore production catalog (replaces app schema only)
+$env:FORCE_RESTORE = "1"
+npm run db:restore:supabase-backup
+
+# 2. Allow separate MCC + karnataka_dump / up_dump fee schedules (skip prisma migrate deploy)
+npm run db:apply:fee-schedule-source-unique
+npx prisma generate
+
+# 3. Optional: verify KA/UP college name → slug matches
+npm run db:build:ka-up-slug-map
+
+# 4. Seed Karnataka + UP (cutoffs, fees, seats) — no MCC CSV seed
+npm run db:seed:karnataka-up
+
+# 5. Verify
+npx tsx scripts/catalog/verify-dual-counselling.ts
+npm run dev
+```
+
+**Prerequisites on Windows**
+
+- PostgreSQL client tools installed (`pg_restore` on PATH).  
+  Check: `pg_restore --version`
+- File `supabase-backup.sql` in the repo root
+- `DATABASE_URL` or `DIRECT_URL` in `.env` → `postgresql://postgres:root@localhost:5432/dravio`
+
+**If bash script fails with `set: pipefail: invalid option name`**  
+Use `npm run db:restore:supabase-backup` (runs the TypeScript script, not bash).
+
+### Git Bash / macOS / Linux
+
+```bash
+FORCE_RESTORE=1 npm run db:restore:prod-seed-ka-up
+```
+
+**Or step by step:**
+
+```bash
+FORCE_RESTORE=1 npm run db:restore:supabase-backup
+npx prisma migrate deploy && npx prisma generate
+npm run db:build:ka-up-slug-map   # optional
+npm run db:seed:karnataka-up
+```
+
+**Rules**
+
+- `db:restore:supabase-backup` / `db:restore:catalog` — full `app` schema replace; GJ/RJ/MP/MH + MCC from backup.
+- `db:restore:prod-seed-4-states` — **go-live:** restore backup, migrate, backfill 4 states + MCC from backup (no CSV, no KA/UP).
+- `db:restore:prod-seed-ka-up` — restore backup, migrate, seed KA/UP only.
+- `db:seed:mcc` — **dev/KA only:** MCC from `mcc_cutoff.csv` / `mcc_seats.csv`; use `--csv-wins` on prune to prefer CSV.
+- `db:prune:superseded-facts` — default: delete `mcc_csv` when `mcc_production` exists (backup wins for 4 states).
+- `db:seed:mcc-fees-csv` — optional; requires local `mcc_fees.csv`.
+- Never run `db:seed:catalog` on production-backed DB unless rebuilding from scratch.
+
+Karnataka categories are configured in `src/lib/colleges/state-config.ts` (extensible per state without affecting GJ/RJ/MP/MH).
+
+## Re-seeding safely (avoid duplicate cutoffs/seats)
+
+After the source-bifurcation migration, **do not** re-run `db:backfill:counselling-sources` on an already-backfilled DB unless you have restored from `supabase-backup.sql` first. Backfill is one-time per restore.
+
+Re-running CSV seeds without cleanup leaves overlapping rows (`mcc_production` from backup + `mcc_csv` from CSV). The UI then shows duplicate cutoffs with mismatched ranks.
+
+**Full refresh for 4 states (backup-first):**
+
+```powershell
+$env:FORCE_RESTORE = "1"
+npm run db:restore:prod-seed-4-states
+```
+
+**Dev refresh (KA/UP + MCC CSV):**
+
+```powershell
+npm run db:seed:karnataka-up
+npm run db:seed:mcc
+npm run db:prune:superseded-facts
+npx tsx scripts/catalog/verify-dual-counselling.ts
+```
+
+`db:seed:mcc` and `db:seed:karnataka-up` call prune automatically at the end. Run `db:prune:superseded-facts` manually if you seeded out of order.
+
 ## Workflow (recommended)
 
 Postgres holds the catalog. The app never reads `colleges.json` / `states.json` at runtime.
