@@ -172,9 +172,19 @@ export function cutoffMatchesAuthority(
   }
 
   if (authority === "mcc") {
+    const seat = (cutoff.dbSeatType ?? "").toUpperCase();
+    const quota = (cutoff.quota ?? "").toLowerCase();
     return (
-      cutoff.dbSeatType === "AIQ" ||
-      (cutoff.quota ?? "").toLowerCase().includes("all india")
+      seat === "AIQ" ||
+      seat === "ESIC" ||
+      seat === "ESI" ||
+      seat === "NRI" ||
+      seat === "NQ" ||
+      seat === "MQ" ||
+      quota.includes("all india") ||
+      quota.includes("employees state insurance") ||
+      /\besic\b/.test(quota) ||
+      /\besi\b/.test(quota)
     );
   }
 

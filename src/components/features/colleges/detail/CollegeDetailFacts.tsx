@@ -81,6 +81,8 @@ export function CollegeDetailFacts({
               fees={college.fees}
               bond={college.bond}
               stateSlug={college.stateSlug}
+              stateEsicSeats={college.seatMatrix?.esic ?? 0}
+              mccEsicSeats={college.mccSeatMatrix?.esic ?? 0}
             />
           </div>
 

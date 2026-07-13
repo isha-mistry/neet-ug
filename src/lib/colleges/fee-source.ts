@@ -39,6 +39,7 @@ const MCC_POOLS = new Set<CounsellingPool>([
   "mcc-aiq",
   "mcc-deemed",
   "mcc-nri",
+  "mcc-esic",
 ]);
 
 export function isMccFeeScheduleSource(source: string | undefined | null): boolean {

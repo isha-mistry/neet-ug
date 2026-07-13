@@ -8,7 +8,8 @@ export type CounsellingPool =
   | "kea-management"
   | "mcc-aiq"
   | "mcc-deemed"
-  | "mcc-nri";
+  | "mcc-nri"
+  | "mcc-esic";
 
 export const COUNSELLING_POOL_LABELS: Record<CounsellingPool, string> = {
   "kea-state": "KEA State Counselling",
@@ -17,6 +18,7 @@ export const COUNSELLING_POOL_LABELS: Record<CounsellingPool, string> = {
   "mcc-aiq": "MCC All India Quota",
   "mcc-deemed": "MCC Deemed / Paid",
   "mcc-nri": "MCC NRI Quota",
+  "mcc-esic": "MCC ESIC / IP Quota",
 };
 
 export const COUNSELLING_POOL_SHORT: Record<CounsellingPool, string> = {
@@ -26,6 +28,7 @@ export const COUNSELLING_POOL_SHORT: Record<CounsellingPool, string> = {
   "mcc-aiq": "MCC AIQ",
   "mcc-deemed": "MCC Deemed",
   "mcc-nri": "MCC NRI",
+  "mcc-esic": "MCC ESIC",
 };
 
 /** State-specific short labels for the state-counselling pool family (internal `kea-*` codes). */
@@ -83,6 +86,16 @@ export function resolveCounsellingPool(input: {
     quota.includes("kea") ||
     quota.includes("state private quota (kea)");
 
+  if (
+    seatType === "ESIC" ||
+    quota.includes("employees state insurance") ||
+    quota.includes("esi)") ||
+    /\besic\b/.test(quota) ||
+    /\besi\b/.test(quota)
+  ) {
+    return "mcc-esic";
+  }
+
   // MCC — requires All India quota or AIQ seat type
   if (seatType === "AIQ" || isAllIndia) {
     if (
@@ -137,7 +150,7 @@ export function poolFromCategoryOptionValue(
   if (value.startsWith("mcc-aiq")) return "mcc-aiq";
   if (value === "mcc-deemed") return "mcc-deemed";
   if (value === "mcc-nri") return "mcc-nri";
-  if (value === "mcc-esic") return "mcc-aiq";
+  if (value === "mcc-esic") return "mcc-esic";
   if (value.startsWith("kar-nri")) return "kea-nri";
   if (value.startsWith("kar-oth")) return "kea-management";
   if (value.startsWith("kar-")) return "kea-state";

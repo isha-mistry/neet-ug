@@ -55,11 +55,14 @@ function chipsFromDualMatrices(
     chips.push(chip("State", state.stateQuota, chips.length));
   }
   if (state.goiQuota > 0) chips.push(chip("GOI", state.goiQuota, chips.length));
+  // ESIC follows its snapshot — prefer each side's own count; avoid inventing MCC from state.
   if (state.esic > 0) chips.push(chip("ESIC", state.esic, chips.length));
+  else if (mcc.esic > 0) chips.push(chip("ESIC", mcc.esic, chips.length));
   if (state.management > 0) {
     chips.push(chip("MQ", state.management, chips.length));
   }
-  if (state.nri > 0) chips.push(chip("NRI", state.nri, chips.length));
+  const nri = mcc.nri > 0 ? mcc.nri : state.nri;
+  if (nri > 0) chips.push(chip("NRI", nri, chips.length));
   if (state.iqQuota > 0) chips.push(chip("IQ", state.iqQuota, chips.length));
 
   return chips;

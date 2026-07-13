@@ -273,6 +273,8 @@ export function SeatMatrixInfo({
       ? applyNetStateQuotaDisplay(matrix)
       : matrix;
   }, [scope?.authority, seatMatrix, mccSeatMatrix]);
+  /** ESIC follows the active counselling snapshot — do not cross-merge state ↔ MCC. */
+  const activeEsicSeats = activeMatrix.esic ?? 0;
   const [mounted, setMounted] = useState(false);
   const [quotaPanelHeight, setQuotaPanelHeight] = useState<number | undefined>(
     undefined,
@@ -291,16 +293,46 @@ export function SeatMatrixInfo({
 
   const quotaGroups = useMemo(() => {
     const groups = stateConfig.seatQuotaGroups;
-    if (!scope?.showToggle) return groups;
-    if (scope.authority === "mcc") {
-      return groups.filter((group) =>
-        group.fields.some((field) => field === "aiq"),
-      );
+    const esicGroup =
+      groups.find((group) => group.fields.includes("esic")) ??
+      ({
+        label: "ESIC Quota",
+        fields: ["esic"],
+        color: "var(--color-primary-fixed-dim)",
+      } as (typeof groups)[number]);
+
+    let filtered = groups;
+    if (scope?.showToggle) {
+      if (scope.authority === "mcc") {
+        filtered = groups.filter((group) =>
+          group.fields.some(
+            (field) =>
+              field === "aiq" ||
+              field === "nri" ||
+              (field === "esic" && activeEsicSeats > 0),
+          ),
+        );
+      } else {
+        filtered = groups.filter((group) =>
+          group.fields.some(
+            (field) =>
+              field !== "aiq" &&
+              (field !== "esic" || activeEsicSeats > 0),
+          ),
+        );
+      }
     }
-    return groups.filter((group) =>
-      group.fields.some((field) => field !== "aiq"),
-    );
-  }, [scope, stateConfig.seatQuotaGroups]);
+
+    // Ensure ESIC is chartable when this snapshot has seats but config omitted the group.
+    if (
+      activeEsicSeats > 0 &&
+      !filtered.some((group) => group.fields.includes("esic"))
+    ) {
+      filtered = [...filtered, esicGroup];
+    }
+
+    return filtered;
+  }, [scope, stateConfig.seatQuotaGroups, activeEsicSeats]);
 
   // Build quota slices from state config groups
   const quotaDefs = quotaGroups
@@ -386,7 +418,7 @@ export function SeatMatrixInfo({
       <DetailSectionHeader
         eyebrow="Intake"
         title="Seat matrix"
-        description="Quota split (AIQ, state, management, NRI) and reservation breakdown within each quota pool"
+        description="Quota split (AIQ, ESIC, state, management, NRI) and reservation breakdown within each quota pool"
         icon="pie_chart"
       />
 

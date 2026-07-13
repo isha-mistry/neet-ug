@@ -185,7 +185,6 @@ const STATE_POOL_BUCKETS = new Set([
   "state_quota",
   "nri",
   "mgt",
-  "esic_ip",
   "goi_quota",
   "nri_quota",
   "mqt_quota",
@@ -193,7 +192,11 @@ const STATE_POOL_BUCKETS = new Set([
 ]);
 
 function isMccQuotaBucket(bucketCode: string): boolean {
-  return bucketCode === "aiq" || MCC_AIQ_BUCKET_CODES.has(bucketCode);
+  return (
+    bucketCode === "aiq" ||
+    bucketCode === "esic_ip" ||
+    MCC_AIQ_BUCKET_CODES.has(bucketCode)
+  );
 }
 
 function isStatePoolBucket(bucketCode: string): boolean {

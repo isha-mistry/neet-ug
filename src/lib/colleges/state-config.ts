@@ -234,6 +234,7 @@ const KARNATAKA_CUTOFF_CATEGORIES: CutoffCategoryOption[] = [
 const KARNATAKA_SEAT_QUOTA_GROUPS: SeatMatrixQuotaGroup[] = [
   { label: "All India Quota (AIQ)", fields: ["aiq"], color: "var(--color-primary)" },
   { label: "State Quota", fields: ["karnatakaState"], color: "var(--color-secondary)" },
+  { label: "ESIC Quota", fields: ["esic"], color: "var(--color-primary-fixed-dim)" },
   { label: "NRI Quota", fields: ["karnatakaNri"], color: "var(--color-secondary-fixed-dim)" },
   { label: "Management", fields: ["karnatakaMgt"], color: "var(--color-on-secondary-container)" },
 ];
@@ -315,6 +316,7 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
     seatQuotaGroups: [
       { label: "All India Quota (AIQ)", fields: ["aiq"], color: "var(--color-primary)" },
       { label: "State Quota", fields: ["stateQuota"], color: "var(--color-secondary)" },
+      { label: "ESIC Quota", fields: ["esic"], color: "var(--color-primary-fixed-dim)" },
       { label: "Management", fields: ["management"], color: "var(--color-on-secondary-container)" },
       { label: "NRI Quota", fields: ["nri"], color: "var(--color-secondary-fixed-dim)" },
     ],
@@ -336,6 +338,7 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
     seatQuotaGroups: [
       { label: "All India Quota (AIQ)", fields: ["aiq"], color: "var(--color-primary)" },
       { label: "State Quota (CAP)", fields: ["stateQuota"], color: "var(--color-secondary)" },
+      { label: "ESIC Quota", fields: ["esic"], color: "var(--color-primary-fixed-dim)" },
       { label: "Institutional (IQ)", fields: ["iqQuota"], color: "var(--color-primary-hover)" },
       { label: "Management", fields: ["management"], color: "var(--color-on-secondary-container)" },
       { label: "NRI Quota", fields: ["nri"], color: "var(--color-secondary-fixed-dim)" },
@@ -358,6 +361,7 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
     seatQuotaGroups: [
       { label: "All India Quota (AIQ)", fields: ["aiq"], color: "var(--color-primary)" },
       { label: "State Quota", fields: ["stateQuota"], color: "var(--color-secondary)" },
+      { label: "ESIC Quota", fields: ["esic"], color: "var(--color-primary-fixed-dim)" },
       { label: "GOI Quota", fields: ["goiQuota"], color: "var(--color-primary-hover)" },
       { label: "Management", fields: ["management"], color: "var(--color-on-secondary-container)" },
       { label: "NRI Quota", fields: ["nri"], color: "var(--color-secondary-fixed-dim)" },

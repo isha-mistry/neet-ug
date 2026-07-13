@@ -446,38 +446,85 @@ function buildUpFees(
   };
 }
 
-/** Append MCC AIQ fee row when AIQ line items exist in a state (non-CSV) schedule. */
+/** Append MCC AIQ / ESIC fee rows when those seat types exist in a state schedule. */
 function mergeMccAiqFees(
   fees: CollegeFees,
   stateItems: CollegeCatalogRow["feeSchedules"][number]["lineItems"],
 ): CollegeFees {
+  let next = fees;
+  const existing = () => next.stateFeeSchedule ?? [];
+
   const aiqItems = stateItems.filter((i) => i.seatType === "AIQ");
-  if (aiqItems.length === 0) return fees;
+  if (
+    aiqItems.length > 0 &&
+    !existing().some((r) => r.feeType.startsWith("MCC AIQ"))
+  ) {
+    const totalItem = aiqItems.find((i) => i.component === "total");
+    const tuitionItem = aiqItems.find((i) => i.component === "tuition");
+    const headline = totalItem
+      ? decimalToNumber(totalItem.amount)
+      : tuitionItem
+        ? decimalToNumber(tuitionItem.amount)
+        : 0;
+    if (headline > 0) {
+      next = {
+        ...next,
+        stateFeeSchedule: [
+          ...existing(),
+          {
+            feeType: "MCC AIQ (Annual)",
+            totalAnnual: headline,
+            tuition: tuitionItem
+              ? decimalToNumber(tuitionItem.amount)
+              : headline,
+            counsellingPool: "mcc-aiq",
+          },
+        ],
+      };
+    }
+  }
 
-  const totalItem = aiqItems.find((i) => i.component === "total");
-  const tuitionItem = aiqItems.find((i) => i.component === "tuition");
-  const headline = totalItem
-    ? decimalToNumber(totalItem.amount)
-    : tuitionItem
-      ? decimalToNumber(tuitionItem.amount)
-      : 0;
-  if (headline <= 0) return fees;
+  const esicItems = stateItems.filter(
+    (i) =>
+      i.seatType === "ESIC" ||
+      i.seatType === "ESI" ||
+      (i.category ?? "").toUpperCase().includes("ESIC") ||
+      (i.category ?? "").toUpperCase().includes("ESI"),
+  );
+  if (
+    esicItems.length > 0 &&
+    !existing().some(
+      (r) =>
+        r.counsellingPool === "mcc-esic" ||
+        r.feeType.toUpperCase().includes("ESIC"),
+    )
+  ) {
+    const totalItem = esicItems.find((i) => i.component === "total");
+    const tuitionItem = esicItems.find((i) => i.component === "tuition");
+    const headline = totalItem
+      ? decimalToNumber(totalItem.amount)
+      : tuitionItem
+        ? decimalToNumber(tuitionItem.amount)
+        : 0;
+    if (headline > 0) {
+      next = {
+        ...next,
+        stateFeeSchedule: [
+          ...existing(),
+          {
+            feeType: "MCC ESIC / IP (Annual)",
+            totalAnnual: headline,
+            tuition: tuitionItem
+              ? decimalToNumber(tuitionItem.amount)
+              : headline,
+            counsellingPool: "mcc-esic",
+          },
+        ],
+      };
+    }
+  }
 
-  const existing = fees.stateFeeSchedule ?? [];
-  if (existing.some((r) => r.feeType.startsWith("MCC AIQ"))) return fees;
-
-  const aiqRow: StateFeeScheduleRow = {
-    feeType: "MCC AIQ (Annual)",
-    totalAnnual: headline,
-    tuition: tuitionItem ? decimalToNumber(tuitionItem.amount) : headline,
-    counsellingPool: "mcc-aiq",
-  };
-
-  return {
-    ...fees,
-    stateFeeSchedule: [...existing, aiqRow],
-    // Headline tuition stays KEA/state — do not overwrite with AIQ govt fees.
-  };
+  return next;
 }
 
 function emptyCollegeFees(): CollegeFees {
@@ -505,6 +552,7 @@ function buildMccFeeCsvFees(
   items: CollegeCatalogRow["feeSchedules"][number]["lineItems"],
 ): CollegeFees {
   const nriRows: StateFeeScheduleRow[] = [];
+  const esicRows: StateFeeScheduleRow[] = [];
   let tuition = 0;
   let hostel = 0;
   let misc = 0;
@@ -520,6 +568,20 @@ function buildMccFeeCsvFees(
         feeType: "MCC NRI",
         totalAnnual: amount,
         counsellingPool: "mcc-nri",
+        source: MCC_FEE_CSV_SOURCE,
+      });
+      continue;
+    }
+
+    if (
+      item.seatType === "ESIC" ||
+      item.seatType === "ESI" ||
+      item.component.startsWith("esic_")
+    ) {
+      esicRows.push({
+        feeType: "MCC ESIC / IP",
+        totalAnnual: amount,
+        counsellingPool: "mcc-esic",
         source: MCC_FEE_CSV_SOURCE,
       });
       continue;
@@ -546,7 +608,7 @@ function buildMccFeeCsvFees(
     misc,
     totalAnnual,
     totalCourse: totalAnnual * 5,
-    stateFeeSchedule: nriRows,
+    stateFeeSchedule: [...nriRows, ...esicRows],
     scheduleSource: MCC_FEE_CSV_SOURCE,
   };
 }
@@ -736,7 +798,11 @@ function counsellingPoolFromCutoff(
     const st = c.seatType.trim().toUpperCase();
     if (st === "NRI" || st === "NQ") return "mcc-nri";
     if (st === "MQ") return "mcc-deemed";
-    return "mcc-aiq";
+    if (st === "ESIC" || st === "ESI") return "mcc-esic";
+    return resolveCounsellingPool({
+      seatType: c.seatType,
+      quota: c.quota,
+    }) ?? "mcc-aiq";
   }
   return resolveCounsellingPool({
     seatType: c.seatType,

@@ -176,7 +176,11 @@ export function withMccCutoffCategories<T extends MccCutoffCategoryDef>(
   const otherTagged = MCC_OTHER_CUTOFF_CATEGORIES.map((c) => ({
     ...c,
     counsellingPool:
-      c.value === "mcc-nri" ? ("mcc-nri" as const) : ("mcc-deemed" as const),
+      c.value === "mcc-nri"
+        ? ("mcc-nri" as const)
+        : c.value === "mcc-esic"
+          ? ("mcc-esic" as const)
+          : ("mcc-deemed" as const),
   }));
   return [...stateCategories, ...aiqTagged, ...otherTagged];
 }

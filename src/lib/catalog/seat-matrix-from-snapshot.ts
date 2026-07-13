@@ -104,7 +104,7 @@ export function buildMccSeatMatrixFromSnapshot(
   const matrix: CollegeSeatMatrix = {
     aiq: aiqRollup.total,
     stateQuota: 0,
-    esic: 0,
+    esic: bucketCount(snapshot.buckets, "esic_ip"),
     goiQuota: 0,
     management: 0,
     nri: bucketCount(snapshot.buckets, "nri_quota"),
@@ -239,8 +239,9 @@ export function seatMatrixHasStateCounsellingData(
     matrix.stateQuota > 0 ||
     stateCatSum > 0 ||
     matrix.goiQuota > 0 ||
-    matrix.esic > 0 ||
-    matrix.iqQuota > 0
+    matrix.iqQuota > 0 ||
+    // ESIC may be stored on a state dump for some colleges — treat as state-side data.
+    matrix.esic > 0
   );
 }
 
@@ -391,7 +392,7 @@ function buildKarnatakaSeatMatrix(
   const matrix: CollegeSeatMatrix = {
     aiq: aiqRollup.total,
     stateQuota: stateCategorySum,
-    esic: 0,
+    esic: bucketCount(snapshot.buckets, "esic_ip"),
     goiQuota: 0,
     management: mgtTotal,
     nri: nriTotal,
