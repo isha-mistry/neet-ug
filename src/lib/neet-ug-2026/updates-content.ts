@@ -5,11 +5,11 @@ export const NEET_UG_UPDATES_HERO = {
   title: "NEET UG 2026 ",
   titleEmphasis: "Updates",
   lede:
-    "Official NTA milestones — ReNEET, answer key, results, and counselling windows — in one place. Verified against public notices; we refresh as NTA publishes.",
+    "Official NTA milestones — OMR response challenge, results, and counselling windows — in one place. Verified against public notices; we refresh as NTA publishes.",
   fine:
-    "Tentative dates follow historical NTA spacing. Always confirm on neet.nta.nic.in and mcc.nic.in before you travel or register.",
+    "OMR recorded-response challenge closes 15 July 2026 at 11:00 AM. Always confirm on neet.nta.nic.in and mcc.nic.in before you act.",
   trio: [
-    { key: "ReNEET", value: "21 June 2026" },
+    { key: "OMR challenge", value: "Till 15 Jul, 11 AM" },
     { key: "Result", value: "By mid-Jul (est.)" },
     { key: "Registered", value: "22.76 lakh" },
   ],
@@ -46,7 +46,7 @@ export const NEET_UG_UPDATES_KEY_STATS = [
 ] as const;
 
 export const NEET_UG_UPDATES_SUMMARY =
-  "NEET UG 2026 was held on 03 May 2026. ReNEET is scheduled for 21 June 2026 (2:00 PM – 5:00 PM). Results are expected by mid-July 2026, followed by MCC AIQ counselling from late July and state counselling from mid-August — subject to NTA and MCC notices.";
+  "NEET UG 2026 was held on 03 May 2026; ReNEET on 21 June 2026. NTA has released scanned OMR sheets and recorded responses — the response-challenge window runs 13–15 July 2026 (till 11:00 AM). Answer-key challenges are closed. Results are expected around mid-July, then MCC AIQ counselling from late July and state counselling from mid-August — subject to official notices.";
 
 export const NEET_UG_UPDATES_DATE_ROWS = [
   { event: "Official notification & info bulletin", date: "8 February 2026", status: "Done" },
@@ -57,11 +57,16 @@ export const NEET_UG_UPDATES_DATE_ROWS = [
   { event: "NEET UG 2026 exam day", date: "03 May 2026 · 2:00 PM – 5:00 PM", status: "Done" },
   {
     event: "ReNEET UG 2026 exam day",
-    date: "21 June 2026 · 2:00 PM – 5:00 PM",
+    date: "21 June 2026 · 2:00 PM – 5:15 PM",
     status: "Done",
   },
-  { event: "Provisional answer key", date: "First week of July 2026 (tentative)", status: "Tentative" },
-  { event: "Result declaration", date: "By 15 July 2026 (tentative)", status: "Tentative" },
+  { event: "Provisional answer key", date: "25 June 2026", status: "Done" },
+  {
+    event: "OMR scanned images & recorded response challenge",
+    date: "13–15 July 2026 · till 11:00 AM",
+    status: "Upcoming",
+  },
+  { event: "Result declaration", date: "By mid-July 2026 (tentative)", status: "Tentative" },
   { event: "MCC AIQ counselling", date: "By 25 July 2026 (tentative)", status: "Tentative" },
   { event: "State quota counselling", date: "By 10 August 2026 (tentative)", status: "Tentative" },
 ] as const;
@@ -70,18 +75,12 @@ export const NEET_UG_UPDATES_TIMELINE: TimelineEvent[] = NEET_UG_UPDATES_DATE_RO
   (row) => ({
     event: row.event,
     date: row.date,
-    status:
-      row.status === "Done"
-        ? "Completed"
-        : 
-        // row.status === "Upcoming"
-        //   ? "Upcoming"
-          "Upcoming",
+    status: row.status === "Done" ? "Completed" : "Upcoming",
   })
 );
 
 export const NEET_UG_UPDATES_DATES_FOOTNOTE =
-  "Source: NTA public notices and verified third-party trackers · Last reviewed May 2026";
+  "Source: NTA public notices (incl. 13 July 2026 OMR notice) · Last reviewed July 2026";
 
 export const NEET_UG_UPDATES_AFTER_RESULT_LINKS = [
   {
@@ -126,6 +125,14 @@ export type UpdatesNoticeItem = {
 };
 
 export const NEET_UG_UPDATES_NOTICE_FEED: UpdatesNoticeItem[] = [
+  {
+    date: "13 July 2026",
+    title: "OMR Scanned Images & Recorded Response Challenge Open",
+    summary:
+      "NTA has uploaded scanned OMR answer sheets and recorded responses for NEET UG 2026 on neet.nta.nic.in (also emailed to registered IDs). Candidates can challenge recorded responses online from 13 July to 15 July 2026 (till 11:00 AM) at ₹200 per response. Login needs 2FA via OTP. Answer-key challenges are already closed — only recorded-response mismatches can be raised.",
+    href: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/07/20260713497007800.pdf",
+    tag: "NTA",
+  },
   {
     date: "25 June 2026",
     title: "Provisional Answer Key Released by NTA",
@@ -238,12 +245,20 @@ export const NEET_UG_UPDATES_STATE_COUNSELLING_FOOTNOTE =
 
 export const NEET_UG_UPDATES_FAQ: { q: string; a: string }[] = [
   {
+    q: "How do I view my scanned OMR and recorded responses?",
+    a: "Log in at neet.nta.nic.in with your application number and password, complete 2FA with the OTP sent to your registered mobile and email, then open “View/Challenge OMR Sheet & Recorded Responses”. NTA has also emailed a scanned OMR image to your registered email ID.",
+  },
+  {
+    q: "What is the recorded response challenge window and fee?",
+    a: "You can challenge recorded-response mismatches from 13 July to 15 July 2026 (till 11:00 AM IST) at ₹200 per response via Debit/Credit Card, Net Banking, or UPI on the NTA portal only. Per the annexure, the fee is refunded if NTA verifies that the scanning agency read your OMR incorrectly. Answer-key challenges are already closed.",
+  },
+  {
     q: "Who must appear for ReNEET on 21 June 2026?",
     a: "Only candidates notified by NTA in the official ReNEET notice — typically those affected by the cancelled or disrupted 03 May 2026 session or other categories specified in the PDF. If you were not asked to re-appear, your original attempt stands per NTA rules.",
   },
   {
     q: "Will ReNEET delay the NEET UG 2026 result?",
-    a: "Results are usually declared after the final conducted exam and answer-key process. ReNEET can shift timelines. NTA’s mid-July 2026 target is indicative until a fresh notice is published.",
+    a: "Results are usually declared after the final conducted exam and answer-key / OMR process. ReNEET can shift timelines. NTA’s mid-July 2026 target remains indicative until a fresh result notice is published.",
   },
   {
     q: "Where do I download admit card and city intimation?",

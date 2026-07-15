@@ -34,12 +34,18 @@ import type { CounsellingPool } from "@/lib/colleges/counselling-pool";
 
 /** The slugs of states that have an explicit config entry. */
 export type ConfiguredStateSlug =
-  | "karnataka"
-  | "maharashtra"
-  | "madhya-pradesh"
+  | "andhra-pradesh"
+  | "bihar"
   | "gujarat"
+  | "himachal-pradesh"
+  | "karnataka"
+  | "madhya-pradesh"
+  | "maharashtra"
   | "rajasthan"
-  | "uttar-pradesh";
+  | "tamil-nadu"
+  | "uttar-pradesh"
+  | "uttarakhand"
+  | "west-bengal";
 
 /**
  * One item in the cutoff category dropdown.
@@ -284,6 +290,30 @@ const DEFAULT_CONFIG: StateConfig = {
   feesMode: "quotaBreakdown",
 };
 
+// Category / quota codes below are sourced from category_mapping.json + quota_mapping.json.
+
+const MAHARASHTRA_OPEN_CATEGORIES = [
+  "D1", "D1HA", "D2", "D3", "HA", "MKB", "OPEN", "OPEN (W)",
+  "ORP-A", "ORP-C", "ORPHAN", "ORPHANC", "PWD", "Open",
+];
+
+const MAHARASHTRA_EWS_CATEGORIES = [
+  "EWS", "EWS D1", "EWS D2", "EWS HA", "EWS ORP-C", "EWS PWD",
+];
+
+const MAHARASHTRA_OBC_CATEGORIES = [
+  "OBC", "OBC D1", "OBC D1HA", "OBC D2", "OBC HA", "OBC ORP-A", "OBC ORP-C",
+  "OBC PWD", "OBC PWD HA", "SEBC", "SEBCD1", "SEBCD1HA", "SEBCD2", "SEBCHA",
+  "SEBCORP-C", "SEBCPWD", "SEBCPWD HA", "SOBC", "SOBC HA", "SOBC PWD", "SEB",
+];
+
+const MAHARASHTRA_NT_CATEGORIES = [
+  "NTB", "NTB HA", "NTB ORP-C", "NTB PWD", "NTC", "NTC D1", "NTC D2", "NTC HA",
+  "NTC ORP-A", "NTC ORP-C", "NTC PWD", "NTD", "NTD D1", "NTD D1HA", "NTD D2",
+  "NTD HA", "NTD ORP-C", "NTD PWD", "NTD PWD HA", "VJA", "VJA D1", "VJA HA",
+  "VJA ORP-C", "VJA PWD", "NT", "VJ",
+];
+
 // ─── Per-state Configs ────────────────────────────────────────────────────────
 
 const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
@@ -297,6 +327,7 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
 
   "uttar-pradesh": {
     stateName: "Uttar Pradesh",
+    // quota_mapping.json → Up: Regular (STATE), Minority (MINORITY_INSTITUTION)
     cutoffCategories: withMccCutoffCategories([
       {
         value: "up-regular",
@@ -326,14 +357,43 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
 
   maharashtra: {
     stateName: "Maharashtra",
+    // category_mapping.json → Maharashtra (vertical + horizontal codes)
     cutoffCategories: withMccCutoffCategories([
-      { value: "mh-open", label: "Open", rawCategories: ["Open", "UR", "OPEN"] },
-      { value: "mh-ews", label: "EWS", rawCategories: ["EWS"] },
-      { value: "mh-sebc", label: "SEBC / OBC", rawCategories: ["OBC", "SEBC", "VJ", "NT-A", "NT-B", "NT-C", "NT-D", "SBC"] },
+      {
+        value: "mh-open",
+        label: "Open / General",
+        description: "OPEN and horizontal variants (Defence, HA, MKB, Orphan, PwD).",
+        rawCategories: MAHARASHTRA_OPEN_CATEGORIES,
+      },
+      {
+        value: "mh-ews",
+        label: "EWS",
+        rawCategories: MAHARASHTRA_EWS_CATEGORIES,
+      },
+      {
+        value: "mh-obc",
+        label: "OBC / SEBC",
+        description: "OBC, SEBC, and SOBC (including Defence / HA / PwD / Orphan variants).",
+        rawCategories: MAHARASHTRA_OBC_CATEGORIES,
+      },
+      {
+        value: "mh-nt",
+        label: "NT / VJ",
+        description: "Nomadic Tribes (NTB/NTC/NTD) and VJ-A.",
+        rawCategories: MAHARASHTRA_NT_CATEGORIES,
+      },
       { value: "mh-sc", label: "SC", rawCategories: ["SC"] },
       { value: "mh-st", label: "ST", rawCategories: ["ST"] },
-      { value: "mh-mq", label: "Management Quota", rawSeatTypes: ["MQ"] },
-      { value: "mh-nri", label: "NRI Quota", rawSeatTypes: ["NRI"] },
+      {
+        value: "mh-iq",
+        label: "Institutional Quota (I.Q.)",
+        rawCategories: ["I.Q."],
+      },
+      {
+        value: "mh-nri",
+        label: "NRI Quota",
+        rawCategories: ["NRI"],
+      },
     ]),
     seatQuotaGroups: [
       { label: "All India Quota (AIQ)", fields: ["aiq"], color: "var(--color-primary)" },
@@ -349,14 +409,33 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
 
   "madhya-pradesh": {
     stateName: "Madhya Pradesh",
+    // category_mapping.json → Madhya Pradesh; quota_mapping → GQ / NRI / FF / GS / SN
     cutoffCategories: withMccCutoffCategories([
-      { value: "mp-ur", label: "UR / General", rawCategories: ["UR", "General", "Open"] },
+      { value: "mp-ur", label: "UR / General", rawCategories: ["UR"] },
       { value: "mp-ews", label: "EWS", rawCategories: ["EWS"] },
       { value: "mp-obc", label: "OBC", rawCategories: ["OBC"] },
       { value: "mp-sc", label: "SC", rawCategories: ["SC"] },
       { value: "mp-st", label: "ST", rawCategories: ["ST"] },
-      { value: "mp-mq", label: "Management Quota", rawSeatTypes: ["MQ"] },
-      { value: "mp-nri", label: "NRI Quota", rawSeatTypes: ["NRI"] },
+      {
+        value: "mp-nri",
+        label: "NRI Quota",
+        rawCategories: ["NRI"],
+      },
+      {
+        value: "mp-ff",
+        label: "Freedom Fighter",
+        rawQuotas: ["FF (Freedom Fighter)"],
+      },
+      {
+        value: "mp-gs",
+        label: "Govt Servant",
+        rawQuotas: ["GS (Govt Servant)"],
+      },
+      {
+        value: "mp-sn",
+        label: "Sponsored / Sainik",
+        rawQuotas: ["SN (NRI-Sponsored)", "SN (Sainik)"],
+      },
     ]),
     seatQuotaGroups: [
       { label: "All India Quota (AIQ)", fields: ["aiq"], color: "var(--color-primary)" },
@@ -372,29 +451,236 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
 
   gujarat: {
     stateName: "Gujarat",
+    // category_mapping.json → Gujarat (OP/EW/SE/SC/ST + PH); quotas GQ/LQ/MQ/NQ
     cutoffCategories: withMccCutoffCategories([
-      { value: "gj-open", label: "Open / General", rawCategories: ["Open", "UR", "General", "OP"] },
-      { value: "gj-sebc", label: "SEBC / OBC", rawCategories: ["OBC", "SEBC", "SE"] },
-      { value: "gj-sc", label: "SC", rawCategories: ["SC"] },
-      { value: "gj-st", label: "ST", rawCategories: ["ST"] },
-      { value: "gj-ews", label: "EWS", rawCategories: ["EWS", "EW"] },
-      { value: "gj-mq", label: "Management Quota", rawSeatTypes: ["MQ"] },
-      { value: "gj-nri", label: "NRI Quota", rawSeatTypes: ["NRI"] },
+      {
+        value: "gj-open",
+        label: "OP - Open / General",
+        rawCategories: ["OP", "OPPH"],
+      },
+      {
+        value: "gj-ews",
+        label: "EW - EWS",
+        rawCategories: ["EW", "EWPH"],
+      },
+      {
+        value: "gj-sebc",
+        label: "SE - SEBC / OBC",
+        rawCategories: ["SE", "SEPH"],
+      },
+      {
+        value: "gj-sc",
+        label: "SC",
+        rawCategories: ["SC", "SCPH"],
+      },
+      {
+        value: "gj-st",
+        label: "ST",
+        rawCategories: ["ST", "STPH"],
+      },
+      {
+        value: "gj-mq",
+        label: "MQ - Management Quota",
+        rawCategories: ["MQ"],
+      },
+      {
+        value: "gj-nri",
+        label: "NRI / NQ",
+        rawCategories: ["NRI"],
+      },
     ]),
     seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
     feesMode: "quotaBreakdown",
-},
+  },
 
   rajasthan: {
     stateName: "Rajasthan",
+    // category_mapping.json → Rajasthan; keep MBC distinct from OBC
     cutoffCategories: withMccCutoffCategories([
-      { value: "rj-general", label: "General / UR", rawCategories: ["UR", "General", "Open"] },
+      {
+        value: "rj-general",
+        label: "General",
+        rawCategories: ["General"],
+      },
       { value: "rj-ews", label: "EWS", rawCategories: ["EWS"] },
-      { value: "rj-obc", label: "OBC / MBC", rawCategories: ["OBC", "MBC"] },
+      { value: "rj-obc", label: "OBC", rawCategories: ["OBC"] },
+      { value: "rj-mbc", label: "MBC", rawCategories: ["MBC"] },
       { value: "rj-sc", label: "SC", rawCategories: ["SC"] },
       { value: "rj-st", label: "ST", rawCategories: ["ST"] },
-      { value: "rj-mq", label: "Management Quota", rawSeatTypes: ["MQ"] },
-      { value: "rj-nri", label: "NRI Quota", rawSeatTypes: ["NRI"] },
+      {
+        value: "rj-mq",
+        label: "Management Quota",
+        rawQuotas: ["Mgmt. Seat", "mgmt. Seat", "Mgt Quota", "Payment (Govt./Govt Society)"],
+      },
+      {
+        value: "rj-nri",
+        label: "NRI Quota",
+        rawQuotas: ["NRI Seat", "NRI"],
+      },
+    ]),
+    seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
+    feesMode: "quotaBreakdown",
+  },
+
+  "andhra-pradesh": {
+    stateName: "Andhra Pradesh",
+    // category_mapping.json → Andhra Pradesh (OC / BC-A..E / SC1..3 / ST / MINORITY)
+    cutoffCategories: withMccCutoffCategories([
+      { value: "ap-oc", label: "OC - Open / General", rawCategories: ["OC"] },
+      { value: "ap-bca", label: "BC-A", rawCategories: ["BCA"] },
+      { value: "ap-bcb", label: "BC-B", rawCategories: ["BCB"] },
+      { value: "ap-bcc", label: "BC-C", rawCategories: ["BCC"] },
+      { value: "ap-bcd", label: "BC-D", rawCategories: ["BCD"] },
+      { value: "ap-bce", label: "BC-E", rawCategories: ["BCE"] },
+      { value: "ap-sc1", label: "SC-1", rawCategories: ["SC1"] },
+      { value: "ap-sc2", label: "SC-2", rawCategories: ["SC2"] },
+      { value: "ap-sc3", label: "SC-3", rawCategories: ["SC3"] },
+      { value: "ap-st", label: "ST", rawCategories: ["ST"] },
+      { value: "ap-minority", label: "Minority", rawCategories: ["MINORITY"] },
+      {
+        value: "ap-mq",
+        label: "Management Quota",
+        rawQuotas: ["Mgt", "Mgt Quota"],
+      },
+      {
+        value: "ap-nri",
+        label: "NRI Quota",
+        rawQuotas: ["NRI"],
+      },
+    ]),
+    seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
+    feesMode: "quotaBreakdown",
+  },
+
+  bihar: {
+    stateName: "Bihar",
+    // category_mapping.json → Bihar; quota_mapping → State / Minority / NRI
+    cutoffCategories: withMccCutoffCategories([
+      {
+        value: "br-ur",
+        label: "UR / General",
+        rawCategories: ["UR", "General"],
+      },
+      { value: "br-ews", label: "EWS", rawCategories: ["EWS"] },
+      { value: "br-bc", label: "BC", rawCategories: ["BC"] },
+      { value: "br-ebc", label: "EBC", rawCategories: ["EBC"] },
+      { value: "br-sc", label: "SC", rawCategories: ["SC"] },
+      { value: "br-st", label: "ST", rawCategories: ["ST"] },
+      {
+        value: "br-minority",
+        label: "Minority",
+        rawCategories: ["General / Minority", "General / Muslim Minority"],
+      },
+      {
+        value: "br-muslim-minority",
+        label: "Muslim Minority Quota",
+        rawQuotas: ["Muslim Minority Quota"],
+      },
+      {
+        value: "br-sikh-minority",
+        label: "Sikh Minority Quota",
+        rawQuotas: ["Sikh Minority Quota"],
+      },
+      {
+        value: "br-nri",
+        label: "NRI Quota",
+        rawCategories: ["NRI"],
+      },
+    ]),
+    seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
+    feesMode: "quotaBreakdown",
+  },
+
+  "himachal-pradesh": {
+    stateName: "Himachal Pradesh",
+    // category_mapping.json → Himachal Pradesh
+    cutoffCategories: withMccCutoffCategories([
+      { value: "hp-general", label: "General", rawCategories: ["General"] },
+      {
+        value: "hp-irdp",
+        label: "IRDP / BPL",
+        rawCategories: ["IRDP/BPL", "IRDP / BPL"],
+      },
+      { value: "hp-obc", label: "OBC", rawCategories: ["OBC"] },
+      { value: "hp-sc", label: "SC", rawCategories: ["SC"] },
+      { value: "hp-st", label: "ST", rawCategories: ["ST"] },
+      {
+        value: "hp-mq",
+        label: "Management Quota",
+        rawQuotas: ["Management Quota", "Mgt Quota"],
+      },
+      {
+        value: "hp-nri",
+        label: "NRI Quota",
+        rawCategories: ["NRI"],
+      },
+    ]),
+    seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
+    feesMode: "quotaBreakdown",
+  },
+
+  "tamil-nadu": {
+    stateName: "Tamil Nadu",
+    // category_mapping.json → Tamil Nadu (MBC/DNC kept distinct from OBC)
+    cutoffCategories: withMccCutoffCategories([
+      { value: "tn-general", label: "General", rawCategories: ["General"] },
+      { value: "tn-ews", label: "EWS", rawCategories: ["EWS"] },
+      { value: "tn-obc", label: "OBC", rawCategories: ["OBC"] },
+      { value: "tn-mbc", label: "MBC / DNC", rawCategories: ["MBC/DNC"] },
+      { value: "tn-sc", label: "SC", rawCategories: ["SC"] },
+      { value: "tn-st", label: "ST", rawCategories: ["ST"] },
+    ]),
+    seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
+    feesMode: "quotaBreakdown",
+  },
+
+  uttarakhand: {
+    stateName: "Uttarakhand",
+    // category_mapping.json → Uttarakhand; quota_mapping → State / Mgt / NRI
+    cutoffCategories: withMccCutoffCategories([
+      { value: "uk-open", label: "Open / General", rawCategories: ["Open"] },
+      { value: "uk-obc", label: "OBC", rawCategories: ["OBC"] },
+      { value: "uk-sc", label: "SC", rawCategories: ["SC"] },
+      { value: "uk-st", label: "ST", rawCategories: ["ST"] },
+      {
+        value: "uk-mq",
+        label: "Management Quota",
+        rawQuotas: ["Mgt Quota", "Managment Quota"],
+      },
+      {
+        value: "uk-nri",
+        label: "NRI Quota",
+        rawQuotas: ["NRI Quota"],
+      },
+    ]),
+    seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
+    feesMode: "quotaBreakdown",
+  },
+
+  "west-bengal": {
+    stateName: "West Bengal",
+    // category_mapping.json → West Bengal; OBC-A / OBC-B kept distinct
+    cutoffCategories: withMccCutoffCategories([
+      {
+        value: "wb-ur",
+        label: "UR / General",
+        rawCategories: ["UR"],
+      },
+      { value: "wb-ews", label: "EWS", rawCategories: ["EWS"] },
+      { value: "wb-obc-a", label: "OBC-A", rawCategories: ["OBC-A"] },
+      { value: "wb-obc-b", label: "OBC-B", rawCategories: ["OBC-B"] },
+      { value: "wb-sc", label: "SC", rawCategories: ["SC"] },
+      { value: "wb-st", label: "ST", rawCategories: ["ST"] },
+      {
+        value: "wb-mq",
+        label: "Management Quota",
+        rawQuotas: ["Management Quota"],
+      },
+      {
+        value: "wb-nri",
+        label: "NRI Quota",
+        rawQuotas: ["NRI Quota"],
+      },
     ]),
     seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
     feesMode: "quotaBreakdown",

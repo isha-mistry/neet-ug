@@ -4,12 +4,12 @@ export const NEET_UG_ANSWER_KEY_HERO = {
   title: "NEET UG ",
   titleEmphasis: "Answer Key",
   lede:
-    "How NTA releases the provisional answer key, view your OMR response sheet, challenge answers, read your scorecard, and interpret category-wise qualifying cut-offs for NEET UG 2026.",
+    "View your scanned OMR and recorded responses, understand the ₹200 response-challenge window (closes 15 July 2026, 11:00 AM), then read how scorecards and qualifying cut-offs work for NEET UG 2026.",
   fine:
-    "ReNEET on 21 June 2026 may shift answer-key and result dates. Confirm every milestone on neet.nta.nic.in.",
+    "OMR scanned images and recorded responses are live — challenge window closes 15 July 2026 (11:00 AM). Confirm every step on neet.nta.nic.in.",
   trio: [
-    { key: "Provisional key", value: "~7–10 days post exam" },
-    { key: "Challenge fee", value: "₹200 / question" },
+    { key: "OMR challenge", value: "Till 15 Jul, 11 AM" },
+    { key: "Challenge fee", value: "₹200 / response" },
     { key: "Result (est.)", value: "Mid-Jul 2026" },
   ],
 } as const;
@@ -34,21 +34,21 @@ export const NEET_UG_ANSWER_KEY_JUMP_SECTIONS: readonly GuideJumpItem[] = [
 ];
 
 export const NEET_UG_ANSWER_KEY_KEY_STATS = [
-  { label: "Provisional key", value: "7–10 days\nafter exam" },
-  { label: "Challenge window", value: "2–3 days\n(typical)" },
-  { label: "Challenge fee", value: "₹200 per\nquestion" },
+  { label: "Provisional key", value: "Released\n25 June 2026" },
+  { label: "OMR challenge", value: "13–15 Jul\ntill 11:00 AM" },
+  { label: "Challenge fee", value: "₹200 per\nresponse" },
   { label: "Result (est.)", value: "By mid-Jul\n2026" },
 ] as const;
 
 export const NEET_UG_ANSWER_KEY_OMR_STEPS = [
-  "Visit NTA NEET portal — Go to neet.nta.nic.in and open Answer Key & OMR Response Sheet under Candidate Activity.",
-  "Log in — Use your application number and date of birth (as registered) to access your OMR sheet and provisional key.",
-  "Compare responses — Your darkened OMR answers appear alongside the provisional key for all questions in your paper.",
-  "Challenge if needed — Pay ₹200 per question through the portal within the challenge window if you believe a key is wrong.",
+  "Visit neet.nta.nic.in — Log in with your application number and password, then complete 2FA with the OTP sent to your registered mobile and email.",
+  "Open View/Challenge OMR Sheet & Recorded Responses — Review the high-resolution scanned OMR beside the machine-read recorded options.",
+  "Flag mismatches only — Challenge a recorded option if it differs from what you marked on the physical OMR (not the answer key itself).",
+  "Pay & submit by 15 July 2026, 11:00 AM — ₹200 per response via Net Banking, Debit/Credit Card, or UPI; download the acknowledgement page after payment.",
 ] as const;
 
 export const NEET_UG_ANSWER_KEY_CHALLENGE_NOTE =
-  "Pay ₹200 per question challenged via the online portal. If the expert committee accepts your challenge, the fee is refunded and the final key is updated. Rejected challenges are non-refundable. The window is typically open for 2–3 days after the provisional key release.";
+  "Recorded-response challenge (13–15 July 2026, till 11:00 AM): ₹200 per mismatch. Per NTA’s annexure, the fee is refunded if it is confirmed the scanning agency misread your OMR. Answer-key challenges are already closed — NTA will not entertain further key objections. Challenges are accepted only through neet.nta.nic.in after fee payment.";
 
 export const NEET_UG_ANSWER_KEY_SCORECARD_FIELDS = [
   {

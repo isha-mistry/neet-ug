@@ -75,7 +75,18 @@ async function fetchStatesFromPostgres(): Promise<StateRecord[]> {
 let statesPromise: Promise<StateRecord[]> | undefined;
 let collegesPromise: Promise<CollegeRecord[]> | undefined;
 
+/** Clear process-level catalog cache (call after seeds / fee updates). */
+export function invalidateCatalogCache(): void {
+  collegesPromise = undefined;
+  statesPromise = undefined;
+}
+
 export const loadCatalogColleges = cache(async (): Promise<CollegeRecord[]> => {
+  // In development, always re-read Postgres so fee/seat seed updates show up
+  // without restarting `next dev`. Production keeps a warm process cache.
+  if (process.env.NODE_ENV === "development") {
+    collegesPromise = undefined;
+  }
   if (!collegesPromise) {
     collegesPromise = fetchCollegesFromPostgres();
   }
@@ -86,6 +97,9 @@ export const loadCatalogColleges = cache(async (): Promise<CollegeRecord[]> => {
 });
 
 export const loadCatalogStates = cache(async (): Promise<StateRecord[]> => {
+  if (process.env.NODE_ENV === "development") {
+    statesPromise = undefined;
+  }
   if (!statesPromise) {
     statesPromise = fetchStatesFromPostgres();
   }

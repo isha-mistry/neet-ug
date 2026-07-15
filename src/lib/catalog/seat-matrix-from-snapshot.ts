@@ -8,6 +8,7 @@ import {
   isLegacyAiqMirrorBucket,
   QUOTA_LEVEL_BUCKETS,
   rollupAiqBuckets,
+  sumBucketCounts,
   type SeatBucketRow,
 } from "@/lib/catalog/seat-bucket-classify";
 import { MCC_AIQ_BUCKET_CODES } from "@/lib/colleges/mcc-config";
@@ -17,6 +18,26 @@ export type SeatSnapshotWithBuckets = {
   totalSeats: number;
   buckets: SeatBucketRow[];
 };
+
+/** MCC seat columns that belong to NRI / Management pools, not the AIQ open pool. */
+const MCC_AIQ_NRI_BUCKETS = new Set(["aiq_nri"]);
+/** Jain minority stays in AIQ; only Muslim minority charts as management. */
+const MCC_AIQ_MANAGEMENT_BUCKETS = new Set(["aiq_muslim_minority"]);
+
+function stripQuotaPoolFromAiqDistribution(
+  distribution: Record<string, number>,
+): Record<string, number> {
+  const next: Record<string, number> = {};
+  for (const [label, count] of Object.entries(distribution)) {
+    if (count <= 0) continue;
+    const upper = label.toUpperCase();
+    // Keep Jain minority in AIQ; strip NRI and Muslim-minority management pools.
+    if (upper.includes("NRI")) continue;
+    if (upper.includes("MUSLIM")) continue;
+    next[label] = count;
+  }
+  return next;
+}
 
 function mergeCategoryMaps(
   ...maps: Record<string, number>[]
@@ -44,8 +65,13 @@ function sumCategorySeats(matrix: CollegeSeatMatrix): number {
 }
 
 /**
- * Net state-quota seats for UI: category sum when available, else deduct NRI/MQ
- * from the aggregate `state_quota` bucket so quota slices do not double-count.
+ * Net state-quota seats for UI: prefer category sum when available.
+ *
+ * Do NOT subtract MQ/NRI from `state_quota` here. Newer dumps (e.g. Andhra)
+ * store disjoint `state_quota` / `mqt_quota` / `nri_quota` buckets; subtracting
+ * would zero a real state pool (75 − 52 − 23 = 0). Gross `state_quota` totals
+ * that include MQ/NRI are already corrected in
+ * `normalizeSeatMatrixForInstituteTotal` when `totalSeats` is known.
  */
 export function applyNetStateQuotaDisplay(
   matrix: CollegeSeatMatrix,
@@ -53,15 +79,12 @@ export function applyNetStateQuotaDisplay(
   const categorySum = Object.values(
     matrix.stateCategoryDistribution ?? {},
   ).reduce((sum, count) => sum + count, 0);
-  const { nri, management } = matrix;
   let stateQuota = matrix.stateQuota;
 
   if (categorySum > 0) {
     if (stateQuota <= 0 || stateQuota > categorySum + 1) {
       stateQuota = categorySum;
     }
-  } else if ((nri > 0 || management > 0) && stateQuota > 0) {
-    stateQuota = Math.max(0, stateQuota - nri - management);
   }
 
   if (stateQuota === matrix.stateQuota) return matrix;
@@ -101,18 +124,54 @@ export function buildMccSeatMatrixFromSnapshot(
     aiqCategoryDistribution = buildMccOnlyCategoryDistribution(snapshot.buckets);
   }
 
+  // NRI / minority-management seats are stored as aiq_* columns in mcc_seats.csv
+  // but should chart as their own pools (same pattern as state counselling MQ/NRI).
+  const nriFromAiq = sumBucketCounts(
+    snapshot.buckets,
+    MCC_AIQ_NRI_BUCKETS,
+  );
+  const managementFromAiq = sumBucketCounts(
+    snapshot.buckets,
+    MCC_AIQ_MANAGEMENT_BUCKETS,
+  );
+  const nri =
+    nriFromAiq +
+    bucketCount(snapshot.buckets, "nri_quota") +
+    bucketCount(snapshot.buckets, "nri");
+  const management =
+    managementFromAiq +
+    bucketCount(snapshot.buckets, "mqt_quota") +
+    bucketCount(snapshot.buckets, "mgt_quota") +
+    bucketCount(snapshot.buckets, "mgt");
+
+  aiqCategoryDistribution = stripQuotaPoolFromAiqDistribution(
+    aiqCategoryDistribution,
+  );
+  const aiq = Math.max(
+    0,
+    (aiqRollup.total > 0
+      ? aiqRollup.total
+      : Object.values(aiqCategoryDistribution).reduce((s, n) => s + n, 0)) -
+      nriFromAiq -
+      managementFromAiq,
+  );
+
   const matrix: CollegeSeatMatrix = {
-    aiq: aiqRollup.total,
+    aiq,
     stateQuota: 0,
     esic: bucketCount(snapshot.buckets, "esic_ip"),
     goiQuota: 0,
-    management: 0,
-    nri: bucketCount(snapshot.buckets, "nri_quota"),
-    iqQuota: 0,
+    management,
+    nri,
+    iqQuota: bucketCount(snapshot.buckets, "iq_quota"),
     stateCategoryDistribution: {},
     aiqCategoryDistribution,
     categoryDistribution: { ...aiqCategoryDistribution },
   };
+
+  // Karnataka seatQuotaGroups use these virtual keys for NRI / Management slices.
+  (matrix as unknown as Record<string, number>).karnatakaNri = nri;
+  (matrix as unknown as Record<string, number>).karnatakaMgt = management;
 
   return normalizeSeatMatrixForInstituteTotal(matrix, snapshot.totalSeats);
 }
@@ -342,7 +401,10 @@ export function buildSeatMatrixFromSnapshot(
     stateQuota: stateQuotaBucket,
     esic: bucketCount(snapshot.buckets, "esic_ip"),
     goiQuota: bucketCount(snapshot.buckets, "goi_quota"),
-    management: bucketCount(snapshot.buckets, "mqt_quota"),
+    // Prefer canonical `mqt_quota`; accept legacy `mgt_quota` alias.
+    management:
+      bucketCount(snapshot.buckets, "mqt_quota") ||
+      bucketCount(snapshot.buckets, "mgt_quota"),
     nri: bucketCount(snapshot.buckets, "nri_quota"),
     iqQuota: bucketCount(snapshot.buckets, "iq_quota"),
     stateCategoryDistribution,

@@ -355,7 +355,10 @@ export function FeesAndBondInfo({ fees, bond, stateSlug }: FeesAndBondInfoProps)
                           <FeeDetailRow
                             key={`${section.pool}-${row.feeType}-${row.category ?? ""}-${idx}`}
                             label={label}
-                            value={formatCurrency(row.totalAnnual)}
+                            value={formatCurrency(
+                              row.totalAnnual,
+                              row.currency ?? "INR",
+                            )}
                             isLast={
                               isLast && sectionIdx === feeSections.length - 1
                             }
