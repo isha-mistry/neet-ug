@@ -149,17 +149,33 @@ export function AdmissionInfo({ seatCount, cutoffs, stateSlug }: AdmissionInfoPr
   const stateConfig = getStateConfig(stateSlug);
   const categories = stateConfig.cutoffCategories;
 
+  // Always scope to the active counselling authority (State vs MCC), even when
+  // the page has no toggle (college only has one side of data).
+  const activeAuthority = scope?.authority ?? "state";
+
   const scopedCutoffs = useMemo(() => {
-    if (!scope?.showToggle) return cutoffs;
     return cutoffs.filter((cutoff) =>
-      cutoffMatchesAuthority(cutoff, scope.authority),
+      cutoffMatchesAuthority(cutoff, activeAuthority),
     );
-  }, [cutoffs, scope]);
+  }, [cutoffs, activeAuthority]);
 
   const scopedCategories = useMemo(() => {
-    if (!scope?.showToggle) return categories;
-    return filterCategoriesByAuthority(categories, scope.authority);
-  }, [categories, scope]);
+    const byAuthority = filterCategoriesByAuthority(categories, activeAuthority);
+    // Keep only categories that actually have cutoff rows for this college.
+    const applicable = byAuthority.filter((cat) =>
+      scopedCutoffs.some((cutoff) =>
+        matchesCutoffGroup(
+          {
+            category: cutoff.dbCategory ?? cutoff.category,
+            quota: cutoff.dbQuota ?? cutoff.quota,
+            seatType: cutoff.dbSeatType,
+          },
+          cat,
+        ),
+      ),
+    );
+    return applicable.length > 0 ? applicable : byAuthority;
+  }, [categories, activeAuthority, scopedCutoffs]);
 
   const [selectedValue, setSelectedValue] = useState<string>(() =>
     pickDefaultCategory(scopedCategories, scopedCutoffs),
@@ -167,7 +183,7 @@ export function AdmissionInfo({ seatCount, cutoffs, stateSlug }: AdmissionInfoPr
 
   useEffect(() => {
     setSelectedValue(pickDefaultCategory(scopedCategories, scopedCutoffs));
-  }, [scope?.authority, scopedCategories, scopedCutoffs]);
+  }, [activeAuthority, scopedCategories, scopedCutoffs]);
 
   const selectedOption: CutoffCategoryOption | undefined = scopedCategories.find(
     (c) => c.value === selectedValue,

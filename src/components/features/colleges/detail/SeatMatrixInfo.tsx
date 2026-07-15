@@ -304,11 +304,16 @@ export function SeatMatrixInfo({
     let filtered = groups;
     if (scope?.showToggle) {
       if (scope.authority === "mcc") {
+        // Same pools as state counselling where present on the MCC matrix:
+        // AIQ open + NRI + Management (+ Karnataka virtual keys) + ESIC.
         filtered = groups.filter((group) =>
           group.fields.some(
             (field) =>
               field === "aiq" ||
               field === "nri" ||
+              field === "management" ||
+              field === "karnatakaNri" ||
+              field === "karnatakaMgt" ||
               (field === "esic" && activeEsicSeats > 0),
           ),
         );

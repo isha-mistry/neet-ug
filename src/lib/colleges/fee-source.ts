@@ -2,6 +2,7 @@ import type { CollegeFees, StateFeeScheduleRow } from "@/types/college";
 import type { CounsellingPool } from "@/lib/colleges/counselling-pool";
 import {
   GUJARAT_DUMP_SOURCE,
+  MCC_DUMP_SOURCE,
   MH_DUMP_SOURCE,
   MP_DUMP_SOURCE,
   RAJASTHAN_DUMP_SOURCE,
@@ -14,7 +15,10 @@ export const KARNATAKA_DUMP_SOURCE = "karnataka_dump";
 /** `FeeSchedule.source` for UP DGME fee dump (`up_data.sql`). */
 export const UP_DUMP_SOURCE = "up_dump";
 
-/** `FeeSchedule.source` value for MCC fee CSV imports. */
+/** Preferred MCC fee schedule source (same tag as MCC cutoffs/seats dump). */
+export const MCC_FEE_DUMP_SOURCE = MCC_DUMP_SOURCE;
+
+/** Legacy `FeeSchedule.source` value for earlier MCC fee CSV imports. */
 export const MCC_FEE_CSV_SOURCE = "mcc_fee_csv";
 
 /** Legacy/alternate source tags from earlier seed runs. */
@@ -22,7 +26,11 @@ export const MCC_FEE_CSV_SOURCE_LEGACY = "mcc_fees_csv";
 export const KARNATAKA_DUMP_SOURCE_LEGACY = "karnataka_data.sql";
 export const UP_DUMP_SOURCE_LEGACY = "up_data.sql";
 
-const MCC_FEE_SOURCES = new Set([MCC_FEE_CSV_SOURCE, MCC_FEE_CSV_SOURCE_LEGACY]);
+const MCC_FEE_SOURCES = new Set([
+  MCC_FEE_DUMP_SOURCE,
+  MCC_FEE_CSV_SOURCE,
+  MCC_FEE_CSV_SOURCE_LEGACY,
+]);
 
 const STATE_DUMP_SOURCES = new Set([
   GUJARAT_DUMP_SOURCE,

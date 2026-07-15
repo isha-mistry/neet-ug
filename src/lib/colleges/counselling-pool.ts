@@ -39,6 +39,12 @@ const STATE_COUNSELLING_AUTHORITY: Partial<Record<string, string>> = {
   maharashtra: "MH",
   "madhya-pradesh": "MP",
   rajasthan: "Rajasthan",
+  "andhra-pradesh": "AP",
+  bihar: "Bihar",
+  "himachal-pradesh": "HP",
+  "tamil-nadu": "TN",
+  uttarakhand: "UK",
+  "west-bengal": "WB",
 };
 
 /** Human-readable counselling label for table cells — avoids showing "KEA" outside Karnataka. */
@@ -148,9 +154,16 @@ export function poolFromCategoryOptionValue(
   value: string,
 ): CounsellingPool | undefined {
   if (value.startsWith("mcc-aiq")) return "mcc-aiq";
-  if (value === "mcc-deemed") return "mcc-deemed";
+  if (
+    value === "mcc-deemed" ||
+    value === "mcc-jain-minority" ||
+    value === "mcc-muslim-minority"
+  ) {
+    return "mcc-deemed";
+  }
   if (value === "mcc-nri") return "mcc-nri";
-  if (value === "mcc-esic") return "mcc-esic";
+  if (value === "mcc-esic" || value === "mcc-central-ip") return "mcc-esic";
+  if (value.startsWith("mcc-")) return "mcc-deemed";
   if (value.startsWith("kar-nri")) return "kea-nri";
   if (value.startsWith("kar-oth")) return "kea-management";
   if (value.startsWith("kar-")) return "kea-state";

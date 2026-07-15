@@ -4,10 +4,10 @@ import type {
   CollegeRecord,
   CollegeSeatMatrix,
   CollegeType,
-  FeeCurrency,
   QuotaFeeBreakdown,
   StateFeeScheduleRow,
 } from "@/types/college";
+import { MCC_AIQ_BUCKET_CODES } from "@/lib/colleges/mcc-config";
 import {
   buildMccSeatMatrixFromSnapshot,
   buildSeatMatrixFromSnapshot,
@@ -36,11 +36,12 @@ import {
   isStateDumpFeeSource,
   KARNATAKA_DUMP_SOURCE,
   KARNATAKA_DUMP_SOURCE_LEGACY,
-  MCC_FEE_CSV_SOURCE,
+  MCC_FEE_DUMP_SOURCE,
   stateDumpSourceForSlug,
   UP_DUMP_SOURCE,
   UP_DUMP_SOURCE_LEGACY,
 } from "@/lib/colleges/fee-source";
+import { normalizeFeeCurrency } from "@/lib/colleges/fee-currency";
 
 type CollegeCatalogRowBase = Prisma.CollegeGetPayload<{
   include: {
@@ -94,7 +95,7 @@ function lineAmount(
   if (!row) return { amount: 0, currency: "INR" };
   return {
     amount: decimalToNumber(row.amount),
-    currency: row.currency || "INR",
+    currency: normalizeFeeCurrency(row.currency),
   };
 }
 
@@ -126,6 +127,9 @@ function buildMpFees(
     if (item.component === "caution") row.caution = amount;
     if (item.component === "mmvy_scholarship") row.mmvyScholarship = amount;
     if (item.component === "total") row.totalAnnual = amount;
+    if (item.seatType === "NRI") {
+      row.currency = normalizeFeeCurrency(item.currency);
+    }
   }
 
   for (const row of rows.values()) {
@@ -160,13 +164,19 @@ function buildMpFees(
       managementQuotaAnnualInr: 0,
     };
     if (nriRow && nriRow.totalAnnual > 0) {
-      quotaBreakdown.nri = { amount: nriRow.totalAnnual, currency: "INR" };
+      quotaBreakdown.nri = {
+        amount: nriRow.totalAnnual,
+        currency: normalizeFeeCurrency(nriRow.currency),
+      };
     }
   } else if (nriRow && nriRow.totalAnnual > 0) {
     quotaBreakdown = {
       govtQuotaAnnualInr: 0,
       managementQuotaAnnualInr: 0,
-      nri: { amount: nriRow.totalAnnual, currency: "INR" },
+      nri: {
+        amount: nriRow.totalAnnual,
+        currency: normalizeFeeCurrency(nriRow.currency),
+      },
     };
   }
 
@@ -229,6 +239,9 @@ function buildMhFees(
       row.caution = (row.caution ?? 0) + amount;
     }
     if (item.component === "total") row.totalAnnual = amount;
+    if (item.seatType === "NRI") {
+      row.currency = normalizeFeeCurrency(item.currency);
+    }
     if (item.component === "nri_tuition" && amount > 0) {
       row.totalAnnual = amount;
     }
@@ -271,7 +284,7 @@ function buildMhFees(
     if (nriRow && nriRow.totalAnnual > 0) {
       quotaBreakdown.nri = {
         amount: nriRow.totalAnnual,
-        currency: "INR",
+        currency: normalizeFeeCurrency(nriRow.currency),
       };
     }
   } else if (govtOpenMale && govtOpenMale.totalAnnual > 0) {
@@ -350,6 +363,7 @@ function buildKarnatakaFees(
       category: cat,
       totalAnnual: annualFee,
       tuition: annualFee,
+      currency: normalizeFeeCurrency(item.currency),
       counsellingPool: keaPoolFromSeatType(item.seatType),
     });
   }
@@ -395,7 +409,7 @@ function buildKarnatakaFees(
     if (nriRow && nriRow.totalAnnual > 0) {
       quotaBreakdown.nri = {
         amount: nriRow.totalAnnual,
-        currency: "INR",
+        currency: normalizeFeeCurrency(nriRow.currency),
       };
     }
   }
@@ -567,8 +581,9 @@ function buildMccFeeCsvFees(
       nriRows.push({
         feeType: "MCC NRI",
         totalAnnual: amount,
+        currency: normalizeFeeCurrency(item.currency),
         counsellingPool: "mcc-nri",
-        source: MCC_FEE_CSV_SOURCE,
+        source: MCC_FEE_DUMP_SOURCE,
       });
       continue;
     }
@@ -582,7 +597,7 @@ function buildMccFeeCsvFees(
         feeType: "MCC ESIC / IP",
         totalAnnual: amount,
         counsellingPool: "mcc-esic",
-        source: MCC_FEE_CSV_SOURCE,
+        source: MCC_FEE_DUMP_SOURCE,
       });
       continue;
     }
@@ -609,7 +624,7 @@ function buildMccFeeCsvFees(
     totalAnnual,
     totalCourse: totalAnnual * 5,
     stateFeeSchedule: [...nriRows, ...esicRows],
-    scheduleSource: MCC_FEE_CSV_SOURCE,
+    scheduleSource: MCC_FEE_DUMP_SOURCE,
   };
 }
 
@@ -671,10 +686,11 @@ function buildStateFeesFromLineItems(
       : nriComponent
         ? decimalToNumber(nriComponent.amount)
         : 0;
-  const nriCurrency =
+  const nriCurrency = normalizeFeeCurrency(
     nriTuition.amount > 0
       ? nriTuition.currency
-      : (nriComponent?.currency ?? "INR");
+      : (nriComponent?.currency ?? "INR"),
+  );
 
   let quotaBreakdown: QuotaFeeBreakdown | undefined;
   if (govtHeadline > 0 || mq.amount > 0 || nriAmount > 0) {
@@ -685,7 +701,7 @@ function buildStateFeesFromLineItems(
     if (nriAmount > 0) {
       quotaBreakdown.nri = {
         amount: nriAmount,
-        currency: (nriCurrency === "USD" ? "USD" : "INR") as FeeCurrency,
+        currency: nriCurrency,
       };
     }
   }
@@ -703,6 +719,9 @@ function buildStateFeesFromLineItems(
     totalAnnual,
     totalCourse,
     quotaBreakdown,
+    ...(nriAmount > 0
+      ? { nriFees: nriAmount, nriCurrency }
+      : {}),
   };
 }
 
@@ -768,7 +787,7 @@ function buildFees(row: CollegeCatalogRow): CollegeFees {
     const mccFees = buildMccFeeCsvFees(mccItems);
     const mccTagged = tagScheduleRows(
       mccFees.stateFeeSchedule,
-      MCC_FEE_CSV_SOURCE,
+      MCC_FEE_DUMP_SOURCE,
     );
     if (!stateItems.length) {
       fees = { ...mccFees, stateFeeSchedule: mccTagged };
@@ -820,6 +839,26 @@ function toSeatSnapshotWithBuckets(
       bucketCode: b.bucketCode,
       seatCount: b.seatCount,
     })),
+  };
+}
+
+/** Drop AIQ pools accidentally left on a state-tagged snapshot. */
+function toStateOnlySeatSnapshot(
+  snap: CollegeCatalogRow["seatSnapshots"][number],
+): SeatSnapshotWithBuckets {
+  const buckets = snap.buckets
+    .filter(
+      (b) =>
+        b.bucketCode !== "aiq" && !MCC_AIQ_BUCKET_CODES.has(b.bucketCode),
+    )
+    .map((b) => ({
+      bucketCode: b.bucketCode,
+      seatCount: b.seatCount,
+    }));
+  return {
+    academicYear: snap.academicYear,
+    totalSeats: snap.totalSeats,
+    buckets,
   };
 }
 function counsellingQuotaField(
@@ -991,7 +1030,7 @@ function resolveSeatSnapshotFields(row: CollegeCatalogRow): {
     const snap = pickSeatSnapshot(row.seatSnapshots, stateSource, year);
     if (snap) {
       const built = buildSeatMatrixFromSnapshot(
-        toSeatSnapshotWithBuckets(snap),
+        toStateOnlySeatSnapshot(snap),
         row.stateSlug,
       );
       if (seatMatrixHasQuotaOrCategoryData(built)) {
@@ -1049,17 +1088,20 @@ export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
   const fees = mergeMccAiqFees(buildFees(row), stateItems);
   const cutoffs = buildCutoffs(row);
   const nriLine =
-    feeItems.find((i) => i.component === "tuition" && i.seatType === "NRI") ??
     feeItems.find(
-      (i) => i.component === "nri_tuition_usd" && i.currency === "USD",
-    );
+      (i) =>
+        (i.seatType === "NRI" || i.component.startsWith("nri_")) &&
+        normalizeFeeCurrency(i.currency) === "USD",
+    ) ??
+    feeItems.find((i) => i.component === "tuition" && i.seatType === "NRI") ??
+    feeItems.find((i) => i.component.startsWith("nri_"));
 
   const dataQuality = buildDataQualityFlags({
     stateSlug: row.stateSlug,
     hasFeeSchedule: row.feeSchedules.length > 0,
     hasSeatSnapshot: row.seatSnapshots.length > 0,
     cutoffYears: [...new Set(row.cutoffs.map((c) => c.year))],
-    nriFeeUsd: nriLine?.currency === "USD",
+    nriFeeUsd: nriLine != null && normalizeFeeCurrency(nriLine.currency) === "USD",
     seatSnapshotCount: row.seatSnapshots.length,
   });
 

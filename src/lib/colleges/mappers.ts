@@ -284,6 +284,7 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
         buckets.find((b: any) => b.bucket_code === "esic_ip")?.seat_count ?? 0;
       const management =
         buckets.find((b: any) => b.bucket_code === "mqt_quota")?.seat_count ??
+        buckets.find((b: any) => b.bucket_code === "mgt_quota")?.seat_count ??
         0;
       const nri =
         buckets.find((b: any) => b.bucket_code === "nri_quota")?.seat_count ??
@@ -302,6 +303,7 @@ export function mapDbCollegeToRecord(dbCollege: any): CollegeRecord {
         "state_quota",
         "esic_ip",
         "mqt_quota",
+        "mgt_quota",
         "nri_quota",
         "iq_quota",
       ];

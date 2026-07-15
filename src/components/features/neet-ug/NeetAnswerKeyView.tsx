@@ -482,7 +482,7 @@ export function NeetAnswerKeyView() {
                       </div>
                     </div>
                     <p className="mt-4 text-sm leading-relaxed text-on-surface-variant">
-                      Remember to cross-reference your recorded responses on the NTA website during the challenge window. Keep your login details handy.
+                      Cross-check recorded responses against your scanned OMR on neet.nta.nic.in by 15 July 2026, 11:00 AM. Keep login credentials and OTP access ready for 2FA.
                     </p>
                   </div>
                   <div className="mt-6">
@@ -502,9 +502,9 @@ export function NeetAnswerKeyView() {
             <GuideSection
               embedded
               id="omr-answer-key"
-              eyebrow="Official answer key"
-              title="OMR sheet & provisional answer key"
-              description="NTA usually releases the provisional key 7–10 days after the exam. View your scanned OMR and challenge within the window."
+              eyebrow="Live now"
+              title="OMR scanned images & recorded responses"
+              description="NTA has published scanned OMR sheets and recorded responses. Challenge response mismatches by 15 July 2026, 11:00 AM — answer-key objections are closed."
             >
               <GuideCard>
                 <GuideSteps size="compact" steps={[...NEET_UG_ANSWER_KEY_OMR_STEPS]} />
@@ -518,6 +518,15 @@ export function NeetAnswerKeyView() {
                   >
                     neet.nta.nic.in
                   </Link>
+                  {" · "}
+                  <Link
+                    href="https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/07/20260713497007800.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-primary hover:underline"
+                  >
+                    Official public notice (PDF)
+                  </Link>
                 </p>
               </GuideCard>
               <GuideCard className="mt-4 border-tertiary/25 bg-tertiary-fixed/30">
@@ -525,7 +534,7 @@ export function NeetAnswerKeyView() {
                   <span className="material-symbols-outlined text-lg text-tertiary" aria-hidden>
                     gavel
                   </span>
-                  Challenging an answer key
+                  Challenging a recorded response
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-on-surface-variant">
                   {NEET_UG_ANSWER_KEY_CHALLENGE_NOTE}

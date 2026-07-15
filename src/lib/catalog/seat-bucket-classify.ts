@@ -75,6 +75,7 @@ export const QUOTA_LEVEL_BUCKETS = new Set([
   "state_quota",
   "esic_ip",
   "mqt_quota",
+  "mgt_quota",
   "nri_quota",
   "iq_quota",
   "nri",
@@ -188,6 +189,7 @@ const STATE_POOL_BUCKETS = new Set([
   "goi_quota",
   "nri_quota",
   "mqt_quota",
+  "mgt_quota",
   "iq_quota",
 ]);
 

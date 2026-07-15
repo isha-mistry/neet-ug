@@ -100,9 +100,9 @@ npm run db:seed:karnataka-up
 - `db:restore:supabase-backup` / `db:restore:catalog` — full `app` schema replace; GJ/RJ/MP/MH + MCC from backup.
 - `db:restore:prod-seed-4-states` — **go-live:** restore backup, migrate, backfill 4 states + MCC from backup (no CSV, no KA/UP).
 - `db:restore:prod-seed-ka-up` — restore backup, migrate, seed KA/UP only.
-- `db:seed:mcc` — **dev/KA only:** MCC from `mcc_cutoff.csv` / `mcc_seats.csv`; use `--csv-wins` on prune to prefer CSV.
-- `db:prune:superseded-facts` — default: delete `mcc_csv` when `mcc_production` exists (backup wins for 4 states).
-- `db:seed:mcc-fees-csv` — optional; requires local `mcc_fees.csv`.
+- `db:seed:production-dumps` — **clear-then-insert** from repo-root CSVs for MCC + Gujarat + Maharashtra + Rajasthan + MP. Sources: `mcc_dump`, `gujarat_dump`, `mh_dump`, `rajasthan_dump`, `mp_dump`. Also clears legacy `mcc_csv` / `mcc_fee_csv` / `mcc_production`. State seat snapshots **exclude AIQ** (AIQ lives only under `mcc_dump`). `colleges.seat_count` = full CSV `total_seats`; state snap `total_seats` = total − AIQ. Flags: `--dry-run`, `--only=mcc|gujarat|maharashtra|rajasthan|madhya-pradesh`.
+- `db:seed:mcc` / `db:seed:gujarat` / `db:seed:mh` / `db:seed:mp` / `db:seed:rajasthan` — thin wrappers around `production-dumps --only=…`.
+- `db:prune:superseded-facts` — prefer `mcc_dump` over `mcc_csv` / `mcc_production`.
 - Never run `db:seed:catalog` on production-backed DB unless rebuilding from scratch.
 
 Karnataka categories are configured in `src/lib/colleges/state-config.ts` (extensible per state without affecting GJ/RJ/MP/MH).
@@ -111,7 +111,13 @@ Karnataka categories are configured in `src/lib/colleges/state-config.ts` (exten
 
 After the source-bifurcation migration, **do not** re-run `db:backfill:counselling-sources` on an already-backfilled DB unless you have restored from `supabase-backup.sql` first. Backfill is one-time per restore.
 
-Re-running CSV seeds without cleanup leaves overlapping rows (`mcc_production` from backup + `mcc_csv` from CSV). The UI then shows duplicate cutoffs with mismatched ranks.
+To refresh the four production states + MCC from CSVs (fixes inflated MCC seats):
+
+```powershell
+npm run db:seed:production-dumps -- --dry-run
+npm run db:seed:production-dumps
+npx tsx scripts/catalog/verify-dual-counselling.ts
+```
 
 **Full refresh for 4 states (backup-first):**
 
@@ -120,16 +126,13 @@ $env:FORCE_RESTORE = "1"
 npm run db:restore:prod-seed-4-states
 ```
 
-**Dev refresh (KA/UP + MCC CSV):**
+**Dev refresh (KA/UP + production CSV dumps):**
 
 ```powershell
 npm run db:seed:karnataka-up
-npm run db:seed:mcc
-npm run db:prune:superseded-facts
+npm run db:seed:production-dumps
 npx tsx scripts/catalog/verify-dual-counselling.ts
 ```
-
-`db:seed:mcc` and `db:seed:karnataka-up` call prune automatically at the end. Run `db:prune:superseded-facts` manually if you seeded out of order.
 
 ## Workflow (recommended)
 
@@ -174,10 +177,20 @@ npm run db:seed:nirf
 - `npm run db:generate` — refresh Prisma client
 - `npm run db:dump:local` / `db:restore:catalog` — copy `app` schema between databases (see above)
 - `npm run db:seed:catalog` — local only (`scripts/catalog/`): JSON spine + optional state SQL dumps
-- `npm run db:seed:mp` — **MP facts only** (`data/mp_data.sql`)
+- `db:seed:karnataka` — clear-then-insert from `karnataka_data.sql` (`karnataka_dump`); sets `colleges.seat_count` from KEA `total_seats`.
+- `db:seed:up` — clear-then-insert from `up_data.sql` (`up_dump`); cutoffs + fees only (no seat table in dump).
+- `db:seed:karnataka-up` — both KA + UP in one run.
 - `npm run db:reconcile:medical-list` — local only: match `data/final_medical_colleges_list.sql`
-- `npm run db:seed:mh` — **Maharashtra facts only** (`data/mh_data.sql`: seats, fees, cutoffs)
-- `npm run db:seed:mcc` — **MCC AIQ facts** (`data/mcc_data_final.sql`: national cutoffs, AIQ seat matrix, deemed fees)
+- `npm run db:seed:mh` — **Maharashtra facts** from `maharashtra_*.csv` (`mh_dump`)
+- `npm run db:seed:gujarat` — **Gujarat facts** from `gujarat_*.csv` (`gujarat_dump`)
+- `npm run db:seed:rajasthan` — **Rajasthan facts** from `rajasthan_*.csv` (`rajasthan_dump`)
+- `npm run db:seed:west-bengal` — **West Bengal facts** (`west_bengal_data.sql`)
+- `npm run db:seed:andhra-pradesh` — **Andhra Pradesh facts** (`andhra_pradesh.sql`)
+- `npm run db:seed:bihar` — **Bihar facts** (`bihar_data.sql`)
+- `npm run db:seed:uttarakhand` — **Uttarakhand facts** (`uttarakhand_data.sql`)
+- `npm run db:seed:himachal-pradesh` — **Himachal Pradesh facts** (`himachal_pradesh.sql`)
+- `npm run db:seed:production-dumps` — **MCC + 4 states** clear-then-insert from root CSVs (`mcc_dump` + `*_dump`)
+- `npm run db:seed:mcc` — **MCC facts only** (`mcc_cutoff.csv` / `mcc_seats.csv` / `mcc_fees.csv` → `mcc_dump`)
 - `npm run db:seed:aiq-manual` — **AIQ round cutoffs** from `data/aiq-manual-cutoffs-2025.json` (verify: `tsx scripts/catalog/seed-aiq-manual-cutoffs.ts`)
 - `npm run db:seed:nirf` — apply `data/nirf/medical-2025.json` (see `collegeSlug` mappings)
 

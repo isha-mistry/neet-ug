@@ -22,16 +22,27 @@ export const MCC_STATE_TO_SLUG: Record<string, string> = {
   "Arunachal Pradesh": "arunachal-pradesh",
   Assam: "assam",
   Bihar: "bihar",
+  Chandigarh: "chandigarh",
   Chhattisgarh: "chattisgarh",
+  /** MCC fee CSV typo */
+  Chhatisgarh: "chattisgarh",
   "Dadra and Nagar Haveli": "dadra-and-nagar-haveli",
+  "Dadra And Nagar Haveli": "dadra-and-nagar-haveli",
+  Delhi: "delhi",
   "Delhi (NCT)": "delhi",
+  "New Delhi": "delhi",
   Goa: "goa",
   Gujarat: "gujarat",
   Haryana: "haryana",
   "Himachal Pradesh": "himachal-pradesh",
   "Jammu And Kashmir": "jammu-kashmir",
+  "Jammu & Kashmir": "jammu-kashmir",
   Jharkhand: "jharkhand",
+  /** MCC fee CSV typo */
+  Jharkand: "jharkhand",
   Karnataka: "karnataka",
+  /** MCC fee CSV typo */
+  Karnata: "karnataka",
   Kerala: "kerala",
   "Madhya Pradesh": "madhya-pradesh",
   Maharashtra: "maharashtra",
@@ -46,12 +57,27 @@ export const MCC_STATE_TO_SLUG: Record<string, string> = {
   Punjab: "punjab",
   Rajasthan: "rajasthan",
   "Tamil Nadu": "tamil-nadu",
+  "Tamil nadu": "tamil-nadu",
   Telangana: "telangana",
   Tripura: "tripura",
   "Uttar Pradesh": "uttar-pradesh",
   Uttarakhand: "uttarakhand",
   "West Bengal": "west-bengal",
 };
+
+/** Resolve MCC CSV state text (incl. typos / case variants) to `state_slug`. */
+export function resolveMccStateSlug(raw: string | undefined | null): string | null {
+  if (!raw) return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  const direct = MCC_STATE_TO_SLUG[trimmed];
+  if (direct) return direct;
+  const lower = trimmed.toLowerCase();
+  for (const [name, slug] of Object.entries(MCC_STATE_TO_SLUG)) {
+    if (name.toLowerCase() === lower) return slug;
+  }
+  return null;
+}
 
 /**
  * MCC AIQ cutoff categories — from `mcc_cutoff.csv` (quota = All India).
@@ -63,7 +89,7 @@ export const MCC_AIQ_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     label: "AIQ - Open / General",
     description: "MCC All India Quota: Open / Unreserved.",
     rawCategories: ["Open", "OP", "General", "UR"],
-    rawQuotas: ["All India", "Open Seat Quota"],
+    rawQuotas: ["All India", "Open Seat Quota", "AIQ Quota", "AIQ"],
     rawSeatTypes: ["AIQ", "GQ"],
   },
   {
@@ -71,7 +97,7 @@ export const MCC_AIQ_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     label: "AIQ - OBC",
     description: "MCC All India Quota: OBC Non-Creamy Layer.",
     rawCategories: ["OBC"],
-    rawQuotas: ["All India"],
+    rawQuotas: ["All India", "Open Seat Quota", "AIQ Quota", "AIQ"],
     rawSeatTypes: ["AIQ"],
   },
   {
@@ -79,7 +105,7 @@ export const MCC_AIQ_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     label: "AIQ - SC",
     description: "MCC All India Quota: Scheduled Caste.",
     rawCategories: ["SC"],
-    rawQuotas: ["All India"],
+    rawQuotas: ["All India", "Open Seat Quota", "AIQ Quota", "AIQ"],
     rawSeatTypes: ["AIQ"],
   },
   {
@@ -87,7 +113,7 @@ export const MCC_AIQ_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     label: "AIQ - ST",
     description: "MCC All India Quota: Scheduled Tribe.",
     rawCategories: ["ST"],
-    rawQuotas: ["All India"],
+    rawQuotas: ["All India", "Open Seat Quota", "AIQ Quota", "AIQ"],
     rawSeatTypes: ["AIQ"],
   },
   {
@@ -95,7 +121,7 @@ export const MCC_AIQ_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     label: "AIQ - EWS",
     description: "MCC All India Quota: Economically Weaker Section.",
     rawCategories: ["EWS"],
-    rawQuotas: ["All India"],
+    rawQuotas: ["All India", "Open Seat Quota", "AIQ Quota", "AIQ"],
     rawSeatTypes: ["AIQ"],
   },
   {
@@ -103,7 +129,7 @@ export const MCC_AIQ_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     label: "AIQ - Open PwD",
     description: "MCC All India Quota: Open with disability.",
     rawCategories: ["Open PwD"],
-    rawQuotas: ["All India"],
+    rawQuotas: ["All India", "Open Seat Quota", "AIQ Quota", "AIQ"],
     rawSeatTypes: ["AIQ"],
   },
   {
@@ -111,7 +137,7 @@ export const MCC_AIQ_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     label: "AIQ - OBC PwD",
     description: "MCC All India Quota: OBC with disability.",
     rawCategories: ["OBC PwD"],
-    rawQuotas: ["All India"],
+    rawQuotas: ["All India", "Open Seat Quota", "AIQ Quota", "AIQ"],
     rawSeatTypes: ["AIQ"],
   },
   {
@@ -119,7 +145,7 @@ export const MCC_AIQ_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     label: "AIQ - SC PwD",
     description: "MCC All India Quota: SC with disability.",
     rawCategories: ["SC PwD"],
-    rawQuotas: ["All India"],
+    rawQuotas: ["All India", "Open Seat Quota", "AIQ Quota", "AIQ"],
     rawSeatTypes: ["AIQ"],
   },
   {
@@ -127,7 +153,7 @@ export const MCC_AIQ_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     label: "AIQ - EWS PwD",
     description: "MCC All India Quota: EWS with disability.",
     rawCategories: ["EWS PwD"],
-    rawQuotas: ["All India"],
+    rawQuotas: ["All India", "Open Seat Quota", "AIQ Quota", "AIQ"],
     rawSeatTypes: ["AIQ"],
   },
   {
@@ -135,12 +161,12 @@ export const MCC_AIQ_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     label: "AIQ - ST PwD",
     description: "MCC All India Quota: ST with disability.",
     rawCategories: ["ST PwD"],
-    rawQuotas: ["All India"],
+    rawQuotas: ["All India", "Open Seat Quota", "AIQ Quota", "AIQ"],
     rawSeatTypes: ["AIQ"],
   },
 ];
 
-/** Other MCC counselling quotas present in `mcc_cutoff.csv`. */
+/** Other MCC counselling quotas present in `mcc_cutoff.csv` / quota_mapping.json. */
 export const MCC_OTHER_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
   {
     value: "mcc-deemed",
@@ -153,7 +179,7 @@ export const MCC_OTHER_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     value: "mcc-nri",
     label: "MCC - NRI Quota",
     description: "Non-Resident Indian seats via MCC.",
-    rawQuotas: ["Non-Resident Indian"],
+    rawQuotas: ["Non-Resident Indian", "Non-Resident Indian(AMU)Quota"],
     rawSeatTypes: ["NRI"],
   },
   {
@@ -162,6 +188,34 @@ export const MCC_OTHER_CUTOFF_CATEGORIES: MccCutoffCategoryDef[] = [
     description: "Employees State Insurance Scheme seats via MCC.",
     rawQuotas: ["Employees State Insurance Scheme(ESI)"],
     rawSeatTypes: ["ESIC"],
+  },
+  {
+    value: "mcc-jain-minority",
+    label: "MCC - Jain Minority",
+    description: "Jain Minority institution quota via MCC.",
+    rawQuotas: ["Jain Minority Quota"],
+  },
+  {
+    value: "mcc-muslim-minority",
+    label: "MCC - Muslim Minority",
+    description: "Muslim Minority institution quota via MCC.",
+    rawQuotas: ["Muslim Minority Quota"],
+  },
+  {
+    value: "mcc-central-ip",
+    label: "MCC - IP / DU / Central Quota",
+    description: "Delhi University, IP University, AMU, Puducherry internal, and related central quotas.",
+    rawQuotas: [
+      "IP University Quota",
+      "IP Quota",
+      "Delhi University Quota",
+      "Aligarh Muslim University (AMU) Quota",
+      "Internal -Puducherry UT Domicile",
+      "Internal - Puducherry UT Domicile",
+      "Foreign Country Quota",
+      "Delhi NCR Children/Widows of Personnel of the Armed Forces (CW) DU Quota",
+      "Delhi NCR Children/Widows of Personnel of the Armed Forces (CW) IP Quota",
+    ],
   },
 ];
 
@@ -178,7 +232,7 @@ export function withMccCutoffCategories<T extends MccCutoffCategoryDef>(
     counsellingPool:
       c.value === "mcc-nri"
         ? ("mcc-nri" as const)
-        : c.value === "mcc-esic"
+        : c.value === "mcc-esic" || c.value === "mcc-central-ip"
           ? ("mcc-esic" as const)
           : ("mcc-deemed" as const),
   }));
@@ -224,10 +278,21 @@ export const MCC_AIQ_BUCKET_CODES = new Set(Object.keys(MCC_AIQ_BUCKET_LABELS));
 /** Map MCC cutoff `quota` text to DB `seat_type`. */
 export function mccQuotaToSeatType(quota: string): string {
   const q = normalizeMccQuota(quota).toLowerCase();
-  if (q.includes("all india") || q.includes("open seat quota")) return "AIQ";
+  if (q.includes("all india") || q.includes("open seat quota") || q === "aiq" || q.includes("aiq quota"))
+    return "AIQ";
   if (q.includes("non-resident") || q.startsWith("nri")) return "NRI";
   if (q.includes("deemed") || q.includes("paid seat")) return "MQ";
   if (q.includes("esi") || q.includes("insurance")) return "ESIC";
-  if (q.includes("ip university") || q.includes("du quota")) return "IQ";
+  if (
+    q.includes("ip university") ||
+    q.includes("ip quota") ||
+    q.includes("du quota") ||
+    q.includes("delhi university") ||
+    q.includes("amu") ||
+    q.includes("puducherry") ||
+    q.includes("foreign country")
+  )
+    return "IQ";
+  if (q.includes("jain minority") || q.includes("muslim minority")) return "MQ";
   return "AIQ";
 }

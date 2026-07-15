@@ -58,8 +58,12 @@ function chipsFromDualMatrices(
   // ESIC follows its snapshot — prefer each side's own count; avoid inventing MCC from state.
   if (state.esic > 0) chips.push(chip("ESIC", state.esic, chips.length));
   else if (mcc.esic > 0) chips.push(chip("ESIC", mcc.esic, chips.length));
-  if (state.management > 0) {
-    chips.push(chip("MQ", state.management, chips.length));
+  // MQ lives on state counselling usually; fall back to MCC when AIQ/MCC
+  // snapshot carries management (e.g. minority / deemed pools).
+  const management =
+    state.management > 0 ? state.management : mcc.management;
+  if (management > 0) {
+    chips.push(chip("MQ", management, chips.length));
   }
   const nri = mcc.nri > 0 ? mcc.nri : state.nri;
   if (nri > 0) chips.push(chip("NRI", nri, chips.length));

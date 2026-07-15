@@ -31,6 +31,8 @@ export interface StateFeeScheduleRow {
   /** Maharashtra CET: Male / Female fee rows. */
   gender?: string;
   totalAnnual: number;
+  /** Fee line currency when not INR (e.g. NRI tuition in USD). */
+  currency?: FeeCurrency;
   /** KEA vs MCC — drives grouped fee panels. */
   counsellingPool?: CounsellingPool;
   /** Parent `FeeSchedule.source` (e.g. `karnataka_dump`, `up_dump`, `mcc_fee_csv`). */
