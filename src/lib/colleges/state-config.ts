@@ -36,11 +36,13 @@ import type { CounsellingPool } from "@/lib/colleges/counselling-pool";
 export type ConfiguredStateSlug =
   | "andhra-pradesh"
   | "bihar"
+  | "chattisgarh"
   | "gujarat"
   | "himachal-pradesh"
   | "karnataka"
   | "madhya-pradesh"
   | "maharashtra"
+  | "manipur"
   | "rajasthan"
   | "tamil-nadu"
   | "uttar-pradesh"
@@ -680,6 +682,69 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
         value: "wb-nri",
         label: "NRI Quota",
         rawQuotas: ["NRI Quota"],
+      },
+    ]),
+    seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
+    feesMode: "quotaBreakdown",
+  },
+
+  chattisgarh: {
+    stateName: "Chhattisgarh",
+    // category_mapping.json → Chhattisgarh; quota_mapping → GQ / Mgt / NRI
+    cutoffCategories: withMccCutoffCategories([
+      {
+        value: "cg-open",
+        label: "Open / General",
+        rawCategories: ["Open-NC", "Open-F", "Open-Female", "Open-EX"],
+      },
+      {
+        value: "cg-obc",
+        label: "OBC",
+        rawCategories: ["OBC-NC", "OBC-F", "OBC-Female"],
+      },
+      {
+        value: "cg-sc",
+        label: "SC",
+        rawCategories: ["SC-NC", "SC-F", "SC-Female"],
+      },
+      {
+        value: "cg-st",
+        label: "ST",
+        rawCategories: ["ST-NC", "ST-F", "ST-Female"],
+      },
+      {
+        value: "cg-mq",
+        label: "Management Quota",
+        rawQuotas: ["Mgt", "Mgt (Converted UR)"],
+      },
+      {
+        value: "cg-nri",
+        label: "NRI Quota",
+        rawQuotas: ["NRI", "NRI (Converted UR)"],
+      },
+    ]),
+    seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
+    feesMode: "quotaBreakdown",
+  },
+
+  manipur: {
+    stateName: "Manipur",
+    // category_mapping.json → Manipur; quota_mapping → State / Mgt / NRI
+    cutoffCategories: withMccCutoffCategories([
+      { value: "mn-open", label: "Open / General", rawCategories: ["Open"] },
+      { value: "mn-obc-m", label: "OBC-M", rawCategories: ["OBC-M"] },
+      { value: "mn-obc-mp", label: "OBC-MP", rawCategories: ["OBC-MP"] },
+      { value: "mn-sc", label: "SC", rawCategories: ["SC"] },
+      { value: "mn-st", label: "ST", rawCategories: ["ST"] },
+      {
+        value: "mn-mq",
+        label: "Management Quota",
+        rawQuotas: ["Mgt"],
+      },
+      {
+        value: "mn-nri",
+        label: "NRI Quota",
+        rawQuotas: ["NRI"],
       },
     ]),
     seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,

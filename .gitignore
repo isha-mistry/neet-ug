@@ -28,6 +28,7 @@
 # catalog seed/import scripts (local ops; promote DB via scripts/db)
 /scripts/catalog/
 /scripts/db
+/scripts/lib
 
 # generated catalog spine (Postgres is runtime source of truth; local scripts may rewrite these)
 /src/data/generated/colleges.json
