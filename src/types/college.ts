@@ -65,8 +65,12 @@ export interface CollegeFees {
   hostelAcFees?: number;
   /** UP DGME: annual hostel (non-AC) from fee sheet. */
   hostelNonAcFees?: number;
-  /** One-time security deposit (UP and similar). */
+  /** One-time security / caution deposit (UP, RJ, UK, BR, and similar). */
   securityDeposit?: number;
+  /** One-time admission fee when stored separately from tuition. */
+  admissionFees?: number;
+  /** Library / related annual charges when stored separately. */
+  libraryFees?: number;
   messFees?: number;
   universityFees?: number;
   transportFees?: number;

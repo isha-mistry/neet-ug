@@ -99,6 +99,52 @@ function lineAmount(
   };
 }
 
+/**
+ * Pick a component amount preferring state/GQ seat types so shared hostel /
+ * security rows attached to GQ/MQ/NRI are not missed (and not triple-counted).
+ */
+function lineAmountPreferred(
+  items: CollegeCatalogRow["feeSchedules"][number]["lineItems"],
+  component: string,
+  preferredSeatTypes: string[] = ["GQ", "", "MQ", "NRI"],
+): { amount: number; currency: string } {
+  for (const st of preferredSeatTypes) {
+    // Prefer blank category first (shared charges), then any category on that seat.
+    const blank = lineAmount(items, component, st, "");
+    if (blank.amount > 0) return blank;
+    const any = items.find(
+      (i) => i.component === component && i.seatType === st,
+    );
+    if (any && decimalToNumber(any.amount) > 0) {
+      return {
+        amount: decimalToNumber(any.amount),
+        currency: normalizeFeeCurrency(any.currency),
+      };
+    }
+  }
+  const fallback = items.find((i) => i.component === component);
+  if (!fallback) return { amount: 0, currency: "INR" };
+  return {
+    amount: decimalToNumber(fallback.amount),
+    currency: normalizeFeeCurrency(fallback.currency),
+  };
+}
+
+/**
+ * Sum distinct one-time / misc components that may share a preferred seat type
+ * (e.g. Uttarakhand uniform + alumni + vaccination under GQ).
+ */
+function sumPreferredComponents(
+  items: CollegeCatalogRow["feeSchedules"][number]["lineItems"],
+  components: string[],
+): number {
+  let total = 0;
+  for (const component of components) {
+    total += lineAmountPreferred(items, component).amount;
+  }
+  return total;
+}
+
 function mpFeeTypeLabel(seatType: string): string {
   if (seatType === "NRI") return "NRI";
   if (seatType === "SCH") return "Scholarship";
@@ -438,12 +484,13 @@ function buildKarnatakaFees(
 function buildUpFees(
   items: CollegeCatalogRow["feeSchedules"][number]["lineItems"],
 ): CollegeFees {
-  const tuition = lineAmount(items, "tuition").amount;
-  const hostelAc = lineAmount(items, "hostel_ac").amount;
-  const hostelNonAc = lineAmount(items, "hostel_nonac").amount;
-  const securityDeposit = lineAmount(items, "security_deposit").amount;
+  const tuition = lineAmountPreferred(items, "tuition").amount;
+  const hostelAc = lineAmountPreferred(items, "hostel_ac").amount;
+  const hostelNonAc = lineAmountPreferred(items, "hostel_nonac").amount;
+  const securityDeposit = lineAmountPreferred(items, "security_deposit").amount;
   const misc =
-    lineAmount(items, "misc").amount || lineAmount(items, "other").amount;
+    lineAmountPreferred(items, "misc").amount ||
+    lineAmountPreferred(items, "other").amount;
 
   const totalAnnual = tuition + hostelAc + hostelNonAc + misc;
   const totalCourse = totalAnnual * 5;
@@ -552,10 +599,7 @@ function emptyCollegeFees(): CollegeFees {
 }
 
 /** Multi-year / aggregate MCC components — not part of annual misc. */
-const MCC_CSV_NON_ANNUAL_COMPONENTS = new Set([
-  "total",
-  "hostel_total",
-]);
+const MCC_CSV_NON_ANNUAL_COMPONENTS = new Set(["total", "hostel_total"]);
 
 /**
  * Build MCC fees as a simple Tuition / Hostel / Miscellaneous headline.
@@ -670,13 +714,40 @@ function buildStateFeesFromLineItems(
           i.component === "nri_tuition_annual" ||
           i.component === "foreign_tuition"),
     ) ?? null;
-  const hostel = lineAmount(items, "hostel");
-  const mess = lineAmount(items, "mess");
-  const university = lineAmount(items, "university");
-  const transport = lineAmount(items, "transport");
-  const exam = lineAmount(items, "exam");
 
-  const misc = mess.amount + university.amount + transport.amount + exam.amount;
+  // Shared facility / one-time charges are often tagged with the same seat_type
+  // as tuition (GQ/MQ/NRI). Prefer GQ so we surface them without triple-counting.
+  const hostel = lineAmountPreferred(items, "hostel");
+  const mess = lineAmountPreferred(items, "mess");
+  const university =
+    lineAmountPreferred(items, "university").amount ||
+    lineAmountPreferred(items, "development").amount;
+  const transport = lineAmountPreferred(items, "transport");
+  const exam = lineAmountPreferred(items, "exam");
+  const library = lineAmountPreferred(items, "library");
+  const admission = lineAmountPreferred(items, "admission");
+  const security =
+    lineAmountPreferred(items, "security").amount ||
+    lineAmountPreferred(items, "caution").amount;
+  const other = lineAmountPreferred(items, "other").amount;
+  // Uttarakhand dump extras when seeded as distinct components.
+  const ukExtras = sumPreferredComponents(items, [
+    "medical_exam",
+    "uniform",
+    "convocation",
+    "alumni",
+    "vaccination",
+  ]);
+
+  const messFees = mess.amount;
+  const universityFees = university;
+  const transportFees = transport.amount;
+  const examFees = exam.amount;
+  const libraryFees = library.amount;
+  const admissionFees = admission.amount;
+  const securityDeposit = security;
+  // Residual only — named components are exposed separately via feeCharges config.
+  const misc = other + ukExtras;
   const hostelTotal = hostel.amount;
 
   const govtHeadline = gqTuition.amount > 0 ? gqTuition.amount : gqTotal.amount;
@@ -708,8 +779,15 @@ function buildStateFeesFromLineItems(
 
   const tuition = govtHeadline > 0 ? govtHeadline : mq.amount;
   const sheetTotal = gqTotal.amount > 0 ? gqTotal.amount : 0;
-  const totalAnnual =
-    sheetTotal > 0 ? sheetTotal : tuition + hostelTotal + misc;
+  const annualExtras =
+    hostelTotal +
+    messFees +
+    universityFees +
+    transportFees +
+    examFees +
+    libraryFees +
+    other;
+  const totalAnnual = sheetTotal > 0 ? sheetTotal : tuition + annualExtras;
   const totalCourse = totalAnnual * 5;
 
   return {
@@ -719,9 +797,15 @@ function buildStateFeesFromLineItems(
     totalAnnual,
     totalCourse,
     quotaBreakdown,
-    ...(nriAmount > 0
-      ? { nriFees: nriAmount, nriCurrency }
-      : {}),
+    ...(hostelTotal > 0 ? { hostelFees: hostelTotal } : {}),
+    ...(messFees > 0 ? { messFees } : {}),
+    ...(universityFees > 0 ? { universityFees } : {}),
+    ...(transportFees > 0 ? { transportFees } : {}),
+    ...(examFees > 0 ? { examFees } : {}),
+    ...(libraryFees > 0 ? { libraryFees } : {}),
+    ...(admissionFees > 0 ? { admissionFees } : {}),
+    ...(securityDeposit > 0 ? { securityDeposit } : {}),
+    ...(nriAmount > 0 ? { nriFees: nriAmount, nriCurrency } : {}),
   };
 }
 
@@ -773,9 +857,7 @@ function buildFees(row: CollegeCatalogRow): CollegeFees {
   if (stateItems.length > 0) {
     fees = buildStateFeesFromLineItems(row, stateItems);
     const stateSource =
-      stateSchedules[0]?.source ||
-      stateDumpSourceForSlug(row.stateSlug) ||
-      "";
+      stateSchedules[0]?.source || stateDumpSourceForSlug(row.stateSlug) || "";
     if (stateSource) fees.scheduleSource = stateSource;
     fees.stateFeeSchedule = tagScheduleRows(
       fees.stateFeeSchedule,
@@ -818,10 +900,12 @@ function counsellingPoolFromCutoff(
     if (st === "NRI" || st === "NQ") return "mcc-nri";
     if (st === "MQ") return "mcc-deemed";
     if (st === "ESIC" || st === "ESI") return "mcc-esic";
-    return resolveCounsellingPool({
-      seatType: c.seatType,
-      quota: c.quota,
-    }) ?? "mcc-aiq";
+    return (
+      resolveCounsellingPool({
+        seatType: c.seatType,
+        quota: c.quota,
+      }) ?? "mcc-aiq"
+    );
   }
   return resolveCounsellingPool({
     seatType: c.seatType,
@@ -848,8 +932,7 @@ function toStateOnlySeatSnapshot(
 ): SeatSnapshotWithBuckets {
   const buckets = snap.buckets
     .filter(
-      (b) =>
-        b.bucketCode !== "aiq" && !MCC_AIQ_BUCKET_CODES.has(b.bucketCode),
+      (b) => b.bucketCode !== "aiq" && !MCC_AIQ_BUCKET_CODES.has(b.bucketCode),
     )
     .map((b) => ({
       bucketCode: b.bucketCode,
@@ -905,7 +988,9 @@ function cutoffIsMccPool(c: CollegeCatalogRow["cutoffs"][number]): boolean {
   if (pool?.startsWith("mcc-")) return true;
   const st = c.seatType.trim().toUpperCase();
   const quota = (c.quota ?? "").toLowerCase();
-  return st === "AIQ" || quota.includes("all india") || quota.includes("open seat");
+  return (
+    st === "AIQ" || quota.includes("all india") || quota.includes("open seat")
+  );
 }
 
 function cutoffPassesSourceFilter(
@@ -931,17 +1016,12 @@ function cutoffPassesSourceFilter(
 }
 
 function buildCutoffs(row: CollegeCatalogRow): CollegeCutoff[] {
-  const cutoffSources = [
-    ...new Set(row.cutoffs.map((c) => c.source ?? "")),
-  ];
+  const cutoffSources = [...new Set(row.cutoffs.map((c) => c.source ?? ""))];
   const preferredMcc = pickPreferredMccSourceForState(
     row.stateSlug,
     cutoffSources,
   );
-  const preferredState = pickPreferredStateSource(
-    row.stateSlug,
-    cutoffSources,
-  );
+  const preferredState = pickPreferredStateSource(row.stateSlug, cutoffSources);
   const hasTaggedMcc = cutoffSources.some(isMccFactSource);
   const hasTaggedState = cutoffSources.some(isStateFactSource);
 
@@ -1080,8 +1160,7 @@ export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
     : 0;
   const stateItems = pickStateFeeSchedules(row.feeSchedules, row.stateSlug)
     .filter(
-      (s) =>
-        s.academicYear === latestYear && !isMccFeeScheduleSource(s.source),
+      (s) => s.academicYear === latestYear && !isMccFeeScheduleSource(s.source),
     )
     .flatMap((s) => s.lineItems);
   const feeItems = row.feeSchedules.flatMap((s) => s.lineItems);
@@ -1101,7 +1180,8 @@ export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
     hasFeeSchedule: row.feeSchedules.length > 0,
     hasSeatSnapshot: row.seatSnapshots.length > 0,
     cutoffYears: [...new Set(row.cutoffs.map((c) => c.year))],
-    nriFeeUsd: nriLine != null && normalizeFeeCurrency(nriLine.currency) === "USD",
+    nriFeeUsd:
+      nriLine != null && normalizeFeeCurrency(nriLine.currency) === "USD",
     seatSnapshotCount: row.seatSnapshots.length,
   });
 

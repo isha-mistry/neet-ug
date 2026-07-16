@@ -85,9 +85,32 @@ export interface CutoffCategoryOption {
 
 /** How the Fees panel should display fee information for a given state. */
 export type FeesDisplayMode =
-  | "totalAnnual"        // Single "Total Annual Fees" figure only (Karnataka, UP)
-  | "quotaBreakdown"     // GQ / MQ / NRI breakdown (Gujarat, default)
-  | "stateFeeSchedule";  // Tabular per-category rows (MP, MH)
+  | "totalAnnual" // Single "Total Annual Fees" figure only (Karnataka, UP)
+  | "quotaBreakdown" // GQ / MQ / NRI breakdown (Gujarat, default)
+  | "stateFeeSchedule"; // Tabular per-category rows (MP, MH)
+
+/**
+ * Keys on `CollegeFees` that can be listed as extra charge rows
+ * (hostel, security, admission, etc.) beside quota tuition.
+ */
+export type FeeChargeKey =
+  | "hostel"
+  | "hostelAcFees"
+  | "hostelNonAcFees"
+  | "messFees"
+  | "examFees"
+  | "universityFees"
+  | "transportFees"
+  | "libraryFees"
+  | "admissionFees"
+  | "securityDeposit"
+  | "misc";
+
+/** One non-tuition charge row rendered in FeesAndBondInfo. */
+export interface FeeChargeOption {
+  key: FeeChargeKey;
+  label: string;
+}
 
 /** One group in the Seat Matrix donut chart. */
 export interface SeatMatrixQuotaGroup {
@@ -120,6 +143,12 @@ export interface StateConfig {
   feesMode: FeesDisplayMode;
   /** Optional: label override for the fee schedule panel title. */
   feeScheduleTitle?: string;
+  /**
+   * Extra fee components to list under "Other charges" when amounts are present.
+   * Used by states whose dumps store hostel / security / admission separately
+   * from quota tuition (Rajasthan, UP, Uttarakhand, Bihar, …).
+   */
+  feeCharges?: FeeChargeOption[];
 }
 
 // ─── Karnataka Category Details ───────────────────────────────────────────────
@@ -210,7 +239,8 @@ const KARNATAKA_CUTOFF_CATEGORIES: CutoffCategoryOption[] = [
   {
     value: "kar-oth",
     label: "OTH - Deemed / Paid Quota",
-    description: "Deemed / Paid Quota (MCC / College). Management / Deemed Quota.",
+    description:
+      "Deemed / Paid Quota (MCC / College). Management / Deemed Quota.",
     rawCategories: ["OTH"],
     rawSeatTypes: ["MQ"],
     counsellingPool: "kea-management",
@@ -240,21 +270,69 @@ const KARNATAKA_CUTOFF_CATEGORIES: CutoffCategoryOption[] = [
 // The `SeatMatrixInfo` component uses `karnatakaNri`, `karnatakaMgt`, `karnatakaState`
 // as virtual keys — handled by `buildKarnatakaQuotaGroups()` in seat-matrix-from-snapshot.ts.
 const KARNATAKA_SEAT_QUOTA_GROUPS: SeatMatrixQuotaGroup[] = [
-  { label: "All India Quota (AIQ)", fields: ["aiq"], color: "var(--color-primary)" },
-  { label: "State Quota", fields: ["karnatakaState"], color: "var(--color-secondary)" },
-  { label: "ESIC Quota", fields: ["esic"], color: "var(--color-primary-fixed-dim)" },
-  { label: "NRI Quota", fields: ["karnatakaNri"], color: "var(--color-secondary-fixed-dim)" },
-  { label: "Management", fields: ["karnatakaMgt"], color: "var(--color-on-secondary-container)" },
+  {
+    label: "All India Quota (AIQ)",
+    fields: ["aiq"],
+    color: "var(--color-primary)",
+  },
+  {
+    label: "State Quota",
+    fields: ["karnatakaState"],
+    color: "var(--color-secondary)",
+  },
+  {
+    label: "ESIC Quota",
+    fields: ["esic"],
+    color: "var(--color-primary-fixed-dim)",
+  },
+  {
+    label: "NRI Quota",
+    fields: ["karnatakaNri"],
+    color: "var(--color-secondary-fixed-dim)",
+  },
+  {
+    label: "Management",
+    fields: ["karnatakaMgt"],
+    color: "var(--color-on-secondary-container)",
+  },
 ];
 
 const STANDARD_SEAT_QUOTA_GROUPS: SeatMatrixQuotaGroup[] = [
-  { label: "All India Quota (AIQ)", fields: ["aiq"], color: "var(--color-primary)" },
-  { label: "State Quota", fields: ["stateQuota"], color: "var(--color-secondary)" },
-  { label: "GOI Quota", fields: ["goiQuota"], color: "var(--color-primary-hover)" },
-  { label: "Management", fields: ["management"], color: "var(--color-on-secondary-container)" },
-  { label: "NRI Quota", fields: ["nri"], color: "var(--color-secondary-fixed-dim)" },
-  { label: "ESIC Quota", fields: ["esic"], color: "var(--color-primary-fixed-dim)" },
-  { label: "Institutional (IQ)", fields: ["iqQuota"], color: "var(--color-outline)" },
+  {
+    label: "All India Quota (AIQ)",
+    fields: ["aiq"],
+    color: "var(--color-primary)",
+  },
+  {
+    label: "State Quota",
+    fields: ["stateQuota"],
+    color: "var(--color-secondary)",
+  },
+  {
+    label: "GOI Quota",
+    fields: ["goiQuota"],
+    color: "var(--color-primary-hover)",
+  },
+  {
+    label: "Management",
+    fields: ["management"],
+    color: "var(--color-on-secondary-container)",
+  },
+  {
+    label: "NRI Quota",
+    fields: ["nri"],
+    color: "var(--color-secondary-fixed-dim)",
+  },
+  {
+    label: "ESIC Quota",
+    fields: ["esic"],
+    color: "var(--color-primary-fixed-dim)",
+  },
+  {
+    label: "Institutional (IQ)",
+    fields: ["iqQuota"],
+    color: "var(--color-outline)",
+  },
 ];
 
 // ─── Default Config (generic fallback) ───────────────────────────────────────
@@ -295,25 +373,82 @@ const DEFAULT_CONFIG: StateConfig = {
 // Category / quota codes below are sourced from category_mapping.json + quota_mapping.json.
 
 const MAHARASHTRA_OPEN_CATEGORIES = [
-  "D1", "D1HA", "D2", "D3", "HA", "MKB", "OPEN", "OPEN (W)",
-  "ORP-A", "ORP-C", "ORPHAN", "ORPHANC", "PWD", "Open",
+  "D1",
+  "D1HA",
+  "D2",
+  "D3",
+  "HA",
+  "MKB",
+  "OPEN",
+  "OPEN (W)",
+  "ORP-A",
+  "ORP-C",
+  "ORPHAN",
+  "ORPHANC",
+  "PWD",
+  "Open",
 ];
 
 const MAHARASHTRA_EWS_CATEGORIES = [
-  "EWS", "EWS D1", "EWS D2", "EWS HA", "EWS ORP-C", "EWS PWD",
+  "EWS",
+  "EWS D1",
+  "EWS D2",
+  "EWS HA",
+  "EWS ORP-C",
+  "EWS PWD",
 ];
 
 const MAHARASHTRA_OBC_CATEGORIES = [
-  "OBC", "OBC D1", "OBC D1HA", "OBC D2", "OBC HA", "OBC ORP-A", "OBC ORP-C",
-  "OBC PWD", "OBC PWD HA", "SEBC", "SEBCD1", "SEBCD1HA", "SEBCD2", "SEBCHA",
-  "SEBCORP-C", "SEBCPWD", "SEBCPWD HA", "SOBC", "SOBC HA", "SOBC PWD", "SEB",
+  "OBC",
+  "OBC D1",
+  "OBC D1HA",
+  "OBC D2",
+  "OBC HA",
+  "OBC ORP-A",
+  "OBC ORP-C",
+  "OBC PWD",
+  "OBC PWD HA",
+  "SEBC",
+  "SEBCD1",
+  "SEBCD1HA",
+  "SEBCD2",
+  "SEBCHA",
+  "SEBCORP-C",
+  "SEBCPWD",
+  "SEBCPWD HA",
+  "SOBC",
+  "SOBC HA",
+  "SOBC PWD",
+  "SEB",
 ];
 
 const MAHARASHTRA_NT_CATEGORIES = [
-  "NTB", "NTB HA", "NTB ORP-C", "NTB PWD", "NTC", "NTC D1", "NTC D2", "NTC HA",
-  "NTC ORP-A", "NTC ORP-C", "NTC PWD", "NTD", "NTD D1", "NTD D1HA", "NTD D2",
-  "NTD HA", "NTD ORP-C", "NTD PWD", "NTD PWD HA", "VJA", "VJA D1", "VJA HA",
-  "VJA ORP-C", "VJA PWD", "NT", "VJ",
+  "NTB",
+  "NTB HA",
+  "NTB ORP-C",
+  "NTB PWD",
+  "NTC",
+  "NTC D1",
+  "NTC D2",
+  "NTC HA",
+  "NTC ORP-A",
+  "NTC ORP-C",
+  "NTC PWD",
+  "NTD",
+  "NTD D1",
+  "NTD D1HA",
+  "NTD D2",
+  "NTD HA",
+  "NTD ORP-C",
+  "NTD PWD",
+  "NTD PWD HA",
+  "VJA",
+  "VJA D1",
+  "VJA HA",
+  "VJA ORP-C",
+  "VJA PWD",
+  "NT",
+  "VJ",
 ];
 
 // ─── Per-state Configs ────────────────────────────────────────────────────────
@@ -334,27 +469,55 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
       {
         value: "up-regular",
         label: "Regular (Open)",
-        description: "Regular (unreserved / open) quota under UP state counselling (DGME).",
+        description:
+          "Regular (unreserved / open) quota under UP state counselling (DGME).",
         rawCategories: ["Regular"],
         rawSeatTypes: ["GQ"],
       },
       {
         value: "up-minority",
         label: "Minority Quota",
-        description: "Minority institution seats counselled under UP DGME minority quota.",
+        description:
+          "Minority institution seats counselled under UP DGME minority quota.",
         rawCategories: ["Minority"],
         rawSeatTypes: ["MQ"],
       },
     ]),
     seatQuotaGroups: [
-      { label: "All India Quota (AIQ)", fields: ["aiq"], color: "var(--color-primary)" },
-      { label: "State Quota", fields: ["stateQuota"], color: "var(--color-secondary)" },
-      { label: "ESIC Quota", fields: ["esic"], color: "var(--color-primary-fixed-dim)" },
-      { label: "Management", fields: ["management"], color: "var(--color-on-secondary-container)" },
-      { label: "NRI Quota", fields: ["nri"], color: "var(--color-secondary-fixed-dim)" },
+      {
+        label: "All India Quota (AIQ)",
+        fields: ["aiq"],
+        color: "var(--color-primary)",
+      },
+      {
+        label: "State Quota",
+        fields: ["stateQuota"],
+        color: "var(--color-secondary)",
+      },
+      {
+        label: "ESIC Quota",
+        fields: ["esic"],
+        color: "var(--color-primary-fixed-dim)",
+      },
+      {
+        label: "Management",
+        fields: ["management"],
+        color: "var(--color-on-secondary-container)",
+      },
+      {
+        label: "NRI Quota",
+        fields: ["nri"],
+        color: "var(--color-secondary-fixed-dim)",
+      },
     ],
     feesMode: "totalAnnual",
     feeScheduleTitle: "UP DGME fee schedule",
+    feeCharges: [
+      { key: "hostelAcFees", label: "Hostel Fees (AC)" },
+      { key: "hostelNonAcFees", label: "Hostel Fees (Non-AC)" },
+      { key: "misc", label: "Other / Miscellaneous" },
+      { key: "securityDeposit", label: "Security Deposit (One-Time)" },
+    ],
   },
 
   maharashtra: {
@@ -364,7 +527,8 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
       {
         value: "mh-open",
         label: "Open / General",
-        description: "OPEN and horizontal variants (Defence, HA, MKB, Orphan, PwD).",
+        description:
+          "OPEN and horizontal variants (Defence, HA, MKB, Orphan, PwD).",
         rawCategories: MAHARASHTRA_OPEN_CATEGORIES,
       },
       {
@@ -375,7 +539,8 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
       {
         value: "mh-obc",
         label: "OBC / SEBC",
-        description: "OBC, SEBC, and SOBC (including Defence / HA / PwD / Orphan variants).",
+        description:
+          "OBC, SEBC, and SOBC (including Defence / HA / PwD / Orphan variants).",
         rawCategories: MAHARASHTRA_OBC_CATEGORIES,
       },
       {
@@ -398,12 +563,36 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
       },
     ]),
     seatQuotaGroups: [
-      { label: "All India Quota (AIQ)", fields: ["aiq"], color: "var(--color-primary)" },
-      { label: "State Quota (CAP)", fields: ["stateQuota"], color: "var(--color-secondary)" },
-      { label: "ESIC Quota", fields: ["esic"], color: "var(--color-primary-fixed-dim)" },
-      { label: "Institutional (IQ)", fields: ["iqQuota"], color: "var(--color-primary-hover)" },
-      { label: "Management", fields: ["management"], color: "var(--color-on-secondary-container)" },
-      { label: "NRI Quota", fields: ["nri"], color: "var(--color-secondary-fixed-dim)" },
+      {
+        label: "All India Quota (AIQ)",
+        fields: ["aiq"],
+        color: "var(--color-primary)",
+      },
+      {
+        label: "State Quota (CAP)",
+        fields: ["stateQuota"],
+        color: "var(--color-secondary)",
+      },
+      {
+        label: "ESIC Quota",
+        fields: ["esic"],
+        color: "var(--color-primary-fixed-dim)",
+      },
+      {
+        label: "Institutional (IQ)",
+        fields: ["iqQuota"],
+        color: "var(--color-primary-hover)",
+      },
+      {
+        label: "Management",
+        fields: ["management"],
+        color: "var(--color-on-secondary-container)",
+      },
+      {
+        label: "NRI Quota",
+        fields: ["nri"],
+        color: "var(--color-secondary-fixed-dim)",
+      },
     ],
     feesMode: "stateFeeSchedule",
     feeScheduleTitle: "CET state fee schedule",
@@ -440,12 +629,36 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
       },
     ]),
     seatQuotaGroups: [
-      { label: "All India Quota (AIQ)", fields: ["aiq"], color: "var(--color-primary)" },
-      { label: "State Quota", fields: ["stateQuota"], color: "var(--color-secondary)" },
-      { label: "ESIC Quota", fields: ["esic"], color: "var(--color-primary-fixed-dim)" },
-      { label: "GOI Quota", fields: ["goiQuota"], color: "var(--color-primary-hover)" },
-      { label: "Management", fields: ["management"], color: "var(--color-on-secondary-container)" },
-      { label: "NRI Quota", fields: ["nri"], color: "var(--color-secondary-fixed-dim)" },
+      {
+        label: "All India Quota (AIQ)",
+        fields: ["aiq"],
+        color: "var(--color-primary)",
+      },
+      {
+        label: "State Quota",
+        fields: ["stateQuota"],
+        color: "var(--color-secondary)",
+      },
+      {
+        label: "ESIC Quota",
+        fields: ["esic"],
+        color: "var(--color-primary-fixed-dim)",
+      },
+      {
+        label: "GOI Quota",
+        fields: ["goiQuota"],
+        color: "var(--color-primary-hover)",
+      },
+      {
+        label: "Management",
+        fields: ["management"],
+        color: "var(--color-on-secondary-container)",
+      },
+      {
+        label: "NRI Quota",
+        fields: ["nri"],
+        color: "var(--color-secondary-fixed-dim)",
+      },
     ],
     feesMode: "stateFeeSchedule",
     feeScheduleTitle: "DMAT fee schedule",
@@ -512,7 +725,12 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
       {
         value: "rj-mq",
         label: "Management Quota",
-        rawQuotas: ["Mgmt. Seat", "mgmt. Seat", "Mgt Quota", "Payment (Govt./Govt Society)"],
+        rawQuotas: [
+          "Mgmt. Seat",
+          "mgmt. Seat",
+          "Mgt Quota",
+          "Payment (Govt./Govt Society)",
+        ],
       },
       {
         value: "rj-nri",
@@ -522,6 +740,15 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
     ]),
     seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
     feesMode: "quotaBreakdown",
+    feeScheduleTitle: "RUHS fee schedule",
+    // rajasthan_fees.csv → caution / admission / others / development / library
+    feeCharges: [
+      { key: "admissionFees", label: "Admission Fee (One-Time)" },
+      { key: "securityDeposit", label: "Caution Money (One-Time)" },
+      { key: "universityFees", label: "Development Fees" },
+      { key: "libraryFees", label: "Library Fees" },
+      { key: "misc", label: "Other Charges" },
+    ],
   },
 
   "andhra-pradesh": {
@@ -591,6 +818,15 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
     ]),
     seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
     feesMode: "quotaBreakdown",
+    feeScheduleTitle: "BCECE fee schedule",
+    // bihar_fees_data → admission / development / hostel+mess / security / registration
+    feeCharges: [
+      { key: "hostel", label: "Hostel & Mess (Annual)" },
+      { key: "universityFees", label: "Development Fees" },
+      { key: "admissionFees", label: "Admission Fee (One-Time)" },
+      { key: "securityDeposit", label: "Security Deposit (One-Time)" },
+      { key: "examFees", label: "University Registration" },
+    ],
   },
 
   "himachal-pradesh": {
@@ -657,6 +893,17 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
     ]),
     seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
     feesMode: "quotaBreakdown",
+    feeScheduleTitle: "Uttarakhand fee schedule",
+    // uttarakhand_fees_data → hostel / mess / exam / admission / security / enrolment
+    feeCharges: [
+      { key: "hostel", label: "Hostel Fees (Annual)" },
+      { key: "messFees", label: "Mess Fees (Annual)" },
+      { key: "examFees", label: "Examination Fees (Annual)" },
+      { key: "admissionFees", label: "Admission Fee (One-Time)" },
+      { key: "securityDeposit", label: "Security Deposit (One-Time)" },
+      { key: "universityFees", label: "University Enrolment (One-Time)" },
+      { key: "misc", label: "Other One-Time Charges" },
+    ],
   },
 
   "west-bengal": {
@@ -775,8 +1022,12 @@ export function getStateConfig(stateSlug?: string | null): StateConfig {
  *  5. If neither defined — option matches everything (catch-all).
  */
 export function matchesCutoffGroup(
-  row: { category?: string | null; quota?: string | null; seatType?: string | null },
-  opt: CutoffCategoryOption
+  row: {
+    category?: string | null;
+    quota?: string | null;
+    seatType?: string | null;
+  },
+  opt: CutoffCategoryOption,
 ): boolean {
   const cat = (row.category ?? "").toLowerCase().trim();
   const quota = (row.quota ?? "").toLowerCase().trim();
@@ -784,7 +1035,9 @@ export function matchesCutoffGroup(
 
   // Seat-type guard (AND)
   if (opt.rawSeatTypes && opt.rawSeatTypes.length > 0) {
-    const seatTypeMatch = opt.rawSeatTypes.some((st) => st.toUpperCase() === seatType);
+    const seatTypeMatch = opt.rawSeatTypes.some(
+      (st) => st.toUpperCase() === seatType,
+    );
     if (!seatTypeMatch) return false;
   }
 
@@ -798,7 +1051,9 @@ export function matchesCutoffGroup(
     : false;
 
   const quotaMatch = hasQuotas
-    ? opt.rawQuotas!.some((rq) => rq === "*" || quota.includes(rq.toLowerCase()))
+    ? opt.rawQuotas!.some(
+        (rq) => rq === "*" || quota.includes(rq.toLowerCase()),
+      )
     : false;
 
   // MCC AIQ: quota labels differ across dumps ("All India", "Open Seat Quota", …).

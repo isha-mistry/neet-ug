@@ -29,6 +29,7 @@
     "db:seed:chhattisgarh": "tsx scripts/catalog/seed-chhattisgarh.ts",
     "db:seed:manipur": "tsx scripts/catalog/seed-manipur.ts",
     "db:seed:college-cities": "tsx scripts/catalog/seed-college-cities.ts",
+    "db:sync:college-seats": "tsx scripts/catalog/sync-college-seat-counts.ts",
     "db:seed:aiq-manual": "tsx scripts/catalog/seed-aiq-manual-cutoffs.ts --apply",
     "db:reconcile:medical-list": "tsx scripts/catalog/reconcile-catalog-to-medical-list.ts",
     "db:seed:nirf": "tsx scripts/catalog/seed-nirf-ranks.ts",

@@ -13,7 +13,7 @@ import {
   isMccFeeScheduleSource,
   resolveFeeRowAuthority,
 } from "@/lib/colleges/fee-source";
-import { getStateConfig } from "@/lib/colleges/state-config";
+import { getStateConfig, type FeeChargeKey } from "@/lib/colleges/state-config";
 import { useCounsellingScope } from "@/components/features/colleges/detail/CounsellingScopeContext";
 import { cn } from "@/lib/utils";
 
@@ -21,6 +21,35 @@ interface FeesAndBondInfoProps {
   fees: CollegeFees;
   bond: CollegeBond;
   stateSlug?: string;
+}
+
+function feeChargeAmount(fees: CollegeFees, key: FeeChargeKey): number {
+  switch (key) {
+    case "hostel":
+      return fees.hostelFees ?? fees.hostel ?? 0;
+    case "hostelAcFees":
+      return fees.hostelAcFees ?? 0;
+    case "hostelNonAcFees":
+      return fees.hostelNonAcFees ?? 0;
+    case "messFees":
+      return fees.messFees ?? 0;
+    case "examFees":
+      return fees.examFees ?? 0;
+    case "universityFees":
+      return fees.universityFees ?? 0;
+    case "transportFees":
+      return fees.transportFees ?? 0;
+    case "libraryFees":
+      return fees.libraryFees ?? 0;
+    case "admissionFees":
+      return fees.admissionFees ?? 0;
+    case "securityDeposit":
+      return fees.securityDeposit ?? 0;
+    case "misc":
+      return fees.misc ?? 0;
+    default:
+      return 0;
+  }
 }
 
 type FeeAuthority = "state" | "mcc";
@@ -161,10 +190,24 @@ export function FeesAndBondInfo({ fees, bond, stateSlug }: FeesAndBondInfoProps)
   });
 
   const isUpFeeLayout = stateSlug === "uttar-pradesh";
+  const configuredFeeCharges = stateConfig.feeCharges ?? [];
+  const otherChargeRows = configuredFeeCharges
+    .map((charge) => ({
+      key: charge.key,
+      label: charge.label,
+      amount: feeChargeAmount(fees, charge.key),
+    }))
+    .filter((row) => row.amount > 0);
+  const showConfiguredOtherCharges =
+    activeAuthority === "state" && otherChargeRows.length > 0;
   const showStateQuotaBreakdown =
     activeAuthority === "state" &&
     !isMccFeeScheduleSource(fees.scheduleSource) &&
     stateConfig.feesMode === "quotaBreakdown";
+  const showQuotaBreakdown =
+    showStateQuotaBreakdown &&
+    fees.quotaBreakdown != null &&
+    authoritySchedule.length === 0;
   const hasHeadlineAmounts =
     headline != null &&
     (headline.tuition > 0 ||
@@ -172,23 +215,22 @@ export function FeesAndBondInfo({ fees, bond, stateSlug }: FeesAndBondInfoProps)
       headline.misc > 0 ||
       (fees.hostelAcFees ?? 0) > 0 ||
       (fees.hostelNonAcFees ?? 0) > 0 ||
-      (fees.securityDeposit ?? 0) > 0);
-  // MCC: always prefer simple Tuition / Hostel / Misc. State: only when no schedule table.
+      (fees.securityDeposit ?? 0) > 0 ||
+      (fees.admissionFees ?? 0) > 0);
+  // MCC: simple Tuition / Hostel / Misc. State: when no schedule table and no quota tuition block.
   const showBaseCharges =
     hasHeadlineAmounts &&
+    !showQuotaBreakdown &&
     (activeAuthority === "mcc" || authoritySchedule.length === 0);
   const showTotalAnnual = (headline?.totalAnnual ?? 0) > 0;
   const showTotalCourse = (headline?.totalCourse ?? 0) > 0;
   const showFeeTotals = showTotalAnnual || showTotalCourse;
-  const showQuotaBreakdown =
-    showStateQuotaBreakdown &&
-    fees.quotaBreakdown != null &&
-    authoritySchedule.length === 0;
 
   const hasFeeData =
     showBaseCharges ||
     feeSections.length > 0 ||
     showQuotaBreakdown ||
+    showConfiguredOtherCharges ||
     showFeeTotals;
 
   const getBondNote = () => {
@@ -273,9 +315,18 @@ export function FeesAndBondInfo({ fees, bond, stateSlug }: FeesAndBondInfoProps)
               <div className="flex flex-col">
                 <DetailSubsectionHead title="Base Annual Charges" />
                 <div className="flex flex-col border-y border-border">
-                  <FeeDetailRow label="Tuition Fees" value={formatCurrency(headline.tuition)} />
-                  {isUpFeeLayout ? (
+                  {showConfiguredOtherCharges ? (
+                    <FeeDetailRow
+                      label="Tuition Fees"
+                      value={formatCurrency(headline.tuition)}
+                      isLast
+                    />
+                  ) : isUpFeeLayout ? (
                     <>
+                      <FeeDetailRow
+                        label="Tuition Fees"
+                        value={formatCurrency(headline.tuition)}
+                      />
                       <FeeDetailRow
                         label="Hostel Fees (AC)"
                         value={formatCurrency(fees.hostelAcFees ?? 0)}
@@ -296,8 +347,19 @@ export function FeesAndBondInfo({ fees, bond, stateSlug }: FeesAndBondInfoProps)
                     </>
                   ) : (
                     <>
-                      <FeeDetailRow label="Hostel Fees" value={formatCurrency(headline.hostel)} />
-                      <FeeDetailRow label="Miscellaneous" value={formatCurrency(headline.misc)} isLast />
+                      <FeeDetailRow
+                        label="Tuition Fees"
+                        value={formatCurrency(headline.tuition)}
+                      />
+                      <FeeDetailRow
+                        label="Hostel Fees"
+                        value={formatCurrency(headline.hostel)}
+                      />
+                      <FeeDetailRow
+                        label="Miscellaneous"
+                        value={formatCurrency(headline.misc)}
+                        isLast
+                      />
                     </>
                   )}
                 </div>
@@ -332,6 +394,22 @@ export function FeesAndBondInfo({ fees, bond, stateSlug }: FeesAndBondInfoProps)
                   </div>
                 </div>
               )}
+
+            {showConfiguredOtherCharges && (
+              <div className="flex flex-col mt-2">
+                <DetailSubsectionHead title="Other charges" />
+                <div className="flex flex-col border-y border-border">
+                  {otherChargeRows.map((row, idx) => (
+                    <FeeDetailRow
+                      key={row.key}
+                      label={row.label}
+                      value={formatCurrency(row.amount)}
+                      isLast={idx === otherChargeRows.length - 1}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
 
             {feeSections.length > 0 && (
               <>
