@@ -3,6 +3,7 @@ import "server-only";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db/prisma";
 import { isLeadConsentGranted } from "@/lib/leads/consent";
+import { notifySlackNewLead } from "@/lib/leads/notify-slack-new-lead";
 import { validateSubmitLeadInput } from "./validation";
 import type { SubmitLeadInput, SubmitLeadResult } from "./types";
 import { reportAppError } from "@/lib/sentry/error-reporter";
@@ -43,7 +44,21 @@ export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult
           ? (input.rawPayload as Prisma.InputJsonValue)
           : undefined,
       },
-      select: { id: true },
+      select: { id: true, createdAt: true },
+    });
+
+    // Fire-and-forget: never block or fail the lead response on Slack errors
+    void notifySlackNewLead({
+      leadId: lead.id,
+      formType: input.formType,
+      name: input.name,
+      email: input.email,
+      phone: input.phone,
+      countryCode: input.countryCode ?? "+91",
+      pagePath: input.pagePath,
+      pageLabel: input.pageLabel,
+      variant: input.variant,
+      createdAt: lead.createdAt,
     });
 
     return { success: true, leadId: lead.id };

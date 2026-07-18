@@ -303,7 +303,7 @@ export function RankResultShowcase({
                   Reference trend
                 </p>
                 <p className="mt-1.5 font-mono text-base font-bold md:text-lg">
-                  NEET {referenceYear - 1} + {referenceYear}
+                  NEET {referenceYear}
                 </p>
               </div>
             </div>

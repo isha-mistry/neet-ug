@@ -10,8 +10,6 @@ import {
   GoogleTagManagerNoScript,
 } from "@/components/seo/GoogleTagManager";
 import { SiteJsonLd } from "@/components/seo/SiteJsonLd";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { SiteProviders } from "@/components/layout/SiteProviders";
 import { siteMetadata, siteViewport } from "@/lib/seo/site-metadata";
 
@@ -34,15 +32,7 @@ export default function RootLayout({
       <body className="min-h-full bg-background text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
         <GoogleTagManagerNoScript />
         <SiteJsonLd />
-        <SiteProviders>
-          <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <main id="main-content" className="flex-1 bg-surface-container-lowest">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </SiteProviders>
+        <SiteProviders>{children}</SiteProviders>
       </body>
     </html>
   );

@@ -28,6 +28,8 @@ interface QuotaPageShellProps {
   jumpSections?: readonly GuideJumpItem[];
   className?: string;
   containerClassName?: string;
+  /** When true, breadcrumb is Home / current (skips Quotas). */
+  hideQuotaCrumb?: boolean;
 }
 
 function QuotaBreadcrumbs({ items }: { items: { label: string; href?: string }[] }) {
@@ -60,7 +62,19 @@ export function QuotaPageShell({
   jumpSections,
   className,
   containerClassName,
+  hideQuotaCrumb = false,
 }: QuotaPageShellProps) {
+  const breadcrumbItems = hideQuotaCrumb
+    ? [
+        { label: "Home", href: "/" },
+        { label: current },
+      ]
+    : [
+        { label: "Home", href: "/" },
+        { label: "Quotas", href: "/quota" },
+        { label: current },
+      ];
+
   return (
     <RankPredictorShell className={className}>
       {jumpSections && (
@@ -75,13 +89,7 @@ export function QuotaPageShell({
       )}
       <Container size="page" className={cn("py-8 md:py-10", containerClassName)}>
         <div className="relative z-10 mb-8">
-          <QuotaBreadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Quotas", href: "/quota" },
-              { label: current },
-            ]}
-          />
+          <QuotaBreadcrumbs items={breadcrumbItems} />
         </div>
         
         {header && <div className="relative z-10 mb-8">{header}</div>}

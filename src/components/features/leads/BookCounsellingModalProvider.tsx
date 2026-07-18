@@ -17,10 +17,13 @@ import { cn } from "@/lib/utils";
 export type BookCounsellingModalOptions = {
   /** After save, countdown then open WhatsApp with the free counselling message + form details. */
   redirectToWhatsApp?: boolean;
+  /** Fired when the modal is dismissed (close button, backdrop, Escape, or post-submit reset). */
+  onClose?: () => void;
 };
 
 type BookCounsellingModalContextValue = {
   openBookCounsellingModal: (source: string, options?: BookCounsellingModalOptions) => void;
+  isBookCounsellingModalOpen: boolean;
 };
 
 const BookCounsellingModalContext = createContext<BookCounsellingModalContextValue | null>(
@@ -115,9 +118,11 @@ export function BookCounsellingModalProvider({ children }: { children: ReactNode
   const [source, setSource] = useState("site");
   const [options, setOptions] = useState<BookCounsellingModalOptions>({});
   const [openSession, setOpenSession] = useState(0);
+  const onCloseRef = useRef<(() => void) | undefined>(undefined);
 
   const openBookCounsellingModal = useCallback(
     (nextSource: string, nextOptions: BookCounsellingModalOptions = {}) => {
+      onCloseRef.current = nextOptions.onClose;
       setSource(nextSource);
       setOptions(nextOptions);
       setOpenSession((n) => n + 1);
@@ -126,15 +131,24 @@ export function BookCounsellingModalProvider({ children }: { children: ReactNode
     [],
   );
 
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    const onClose = onCloseRef.current;
+    onCloseRef.current = undefined;
+    onClose?.();
+  }, []);
+
   return (
-    <BookCounsellingModalContext.Provider value={{ openBookCounsellingModal }}>
+    <BookCounsellingModalContext.Provider
+      value={{ openBookCounsellingModal, isBookCounsellingModalOpen: open }}
+    >
       {children}
       <BookCounsellingLeadModal
         open={open}
         source={source}
         options={options}
         formKey={openSession}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
       />
     </BookCounsellingModalContext.Provider>
   );

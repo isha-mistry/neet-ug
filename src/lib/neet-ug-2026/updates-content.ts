@@ -60,13 +60,8 @@ export const NEET_UG_UPDATES_DATE_ROWS = [
     date: "21 June 2026 · 2:00 PM – 5:15 PM",
     status: "Done",
   },
-  { event: "Provisional answer key", date: "25 June 2026", status: "Done" },
-  {
-    event: "OMR scanned images & recorded response challenge",
-    date: "13–15 July 2026 · till 11:00 AM",
-    status: "Upcoming",
-  },
-  { event: "Result declaration", date: "By mid-July 2026 (tentative)", status: "Tentative" },
+  { event: "Final answer key", date: "25 June 2026", status: "Done" },
+  { event: "Result declaration", date: "16 July 2026", status: "Done" },
   { event: "MCC AIQ counselling", date: "By 25 July 2026 (tentative)", status: "Tentative" },
   { event: "State quota counselling", date: "By 10 August 2026 (tentative)", status: "Tentative" },
 ] as const;
@@ -126,19 +121,35 @@ export type UpdatesNoticeItem = {
 
 export const NEET_UG_UPDATES_NOTICE_FEED: UpdatesNoticeItem[] = [
   {
+    date: "July 2026",
+    title: "Gujarat ACPUGMEC: List of Documents Required for Admission 2026-27",
+    summary:
+      "Official list of documents required for the ACPUGMEC UG admission process (academic year 2026-2027) in Gujarat. Download the PDF and keep originals and photocopies ready before Round 1 reporting.",
+    href: "https://medadmgujarat.ncode.in/web/UG2026/List%20of%20Documents%20Required%20for%20Admission%20Process%20of%20ACPUGMEC%20R01.pdf",
+    tag: "Advisory",
+  },
+  {
+    date: "16 July 2026",
+    title: "Press Release for Result",
+    summary:
+      "NTA has issued the official press release for NEET UG 2026 results. Download the PDF for declared result details and related announcements.",
+    href: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/07/20260716477215762.pdf",
+    tag: "NTA",
+  },
+  {
+    date: "16 July 2026",
+    title: "Final Answer Key",
+    summary:
+      "National Testing Agency (NTA) has officially released the final answer key for NEET UG 2026. Download the official document for verification.",
+    href: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/07/20260716131467523.pdf",
+    tag: "NTA",
+  },
+  {
     date: "13 July 2026",
     title: "OMR Scanned Images & Recorded Response Challenge Open",
     summary:
       "NTA has uploaded scanned OMR answer sheets and recorded responses for NEET UG 2026 on neet.nta.nic.in (also emailed to registered IDs). Candidates can challenge recorded responses online from 13 July to 15 July 2026 (till 11:00 AM) at ₹200 per response. Login needs 2FA via OTP. Answer-key challenges are already closed — only recorded-response mismatches can be raised.",
     href: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/07/20260713497007800.pdf",
-    tag: "NTA",
-  },
-  {
-    date: "25 June 2026",
-    title: "Provisional Answer Key Released by NTA",
-    summary:
-      "National Testing Agency (NTA) has officially released the provisional answer key, OMR scanned images, and recorded responses for NEET UG 2026 (Paper Sets 50, 60, 70, and 80). Download the official document for verification.",
-    href: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/06/20260625208933797.pdf",
     tag: "NTA",
   },
   {
