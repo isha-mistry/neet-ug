@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 import { cn } from "@/lib/utils";
 
@@ -8,6 +9,8 @@ interface DetailSectionHeaderProps {
   icon?: string;
   className?: string;
   id?: string;
+  /** Optional badge / action aligned with the title row. */
+  trailing?: ReactNode;
   /** @deprecated Appearance is unified; kept for call-site compatibility */
   theme?: "brand" | "secondary" | "indigo" | "emerald";
 }
@@ -19,6 +22,7 @@ export function DetailSectionHeader({
   icon,
   className,
   id,
+  trailing,
 }: DetailSectionHeaderProps) {
   return (
     <header className={cn("flex flex-col gap-3", className)}>
@@ -29,13 +33,16 @@ export function DetailSectionHeader({
             <MaterialSymbol name={icon} className="text-[22px]" />
           </span>
         ) : null}
-        <div className="min-w-0 flex flex-col gap-1.5">
-          <h2
-            id={id}
-            className="text-xl font-extrabold tracking-tight text-on-surface md:text-2xl"
-          >
-            {title}
-          </h2>
+        <div className="min-w-0 flex flex-1 flex-col gap-1.5">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h2
+              id={id}
+              className="text-xl font-extrabold tracking-tight text-on-surface md:text-2xl"
+            >
+              {title}
+            </h2>
+            {trailing}
+          </div>
           <p className="max-w-2xl text-sm leading-relaxed text-on-surface-variant">
             {description}
           </p>

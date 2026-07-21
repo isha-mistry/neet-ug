@@ -4,13 +4,13 @@ import type {
 } from "../types";
 import { GUJARAT_CONTENT_EXTENSIONS } from "./gujarat-extensions";
 
-const GUJARAT_TOTAL = 7525;
+const GUJARAT_TOTAL = 7725;
 const GUJARAT_AIQ = Math.round(GUJARAT_TOTAL * 0.15);
-const RAJASTHAN_TOTAL = 7330;
+const RAJASTHAN_TOTAL = 8231;
 const RAJASTHAN_AIQ = Math.round(RAJASTHAN_TOTAL * 0.15);
-const MP_TOTAL = 5725;
+const MP_TOTAL = 6145;
 const MP_AIQ = Math.round(MP_TOTAL * 0.15);
-const MH_TOTAL = 12824;
+const MH_TOTAL = 12994;
 const MH_AIQ = Math.round(MH_TOTAL * 0.15);
 
 export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
@@ -26,12 +26,12 @@ export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
   universityNote:
     "Government colleges are affiliated to Gujarat University, B.J. Medical College network, or constituent GMERS institutions; private colleges hold affiliations with state universities and deemed universities.",
   stats: {
-    totalColleges: 41,
+    totalColleges: 43,
     totalSeats: GUJARAT_TOTAL,
-    govtColleges: 18,
-    govtSeats: 3950,
-    pvtColleges: 23,
-    pvtSeats: 3575,
+    govtColleges: 11,
+    govtSeats: 2225,
+    pvtColleges: 32,
+    pvtSeats: 5500,
     aiqSeats: GUJARAT_AIQ,
     stateQuotaSeats: GUJARAT_TOTAL - GUJARAT_AIQ,
     govtFeeAnnual: "₹25,000 – ₹35,000",
@@ -40,8 +40,8 @@ export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
     domicileRequired: "Yes — 85% state quota seats require Gujarat domicile",
   },
   overview: [
-    "For the 2026–27 admission cycle, MBBS admissions in Gujarat are coordinated by ACPUGMEC (Admission Committee for Professional Undergraduate Medical Educational Courses) on medadmgujarat.org, under the Gujarat Professional Educational Medical Colleges (Regulation of Admission and Fixation of Fees) Act, 2007. The state combines long-standing teaching hospitals in Ahmedabad, Rajkot, and Surat with GMERS district medical colleges and NMC-recognized private institutes. Dravio’s catalog currently lists 48 medical colleges and 7,975 MBBS seats for Gujarat—enough capacity to make the state a practical option for western India domicile students who plan counselling carefully.",
-    "Roughly 4,425 seats sit in government and GMERS colleges and about 3,550 in private institutions, so the public sector still carries most in-state capacity. Annual tuition on government and GMERS routes typically stays in the ₹25,000–₹35,000 range—among the lowest in India for domicile students—while private government-quota, management, and NRI tracks are regulated but substantially costlier. Most government allotments continue to carry a service bond (commonly ₹10 lakh surety with rural or district service); treat the current ACPUGMEC information brochure as the final word for the 2026–27 batch.",
+    "For the 2026–27 admission cycle, MBBS admissions in Gujarat are coordinated by ACPUGMEC (Admission Committee for Professional Undergraduate Medical Educational Courses) on medadmgujarat.org, under the Gujarat Professional Educational Medical Colleges (Regulation of Admission and Fixation of Fees) Act, 2007. The state combines long-standing teaching hospitals in Ahmedabad, Rajkot, and Surat with GMERS district medical colleges and NMC-recognized private institutes. Gujarat lists 43 medical colleges and 7,725 MBBS seats for the 2026–27 cycle—enough capacity to make the state a practical option for western India domicile students who plan counselling carefully.",
+    "Roughly 2,225 seats sit in government and GMERS colleges and about 5,500 in private institutions. Annual tuition on government and GMERS routes typically stays in the ₹25,000–₹35,000 range—among the lowest in India for domicile students—while private government-quota, management, and NRI tracks are regulated but substantially costlier. Most government allotments continue to carry a service bond (commonly ₹10 lakh surety with rural or district service); treat the current ACPUGMEC information brochure as the final word for the 2026–27 batch.",
     "Competition is uneven by city and college tier. Ahmedabad, Gandhinagar, and legacy campuses such as B.J. Medical College historically see the tightest state-quota General closing ranks; many newer GMERS colleges offer a similar low-fee path at softer cutoffs with the same bond framework. Private colleges remain the main fallback when government merit lists are out of reach, with separate merit lists for government-quota, management, and NRI seats published after each counselling round.",
     "NEET-UG 2026 (conducted by NTA) is mandatory for every seat type. Gujarat’s 85% state quota—including government seats and regulated private government-quota seats—requires Gujarat domicile and state-valid category certificates where reservation applies (SC, ST, SEBC/OBC, EWS, and PwD per the active roster). The 15% All India Quota in Gujarat colleges is counseled separately by MCC on mcc.nic.in. Candidates without Gujarat domicile cannot enter state quota but may still target AIQ seats or eligible private management/NRI quotas subject to college prospectus rules and fees.",
     "Practical planning for 2026–27 means tracking notifications on medadmgujarat.org and MCC after the NEET result, registering and locking choices on time, and using upgradation rounds without missing fee or reporting deadlines. Compare Gujarat with neighbouring states on three levers: whether your NEET rank can reach government cutoffs in your category, total five-year cost including hostel and bond risk, and domicile eligibility. Use our college list and cutoff tools on this page for catalog-backed numbers; always verify allotments and fees on the official portals before admission.",
@@ -121,10 +121,10 @@ export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
       { year: 2022, seats: 6785 },
       { year: 2023, seats: 7010 },
       { year: 2024, seats: 7280 },
-      { year: 2025, seats: 7525 },
+      { year: 2025, seats: 7725 },
     ],
     vsNational:
-      "Gujarat’s ~7,525 seats represent about 5.8% of India’s MBBS capacity but roughly 4.2% of NEET applicants when mapped by domicile—slightly favorable versus Uttar Pradesh or Bihar, though government seat odds remain below 5% for General category open merit.",
+      "Gujarat’s ~7,725 seats represent about 5.8% of India’s MBBS capacity but roughly 4.2% of NEET applicants when mapped by domicile—slightly favorable versus Uttar Pradesh or Bihar, though government seat odds remain below 5% for General category open merit.",
   },
   vsOtherStates: [
     "Government fees are lower than Maharashtra and Karnataka while bond amounts are comparable to Rajasthan.",
@@ -162,7 +162,7 @@ export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
       },
       {
         title: "Non-domicile",
-        body: "Focus on MCC AIQ (~1,129 seats in Gujarat) or management/NRI in private institutes; state quota is not available.",
+        body: "Focus on MCC AIQ (~1,159 seats in Gujarat) or management/NRI in private institutes; state quota is not available.",
       },
     ],
   },
@@ -376,7 +376,7 @@ export const GUJARAT_MBBS_CONFIG: MbbsStateConfig = {
     {
       question: "How many MBBS seats are in Gujarat for 2026–27?",
       answer:
-        "Dravio’s catalog lists 48 medical colleges and 7,975 MBBS seats for Gujarat, with about 4,425 government/GMERS seats and 3,550 private seats. Confirm final matrix numbers on medadmgujarat.org when ACPUGMEC publishes the admission year notification.",
+        "Gujarat lists 43 medical colleges and 7,725 MBBS seats for 2026–27, with 2,225 government/GMERS seats and 5,500 private seats. Confirm final matrix numbers on medadmgujarat.org when ACPUGMEC publishes the admission year notification.",
     },
     {
       question: "What rank is needed for B.J. Medical College?",
@@ -429,12 +429,12 @@ export const RAJASTHAN_MBBS_CONFIG: MbbsStateConfig = {
   universityNote:
     "Government colleges are affiliated to RUHS or autonomous state medical universities; private colleges hold RUHS or university affiliations with separate management fee schedules.",
   stats: {
-    totalColleges: 43,
+    totalColleges: 52,
     totalSeats: RAJASTHAN_TOTAL,
-    govtColleges: 26,
-    govtSeats: 4425,
-    pvtColleges: 17,
-    pvtSeats: 2905,
+    govtColleges: 34,
+    govtSeats: 4631,
+    pvtColleges: 18,
+    pvtSeats: 3600,
     aiqSeats: RAJASTHAN_AIQ,
     stateQuotaSeats: RAJASTHAN_TOTAL - RAJASTHAN_AIQ,
     govtFeeAnnual: "₹35,000 – ₹55,000",
@@ -443,10 +443,10 @@ export const RAJASTHAN_MBBS_CONFIG: MbbsStateConfig = {
     domicileRequired: "Yes — state quota requires Rajasthan domicile",
   },
   overview: [
-    "Rajasthan centralizes undergraduate medical admissions under RUHS, counselling more than 7,330 MBBS seats across 43 colleges through ruhsraj.org. The state blends heritage institutions like SMS Medical College in Jaipur with a ring of 2000s-era government medical colleges in Kota, Udaipur, Jodhpur, and Bikaner.",
-    "Government capacity is comparatively strong: 26 government colleges contribute about 4,425 seats, giving domicile students more government options than many states of similar NEET applicant volume. Fees remain moderate, though slightly higher than Gujarat’s GMERS tariff.",
+    "Rajasthan centralizes undergraduate medical admissions under RUHS, counselling more than 8,231 MBBS seats across 52 colleges through ruhsraj.org. The state blends heritage institutions like SMS Medical College in Jaipur with a ring of 2000s-era government medical colleges in Kota, Udaipur, Jodhpur, and Bikaner.",
+    "Government capacity is comparatively strong: 34 government colleges contribute about 4,631 seats, giving domicile students more government options than many states of similar NEET applicant volume. Fees remain moderate, though slightly higher than Gujarat’s GMERS tariff.",
     "Cutoffs tighten sharply for Jaipur SMS and JLN Ajmer, while newer district colleges offer softer ranks for reserved categories and General merit alike. Private colleges cluster around Jaipur and Kota, absorbing students who miss government lists but still want in-state campuses.",
-    "Domicile is required for the 85% state pool, with certificates issued by Rajasthan revenue authorities. Out-of-state students rely on AIQ (~1,100 seats) or management quotas in private institutes, where fees climb steeply but NEET eligibility alone does not guarantee a seat without financial readiness.",
+    "Domicile is required for the 85% state pool, with certificates issued by Rajasthan revenue authorities. Out-of-state students rely on AIQ (~1,235 seats) or management quotas in private institutes, where fees climb steeply but NEET eligibility alone does not guarantee a seat without financial readiness.",
     "Service bonds apply to subsets of government seats with penalties that can exceed ₹20 lakh if service is not completed, so students should read the annual RUHS prospectus carefully. Compared with MP, Rajasthan offers more government seats per domicile applicant; compared with Maharashtra, private fees are lower but top Jaipur cutoffs remain elite-tier.",
   ],
   domicile: {
@@ -523,7 +523,7 @@ export const RAJASTHAN_MBBS_CONFIG: MbbsStateConfig = {
       { year: 2022, seats: 6580 },
       { year: 2023, seats: 6890 },
       { year: 2024, seats: 7120 },
-      { year: 2025, seats: 7330 },
+      { year: 2025, seats: 8231 },
     ],
     vsNational:
       "Rajasthan contributes about 5.7% of national MBBS seats with a higher-than-average government share (~60% of state seats), improving odds for domicile students relative to private-heavy states.",
@@ -564,7 +564,7 @@ export const RAJASTHAN_MBBS_CONFIG: MbbsStateConfig = {
       },
       {
         title: "Non-domicile",
-        body: "Use MCC AIQ (~1,100 Rajasthan seats) or management seats; state quota is closed.",
+        body: "Use MCC AIQ (~1,235 Rajasthan seats) or management seats; state quota is closed.",
       },
     ],
   },
@@ -751,7 +751,7 @@ export const RAJASTHAN_MBBS_CONFIG: MbbsStateConfig = {
     },
     {
       question: "How many MBBS seats does Rajasthan have?",
-      answer: "About 7,330 seats in 43 colleges for the 2025–26 academic session.",
+      answer: "About 8,231 seats in 52 colleges for the 2026–27 academic session.",
     },
     {
       question: "Is domicile required for state quota?",
@@ -814,12 +814,12 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
   universityNote:
     "Colleges are affiliated to Madhya Pradesh Medical Science University (MPMSU) or legacy universities; government and private institutes follow DME counselling schedules.",
   stats: {
-    totalColleges: 31,
+    totalColleges: 35,
     totalSeats: MP_TOTAL,
-    govtColleges: 14,
-    govtSeats: 2790,
-    pvtColleges: 17,
-    pvtSeats: 2935,
+    govtColleges: 19,
+    govtSeats: 2945,
+    pvtColleges: 16,
+    pvtSeats: 3200,
     aiqSeats: MP_AIQ,
     stateQuotaSeats: MP_TOTAL - MP_AIQ,
     govtFeeAnnual: "₹40,000 – ₹80,000",
@@ -828,10 +828,10 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
     domicileRequired: "Yes — MP domicile for 85% state quota",
   },
   overview: [
-    "Madhya Pradesh routes NEET-UG admissions through the Department of Medical Education with online counselling on dme.mponline.gov.in, historically branded as DMAT. About 5,725 MBBS seats across 31 colleges split nearly evenly between government and private sectors, giving domicile students a broad private safety net when government cutoffs slip.",
+    "Madhya Pradesh routes NEET-UG admissions through the Department of Medical Education with online counselling on dme.mponline.gov.in, historically branded as DMAT. About 6,145 MBBS seats across 35 colleges split nearly evenly between government and private sectors, giving domicile students a broad private safety net when government cutoffs slip.",
     "Flagship government colleges in Bhopal, Indore, Gwalior, and Jabalpur anchor clinical training with large attached hospitals. Newer government colleges in Chhindwara, Shivpuri, and Datia expanded capacity after 2015, moderating cutoffs outside the four metros.",
     "State-quota General ranks for MGM Indore and Gandhi Medical College Bhopal sit in a competitive but reachable band compared with Maharashtra’s grant colleges. Private colleges in Indore and Bhopal charge management fees that are mid-market nationally, often below Mumbai private tariffs.",
-    "MP domicile rules require certificates from state revenue authorities and bonafide schooling proofs for state quota. Non-domicile students compete via AIQ (~859 seats) or management quotas; NRI seats exist in select private campuses with dollar-linked fee tables.",
+    "MP domicile rules require certificates from state revenue authorities and bonafide schooling proofs for state quota. Non-domicile students compete via AIQ (~922 seats) or management quotas; NRI seats exist in select private campuses with dollar-linked fee tables.",
     "Service bonds apply to government allotments with rural posting requirements. Students weighing MP against Rajasthan should compare government seat totals (Rajasthan higher) against private fee levels (MP often slightly lower management fees outside Indore premium institutes).",
   ],
   domicile: {
@@ -908,7 +908,7 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
       { year: 2022, seats: 5120 },
       { year: 2023, seats: 5380 },
       { year: 2024, seats: 5550 },
-      { year: 2025, seats: 5725 },
+      { year: 2025, seats: 6145 },
     ],
     vsNational:
       "MP’s seat growth tracked the national expansion wave but applicant growth from central India keeps government odds near 3% for domicile students—similar to Gujarat and Rajasthan.",
@@ -949,7 +949,7 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
       },
       {
         title: "Non-domicile",
-        body: "Pursue ~859 AIQ seats in MP or management quota; state pool is domicile-only.",
+        body: "Pursue ~922 AIQ seats in MP or management quota; state pool is domicile-only.",
       },
     ],
   },
@@ -1138,7 +1138,7 @@ export const MADHYA_PRADESH_MBBS_CONFIG: MbbsStateConfig = {
     },
     {
       question: "How many MBBS seats are in MP?",
-      answer: "About 5,725 seats across 31 colleges for 2025–26.",
+      answer: "About 6,145 seats across 35 colleges for 2026–27.",
     },
     {
       question: "Is MP domicile mandatory?",
@@ -1201,12 +1201,12 @@ export const MAHARASHTRA_MBBS_CONFIG: MbbsStateConfig = {
   universityNote:
     "Government and municipal colleges affiliate with Maharashtra University of Health Sciences (MUHS); some institutions retain legacy university ties. Private colleges are MUHS-affiliated with separate institute-level fee approvals.",
   stats: {
-    totalColleges: 80,
+    totalColleges: 87,
     totalSeats: MH_TOTAL,
-    govtColleges: 28,
-    govtSeats: 4820,
-    pvtColleges: 52,
-    pvtSeats: 8004,
+    govtColleges: 44,
+    govtSeats: 6225,
+    pvtColleges: 43,
+    pvtSeats: 6769,
     aiqSeats: MH_AIQ,
     stateQuotaSeats: MH_TOTAL - MH_AIQ,
     govtFeeAnnual: "₹1.1 – ₹1.8 lakh (grant/municipal tiers)",
@@ -1215,11 +1215,11 @@ export const MAHARASHTRA_MBBS_CONFIG: MbbsStateConfig = {
     domicileRequired: "Yes — Maharashtra domicile for state quota",
   },
   overview: [
-    "Maharashtra is among India’s largest MBBS markets with 12,824 seats across 80 colleges, counseled by the CET Cell on cetcell.mahacet.org. Mumbai, Pune, and Nagpur anchor premier government and private institutes, while tier-2 cities added seats through new private colleges over the last decade.",
-    "Government and municipal grant colleges such as GS Medical College (KEM), B.J. Medical College Pune, and Grant Medical Mumbai draw elite NEET ranks, but the state also offers more than 8,000 private seats—higher than most states—creating multiple price points for domicile students.",
-    "Domicile certification follows Maharashtra rules with emphasis on HSC from the state or parental domicile. The 85% state quota is large in absolute terms (~10,900 seats), yet Mumbai-Pune government cutoffs remain among the toughest outside Delhi AIIMS clusters.",
+    "Maharashtra is among India’s largest MBBS markets with 12,994 seats across 87 colleges, counseled by the CET Cell on cetcell.mahacet.org. Mumbai, Pune, and Nagpur anchor premier government and private institutes, while tier-2 cities added seats through new private colleges over the last decade.",
+    "Government and municipal grant colleges such as GS Medical College (KEM), B.J. Medical College Pune, and Grant Medical Mumbai draw elite NEET ranks, but the state also offers more than 6,700 private seats—higher than most states—creating multiple price points for domicile students.",
+    "Domicile certification follows Maharashtra rules with emphasis on HSC from the state or parental domicile. The 85% state quota is large in absolute terms (~11,045 seats), yet Mumbai-Pune government cutoffs remain among the toughest outside Delhi AIIMS clusters.",
     "Fee diversity is wide: municipal colleges charge relatively moderate tuition compared with private management seats that can exceed ₹25 lakh per year. NRI quotas are common in private institutes across Pune and Navi Mumbai.",
-    "Students comparing Maharashtra with Gujarat or MP trade higher private costs for clinical exposure in mega hospitals. AIQ (~1,924 seats) offers a meaningful all-India pathway into Maharashtra colleges without domicile, especially for high-rank holders targeting Mumbai institutions.",
+    "Students comparing Maharashtra with Gujarat or MP trade higher private costs for clinical exposure in mega hospitals. AIQ (~1,949 seats) offers a meaningful all-India pathway into Maharashtra colleges without domicile, especially for high-rank holders targeting Mumbai institutions.",
   ],
   domicile: {
     rules: [
@@ -1295,7 +1295,7 @@ export const MAHARASHTRA_MBBS_CONFIG: MbbsStateConfig = {
       { year: 2022, seats: 11080 },
       { year: 2023, seats: 11650 },
       { year: 2024, seats: 12240 },
-      { year: 2025, seats: 12824 },
+      { year: 2025, seats: 12994 },
     ],
     vsNational:
       "Maharashtra alone hosts about 10% of India’s MBBS seats—the largest single-state pool—yet high domicile applicant volume keeps grant college odds near 2–3% for General category.",
@@ -1336,7 +1336,7 @@ export const MAHARASHTRA_MBBS_CONFIG: MbbsStateConfig = {
       },
       {
         title: "Non-domicile",
-        body: "Target ~1,924 AIQ Maharashtra seats; state CAP is unavailable without domicile.",
+        body: "Target ~1,949 AIQ Maharashtra seats; state CAP is unavailable without domicile.",
       },
     ],
   },
@@ -1522,7 +1522,7 @@ export const MAHARASHTRA_MBBS_CONFIG: MbbsStateConfig = {
     },
     {
       question: "How many MBBS seats are in Maharashtra?",
-      answer: "About 12,824 seats across 80 colleges for 2025–26.",
+      answer: "About 12,994 seats across 87 colleges for 2026–27.",
     },
     {
       question: "Is Maharashtra domicile required for CAP?",

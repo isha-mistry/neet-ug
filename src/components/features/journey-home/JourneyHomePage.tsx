@@ -175,11 +175,11 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
             <span>NEET 2026 applicants</span>
           </div>
           <div className="tick">
-            <b data-count="129753">0</b>
+            <b data-count="139664">0</b>
             <span>MBBS seats in India</span>
           </div>
           <div className="tick">
-            <b data-count="33405">0</b>
+            <b data-count="35325">0</b>
             <span>seats in our 4 states</span>
           </div>
           <div className="tick">
@@ -292,7 +292,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 <div className="fbarw">
                   <i />
                 </div>
-                <div className="fv">~13,50,000</div>
+                <div className="fv">11,21,185</div>
               </div>
               <div className="card frow reveal" data-w="5.7">
                 <div className="fl">
@@ -302,7 +302,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 <div className="fbarw">
                   <i />
                 </div>
-                <div className="fv">1,29,753</div>
+                <div className="fv">1,39,664</div>
               </div>
               <div className="card frow gold reveal" data-w="2.9">
                 <div className="fl">
@@ -312,7 +312,7 @@ export function JourneyHomePage({ hero, faq, brandName }: JourneyHomePageProps) 
                 <div className="fbarw">
                   <i />
                 </div>
-                <div className="fv">63,860</div>
+                <div className="fv">65,971</div>
               </div>
             </div>
             <p className="fun-note">

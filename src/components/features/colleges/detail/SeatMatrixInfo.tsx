@@ -27,6 +27,8 @@ interface SeatMatrixInfoProps {
   mccSeatMatrix?: CollegeSeatMatrix;
   /** State slug — drives how quota groups are labelled and composed in the donut chart. */
   stateSlug?: string;
+  /** Official seat increase for 2026–27 (when available). */
+  seatsIncreased?: number;
 }
 
 type QuotaChartPoint = {
@@ -264,6 +266,7 @@ export function SeatMatrixInfo({
   seatMatrix,
   mccSeatMatrix,
   stateSlug,
+  seatsIncreased,
 }: SeatMatrixInfoProps) {
   const scope = useCounsellingScope();
   const activeMatrix = useMemo(() => {
@@ -419,7 +422,7 @@ export function SeatMatrixInfo({
 
   return (
     <section className="flex flex-col gap-6 animate-fadeIn">
-      {/* Reusable Section Header */}
+
       <DetailSectionHeader
         eyebrow="Intake"
         title="Seat matrix"
@@ -445,7 +448,17 @@ export function SeatMatrixInfo({
         <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
           <div ref={quotaPanelRef} className="w-full self-start">
             <DetailPanel bodyClassName="flex flex-col gap-4">
-              <h3 className="font-extrabold text-lg text-text">Quota Distribution</h3>
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="font-extrabold text-lg text-text">Quota Distribution</h3>
+                {seatsIncreased && seatsIncreased > 0 ? (
+                  <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-tertiary-fixed px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-tertiary shadow-xs">
+                    <span className="material-symbols-outlined text-sm" aria-hidden>
+                      trending_up
+                    </span>
+                    +{formatNumber(seatsIncreased)} seats for 2026–27
+                  </span>
+                ) : null}
+              </div>
 
               {hasQuotaData ? (
                 <div className="flex flex-col items-center gap-6 py-2">

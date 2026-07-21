@@ -104,13 +104,13 @@ export const NEET_UG_COUNSELLING_SEAT_SUMMARY = [
   {
     icon: "add_home_work",
     label: "Total MBBS seats",
-    value: "1,08,940",
+    value: "1,39,664",
     sub: "Govt + private + deemed",
   },
   {
     icon: "medication_liquid",
     label: "BDS seats",
-    value: "26,949",
+    value: "28,016",
     sub: "Govt + private",
   },
   {
@@ -124,12 +124,12 @@ export const NEET_UG_COUNSELLING_SEAT_SUMMARY = [
 export const NEET_UG_COUNSELLING_SEAT_MATRIX_ROWS = [
   {
     prog: "MBBS",
-    govt: "56,943",
-    private: "48,012",
-    central: "3,985+",
-    total: "1,08,940+",
+    govt: "65,971",
+    private: "72,893",
+    central: "2,700+",
+    total: "1,18,851+",
   },
-  { prog: "BDS", govt: "8,870", private: "18,079", central: "—", total: "26,949" },
+  { prog: "BDS", govt: "4,058", private: "23,958", central: "—", total: "28,016" },
   {
     prog: "BAMS (Ayurveda)",
     govt: "13,516",

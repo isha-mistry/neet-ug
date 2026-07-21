@@ -10,8 +10,8 @@ export const NEET_UG_HUB_HERO = {
     "Indicative dates and cutoffs follow NTA and historical trends. Always confirm on nta.ac.in and mcc.nic.in before registering or reporting.",
   trio: [
     { key: "ReNEET", value: "21 June 2026" },
-    { key: "Applicants", value: "22.09 lakh" },
-    { key: "MBBS seats", value: "1,29,753+" },
+    { key: "Applicants", value: "22.79 lakh" },
+    { key: "MBBS seats", value: "1,39,664+" },
   ],
 } as const;
 

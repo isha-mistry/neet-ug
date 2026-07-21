@@ -11,8 +11,8 @@ export function mergeMbbsStateConfigWithCatalog(
   return {
     ...config,
     stats: {
-      ...config.stats,
       ...breakdown,
+      ...config.stats,
     },
   };
 }

@@ -45,9 +45,9 @@ export function aggregateCatalogSeatBreakdown(
 
   // Override for all-India using actual NMC data if no specific state
   if (!stateSlug) {
-    totalSeats = 129753;
-    govtSeats = 63860;
-    pvtSeats = 65093;
+    totalSeats = 139664;
+    govtSeats = 65971;
+    pvtSeats = 72893;
     aiqSeats = Math.round(totalSeats * 0.15);
     stateQuotaSeats = totalSeats - aiqSeats;
   }

@@ -72,6 +72,7 @@ export function CollegeDetailFacts({
                 seatMatrix={college.seatMatrix ?? college.mccSeatMatrix!}
                 mccSeatMatrix={college.mccSeatMatrix}
                 stateSlug={college.stateSlug}
+                seatsIncreased={college.seatsIncreased}
               />
             </div>
           ) : null}

@@ -10,7 +10,7 @@ export const NEET_UG_UPDATES_HERO = {
     "OMR recorded-response challenge closes 15 July 2026 at 11:00 AM. Always confirm on neet.nta.nic.in and mcc.nic.in before you act.",
   trio: [
     { key: "OMR challenge", value: "Till 15 Jul, 11 AM" },
-    { key: "Result", value: "By mid-Jul (est.)" },
+    { key: "Result", value: "16 July 2026" },
     { key: "Registered", value: "22.76 lakh" },
   ],
 } as const;
@@ -41,7 +41,7 @@ export const NEET_UG_UPDATES_KEY_STATS = [
   { label: "Paper", value: "720 marks\n180 Qs" },
   { label: "Registered", value: "22.76\nlakh" },
   { label: "Exam cities", value: "552\ncentres" },
-  { label: "MBBS seats", value: "1.29L+\n822 colleges" },
+  { label: "MBBS seats", value: "1.39L+\n848 colleges" },
   { label: "Languages", value: "13\nmediums" },
 ] as const;
 

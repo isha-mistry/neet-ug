@@ -146,6 +146,8 @@ export interface CollegeRecord {
   universityName?: string;
   collegeType: CollegeType;
   seatCount: number;
+  /** Official seat increase for 2026–27 (when published); used for UI badge. */
+  seatsIncreased?: number;
   quotaInfo: string;
   fees: CollegeFees;
   cutoffs: CollegeCutoff[];

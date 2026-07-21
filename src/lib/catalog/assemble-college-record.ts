@@ -26,6 +26,7 @@ import {
   pickPreferredMccSourceForState,
   pickPreferredStateSource,
 } from "@/lib/colleges/counselling-source";
+import { getSeatsIncreased2026 } from "@/lib/colleges/seats-increased-2026";
 import {
   keaPoolFromSeatType,
   resolveCounsellingPool,
@@ -1193,6 +1194,7 @@ export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
 
   const { seatMatrix, mccSeatMatrix, quotaInfo, seatCount } =
     resolveSeatSnapshotFields(row);
+  const seatsIncreased = getSeatsIncreased2026(row.slug)?.seatsIncreased;
 
   return {
     slug: row.slug,
@@ -1202,6 +1204,7 @@ export function assembleCollegeRecord(row: CollegeCatalogRow): CollegeRecord {
     ...(row.universityName ? { universityName: row.universityName } : {}),
     collegeType: parseCollegeType(row.collegeType),
     seatCount,
+    ...(seatsIncreased && seatsIncreased > 0 ? { seatsIncreased } : {}),
     quotaInfo,
     ...(seatMatrix ? { seatMatrix } : {}),
     ...(mccSeatMatrix ? { mccSeatMatrix } : {}),

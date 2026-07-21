@@ -34,10 +34,10 @@ const COUNSELING_MILESTONES = [
 ] as const;
 
 export const SUMMARY_STATS: { label: string; value: string }[] = [
-  { label: "Total medical colleges in India", value: "823" },
-  { label: "Total MBBS seats", value: "1,29,753" },
-  { label: "Government medical colleges", value: "456 (63,860 seats)" },
-  { label: "Private medical colleges", value: "361 (65,093 seats)" },
+  { label: "Total medical colleges in India", value: "848" },
+  { label: "Total MBBS seats", value: "1,39,664" },
+  { label: "Government medical colleges", value: "456 (65,971 seats)" },
+  { label: "Private medical colleges", value: "361 (72,893 seats)" },
   { label: "All India Quota (AIQ) seats", value: "21,504" },
   { label: "State Quota seats", value: "95,418" },
   { label: "Duration of MBBS course", value: "4.5 years + 1 year compulsory internship" },
@@ -82,7 +82,7 @@ export const SEAT_TRENDS: SeatTrendRow[] = [
   { year: 2022, govtColleges: 388, privateColleges: 305, totalColleges: 693, govtSeats: 57800, privateSeats: 51200, totalSeats: 109000, neetApplicantsLakh: 18.72, govtSeatChancePct: 3.09, overallChancePct: 5.82 },
   { year: 2023, govtColleges: 410, privateColleges: 325, totalColleges: 735, govtSeats: 59800, privateSeats: 54500, totalSeats: 114300, neetApplicantsLakh: 20.87, govtSeatChancePct: 2.87, overallChancePct: 5.48 },
   { year: 2024, govtColleges: 435, privateColleges: 345, totalColleges: 780, govtSeats: 61800, privateSeats: 58200, totalSeats: 120000, neetApplicantsLakh: 21.68, govtSeatChancePct: 2.85, overallChancePct: 5.54 },
-  { year: 2025, govtColleges: 456, privateColleges: 361, totalColleges: 823, govtSeats: 63860, privateSeats: 65093, totalSeats: 129753, neetApplicantsLakh: 22.09, govtSeatChancePct: 2.89, overallChancePct: 5.87 },
+  { year: 2025, govtColleges: 456, privateColleges: 361, totalColleges: 823, govtSeats: 63860, privateSeats: 65093, totalSeats: 139664, neetApplicantsLakh: 22.09, govtSeatChancePct: 2.89, overallChancePct: 5.87 },
 ];
 
 export const SEAT_TREND_ANALYSIS = [
@@ -90,7 +90,7 @@ export const SEAT_TREND_ANALYSIS = [
   "Roughly 49% of government medical colleges and 42% of private medical colleges were established in the last decade, reflecting a policy push to expand medical infrastructure. Despite this, India's doctor-to-population ratio remains below WHO recommendations, which is why seat additions continue each year.",
 ];
 
-export interface CutoffRankRow {
+export interface CutoffRankRow {  
   category: string;
   aiqOpening2025: number;
   aiqClosing2025: number;
@@ -182,10 +182,10 @@ export const COUNSELING_DOCUMENTS = [
 ];
 
 export const CHANCES_STATS = [
-  { label: "NEET 2025 applicants", value: "22.09 lakh (22,09,318)" },
-  { label: "Government MBBS seats", value: "63,860" },
+  { label: "NEET 2026 applicants", value: "22.79 lakh (22,79,743)" },
+  { label: "Government MBBS seats", value: "65,971" },
   { label: "Government seat probability", value: "2.89%" },
-  { label: "Total MBBS seats (Govt + Private)", value: "1,29,753" },
+  { label: "Total MBBS seats (Govt + Private)", value: "1,39,664" },
   { label: "Any-seat probability", value: "~5.87%" },
   { label: "Affordable govt seat odds", value: "Less than 1 in 35 students" },
 ];
@@ -341,7 +341,7 @@ export const MBBS_INDIA_FAQ: FaqItem[] = [
   {
     question: "How many MBBS seats are available in India in 2025?",
     answer:
-      "India has about 823 medical colleges offering roughly 1,29,753 MBBS seats, split between ~63,860 government and ~65,093 private seats. AIQ accounts for about 21,504 seats nationally.",
+      "India has about 823 medical colleges offering roughly 1,39,664 MBBS seats, split between ~63,860 government and ~65,093 private seats. AIQ accounts for about 21,504 seats nationally.",
   },
   {
     question: "What is the difference between AIQ and state quota seats?",
