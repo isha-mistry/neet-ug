@@ -67,6 +67,9 @@ export const KARNATAKA_STATE_CATEGORY_BUCKETS = new Set([
   "spo",
   "jk",
   "phm",
+  "xd",
+  "cap",
+  "d",
 ]);
 
 export const QUOTA_LEVEL_BUCKETS = new Set([

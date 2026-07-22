@@ -156,9 +156,132 @@ export interface StateConfig {
 // Karnataka KEA uses a matrix of category codes. This config maps the full set
 // to high-level UI groups. Seat Matrix shows: Open Quota / State Quota / NRI / Management.
 
-// Each KEA category code gets its own dropdown entry — aligned to
-// `karnataka_colleges_data.xlsx` Cutoffs sheet (Category Code + Full Name).
+// Government KEA codes (govt college dumps) are listed first so govt college
+// pages default to GM. Private KEA codes (OPN / GMP / MU / …) follow.
 const KARNATAKA_CUTOFF_CATEGORIES: CutoffCategoryOption[] = [
+  // ── Government college KEA categories ────────────────────────────────────
+  {
+    value: "kar-gm",
+    label: "GM - General Merit",
+    description:
+      "General Merit (incl. HK / Rural / Kannada variants). State Quota (KEA).",
+    rawCategories: ["GM", "GMH", "GMK", "GMKH", "GMR", "GMRH"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-1",
+    label: "Cat-1",
+    description: "Category-1 (incl. HK / Rural / Kannada variants). State Quota (KEA).",
+    rawCategories: ["1G", "1H", "1K", "1R", "1RH"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-2a",
+    label: "Cat-2A",
+    description: "Category-2A (incl. HK / Rural / Kannada variants). State Quota (KEA).",
+    rawCategories: ["2AG", "2AH", "2AK", "2AKH", "2AR", "2ARH"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-2b",
+    label: "Cat-2B",
+    description: "Category-2B (incl. HK / Rural / Kannada variants). State Quota (KEA).",
+    rawCategories: ["2BG", "2BH", "2BK", "2BR", "2BRH"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-3a",
+    label: "Cat-3A",
+    description: "Category-3A (incl. HK / Rural / Kannada variants). State Quota (KEA).",
+    rawCategories: ["3AG", "3AH", "3AK", "3AKH", "3AR", "3ARH"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-3b",
+    label: "Cat-3B",
+    description: "Category-3B (incl. HK / Rural / Kannada variants). State Quota (KEA).",
+    rawCategories: ["3BG", "3BH", "3BK", "3BKH", "3BR", "3BRH"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-sc",
+    label: "SC",
+    description: "SC (incl. HK / Rural / Kannada variants). State Quota (KEA).",
+    rawCategories: ["SCG", "SCH", "SCK", "SCKH", "SCR", "SCRH"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-st",
+    label: "ST",
+    description: "ST (incl. HK / Rural / Kannada variants). State Quota (KEA).",
+    rawCategories: ["STG", "STH", "STK", "STKH", "STR", "STRH"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-phm",
+    label: "PHM - Physically Handicapped",
+    description: "Physically Handicapped (PwD). State Quota (KEA).",
+    rawCategories: ["PHM"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-ncc",
+    label: "NCC",
+    description: "NCC Quota. State Quota (KEA).",
+    rawCategories: ["NCC"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-spo",
+    label: "Sports",
+    description: "Sports Quota. State Quota (KEA).",
+    rawCategories: ["SPO"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-jk",
+    label: "J&K Migrant",
+    description: "J&K Migrant Quota. State Quota (KEA).",
+    rawCategories: ["JK"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-xd",
+    label: "XD - Ex-Servicemen",
+    description: "Ex-Servicemen Quota. State Quota (KEA).",
+    rawCategories: ["XD"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-cap",
+    label: "CAP",
+    description: "CAP Quota. State Quota (KEA).",
+    rawCategories: ["CAP"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  {
+    value: "kar-defence",
+    label: "Defence",
+    description: "Defence Quota. State Quota (KEA).",
+    rawCategories: ["D"],
+    rawSeatTypes: ["GQ"],
+    counsellingPool: "kea-state",
+  },
+  // ── Private college KEA categories ───────────────────────────────────────
   {
     value: "kar-opn",
     label: "OPN - Open (All India)",
@@ -908,17 +1031,31 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
 
   "west-bengal": {
     stateName: "West Bengal",
-    // category_mapping.json → West Bengal; OBC-A / OBC-B kept distinct
+    // category_mapping.json → West Bengal; OBC-A / OBC-B kept distinct;
+    // PwD variants folded into parent groups; plain OBC used by ESIC Joka.
     cutoffCategories: withMccCutoffCategories([
       {
         value: "wb-ur",
         label: "UR / General",
-        rawCategories: ["UR"],
+        rawCategories: ["UR", "UR PwD"],
       },
       { value: "wb-ews", label: "EWS", rawCategories: ["EWS"] },
-      { value: "wb-obc-a", label: "OBC-A", rawCategories: ["OBC-A"] },
-      { value: "wb-obc-b", label: "OBC-B", rawCategories: ["OBC-B"] },
-      { value: "wb-sc", label: "SC", rawCategories: ["SC"] },
+      {
+        value: "wb-obc-a",
+        label: "OBC-A",
+        rawCategories: ["OBC-A", "OBC-A PwD"],
+      },
+      {
+        value: "wb-obc-b",
+        label: "OBC-B",
+        rawCategories: ["OBC-B", "OBC-B PwD"],
+      },
+      { value: "wb-obc", label: "OBC", rawCategories: ["OBC"] },
+      {
+        value: "wb-sc",
+        label: "SC",
+        rawCategories: ["SC", "SC PwD"],
+      },
       { value: "wb-st", label: "ST", rawCategories: ["ST"] },
       {
         value: "wb-mq",
@@ -933,6 +1070,13 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
     ]),
     seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
     feesMode: "quotaBreakdown",
+    feeCharges: [
+      { key: "admissionFees", label: "Admission Fee (One-Time)" },
+      { key: "securityDeposit", label: "Caution / Security Deposit" },
+      { key: "examFees", label: "Examination Fees" },
+      { key: "hostel", label: "Hostel Fees" },
+      { key: "misc", label: "Other Charges" },
+    ],
   },
 
   chattisgarh: {

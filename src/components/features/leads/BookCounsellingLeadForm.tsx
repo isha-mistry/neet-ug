@@ -16,7 +16,8 @@ import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { LeadFormThankYouPanel } from "@/components/features/leads/LeadFormThankYouPanel";
 import { useLeadRedirectCountdown } from "@/components/features/leads/useLeadRedirectCountdown";
 import { LEAD_FORM_TYPES, type LeadFormType } from "@/lib/leads/types";
-import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
+import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
@@ -27,6 +28,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
+import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
 
 export const BOOK_COUNSELLING_FORM_INPUT_CLASS =
   "w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 py-2.5 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20";
@@ -90,6 +92,8 @@ export function BookCounsellingLeadForm({
   const [phase, setPhase] = useState<"form" | "thanks" | "thanks-whatsapp">("form");
   const [error, setError] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | undefined>();
+  const [countryCode, setCountryCode] = useState(DEFAULT_COUNTRY_DIAL_CODE);
+  const [phone, setPhone] = useState("");
   const whatsAppLinesRef = useRef<string[] | null>(null);
   const generatedTitleId = useId();
   const titleId = titleIdProp ?? generatedTitleId;
@@ -98,10 +102,24 @@ export function BookCounsellingLeadForm({
   const fid = (name: string) =>
     `${fieldIdPrefix ?? fieldId}-${name}`.replace(/:/g, "");
   const { canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
+  const {
+    otp,
+    setOtp,
+    otpSent,
+    phoneVerified,
+    otpSending,
+    otpVerifying,
+    sendOtp,
+    verifyOtp,
+    ensureVerified,
+    resetPhoneOtp,
+  } = useLeadPhoneOtp({ phone, countryCode, captchaToken, setError });
 
   const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
     active: active && phase === "form",
-    deps: [active, phase, canSubmit],
+    validateExtras: () =>
+      phone.replace(/\D/g, "").length >= 10 && phoneVerified,
+    deps: [active, phase, canSubmit, phone, phoneVerified],
   });
 
   useEffect(() => {
@@ -115,12 +133,18 @@ export function BookCounsellingLeadForm({
     }
     setPhase("form");
     resetConsent();
+    resetPhoneOtp();
+    setPhone("");
+    setCountryCode(DEFAULT_COUNTRY_DIAL_CODE);
     onReset?.();
-  }, [onReset, resetConsent]);
+  }, [onReset, resetConsent, resetPhoneOtp]);
 
   function handleResetForm() {
     setPhase("form");
     resetConsent();
+    resetPhoneOtp();
+    setPhone("");
+    setCountryCode(DEFAULT_COUNTRY_DIAL_CODE);
     setError(null);
     onReset?.();
   }
@@ -130,20 +154,23 @@ export function BookCounsellingLeadForm({
     setError(null);
     const data = new FormData(e.currentTarget);
     const name = String(data.get("fullName") ?? "").trim();
-    const phone = String(data.get("phone") ?? "").replace(/\D/g, "");
-    const countryCode = String(data.get("countryCode") ?? "+91");
+    const digits = phone.replace(/\D/g, "");
     const domicile = String(data.get("domicileState") ?? "").trim();
 
     if (name.length < 2) {
       setError("Enter your full name.");
       return;
     }
-    if (phone.length < 10) {
+    if (digits.length < 10) {
       setError("Enter a valid 10-digit mobile number.");
       return;
     }
     if (!domicile) {
       setError("Select your domicile state.");
+      return;
+    }
+    if (!phoneVerified) {
+      setError("Verify your mobile number with OTP first.");
       return;
     }
     if (!submitReady) {
@@ -153,13 +180,16 @@ export function BookCounsellingLeadForm({
 
     startTransition(async () => {
       try {
+        const verified = await ensureVerified();
+        if (!verified) return;
+
         const saved = await submitLeadAction({
           formType,
           pagePath: pathname,
           pageLabel: `Book counselling — ${source}`,
           name,
           countryCode,
-          phone,
+          phone: digits,
           domicileState: domicile,
           consent: canSubmit,
           captchaToken,
@@ -178,7 +208,7 @@ export function BookCounsellingLeadForm({
           whatsAppLinesRef.current = buildFreeCounsellingWhatsAppMessage({
             name,
             countryCode,
-            phone,
+            phone: digits,
             domicileState: domicile,
           });
           setPhase("thanks-whatsapp");
@@ -252,21 +282,6 @@ export function BookCounsellingLeadForm({
             className={BOOK_COUNSELLING_FORM_INPUT_CLASS}
           />
         </label>
-        <div className="flex flex-col gap-1">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-outline">
-            Mobile number
-          </span>
-          <PhoneNumberField
-            countrySelectId={fid("country")}
-            phoneInputId={fid("phone")}
-            className="lead-phone-row"
-            selectClassName={cn(
-              BOOK_COUNSELLING_FORM_INPUT_CLASS,
-              "min-w-0 !py-0 text-xs leading-none",
-            )}
-            inputClassName={cn(BOOK_COUNSELLING_FORM_INPUT_CLASS, "!py-0 leading-none")}
-          />
-        </div>
         <label className="flex flex-col gap-1">
           <span className="text-[10px] font-bold uppercase tracking-wider text-outline">
             Domicile state
@@ -280,6 +295,31 @@ export function BookCounsellingLeadForm({
             className={BOOK_COUNSELLING_FORM_INPUT_CLASS}
           />
         </label>
+        <div className="flex flex-col gap-1">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-outline">
+            Mobile number
+          </span>
+          <PhoneWithOtpField
+            skin="compact"
+            countrySelectId={fid("country")}
+            phoneInputId={fid("phone")}
+            countryCode={countryCode}
+            onCountryCodeChange={setCountryCode}
+            phone={phone}
+            onPhoneChange={setPhone}
+            selectClassName={BOOK_COUNSELLING_FORM_INPUT_CLASS}
+            inputClassName={BOOK_COUNSELLING_FORM_INPUT_CLASS}
+            otp={otp}
+            onOtpChange={setOtp}
+            otpSent={otpSent}
+            phoneVerified={phoneVerified}
+            otpSending={otpSending}
+            otpVerifying={otpVerifying}
+            onSendOtp={() => void sendOtp()}
+            onVerifyOtp={() => void verifyOtp()}
+            disabled={pending}
+          />
+        </div>
         {error ? (
           <p
             className="rounded-xl bg-error-container px-3 py-2 text-xs text-on-error-container"

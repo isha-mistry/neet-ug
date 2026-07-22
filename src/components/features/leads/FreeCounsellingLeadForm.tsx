@@ -11,7 +11,8 @@ import {
   FREE_MBBS_COUNSELLING_REVIEW_WHATSAPP_MESSAGE,
   openCounselWhatsApp,
 } from "@/lib/leads/whatsapp";
-import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
+import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
@@ -74,6 +75,18 @@ export function FreeCounsellingLeadForm({
   const [submitted, setSubmitted] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string | undefined>();
   const { consent, canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
+  const {
+    otp,
+    setOtp,
+    otpSent,
+    phoneVerified,
+    otpSending,
+    otpVerifying,
+    sendOtp,
+    verifyOtp,
+    ensureVerified,
+    resetPhoneOtp,
+  } = useLeadPhoneOtp({ phone, countryCode, captchaToken, setError });
   const showEmail = fields === "default";
   const stackedPhone = fields === "name-phone-only";
   const useRankPredictorFields = variant === "embedded" && stackedPhone;
@@ -83,11 +96,11 @@ export function FreeCounsellingLeadForm({
     validateExtras: () => {
       const digits = phone.replace(/\D/g, "");
       const mail = email.trim();
-      if (fullName.trim().length < 2 || digits.length < 10) return false;
+      if (fullName.trim().length < 2 || digits.length < 10 || !phoneVerified) return false;
       if (showEmail && mail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) return false;
       return true;
     },
-    deps: [submitted, canSubmit, fullName, phone, email, showEmail],
+    deps: [submitted, canSubmit, fullName, phone, email, showEmail, phoneVerified],
   });
 
   function handleSubmit(e: FormEvent) {
@@ -111,12 +124,15 @@ export function FreeCounsellingLeadForm({
       return;
     }
     if (!submitReady) {
-      setError(LEAD_CONSENT_ERROR);
+      setError(phoneVerified ? LEAD_CONSENT_ERROR : "Verify your mobile number with OTP first.");
       return;
     }
 
     startTransition(async () => {
       try {
+        const verified = await ensureVerified();
+        if (!verified) return;
+
         const saved = await submitLeadAction({
           formType,
           pagePath: pathname,
@@ -166,6 +182,7 @@ export function FreeCounsellingLeadForm({
         onClick={() => {
           setSubmitted(false);
           resetConsent();
+          resetPhoneOtp();
         }}
       >
         Submit another request
@@ -225,7 +242,9 @@ export function FreeCounsellingLeadForm({
             <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-outline">
               Mobile number
             </span>
-            <PhoneNumberField
+            <PhoneWithOtpField
+              skin="embedded"
+              layout="inline"
               countrySelectId={fid("country")}
               phoneInputId={fid("phone")}
               countryCodeName={fid("countryCode")}
@@ -236,8 +255,15 @@ export function FreeCounsellingLeadForm({
               onPhoneChange={setPhone}
               phoneMinLength={0}
               autoComplete="off"
-              selectClassName="h-10 w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              inputClassName="h-10 w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 text-[13px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              otp={otp}
+              onOtpChange={setOtp}
+              otpSent={otpSent}
+              phoneVerified={phoneVerified}
+              otpSending={otpSending}
+              otpVerifying={otpVerifying}
+              onSendOtp={() => void sendOtp()}
+              onVerifyOtp={() => void verifyOtp()}
+              disabled={pending}
             />
           </div>
         </>
@@ -260,42 +286,6 @@ export function FreeCounsellingLeadForm({
             />
           </div>
 
-          {stackedPhone ? (
-            <PhoneNumberField
-              layout="stacked"
-              countrySelectId={fid("country")}
-              phoneInputId={fid("phone")}
-              countryCodeName={fid("countryCode")}
-              phoneName={fid("phone")}
-              countryCode={countryCode}
-              onCountryCodeChange={setCountryCode}
-              phone={phone}
-              onPhoneChange={setPhone}
-              phonePlaceholder="Mobile number*"
-              phoneMinLength={0}
-              autoComplete="off"
-              selectClassName={inputClass}
-              inputClassName={inputClass}
-            />
-          ) : (
-            <PhoneNumberField
-              layout="inline-flex"
-              countrySelectId={fid("country")}
-              phoneInputId={fid("phone")}
-              countryCodeName={fid("countryCode")}
-              phoneName={fid("phone")}
-              countryCode={countryCode}
-              onCountryCodeChange={setCountryCode}
-              phone={phone}
-              onPhoneChange={setPhone}
-              phonePlaceholder="Enter contact number*"
-              phoneMinLength={0}
-              autoComplete="off"
-              selectClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-3 py-3 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              inputClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-lowest px-4 py-3 text-sm text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-            />
-          )}
-
           {showEmail ? (
             <div>
               <label htmlFor={fid("email")} className="sr-only">
@@ -313,6 +303,31 @@ export function FreeCounsellingLeadForm({
               />
             </div>
           ) : null}
+
+          <PhoneWithOtpField
+            layout="inline"
+            skin={variant === "embedded" ? "embedded" : "default"}
+            countrySelectId={fid("country")}
+            phoneInputId={fid("phone")}
+            countryCodeName={fid("countryCode")}
+            phoneName={fid("phone")}
+            countryCode={countryCode}
+            onCountryCodeChange={setCountryCode}
+            phone={phone}
+            onPhoneChange={setPhone}
+            phonePlaceholder={stackedPhone ? "Mobile number*" : "Enter contact number*"}
+            phoneMinLength={0}
+            autoComplete="off"
+            otp={otp}
+            onOtpChange={setOtp}
+            otpSent={otpSent}
+            phoneVerified={phoneVerified}
+            otpSending={otpSending}
+            otpVerifying={otpVerifying}
+            onSendOtp={() => void sendOtp()}
+            onVerifyOtp={() => void verifyOtp()}
+            disabled={pending}
+          />
         </>
       )}
 

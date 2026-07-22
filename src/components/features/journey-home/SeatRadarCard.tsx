@@ -10,7 +10,8 @@ import {
   getSeatRadarCtaTier,
 } from "@/lib/journey-home/seat-radar-cta";
 import { LEAD_FORM_TYPES } from "@/lib/leads/types";
-import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
+import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
@@ -213,12 +214,25 @@ export function PlaybookForm() {
   const [phone, setPhone] = useState("");
   const [captchaToken, setCaptchaToken] = useState<string | undefined>();
   const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
+  const {
+    otp,
+    setOtp,
+    otpSent,
+    phoneVerified,
+    otpSending,
+    otpVerifying,
+    sendOtp,
+    verifyOtp,
+    ensureVerified,
+  } = useLeadPhoneOtp({ phone, countryCode, captchaToken, setError });
   const formRef = useRef<HTMLFormElement>(null);
   const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
     active: !sent,
     validateExtras: () =>
-      name.trim().length >= 2 && phone.replace(/\D/g, "").length >= 10,
-    deps: [sent, canSubmit, name, phone],
+      name.trim().length >= 2 &&
+      phone.replace(/\D/g, "").length >= 10 &&
+      phoneVerified,
+    deps: [sent, canSubmit, name, phone, phoneVerified],
   });
 
   const playbookPagePath = `${pathname.split("#")[0] || "/"}#playbook`;
@@ -238,12 +252,19 @@ export function PlaybookForm() {
       setError("Enter a valid WhatsApp number.");
       return;
     }
+    if (!phoneVerified) {
+      setError("Verify your mobile number with OTP first.");
+      return;
+    }
     if (!submitReady) {
       setError(LEAD_CONSENT_ERROR);
       return;
     }
 
     startTransition(async () => {
+      const verified = await ensureVerified();
+      if (!verified) return;
+
       const saved = await submitLeadAction({
         formType: LEAD_FORM_TYPES.homePlaybook,
         pagePath: playbookPagePath,
@@ -296,16 +317,23 @@ export function PlaybookForm() {
             onChange={(e) => setName(e.target.value)}
             disabled={pending}
           />
-          <PhoneNumberField
-            layout="grid"
-            className="phone-field-grid"
+          <PhoneWithOtpField
+            skin="dark"
             phonePlaceholder="WhatsApp number"
             countryCode={countryCode}
             onCountryCodeChange={setCountryCode}
             phone={phone}
             onPhoneChange={setPhone}
             phoneName="whatsapp"
-            inputClassName={phone.trim() === "" ? "is-empty" : ""}
+            otp={otp}
+            onOtpChange={setOtp}
+            otpSent={otpSent}
+            phoneVerified={phoneVerified}
+            otpSending={otpSending}
+            otpVerifying={otpVerifying}
+            onSendOtp={() => void sendOtp()}
+            onVerifyOtp={() => void verifyOtp()}
+            disabled={pending}
           />
           {error ? (
             <p className="pb-form-error" role="alert">

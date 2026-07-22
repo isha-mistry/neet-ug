@@ -3,7 +3,9 @@ import "server-only";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db/prisma";
 import { isLeadConsentGranted } from "@/lib/leads/consent";
+import { notifyEmailNewLead } from "@/lib/leads/notify-email-new-lead";
 import { notifySlackNewLead } from "@/lib/leads/notify-slack-new-lead";
+import { requirePhoneVerifiedForLead } from "@/lib/leads/require-phone-verified";
 import { validateSubmitLeadInput } from "./validation";
 import type { SubmitLeadInput, SubmitLeadResult } from "./types";
 import { reportAppError } from "@/lib/sentry/error-reporter";
@@ -15,6 +17,14 @@ export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult
   }
 
   const input = validated.data;
+  const phoneGateError = await requirePhoneVerifiedForLead({
+    phone: input.phone,
+    countryCode: input.countryCode,
+  });
+  if (phoneGateError) {
+    return { success: false, error: phoneGateError };
+  }
+
   const consent = isLeadConsentGranted(input.consent);
   const now = consent ? new Date() : null;
 
@@ -47,8 +57,7 @@ export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult
       select: { id: true, createdAt: true },
     });
 
-    // Fire-and-forget: never block or fail the lead response on Slack errors
-    void notifySlackNewLead({
+    const alertPayload = {
       leadId: lead.id,
       formType: input.formType,
       name: input.name,
@@ -59,7 +68,17 @@ export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult
       pageLabel: input.pageLabel,
       variant: input.variant,
       createdAt: lead.createdAt,
-    });
+      neetScore: input.neetScore,
+      neetCategory: input.neetCategory,
+      domicileState: input.domicileState,
+      city: input.city,
+      queryType: input.queryType,
+      message: input.message,
+    };
+
+    // Fire-and-forget: never block or fail the lead response on notify errors
+    void notifySlackNewLead(alertPayload);
+    void notifyEmailNewLead(alertPayload);
 
     return { success: true, leadId: lead.id };
   } catch (error) {

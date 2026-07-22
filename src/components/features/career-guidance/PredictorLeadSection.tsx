@@ -7,7 +7,8 @@ import { submitLeadAction } from "@/app/actions/submit-lead";
 import { Container } from "@/components/common/Container";
 import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { openCounselWhatsApp } from "@/lib/leads/whatsapp";
-import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
+import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
@@ -30,6 +31,17 @@ export function PredictorLeadSection() {
   const [error, setError] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | undefined>();
   const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
+  const {
+    otp,
+    setOtp,
+    otpSent,
+    phoneVerified,
+    otpSending,
+    otpVerifying,
+    sendOtp,
+    verifyOtp,
+    ensureVerified,
+  } = useLeadPhoneOtp({ phone, countryCode, captchaToken, setError });
   const formRef = useRef<HTMLFormElement>(null);
   const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
     validateExtras: () => {
@@ -38,12 +50,13 @@ export function PredictorLeadSection() {
       return (
         fullName.trim().length >= 2 &&
         digits.length >= 10 &&
+        phoneVerified &&
         score !== "" &&
         scoreNum >= 0 &&
         scoreNum <= 720
       );
     },
-    deps: [canSubmit, fullName, phone, score, category, domicile],
+    deps: [canSubmit, fullName, phone, score, category, domicile, phoneVerified],
   });
 
   const handleSubmit = (e: FormEvent) => {
@@ -65,12 +78,19 @@ export function PredictorLeadSection() {
       setError("Please enter a valid NEET score between 0 and 720.");
       return;
     }
+    if (!phoneVerified) {
+      setError("Verify your mobile number with OTP first.");
+      return;
+    }
     if (!submitReady) {
       setError(LEAD_CONSENT_ERROR);
       return;
     }
 
     startTransition(async () => {
+      const verified = await ensureVerified();
+      if (!verified) return;
+
       const saved = await submitLeadAction({
         formType: LEAD_FORM_TYPES.predictorGate,
         pagePath: pathname,
@@ -166,21 +186,6 @@ export function PredictorLeadSection() {
                   />
                 </div>
 
-                <div>
-                  <label className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
-                    WhatsApp Number (For Alerts)
-                  </label>
-                  <PhoneNumberField
-                    countryCode={countryCode}
-                    onCountryCodeChange={setCountryCode}
-                    phone={phone}
-                    onPhoneChange={setPhone}
-                    phonePlaceholder="e.g. 9876543210"
-                    selectClassName="w-full rounded-[14px] border border-outline-variant/40 bg-surface-container-lowest px-3 py-3 text-xs text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    inputClassName="w-full rounded-[14px] border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-xs text-on-surface placeholder:text-outline focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  />
-                </div>
-
                 <div className="grid grid-cols-3 gap-3">
                   <div className="col-span-1">
                     <label className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
@@ -225,6 +230,29 @@ export function PredictorLeadSection() {
                       className="w-full rounded-[14px] border border-outline-variant/40 bg-surface-container-lowest px-3 py-3 text-xs text-on-surface focus:border-primary focus:outline-none"
                     />
                   </div>
+                </div>
+
+                <div>
+                  <label className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
+                    WhatsApp Number (For Alerts)
+                  </label>
+                  <PhoneWithOtpField
+                    skin="embedded"
+                    countryCode={countryCode}
+                    onCountryCodeChange={setCountryCode}
+                    phone={phone}
+                    onPhoneChange={setPhone}
+                    phonePlaceholder="e.g. 9876543210"
+                    otp={otp}
+                    onOtpChange={setOtp}
+                    otpSent={otpSent}
+                    phoneVerified={phoneVerified}
+                    otpSending={otpSending}
+                    otpVerifying={otpVerifying}
+                    onSendOtp={() => void sendOtp()}
+                    onVerifyOtp={() => void verifyOtp()}
+                    disabled={pending}
+                  />
                 </div>
 
                 {error && (

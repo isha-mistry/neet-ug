@@ -7,7 +7,8 @@ import { Container } from "@/components/common/Container";
 import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { guideCardClass } from "@/lib/neet-ug-2026/section-styles";
 import { cn } from "@/lib/utils";
-import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
+import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
@@ -32,12 +33,26 @@ export function CallbackRequestForm() {
     const [submitted, setSubmitted] = useState(false);
     const [captchaToken, setCaptchaToken] = useState<string | undefined>();
     const { canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
+    const {
+        otp,
+        setOtp,
+        otpSent,
+        phoneVerified,
+        otpSending,
+        otpVerifying,
+        sendOtp,
+        verifyOtp,
+        ensureVerified,
+        resetPhoneOtp,
+    } = useLeadPhoneOtp({ phone, countryCode, captchaToken, setError });
     const formRef = useRef<HTMLFormElement>(null);
     const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
         active: !submitted,
         validateExtras: () =>
-            name.trim().length >= 2 && phone.replace(/\D/g, "").length >= 10,
-        deps: [submitted, canSubmit, name, phone],
+            name.trim().length >= 2 &&
+            phone.replace(/\D/g, "").length >= 10 &&
+            phoneVerified,
+        deps: [submitted, canSubmit, name, phone, phoneVerified],
     });
 
     const handleSubmit = (e: FormEvent) => {
@@ -55,12 +70,19 @@ export function CallbackRequestForm() {
             setError("Please enter a valid 10-digit mobile number.");
             return;
         }
+        if (!phoneVerified) {
+            setError("Verify your mobile number with OTP first.");
+            return;
+        }
         if (!submitReady) {
             setError(LEAD_CONSENT_ERROR);
             return;
         }
 
         startTransition(async () => {
+            const verified = await ensureVerified();
+            if (!verified) return;
+
             const saved = await submitLeadAction({
                 formType: LEAD_FORM_TYPES.callbackRequest,
                 pagePath: pathname,
@@ -120,6 +142,7 @@ export function CallbackRequestForm() {
                                                 setPhone("");
                                                 setSubmitted(false);
                                                 resetConsent();
+                                                resetPhoneOtp();
                                             }}
                                             className="inline-flex items-center justify-center gap-1 rounded-[14px] border border-outline-variant bg-surface px-5 py-2.5 text-xs font-bold text-on-surface hover:bg-surface-container-low transition-all cursor-pointer"
                                         >
@@ -128,7 +151,7 @@ export function CallbackRequestForm() {
                                     </div>
                                 ) : (
                                     <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-                                        <div className="grid gap-4 sm:grid-cols-3">
+                                        <div className="grid gap-4 sm:grid-cols-2">
                                             <div>
                                                 <label className="mb-2 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
                                                     Your Name *
@@ -141,20 +164,6 @@ export function CallbackRequestForm() {
                                                     value={name}
                                                     onChange={(e) => setName(e.target.value)}
                                                     className="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-4 py-4 text-xs text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                                                />
-                                            </div>
-
-                                            <div>
-                                                <label className="mb-2 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
-                                                    Mobile Number *
-                                                </label>
-                                                <PhoneNumberField
-                                                    countryCode={countryCode}
-                                                    onCountryCodeChange={setCountryCode}
-                                                    phone={phone}
-                                                    onPhoneChange={setPhone}
-                                                    selectClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-2 py-4 text-[11px] text-on-surface transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                                                    inputClassName="w-full rounded-[14px] border border-outline-variant bg-surface-container-low px-3 py-4 text-xs text-on-surface placeholder:text-outline transition-colors focus:bg-surface-container-lowest focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                                 />
                                             </div>
 
@@ -174,6 +183,28 @@ export function CallbackRequestForm() {
                                                     ))}
                                                 </select>
                                             </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="mb-2 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
+                                                Mobile Number *
+                                            </label>
+                                            <PhoneWithOtpField
+                                                skin="compact"
+                                                countryCode={countryCode}
+                                                onCountryCodeChange={setCountryCode}
+                                                phone={phone}
+                                                onPhoneChange={setPhone}
+                                                otp={otp}
+                                                onOtpChange={setOtp}
+                                                otpSent={otpSent}
+                                                phoneVerified={phoneVerified}
+                                                otpSending={otpSending}
+                                                otpVerifying={otpVerifying}
+                                                onSendOtp={() => void sendOtp()}
+                                                onVerifyOtp={() => void verifyOtp()}
+                                                disabled={pending}
+                                            />
                                         </div>
 
                                         {error && (

@@ -215,6 +215,9 @@ const KARNATAKA_CAT_LABELS: Record<string, string> = {
   gm_g: "GM (G)",
   gm_r: "GM (R)",
   gm_k: "GM (K)",
+  xd: "Ex-Servicemen",
+  cap: "CAP",
+  d: "Defence",
 };
 
 function labelStateBucket(bucketCode: string, stateSlug?: string): string {

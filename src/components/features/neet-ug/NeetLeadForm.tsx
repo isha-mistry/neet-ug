@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 import { MaterialSymbol } from "@/components/common/MaterialSymbol";
 import { submitLeadAction } from "@/app/actions/submit-lead";
 import { LEAD_FORM_TYPES } from "@/lib/leads/types";
-import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
+import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
@@ -43,6 +44,18 @@ export function NeetLeadForm({
   const [error, setError] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | undefined>();
   const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
+  const requiresPhone = type !== "email-guide";
+  const {
+    otp,
+    setOtp,
+    otpSent,
+    phoneVerified,
+    otpSending,
+    otpVerifying,
+    sendOtp,
+    verifyOtp,
+    ensureVerified,
+  } = useLeadPhoneOtp({ phone, countryCode, captchaToken, setError });
   const formRef = useRef<HTMLFormElement>(null);
   const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
     active: !submitted,
@@ -51,9 +64,9 @@ export function NeetLeadForm({
       if (type === "email-guide") {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
       }
-      return phone.replace(/\D/g, "").length >= 10;
+      return phone.replace(/\D/g, "").length >= 10 && phoneVerified;
     },
-    deps: [submitted, canSubmit, name, email, phone, type],
+    deps: [submitted, canSubmit, name, email, phone, type, phoneVerified],
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -70,8 +83,13 @@ export function NeetLeadForm({
       return;
     }
 
-    if (type !== "email-guide" && phone.replace(/\D/g, "").length < 10) {
+    if (requiresPhone && phone.replace(/\D/g, "").length < 10) {
       setError("Please enter a valid 10-digit mobile number");
+      return;
+    }
+
+    if (requiresPhone && !phoneVerified) {
+      setError("Verify your mobile number with OTP first.");
       return;
     }
 
@@ -81,6 +99,11 @@ export function NeetLeadForm({
     }
 
     startTransition(async () => {
+      if (requiresPhone) {
+        const verified = await ensureVerified();
+        if (!verified) return;
+      }
+
       const digits = phone.replace(/\D/g, "");
       const saved = await submitLeadAction({
         formType: LEAD_FORM_TYPES.neetContentMagnet,
@@ -89,7 +112,7 @@ export function NeetLeadForm({
         variant: type,
         name: name.trim(),
         email: type === "email-guide" ? email.trim() : undefined,
-        phone: type !== "email-guide" ? digits : undefined,
+        phone: requiresPhone ? digits : undefined,
         countryCode,
         targetStates: type === "whatsapp-alerts" ? targetState.trim() || undefined : undefined,
         topics: type === "whatsapp-alerts" ? topics : undefined,
@@ -187,30 +210,6 @@ export function NeetLeadForm({
         </div>
       )}
 
-      {(type === "phone-whatsapp" || type === "whatsapp-alerts") && (
-        <div className="flex flex-col">
-          <label className={`mb-1.5 block text-[10.5px] font-bold uppercase leading-none tracking-[0.14em] ${variant === "dark" ? "text-on-primary/80" : "text-outline"
-            }`}>
-            WhatsApp Number
-          </label>
-          <PhoneNumberField
-            countryCode={countryCode}
-            onCountryCodeChange={setCountryCode}
-            phone={phone}
-            onPhoneChange={setPhone}
-            phonePlaceholder="10-digit mobile"
-            selectClassName={`w-full rounded-[14px] border py-3.5 px-3 text-sm transition-all duration-200 focus:outline-none focus:ring-4 ${variant === "dark"
-                ? "border-on-primary/20 bg-on-primary/10 text-on-primary focus:border-on-primary focus:ring-on-primary/10"
-                : "border-outline-variant bg-surface-container-lowest text-on-surface focus:border-primary focus:ring-primary/15"
-              }`}
-            inputClassName={`w-full rounded-[14px] border py-3.5 px-4 text-sm transition-all duration-200 focus:outline-none focus:ring-4 ${variant === "dark"
-                ? "border-on-primary/20 bg-on-primary/10 text-on-primary placeholder-on-primary/45 focus:border-on-primary focus:ring-on-primary/10"
-                : "border-outline-variant bg-surface-container-lowest text-on-surface placeholder-outline focus:border-primary focus:ring-primary/15"
-              }`}
-          />
-        </div>
-      )}
-
       {type === "whatsapp-alerts" && (
         <>
           <div className="flex flex-col">
@@ -260,6 +259,32 @@ export function NeetLeadForm({
             </div>
           </div>
         </>
+      )}
+
+      {(type === "phone-whatsapp" || type === "whatsapp-alerts") && (
+        <div className="flex flex-col">
+          <label className={`mb-1.5 block text-[10.5px] font-bold uppercase leading-none tracking-[0.14em] ${variant === "dark" ? "text-on-primary/80" : "text-outline"
+            }`}>
+            WhatsApp Number
+          </label>
+          <PhoneWithOtpField
+            skin={variant === "dark" ? "dark" : "default"}
+            countryCode={countryCode}
+            onCountryCodeChange={setCountryCode}
+            phone={phone}
+            onPhoneChange={setPhone}
+            phonePlaceholder="10-digit mobile"
+            otp={otp}
+            onOtpChange={setOtp}
+            otpSent={otpSent}
+            phoneVerified={phoneVerified}
+            otpSending={otpSending}
+            otpVerifying={otpVerifying}
+            onSendOtp={() => void sendOtp()}
+            onVerifyOtp={() => void verifyOtp()}
+            disabled={pending}
+          />
+        </div>
       )}
 
       {error ? (

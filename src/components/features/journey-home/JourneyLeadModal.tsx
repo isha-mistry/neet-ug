@@ -13,7 +13,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { submitLeadAction } from "@/app/actions/submit-lead";
 import { SEAT_RADAR_CATEGORY_LABELS } from "@/lib/journey-home/seat-radar-cta";
 import { LEAD_FORM_TYPES } from "@/lib/leads/types";
-import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
+import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
+import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadFocusStatesMultiSelect } from "@/components/features/leads/LeadFocusStatesMultiSelect";
 import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { LeadFormThankYouPanel, leadRedirectPageLabel } from "@/components/features/leads/LeadFormThankYouPanel";
@@ -117,12 +118,30 @@ export function JourneyLeadModal({
   const [formError, setFormError] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | undefined>();
   const { consent, canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
+  const {
+    otp,
+    setOtp,
+    otpSent,
+    phoneVerified,
+    otpSending,
+    otpVerifying,
+    sendOtp,
+    verifyOtp,
+    ensureVerified,
+    resetPhoneOtp,
+  } = useLeadPhoneOtp({
+    phone: modalPhone,
+    countryCode: modalCountryCode,
+    captchaToken,
+    setError: setFormError,
+  });
 
   const isThanks = phase === "thanks-redirect";
   const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
     active: open && !isThanks,
-    validateExtras: () => modalPhone.replace(/\D/g, "").length >= 10,
-    deps: [open, isThanks, modalPhone, consent],
+    validateExtras: () =>
+      modalPhone.replace(/\D/g, "").length >= 10 && phoneVerified,
+    deps: [open, isThanks, modalPhone, consent, phoneVerified],
   });
 
   useEffect(() => {
@@ -130,8 +149,9 @@ export function JourneyLeadModal({
     setModalCountryCode(initialCountryCode ?? "+91");
     setModalPhone(initialPhone);
     resetConsent();
+    resetPhoneOtp();
     setFormError(null);
-  }, [open, initialCountryCode, initialPhone, resetConsent]);
+  }, [open, initialCountryCode, initialPhone, resetConsent, resetPhoneOtp]);
 
   const completeRedirect = useCallback(() => {
     onClose();
@@ -184,6 +204,10 @@ export function JourneyLeadModal({
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setFormError(null);
+    if (!phoneVerified) {
+      setFormError("Verify your mobile number with OTP first.");
+      return;
+    }
     if (!submitReady) {
       setFormError(LEAD_CONSENT_ERROR);
       return;
@@ -191,8 +215,8 @@ export function JourneyLeadModal({
     const data = new FormData(e.currentTarget);
     const studentName = String(data.get("studentName") ?? "").trim();
     const parentName = String(data.get("parentName") ?? "").trim();
-    const whatsapp = String(data.get("whatsapp") ?? "").replace(/\D/g, "");
-    const countryCode = String(data.get("countryCode") ?? "+91");
+    const whatsapp = modalPhone.replace(/\D/g, "");
+    const countryCode = modalCountryCode;
     const score = String(data.get("neetScore") ?? "").trim();
     const categoryKey = String(data.get("category") ?? category);
     const categoryLabel =
@@ -208,6 +232,9 @@ export function JourneyLeadModal({
     if (showQuotaInterest && !quotaInterest) return;
 
     startTransition(async () => {
+      const verified = await ensureVerified();
+      if (!verified) return;
+
       const saved = await submitLeadAction({
         formType: LEAD_FORM_TYPES.journeyModal,
         pagePath: pagePathOverride ?? pathname,
@@ -240,7 +267,10 @@ export function JourneyLeadModal({
         },
       });
 
-      if (!saved.success) return;
+      if (!saved.success) {
+        setFormError(saved.error);
+        return;
+      }
 
       setPhase("thanks-redirect");
     });
@@ -302,19 +332,6 @@ export function JourneyLeadModal({
                   <input id={fid("parent")} name="parentName" type="text" required minLength={2} />
                 </div>
               ) : null}
-              <div className="field">
-                <label htmlFor={fid("wa")}>WhatsApp number</label>
-                <PhoneNumberField
-                  layout="wa-row"
-                  countrySelectId={fid("country")}
-                  phoneInputId={fid("wa")}
-                  phoneName="whatsapp"
-                  countryCode={modalCountryCode}
-                  onCountryCodeChange={setModalCountryCode}
-                  phone={modalPhone}
-                  onPhoneChange={setModalPhone}
-                />
-              </div>
               <div className="rrow">
                 {showCategory ? (
                   <>
@@ -398,6 +415,29 @@ export function JourneyLeadModal({
                   />
                 </div>
               ) : null}
+              <div className="field">
+                <label htmlFor={fid("wa")}>WhatsApp number</label>
+                <PhoneWithOtpField
+                  layout="wa-row"
+                  skin="modal"
+                  countrySelectId={fid("country")}
+                  phoneInputId={fid("wa")}
+                  phoneName="whatsapp"
+                  countryCode={modalCountryCode}
+                  onCountryCodeChange={setModalCountryCode}
+                  phone={modalPhone}
+                  onPhoneChange={setModalPhone}
+                  otp={otp}
+                  onOtpChange={setOtp}
+                  otpSent={otpSent}
+                  phoneVerified={phoneVerified}
+                  otpSending={otpSending}
+                  otpVerifying={otpVerifying}
+                  onSendOtp={() => void sendOtp()}
+                  onVerifyOtp={() => void verifyOtp()}
+                  disabled={pending}
+                />
+              </div>
               <TurnstileCaptcha onVerify={setCaptchaToken} />
               <LeadConsentField
                 id={fid("consent")}
