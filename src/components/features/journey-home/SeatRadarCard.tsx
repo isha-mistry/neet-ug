@@ -318,7 +318,7 @@ export function PlaybookForm() {
             disabled={pending}
           />
           <PhoneWithOtpField
-            skin="dark"
+            skin="playbook"
             phonePlaceholder="WhatsApp number"
             countryCode={countryCode}
             onCountryCodeChange={setCountryCode}

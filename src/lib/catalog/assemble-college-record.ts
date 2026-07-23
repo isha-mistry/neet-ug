@@ -146,10 +146,67 @@ function sumPreferredComponents(
   return total;
 }
 
-function mpFeeTypeLabel(seatType: string): string {
-  if (seatType === "NRI") return "NRI";
-  if (seatType === "SCH") return "Scholarship";
-  return "Regular";
+/**
+ * MP `mp_dump` fees are category-keyed (seat_type usually empty):
+ *   category "regular" | "scholarship" | "nri" | "regular|OBC" | …
+ * Legacy rows may still use seat_type REG/SCH/NRI.
+ */
+function mpFeeRowMeta(
+  seatType: string,
+  category: string,
+): { feeType: string; category?: string; isNri: boolean } {
+  const st = seatType.trim().toUpperCase();
+  if (st === "NRI") return { feeType: "NRI", isNri: true };
+  if (st === "SCH") return { feeType: "Scholarship", isNri: false };
+  if (st === "REG" || st === "REGULAR") {
+    return {
+      feeType: "Regular",
+      ...(category ? { category } : {}),
+      isNri: false,
+    };
+  }
+  if (st) {
+    return {
+      feeType: "Regular",
+      ...(category ? { category } : {}),
+      isNri: false,
+    };
+  }
+
+  const raw = category.trim();
+  if (!raw) return { feeType: "Regular", isNri: false };
+
+  const [typePart, ...rest] = raw.split("|");
+  const typeLower = typePart.toLowerCase();
+  const subCategory = rest.join("|").trim() || undefined;
+
+  if (typeLower === "nri") {
+    return {
+      feeType: "NRI",
+      ...(subCategory ? { category: subCategory } : {}),
+      isNri: true,
+    };
+  }
+  if (typeLower === "scholarship" || typeLower === "sch") {
+    return {
+      feeType: "Scholarship",
+      ...(subCategory ? { category: subCategory } : {}),
+      isNri: false,
+    };
+  }
+  if (typeLower === "regular" || typeLower === "reg") {
+    return {
+      feeType: "Regular",
+      ...(subCategory ? { category: subCategory } : {}),
+      isNri: false,
+    };
+  }
+
+  return {
+    feeType: typePart,
+    ...(subCategory ? { category: subCategory } : {}),
+    isNri: false,
+  };
 }
 
 function buildMpFees(
@@ -161,20 +218,34 @@ function buildMpFees(
     const key = `${item.seatType}|${item.category}`;
     let row = rows.get(key);
     if (!row) {
+      const meta = mpFeeRowMeta(item.seatType, item.category);
       row = {
-        feeType: mpFeeTypeLabel(item.seatType),
-        ...(item.category ? { category: item.category } : {}),
+        feeType: meta.feeType,
+        ...(meta.category ? { category: meta.category } : {}),
         totalAnnual: 0,
       };
       rows.set(key, row);
     }
     const amount = decimalToNumber(item.amount);
     if (item.component === "tuition") row.tuition = amount;
-    if (item.component === "development") row.development = amount;
+    // Dump stores development_fees as `university` for some MP private rows.
+    if (item.component === "development" || item.component === "university") {
+      row.development = amount;
+    }
     if (item.component === "caution") row.caution = amount;
-    if (item.component === "mmvy_scholarship") row.mmvyScholarship = amount;
+    // Dump uses `scholarship`; older seeds may use `mmvy_scholarship`.
+    if (
+      item.component === "mmvy_scholarship" ||
+      item.component === "scholarship"
+    ) {
+      row.mmvyScholarship = amount;
+    }
     if (item.component === "total") row.totalAnnual = amount;
-    if (item.seatType === "NRI") {
+    if (
+      item.seatType.toUpperCase() === "NRI" ||
+      item.category.trim().toLowerCase() === "nri" ||
+      item.category.trim().toLowerCase().startsWith("nri|")
+    ) {
       row.currency = normalizeFeeCurrency(item.currency);
     }
   }
@@ -196,6 +267,7 @@ function buildMpFees(
     return (a.category ?? "").localeCompare(b.category ?? "");
   });
 
+  // Open Regular row (no caste sub-category like OBC/SC/ST).
   const regOpen = stateFeeSchedule.find(
     (r) => r.feeType === "Regular" && !r.category,
   );
@@ -206,8 +278,10 @@ function buildMpFees(
 
   let quotaBreakdown: QuotaFeeBreakdown | undefined;
   if (regOpen && (regOpen.tuition || regOpen.totalAnnual)) {
+    // Prefer sheet total so listing matches the DMAT schedule / detail totals.
+    const gqAnnual = regOpen.totalAnnual || regOpen.tuition || 0;
     quotaBreakdown = {
-      govtQuotaAnnualInr: regOpen.tuition ?? regOpen.totalAnnual,
+      govtQuotaAnnualInr: gqAnnual,
       managementQuotaAnnualInr: 0,
     };
     if (nriRow && nriRow.totalAnnual > 0) {

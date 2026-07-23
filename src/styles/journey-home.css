@@ -50,7 +50,7 @@
   text-decoration: none;
 }
 
-.journey-home button {
+.journey-home button:not(.btn):not(.group) {
   font-family: inherit;
   cursor: pointer;
   border: none;
@@ -2695,14 +2695,17 @@
   flex: 1 1 100%;
 }
 
-.journey-home .pb-form .phone-field-grid {
+.journey-home .pb-form .phone-field-grid,
+.journey-home .pb-form .lead-phone-otp-stack {
   flex: 1 1 100%;
   width: 100%;
   min-width: 0;
 }
 
 .journey-home .pb-form .phone-field-grid.lead-phone-row > .country-code-select,
-.journey-home .pb-form .phone-field-grid.lead-phone-row > input[type="tel"] {
+.journey-home .pb-form .phone-field-grid.lead-phone-row > input[type="tel"],
+.journey-home .pb-form .lead-phone-otp-stack .lead-phone-row > .country-code-select,
+.journey-home .pb-form .lead-phone-otp-stack .lead-phone-row > input[type="tel"] {
   box-sizing: border-box;
   height: 2.625rem !important;
   min-height: 2.625rem !important;
@@ -2717,7 +2720,8 @@
   color: #fff;
 }
 
-.journey-home .pb-form .phone-field-grid.lead-phone-row > .country-code-select {
+.journey-home .pb-form .phone-field-grid.lead-phone-row > .country-code-select,
+.journey-home .pb-form .lead-phone-otp-stack .lead-phone-row > .country-code-select {
   padding-inline: 12px 2rem;
   font-size: 14.5px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 7.5 10 12.5 15 7.5' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -2727,19 +2731,23 @@
 }
 
 .journey-home .pb-form .phone-field-grid.lead-phone-row > input[type="tel"]::placeholder,
+.journey-home .pb-form .lead-phone-otp-stack .lead-phone-row > input[type="tel"]::placeholder,
 .journey-home .pb-form-field::placeholder {
   color: #a9c0f5;
 }
 
 .journey-home .pb-form .phone-field-grid.lead-phone-row > .country-code-select:focus-within,
 .journey-home .pb-form .phone-field-grid.lead-phone-row > input[type="tel"]:focus,
+.journey-home .pb-form .lead-phone-otp-stack .lead-phone-row > .country-code-select:focus-within,
+.journey-home .pb-form .lead-phone-otp-stack .lead-phone-row > input[type="tel"]:focus,
 .journey-home .pb-form-field:focus {
   border-color: #fff;
   outline: none;
 }
 
 .journey-home .pb-form-field.is-empty,
-.journey-home .pb-form .phone-field-grid.lead-phone-row > input[type="tel"].is-empty {
+.journey-home .pb-form .phone-field-grid.lead-phone-row > input[type="tel"].is-empty,
+.journey-home .pb-form .lead-phone-otp-stack .lead-phone-row > input[type="tel"].is-empty {
   border-color: rgba(254, 202, 202, 0.6);
 }
 

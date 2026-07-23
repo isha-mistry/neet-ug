@@ -78,6 +78,23 @@ select.lead-native-select {
   line-height: 1.25;
 }
 
+/* Playbook: OTP stack spans full row like other pb-form controls */
+.journey-home .pb-form .lead-phone-otp-stack {
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
+}
+
+.journey-home .pb-form .lead-phone-otp-stack .lead-phone-row {
+  gap: 8px;
+}
+
+/* Journey modal OTP uses same `.btn.btn-blue` as Continue */
+.journey-home .radar-modal-form .lead-phone-otp-stack .btn {
+  width: 100%;
+  margin-top: 0;
+}
+
 /* Lead popups / modals — disabled primary submit until form + consent are complete */
 .lead-form-submit:disabled,
 .radar-modal-panel .btn.btn-blue.lead-form-submit:disabled,

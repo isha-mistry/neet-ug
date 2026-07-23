@@ -327,6 +327,7 @@ export function FreeCounsellingLeadForm({
             onSendOtp={() => void sendOtp()}
             onVerifyOtp={() => void verifyOtp()}
             disabled={pending}
+            buttonClassName="h-12!"
           />
         </>
       )}
