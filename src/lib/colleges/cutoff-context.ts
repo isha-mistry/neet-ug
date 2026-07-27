@@ -96,13 +96,28 @@ function cutoffMatchesCategory(
   return resolveCutoffNeetCategory(cutoff) === category;
 }
 
-/** Counselling round order for listing cards (Round 1 closing rank). */
-function roundOrderKey(round?: string): number {
-  if (!round) return 999;
-  if (/stray|mop|special/i.test(round)) return 900;
-  const match = round.match(/(\d+)/);
-  if (match) return Number.parseInt(match[1], 10);
-  return 998;
+/**
+ * Maps admission-round labels to main counselling rounds 1–3.
+ * Accepts "Round 3" even when the string also says mop-up; excludes stray
+ * and unlabeled mop/special rounds.
+ */
+export function parseMainCounsellingRound(
+  round?: string
+): 1 | 2 | 3 | null {
+  if (!round?.trim()) return null;
+  const token = round.trim();
+  if (/stray/i.test(token) && !/round\s*[123]\b|\br\s*[123]\b/i.test(token)) {
+    return null;
+  }
+  const labeled =
+    token.match(/round\s*([123])\b/i) ?? token.match(/\br\s*([123])\b/i);
+  if (labeled) {
+    return Number.parseInt(labeled[1], 10) as 1 | 2 | 3;
+  }
+  if (/mop|special/i.test(token)) return null;
+  const bare = token.match(/\b([123])\b/);
+  if (bare) return Number.parseInt(bare[1], 10) as 1 | 2 | 3;
+  return null;
 }
 
 function preferDefaultListingQuota(pool: CollegeCutoff[]): CollegeCutoff[] {
@@ -113,11 +128,26 @@ function preferDefaultListingQuota(pool: CollegeCutoff[]): CollegeCutoff[] {
   return pool;
 }
 
-function pickRoundOneCutoff(pool: CollegeCutoff[]): CollegeCutoff | null {
+/** Prefer Round 3 closing AIR, then Round 2, then Round 1. */
+export function pickPreferredRoundCutoff(
+  pool: CollegeCutoff[]
+): CollegeCutoff | null {
   if (!pool.length) return null;
-  return [...pool].sort(
-    (a, b) => roundOrderKey(a.round) - roundOrderKey(b.round)
-  )[0];
+  const withMainRound = pool
+    .map((cutoff) => ({
+      cutoff,
+      round: parseMainCounsellingRound(cutoff.round),
+    }))
+    .filter(
+      (entry): entry is { cutoff: CollegeCutoff; round: 1 | 2 | 3 } =>
+        entry.round != null
+    );
+  if (!withMainRound.length) return null;
+  withMainRound.sort((a, b) => {
+    if (b.round !== a.round) return b.round - a.round;
+    return (b.cutoff.rank ?? 0) - (a.cutoff.rank ?? 0);
+  });
+  return withMainRound[0].cutoff;
 }
 
 export function recordSupportsListingCategory(
@@ -155,5 +185,5 @@ export function pickDisplayCutoff(
 
   if (!pool.length) return null;
 
-  return pickRoundOneCutoff(pool);
+  return pickPreferredRoundCutoff(pool);
 }

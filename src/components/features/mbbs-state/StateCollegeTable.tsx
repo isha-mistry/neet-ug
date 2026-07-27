@@ -75,6 +75,10 @@ export function StateCollegeTable({ rows, stateName }: StateCollegeTableProps) {
   const [cityFilter, setCityFilter] = useState("all");
   const [sortKey, setSortKey] = useState<SortKey>("seats");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
+  const showEsicColumn = useMemo(
+    () => rows.some((row) => (row.esicSeats ?? 0) > 0),
+    [rows],
+  );
 
   const cities = useMemo(() => {
     const stateExcludes = new Set(
@@ -175,7 +179,8 @@ export function StateCollegeTable({ rows, stateName }: StateCollegeTableProps) {
         </label>
       </div>
       <p className="text-xs text-on-surface-variant">
-        Showing {formatNumber(filtered.length)} of {formatNumber(rows.length)} colleges
+        Showing {formatNumber(filtered.length)} of {formatNumber(rows.length)} colleges.
+        Deemed universities and AIIMS campuses are counselled via MCC — their seats appear under AIQ with no state quota.
       </p>
       <div className={guideTableWrapClass}>
         <table
@@ -217,6 +222,7 @@ export function StateCollegeTable({ rows, stateName }: StateCollegeTableProps) {
               </th>
               <th>AIQ</th>
               <th>State</th>
+              {showEsicColumn ? <th>ESIC</th> : null}
               <th>MQ</th>
               <th>NRI</th>
               <th>NMC</th>
@@ -237,6 +243,11 @@ export function StateCollegeTable({ rows, stateName }: StateCollegeTableProps) {
                 <td className="tabular-nums font-semibold">{formatNumber(row.totalSeats)}</td>
                 <td className="tabular-nums">{formatNumber(row.aiqSeats)}</td>
                 <td className="tabular-nums">{formatNumber(row.stateSeats)}</td>
+                {showEsicColumn ? (
+                  <td className="tabular-nums">
+                    {formatNumber(row.esicSeats ?? 0)}
+                  </td>
+                ) : null}
                 <td className="tabular-nums">{formatNumber(row.mqSeats)}</td>
                 <td className="tabular-nums">{formatNumber(row.nriSeats)}</td>
                 <td>{row.nmcStatus}</td>

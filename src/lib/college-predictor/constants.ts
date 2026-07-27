@@ -15,4 +15,4 @@ export const POSSIBLE_RANK_RATIO = 1.25;
 export const REACH_RANK_RATIO = 1.5;
 
 export const COLLEGE_PREDICTOR_DISCLAIMER =
-  "Lists use closing ranks from our dataset (Gujarat state counselling 2025 where available). Not an official MCC/NTA allotment. Lower AIR is better.";
+  "Lists use Round 1–3 closing ranks from our dataset. Home-state colleges are checked for state counselling and MCC/AIQ where both exist. Not an official MCC/NTA allotment. Lower AIR is better.";

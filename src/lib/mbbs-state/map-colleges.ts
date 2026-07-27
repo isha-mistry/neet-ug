@@ -1,4 +1,5 @@
 import type { CollegeRecord } from "@/types/college";
+import { resolveMbbsSeatBreakdown } from "./seat-breakdown";
 import type { StateCollegeTableRow } from "./types";
 
 const UNIVERSITY_BY_STATE: Record<string, string> = {
@@ -25,19 +26,6 @@ function collegeTypeLabel(type: CollegeRecord["collegeType"]): string {
   }
 }
 
-function splitSeats(record: CollegeRecord) {
-  const total = record.seatCount || 0;
-  const aiq = Math.round(total * 0.15);
-  const remainder = total - aiq;
-  if (record.collegeType === "private") {
-    const mq = Math.round(remainder * 0.85);
-    const state = remainder - mq;
-    const nri = Math.max(0, Math.round(total * 0.15));
-    return { aiq, state, mq, nri };
-  }
-  return { aiq, state: remainder, mq: 0, nri: 0 };
-}
-
 export function mapCatalogCollegesToTableRows(
   colleges: CollegeRecord[],
   stateSlug: string
@@ -45,18 +33,19 @@ export function mapCatalogCollegesToTableRows(
   const defaultUni = UNIVERSITY_BY_STATE[stateSlug] ?? "State medical university";
   return colleges
     .map((c, index) => {
-      const { aiq, state, mq, nri } = splitSeats(c);
+      const breakdown = resolveMbbsSeatBreakdown(c);
       return {
         slug: c.slug,
         name: c.name,
         type: collegeTypeLabel(c.collegeType),
         city: c.city || "—",
-        university: defaultUni,
+        university: c.universityName?.trim() || defaultUni,
         totalSeats: c.seatCount,
-        aiqSeats: aiq,
-        stateSeats: state,
-        mqSeats: mq,
-        nriSeats: nri,
+        aiqSeats: breakdown.aiq,
+        stateSeats: breakdown.state,
+        mqSeats: breakdown.mq,
+        nriSeats: breakdown.nri,
+        esicSeats: breakdown.esic,
         nirfRank: index < 3 ? index + 1 : undefined,
         established: 1950 + (index % 45),
         nmcStatus: "NMC recognized",

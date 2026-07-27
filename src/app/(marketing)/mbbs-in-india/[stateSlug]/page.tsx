@@ -11,6 +11,7 @@ import { getMbbsStateConfig } from "@/lib/mbbs-state/configs/all-states";
 import { mergeMbbsStateConfigWithCatalog } from "@/lib/mbbs-state/merge-catalog-stats";
 import { buildMbbsStateFaqJsonLd } from "@/lib/mbbs-state/jsonld";
 import { mapCatalogCollegesToTableRows } from "@/lib/mbbs-state/map-colleges";
+import { buildCatalogSeatMatrixTables } from "@/lib/mbbs-state/seat-breakdown";
 import type { FocusStateSlug } from "@/lib/mbbs-state/types";
 import { buildMetadata } from "@/lib/seo/metadata";
 
@@ -57,6 +58,20 @@ export default async function MbbsStatePage({ params }: PageProps) {
   const config = mergeMbbsStateConfigWithCatalog(baseConfig, allColleges);
   const stateColleges = allColleges.filter((c) => c.stateSlug === stateSlug);
   const tableRows = mapCatalogCollegesToTableRows(stateColleges, stateSlug);
+  const catalogSeatMatrix = buildCatalogSeatMatrixTables(
+    stateColleges,
+    config.name,
+  );
+  const clientConfig =
+    catalogSeatMatrix.length > 0
+      ? {
+          ...config,
+          contentExtensions: {
+            ...config.contentExtensions,
+            govtSeatMatrix: catalogSeatMatrix,
+          },
+        }
+      : config;
 
   const faqJsonLd = buildMbbsStateFaqJsonLd(config.faq, config.name);
 
@@ -76,7 +91,7 @@ export default async function MbbsStatePage({ params }: PageProps) {
         />
       </Container>
       <MbbsStateClient
-        config={config}
+        config={clientConfig}
         colleges={tableRows}
         relatedStateLinks={relatedStateLinks(config.slug)}
       />

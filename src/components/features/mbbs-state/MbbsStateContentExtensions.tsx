@@ -101,8 +101,9 @@ export function GovtSeatMatrixBlock({ config }: { config: MbbsStateConfig }) {
         </div>
       ))}
       <p className="text-xs text-outline">
-        Category-wise OPEN / SC / ST / SEBC splits are published in the ACPUGMEC seat matrix PDF each
-        year — use our{" "}
+        Seat splits are sourced from the Dravio catalog (NMC / counselling seat matrices). Deemed and AIIMS
+        institutes are MCC-only. Category-wise OPEN / SC / ST / SEBC splits are published in the ACPUGMEC seat
+        matrix PDF each year — use our{" "}
         <Link href={`/colleges/state/${config.slug}`} className="text-primary hover:underline">
           full {config.name} college directory
         </Link>{" "}
