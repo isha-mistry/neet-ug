@@ -1,5 +1,8 @@
 import { getAllColleges } from "@/lib/data/colleges";
-import { cutoffMatchesListingQuota } from "@/lib/colleges/cutoff-context";
+import {
+  cutoffMatchesListingQuota,
+  pickPreferredRoundCutoff,
+} from "@/lib/colleges/cutoff-context";
 import { matchesSelectedCategory } from "@/lib/colleges/categories";
 import { toCollegeSummary } from "@/lib/colleges/mappers";
 import type { CollegeCutoff, CollegeRecord } from "@/types/college";
@@ -20,6 +23,11 @@ import type {
 
 export type CollegeChanceBucket = "likely" | "possible" | "reach";
 
+type PredictorMatch = {
+  cutoff: CollegeCutoff;
+  pool: "state" | "aiq";
+};
+
 function classifyChance(
   userAir: number,
   closingRank: number
@@ -31,47 +39,56 @@ function classifyChance(
   return null;
 }
 
-function pickPredictorCutoff(
+function isAiqCutoff(record: CollegeRecord, cutoff: CollegeCutoff): boolean {
+  return (
+    cutoffMatchesListingQuota(cutoff, "aiq") ||
+    record.collegeType === "deemed" ||
+    record.collegeType === "aiims" ||
+    cutoff.quota.toLowerCase().includes("all india")
+  );
+}
+
+/**
+ * Returns up to two matches: state (home colleges) and MCC/AIQ.
+ * Closing ranks are taken from Round 3 → 2 → 1 only.
+ */
+function pickPredictorCutoffs(
   record: CollegeRecord,
   input: CollegePredictorFormInput
-): { cutoff: CollegeCutoff; pool: "state" | "aiq" } | null {
-  if (!record.cutoffs.length) return null;
+): PredictorMatch[] {
+  if (!record.cutoffs.length) return [];
 
   const latestYear = Math.max(...record.cutoffs.map((c) => c.year));
   const latestPool = record.cutoffs.filter((c) => c.year === latestYear);
-  if (!latestPool.length) return null;
+  if (!latestPool.length) return [];
 
   const category = input.category ?? "general";
   const byCategory = latestPool.filter((c) => {
     if (category === "pwbd") return c.category === "pwbd";
     return matchesSelectedCategory(c, category);
   });
-  if (!byCategory.length) return null;
+  if (!byCategory.length) return [];
 
+  const matches: PredictorMatch[] = [];
   const isHomeState = record.stateSlug === input.stateSlug;
 
   if (isHomeState) {
-    const stateCutoffs = byCategory.filter((c) => cutoffMatchesListingQuota(c, "state"));
-    if (stateCutoffs.length) {
-      const best = [...stateCutoffs].sort((a, b) => (b.rank || 0) - (a.rank || 0))[0];
-      if (best?.rank) return { cutoff: best, pool: "state" };
-    }
-    const bestAny = [...byCategory].sort((a, b) => (b.rank || 0) - (a.rank || 0))[0];
-    if (bestAny?.rank) return { cutoff: bestAny, pool: "state" };
-    return null;
-  } else {
-    const aiqCutoffs = byCategory.filter(
-      (c) =>
-        cutoffMatchesListingQuota(c, "aiq") ||
-        record.collegeType === "deemed" ||
-        record.collegeType === "aiims" ||
-        c.quota.toLowerCase().includes("all india")
+    const stateCutoffs = byCategory.filter((c) =>
+      cutoffMatchesListingQuota(c, "state")
     );
-    if (!aiqCutoffs.length) return null;
-    const best = [...aiqCutoffs].sort((a, b) => (b.rank || 0) - (a.rank || 0))[0];
-    if (best?.rank) return { cutoff: best, pool: "aiq" };
-    return null;
+    const statePick = pickPreferredRoundCutoff(stateCutoffs);
+    if (statePick?.rank) {
+      matches.push({ cutoff: statePick, pool: "state" });
+    }
   }
+
+  const aiqCutoffs = byCategory.filter((c) => isAiqCutoff(record, c));
+  const aiqPick = pickPreferredRoundCutoff(aiqCutoffs);
+  if (aiqPick?.rank) {
+    matches.push({ cutoff: aiqPick, pool: "aiq" });
+  }
+
+  return matches;
 }
 
 function bucketColleges(
@@ -85,19 +102,33 @@ function bucketColleges(
   let withCutoffData = 0;
 
   for (const college of colleges) {
-    const match = pickPredictorCutoff(college, input);
-    if (!match || !match.cutoff.rank || match.cutoff.year < REFERENCE_CUTOFF_YEAR - 1) continue;
-    withCutoffData += 1;
-    const bucket = classifyChance(userAir, match.cutoff.rank);
-    if (bucket === "likely") likely.push({ record: college, cutoff: match.cutoff, pool: match.pool });
-    else if (bucket === "possible") possible.push({ record: college, cutoff: match.cutoff, pool: match.pool });
-    else if (bucket === "reach") reach.push({ record: college, cutoff: match.cutoff, pool: match.pool });
+    const matches = pickPredictorCutoffs(college, input);
+    for (const match of matches) {
+      if (!match.cutoff.rank || match.cutoff.year < REFERENCE_CUTOFF_YEAR - 1) {
+        continue;
+      }
+      withCutoffData += 1;
+      const bucket = classifyChance(userAir, match.cutoff.rank);
+      if (bucket === "likely") {
+        likely.push({ record: college, cutoff: match.cutoff, pool: match.pool });
+      } else if (bucket === "possible") {
+        possible.push({
+          record: college,
+          cutoff: match.cutoff,
+          pool: match.pool,
+        });
+      } else if (bucket === "reach") {
+        reach.push({ record: college, cutoff: match.cutoff, pool: match.pool });
+      }
+    }
   }
 
   const sortByRank = (
     a: { cutoff: CollegeCutoff },
     b: { cutoff: CollegeCutoff }
-  ) => (a.cutoff.rank ?? Number.MAX_SAFE_INTEGER) - (b.cutoff.rank ?? Number.MAX_SAFE_INTEGER);
+  ) =>
+    (a.cutoff.rank ?? Number.MAX_SAFE_INTEGER) -
+    (b.cutoff.rank ?? Number.MAX_SAFE_INTEGER);
 
   likely.sort(sortByRank);
   possible.sort(sortByRank);
@@ -171,9 +202,17 @@ export async function computeUnlockedResult(
   const all = await getAllColleges();
   const { likely, possible, reach } = bucketColleges(all, input.air, input);
 
-  const mapSummaries = (items: { record: CollegeRecord; pool: "state" | "aiq" }[]) =>
-    items.map(({ record, pool }) => {
-      const summary = toCollegeSummary(record, { category: input.category });
+  const mapSummaries = (
+    items: { record: CollegeRecord; pool: "state" | "aiq"; cutoff: CollegeCutoff }[]
+  ) =>
+    items.map(({ record, pool, cutoff }) => {
+      const summary = toCollegeSummary(record, {
+        category: input.category,
+        quota: pool === "state" ? "state" : "aiq",
+      });
+      // Prefer the predictor-selected Round 3→2→1 closing AIR over listing default.
+      summary.latestCutoffRank = cutoff.rank ?? summary.latestCutoffRank;
+      summary.latestCutoffYear = cutoff.year ?? summary.latestCutoffYear;
       summary.predictorPool = pool;
       return summary;
     });
@@ -196,4 +235,3 @@ export function sessionsMatch(
     a.stateSlug === b.stateSlug
   );
 }
-

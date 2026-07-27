@@ -145,6 +145,7 @@ export interface StateCollegeTableRow {
   stateSeats: number;
   mqSeats: number;
   nriSeats: number;
+  esicSeats?: number;
   nirfRank?: number;
   established?: number;
   nmcStatus: string;

@@ -430,7 +430,7 @@ export function CollegePredictorFaq() {
     },
     {
       q: "Which cutoffs are used?",
-      a: "We use closing ranks in our dataset for your selected quota and category, including Gujarat state counselling 2025 where available. This is not an official allotment from MCC or state authorities.",
+      a: "We use Round 1, 2, and 3 closing ranks only (preferring Round 3 when available, then Round 2, then Round 1), matched to your category. For home-state colleges with both state and MCC counselling, we evaluate state first and also check MCC/AIQ. This is not an official allotment from MCC or state authorities.",
     },
   ];
   return <RankPredictorFaq items={items} />;

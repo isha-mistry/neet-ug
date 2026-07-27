@@ -42,7 +42,11 @@ export function CollegeResultsGrid({
     <div className="grid grid-cols-1 gap-6 sm:gap-7 lg:grid-cols-2 lg:gap-6 xl:gap-8">
       {colleges.map((college) => (
         <CollegeCard
-          key={college.slug}
+          key={
+            college.predictorPool
+              ? `${college.slug}-${college.predictorPool}`
+              : college.slug
+          }
           college={college}
           rankCategoryShort={rankCategoryShort}
           feeQuotaShort={feeQuotaShort}
