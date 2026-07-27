@@ -20,11 +20,16 @@ import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { LeadFormThankYouPanel, leadRedirectPageLabel } from "@/components/features/leads/LeadFormThankYouPanel";
 import { LeadModalCloseButton } from "@/components/features/leads/LeadModalCloseButton";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
+import {
+  LeadWhatsappConsentField,
+  useLeadWhatsappConsent,
+} from "@/components/features/leads/LeadWhatsappConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { useLeadRedirectCountdown } from "@/components/features/leads/useLeadRedirectCountdown";
 import { openCounselWhatsApp } from "@/lib/leads/whatsapp";
 import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
+import { useTurnstileToken } from "@/components/common/useTurnstileToken";
 
 export type JourneyLeadModalVariant = "radar" | "essentials" | "expert" | "premium";
 
@@ -116,8 +121,13 @@ export function JourneyLeadModal({
   const [modalCountryCode, setModalCountryCode] = useState(initialCountryCode ?? "+91");
   const [modalPhone, setModalPhone] = useState(initialPhone);
   const [formError, setFormError] = useState<string | null>(null);
-  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
+  const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
   const { consent, canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
+  const {
+    consentWhatsapp,
+    resetWhatsappConsent,
+    whatsappFieldProps,
+  } = useLeadWhatsappConsent();
   const {
     otp,
     setOtp,
@@ -134,6 +144,7 @@ export function JourneyLeadModal({
     countryCode: modalCountryCode,
     captchaToken,
     setError: setFormError,
+    onCaptchaConsumed: refreshCaptcha,
   });
 
   const isThanks = phase === "thanks-redirect";
@@ -149,9 +160,11 @@ export function JourneyLeadModal({
     setModalCountryCode(initialCountryCode ?? "+91");
     setModalPhone(initialPhone);
     resetConsent();
+    resetWhatsappConsent();
     resetPhoneOtp();
+    refreshCaptcha();
     setFormError(null);
-  }, [open, initialCountryCode, initialPhone, resetConsent, resetPhoneOtp]);
+  }, [open, initialCountryCode, initialPhone, resetConsent, resetWhatsappConsent, resetPhoneOtp, refreshCaptcha]);
 
   const completeRedirect = useCallback(() => {
     onClose();
@@ -230,6 +243,11 @@ export function JourneyLeadModal({
     if (showDomicile && !domicile) return;
     if (showTargetStates && !targetStates) return;
     if (showQuotaInterest && !quotaInterest) return;
+    if (!captchaToken) {
+      setFormError("Security check is still loading. Please wait a moment and try again.");
+      refreshCaptcha();
+      return;
+    }
 
     startTransition(async () => {
       const verified = await ensureVerified();
@@ -248,6 +266,7 @@ export function JourneyLeadModal({
         domicileState: showDomicile ? domicile : undefined,
         targetStates: showTargetStates ? targetStates : undefined,
         consent,
+        consentWhatsapp,
         captchaToken,
         rawPayload: {
           parentName: showParent ? parentName : undefined,
@@ -266,6 +285,7 @@ export function JourneyLeadModal({
           whatsappMessageAfterSubmit: whatsappMessageAfterSubmit ?? undefined,
         },
       });
+      refreshCaptcha();
 
       if (!saved.success) {
         setFormError(saved.error);
@@ -438,12 +458,18 @@ export function JourneyLeadModal({
                   disabled={pending}
                 />
               </div>
-              <TurnstileCaptcha onVerify={setCaptchaToken} />
+              <TurnstileCaptcha {...turnstileProps} />
               <LeadConsentField
                 id={fid("consent")}
                 skin="journey"
                 disabled={pending}
                 {...consentFieldProps}
+              />
+              <LeadWhatsappConsentField
+                id={fid("consent-whatsapp")}
+                skin="journey"
+                disabled={pending}
+                {...whatsappFieldProps}
               />
               {formError ? (
                 <p className="m-0 text-[12px] text-[var(--red,#c62828)]" role="alert">

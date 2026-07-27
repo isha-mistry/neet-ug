@@ -13,6 +13,11 @@ type UseLeadPhoneOtpArgs = {
   countryCode: string;
   captchaToken?: string;
   setError: (message: string | null) => void;
+  /**
+   * Called after any OTP action that sent a Turnstile token to the server.
+   * Tokens are single-use — refresh the widget so the next step gets a new one.
+   */
+  onCaptchaConsumed?: () => void;
 };
 
 export function useLeadPhoneOtp({
@@ -20,6 +25,7 @@ export function useLeadPhoneOtp({
   countryCode,
   captchaToken,
   setError,
+  onCaptchaConsumed,
 }: UseLeadPhoneOtpArgs) {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
@@ -63,6 +69,8 @@ export function useLeadPhoneOtp({
         countryCode,
         captchaToken,
       });
+      // Token is consumed by Cloudflare once verified (success or duplicate).
+      if (captchaToken) onCaptchaConsumed?.();
       if (!result.success) {
         setError(result.error);
         setOtpSent(false);
@@ -79,7 +87,7 @@ export function useLeadPhoneOtp({
     } finally {
       setOtpSending(false);
     }
-  }, [captchaToken, countryCode, digits, setError]);
+  }, [captchaToken, countryCode, digits, onCaptchaConsumed, setError]);
 
   const verifyOtp = useCallback(async (): Promise<boolean> => {
     setError(null);
@@ -104,7 +112,6 @@ export function useLeadPhoneOtp({
         phone: digits,
         countryCode,
         otp: trusted ? "" : otp,
-        captchaToken,
         trustedSession: trusted || undefined,
       });
 
@@ -125,7 +132,6 @@ export function useLeadPhoneOtp({
       setOtpVerifying(false);
     }
   }, [
-    captchaToken,
     countryCode,
     digits,
     otp,

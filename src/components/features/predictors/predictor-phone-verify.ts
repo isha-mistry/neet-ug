@@ -10,6 +10,7 @@ type ApplyPhoneVerificationArgs = {
   phone: string;
   countryCode: string;
   consent: boolean;
+  consentWhatsapp?: boolean;
   trustedSession: boolean;
   otp: string;
   setError: (message: string | null) => void;
@@ -20,6 +21,7 @@ type ApplyPhoneVerificationArgs = {
     phone: string;
     countryCode: string;
     consent: boolean;
+    consentWhatsapp?: boolean;
     trustedSession?: boolean;
   }) => Promise<{ success: boolean; error?: string }>;
   onVerified: () => void;
@@ -29,6 +31,7 @@ export async function applyPredictorPhoneVerification({
   phone,
   countryCode,
   consent,
+  consentWhatsapp,
   trustedSession,
   otp,
   setError,
@@ -48,6 +51,7 @@ export async function applyPredictorPhoneVerification({
     phone: normalizedPhone,
     countryCode,
     consent,
+    consentWhatsapp,
     trustedSession: trustedSession || undefined,
   });
 

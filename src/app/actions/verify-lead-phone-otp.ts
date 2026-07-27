@@ -1,6 +1,5 @@
 "use server";
 
-import { verifyTurnstileToken } from "@/lib/captcha/verify";
 import { verifyPhoneLoginOtp } from "@/lib/otp/phone-otp-session";
 import { assertPhoneVerifiedSession } from "@/lib/otp/phone-verified-session";
 import { reportAppError } from "@/lib/sentry/error-reporter";
@@ -22,11 +21,8 @@ export async function verifyLeadPhoneOtpAction(payload: {
   trustedSession?: boolean;
 }): Promise<VerifyLeadPhoneOtpResult> {
   try {
-    const captchaCheck = await verifyTurnstileToken(payload.captchaToken);
-    if (!captchaCheck.ok) {
-      return { success: false, error: captchaCheck.error };
-    }
-
+    // Captcha is enforced on send-OTP and submit-lead. Tokens are single-use, so
+    // requiring another challenge here causes timeout-or-duplicate in the same session.
     const phone = payload.phone.replace(/\D/g, "");
     const countryCode = payload.countryCode?.trim() || "+91";
 

@@ -19,6 +19,10 @@ import { LEAD_FORM_TYPES, type LeadFormType } from "@/lib/leads/types";
 import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
 import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
+import {
+  LeadWhatsappConsentField,
+  useLeadWhatsappConsent,
+} from "@/components/features/leads/LeadWhatsappConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import {
@@ -28,6 +32,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
+import { useTurnstileToken } from "@/components/common/useTurnstileToken";
 import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
 
 export const BOOK_COUNSELLING_FORM_INPUT_CLASS =
@@ -91,7 +96,7 @@ export function BookCounsellingLeadForm({
   const [pending, startTransition] = useTransition();
   const [phase, setPhase] = useState<"form" | "thanks" | "thanks-whatsapp">("form");
   const [error, setError] = useState<string | null>(null);
-  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
+  const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
   const [countryCode, setCountryCode] = useState(DEFAULT_COUNTRY_DIAL_CODE);
   const [phone, setPhone] = useState("");
   const whatsAppLinesRef = useRef<string[] | null>(null);
@@ -103,6 +108,11 @@ export function BookCounsellingLeadForm({
     `${fieldIdPrefix ?? fieldId}-${name}`.replace(/:/g, "");
   const { canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
   const {
+    consentWhatsapp,
+    resetWhatsappConsent,
+    whatsappFieldProps,
+  } = useLeadWhatsappConsent();
+  const {
     otp,
     setOtp,
     otpSent,
@@ -113,7 +123,13 @@ export function BookCounsellingLeadForm({
     verifyOtp,
     ensureVerified,
     resetPhoneOtp,
-  } = useLeadPhoneOtp({ phone, countryCode, captchaToken, setError });
+  } = useLeadPhoneOtp({
+    phone,
+    countryCode,
+    captchaToken,
+    setError,
+    onCaptchaConsumed: refreshCaptcha,
+  });
 
   const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
     active: active && phase === "form",
@@ -133,16 +149,20 @@ export function BookCounsellingLeadForm({
     }
     setPhase("form");
     resetConsent();
+    resetWhatsappConsent();
     resetPhoneOtp();
+    refreshCaptcha();
     setPhone("");
     setCountryCode(DEFAULT_COUNTRY_DIAL_CODE);
     onReset?.();
-  }, [onReset, resetConsent, resetPhoneOtp]);
+  }, [onReset, refreshCaptcha, resetConsent, resetWhatsappConsent, resetPhoneOtp]);
 
   function handleResetForm() {
     setPhase("form");
     resetConsent();
+    resetWhatsappConsent();
     resetPhoneOtp();
+    refreshCaptcha();
     setPhone("");
     setCountryCode(DEFAULT_COUNTRY_DIAL_CODE);
     setError(null);
@@ -177,6 +197,11 @@ export function BookCounsellingLeadForm({
       setError(LEAD_CONSENT_ERROR);
       return;
     }
+    if (!captchaToken) {
+      setError("Security check is still loading. Please wait a moment and try again.");
+      refreshCaptcha();
+      return;
+    }
 
     startTransition(async () => {
       try {
@@ -192,12 +217,14 @@ export function BookCounsellingLeadForm({
           phone: digits,
           domicileState: domicile,
           consent: canSubmit,
+          consentWhatsapp,
           captchaToken,
           rawPayload: {
             trigger: source,
             redirectToWhatsApp: redirectToWhatsApp === true,
           },
         });
+        refreshCaptcha();
 
         if (!saved.success) {
           setError(saved.error);
@@ -328,8 +355,13 @@ export function BookCounsellingLeadForm({
             {error}
           </p>
         ) : null}
-        <TurnstileCaptcha onVerify={setCaptchaToken} />
+        <TurnstileCaptcha {...turnstileProps} />
         <LeadConsentField id={fid("consent")} disabled={pending} {...consentFieldProps} />
+        <LeadWhatsappConsentField
+          id={fid("consent-whatsapp")}
+          disabled={pending}
+          {...whatsappFieldProps}
+        />
         <Button
           type="submit"
           variant="primary"

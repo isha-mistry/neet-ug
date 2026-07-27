@@ -21,6 +21,7 @@ type LeadRow = {
   name: string | null;
   countryCode: string | null;
   phone: string | null;
+  phoneE164: string | null;
   email: string | null;
   neetScore: number | null;
   neetCategory: string | null;
@@ -33,7 +34,19 @@ type LeadRow = {
   topics: unknown;
   consent: boolean;
   consentAt: string | null;
+  consentWhatsapp: boolean;
+  consentWhatsappAt: string | null;
+  notificationStatus: string;
   rawPayload: unknown;
+  notificationLogs?: {
+    id: string;
+    channel: string;
+    provider: string;
+    status: string;
+    errorMsg: string | null;
+    providerMsgId: string | null;
+    createdAt: string;
+  }[];
 };
 
 type LeadsResponse = {

@@ -79,6 +79,7 @@ export async function verifyRankPredictorOtpAction(payload: {
   countryCode?: string;
   phone?: string;
   consent: boolean;
+  consentWhatsapp?: boolean;
   input: RankPredictorFormInput;
   /** Skip OTP when the number is in the 30-minute verified session. */
   trustedSession?: boolean;
@@ -139,6 +140,7 @@ export async function verifyRankPredictorOtpAction(payload: {
     neetCategory: validated.input.category,
     domicileState: validated.input.stateSlug,
     consent: payload.consent,
+    consentWhatsapp: payload.consentWhatsapp === true,
     rawPayload: { input: validated.input },
   });
   if (!leadSaved.success) {
@@ -153,6 +155,7 @@ export async function completeRankPredictorProfileAction(payload: {
   leadName: string;
   leadStateSlug: string;
   leadCity: string;
+  consentWhatsapp?: boolean;
 }): Promise<ActionResult<RankPredictorUnlockedResult>> {
   const validated = validateRankPredictorInput(payload.input);
   if (!validated.ok) {
@@ -206,6 +209,7 @@ export async function completeRankPredictorProfileAction(payload: {
     city: leadCity,
     targetStates: leadStateSlug,
     consent: true,
+    consentWhatsapp: payload.consentWhatsapp === true,
     rawPayload: { input: validated.input },
   });
 

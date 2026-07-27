@@ -1,8 +1,9 @@
 import "server-only";
 
-import { Prisma } from "@prisma/client";
+import { LeadNotificationStatus, Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db/prisma";
 import { isLeadConsentGranted } from "@/lib/leads/consent";
+import { parsePhoneToE164 } from "@/lib/leads/normalize-phone-e164";
 import { notifyEmailNewLead } from "@/lib/leads/notify-email-new-lead";
 import { notifySlackNewLead } from "@/lib/leads/notify-slack-new-lead";
 import { requirePhoneVerifiedForLead } from "@/lib/leads/require-phone-verified";
@@ -27,6 +28,21 @@ export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult
 
   const consent = isLeadConsentGranted(input.consent);
   const now = consent ? new Date() : null;
+  const consentWhatsapp = input.consentWhatsapp === true;
+
+  let phoneE164: string | null = null;
+  if (input.phone) {
+    const parsed = parsePhoneToE164(input.countryCode, input.phone);
+    if (!parsed.ok) {
+      return { success: false, error: parsed.error };
+    }
+    phoneE164 = parsed.e164;
+  }
+
+  const notificationStatus =
+    consentWhatsapp && phoneE164
+      ? LeadNotificationStatus.PENDING
+      : LeadNotificationStatus.SKIPPED_NO_CONSENT;
 
   try {
     const lead = await prisma.lead.create({
@@ -38,6 +54,7 @@ export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult
         name: input.name ?? null,
         countryCode: input.countryCode ?? "+91",
         phone: input.phone ?? null,
+        phoneE164,
         email: input.email ?? null,
         neetScore: input.neetScore ?? null,
         neetCategory: input.neetCategory ?? null,
@@ -50,6 +67,9 @@ export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult
         topics: input.topics?.length ? input.topics : undefined,
         consent,
         consentAt: now,
+        consentWhatsapp,
+        consentWhatsappAt: consentWhatsapp ? new Date() : null,
+        notificationStatus,
         rawPayload: input.rawPayload
           ? (input.rawPayload as Prisma.InputJsonValue)
           : undefined,

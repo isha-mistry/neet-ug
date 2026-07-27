@@ -83,6 +83,7 @@ export async function verifyCutoffAnalyserOtpAction(payload: {
   countryCode?: string;
   phone?: string;
   consent: boolean;
+  consentWhatsapp?: boolean;
   input: CutoffAnalyserFormInput;
   trustedSession?: boolean;
 }): Promise<ActionResult<{ phoneVerified: true }>> {
@@ -136,6 +137,7 @@ export async function verifyCutoffAnalyserOtpAction(payload: {
     neetCategory: validated.input.category,
     domicileState: validated.input.domicileState,
     consent: payload.consent,
+    consentWhatsapp: payload.consentWhatsapp === true,
     rawPayload: { input: validated.input },
   });
   if (!leadSaved.success) {
@@ -150,6 +152,7 @@ export async function completeCutoffAnalyserProfileAction(payload: {
   leadName: string;
   leadStateSlug: string;
   leadCity: string;
+  consentWhatsapp?: boolean;
 }): Promise<ActionResult<CutoffAnalyserUnlockedResult>> {
   const validated = validateCutoffAnalyserInput(payload.input);
   if (!validated.ok) {
@@ -200,6 +203,7 @@ export async function completeCutoffAnalyserProfileAction(payload: {
     city: leadCity,
     targetStates: leadStateSlug,
     consent: true,
+    consentWhatsapp: payload.consentWhatsapp === true,
     rawPayload: { input: validated.input },
   });
 

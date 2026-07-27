@@ -111,5 +111,12 @@ export async function listAdminLeads(
 }
 
 export async function getAdminLeadById(id: string) {
-  return prisma.lead.findUnique({ where: { id } });
+  return prisma.lead.findUnique({
+    where: { id },
+    include: {
+      notificationLogs: {
+        orderBy: { createdAt: "desc" },
+      },
+    },
+  });
 }

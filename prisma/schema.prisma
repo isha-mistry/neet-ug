@@ -162,36 +162,84 @@ model Cutoff {
   @@schema("app")
 }
 
+enum LeadNotificationStatus {
+  PENDING
+  IN_PROGRESS
+  SENT
+  FAILED
+  SKIPPED_NO_CONSENT
+
+  @@schema("app")
+}
+
+enum NotificationChannel {
+  whatsapp
+  sms
+
+  @@schema("app")
+}
+
+enum NotificationAttemptStatus {
+  sent
+  failed
+
+  @@schema("app")
+}
+
 model Lead {
-  id            String    @id @default(cuid())
-  createdAt     DateTime  @default(now()) @map("created_at")
-  formType      String    @map("form_type")
-  status        String    @default("new")
-  pagePath      String?   @map("page_path")
-  pageLabel     String?   @map("page_label")
-  variant       String?
-  name          String?
-  countryCode   String?   @default("+91") @map("country_code")
-  phone         String?
-  email         String?
-  neetScore     Int?      @map("neet_score")
-  neetCategory  String?   @map("neet_category")
-  domicileState String?   @map("domicile_state")
-  targetStates  String?   @map("target_states")
-  city          String?
-  queryType     String?   @map("query_type")
-  message       String?
-  preferredSlot String?   @map("preferred_slot")
-  topics        Json?
-  consent       Boolean   @default(false)
-  consentAt     DateTime? @map("consent_at")
-  rawPayload    Json?     @map("raw_payload")
+  id                      String                 @id @default(cuid())
+  createdAt               DateTime               @default(now()) @map("created_at")
+  formType                String                 @map("form_type")
+  status                  String                 @default("new")
+  pagePath                String?                @map("page_path")
+  pageLabel               String?                @map("page_label")
+  variant                 String?
+  name                    String?
+  countryCode             String?                @default("+91") @map("country_code")
+  phone                   String?
+  phoneE164               String?                @map("phone_e164")
+  email                   String?
+  neetScore               Int?                   @map("neet_score")
+  neetCategory            String?                @map("neet_category")
+  domicileState           String?                @map("domicile_state")
+  targetStates            String?                @map("target_states")
+  city                    String?
+  queryType               String?                @map("query_type")
+  message                 String?
+  preferredSlot           String?                @map("preferred_slot")
+  topics                  Json?
+  consent                 Boolean                @default(false)
+  consentAt               DateTime?              @map("consent_at")
+  consentWhatsapp         Boolean                @default(false) @map("consent_whatsapp")
+  consentWhatsappAt       DateTime?              @map("consent_whatsapp_at")
+  notificationStatus      LeadNotificationStatus @default(PENDING) @map("notification_status")
+  notificationClaimedAt   DateTime?              @map("notification_claimed_at")
+  rawPayload              Json?                  @map("raw_payload")
+  notificationLogs        NotificationLog[]
 
   @@index([createdAt(sort: Desc)])
   @@index([formType])
   @@index([status])
   @@index([phone])
+  @@index([notificationStatus, consentWhatsapp, createdAt])
   @@map("leads")
+  @@schema("app")
+}
+
+model NotificationLog {
+  id            String                    @id @default(cuid())
+  leadId        String                    @map("lead_id")
+  channel       NotificationChannel
+  provider      String
+  status        NotificationAttemptStatus
+  errorMsg      String?                   @map("error_msg")
+  providerMsgId String?                   @map("provider_msg_id")
+  payload       Json?
+  createdAt     DateTime                  @default(now()) @map("created_at")
+  lead          Lead                      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([leadId, createdAt(sort: Desc)])
+  @@map("notification_logs")
   @@schema("app")
 }
 

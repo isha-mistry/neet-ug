@@ -13,9 +13,14 @@ import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
 import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
+import {
+  LeadWhatsappConsentField,
+  useLeadWhatsappConsent,
+} from "@/components/features/leads/LeadWhatsappConsentField";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
+import { useTurnstileToken } from "@/components/common/useTurnstileToken";
 import { JourneyLeadModal } from "./JourneyLeadModal";
 import { SeatRadarLeadModal } from "./SeatRadarLeadModal";
 import { SeatRadarResultCta } from "./SeatRadarResultCta";
@@ -212,8 +217,9 @@ export function PlaybookForm() {
   const [name, setName] = useState("");
   const [countryCode, setCountryCode] = useState("+91");
   const [phone, setPhone] = useState("");
-  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
+  const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
   const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
+  const { consentWhatsapp, whatsappFieldProps } = useLeadWhatsappConsent();
   const {
     otp,
     setOtp,
@@ -224,7 +230,13 @@ export function PlaybookForm() {
     sendOtp,
     verifyOtp,
     ensureVerified,
-  } = useLeadPhoneOtp({ phone, countryCode, captchaToken, setError });
+  } = useLeadPhoneOtp({
+    phone,
+    countryCode,
+    captchaToken,
+    setError,
+    onCaptchaConsumed: refreshCaptcha,
+  });
   const formRef = useRef<HTMLFormElement>(null);
   const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
     active: !sent,
@@ -260,6 +272,11 @@ export function PlaybookForm() {
       setError(LEAD_CONSENT_ERROR);
       return;
     }
+    if (!captchaToken) {
+      setError("Security check is still loading. Please wait a moment and try again.");
+      refreshCaptcha();
+      return;
+    }
 
     startTransition(async () => {
       const verified = await ensureVerified();
@@ -273,12 +290,14 @@ export function PlaybookForm() {
         countryCode,
         phone: digits,
         consent: canSubmit,
+        consentWhatsapp,
         captchaToken,
         rawPayload: {
           pageSection: JOURNEY_PLAYBOOK_AFTER_SUBMIT.pageSection,
           funnel: "playbook_download",
         },
       });
+      refreshCaptcha();
 
       if (!saved.success) {
         setError(saved.error);
@@ -340,12 +359,18 @@ export function PlaybookForm() {
               {error}
             </p>
           ) : null}
-          <TurnstileCaptcha onVerify={setCaptchaToken} />
+          <TurnstileCaptcha {...turnstileProps} />
           <LeadConsentField
             id="playbook-consent"
             skin="dark"
             disabled={pending}
             {...consentFieldProps}
+          />
+          <LeadWhatsappConsentField
+            id="playbook-consent-whatsapp"
+            skin="dark"
+            disabled={pending}
+            {...whatsappFieldProps}
           />
           <button
             className="btn lead-form-submit"

@@ -14,10 +14,15 @@ import {
 import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
 import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
+import {
+  LeadWhatsappConsentField,
+  useLeadWhatsappConsent,
+} from "@/components/features/leads/LeadWhatsappConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { cn } from "@/lib/utils";
 import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
+import { useTurnstileToken } from "@/components/common/useTurnstileToken";
 
 interface FreeCounsellingLeadFormProps {
   /** Shown in the WhatsApp message for attribution (e.g. "MBBS in Gujarat"). */
@@ -73,8 +78,13 @@ export function FreeCounsellingLeadForm({
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
+  const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
   const { consent, canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
+  const {
+    consentWhatsapp,
+    resetWhatsappConsent,
+    whatsappFieldProps,
+  } = useLeadWhatsappConsent();
   const {
     otp,
     setOtp,
@@ -86,7 +96,13 @@ export function FreeCounsellingLeadForm({
     verifyOtp,
     ensureVerified,
     resetPhoneOtp,
-  } = useLeadPhoneOtp({ phone, countryCode, captchaToken, setError });
+  } = useLeadPhoneOtp({
+    phone,
+    countryCode,
+    captchaToken,
+    setError,
+    onCaptchaConsumed: refreshCaptcha,
+  });
   const showEmail = fields === "default";
   const stackedPhone = fields === "name-phone-only";
   const useRankPredictorFields = variant === "embedded" && stackedPhone;
@@ -127,6 +143,11 @@ export function FreeCounsellingLeadForm({
       setError(phoneVerified ? LEAD_CONSENT_ERROR : "Verify your mobile number with OTP first.");
       return;
     }
+    if (!captchaToken) {
+      setError("Security check is still loading. Please wait a moment and try again.");
+      refreshCaptcha();
+      return;
+    }
 
     startTransition(async () => {
       try {
@@ -142,9 +163,11 @@ export function FreeCounsellingLeadForm({
           phone: digits,
           email: mail || undefined,
           consent: canSubmit,
+          consentWhatsapp,
           captchaToken,
           rawPayload: { whatsappIntro },
         });
+        refreshCaptcha();
 
         if (!saved.success) {
           setError(saved.error);
@@ -182,7 +205,9 @@ export function FreeCounsellingLeadForm({
         onClick={() => {
           setSubmitted(false);
           resetConsent();
+          resetWhatsappConsent();
           resetPhoneOtp();
+          refreshCaptcha();
         }}
       >
         Submit another request
@@ -346,13 +371,20 @@ export function FreeCounsellingLeadForm({
         </p>
       ) : null}
 
-      <TurnstileCaptcha onVerify={setCaptchaToken} />
+      <TurnstileCaptcha {...turnstileProps} />
 
       <LeadConsentField
         id={consentFieldId}
         skin={variant === "embedded" ? "embedded" : "surface"}
         disabled={pending}
         {...consentFieldProps}
+      />
+
+      <LeadWhatsappConsentField
+        id={`${consentFieldId}-whatsapp`}
+        skin={variant === "embedded" ? "embedded" : "surface"}
+        disabled={pending}
+        {...whatsappFieldProps}
       />
 
       <Button

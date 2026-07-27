@@ -146,6 +146,7 @@ export function validateSubmitLeadInput(raw: SubmitLeadInput): { ok: true; data:
       message: message || undefined,
       countryCode: raw.countryCode?.trim() || DEFAULT_COUNTRY_DIAL_CODE,
       consent: skipConsent ? false : isLeadConsentGranted(raw.consent),
+      consentWhatsapp: raw.consentWhatsapp === true,
     },
   };
 }

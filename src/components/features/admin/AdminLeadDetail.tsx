@@ -2,6 +2,16 @@
 
 import type { ReactNode } from "react";
 
+type NotificationLogDetail = {
+  id: string;
+  channel: string;
+  provider: string;
+  status: string;
+  errorMsg: string | null;
+  providerMsgId: string | null;
+  createdAt: string;
+};
+
 type LeadDetail = {
   id: string;
   createdAt: string;
@@ -13,6 +23,7 @@ type LeadDetail = {
   name: string | null;
   countryCode: string | null;
   phone: string | null;
+  phoneE164: string | null;
   email: string | null;
   neetScore: number | null;
   neetCategory: string | null;
@@ -25,7 +36,11 @@ type LeadDetail = {
   topics: unknown;
   consent: boolean;
   consentAt: string | null;
+  consentWhatsapp: boolean;
+  consentWhatsappAt: string | null;
+  notificationStatus: string;
   rawPayload: unknown;
+  notificationLogs?: NotificationLogDetail[];
 };
 
 function Field({
@@ -125,9 +140,10 @@ export function AdminLeadDetail({
               <Field
                 label="Phone"
                 value={
-                  lead.phone
+                  lead.phoneE164 ??
+                  (lead.phone
                     ? `${lead.countryCode || ""} ${lead.phone}`.trim()
-                    : null
+                    : null)
                 }
               />
               <Field label="Email" value={lead.email} />
@@ -158,6 +174,45 @@ export function AdminLeadDetail({
               <Field
                 label="Consent at"
                 value={formatDateTime(lead.consentAt)}
+              />
+              <Field
+                label="WhatsApp consent"
+                value={lead.consentWhatsapp ? "Yes" : "No"}
+              />
+              <Field
+                label="WhatsApp consent at"
+                value={formatDateTime(lead.consentWhatsappAt)}
+              />
+              <Field label="Notification status" value={lead.notificationStatus} />
+              <Field
+                label="Notification log"
+                value={
+                  lead.notificationLogs?.length ? (
+                    <ul className="space-y-2">
+                      {lead.notificationLogs.map((log) => (
+                        <li
+                          key={log.id}
+                          className="rounded-xl bg-surface-container-low p-3 text-xs leading-relaxed"
+                        >
+                          <p>
+                            {formatDateTime(log.createdAt)} · {log.channel} ·{" "}
+                            {log.provider} · {log.status}
+                          </p>
+                          {log.providerMsgId ? (
+                            <p className="mt-1 text-on-surface-variant">
+                              Provider ID: {log.providerMsgId}
+                            </p>
+                          ) : null}
+                          {log.errorMsg ? (
+                            <p className="mt-1 text-on-error-container">{log.errorMsg}</p>
+                          ) : null}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    "No attempts yet"
+                  )
+                }
               />
               <Field
                 label="Raw payload"

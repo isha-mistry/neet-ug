@@ -10,11 +10,16 @@ import { openCounselWhatsApp } from "@/lib/leads/whatsapp";
 import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
 import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
+import {
+  LeadWhatsappConsentField,
+  useLeadWhatsappConsent,
+} from "@/components/features/leads/LeadWhatsappConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
 import { FormPanel } from "@/components/features/rank-predictor/RankPredictorParts";
 import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
+import { useTurnstileToken } from "@/components/common/useTurnstileToken";
 
 const CATEGORY_OPTIONS = ["General", "OBC", "SC", "ST", "EWS"];
 
@@ -29,8 +34,9 @@ export function PredictorLeadSection() {
   const [category, setCategory] = useState("General");
   const [domicile, setDomicile] = useState("Maharashtra");
   const [error, setError] = useState<string | null>(null);
-  const [captchaToken, setCaptchaToken] = useState<string | undefined>();
+  const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
   const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
+  const { consentWhatsapp, whatsappFieldProps } = useLeadWhatsappConsent();
   const {
     otp,
     setOtp,
@@ -41,7 +47,13 @@ export function PredictorLeadSection() {
     sendOtp,
     verifyOtp,
     ensureVerified,
-  } = useLeadPhoneOtp({ phone, countryCode, captchaToken, setError });
+  } = useLeadPhoneOtp({
+    phone,
+    countryCode,
+    captchaToken,
+    setError,
+    onCaptchaConsumed: refreshCaptcha,
+  });
   const formRef = useRef<HTMLFormElement>(null);
   const submitReady = useLeadFormSubmitGate(formRef, canSubmit, {
     validateExtras: () => {
@@ -86,6 +98,11 @@ export function PredictorLeadSection() {
       setError(LEAD_CONSENT_ERROR);
       return;
     }
+    if (!captchaToken) {
+      setError("Security check is still loading. Please wait a moment and try again.");
+      refreshCaptcha();
+      return;
+    }
 
     startTransition(async () => {
       const verified = await ensureVerified();
@@ -102,8 +119,10 @@ export function PredictorLeadSection() {
         neetCategory: category,
         domicileState: domicile,
         consent: canSubmit,
+        consentWhatsapp,
         captchaToken,
       });
+      refreshCaptcha();
 
       if (!saved.success) {
         setError(saved.error);
@@ -261,13 +280,20 @@ export function PredictorLeadSection() {
                   </p>
                 )}
 
-                <TurnstileCaptcha onVerify={setCaptchaToken} />
+                <TurnstileCaptcha {...turnstileProps} />
 
                 <LeadConsentField
                   id="predictor-gate-consent"
                   skin="embedded"
                   disabled={pending}
                   {...consentFieldProps}
+                />
+
+                <LeadWhatsappConsentField
+                  id="predictor-gate-consent-whatsapp"
+                  skin="embedded"
+                  disabled={pending}
+                  {...whatsappFieldProps}
                 />
 
                 <button

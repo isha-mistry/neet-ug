@@ -71,6 +71,7 @@ export async function verifyCollegePredictorOtpAction(payload: {
   countryCode?: string;
   phone?: string;
   consent: boolean;
+  consentWhatsapp?: boolean;
   input: CollegePredictorFormInput;
   trustedSession?: boolean;
 }): Promise<ActionResult<{ phoneVerified: true }>> {
@@ -124,6 +125,7 @@ export async function verifyCollegePredictorOtpAction(payload: {
     neetCategory: validated.input.category,
     domicileState: validated.input.stateSlug,
     consent: payload.consent,
+    consentWhatsapp: payload.consentWhatsapp === true,
     rawPayload: { input: validated.input },
   });
   if (!leadSaved.success) {
@@ -138,6 +140,7 @@ export async function completeCollegePredictorProfileAction(payload: {
   leadName: string;
   leadStateSlug: string;
   leadCity: string;
+  consentWhatsapp?: boolean;
 }): Promise<ActionResult<CollegePredictorUnlockedResult>> {
   const validated = validateCollegePredictorInput(payload.input);
   if (!validated.ok) {
@@ -188,6 +191,7 @@ export async function completeCollegePredictorProfileAction(payload: {
     city: leadCity,
     targetStates: leadStateSlug,
     consent: true,
+    consentWhatsapp: payload.consentWhatsapp === true,
     rawPayload: { input: validated.input },
   });
 
