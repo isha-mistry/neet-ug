@@ -42,6 +42,7 @@ export function resolveWhatsAppMessage(
         fileName: spec.fileName,
         caption: spec.caption?.(ctx),
         mimeType: spec.mimeType ?? "application/pdf",
+        localPath: spec.localPath,
       };
     case "image":
       return {

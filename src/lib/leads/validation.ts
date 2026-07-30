@@ -62,10 +62,31 @@ export function validateSubmitLeadInput(raw: SubmitLeadInput): { ok: true; data:
         return { ok: false, error: "Enter a valid WhatsApp number." };
       }
       break;
-    case LEAD_FORM_TYPES.journeyModal:
+    case LEAD_FORM_TYPES.journeyModal: {
       if (name.length < 2) return { ok: false, error: "Enter student name." };
       if (phone.length < 10) return { ok: false, error: "Enter a valid WhatsApp number." };
+      const planVariants = new Set(["essentials", "expert", "premium"]);
+      if (raw.variant && planVariants.has(raw.variant)) {
+        if (raw.neetScore == null || raw.neetScore < 0 || raw.neetScore > 720) {
+          return { ok: false, error: "Enter a valid NEET score between 0 and 720." };
+        }
+        if (!raw.neetCategory?.trim()) {
+          return { ok: false, error: "Select your category." };
+        }
+        if (!raw.domicileState?.trim()) {
+          return { ok: false, error: "Select your domicile state." };
+        }
+        const quota =
+          (typeof raw.rawPayload?.quota === "string" && raw.rawPayload.quota.trim()) ||
+          (typeof raw.rawPayload?.quotaInterest === "string" &&
+            raw.rawPayload.quotaInterest.trim()) ||
+          "";
+        if (!quota) {
+          return { ok: false, error: "Select a counselling quota." };
+        }
+      }
       break;
+    }
     case LEAD_FORM_TYPES.rankPredictor:
       if (raw.variant === "estimate_only") {
         if (raw.neetScore == null || raw.neetScore < 0 || raw.neetScore > 720) {
@@ -146,7 +167,6 @@ export function validateSubmitLeadInput(raw: SubmitLeadInput): { ok: true; data:
       message: message || undefined,
       countryCode: raw.countryCode?.trim() || DEFAULT_COUNTRY_DIAL_CODE,
       consent: skipConsent ? false : isLeadConsentGranted(raw.consent),
-      consentWhatsapp: raw.consentWhatsapp === true,
     },
   };
 }

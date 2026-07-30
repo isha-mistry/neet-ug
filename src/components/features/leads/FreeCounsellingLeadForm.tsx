@@ -14,10 +14,6 @@ import {
 import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
 import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
-import {
-  LeadWhatsappConsentField,
-  useLeadWhatsappConsent,
-} from "@/components/features/leads/LeadWhatsappConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { cn } from "@/lib/utils";
@@ -80,11 +76,6 @@ export function FreeCounsellingLeadForm({
   const [submitted, setSubmitted] = useState(false);
   const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
   const { consent, canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
-  const {
-    consentWhatsapp,
-    resetWhatsappConsent,
-    whatsappFieldProps,
-  } = useLeadWhatsappConsent();
   const {
     otp,
     setOtp,
@@ -163,7 +154,6 @@ export function FreeCounsellingLeadForm({
           phone: digits,
           email: mail || undefined,
           consent: canSubmit,
-          consentWhatsapp,
           captchaToken,
           rawPayload: { whatsappIntro },
         });
@@ -205,7 +195,6 @@ export function FreeCounsellingLeadForm({
         onClick={() => {
           setSubmitted(false);
           resetConsent();
-          resetWhatsappConsent();
           resetPhoneOtp();
           refreshCaptcha();
         }}
@@ -378,13 +367,6 @@ export function FreeCounsellingLeadForm({
         skin={variant === "embedded" ? "embedded" : "surface"}
         disabled={pending}
         {...consentFieldProps}
-      />
-
-      <LeadWhatsappConsentField
-        id={`${consentFieldId}-whatsapp`}
-        skin={variant === "embedded" ? "embedded" : "surface"}
-        disabled={pending}
-        {...whatsappFieldProps}
       />
 
       <Button

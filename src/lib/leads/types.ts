@@ -43,7 +43,6 @@ export type SubmitLeadInput = {
   preferredSlot?: string;
   topics?: string[];
   consent?: boolean;
-  consentWhatsapp?: boolean;
   captchaToken?: string;
   rawPayload?: Record<string, unknown>;
 };

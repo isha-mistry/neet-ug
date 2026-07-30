@@ -8,6 +8,7 @@ import {
   computeTeaserResult,
   computeUnlockedResult,
 } from "@/lib/college-predictor/compute";
+import { findPurchasedPlanEntitlement } from "@/lib/college-predictor/plan-entitlement";
 
 export const metadata: Metadata = buildMetadata({
   title: "NEET College Predictor",
@@ -24,6 +25,15 @@ export default async function CollegePredictorPage() {
     ? await computeTeaserResult(session)
     : initialUnlocked;
 
+  const initialCanExportExcel = session
+    ? (
+        await findPurchasedPlanEntitlement({
+          phone: session.phone,
+          countryCode: session.countryCode,
+        })
+      ).entitled
+    : false;
+
   const states = await getAllStates();
   const stateOptions = states.map((state) => ({
     value: state.slug,
@@ -38,7 +48,7 @@ export default async function CollegePredictorPage() {
       initialSession={session}
       initialTeaser={initialTeaser}
       initialUnlocked={initialUnlocked}
+      initialCanExportExcel={initialCanExportExcel}
     />
   );
 }
-

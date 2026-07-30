@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   adminFetch,
@@ -37,6 +38,7 @@ type LeadRow = {
   consentWhatsapp: boolean;
   consentWhatsappAt: string | null;
   notificationStatus: string;
+  planPurchasedAt: string | null;
   rawPayload: unknown;
   notificationLogs?: {
     id: string;
@@ -217,13 +219,27 @@ export function AdminLeadsView() {
             All form submissions. Search and filter by type, status, or date.
           </p>
         </div>
-        <button
-          type="button"
-          onClick={logout}
-          className="rounded-xl border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-primary-fixed"
-        >
-          Log out
-        </button>
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href="/admin/plans"
+            className="rounded-xl border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-primary-fixed"
+          >
+            Plans
+          </Link>
+          <Link
+            href="/admin/whatsapp"
+            className="rounded-xl border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-primary-fixed"
+          >
+            WhatsApp
+          </Link>
+          <button
+            type="button"
+            onClick={logout}
+            className="rounded-xl border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-primary-fixed"
+          >
+            Log out
+          </button>
+        </div>
       </header>
 
       <section className="grid gap-3 rounded-2xl border border-outline-variant bg-surface-container-low/40 p-4 sm:grid-cols-2 lg:grid-cols-6">
@@ -445,6 +461,9 @@ export function AdminLeadsView() {
           onClose={() => {
             setSelectedId(null);
             setSelectedLead(null);
+          }}
+          onLeadUpdated={(updated) => {
+            setSelectedLead(updated);
           }}
         />
       ) : null}

@@ -1,5 +1,10 @@
 import { LEAD_FORM_TYPES, type LeadFormType } from "@/lib/leads/types";
 import type { LeadMessageContext, NotificationMessageSpec } from "./types";
+import {
+  getPlaybookPdfUrl,
+  PLAYBOOK_FILE_NAME,
+  PLAYBOOK_PUBLIC_PATH,
+} from "./playbook-asset";
 
 function greeting(ctx: LeadMessageContext): string {
   const name = ctx.name?.trim();
@@ -12,7 +17,7 @@ function line(label: string, value: string | number | null | undefined): string 
   return text ? `${label}: ${text}` : null;
 }
 
-/** Shared profile lines pulled from whatever the form collected. */
+/** Profile fields the user shared — never page path, label, or traffic source. */
 function profileLines(ctx: LeadMessageContext): string[] {
   return [
     line("NEET score", ctx.neetScore),
@@ -20,9 +25,7 @@ function profileLines(ctx: LeadMessageContext): string[] {
     line("Domicile state", ctx.domicileState),
     line("Target states", ctx.targetStates),
     line("City", ctx.city),
-    line("Query type", ctx.queryType),
     line("Preferred slot", ctx.preferredSlot),
-    line("Page", ctx.pageLabel),
   ].filter((value): value is string => Boolean(value));
 }
 
@@ -128,7 +131,7 @@ const REGISTRY: Record<LeadFormType, NotificationMessageSpec> = {
     text: (ctx) =>
       withProfile(
         [
-          `${greeting(ctx)} thank you for asking for counselling glossary help on Dravio.`,
+          `${greeting(ctx)} thank you for asking for counselling glossary help.`,
         ],
         ctx,
         [
@@ -141,16 +144,14 @@ const REGISTRY: Record<LeadFormType, NotificationMessageSpec> = {
     kind: "text",
     text: (ctx) => {
       const parts = [
-        `${greeting(ctx)} we received your enquiry on Dravio.`,
+        `${greeting(ctx)} we received your enquiry.`,
         ctx.queryType?.trim()
           ? `Topic: ${ctx.queryType.trim()}`
           : null,
         ctx.message?.trim()
           ? `Your message:\n${ctx.message.trim()}`
           : null,
-        ...profileLines(ctx).filter(
-          (l) => !l.startsWith("Query type:"),
-        ),
+        ...profileLines(ctx),
         "Our team will reply on WhatsApp as soon as possible.",
       ].filter(Boolean);
       return parts.join("\n\n");
@@ -162,32 +163,27 @@ const REGISTRY: Record<LeadFormType, NotificationMessageSpec> = {
     text: (ctx) =>
       withProfile(
         [
-          `${greeting(ctx)} your callback request on Dravio is confirmed.`,
+          `${greeting(ctx)} your callback request is confirmed.`,
         ],
         ctx,
         [
-          "A counsellor will call you on WhatsApp during your preferred time window.",
+          "A counsellor will call you during your preferred time window.",
         ],
       ),
   },
 
   [LEAD_FORM_TYPES.journeyModal]: {
     kind: "text",
-    text: (ctx) => {
-      const planHint = ctx.variant?.trim()
-        ? `Plan / source: ${ctx.variant.trim()}`
-        : null;
-      return withProfile(
+    text: (ctx) =>
+      withProfile(
         [
           `${greeting(ctx)} thank you for starting your MBBS journey counselling request with Dravio.`,
-          planHint,
-        ].filter(Boolean) as string[],
+        ],
         ctx,
         [
           "Our team will review your details and guide you on WhatsApp.",
         ],
-      );
-    },
+      ),
   },
 
   [LEAD_FORM_TYPES.predictorGate]: {
@@ -195,7 +191,7 @@ const REGISTRY: Record<LeadFormType, NotificationMessageSpec> = {
     text: (ctx) =>
       withProfile(
         [
-          `${greeting(ctx)} your college matcher request on Dravio is saved.`,
+          `${greeting(ctx)} your college matcher request is saved.`,
           "We will help you explore safe, borderline, and reach medical colleges.",
         ],
         ctx,
@@ -207,111 +203,76 @@ const REGISTRY: Record<LeadFormType, NotificationMessageSpec> = {
 
   [LEAD_FORM_TYPES.neetContentMagnet]: {
     kind: "text",
-    text: (ctx) => {
-      const variantLabel =
-        ctx.variant === "email-guide"
-          ? "NEET guide / email request"
-          : ctx.variant === "phone-whatsapp"
-            ? "WhatsApp counselling request"
-            : ctx.variant === "whatsapp-alerts"
-              ? "WhatsApp alerts subscription"
-              : ctx.variant?.trim() || "NEET content request";
-
-      return withProfile(
+    text: (ctx) =>
+      withProfile(
         [
-          `${greeting(ctx)} thank you for your ${variantLabel} on Dravio.`,
+          `${greeting(ctx)} thank you for your interest in NEET UG guidance from Dravio.`,
         ],
         ctx,
         [
-          "We will share the relevant NEET UG guidance with you on WhatsApp.",
+          "We will share the relevant materials and next steps with you on WhatsApp.",
         ],
-      );
-    },
+      ),
   },
 
   [LEAD_FORM_TYPES.rankPredictor]: {
     kind: "text",
-    text: (ctx) => {
-      const stage =
-        ctx.variant === "estimate_only"
-          ? "rank estimate"
-          : ctx.variant === "phone_verified"
-            ? "rank prediction (phone verified)"
-            : ctx.variant === "profile_complete"
-              ? "full rank prediction profile"
-              : "NEET rank prediction";
-
-      return withProfile(
+    text: (ctx) =>
+      withProfile(
         [
-          `${greeting(ctx)} your ${stage} is saved on Dravio.`,
+          `${greeting(ctx)} your NEET rank prediction details are saved with Dravio.`,
         ],
         ctx,
         [
-          "Open the rank predictor anytime to refine inputs. Our team can also help interpret your result on WhatsApp.",
+          "Our team can help you interpret your result and plan next steps on WhatsApp.",
         ],
-      );
-    },
+      ),
   },
 
   [LEAD_FORM_TYPES.collegePredictor]: {
     kind: "text",
-    text: (ctx) => {
-      const stage =
-        ctx.variant === "estimate_only"
-          ? "college predictor summary"
-          : ctx.variant === "phone_verified"
-            ? "college predictor (phone verified)"
-            : ctx.variant === "profile_complete"
-              ? "unlocked college predictor profile"
-              : "college predictor session";
-
-      return withProfile(
+    text: (ctx) =>
+      withProfile(
         [
-          `${greeting(ctx)} your ${stage} is saved on Dravio.`,
+          `${greeting(ctx)} your college predictor details are saved with Dravio.`,
           "We can help you map AIR and category to realistic MBBS options.",
         ],
         ctx,
         [
           "A counsellor will share college shortlisting guidance on WhatsApp.",
         ],
-      );
-    },
+      ),
   },
 
   [LEAD_FORM_TYPES.cutoffAnalyser]: {
     kind: "text",
-    text: (ctx) => {
-      const stage =
-        ctx.variant === "estimate_only"
-          ? "cutoff analysis summary"
-          : ctx.variant === "phone_verified"
-            ? "cutoff analysis (phone verified)"
-            : ctx.variant === "profile_complete"
-              ? "full cutoff analysis profile"
-              : "cutoff analysis";
-
-      return withProfile(
+    text: (ctx) =>
+      withProfile(
         [
-          `${greeting(ctx)} your ${stage} is saved on Dravio.`,
+          `${greeting(ctx)} your cutoff analysis details are saved with Dravio.`,
         ],
         ctx,
         [
           "Our team can help you read closing ranks and plan counselling choices on WhatsApp.",
         ],
-      );
-    },
+      ),
   },
 
   [LEAD_FORM_TYPES.homePlaybook]: {
-    kind: "text",
-    text: (ctx) =>
+    kind: "document",
+    url: () => getPlaybookPdfUrl(),
+    localPath: PLAYBOOK_PUBLIC_PATH,
+    fileName: PLAYBOOK_FILE_NAME,
+    mimeType: "application/pdf",
+    caption: (ctx) =>
       withProfile(
         [
           `${greeting(ctx)} thank you for requesting the Dravio MBBS counselling playbook.`,
+          "Your NEET 2026 MBBS Counselling Playbook is attached.",
         ],
         ctx,
         [
-          "We will share the playbook and follow-up guidance with you on WhatsApp.",
+          "Reply here if you need help with the next counselling steps.",
         ],
       ),
   },

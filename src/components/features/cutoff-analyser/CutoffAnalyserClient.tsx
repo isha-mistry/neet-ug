@@ -25,7 +25,6 @@ import { Container } from "@/components/common/Container";
 import { DataSourceNotice } from "@/components/common/DataSourceNotice";
 import { ToolCallout } from "@/components/features/predictors/PredictorToolParts";
 import { LeadConsentField } from "@/components/features/leads/LeadConsentField";
-import { LeadWhatsappConsentField } from "@/components/features/leads/LeadWhatsappConsentField";
 import { PhoneNumberField } from "@/components/features/leads/PhoneNumberField";
 import { applyPredictorPhoneVerification } from "@/components/features/predictors/predictor-phone-verify";
 import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
@@ -166,7 +165,6 @@ export function CutoffAnalyserClient({
   const [countryCode, setCountryCode] = useState(initialSession?.countryCode ?? "+91");
   const [otp, setOtp] = useState("");
   const [consent, setConsent] = useState(false);
-  const [consentWhatsapp, setConsentWhatsapp] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otpSending, setOtpSending] = useState(false);
   const [phoneSessionTrusted, setPhoneSessionTrusted] = useState(false);
@@ -332,7 +330,6 @@ export function CutoffAnalyserClient({
         phone,
         countryCode,
         consent,
-        consentWhatsapp,
         trustedSession,
         otp,
         setError,
@@ -349,7 +346,6 @@ export function CutoffAnalyserClient({
             countryCode: payload.countryCode,
             otp: payload.otp,
             consent: payload.consent,
-            consentWhatsapp: payload.consentWhatsapp,
             trustedSession: payload.trustedSession,
           });
           return verifyResult.success
@@ -359,7 +355,7 @@ export function CutoffAnalyserClient({
         onVerified: () => setVerifyPhase("profile"),
       });
     },
-    [buildInput, phone, countryCode, consent, consentWhatsapp, otp],
+    [buildInput, phone, countryCode, consent, otp],
   );
 
   const handleSendOtp = () => {
@@ -438,7 +434,6 @@ export function CutoffAnalyserClient({
         leadName: leadName.trim(),
         leadStateSlug,
         leadCity: leadCity.trim(),
-        consentWhatsapp,
       });
       if (!profileResult.success) {
         setError(profileResult.error);
@@ -1203,13 +1198,6 @@ export function CutoffAnalyserClient({
                   onChange={(e) => setConsent(e.target.checked)}
                   disabled={pending}
                   disclaimer="I understand this is not official MCC/NTA allotment data."
-                />
-                <LeadWhatsappConsentField
-                  id="cutoff-analyser-consent-whatsapp"
-                  skin="embedded"
-                  checked={consentWhatsapp}
-                  onChange={(e) => setConsentWhatsapp(e.target.checked)}
-                  disabled={pending}
                 />
                 {error ? (
                   <p

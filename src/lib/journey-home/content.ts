@@ -230,19 +230,19 @@ export const JOURNEY_PACKAGE_CTAS = {
     buttonLabel: "Get Essentials",
     introLine: "Hi Dravio, I'm interested in the Essentials plan (home page).",
     modalLede:
-      "Share your details for tool access — we'll follow up on WhatsApp with next steps.",
+      "Share your NEET profile for Essentials — our team confirms purchase offline, then sends checklist, alerts, and predictor access on WhatsApp.",
   },
   expert: {
     buttonLabel: "Book Expert counselling",
     introLine: "Hi Dravio, I'd like to book Expert counselling (home page).",
     modalLede:
-      "Tell us about the student and target states — we'll confirm your Expert counselling slot on WhatsApp.",
+      "Tell us about the student and targets — after offline confirmation we'll send plan materials on WhatsApp.",
   },
   premium: {
     buttonLabel: "Discuss Premium support",
     introLine: "Hi Dravio, I'd like to discuss Premium support (home page).",
     modalLede:
-      "Brief enquiry for complex cases — we'll follow up on WhatsApp about quota and target states.",
+      "Share your profile and quota interest — after offline confirmation we'll send plan materials on WhatsApp.",
   },
 } as const;
 

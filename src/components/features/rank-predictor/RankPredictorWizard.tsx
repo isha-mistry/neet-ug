@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
 import { LeadConsentField } from "@/components/features/leads/LeadConsentField";
-import { LeadWhatsappConsentField } from "@/components/features/leads/LeadWhatsappConsentField";
 import {
   CollegePredictorBanner,
   FormPanel,
@@ -99,7 +98,6 @@ export function RankPredictorWizard({
   const [countryCode, setCountryCode] = useState(initialSession?.countryCode ?? "+91");
   const [otp, setOtp] = useState("");
   const [consent, setConsent] = useState(false);
-  const [consentWhatsapp, setConsentWhatsapp] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otpSending, setOtpSending] = useState(false);
   const [phoneSessionTrusted, setPhoneSessionTrusted] = useState(false);
@@ -163,7 +161,6 @@ export function RankPredictorWizard({
         phone,
         countryCode,
         consent,
-        consentWhatsapp,
         trustedSession,
         otp,
         setError,
@@ -180,7 +177,6 @@ export function RankPredictorWizard({
             countryCode: payload.countryCode,
             otp: payload.otp,
             consent: payload.consent,
-            consentWhatsapp: payload.consentWhatsapp,
             trustedSession: payload.trustedSession,
           });
           return result.success
@@ -190,7 +186,7 @@ export function RankPredictorWizard({
         onVerified: () => setVerifyPhase("profile"),
       });
     },
-    [buildInput, phone, countryCode, consent, consentWhatsapp, otp]
+    [buildInput, phone, countryCode, consent, otp]
   );
 
   const handleSendOtp = () => {
@@ -272,7 +268,6 @@ export function RankPredictorWizard({
         leadName: leadName.trim(),
         leadStateSlug: domicileStateSlug,
         leadCity: leadCity.trim(),
-        consentWhatsapp,
       });
       if (!result.success) {
         setError(result.error);
@@ -554,13 +549,6 @@ export function RankPredictorWizard({
                   onChange={(e) => setConsent(e.target.checked)}
                   disabled={pending}
                   disclaimer="I understand this is not official NTA data."
-                />
-                <LeadWhatsappConsentField
-                  id="rank-predictor-consent-whatsapp"
-                  skin="embedded"
-                  checked={consentWhatsapp}
-                  onChange={(e) => setConsentWhatsapp(e.target.checked)}
-                  disabled={pending}
                 />
                 {error ? (
                   <p

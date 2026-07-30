@@ -13,10 +13,6 @@ import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
 import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
-import {
-  LeadWhatsappConsentField,
-  useLeadWhatsappConsent,
-} from "@/components/features/leads/LeadWhatsappConsentField";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { TurnstileCaptcha } from "@/components/common/TurnstileCaptcha";
@@ -219,7 +215,6 @@ export function PlaybookForm() {
   const [phone, setPhone] = useState("");
   const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
   const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
-  const { consentWhatsapp, whatsappFieldProps } = useLeadWhatsappConsent();
   const {
     otp,
     setOtp,
@@ -290,7 +285,6 @@ export function PlaybookForm() {
         countryCode,
         phone: digits,
         consent: canSubmit,
-        consentWhatsapp,
         captchaToken,
         rawPayload: {
           pageSection: JOURNEY_PLAYBOOK_AFTER_SUBMIT.pageSection,
@@ -365,12 +359,6 @@ export function PlaybookForm() {
             skin="dark"
             disabled={pending}
             {...consentFieldProps}
-          />
-          <LeadWhatsappConsentField
-            id="playbook-consent-whatsapp"
-            skin="dark"
-            disabled={pending}
-            {...whatsappFieldProps}
           />
           <button
             className="btn lead-form-submit"

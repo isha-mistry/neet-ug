@@ -1,6 +1,8 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { adminFetch } from "@/lib/admin/client-session";
+import { getLeadPlanName, getLeadQuota, PACKAGE_PLAN_VARIANTS } from "@/lib/leads/plan-fields";
 
 type NotificationLogDetail = {
   id: string;
@@ -12,7 +14,7 @@ type NotificationLogDetail = {
   createdAt: string;
 };
 
-type LeadDetail = {
+export type AdminLeadDetailData = {
   id: string;
   createdAt: string;
   formType: string;
@@ -39,6 +41,7 @@ type LeadDetail = {
   consentWhatsapp: boolean;
   consentWhatsappAt: string | null;
   notificationStatus: string;
+  planPurchasedAt: string | null;
   rawPayload: unknown;
   notificationLogs?: NotificationLogDetail[];
 };
@@ -83,15 +86,116 @@ function formatDateTime(iso: string | null): string {
   });
 }
 
+const PACKAGE_VARIANTS = new Set<string>(PACKAGE_PLAN_VARIANTS);
+
 export function AdminLeadDetail({
   lead,
   loading,
   onClose,
+  onLeadUpdated,
 }: {
-  lead: LeadDetail | null;
+  lead: AdminLeadDetailData | null;
   loading: boolean;
   onClose: () => void;
+  onLeadUpdated?: (lead: AdminLeadDetailData) => void;
 }) {
+  const [actionBusy, setActionBusy] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [actionMessage, setActionMessage] = useState<string | null>(null);
+
+  const isPackageLead = Boolean(
+    lead?.variant && PACKAGE_VARIANTS.has(lead.variant),
+  );
+  const purchased = Boolean(lead?.planPurchasedAt);
+  const hasPhone = Boolean(lead?.phoneE164);
+  const canSend = isPackageLead && purchased && hasPhone;
+
+  async function markPurchased(next: boolean) {
+    if (!lead) return;
+    setActionBusy(true);
+    setActionError(null);
+    setActionMessage(null);
+    try {
+      const res = await adminFetch(
+        `/api/admin/leads/${lead.id}/plan-purchase`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({ purchased: next }),
+        },
+      );
+      const json = (await res.json()) as {
+        error?: string;
+        lead?: AdminLeadDetailData;
+      };
+      if (!res.ok) {
+        setActionError(json.error || "Failed to update purchase status");
+        return;
+      }
+      if (json.lead) onLeadUpdated?.(json.lead);
+      setActionMessage(
+        next ? "Plan marked as purchased." : "Purchase mark removed.",
+      );
+    } catch {
+      setActionError("Failed to update purchase status");
+    } finally {
+      setActionBusy(false);
+    }
+  }
+
+  async function resendWhatsApp() {
+    if (!lead) return;
+    setActionBusy(true);
+    setActionError(null);
+    setActionMessage(null);
+    try {
+      const res = await adminFetch(
+        `/api/admin/leads/${lead.id}/resend-whatsapp`,
+        { method: "POST" },
+      );
+      const json = (await res.json()) as {
+        error?: string;
+        lead?: AdminLeadDetailData;
+      };
+      if (json.lead) onLeadUpdated?.(json.lead);
+      if (!res.ok) {
+        setActionError(json.error || "Failed to send WhatsApp message");
+        return;
+      }
+      setActionMessage("WhatsApp message sent.");
+    } catch {
+      setActionError("Failed to send WhatsApp message");
+    } finally {
+      setActionBusy(false);
+    }
+  }
+
+  async function sendPlanInfo() {
+    if (!lead) return;
+    setActionBusy(true);
+    setActionError(null);
+    setActionMessage(null);
+    try {
+      const res = await adminFetch(
+        `/api/admin/leads/${lead.id}/send-plan-info`,
+        { method: "POST" },
+      );
+      const json = (await res.json()) as {
+        error?: string;
+        lead?: AdminLeadDetailData;
+      };
+      if (!res.ok) {
+        setActionError(json.error || "Failed to send plan info");
+        return;
+      }
+      if (json.lead) onLeadUpdated?.(json.lead);
+      setActionMessage("Plan info sent on WhatsApp.");
+    } catch {
+      setActionError("Failed to send plan info");
+    } finally {
+      setActionBusy(false);
+    }
+  }
+
   return (
     <div
       className="fixed inset-0 z-50 flex justify-end bg-on-surface/40"
@@ -129,6 +233,90 @@ export function AdminLeadDetail({
             </p>
           ) : (
             <dl>
+              {isPackageLead ? (
+                <div className="mb-3 space-y-3 rounded-2xl border border-outline-variant bg-surface-container-low/50 p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-on-surface-variant">
+                    Plan fulfillment
+                  </p>
+                  <p className="text-sm text-on-surface">
+                    Plan:{" "}
+                    <span className="font-semibold">
+                      {getLeadPlanName(lead)}
+                    </span>
+                    {" · "}
+                    Quota:{" "}
+                    <span className="font-semibold">
+                      {getLeadQuota(lead.rawPayload) ?? "—"}
+                    </span>
+                  </p>
+                  <p className="text-sm text-on-surface">
+                    Purchase:{" "}
+                    <span className="font-semibold">
+                      {purchased
+                        ? `Confirmed ${formatDateTime(lead.planPurchasedAt)}`
+                        : "Not confirmed"}
+                    </span>
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      disabled={actionBusy}
+                      onClick={() => void markPurchased(!purchased)}
+                      className="rounded-xl border border-outline-variant px-3 py-1.5 text-sm font-semibold disabled:opacity-50"
+                    >
+                      {purchased ? "Unmark purchased" : "Mark plan purchased"}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={actionBusy || !canSend}
+                      onClick={() => void sendPlanInfo()}
+                      className="rounded-xl bg-primary px-3 py-1.5 text-sm font-semibold text-on-primary disabled:opacity-50"
+                    >
+                      Send plan info on WhatsApp
+                    </button>
+                  </div>
+                  {!purchased ? (
+                    <p className="text-xs text-on-surface-variant">
+                      Mark purchase after offline payment confirmation, then
+                      send plan info.
+                    </p>
+                  ) : null}
+                </div>
+              ) : null}
+
+              <div className="mb-3 space-y-3 rounded-2xl border border-outline-variant bg-surface-container-low/50 p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-on-surface-variant">
+                  WhatsApp delivery
+                </p>
+                <p className="text-sm text-on-surface">
+                  Status:{" "}
+                  <span className="font-semibold">
+                    {lead.notificationStatus}
+                  </span>
+                </p>
+                <button
+                  type="button"
+                  disabled={actionBusy || !hasPhone}
+                  onClick={() => void resendWhatsApp()}
+                  className="rounded-xl border border-outline-variant px-3 py-1.5 text-sm font-semibold disabled:opacity-50"
+                >
+                  Send WhatsApp now
+                </button>
+                <p className="text-xs text-on-surface-variant">
+                  {hasPhone
+                    ? "Sends this form type's template again — use it to retry a failed delivery."
+                    : "No WhatsApp number on file for this lead."}
+                </p>
+                {actionMessage ? (
+                  <p className="text-xs text-on-surface">{actionMessage}</p>
+                ) : null}
+                {actionError ? (
+                  <p className="text-xs text-error" role="alert">
+                    {actionError}
+                  </p>
+                ) : null}
+              </div>
+
               <Field label="ID" value={lead.id} />
               <Field label="Created" value={formatDateTime(lead.createdAt)} />
               <Field label="Form type" value={lead.formType} />
@@ -136,6 +324,10 @@ export function AdminLeadDetail({
               <Field label="Page path" value={lead.pagePath} />
               <Field label="Page label" value={lead.pageLabel} />
               <Field label="Variant" value={lead.variant} />
+              <Field
+                label="Plan purchased at"
+                value={formatDateTime(lead.planPurchasedAt)}
+              />
               <Field label="Name" value={lead.name} />
               <Field
                 label="Phone"
@@ -149,6 +341,7 @@ export function AdminLeadDetail({
               <Field label="Email" value={lead.email} />
               <Field label="NEET score" value={lead.neetScore} />
               <Field label="NEET category" value={lead.neetCategory} />
+              <Field label="Quota" value={getLeadQuota(lead.rawPayload)} />
               <Field label="Domicile state" value={lead.domicileState} />
               <Field label="Target states" value={lead.targetStates} />
               <Field label="City" value={lead.city} />
@@ -204,7 +397,9 @@ export function AdminLeadDetail({
                             </p>
                           ) : null}
                           {log.errorMsg ? (
-                            <p className="mt-1 text-on-error-container">{log.errorMsg}</p>
+                            <p className="mt-1 text-on-error-container">
+                              {log.errorMsg}
+                            </p>
                           ) : null}
                         </li>
                       ))}

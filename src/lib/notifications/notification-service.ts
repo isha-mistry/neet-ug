@@ -14,6 +14,7 @@ import {
 } from "./fast2sms-lead-confirm";
 import { resolveWhatsAppMessage, toWhatsAppPayload } from "./message-builder";
 import { getSmsFallbackText } from "./message-templates";
+import { readPublicFileAsBase64 } from "./public-media";
 import type { LeadForNotification, SendResult } from "./types";
 
 export type DeliverLeadNotificationResult = {
@@ -57,12 +58,27 @@ export async function deliverLeadNotification(
 
   const whatsappSender = createEvolutionWhatsAppSenderFromEnv();
   const resolvedMessage = resolveWhatsAppMessage(lead);
-  const whatsappPayload = toWhatsAppPayload(lead.phoneE164, resolvedMessage);
+  let whatsappPayload = toWhatsAppPayload(lead.phoneE164, resolvedMessage);
 
   let whatsappAttempt: SendResult = {
     ok: false,
     error: "Evolution API is not configured.",
   };
+
+  // Prefer inlining the attachment: Evolution can only download `media` when the
+  // URL is publicly reachable, which is never true in dev and only true post-deploy.
+  const localPath =
+    resolvedMessage.kind === "document" ? resolvedMessage.localPath : undefined;
+  if (localPath && whatsappPayload.kind === "media") {
+    const base64 = await readPublicFileAsBase64(localPath);
+    if (base64) {
+      whatsappPayload = { ...whatsappPayload, media: base64 };
+    } else {
+      console.warn(
+        `[notifications] public${localPath} not readable; falling back to URL media`,
+      );
+    }
+  }
 
   if (whatsappSender) {
     whatsappAttempt = await whatsappSender.send(whatsappPayload);

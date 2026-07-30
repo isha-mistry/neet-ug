@@ -214,6 +214,8 @@ model Lead {
   consentWhatsappAt       DateTime?              @map("consent_whatsapp_at")
   notificationStatus      LeadNotificationStatus @default(PENDING) @map("notification_status")
   notificationClaimedAt   DateTime?              @map("notification_claimed_at")
+  /// Set manually by admin when offline plan purchase is confirmed.
+  planPurchasedAt         DateTime?              @map("plan_purchased_at")
   rawPayload              Json?                  @map("raw_payload")
   notificationLogs        NotificationLog[]
 
@@ -221,6 +223,8 @@ model Lead {
   @@index([formType])
   @@index([status])
   @@index([phone])
+  @@index([phoneE164])
+  @@index([planPurchasedAt])
   @@index([notificationStatus, consentWhatsapp, createdAt])
   @@map("leads")
   @@schema("app")

@@ -57,6 +57,11 @@ export type NotificationMessageSpec =
       fileName: string;
       caption?: TemplateFn;
       mimeType?: string;
+      /**
+       * Path under `public/`. When set, the file is inlined as base64 instead of
+       * asking Evolution to download `url` (which requires a reachable origin).
+       */
+      localPath?: string;
     }
   | {
       kind: "image";
@@ -73,6 +78,7 @@ export type ResolvedWhatsAppMessage =
       fileName: string;
       caption?: string;
       mimeType?: string;
+      localPath?: string;
     }
   | {
       kind: "image";

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
-import { FiBarChart2, FiCheckCircle, FiGlobe, FiMessageSquare, FiRefreshCw } from "react-icons/fi";
+import { FiBarChart2, FiCheckCircle, FiDownload, FiGlobe, FiMessageSquare, FiRefreshCw } from "react-icons/fi";
 import Link from "next/link";
 import { Container } from "@/components/common/Container";
 import { DataSourceNotice } from "@/components/common/DataSourceNotice";
@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
 import { LeadConsentField } from "@/components/features/leads/LeadConsentField";
-import { LeadWhatsappConsentField } from "@/components/features/leads/LeadWhatsappConsentField";
 import { ToolCallout } from "@/components/features/predictors/PredictorToolParts";
 import {
   CollegePredictorAirChip,
@@ -27,6 +26,7 @@ import {
 import { sendPhoneLoginOtpAction } from "@/app/actions/send-phone-otp";
 import {
   completeCollegePredictorProfileAction,
+  getCollegePredictorExportEntitlementAction,
   getCollegePredictorSessionAction,
   getUnlockedCollegePredictorAction,
   submitCollegePredictorAction,
@@ -61,6 +61,7 @@ interface CollegePredictorWizardProps {
   initialSession: CollegePredictorSession | null;
   initialTeaser: CollegePredictorTeaserResult | null;
   initialUnlocked: CollegePredictorUnlockedResult | null;
+  initialCanExportExcel?: boolean;
 }
 
 export function CollegePredictorWizard({
@@ -69,6 +70,7 @@ export function CollegePredictorWizard({
   initialSession,
   initialTeaser: initialTeaserProp,
   initialUnlocked: initialUnlockedProp,
+  initialCanExportExcel = false,
 }: CollegePredictorWizardProps) {
   const [step, setStep] = useState<WizardStep>(
     initialUnlockedProp ? "unlocked" : initialTeaserProp ? "teaser" : "form",
@@ -104,12 +106,12 @@ export function CollegePredictorWizard({
   const [unlocked, setUnlocked] = useState<CollegePredictorUnlockedResult | null>(
     initialUnlockedProp,
   );
+  const [canExportExcel, setCanExportExcel] = useState(initialCanExportExcel);
 
   const [phone, setPhone] = useState(initialSession?.phone ?? "");
   const [countryCode, setCountryCode] = useState(initialSession?.countryCode ?? "+91");
   const [otp, setOtp] = useState("");
   const [consent, setConsent] = useState(false);
-  const [consentWhatsapp, setConsentWhatsapp] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otpSending, setOtpSending] = useState(false);
   const [phoneSessionTrusted, setPhoneSessionTrusted] = useState(false);
@@ -171,7 +173,6 @@ export function CollegePredictorWizard({
         phone,
         countryCode,
         consent,
-        consentWhatsapp,
         trustedSession,
         otp,
         setError,
@@ -188,7 +189,6 @@ export function CollegePredictorWizard({
             countryCode: payload.countryCode,
             otp: payload.otp,
             consent: payload.consent,
-            consentWhatsapp: payload.consentWhatsapp,
             trustedSession: payload.trustedSession,
           });
           return result.success
@@ -198,7 +198,7 @@ export function CollegePredictorWizard({
         onVerified: () => setVerifyPhase("profile"),
       });
     },
-    [buildInput, phone, countryCode, consent, consentWhatsapp, otp]
+    [buildInput, phone, countryCode, consent, otp]
   );
 
   const handleSendOtp = () => {
@@ -253,6 +253,7 @@ export function CollegePredictorWizard({
       const unlock = await getUnlockedCollegePredictorAction(input);
       if (unlock.success) {
         setUnlocked(unlock.data);
+        setCanExportExcel(unlock.data.canExportExcel);
         setStep("unlocked");
       }
     });
@@ -287,14 +288,29 @@ export function CollegePredictorWizard({
         leadName,
         leadStateSlug,
         leadCity,
-        consentWhatsapp,
       });
       if (!result.success) {
         setError(result.error);
         return;
       }
       setUnlocked(result.data);
+      setCanExportExcel(result.data.canExportExcel);
       setStep("unlocked");
+    });
+  };
+
+  const handleDownloadExcel = () => {
+    setError(null);
+    startTransition(async () => {
+      const entitlement = await getCollegePredictorExportEntitlementAction();
+      if (!entitlement.success || !entitlement.data.canExportExcel) {
+        setCanExportExcel(false);
+        setError(
+          "Excel export unlocks after your counselling plan purchase is confirmed for this mobile number.",
+        );
+        return;
+      }
+      window.location.href = "/api/college-predictor/export";
     });
   };
 
@@ -302,6 +318,7 @@ export function CollegePredictorWizard({
     setStep("form");
     setTeaser(null);
     setUnlocked(null);
+    setCanExportExcel(false);
     setOtp("");
     setOtpSent(false);
     setPhoneSessionTrusted(false);
@@ -416,23 +433,45 @@ export function CollegePredictorWizard({
 
         {showResults ? (
           <ResultsPanel>
-            <div className="rp-rsum ">
+            <div className="rp-rsum">
               <CollegePredictorAirChip
                 air={teaser.input.air}
                 categoryLabel={categoryLabel}
                 stateLabel={stateLabel}
               />
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                leadingIcon={<FiRefreshCw aria-hidden="true" />}
-                onClick={handleReset}
-                className="rounded-[14px] border-[1.5px] px-5 py-2.5 text-[13.5px] font-bold"
-              >
-                New prediction
-              </Button>
+              <div className="flex flex-wrap items-center justify-end gap-2">
+                {step === "unlocked" && canExportExcel ? (
+                  <Button
+                    type="button"
+                    variant="primary"
+                    size="sm"
+                    leadingIcon={<FiDownload className="size-4" aria-hidden />}
+                    disabled={pending}
+                    onClick={handleDownloadExcel}
+                    className="rounded-[14px] px-5 py-2.5 text-[13.5px] font-bold"
+                  >
+                    Download Excel
+                  </Button>
+                ) : null}
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  leadingIcon={<FiRefreshCw aria-hidden="true" />}
+                  onClick={handleReset}
+                  className="rounded-[14px] border-[1.5px] px-5 py-2.5 text-[13.5px] font-bold"
+                >
+                  New prediction
+                </Button>
+              </div>
             </div>
+
+            {step === "unlocked" && !canExportExcel ? (
+              <p className="mt-3 text-sm text-on-surface-variant">
+                Excel shortlist download unlocks after your counselling plan
+                purchase is confirmed for this mobile number.
+              </p>
+            ) : null}
 
             {step !== "unlocked" ? (
               <CollegePredictorTeaserShowcase
@@ -606,13 +645,6 @@ export function CollegePredictorWizard({
                   onChange={(e) => setConsent(e.target.checked)}
                   disabled={pending}
                   disclaimer="I understand this is not official MCC/NTA allotment data."
-                />
-                <LeadWhatsappConsentField
-                  id="college-predictor-consent-whatsapp"
-                  skin="embedded"
-                  checked={consentWhatsapp}
-                  onChange={(e) => setConsentWhatsapp(e.target.checked)}
-                  disabled={pending}
                 />
                 {error ? (
                   <p

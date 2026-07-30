@@ -9,10 +9,6 @@ import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
 import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
-import {
-  LeadWhatsappConsentField,
-  useLeadWhatsappConsent,
-} from "@/components/features/leads/LeadWhatsappConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
@@ -49,7 +45,6 @@ export function NeetLeadForm({
   const [error, setError] = useState<string | null>(null);
   const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
   const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
-  const { consentWhatsapp, whatsappFieldProps } = useLeadWhatsappConsent();
   const requiresPhone = type !== "email-guide";
   const {
     otp,
@@ -134,7 +129,6 @@ export function NeetLeadForm({
         targetStates: type === "whatsapp-alerts" ? targetState.trim() || undefined : undefined,
         topics: type === "whatsapp-alerts" ? topics : undefined,
         consent: canSubmit,
-        consentWhatsapp: requiresPhone ? consentWhatsapp : undefined,
         captchaToken,
       });
       refreshCaptcha();
@@ -320,15 +314,6 @@ export function NeetLeadForm({
         disabled={pending}
         {...consentFieldProps}
       />
-
-      {requiresPhone ? (
-        <LeadWhatsappConsentField
-          id={`neet-lead-consent-whatsapp-${type}`}
-          skin={variant === "dark" ? "dark" : "surface"}
-          disabled={pending}
-          {...whatsappFieldProps}
-        />
-      ) : null}
 
       <button
         type="submit"

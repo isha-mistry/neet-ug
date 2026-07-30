@@ -17,6 +17,7 @@ import {
   getCollegePredictorStoredSession,
   setCollegePredictorSession,
 } from "@/lib/college-predictor/session";
+import { findPurchasedPlanEntitlement } from "@/lib/college-predictor/plan-entitlement";
 import type {
   CollegePredictorFormInput,
   CollegePredictorPhoneVerifiedSession,
@@ -71,7 +72,6 @@ export async function verifyCollegePredictorOtpAction(payload: {
   countryCode?: string;
   phone?: string;
   consent: boolean;
-  consentWhatsapp?: boolean;
   input: CollegePredictorFormInput;
   trustedSession?: boolean;
 }): Promise<ActionResult<{ phoneVerified: true }>> {
@@ -125,7 +125,6 @@ export async function verifyCollegePredictorOtpAction(payload: {
     neetCategory: validated.input.category,
     domicileState: validated.input.stateSlug,
     consent: payload.consent,
-    consentWhatsapp: payload.consentWhatsapp === true,
     rawPayload: { input: validated.input },
   });
   if (!leadSaved.success) {
@@ -140,8 +139,9 @@ export async function completeCollegePredictorProfileAction(payload: {
   leadName: string;
   leadStateSlug: string;
   leadCity: string;
-  consentWhatsapp?: boolean;
-}): Promise<ActionResult<CollegePredictorUnlockedResult>> {
+}): Promise<
+  ActionResult<CollegePredictorUnlockedResult & { canExportExcel: boolean }>
+> {
   const validated = validateCollegePredictorInput(payload.input);
   if (!validated.ok) {
     return { success: false, error: validated.message };
@@ -191,16 +191,26 @@ export async function completeCollegePredictorProfileAction(payload: {
     city: leadCity,
     targetStates: leadStateSlug,
     consent: true,
-    consentWhatsapp: payload.consentWhatsapp === true,
     rawPayload: { input: validated.input },
   });
 
-  return { success: true, data: await computeUnlockedResult(validated.input) };
+  const entitlement = await findPurchasedPlanEntitlement({
+    phone: pending.phone,
+    countryCode: pending.countryCode,
+  });
+
+  const data = await computeUnlockedResult(validated.input);
+  return {
+    success: true,
+    data: { ...data, canExportExcel: entitlement.entitled },
+  };
 }
 
 export async function getUnlockedCollegePredictorAction(
   input: CollegePredictorFormInput
-): Promise<ActionResult<CollegePredictorUnlockedResult>> {
+): Promise<
+  ActionResult<CollegePredictorUnlockedResult & { canExportExcel: boolean }>
+> {
   const validated = validateCollegePredictorInput(input);
   if (!validated.ok) {
     return { success: false, error: validated.message };
@@ -209,7 +219,29 @@ export async function getUnlockedCollegePredictorAction(
   if (!session || !sessionsMatch(session, validated.input)) {
     return { success: false, error: "Verification required." };
   }
-  return { success: true, data: await computeUnlockedResult(validated.input) };
+  const entitlement = await findPurchasedPlanEntitlement({
+    phone: session.phone,
+    countryCode: session.countryCode,
+  });
+  const data = await computeUnlockedResult(validated.input);
+  return {
+    success: true,
+    data: { ...data, canExportExcel: entitlement.entitled },
+  };
+}
+
+export async function getCollegePredictorExportEntitlementAction(): Promise<
+  ActionResult<{ canExportExcel: boolean }>
+> {
+  const session = await getCollegePredictorSession();
+  if (!session) {
+    return { success: true, data: { canExportExcel: false } };
+  }
+  const entitlement = await findPurchasedPlanEntitlement({
+    phone: session.phone,
+    countryCode: session.countryCode,
+  });
+  return { success: true, data: { canExportExcel: entitlement.entitled } };
 }
 
 export async function getCollegePredictorSessionAction(): Promise<

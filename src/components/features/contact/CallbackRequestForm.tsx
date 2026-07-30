@@ -10,10 +10,6 @@ import { cn } from "@/lib/utils";
 import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
 import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
-import {
-  LeadWhatsappConsentField,
-  useLeadWhatsappConsent,
-} from "@/components/features/leads/LeadWhatsappConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { Button } from "@/components/ui/Button";
@@ -38,11 +34,6 @@ export function CallbackRequestForm() {
     const [submitted, setSubmitted] = useState(false);
     const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
     const { canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
-    const {
-      consentWhatsapp,
-      resetWhatsappConsent,
-      whatsappFieldProps,
-    } = useLeadWhatsappConsent();
     const {
         otp,
         setOtp,
@@ -113,7 +104,6 @@ export function CallbackRequestForm() {
                 phone: digits,
                 preferredSlot,
                 consent: canSubmit,
-                consentWhatsapp,
                 captchaToken,
             });
             refreshCaptcha();
@@ -165,7 +155,6 @@ export function CallbackRequestForm() {
                                                 setPhone("");
                                                 setSubmitted(false);
                                                 resetConsent();
-                                                resetWhatsappConsent();
                                                 refreshCaptcha();
                                                 resetPhoneOtp();
                                             }}
@@ -244,12 +233,6 @@ export function CallbackRequestForm() {
                                             id="callback-consent"
                                             disabled={pending}
                                             {...consentFieldProps}
-                                        />
-
-                                        <LeadWhatsappConsentField
-                                            id="callback-consent-whatsapp"
-                                            disabled={pending}
-                                            {...whatsappFieldProps}
                                         />
 
                                         <Button

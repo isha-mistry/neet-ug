@@ -7,6 +7,9 @@ import { parsePhoneToE164 } from "@/lib/leads/normalize-phone-e164";
 import { notifyEmailNewLead } from "@/lib/leads/notify-email-new-lead";
 import { notifySlackNewLead } from "@/lib/leads/notify-slack-new-lead";
 import { requirePhoneVerifiedForLead } from "@/lib/leads/require-phone-verified";
+import { deliverLeadNotification } from "@/lib/notifications/notification-service";
+import type { LeadForNotification } from "@/lib/notifications/types";
+import { LEAD_FORM_TYPES } from "./types";
 import { validateSubmitLeadInput } from "./validation";
 import type { SubmitLeadInput, SubmitLeadResult } from "./types";
 import { reportAppError } from "@/lib/sentry/error-reporter";
@@ -28,7 +31,6 @@ export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult
 
   const consent = isLeadConsentGranted(input.consent);
   const now = consent ? new Date() : null;
-  const consentWhatsapp = input.consentWhatsapp === true;
 
   let phoneE164: string | null = null;
   if (input.phone) {
@@ -39,10 +41,14 @@ export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult
     phoneE164 = parsed.e164;
   }
 
-  const notificationStatus =
-    consentWhatsapp && phoneE164
-      ? LeadNotificationStatus.PENDING
-      : LeadNotificationStatus.SKIPPED_NO_CONSENT;
+  // Playbook WhatsApp is sent inline below. Plan package info is admin-triggered.
+  // No separate notifier worker / PENDING queue.
+  const shouldSendPlaybookWhatsapp =
+    input.formType === LEAD_FORM_TYPES.homePlaybook && Boolean(phoneE164);
+  const consentWhatsapp = shouldSendPlaybookWhatsapp;
+  const notificationStatus = shouldSendPlaybookWhatsapp
+    ? LeadNotificationStatus.IN_PROGRESS
+    : LeadNotificationStatus.SKIPPED_NO_CONSENT;
 
   try {
     const lead = await prisma.lead.create({
@@ -76,6 +82,64 @@ export async function createLead(raw: SubmitLeadInput): Promise<SubmitLeadResult
       },
       select: { id: true, createdAt: true },
     });
+
+    if (shouldSendPlaybookWhatsapp && phoneE164) {
+      const leadForNotify: LeadForNotification = {
+        id: lead.id,
+        formType: input.formType,
+        phoneE164,
+        name: input.name ?? null,
+        pageLabel: input.pageLabel?.trim() || null,
+        pagePath: input.pagePath?.trim() || null,
+        variant: input.variant?.trim() || null,
+        neetScore: input.neetScore ?? null,
+        neetCategory: input.neetCategory ?? null,
+        domicileState: input.domicileState ?? null,
+        targetStates: input.targetStates ?? null,
+        city: input.city ?? null,
+        queryType: input.queryType ?? null,
+        message: input.message ?? null,
+        preferredSlot: input.preferredSlot ?? null,
+      };
+
+      try {
+        const delivery = await deliverLeadNotification(prisma, leadForNotify);
+        await prisma.lead.update({
+          where: { id: lead.id },
+          data: { notificationStatus: delivery.finalStatus },
+        });
+        // A rejected send resolves normally, so report it here or it stays silent.
+        if (delivery.finalStatus !== LeadNotificationStatus.SENT) {
+          const reason =
+            (delivery.whatsappAttempt?.ok === false
+              ? delivery.whatsappAttempt.error
+              : null) ?? "unknown error";
+          reportAppError(new Error(`Playbook WhatsApp not sent: ${reason}`), {
+            module: "notifications",
+            feature: "playbook_whatsapp",
+            action: "send_inline",
+            metadata: { leadId: lead.id, status: delivery.finalStatus },
+          });
+          console.error("[createLead] playbook WhatsApp not sent", {
+            leadId: lead.id,
+            status: delivery.finalStatus,
+            reason,
+          });
+        }
+      } catch (notifyError) {
+        reportAppError(notifyError, {
+          module: "notifications",
+          feature: "playbook_whatsapp",
+          action: "send_inline",
+          metadata: { leadId: lead.id },
+        });
+        console.error("[createLead] playbook WhatsApp failed", notifyError);
+        await prisma.lead.update({
+          where: { id: lead.id },
+          data: { notificationStatus: LeadNotificationStatus.FAILED },
+        });
+      }
+    }
 
     const alertPayload = {
       leadId: lead.id,

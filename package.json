@@ -52,7 +52,11 @@
     "db:seed:prod-backup-plus-ka-up": "npm run db:seed:karnataka-up",
     "db:build:ka-up-slug-map": "tsx scripts/catalog/build-ka-up-slug-map.ts",
     "db:seed:answer-key": "tsx scripts/seed-neet-answer-key.ts",
-    "college-covers:sync": "tsx scripts/colleges/sync-college-cover-cache.ts"
+    "college-covers:sync": "tsx scripts/colleges/sync-college-cover-cache.ts",
+    "evolution:setup": "tsx --env-file=.env scripts/evolution/setup-instance.ts",
+    "evolution:connect": "tsx --env-file=.env scripts/evolution/setup-instance.ts --connect",
+    "evolution:logout": "tsx --env-file=.env scripts/evolution/setup-instance.ts --logout",
+    "evolution:remove": "tsx --env-file=.env scripts/evolution/setup-instance.ts --remove"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.5.3",

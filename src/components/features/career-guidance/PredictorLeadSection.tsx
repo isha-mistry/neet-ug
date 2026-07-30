@@ -10,10 +10,6 @@ import { openCounselWhatsApp } from "@/lib/leads/whatsapp";
 import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
 import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
-import {
-  LeadWhatsappConsentField,
-  useLeadWhatsappConsent,
-} from "@/components/features/leads/LeadWhatsappConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { DEFAULT_COUNTRY_DIAL_CODE } from "@/lib/leads/country-codes";
@@ -36,7 +32,6 @@ export function PredictorLeadSection() {
   const [error, setError] = useState<string | null>(null);
   const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
   const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
-  const { consentWhatsapp, whatsappFieldProps } = useLeadWhatsappConsent();
   const {
     otp,
     setOtp,
@@ -119,7 +114,6 @@ export function PredictorLeadSection() {
         neetCategory: category,
         domicileState: domicile,
         consent: canSubmit,
-        consentWhatsapp,
         captchaToken,
       });
       refreshCaptcha();
@@ -287,13 +281,6 @@ export function PredictorLeadSection() {
                   skin="embedded"
                   disabled={pending}
                   {...consentFieldProps}
-                />
-
-                <LeadWhatsappConsentField
-                  id="predictor-gate-consent-whatsapp"
-                  skin="embedded"
-                  disabled={pending}
-                  {...whatsappFieldProps}
                 />
 
                 <button

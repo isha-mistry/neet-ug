@@ -19,6 +19,11 @@ function isAuthorized(request: Request): boolean {
   const secret = getWebhookSecret();
   if (!secret) return true;
 
+  const url = new URL(request.url);
+  const queryToken =
+    url.searchParams.get("token") ?? url.searchParams.get("secret");
+  if (queryToken === secret) return true;
+
   const headerSecret =
     request.headers.get("x-evolution-webhook-secret") ??
     request.headers.get("x-webhook-secret") ??

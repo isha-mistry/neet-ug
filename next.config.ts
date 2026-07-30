@@ -60,6 +60,19 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: "/:path*\\.pdf",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+          {
+            key: "Content-Disposition",
+            value: "inline",
+          },
+        ],
+      },
     ];
   },
 };

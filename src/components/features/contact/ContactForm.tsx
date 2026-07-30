@@ -8,10 +8,6 @@ import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
 import { useLeadPhoneOtp } from "@/components/features/leads/useLeadPhoneOtp";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
-import {
-  LeadWhatsappConsentField,
-  useLeadWhatsappConsent,
-} from "@/components/features/leads/LeadWhatsappConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
@@ -45,7 +41,6 @@ export function ContactForm() {
     const [submitted, setSubmitted] = useState(false);
     const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
     const { canSubmit, fieldProps: consentFieldProps } = useLeadConsent();
-    const { consentWhatsapp, whatsappFieldProps } = useLeadWhatsappConsent();
     const {
         otp,
         setOtp,
@@ -133,7 +128,6 @@ export function ContactForm() {
                 queryType,
                 message: message.trim(),
                 consent: canSubmit,
-                consentWhatsapp,
                 captchaToken,
                 rawPayload: { source: "contact-us-detailed-inquiry" },
             });
@@ -339,12 +333,6 @@ export function ContactForm() {
                                 id="contact-inquiry-consent"
                                 disabled={pending}
                                 {...consentFieldProps}
-                            />
-
-                            <LeadWhatsappConsentField
-                                id="contact-inquiry-consent-whatsapp"
-                                disabled={pending}
-                                {...whatsappFieldProps}
                             />
 
                             <Button

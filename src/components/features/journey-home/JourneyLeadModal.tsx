@@ -11,6 +11,7 @@ import {
 } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { submitLeadAction } from "@/app/actions/submit-lead";
+import { COUNSELLING_PLANS } from "@/lib/counselling/content";
 import { SEAT_RADAR_CATEGORY_LABELS } from "@/lib/journey-home/seat-radar-cta";
 import { LEAD_FORM_TYPES } from "@/lib/leads/types";
 import { PhoneWithOtpField } from "@/components/features/leads/PhoneWithOtpField";
@@ -20,10 +21,6 @@ import { LeadStateSelect } from "@/components/features/leads/LeadStateSelect";
 import { LeadFormThankYouPanel, leadRedirectPageLabel } from "@/components/features/leads/LeadFormThankYouPanel";
 import { LeadModalCloseButton } from "@/components/features/leads/LeadModalCloseButton";
 import { LeadConsentField, useLeadConsent } from "@/components/features/leads/LeadConsentField";
-import {
-  LeadWhatsappConsentField,
-  useLeadWhatsappConsent,
-} from "@/components/features/leads/LeadWhatsappConsentField";
 import { LEAD_CONSENT_ERROR } from "@/lib/leads/consent";
 import { useLeadFormSubmitGate } from "@/components/features/leads/useLeadFormSubmitGate";
 import { useLeadRedirectCountdown } from "@/components/features/leads/useLeadRedirectCountdown";
@@ -35,13 +32,19 @@ export type JourneyLeadModalVariant = "radar" | "essentials" | "expert" | "premi
 
 type ModalPhase = "form" | "thanks-redirect";
 
-const QUOTA_INTEREST_OPTIONS = [
+const PACKAGE_PLAN_IDS = new Set(["essentials", "expert", "premium"]);
+
+export const JOURNEY_QUOTA_OPTIONS = [
   "All India Quota (AIQ)",
   "State quota",
   "Management quota",
   "NRI quota",
   "Multiple / not sure yet",
 ] as const;
+
+function planNameForVariant(variant: string): string | undefined {
+  return COUNSELLING_PLANS.plans.find((p) => p.id === variant)?.name;
+}
 
 type JourneyLeadModalProps = {
   open: boolean;
@@ -124,11 +127,6 @@ export function JourneyLeadModal({
   const { captchaToken, refreshCaptcha, turnstileProps } = useTurnstileToken();
   const { consent, canSubmit, resetConsent, fieldProps: consentFieldProps } = useLeadConsent();
   const {
-    consentWhatsapp,
-    resetWhatsappConsent,
-    whatsappFieldProps,
-  } = useLeadWhatsappConsent();
-  const {
     otp,
     setOtp,
     otpSent,
@@ -160,11 +158,10 @@ export function JourneyLeadModal({
     setModalCountryCode(initialCountryCode ?? "+91");
     setModalPhone(initialPhone);
     resetConsent();
-    resetWhatsappConsent();
     resetPhoneOtp();
     refreshCaptcha();
     setFormError(null);
-  }, [open, initialCountryCode, initialPhone, resetConsent, resetWhatsappConsent, resetPhoneOtp, refreshCaptcha]);
+  }, [open, initialCountryCode, initialPhone, resetConsent, resetPhoneOtp, refreshCaptcha]);
 
   const completeRedirect = useCallback(() => {
     onClose();
@@ -179,13 +176,17 @@ export function JourneyLeadModal({
     ? "WhatsApp"
     : leadRedirectPageLabel(redirectTo);
 
+  const resolvedVariant = leadVariant ?? variant;
+  const isPackagePlan = PACKAGE_PLAN_IDS.has(resolvedVariant);
   const showParent = variant === "radar" || variant === "expert";
-  const showCategory = variant !== "premium";
-  const showDomicile = variant !== "premium";
+  const showCategory = isPackagePlan || variant !== "premium";
+  const showDomicile = isPackagePlan || variant !== "premium";
   const showTargetStates = variant === "expert" || variant === "premium";
-  const showQuotaInterest = variant === "premium";
+  const showQuotaInterest = isPackagePlan;
   const nameLabel =
-    variant === "essentials" || variant === "premium" ? "Name" : "Student name";
+    variant === "essentials" || variant === "premium" || isPackagePlan
+      ? "Name"
+      : "Student name";
 
   function handleDismiss() {
     if (pending) return;
@@ -243,11 +244,15 @@ export function JourneyLeadModal({
     if (showDomicile && !domicile) return;
     if (showTargetStates && !targetStates) return;
     if (showQuotaInterest && !quotaInterest) return;
+    if (isPackagePlan && (!score || Number.isNaN(Number(score)))) return;
     if (!captchaToken) {
       setFormError("Security check is still loading. Please wait a moment and try again.");
       refreshCaptcha();
       return;
     }
+
+    const planId = isPackagePlan ? resolvedVariant : undefined;
+    const planName = planId ? planNameForVariant(planId) : undefined;
 
     startTransition(async () => {
       const verified = await ensureVerified();
@@ -257,7 +262,7 @@ export function JourneyLeadModal({
         formType: LEAD_FORM_TYPES.journeyModal,
         pagePath: pagePathOverride ?? pathname,
         pageLabel: pageLabel ?? `Journey home — ${variant}`,
-        variant: leadVariant ?? variant,
+        variant: resolvedVariant,
         name: studentName,
         countryCode,
         phone: whatsapp,
@@ -266,11 +271,13 @@ export function JourneyLeadModal({
         domicileState: showDomicile ? domicile : undefined,
         targetStates: showTargetStates ? targetStates : undefined,
         consent,
-        consentWhatsapp,
         captchaToken,
         rawPayload: {
           parentName: showParent ? parentName : undefined,
+          quota: showQuotaInterest ? quotaInterest : undefined,
           quotaInterest: showQuotaInterest ? quotaInterest : undefined,
+          planId,
+          planName,
           redirectTo: whatsappMessageAfterSubmit ? "whatsapp" : redirectTo,
           introLine,
           pageSection,
@@ -281,7 +288,9 @@ export function JourneyLeadModal({
                 ? "final_cta_counselling"
                 : pageSection === "challenge-band"
                   ? "challenge_counselling"
-                  : undefined,
+                  : planId
+                    ? "package_plan_interest"
+                    : undefined,
           whatsappMessageAfterSubmit: whatsappMessageAfterSubmit ?? undefined,
         },
       });
@@ -399,12 +408,12 @@ export function JourneyLeadModal({
               </div>
               {showQuotaInterest ? (
                 <div className="field">
-                  <label htmlFor={fid("quota")}>Quota interest</label>
+                  <label htmlFor={fid("quota")}>Quota</label>
                   <select id={fid("quota")} name="quotaInterest" required defaultValue="">
                     <option value="" disabled>
                       Select quota
                     </option>
-                    {QUOTA_INTEREST_OPTIONS.map((opt) => (
+                    {JOURNEY_QUOTA_OPTIONS.map((opt) => (
                       <option key={opt} value={opt}>
                         {opt}
                       </option>
@@ -464,12 +473,6 @@ export function JourneyLeadModal({
                 skin="journey"
                 disabled={pending}
                 {...consentFieldProps}
-              />
-              <LeadWhatsappConsentField
-                id={fid("consent-whatsapp")}
-                skin="journey"
-                disabled={pending}
-                {...whatsappFieldProps}
               />
               {formError ? (
                 <p className="m-0 text-[12px] text-[var(--red,#c62828)]" role="alert">
