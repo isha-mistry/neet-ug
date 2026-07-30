@@ -1000,6 +1000,7 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
     // category_mapping.json → Uttarakhand; quota_mapping → State / Mgt / NRI
     cutoffCategories: withMccCutoffCategories([
       { value: "uk-open", label: "Open / General", rawCategories: ["Open"] },
+      { value: "uk-ews", label: "EWS", rawCategories: ["EWS"] },
       { value: "uk-obc", label: "OBC", rawCategories: ["OBC"] },
       { value: "uk-sc", label: "SC", rawCategories: ["SC"] },
       { value: "uk-st", label: "ST", rawCategories: ["ST"] },
@@ -1017,15 +1018,15 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
     seatQuotaGroups: STANDARD_SEAT_QUOTA_GROUPS,
     feesMode: "quotaBreakdown",
     feeScheduleTitle: "Uttarakhand fee schedule",
-    // uttarakhand_fees_data → hostel / mess / exam / admission / security / enrolment
+    // uttarakhand_fees_data / govt dump → hostel / mess / exam / admission / security / enrolment
     feeCharges: [
       { key: "hostel", label: "Hostel Fees (Annual)" },
       { key: "messFees", label: "Mess Fees (Annual)" },
       { key: "examFees", label: "Examination Fees (Annual)" },
       { key: "admissionFees", label: "Admission Fee (One-Time)" },
       { key: "securityDeposit", label: "Security Deposit (One-Time)" },
-      { key: "universityFees", label: "University Enrolment (One-Time)" },
-      { key: "misc", label: "Other One-Time Charges" },
+      { key: "universityFees", label: "Development / University Fees" },
+      { key: "misc", label: "Other Charges" },
     ],
   },
 
@@ -1121,12 +1122,30 @@ const STATE_CONFIGS: Record<ConfiguredStateSlug, StateConfig> = {
   manipur: {
     stateName: "Manipur",
     // category_mapping.json → Manipur; quota_mapping → State / Mgt / NRI
+    // Govt dump uses UR (+ PwD variants); private dump uses Open.
     cutoffCategories: withMccCutoffCategories([
-      { value: "mn-open", label: "Open / General", rawCategories: ["Open"] },
-      { value: "mn-obc-m", label: "OBC-M", rawCategories: ["OBC-M"] },
-      { value: "mn-obc-mp", label: "OBC-MP", rawCategories: ["OBC-MP"] },
+      {
+        value: "mn-open",
+        label: "Open / General",
+        rawCategories: ["Open", "UR", "UR PwD"],
+      },
+      {
+        value: "mn-obc-m",
+        label: "OBC-M",
+        rawCategories: ["OBC-M", "OBC-M-PwD", "OBC-M PwD"],
+      },
+      {
+        value: "mn-obc-mp",
+        label: "OBC-MP",
+        rawCategories: ["OBC-MP", "OBC-MP-PwD"],
+      },
+      { value: "mn-obc-tn", label: "OBC-TN", rawCategories: ["OBC-TN"] },
       { value: "mn-sc", label: "SC", rawCategories: ["SC"] },
-      { value: "mn-st", label: "ST", rawCategories: ["ST"] },
+      {
+        value: "mn-st",
+        label: "ST",
+        rawCategories: ["ST", "ST PwD"],
+      },
       {
         value: "mn-mq",
         label: "Management Quota",

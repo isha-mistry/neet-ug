@@ -812,6 +812,8 @@ function buildStateFeesFromLineItems(
     "convocation",
     "alumni",
     "vaccination",
+    "sports",
+    "prospectus",
   ]);
 
   const messFees = mess.amount;

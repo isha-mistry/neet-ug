@@ -22,6 +22,8 @@ export const ANDHRA_PRADESH_DUMP_SOURCE = "andhra_pradesh_dump";
 export const BIHAR_DUMP_SOURCE = "bihar_dump";
 export const UTTARAKHAND_DUMP_SOURCE = "uttarakhand_dump";
 export const HIMACHAL_PRADESH_DUMP_SOURCE = "himachal_pradesh_dump";
+export const MANIPUR_DUMP_SOURCE = "manipur_dump";
+export const CHATTISGARH_DUMP_SOURCE = "chattisgarh_dump";
 
 export const LEGACY_EMPTY_SOURCE = "";
 
@@ -55,6 +57,8 @@ const STATE_DUMP_SOURCES = new Set([
   BIHAR_DUMP_SOURCE,
   UTTARAKHAND_DUMP_SOURCE,
   HIMACHAL_PRADESH_DUMP_SOURCE,
+  MANIPUR_DUMP_SOURCE,
+  CHATTISGARH_DUMP_SOURCE,
   "karnataka_data.sql",
   "up_data.sql",
 ]);
@@ -105,6 +109,10 @@ export function stateFactSourceForSlug(
   if (stateSlug === "bihar") return BIHAR_DUMP_SOURCE;
   if (stateSlug === "uttarakhand") return UTTARAKHAND_DUMP_SOURCE;
   if (stateSlug === "himachal-pradesh") return HIMACHAL_PRADESH_DUMP_SOURCE;
+  if (stateSlug === "manipur") return MANIPUR_DUMP_SOURCE;
+  if (stateSlug === "chattisgarh" || stateSlug === "chhattisgarh") {
+    return CHATTISGARH_DUMP_SOURCE;
+  }
   return null;
 }
 
