@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   adminFetch,
@@ -111,11 +110,6 @@ export function AdminLeadsView() {
     setReady(true);
   }, [router]);
 
-  const logout = useCallback(() => {
-    clearAdminToken();
-    router.replace("/admin/login");
-  }, [router]);
-
   const queryString = useMemo(() => {
     const params = new URLSearchParams();
     if (applied.q) params.set("q", applied.q);
@@ -207,39 +201,13 @@ export function AdminLeadsView() {
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8">
-      <header className="flex flex-wrap items-start justify-between gap-4 border-b border-outline-variant pb-5">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
-            Internal · Admin
-          </p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight text-on-surface">
-            Leads inbox
-          </h1>
-          <p className="mt-1 text-sm text-on-surface-variant">
-            All form submissions. Search and filter by type, status, or date.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Link
-            href="/admin/plans"
-            className="rounded-xl border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-primary-fixed"
-          >
-            Plans
-          </Link>
-          <Link
-            href="/admin/whatsapp"
-            className="rounded-xl border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-primary-fixed"
-          >
-            WhatsApp
-          </Link>
-          <button
-            type="button"
-            onClick={logout}
-            className="rounded-xl border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-primary-fixed"
-          >
-            Log out
-          </button>
-        </div>
+      <header className="border-b border-outline-variant pb-5">
+        <h1 className="text-2xl font-bold tracking-tight text-on-surface">
+          Leads inbox
+        </h1>
+        <p className="mt-1 text-sm text-on-surface-variant">
+          All form submissions. Search and filter by type, status, or date.
+        </p>
       </header>
 
       <section className="grid gap-3 rounded-2xl border border-outline-variant bg-surface-container-low/40 p-4 sm:grid-cols-2 lg:grid-cols-6">

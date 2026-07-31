@@ -27,14 +27,32 @@ export async function GET(request: Request) {
 
   const client = new EvolutionClient(config);
   try {
+    // Listing instances first lets us tell "instance not created yet" apart
+    // from "Evolution server unreachable" (connectionState 404s when missing).
+    const instances = await client.listInstanceNames();
+    const instanceExists = instances.includes(config.instanceName);
+
+    if (!instanceExists) {
+      return NextResponse.json({
+        ok: true,
+        configured: true,
+        baseUrl: config.baseUrl,
+        instanceName: config.instanceName,
+        instances,
+        instanceExists: false,
+        state: "not_created",
+        connected: false,
+      });
+    }
+
     const state = await client.getConnectionState();
-    const instances = await client.listInstanceNames().catch(() => []);
     return NextResponse.json({
       ok: true,
       configured: true,
       baseUrl: config.baseUrl,
       instanceName: config.instanceName,
       instances,
+      instanceExists: true,
       state: state.state,
       connected: state.state.toLowerCase() === "open",
     });
@@ -51,6 +69,7 @@ export async function GET(request: Request) {
         configured: true,
         baseUrl: config.baseUrl,
         instanceName: config.instanceName,
+        instanceExists: false,
         state: "unreachable",
         connected: false,
         error: message,

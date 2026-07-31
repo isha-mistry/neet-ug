@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { AdminConfirmDialog } from "@/components/features/admin/AdminConfirmDialog";
 import {
   adminFetch,
   clearAdminToken,
@@ -153,10 +153,7 @@ export function AdminPlansView() {
     setReady(true);
   }, [router]);
 
-  const logout = useCallback(() => {
-    clearAdminToken();
-    router.replace("/admin/login");
-  }, [router]);
+  const [broadcastConfirmOpen, setBroadcastConfirmOpen] = useState(false);
 
   const queryString = useMemo(() => {
     const params = new URLSearchParams();
@@ -233,17 +230,7 @@ export function AdminPlansView() {
     const notice = noticePreview?.notice;
     if (!notice) return;
 
-    const pending =
-      (noticePreview?.recipientCount ?? 0) -
-      (noticePreview?.alreadySentCount ?? 0);
-    const confirmed = window.confirm(
-      `Send this counselling alert on WhatsApp?\n\n“${notice.title}”\n\n` +
-        `Unique purchased numbers: ${noticePreview?.recipientCount ?? 0}\n` +
-        `Already sent: ${noticePreview?.alreadySentCount ?? 0}\n` +
-        `Will attempt: ${Math.max(0, pending)}`,
-    );
-    if (!confirmed) return;
-
+    setBroadcastConfirmOpen(false);
     setBroadcastBusy(true);
     setBroadcastError(null);
     setBroadcastMessage(null);
@@ -338,40 +325,14 @@ export function AdminPlansView() {
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8">
-      <header className="flex flex-wrap items-start justify-between gap-4 border-b border-outline-variant pb-5">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
-            Internal · Admin
-          </p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight text-on-surface">
-            Counselling plans
-          </h1>
-          <p className="mt-1 text-sm text-on-surface-variant">
-            Essentials, Expert, and Premium interest — mark purchased and send
-            WhatsApp plan info.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Link
-            href="/admin/leads"
-            className="rounded-xl border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-primary-fixed"
-          >
-            Leads
-          </Link>
-          <Link
-            href="/admin/whatsapp"
-            className="rounded-xl border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-primary-fixed"
-          >
-            WhatsApp
-          </Link>
-          <button
-            type="button"
-            onClick={logout}
-            className="rounded-xl border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-primary-fixed"
-          >
-            Log out
-          </button>
-        </div>
+      <header className="border-b border-outline-variant pb-5">
+        <h1 className="text-2xl font-bold tracking-tight text-on-surface">
+          Counselling plans
+        </h1>
+        <p className="mt-1 text-sm text-on-surface-variant">
+          Essentials, Expert, and Premium interest — mark purchased and send
+          WhatsApp plan info.
+        </p>
       </header>
 
       {data?.counts ? (
@@ -451,7 +412,7 @@ export function AdminPlansView() {
               !noticePreview?.notice ||
               (noticePreview?.recipientCount ?? 0) === 0
             }
-            onClick={() => void broadcastLatestNotice()}
+            onClick={() => setBroadcastConfirmOpen(true)}
             className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-on-primary transition hover:bg-primary-hover disabled:opacity-50"
           >
             {broadcastBusy ? "Sending…" : "Send latest alert on WhatsApp"}
@@ -744,6 +705,38 @@ export function AdminPlansView() {
           }}
         />
       )}
+
+      <AdminConfirmDialog
+        open={broadcastConfirmOpen}
+        title="Send counselling alert on WhatsApp?"
+        description={
+          noticePreview?.notice ? (
+            <div className="space-y-2">
+              <p className="font-semibold text-on-surface">
+                “{noticePreview.notice.title}”
+              </p>
+              <ul className="list-disc space-y-0.5 pl-4">
+                <li>
+                  Unique purchased numbers: {noticePreview.recipientCount}
+                </li>
+                <li>Already sent: {noticePreview.alreadySentCount}</li>
+                <li>
+                  Will attempt:{" "}
+                  {Math.max(
+                    0,
+                    noticePreview.recipientCount -
+                      noticePreview.alreadySentCount,
+                  )}
+                </li>
+              </ul>
+            </div>
+          ) : null
+        }
+        confirmLabel="Send alert"
+        busy={broadcastBusy}
+        onConfirm={() => void broadcastLatestNotice()}
+        onCancel={() => setBroadcastConfirmOpen(false)}
+      />
     </div>
   );
 }
