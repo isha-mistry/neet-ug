@@ -116,17 +116,89 @@ export type UpdatesNoticeItem = {
   title: string;
   summary: string;
   href: string;
-  tag: "NTA" | "MCC" | "Advisory";
+  tag: "NTA" | "MCC" | "Advisory" | "Gujarat";
 };
 
 export const NEET_UG_UPDATES_NOTICE_FEED: UpdatesNoticeItem[] = [
   {
-    date: "July 2026",
-    title: "Gujarat ACPUGMEC: List of Documents Required for Admission 2026-27",
+    date: "31 July 2026",
+    title: "Gujarat MBBS/BDS registration open — PIN distribution & online form (2026-27)",
     summary:
-      "Official list of documents required for the ACPUGMEC UG admission process (academic year 2026-2027) in Gujarat. Download the PDF and keep originals and photocopies ready before Round 1 reporting.",
-    href: "https://medadmgujarat.ncode.in/web/UG2026/List%20of%20Documents%20Required%20for%20Admission%20Process%20of%20ACPUGMEC%20R01.pdf",
-    tag: "Advisory",
+      "ACPUGMEC advertisement inviting online registration for 1st-year Medical/Dental admission in Gujarat (Government, Grant-in-Aid & Self-Financed colleges). PIN purchase (₹1,000 + ₹10,000 refundable deposit) and online registration run 31 July – 12 August 2026 (PIN till 12:00 noon, form till 4:00 PM) on medadmgujarat.org.",
+    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Adv.%20-%20PIN%20dist.%20&%20Online%20Reg.%20-%20UG%20%5B2026-27%5D.pdf",
+    tag: "Gujarat",
+  },
+  {
+    date: "31 July 2026",
+    title: "Procedure for Online Registration (2026-27)",
+    summary:
+      "Step-by-step registration walkthrough: buy the PIN, open Candidate Registration/Login, enter the PIN serial number, 14-digit PIN and NEET roll number, fill the form, and print the registration slip. Keep your registered mobile and email active for OTPs.",
+    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Procedure%20for%20online%20registration%20%5B2026-27%5D.pdf",
+    tag: "Gujarat",
+  },
+  {
+    date: "31 July 2026",
+    title: "Instructions for Online Application & Registration",
+    summary:
+      "ACPUGMEC's detailed instructions for filling the online application correctly — personal, category, and qualification details, password setup, and common mistakes to avoid before confirming your registration.",
+    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Instructions%20for%20Online%20Application%20and%20Registartion-%20%5B2025-26%5D.pdf",
+    tag: "Gujarat",
+  },
+  {
+    date: "31 July 2026",
+    title: "Process of Online Admission (2026-27)",
+    summary:
+      "Overview of the full ACPUGMEC admission flow — registration, document verification, merit list, choice filling, seat allotment, and reporting — so you know what comes after the form is submitted.",
+    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Process%20for%20online%20Admission%20-%20%5B2026-27%5D.pdf",
+    tag: "Gujarat",
+  },
+  {
+    date: "31 July 2026",
+    title: "List of Documents Required for Admission (Round 1)",
+    summary:
+      "Official list of documents for the ACPUGMEC UG admission process 2026-27. Document verification at help centers runs 3–13 August 2026 (till 4:00 PM) — keep originals and self-attested photocopies ready.",
+    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/List%20of%20Documents%20Required%20for%20Admission%20Process%20of%20ACPUGMEC%20R01.pdf",
+    tag: "Gujarat",
+  },
+  {
+    date: "31 July 2026",
+    title: "Instructions for NRI Candidates (2026-27)",
+    summary:
+      "Guidelines for candidates applying under the NRI quota in Gujarat — eligibility, sponsorship documents, and the additional ₹10,000 Demand Draft in favour of ACPUGMEC (payable at Gandhinagar) to be sent to GMERS Medical College, Gandhinagar.",
+    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Instructions%20for%20NRI%20Candidates%20-%20UG%20%5B2026-27%5D.pdf",
+    tag: "Gujarat",
+  },
+  {
+    date: "31 July 2026",
+    title: "List of Help Centers (2026-27)",
+    summary:
+      "Designated help centers across Gujarat for document verification and registration support. Book your verification appointment while printing the registration slip and carry photocopies along with originals.",
+    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/List%20of%20Help%20Centers%20%5B2026-27%5D.pdf",
+    tag: "Gujarat",
+  },
+  {
+    date: "31 July 2026",
+    title: "Authority Letter for Original Documents Verification — Format",
+    summary:
+      "Prescribed format authorising a parent or representative to appear for document verification at the help center on the candidate's behalf. Print, fill, and sign before the appointment.",
+    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/AUTHORITY%20LETTER%20FOR%20DOCUMENTS%20VERIFICATION.pdf",
+    tag: "Gujarat",
+  },
+  {
+    date: "31 July 2026",
+    title: "Medical Fitness Certificate — Format",
+    summary:
+      "Prescribed medical fitness certificate format for the Gujarat UG admission process. Get it signed by a registered medical practitioner and keep it with your admission documents.",
+    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Medical%20Fitness%20Certificate%20-%20Format.pdf",
+    tag: "Gujarat",
+  },
+  {
+    date: "31 July 2026",
+    title: "List of MBBS Institutes with Address",
+    summary:
+      "All MBBS institutes in Gujarat covered under ACPUGMEC counselling, with full addresses — useful while shortlisting colleges before choice filling opens.",
+    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/List%20of%20MBBS%20Institutes%20with%20address.pdf",
+    tag: "Gujarat",
   },
   {
     date: "16 July 2026",
@@ -223,10 +295,10 @@ export const NEET_UG_UPDATES_STATE_COUNSELLING_ROWS = [
   },
   {
     authority: "Gujarat (ACPUGMEC)",
-    round: "State quota Round 1",
-    window: "Early August 2026 (tentative)",
-    status: "Tentative",
-    statusColor: "amber" as const,
+    round: "Registration & verification",
+    window: "31 Jul – 13 Aug 2026",
+    status: "Live",
+    statusColor: "emerald" as const,
   },
   {
     authority: "Rajasthan (RUHS / SMFWB)",

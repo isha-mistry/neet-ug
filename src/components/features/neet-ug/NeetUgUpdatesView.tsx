@@ -150,7 +150,7 @@ export function NeetUgUpdatesView() {
               id="notices"
               eyebrow="Official sources"
               title="Notice feed"
-              description="Key NTA and MCC milestones — open the portal links for PDFs and registration windows."
+              description="Key NTA, MCC, and state counselling milestones — open the portal links for PDFs and registration windows."
             >
               <UpdatesNoticeFeed items={NEET_UG_UPDATES_NOTICE_FEED} />
             </GuideSection>

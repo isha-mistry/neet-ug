@@ -7,6 +7,7 @@ const NOTICE_TAG_CLASS: Record<UpdatesNoticeItem["tag"], string> = {
   NTA: "bg-primary-fixed text-primary",
   MCC: "bg-secondary-fixed/80 text-secondary",
   Advisory: "bg-tertiary-fixed/50 text-on-tertiary-fixed-variant",
+  Gujarat: "bg-tertiary-fixed/80 text-tertiary",
 };
 
 export function UpdatesNoticeFeed({ items }: { items: readonly UpdatesNoticeItem[] }) {
