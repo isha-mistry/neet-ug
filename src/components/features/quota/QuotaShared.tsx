@@ -136,63 +136,23 @@ interface QuotaOverviewShellProps {
   jumpSections?: readonly GuideJumpItem[];
 }
 
-export function QuotaOverviewShell({ children, header, sidebar, jumpSections }: QuotaOverviewShellProps) {
+/** Alias for overview route — same layout as every quota child page. */
+export function QuotaOverviewShell({
+  children,
+  header,
+  sidebar,
+  jumpSections,
+}: QuotaOverviewShellProps) {
   return (
-    <RankPredictorShell>
-      {jumpSections && (
-        <nav
-          aria-label="Page sections"
-          className="sticky top-16 z-30 border-b border-outline-variant/40 bg-surface/90 backdrop-blur-lg lg:hidden"
-        >
-          <Container size="page" className="py-3">
-            <GuidePageJumpNav variant="horizontal" jumpSections={jumpSections} />
-          </Container>
-        </nav>
-      )}
-      <Container size="page" className="py-8 md:py-10">
-        <div className="mb-8">
-          <QuotaBreadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Quotas" },
-            ]}
-          />
-        </div>
-
-        {header && <div className="relative mb-8">{header}</div>}
-
-        {jumpSections ? (
-          <div className={cn(
-            "mt-8 lg:mt-10 lg:grid lg:items-start",
-            sidebar
-              ? "lg:grid-cols-[11rem_minmax(0,1fr)_16rem] lg:gap-6 xl:grid-cols-[12.5rem_minmax(0,1fr)_18rem] xl:gap-8"
-              : "lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[12.5rem_minmax(0,1fr)] xl:gap-10"
-          )}>
-            <aside
-              className={cn(
-                "sticky top-[4.25rem] z-20 hidden max-h-[calc(100dvh-4.5rem)] self-start overflow-y-auto overscroll-contain",
-                "lg:col-start-1 lg:row-start-1 lg:block lg:w-full"
-              )}
-            >
-              <GuidePageJumpNav variant="sidebar" jumpSections={jumpSections} />
-            </aside>
-
-            <div className="min-w-0 lg:col-start-2 lg:row-start-1 space-y-10">
-              {children}
-            </div>
-
-            {sidebar && (
-              <div className="hidden lg:col-start-3 lg:row-start-1 lg:mt-0 lg:block">
-                {sidebar}
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="space-y-10">{children}</div>
-        )}
-        <QuotaLeadBlock pageLabel="Quota overview" />
-      </Container>
-    </RankPredictorShell>
+    <QuotaPageShell
+      current="Quotas"
+      header={header}
+      sidebar={sidebar}
+      jumpSections={jumpSections}
+      hideQuotaCrumb
+    >
+      {children}
+    </QuotaPageShell>
   );
 }
 
@@ -436,6 +396,12 @@ interface QuotaHeaderProps {
   description: string;
   eyebrowIcon?: string;
   watermarkIcon?: string;
+  /** Optional actions under the lede (e.g. overview CTAs). */
+  actions?: ReactNode;
+  /** Replace the default planner card on the right. */
+  aside?: ReactNode;
+  /** Hide the right-hand panel entirely. */
+  hideAside?: boolean;
 }
 
 export function QuotaHeader({
@@ -446,12 +412,51 @@ export function QuotaHeader({
   description,
   eyebrowIcon = "school",
   watermarkIcon,
+  actions,
+  aside,
+  hideAside = false,
 }: QuotaHeaderProps) {
+  const plannerCard = (
+    <Card className="hidden h-fit md:block">
+      <div className="flex flex-col gap-4">
+        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-on-primary">
+          <span
+            className="material-symbols-outlined text-[28px]"
+            style={{ fontVariationSettings: "'FILL' 1" }}
+          >
+            {watermarkIcon || eyebrowIcon}
+          </span>
+        </span>
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-on-surface-variant">
+            Quota planner
+          </p>
+          <p className="mt-1 text-sm font-bold leading-snug text-on-surface">
+            Compare eligibility, rounds, seats, and documents before choice filling.
+          </p>
+        </div>
+      </div>
+    </Card>
+  );
+
   return (
     <section className="mb-2">
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-end">
+      <div
+        className={cn(
+          "grid gap-6 lg:items-end",
+          hideAside
+            ? "grid-cols-1"
+            : "lg:grid-cols-[minmax(0,1fr)_minmax(14rem,16rem)] xl:grid-cols-[minmax(0,1fr)_minmax(15rem,18rem)]",
+        )}
+      >
         <div className="max-w-3xl">
-          <Badge tone="brand" icon={<span className="material-symbols-outlined text-xs">{eyebrowIcon}</span>} className="mb-4">
+          <Badge
+            tone="brand"
+            icon={
+              <span className="material-symbols-outlined text-xs">{eyebrowIcon}</span>
+            }
+            className="mb-4"
+          >
             {eyebrow}
           </Badge>
           <h1 className="rp-hero-title">
@@ -459,27 +464,9 @@ export function QuotaHeader({
             {titleSuffix ? ` ${titleSuffix}` : ""}
           </h1>
           <p className="rp-hero-lede">{description}</p>
+          {actions ? <div className="mt-6 flex flex-wrap gap-3">{actions}</div> : null}
         </div>
-        <Card className="hidden h-fit md:block">
-          <div className="flex flex-col gap-4">
-            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-on-primary">
-              <span
-                className="material-symbols-outlined text-[28px]"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                {watermarkIcon || eyebrowIcon}
-              </span>
-            </span>
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-on-surface-variant">
-                Quota planner
-              </p>
-              <p className="mt-1 text-sm font-bold leading-snug text-on-surface">
-                Compare eligibility, rounds, seats, and documents before choice filling.
-              </p>
-            </div>
-          </div>
-        </Card>
+        {!hideAside ? aside ?? plannerCard : null}
       </div>
     </section>
   );

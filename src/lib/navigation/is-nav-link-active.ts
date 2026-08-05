@@ -11,8 +11,9 @@ export function isNavLinkActive(href: string, pathname: string): boolean {
     return segment !== "state" && segment !== "category";
   }
 
+  // Overview is exact only — child routes (/quota/state, etc.) must not light up Overview.
   if (href === "/quota" || href === "/quota/general") {
-    return path === "/quota" || path.startsWith("/quota/");
+    return path === "/quota" || path === "/quota/general";
   }
 
   if (href === RANK_PREDICTOR_PAGE_PATH) {

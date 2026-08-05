@@ -3,7 +3,7 @@ import {
   formatChecklistForWhatsApp,
 } from "@/lib/counselling/document-checklist-content";
 import { getLeadPlanName, getLeadQuota } from "@/lib/leads/plan-fields";
-import { NEET_UG_UPDATES_NOTICE_FEED } from "@/lib/neet-ug-2026/updates-content";
+import { getNoticeFeed } from "@/lib/neet-ug-2026/notice-feed";
 import { SITE_URL } from "@/lib/seo/site-config";
 
 export type PlanInfoLeadLike = {
@@ -16,7 +16,9 @@ export type PlanInfoLeadLike = {
 
 export { getLeadPlanName, getLeadQuota };
 
-export function buildPlanInfoWhatsAppMessage(lead: PlanInfoLeadLike): string {
+export async function buildPlanInfoWhatsAppMessage(
+  lead: PlanInfoLeadLike,
+): Promise<string> {
   const name = lead.name?.trim() || "there";
   const planName = getLeadPlanName(lead);
   const quota = getLeadQuota(lead.rawPayload);
@@ -29,7 +31,9 @@ export function buildPlanInfoWhatsAppMessage(lead: PlanInfoLeadLike): string {
   const updatesUrl = `${SITE_URL}/neet-ug-2026/updates`;
   const predictorUrl = `${SITE_URL}/college-predictor`;
 
-  const recentNotices = NEET_UG_UPDATES_NOTICE_FEED.slice(0, 3)
+  const feed = await getNoticeFeed();
+  const recentNotices = feed
+    .slice(0, 3)
     .map((n) => `• [${n.tag}] ${n.title}`)
     .join("\n");
 

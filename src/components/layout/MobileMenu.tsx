@@ -66,17 +66,28 @@ function MobileNavGroup({
         </span>
       </summary>
       <div className="mb-2 mt-1 overflow-hidden rounded-[14px] border border-outline-variant bg-surface-container-lowest p-2 shadow-sm ring-1 ring-black/[0.04]">
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onNavigate}
-            className={navDropdownLinkClassName(isNavLinkActive(item.href, pathname))}
-            aria-current={isNavLinkActive(item.href, pathname) ? "page" : undefined}
-          >
-            {item.label}
-          </Link>
-        ))}
+        {items.map((item) => {
+          const active = isNavLinkActive(item.href, pathname);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={onNavigate}
+              className={navDropdownLinkClassName(active)}
+              aria-current={active ? "page" : undefined}
+            >
+              {active ? (
+                <span
+                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+                  aria-hidden
+                />
+              ) : (
+                <span className="w-1.5 shrink-0" aria-hidden />
+              )}
+              <span className="min-w-0 flex-1">{item.label}</span>
+            </Link>
+          );
+        })}
       </div>
     </details>
   );

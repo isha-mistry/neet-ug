@@ -4,6 +4,7 @@ import type { LinkItem } from "@/types/core";
 export const NEET_UG_2026_NAV_LINKS: LinkItem[] = [
   { label: "Exam Info Hub", href: "/neet-ug-2026" },
   { label: "Live Updates & Alerts", href: "/neet-ug-2026/updates" },
+  { label: "Latest Notifications", href: "/neet-ug-2026/updates/notices" },
   { label: "Application & Admit Card", href: "/neet-ug-2026/application-form" },
   { label: "Answer Key & Results", href: "/neet-ug-2026/answer-key" },
   { label: "MCC Counselling Guide", href: "/neet-ug-2026/counselling-guide" },

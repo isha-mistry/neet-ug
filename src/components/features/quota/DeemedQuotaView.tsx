@@ -27,33 +27,14 @@ export function DeemedQuotaView() {
   const deemedDeposit = securityDepositsData.find(d => d.type === "Deemed Universities");
 
   const header = (
-    <>
-      {/* Page Header */}
-      <QuotaHeader
-        eyebrow="Information Bulletin"
-        title="Deemed University"
-        highlightedText="MBBS Admissions"
-        description="MCC conducts four online rounds for 100% Deemed University seats per Supreme Court directions (Dar-Us-Slam, 12.12.2022). Access detailed matrix, fee structures, and round-wise progression rules."
-        eyebrowIcon="info"
-        watermarkIcon="account_balance"
-      />
-
-      {/* Security Deposit Callout Box */}
-      {deemedDeposit && (
-        <Card padded={true} className="mt-6 flex flex-col items-start justify-between gap-4 border-error/20 bg-error-container/15 md:flex-row md:items-center">
-          <div className="flex items-start gap-3">
-            <span className="material-symbols-outlined text-error text-[24px] shrink-0 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
-            <div>
-              <h4 className="text-body-sm font-bold text-error">Mandatory Refundable Security Deposit: {deemedDeposit.amount}</h4>
-              <p className="text-[11px] text-on-surface-variant leading-relaxed mt-1">{deemedDeposit.rules}</p>
-            </div>
-          </div>
-          <Badge tone="neutral" className="shrink-0">
-            Refundable: {deemedDeposit.refundable}
-          </Badge>
-        </Card>
-      )}
-    </>
+    <QuotaHeader
+      eyebrow="Information Bulletin"
+      title="Deemed University"
+      highlightedText="MBBS Admissions"
+      description="MCC conducts four online rounds for 100% Deemed University seats per Supreme Court directions (Dar-Us-Slam, 12.12.2022). Access detailed matrix, fee structures, and round-wise progression rules."
+      eyebrowIcon="info"
+      watermarkIcon="account_balance"
+    />
   );
 
   const sidebar = (
@@ -87,6 +68,33 @@ export function DeemedQuotaView() {
       jumpSections={DEEMED_QUOTA_JUMP_SECTIONS}
     >      {/* Overview Group */}
       <div id="overview" className="space-y-10">
+        {deemedDeposit ? (
+          <Card
+            padded={true}
+            className="flex flex-col items-start justify-between gap-4 border-error/20 bg-error-container/15 md:flex-row md:items-center"
+          >
+            <div className="flex items-start gap-3">
+              <span
+                className="material-symbols-outlined mt-0.5 shrink-0 text-[24px] text-error"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
+                warning
+              </span>
+              <div>
+                <h4 className="text-body-sm font-bold text-error">
+                  Mandatory Refundable Security Deposit: {deemedDeposit.amount}
+                </h4>
+                <p className="mt-1 text-[11px] leading-relaxed text-on-surface-variant">
+                  {deemedDeposit.rules}
+                </p>
+              </div>
+            </div>
+            <Badge tone="neutral" className="shrink-0">
+              Refundable: {deemedDeposit.refundable}
+            </Badge>
+          </Card>
+        ) : null}
+
         {/* Overview Section (Bento Grid) */}
         <section className="grid grid-cols-1 md:grid-cols-12 gap-6">
           <div className="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">

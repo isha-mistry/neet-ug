@@ -111,160 +111,66 @@ export const NEET_UG_UPDATES_RELATED_HUB_LINKS = [
   { label: "MBBS in India", href: "/mbbs-in-india", icon: "local_hospital" },
 ] as const;
 
+/** Badge tags on the notice feed (extend when new state bodies go live). */
+export type UpdatesNoticeTag =
+  | "NTA"
+  | "MCC"
+  | "Advisory"
+  | "Gujarat"
+  | "MP"
+  | "Rajasthan"
+  | "Maharashtra"
+  | "Karnataka"
+  | "UP";
+
 export type UpdatesNoticeItem = {
   date: string;
   title: string;
   summary: string;
   href: string;
-  tag: "NTA" | "MCC" | "Advisory" | "Gujarat";
+  tag: UpdatesNoticeTag;
 };
 
-export const NEET_UG_UPDATES_NOTICE_FEED: UpdatesNoticeItem[] = [
-  {
-    date: "31 July 2026",
-    title: "Gujarat MBBS/BDS registration open — PIN distribution & online form (2026-27)",
-    summary:
-      "ACPUGMEC advertisement inviting online registration for 1st-year Medical/Dental admission in Gujarat (Government, Grant-in-Aid & Self-Financed colleges). PIN purchase (₹1,000 + ₹10,000 refundable deposit) and online registration run 31 July – 12 August 2026 (PIN till 12:00 noon, form till 4:00 PM) on medadmgujarat.org.",
-    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Adv.%20-%20PIN%20dist.%20&%20Online%20Reg.%20-%20UG%20%5B2026-27%5D.pdf",
-    tag: "Gujarat",
-  },
-  {
-    date: "31 July 2026",
-    title: "Procedure for Online Registration (2026-27)",
-    summary:
-      "Step-by-step registration walkthrough: buy the PIN, open Candidate Registration/Login, enter the PIN serial number, 14-digit PIN and NEET roll number, fill the form, and print the registration slip. Keep your registered mobile and email active for OTPs.",
-    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Procedure%20for%20online%20registration%20%5B2026-27%5D.pdf",
-    tag: "Gujarat",
-  },
-  {
-    date: "31 July 2026",
-    title: "Instructions for Online Application & Registration",
-    summary:
-      "ACPUGMEC's detailed instructions for filling the online application correctly — personal, category, and qualification details, password setup, and common mistakes to avoid before confirming your registration.",
-    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Instructions%20for%20Online%20Application%20and%20Registartion-%20%5B2025-26%5D.pdf",
-    tag: "Gujarat",
-  },
-  {
-    date: "31 July 2026",
-    title: "Process of Online Admission (2026-27)",
-    summary:
-      "Overview of the full ACPUGMEC admission flow — registration, document verification, merit list, choice filling, seat allotment, and reporting — so you know what comes after the form is submitted.",
-    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Process%20for%20online%20Admission%20-%20%5B2026-27%5D.pdf",
-    tag: "Gujarat",
-  },
-  {
-    date: "31 July 2026",
-    title: "List of Documents Required for Admission (Round 1)",
-    summary:
-      "Official list of documents for the ACPUGMEC UG admission process 2026-27. Document verification at help centers runs 3–13 August 2026 (till 4:00 PM) — keep originals and self-attested photocopies ready.",
-    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/List%20of%20Documents%20Required%20for%20Admission%20Process%20of%20ACPUGMEC%20R01.pdf",
-    tag: "Gujarat",
-  },
-  {
-    date: "31 July 2026",
-    title: "Instructions for NRI Candidates (2026-27)",
-    summary:
-      "Guidelines for candidates applying under the NRI quota in Gujarat — eligibility, sponsorship documents, and the additional ₹10,000 Demand Draft in favour of ACPUGMEC (payable at Gandhinagar) to be sent to GMERS Medical College, Gandhinagar.",
-    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Instructions%20for%20NRI%20Candidates%20-%20UG%20%5B2026-27%5D.pdf",
-    tag: "Gujarat",
-  },
-  {
-    date: "31 July 2026",
-    title: "List of Help Centers (2026-27)",
-    summary:
-      "Designated help centers across Gujarat for document verification and registration support. Book your verification appointment while printing the registration slip and carry photocopies along with originals.",
-    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/List%20of%20Help%20Centers%20%5B2026-27%5D.pdf",
-    tag: "Gujarat",
-  },
-  {
-    date: "31 July 2026",
-    title: "Authority Letter for Original Documents Verification — Format",
-    summary:
-      "Prescribed format authorising a parent or representative to appear for document verification at the help center on the candidate's behalf. Print, fill, and sign before the appointment.",
-    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/AUTHORITY%20LETTER%20FOR%20DOCUMENTS%20VERIFICATION.pdf",
-    tag: "Gujarat",
-  },
-  {
-    date: "31 July 2026",
-    title: "Medical Fitness Certificate — Format",
-    summary:
-      "Prescribed medical fitness certificate format for the Gujarat UG admission process. Get it signed by a registered medical practitioner and keep it with your admission documents.",
-    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/Medical%20Fitness%20Certificate%20-%20Format.pdf",
-    tag: "Gujarat",
-  },
-  {
-    date: "31 July 2026",
-    title: "List of MBBS Institutes with Address",
-    summary:
-      "All MBBS institutes in Gujarat covered under ACPUGMEC counselling, with full addresses — useful while shortlisting colleges before choice filling opens.",
-    href: "https://medadmgujarat.ncode.in/web/UG2026/REG/List%20of%20MBBS%20Institutes%20with%20address.pdf",
-    tag: "Gujarat",
-  },
-  {
-    date: "16 July 2026",
-    title: "Press Release for Result",
-    summary:
-      "NTA has issued the official press release for NEET UG 2026 results. Download the PDF for declared result details and related announcements.",
-    href: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/07/20260716477215762.pdf",
-    tag: "NTA",
-  },
-  {
-    date: "16 July 2026",
-    title: "Final Answer Key",
-    summary:
-      "National Testing Agency (NTA) has officially released the final answer key for NEET UG 2026. Download the official document for verification.",
-    href: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/07/20260716131467523.pdf",
-    tag: "NTA",
-  },
-  {
-    date: "13 July 2026",
-    title: "OMR Scanned Images & Recorded Response Challenge Open",
-    summary:
-      "NTA has uploaded scanned OMR answer sheets and recorded responses for NEET UG 2026 on neet.nta.nic.in (also emailed to registered IDs). Candidates can challenge recorded responses online from 13 July to 15 July 2026 (till 11:00 AM) at ₹200 per response. Login needs 2FA via OTP. Answer-key challenges are already closed — only recorded-response mismatches can be raised.",
-    href: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/07/20260713497007800.pdf",
-    tag: "NTA",
-  },
-  {
-    date: "27 May 2026",
-    title: "Information for NRI Quota Candidates (UG/PG Counselling 2026-27)",
-    summary:
-      "Official notice issuing guidelines and essential documentation instructions for candidates intending to apply under the NRI quota during the upcoming NEET UG/PG counselling for academic year 2026-2027.",
-    href: "https://cdnbbsr.s3waas.gov.in/s3e0f7a4d0ef9b84b83b693bbf3feb8e6e/uploads/2026/05/2026052710250622.pdf",
-    tag: "MCC",
-  },
-  {
-    date: "May 2026",
-    title: "ReNEET UG 2026 scheduled for 21 June",
-    summary:
-      "NTA announced a re-examination for eligible candidates; timing 2:00 PM – 5:00 PM (IST). Download the official public notice for eligibility and city intimation.",
-    href: "https://neet.nta.nic.in",
-    tag: "NTA",
-  },
-  {
-    date: "April 2026",
-    title: "Admit card & city intimation slip",
-    summary:
-      "Hall tickets for the 03 May 2026 session were released on the NTA NEET portal. ReNEET admit cards will follow the same channel when published.",
-    href: "https://neet.nta.nic.in",
-    tag: "NTA",
-  },
-  {
-    date: "February 2026",
-    title: "Information bulletin & registration open",
-    summary:
-      "NEET UG 2026 notification, syllabus reference, and online application window opened on nta.ac.in / NEET portal.",
-    href: "https://exams.nta.ac.in/NEET/",
-    tag: "NTA",
-  },
-  {
-    date: "Indicative",
-    title: "MCC AIQ UG counselling schedule (2026)",
-    summary:
-      "Medical Counselling Committee publishes round-wise registration and allotment PDFs on mcc.nic.in — typically within weeks of the NTA result.",
-    href: "https://mcc.nic.in",
-    tag: "MCC",
-  },
-];
+/** Preview count on /neet-ug-2026/updates — full list lives on /notices. */
+export const NOTICE_FEED_PREVIEW_LIMIT = 5;
+
+/** Full latest notices list (filterable). */
+export const NOTICE_FEED_ALL_PATH = "/neet-ug-2026/updates/notices";
+
+/** @deprecated Use NOTICE_FEED_ALL_PATH */
+export const NOTICE_FEED_ARCHIVE_PATH = NOTICE_FEED_ALL_PATH;
+
+/** Notice tag values used for filters and badges. */
+export const UPDATES_NOTICE_TAGS: readonly UpdatesNoticeTag[] = [
+  "NTA",
+  "MCC",
+  "Advisory",
+  "Gujarat",
+  "MP",
+  "Rajasthan",
+  "Maharashtra",
+  "Karnataka",
+  "UP",
+] as const;
+
+export const NEET_UG_NOTICES_ALL_HERO = {
+  title: "NEET UG 2026 ",
+  titleEmphasis: "Notices",
+  lede:
+    "All the latest official notifications — NTA, MCC, and state counselling circulars with PDFs. Filter by authority or search titles.",
+  fine:
+    "Sourced from public portal PDFs. Always open the official link before you register, pay, or travel.",
+  trio: [
+    { key: "Sources", value: "NTA · MCC · State" },
+    { key: "Updated", value: "As notices land" },
+    { key: "Action", value: "Filter & open PDF" },
+  ],
+} as const;
+
+/** @deprecated Use NEET_UG_NOTICES_ALL_HERO */
+export const NEET_UG_NOTICES_ARCHIVE_HERO = NEET_UG_NOTICES_ALL_HERO;
+
+/** Notice cards come only from Google Sheets — see notice-feed.ts / getNoticeFeed(). */
 
 export const NEET_UG_UPDATES_EXAM_DAY_CHECKLIST = [
   "Download ReNEET admit card from neet.nta.nic.in; verify name, photo, category, and exam city.",

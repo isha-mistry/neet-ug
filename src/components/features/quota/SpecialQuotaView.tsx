@@ -21,7 +21,7 @@ export function SpecialQuotaView() {
   const header = (
     <QuotaHeader
       eyebrow="Special Guidelines"
-      title="Special &amp; Institutional"
+      title="Special & Institutional"
       highlightedText="Quotas"
       description="Detailed guide for Medical Counselling Committee (MCC) conducted seats in Central Universities, AIIMS, JIPMER, and specialized institutional quotas. Precision data for informed medical admissions."
       eyebrowIcon="verified"

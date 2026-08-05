@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   QuotaOverviewShell,
+  QuotaHeader,
   QuotaInfoGrid,
   QuotaProcessList,
   QuotaTheoryPanel,
@@ -107,46 +108,47 @@ const QUOTA_OVERVIEW_JUMP_SECTIONS = [
 
 export function QuotaOverview() {
   const header = (
-    <section id="overview">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
-        <div>
-          <Badge tone="brand" icon={<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified_user</span>} className="mb-4">
-            Medical admission guide
-          </Badge>
-          <h1 className="rp-hero-title max-w-3xl">
-            Medical Admission <em>Quotas in India</em>
-          </h1>
-          <p className="rp-hero-lede max-w-3xl">
-            Quotas decide the counselling authority, the seat pool you can access, document proof,
-            fee category and round strategy. Use this page as the starting map before opening MCC,
-            state, management, NRI or deemed university counselling choices.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Button
-              as="link"
-              href="#quota-types"
-              variant="primary"
-              trailingIcon={<span className="material-symbols-outlined text-lg">arrow_downward</span>}
-            >
-              Compare quota types
-            </Button>
-            <Button
-              as="link"
-              href="/college-predictor"
-              variant="secondary"
-              trailingIcon={<span className="material-symbols-outlined text-lg">analytics</span>}
-            >
-              Check college fit
-            </Button>
-          </div>
-        </div>
-        <Card>
+    <QuotaHeader
+      eyebrow="Medical admission guide"
+      title="Medical Admission"
+      highlightedText="Quotas in India"
+      description="Quotas decide the counselling authority, the seat pool you can access, document proof, fee category and round strategy. Use this page as the starting map before opening MCC, state, management, NRI or deemed university counselling choices."
+      eyebrowIcon="verified_user"
+      watermarkIcon="hub"
+      actions={
+        <>
+          <Button
+            as="link"
+            href="#quota-types"
+            variant="primary"
+            trailingIcon={
+              <span className="material-symbols-outlined text-lg">arrow_downward</span>
+            }
+          >
+            Compare quota types
+          </Button>
+          <Button
+            as="link"
+            href="/college-predictor"
+            variant="secondary"
+            trailingIcon={
+              <span className="material-symbols-outlined text-lg">analytics</span>
+            }
+          >
+            Check college fit
+          </Button>
+        </>
+      }
+      aside={
+        <Card className="h-fit">
           <div className="flex items-center gap-3">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary">
               <span className="material-symbols-outlined text-[28px]">hub</span>
             </span>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-primary">Start here</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-primary">
+                Start here
+              </p>
               <p className="text-sm font-bold leading-snug text-on-surface">
                 Rank + domicile + category + budget = quota strategy
               </p>
@@ -159,7 +161,11 @@ export function QuotaOverview() {
               { value: "MCC", label: "Central pools" },
               { value: "DME", label: "State pools" },
             ].map((stat) => (
-              <Card key={stat.label} padded={false} className="p-3 shadow-sm border-outline-variant/40">
+              <Card
+                key={stat.label}
+                padded={false}
+                className="border-outline-variant/40 p-3 shadow-sm"
+              >
                 <p className="text-2xl font-bold text-on-surface">{stat.value}</p>
                 <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                   {stat.label}
@@ -168,8 +174,8 @@ export function QuotaOverview() {
             ))}
           </div>
         </Card>
-      </div>
-    </section>
+      }
+    />
   );
 
   return (

@@ -87,8 +87,17 @@ function NavDropdown({
                 href={item.href}
                 onClick={() => setOpen(false)}
                 className={navDropdownLinkClassName(active)}
+                aria-current={active ? "page" : undefined}
               >
-                {item.label}
+                {active ? (
+                  <span
+                    className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+                    aria-hidden
+                  />
+                ) : (
+                  <span className="w-1.5 shrink-0" aria-hidden />
+                )}
+                <span className="min-w-0 flex-1">{item.label}</span>
               </Link>
             );
           })}

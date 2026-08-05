@@ -18,56 +18,14 @@ const MANAGEMENT_QUOTA_JUMP_SECTIONS = [
 
 export function ManagementQuotaView() {
   const header = (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-      <div className="lg:col-span-8 space-y-6">
-        <QuotaHeader
-          eyebrow="Admission Guide 2026"
-          title="Management Quota"
-          highlightedText="MBBS Admissions"
-          description="A strategic pathway for medical aspirants seeking admission into private institutions across India, offering flexibility without domicile restrictions. We break down the complexities of MQ seats for the 2026 session."
-          eyebrowIcon="verified"
-          watermarkIcon="payments"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Card padded={false} className="flex items-start gap-4 p-4">
-            <span className="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">person_check</span>
-            <div>
-              <h3 className="font-title-lg text-title-lg text-on-surface font-bold">Eligibility</h3>
-              <p className="font-body-sm text-body-sm text-on-surface-variant">NEET Qualified Candidates Only</p>
-            </div>
-          </Card>
-          <Card padded={false} className="flex items-start gap-4 p-4">
-            <span className="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">public</span>
-            <div>
-              <h3 className="font-title-lg text-title-lg text-on-surface font-bold">Domicile Rules</h3>
-              <p className="font-body-sm text-body-sm text-on-surface-variant">Open to all candidates across India</p>
-            </div>
-          </Card>
-        </div>
-      </div>
-
-      {/* Open State Advantage: Glassmorphism / Vibrant CTA */}
-      <Card padded={false} bordered={false} className="group relative flex flex-col justify-between overflow-hidden bg-linear-to-br from-primary to-primary-pressed p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)] lg:col-span-4 h-fit">
-        <div className="absolute -right-12 -top-12 opacity-10 pointer-events-none select-none">
-          <span className="material-symbols-outlined text-[180px]">public</span>
-        </div>
-        <div className="relative z-10">
-          <span className="material-symbols-outlined text-[36px] mb-4 text-white">language</span>
-          <h2 className="font-headline-md text-headline-md mb-4 font-bold text-white">Open State Advantage</h2>
-          <p className="font-body-sm text-body-sm mb-6 opacity-90 text-white/90 leading-relaxed">
-            Open states allow candidates from any state to apply for their private college management quota seats, presenting excellent options for students with moderate NEET scores.
-          </p>
-        </div>
-        {/* <Button
-          as="link"
-          href="#open-states"
-          variant="inverse"
-          fullWidth
-        >
-          View Open States List
-        </Button> */}
-      </Card>
-    </div>
+    <QuotaHeader
+      eyebrow="Admission Guide 2026"
+      title="Management Quota"
+      highlightedText="MBBS Admissions"
+      description="A strategic pathway for medical aspirants seeking admission into private institutions across India, offering flexibility without domicile restrictions. We break down the complexities of MQ seats for the 2026 session."
+      eyebrowIcon="verified"
+      watermarkIcon="payments"
+    />
   );
 
   const sidebar = (
@@ -113,6 +71,58 @@ export function ManagementQuotaView() {
     >
       {/* Overview Grid */}
       <div id="overview" className="space-y-10">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <Card padded={false} className="flex items-start gap-4 p-4">
+            <span className="material-symbols-outlined rounded-lg bg-primary-fixed p-2 text-primary">
+              person_check
+            </span>
+            <div>
+              <h3 className="font-title-lg text-title-lg font-bold text-on-surface">
+                Eligibility
+              </h3>
+              <p className="font-body-sm text-body-sm text-on-surface-variant">
+                NEET Qualified Candidates Only
+              </p>
+            </div>
+          </Card>
+          <Card padded={false} className="flex items-start gap-4 p-4">
+            <span className="material-symbols-outlined rounded-lg bg-primary-fixed p-2 text-primary">
+              public
+            </span>
+            <div>
+              <h3 className="font-title-lg text-title-lg font-bold text-on-surface">
+                Domicile Rules
+              </h3>
+              <p className="font-body-sm text-body-sm text-on-surface-variant">
+                Open to all candidates across India
+              </p>
+            </div>
+          </Card>
+        </div>
+
+        <Card
+          padded={false}
+          bordered={false}
+          className="relative flex flex-col justify-between overflow-hidden bg-linear-to-br from-primary to-primary-pressed p-6 text-on-primary shadow-[0_18px_42px_-22px_color-mix(in_srgb,var(--color-primary)_55%,transparent)]"
+        >
+          <div className="pointer-events-none absolute -right-12 -top-12 select-none opacity-10">
+            <span className="material-symbols-outlined text-[180px]">public</span>
+          </div>
+          <div className="relative z-10">
+            <span className="material-symbols-outlined mb-4 text-[36px] text-white">
+              language
+            </span>
+            <h2 className="font-headline-md text-headline-md mb-4 font-bold text-white">
+              Open State Advantage
+            </h2>
+            <p className="font-body-sm text-body-sm mb-2 leading-relaxed text-white/90 opacity-90">
+              Open states allow candidates from any state to apply for their private college
+              management quota seats, presenting excellent options for students with moderate NEET
+              scores.
+            </p>
+          </div>
+        </Card>
+
         <section className="pt-2">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-headline-md text-headline-md flex items-center gap-2 text-on-surface font-bold">

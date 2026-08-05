@@ -80,7 +80,7 @@ export async function sendLeadPlanInfo(
     };
   }
 
-  const text = buildPlanInfoWhatsAppMessage(lead);
+  const text = await buildPlanInfoWhatsAppMessage(lead);
   const number = e164ToEvolutionNumber(phoneE164);
   const result = await sender.send({ kind: "text", number, text });
 

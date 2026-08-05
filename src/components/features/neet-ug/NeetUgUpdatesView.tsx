@@ -34,12 +34,13 @@ import {
   NEET_UG_UPDATES_JUMP_SECTIONS,
   NEET_UG_UPDATES_KEY_STATS,
   NEET_UG_UPDATES_LEAD_MAGNET,
-  NEET_UG_UPDATES_NOTICE_FEED,
   NEET_UG_UPDATES_RELATED_HUB_LINKS,
   NEET_UG_UPDATES_STATE_COUNSELLING_FOOTNOTE,
   NEET_UG_UPDATES_STATE_COUNSELLING_ROWS,
   NEET_UG_UPDATES_SUMMARY,
   NEET_UG_UPDATES_TIMELINE,
+  NOTICE_FEED_PREVIEW_LIMIT,
+  type UpdatesNoticeItem,
 } from "@/lib/neet-ug-2026/updates-content";
 import {
   guideCardClass,
@@ -47,7 +48,14 @@ import {
 } from "@/lib/neet-ug-2026/section-styles";
 import { cn } from "@/lib/utils";
 
-export function NeetUgUpdatesView() {
+export function NeetUgUpdatesView({
+  notices,
+}: {
+  notices: readonly UpdatesNoticeItem[];
+}) {
+  const previewNotices = notices.slice(0, NOTICE_FEED_PREVIEW_LIMIT);
+  const totalNotices = notices.length;
+
   const stateCounsellingTableRows = NEET_UG_UPDATES_STATE_COUNSELLING_ROWS.map((row) => ({
     ...row,
   }));
@@ -149,10 +157,18 @@ export function NeetUgUpdatesView() {
               embedded
               id="notices"
               eyebrow="Official sources"
-              title="Notice feed"
-              description="Key NTA, MCC, and state counselling milestones — open the portal links for PDFs and registration windows."
+              title="Latest notices"
+              description={
+                totalNotices > NOTICE_FEED_PREVIEW_LIMIT
+                  ? `Top ${NOTICE_FEED_PREVIEW_LIMIT} recent NTA, MCC, and state counselling notices. View all the latest notifications to filter and browse all ${totalNotices}.`
+                  : "Key NTA, MCC, and state counselling milestones — open the portal links for PDFs and registration windows."
+              }
             >
-              <UpdatesNoticeFeed items={NEET_UG_UPDATES_NOTICE_FEED} />
+              <UpdatesNoticeFeed
+                items={previewNotices}
+                totalCount={totalNotices}
+                showViewAll
+              />
             </GuideSection>
 
             <GuideSection

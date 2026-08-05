@@ -10,10 +10,12 @@ import { PACKAGE_PLAN_VARIANTS } from "@/lib/leads/plan-fields";
 import { e164ToEvolutionNumber } from "@/lib/leads/normalize-phone-e164";
 import { createEvolutionWhatsAppSenderFromEnv } from "@/lib/notifications/evolution-client";
 import {
-  NEET_UG_UPDATES_NOTICE_FEED,
-  type UpdatesNoticeItem,
-} from "@/lib/neet-ug-2026/updates-content";
+  getLatestUpdatesNotice,
+} from "@/lib/neet-ug-2026/notice-feed";
+import type { UpdatesNoticeItem } from "@/lib/neet-ug-2026/updates-content";
 import { SITE_URL } from "@/lib/seo/site-config";
+
+export type { UpdatesNoticeItem };
 
 const SEND_PAUSE_MS = 1000;
 export const NOTICE_FEED_ALERT_KIND = "notice_feed_alert";
@@ -46,10 +48,6 @@ export type BroadcastNoticeResult =
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-export function getLatestUpdatesNotice(): UpdatesNoticeItem | null {
-  return NEET_UG_UPDATES_NOTICE_FEED[0] ?? null;
 }
 
 export function noticeKey(notice: UpdatesNoticeItem): string {
@@ -162,7 +160,7 @@ async function leadIdsAlreadySentNotice(
 }
 
 export async function getLatestNoticePreview(): Promise<NoticeAlertPreview> {
-  const notice = getLatestUpdatesNotice();
+  const notice = await getLatestUpdatesNotice();
   if (!notice) {
     return {
       notice: null,
@@ -188,7 +186,7 @@ export async function getLatestNoticePreview(): Promise<NoticeAlertPreview> {
 }
 
 export async function broadcastLatestNoticeAlert(): Promise<BroadcastNoticeResult> {
-  const notice = getLatestUpdatesNotice();
+  const notice = await getLatestUpdatesNotice();
   if (!notice) {
     return {
       ok: false,
