@@ -26,6 +26,8 @@
     "db:seed:west-bengal-govt": "tsx scripts/catalog/seed-west-bengal-govt.ts",
     "db:seed:andhra-pradesh": "tsx scripts/catalog/seed-andhra-pradesh.ts",
     "db:seed:bihar": "tsx scripts/catalog/seed-bihar.ts",
+    "db:seed:bihar-govt": "tsx scripts/catalog/seed-bihar-govt.ts",
+    "db:seed:kerala": "tsx scripts/catalog/seed-kerala.ts",
     "db:seed:uttarakhand": "tsx scripts/catalog/seed-uttarakhand.ts",
     "db:seed:uttarakhand-govt": "tsx scripts/catalog/seed-uttarakhand-govt.ts",
     "db:seed:himachal-pradesh": "tsx scripts/catalog/seed-himachal-pradesh.ts",

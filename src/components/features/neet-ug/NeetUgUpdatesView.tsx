@@ -160,7 +160,7 @@ export function NeetUgUpdatesView({
               title="Latest notices"
               description={
                 totalNotices > NOTICE_FEED_PREVIEW_LIMIT
-                  ? `Top ${NOTICE_FEED_PREVIEW_LIMIT} recent NTA, MCC, and state counselling notices. View all the latest notifications to filter and browse all ${totalNotices}.`
+                  ? "Recent NTA, MCC, and state counselling notices. View all the latest notifications to filter and browse the full list."
                   : "Key NTA, MCC, and state counselling milestones — open the portal links for PDFs and registration windows."
               }
             >

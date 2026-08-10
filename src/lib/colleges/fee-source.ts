@@ -53,6 +53,8 @@ const STATE_DUMP_SOURCES = new Set([
   ANDHRA_PRADESH_DUMP_SOURCE,
   "chattisgarh_dump",
   "manipur_dump",
+  "kerala_dump",
+  "tripura_dump",
 ]);
 
 const MCC_POOLS = new Set<CounsellingPool>([
